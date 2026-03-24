@@ -1,0 +1,9 @@
+services:
+  - type: web
+    runtime: static
+    name: workshop-ia-agentes-herramientas
+    buildCommand: npm install && npm run build
+    staticPublishPath: ./dist
+    envVars:
+      - key: NODE_VERSION
+        value: 22

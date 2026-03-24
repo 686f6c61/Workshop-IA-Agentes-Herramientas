@@ -1,0 +1,933 @@
+---
+import Slide from './Slide.astro';
+---
+
+<!-- PORTADA -->
+<Slide id="cover" cover>
+  <h1 class="cover-title">Workshop de IA: agentes, modelos y herramientas</h1>
+  <p class="cover-subtitle">by 686f6c61</p>
+  <p class="cover-meta">En marzo 2026 (Update: 04/26)</p>
+  <p class="cover-repo">
+    <a href="https://github.com/686f6c61/Workshop-IA-Agentes-Herramientas" target="_blank" rel="noopener noreferrer">
+      <i data-lucide="github"></i> github.com/686f6c61/Workshop-IA-Agentes-Herramientas
+    </a>
+  </p>
+  <p class="cover-nav-hint">Usa las flechas del teclado o los botones para navegar</p>
+</Slide>
+
+<!-- SLIDE 1: SECCION -->
+<Slide id="sec-fundamentos" number={1} section
+  title="Fundamentos"
+  subtitle="Qué es (y qué no es) la inteligencia artificial, cómo funcionan los tokens, embeddings y el ciclo de entrenamiento e inferencia." />
+
+<!-- SLIDE 2 -->
+<Slide id="que-no-es" number={2} title="¿Qué NO es la IA?">
+  <ul>
+    <li><i data-lucide="x-circle"></i> <strong>No es magia ni ciencia ficción.</strong> No hay una "mente" dentro de la máquina. Es software, ejecutándose en servidores, con electricidad y silicio.</li>
+    <li><i data-lucide="x-circle"></i> <strong>No es una mente consciente.</strong> No tiene deseos, emociones ni intenciones. No "quiere" nada. Procesa tokens y calcula probabilidades.</li>
+    <li><i data-lucide="x-circle"></i> <strong>No es un buscador glorificado.</strong> Google busca páginas que existen. Un LLM (Large Language Model, modelo grande de lenguaje) genera texto nuevo que nunca existió, a partir de patrones aprendidos.</li>
+    <li><i data-lucide="x-circle"></i> <strong>No "piensa" como un humano.</strong> No razona causalmente. Predice la siguiente palabra más probable dada una secuencia. El resultado puede parecer razonamiento, pero el mecanismo es estadístico.</li>
+    <li><i data-lucide="x-circle"></i> <strong>No es infalible ni objetiva.</strong> Alucina (genera información falsa con confianza), tiene sesgos heredados de los datos de entrenamiento, y no sabe que no sabe.</li>
+  </ul>
+  <div class="icon-grid">
+    <div class="icon-card">
+      <i data-lucide="brain"></i>
+      <div class="icon-card-content">
+        <strong>No piensa</strong>
+        <p>No tiene procesos cognitivos. Calcula distribuciones de probabilidad sobre secuencias de tokens.</p>
+      </div>
+    </div>
+    <div class="icon-card">
+      <i data-lucide="eye"></i>
+      <div class="icon-card-content">
+        <strong>No es consciente</strong>
+        <p>No tiene experiencia subjetiva, ni autoconciencia, ni modelo del mundo. Es una función matemática muy compleja.</p>
+      </div>
+    </div>
+    <div class="icon-card">
+      <i data-lucide="message-square"></i>
+      <div class="icon-card-content">
+        <strong>No entiende</strong>
+        <p>Detecta correlaciones estadísticas entre tokens. Lo que parece comprensión es predicción sofisticada.</p>
+      </div>
+    </div>
+    <div class="icon-card">
+      <i data-lucide="wand-sparkles"></i>
+      <div class="icon-card-content">
+        <strong>No es magia</strong>
+        <p>Es álgebra lineal, cálculo matricial y optimización por gradiente. Impresionante, pero explicable.</p>
+      </div>
+    </div>
+  </div>
+  <div class="callout">
+    <p class="callout-title"><i data-lucide="alert-triangle"></i> Idea clave</p>
+    <p>Si entiendes que la IA no piensa, no entiende y no razona como un humano, puedes usarla mejor: le darás instrucciones más precisas y confiarás menos ciegamente en sus respuestas.</p>
+  </div>
+  <div class="refs">
+    <p class="refs-title">Para profundizar</p>
+    <a href="https://writings.stephenwolfram.com/2023/02/what-is-chatgpt-doing-and-why-does-it-work/" target="_blank">Stephen Wolfram - What Is ChatGPT Doing and Why Does It Work?</a>
+  </div>
+</Slide>
+
+<!-- SLIDE 3 -->
+<Slide id="que-si-es" number={3} title="¿Qué SÍ es la IA?">
+  <div class="icon-grid">
+    <div class="icon-card">
+      <i data-lucide="brain"></i>
+      <div class="icon-card-content">
+        <strong>Modelos matemáticos masivos</strong>
+        <p>Redes neuronales con billones de parámetros ajustados para reconocer patrones en texto, imágenes, código y audio.</p>
+      </div>
+    </div>
+    <div class="icon-card">
+      <i data-lucide="layers"></i>
+      <div class="icon-card-content">
+        <strong>Reconocimiento de patrones a escala</strong>
+        <p>Lo que un humano tarda horas en analizar, el modelo lo procesa en segundos. Detecta correlaciones estadísticas, no "entiende".</p>
+      </div>
+    </div>
+    <div class="icon-card">
+      <i data-lucide="check-circle"></i>
+      <div class="icon-card-content">
+        <strong>Predicción estadística del siguiente token</strong>
+        <p>Dada una secuencia de tokens, cuál es el más probable a continuación. Esto, repetido miles de veces, produce párrafos coherentes.</p>
+      </div>
+    </div>
+    <div class="icon-card">
+      <i data-lucide="zap"></i>
+      <div class="icon-card-content">
+        <strong>Amplificador de capacidades</strong>
+        <p>Si sabes programar, te hace más rápido. Si no sabes, te da una falsa sensación de que funciona... hasta que deja de hacerlo.</p>
+      </div>
+    </div>
+  </div>
+  <h3><i data-lucide="database"></i> Hitos clave de la IA moderna</h3>
+  <table>
+    <thead>
+      <tr><th>Fecha</th><th>Hito</th><th>Por qué importa</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>2017</strong></td><td>Transformer</td><td>Arquitectura "Attention Is All You Need". Base de todo lo que vino después.</td></tr>
+      <tr><td><strong>2020</strong></td><td>GPT-3</td><td>175B parámetros. Demostró que escalar funciona: más datos + más parámetros = más capacidad.</td></tr>
+      <tr><td><strong>2022</strong></td><td>ChatGPT</td><td>RLHF (Reinforcement Learning from Human Feedback, aprendizaje por refuerzo con feedback humano) + interfaz de chat. La IA se hace accesible al público general.</td></tr>
+      <tr><td><strong>2023</strong></td><td>GPT-4</td><td>Multimodal y razonamiento avanzado. Salto cualitativo en capacidades.</td></tr>
+      <tr><td><strong>2024</strong></td><td>Claude 3 / Gemini</td><td>Competencia real. Contextos de 200k+ tokens. IA como herramienta de trabajo diaria.</td></tr>
+      <tr><td><strong>2025-26</strong></td><td>Era de agentes</td><td>IA que ejecuta tareas completas: navega, programa, despliega. Claude Code, Devin, agentes autónomos.</td></tr>
+    </tbody>
+  </table>
+  <div class="callout">
+    <p class="callout-title"><i data-lucide="lightbulb"></i> Idea clave</p>
+    <p>La IA no sustituye el criterio del ingeniero. Lo amplifica. Si le das contexto claro y restricciones precisas, el resultado es impresionante. Si le das ambigüedad, el resultado es impredecible.</p>
+  </div>
+  <div class="refs">
+    <p class="refs-title">Para profundizar</p>
+    <a href="https://www.ibm.com/think/topics/artificial-intelligence" target="_blank">IBM - What is Artificial Intelligence?</a>
+  </div>
+</Slide>
+
+<!-- SLIDE 4 -->
+<Slide id="determinismo" number={4} title="¿Qué es un sistema determinista y por qué la IA no lo es?">
+  <div class="two-cols">
+    <div>
+      <h3><i data-lucide="calculator"></i> Sistema determinista</h3>
+      <p>Misma entrada &rarr; siempre la misma salida. Un compilador, una query SQL, una función pura. Los ingenieros estamos entrenados para pensar así: <code>f(x) = y</code>, siempre.</p>
+      <div class="code-block">
+        <span class="keyword">function</span> <span class="string">sumar</span>(a, b) &#123;<br/>
+        &nbsp;&nbsp;<span class="keyword">return</span> a + b;<br/>
+        &#125;<br/>
+        <span class="comment">// sumar(2, 3) = 5, siempre.</span>
+      </div>
+    </div>
+    <div>
+      <h3><i data-lucide="dices"></i> Sistema estocástico (la IA)</h3>
+      <p>Misma entrada &rarr; salidas <strong>diferentes</strong> cada vez. El modelo muestrea de una distribución de probabilidades. Cada ejecución puede dar un resultado distinto.</p>
+      <div class="code-block">
+        <span class="keyword">prompt</span>: <span class="string">"Explica qué es Rust"</span><br/>
+        <span class="comment">// Ejecución 1: "Rust es un lenguaje..."</span><br/>
+        <span class="comment">// Ejecución 2: "Se trata de un lenguaje..."</span><br/>
+        <span class="comment">// Ejecución 3: "Rust, creado por Mozilla..."</span>
+      </div>
+    </div>
+  </div>
+  <h3><i data-lucide="target"></i> ¿Por qué ocurre esto?</h3>
+  <p>El modelo no devuelve "la respuesta correcta". Calcula una distribución de probabilidades sobre todos los tokens posibles y <strong>muestrea</strong> de ella. Los parámetros <code>temperature</code>, <code>top-p</code> y <code>top-k</code> controlan cuánta aleatoriedad se permite. Con <code>temperature=0</code> se acerca al determinismo, pero no lo garantiza (hay variaciones por precisión numérica y batching).</p>
+  <h3><i data-lucide="route"></i> Del prompt al token: flujo de generación</h3>
+  <div class="flow">
+    <span class="flow-step">Texto de entrada</span>
+    <span class="flow-arrow">&rarr;</span>
+    <span class="flow-step">Tokenización</span>
+    <span class="flow-arrow">&rarr;</span>
+    <span class="flow-step">Distribución de probabilidades</span>
+    <span class="flow-arrow">&rarr;</span>
+    <span class="flow-step">Muestreo (temp, top-p, top-k)</span>
+    <span class="flow-arrow">&rarr;</span>
+    <span class="flow-step">Token elegido</span>
+  </div>
+  <div class="callout">
+    <p class="callout-title"><i data-lucide="alert-triangle"></i> Consecuencia práctica</p>
+    <p>No puedes escribir un test unitario clásico contra la salida de un LLM. Cambió de mentalidad: de "esto devuelve X" a "esto devuelve algo razonable dentro de un rango". Estrategias: evaluaciones (evals), validación de estructura, asserts sobre propiedades, no sobre valores exactos.</p>
+  </div>
+  <div class="callout">
+    <p class="callout-title"><i data-lucide="lightbulb"></i> Conexión con la slide 26</p>
+    <p>Los parámetros <code>temperature</code>, <code>top-p</code> y <code>top-k</code> se explican en detalle en la slide de parámetros de configuración. Allí verás cómo ajustarlos según tu caso de uso.</p>
+  </div>
+  <div class="refs">
+    <p class="refs-title">Para profundizar</p>
+    <a href="https://platform.claude.com/docs/en/build-with-claude/develop-tests" target="_blank">Anthropic - Developing tests for LLM applications</a>
+  </div>
+</Slide>
+
+<!-- SLIDE 5 -->
+<Slide id="principios" number={5} title="Principios de la IA">
+  <div class="icon-grid">
+    <div class="icon-card">
+      <i data-lucide="lightbulb"></i>
+      <div class="icon-card-content">
+        <strong>Aprendizaje supervisado</strong>
+        <p>Le das ejemplos etiquetados (entrada &rarr; salida esperada) y el modelo aprende a generalizar. Es la base del fine-tuning.</p>
+      </div>
+    </div>
+    <div class="icon-card">
+      <i data-lucide="layers"></i>
+      <div class="icon-card-content">
+        <strong>Aprendizaje no supervisado</strong>
+        <p>El modelo encuentra patrones en datos sin etiquetar. Así se pre-entrenan los LLMs: prediciendo la siguiente palabra en textos masivos.</p>
+      </div>
+    </div>
+    <div class="icon-card">
+      <i data-lucide="shield"></i>
+      <div class="icon-card-content">
+        <strong>Aprendizaje por refuerzo con feedback humano (RLHF)</strong>
+        <p>RLHF = Reinforcement Learning from Human Feedback. Humanos evalúan respuestas del modelo y se usa esa retroalimentación para alinearlo. Es lo que hace que Claude sea "útil y seguro" en vez de solo "estadísticamente probable".</p>
+      </div>
+    </div>
+    <div class="icon-card">
+      <i data-lucide="search"></i>
+      <div class="icon-card-content">
+        <strong>Atención (Transformers)</strong>
+        <p>El mecanismo que lo cambió todo. Permite al modelo mirar todas las palabras de la entrada simultáneamente y decidir cuáles son relevantes para cada predicción.</p>
+      </div>
+    </div>
+    <div class="icon-card">
+      <i data-lucide="trending-up"></i>
+      <div class="icon-card-content">
+        <strong>Scaling Laws (leyes de escala)</strong>
+        <p>Más datos + más parámetros + más compute = modelo más capaz. No es magia: es una relación predecible (Kaplan et al., 2020). Explica por qué la industria invierte miles de millones en clusters de GPUs.</p>
+      </div>
+    </div>
+  </div>
+  <div class="refs">
+    <p class="refs-title">Para profundizar</p>
+    <a href="https://stanford-cs324.github.io/winter2022/lectures/introduction/" target="_blank">Stanford CS324 - Large Language Models (curso completo)</a>
+  </div>
+</Slide>
+
+<!-- SLIDE 6 -->
+<Slide id="neurona-artificial" number={6} title="La neurona artificial">
+  <p><i data-lucide="cpu"></i> Todo empieza aquí. Una neurona artificial es una <strong>función matemática</strong> que recibe números, los multiplica por pesos, suma un sesgo y aplica una función de activación.</p>
+  <h3><i data-lucide="code"></i> En código</h3>
+  <div class="code-block">
+    <span class="comment">// Una neurona es literalmente esto:</span><br/>
+    <span class="keyword">function</span> neurona(inputs, weights, bias) &#123;<br/>
+    &nbsp;&nbsp;<span class="keyword">const</span> sum = inputs.reduce((acc, x, i) =&gt; acc + x * weights[i], 0);<br/>
+    &nbsp;&nbsp;<span class="keyword">return</span> activation(sum + bias);<br/>
+    &#125;<br/><br/>
+    <span class="comment">// Ejemplo: neurona con 3 entradas</span><br/>
+    neurona([0.5, 0.3, 0.8], [0.2, -0.4, 0.7], 0.1);<br/>
+    <span class="comment">// sum = 0.5*0.2 + 0.3*(-0.4) + 0.8*0.7 + 0.1 = 0.64</span><br/>
+    <span class="comment">// output = activation(0.64)</span>
+  </div>
+  <h3><i data-lucide="zap"></i> Funciones de activación</h3>
+  <table>
+    <thead>
+      <tr><th>Función</th><th>Fórmula</th><th>Cuándo se usa</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>ReLU</strong></td><td><code>max(0, x)</code></td><td>Capas ocultas. La más usada por su simplicidad y eficiencia</td></tr>
+      <tr><td><strong>Sigmoid</strong></td><td><code>1 / (1 + e^-x)</code></td><td>Salida entre 0 y 1. Clasificación binaria</td></tr>
+      <tr><td><strong>Softmax</strong></td><td>Normaliza a probabilidades</td><td>Capa final. Distribución de probabilidades sobre clases</td></tr>
+      <tr><td><strong>Tanh</strong></td><td><code>(e^x - e^-x) / (e^x + e^-x)</code></td><td>Salida entre -1 y 1. Usada en RNNs/LSTMs</td></tr>
+    </tbody>
+  </table>
+  <div class="callout">
+    <p class="callout-title"><i data-lucide="lightbulb"></i> Para ingenieros</p>
+    <p>Una neurona es una función pura con parámetros aprendidos (pesos y bias). La "inteligencia" no está en una neurona individual: está en los <strong>miles de millones de parámetros</strong> ajustados durante el entrenamiento. Un LLM como Claude tiene cientos de miles de millones de estos "pesos".</p>
+  </div>
+</Slide>
+
+<!-- SLIDE 7 -->
+<Slide id="redes-neuronales-capas" number={7} title="Redes neuronales: capas y arquitectura">
+  <p><i data-lucide="layers"></i> Una red neuronal es un <strong>grafo de neuronas organizadas en capas</strong>. Cada capa transforma los datos y los pasa a la siguiente.</p>
+  <h3><i data-lucide="route"></i> Estructura de una red (MLP)</h3>
+  <div class="flow">
+    <span class="flow-step">Input layer<br/>(tus datos)</span>
+    <span class="flow-arrow">&rarr;</span>
+    <span class="flow-step">Hidden layer 1<br/>(patrones simples)</span>
+    <span class="flow-arrow">&rarr;</span>
+    <span class="flow-step">Hidden layer 2<br/>(patrones complejos)</span>
+    <span class="flow-arrow">&rarr;</span>
+    <span class="flow-step">Output layer<br/>(predicción)</span>
+  </div>
+  <h3><i data-lucide="search"></i> ¿Qué aprende cada capa?</h3>
+  <div class="icon-grid">
+    <div class="icon-card">
+      <i data-lucide="scan"></i>
+      <div class="icon-card-content">
+        <strong>Capas tempranas</strong>
+        <p>Detectan patrones simples: bordes, colores, frecuencias. En texto: n-gramas, patrones sintácticos</p>
+      </div>
+    </div>
+    <div class="icon-card">
+      <i data-lucide="puzzle"></i>
+      <div class="icon-card-content">
+        <strong>Capas intermedias</strong>
+        <p>Combinan patrones simples en conceptos: formas, texturas, relaciones entre palabras</p>
+      </div>
+    </div>
+    <div class="icon-card">
+      <i data-lucide="brain"></i>
+      <div class="icon-card-content">
+        <strong>Capas profundas</strong>
+        <p>Abstracciones de alto nivel: objetos completos, significado semántico, razonamiento</p>
+      </div>
+    </div>
+  </div>
+  <div class="callout">
+    <p class="callout-title"><i data-lucide="lightbulb"></i> "Deep" learning = muchas capas</p>
+    <p>Una red con 2-3 capas es "shallow". Con decenas o cientos de capas es "deep". GPT-4 tiene 120+ capas de transformer. Más capas = más capacidad de abstracción, pero más difícil y caro de entrenar.</p>
+  </div>
+  <div class="refs">
+    <p class="refs-title">Para profundizar</p>
+    <a href="https://playground.tensorflow.org/" target="_blank">TensorFlow Playground (demo interactiva)</a>
+  </div>
+</Slide>
+
+<!-- SLIDE 8 -->
+<Slide id="backpropagation" number={8} title="Cómo aprende una red: backpropagation">
+  <p><i data-lucide="repeat"></i> El entrenamiento es un <strong>bucle</strong>: predice, mide el error, ajusta los pesos, repite. Miles de millones de veces.</p>
+  <h3><i data-lucide="route"></i> El bucle de entrenamiento</h3>
+  <div class="flow">
+    <span class="flow-step">1. Forward pass<br/>(datos → predicción)</span>
+    <span class="flow-arrow">&rarr;</span>
+    <span class="flow-step">2. Calcular loss<br/>(predicción vs realidad)</span>
+    <span class="flow-arrow">&rarr;</span>
+    <span class="flow-step">3. Backward pass<br/>(calcular gradientes)</span>
+    <span class="flow-arrow">&rarr;</span>
+    <span class="flow-step">4. Actualizar pesos<br/>(gradient descent)</span>
+    <span class="flow-arrow">&circlearrowright;</span>
+  </div>
+  <h3><i data-lucide="code"></i> En pseudocódigo</h3>
+  <div class="code-block">
+    <span class="keyword">for</span> epoch <span class="keyword">in</span> range(num_epochs):<br/>
+    &nbsp;&nbsp;<span class="keyword">for</span> batch <span class="keyword">in</span> dataloader:<br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;prediction = model.forward(batch.input) &nbsp;<span class="comment"># 1. Forward</span><br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;loss = loss_fn(prediction, batch.target) <span class="comment"># 2. Loss</span><br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;loss.backward() &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment"># 3. Gradientes</span><br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;optimizer.step() &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment"># 4. Actualizar</span><br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;optimizer.zero_grad() &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment"># Reset gradientes</span>
+  </div>
+  <div class="analogy">
+    <p class="analogy-label"><i data-lucide="move"></i> Analogía: bajar una montaña con niebla</p>
+    <p>Imagina que estás en una montaña con niebla y quieres llegar al valle (mínimo de la función de pérdida). No ves el camino, pero puedes sentir la pendiente bajo tus pies. En cada paso, avanzas en la dirección que baja más (gradiente). El <strong>learning rate</strong> es el tamaño del paso: muy grande y te pasas del valle, muy pequeño y tardas una eternidad.</p>
+  </div>
+  <div class="refs">
+    <p class="refs-title">Para profundizar</p>
+    <a href="https://www.3blue1brown.com/lessons/backpropagation" target="_blank">3Blue1Brown - Backpropagation (vídeo)</a>
+  </div>
+</Slide>
+
+<!-- SLIDE 9 -->
+<Slide id="funciones-perdida" number={9} title="Funciones de pérdida y optimizadores">
+  <p><i data-lucide="target"></i> La <strong>función de pérdida</strong> mide cuánto se equivoca el modelo. El <strong>optimizador</strong> decide cómo ajustar los pesos para reducir ese error.</p>
+  <h3><i data-lucide="calculator"></i> Funciones de pérdida principales</h3>
+  <table>
+    <thead>
+      <tr><th>Función</th><th>Cuándo se usa</th><th>Qué mide</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>Cross-Entropy</strong></td><td>Clasificación, LLMs</td><td>Diferencia entre distribución predicha y real. La que usan los LLMs: mide si el token predicho es el correcto</td></tr>
+      <tr><td><strong>MSE</strong></td><td>Regresión</td><td>Media del cuadrado de los errores. Para predecir valores numéricos</td></tr>
+      <tr><td><strong>Contrastive Loss</strong></td><td>Embeddings</td><td>Acercar ejemplos similares y alejar los diferentes en el espacio vectorial</td></tr>
+    </tbody>
+  </table>
+  <h3><i data-lucide="settings"></i> Optimizadores</h3>
+  <table>
+    <thead>
+      <tr><th>Optimizador</th><th>Idea clave</th><th>Uso</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>SGD</strong></td><td>Gradient descent con mini-batches</td><td>Simple, funciona bien con buen tuning</td></tr>
+      <tr><td><strong>Adam</strong></td><td>Learning rate adaptativo por parámetro</td><td>El más usado. Funciona bien "out of the box"</td></tr>
+      <tr><td><strong>AdamW</strong></td><td>Adam + weight decay correcto</td><td>El estándar para entrenar LLMs y transformers</td></tr>
+    </tbody>
+  </table>
+  <h3><i data-lucide="alert-triangle"></i> Problemas comunes del entrenamiento</h3>
+  <div class="icon-grid">
+    <div class="icon-card">
+      <i data-lucide="trending-up"></i>
+      <div class="icon-card-content">
+        <strong>Overfitting</strong>
+        <p>El modelo memoriza los datos de entrenamiento pero falla con datos nuevos. Solución: dropout, regularización, más datos</p>
+      </div>
+    </div>
+    <div class="icon-card">
+      <i data-lucide="arrow-down"></i>
+      <div class="icon-card-content">
+        <strong>Vanishing gradients</strong>
+        <p>Los gradientes se hacen tan pequeños que las capas profundas no aprenden. Solución: ReLU, skip connections, normalización</p>
+      </div>
+    </div>
+  </div>
+  <div class="refs">
+    <p class="refs-title">Para profundizar</p>
+    <a href="https://www.deeplearning.ai/courses/" target="_blank">DeepLearning.AI - Cursos de Andrew Ng</a>
+  </div>
+</Slide>
+
+<!-- SLIDE 10 -->
+<Slide id="cnns" number={10} title="CNNs: redes convolucionales para visión">
+  <p><i data-lucide="image"></i> Las <strong>Convolutional Neural Networks</strong> revolucionaron la visión por computador. En vez de mirar cada píxel por separado, aplican <strong>filtros</strong> que detectan patrones locales.</p>
+  <h3><i data-lucide="route"></i> Flujo de una CNN</h3>
+  <div class="flow">
+    <span class="flow-step">Imagen (píxeles)</span>
+    <span class="flow-arrow">&rarr;</span>
+    <span class="flow-step">Convoluciones (filtros)</span>
+    <span class="flow-arrow">&rarr;</span>
+    <span class="flow-step">Pooling (reducir)</span>
+    <span class="flow-arrow">&rarr;</span>
+    <span class="flow-step">Más conv + pool</span>
+    <span class="flow-arrow">&rarr;</span>
+    <span class="flow-step">Clasificación</span>
+  </div>
+  <h3><i data-lucide="layers"></i> Conceptos clave</h3>
+  <div class="icon-grid">
+    <div class="icon-card">
+      <i data-lucide="grid-3x3"></i>
+      <div class="icon-card-content">
+        <strong>Convolución</strong>
+        <p>Un filtro pequeño (3x3, 5x5) que se desliza por la imagen. Detecta un patrón local: borde horizontal, esquina, textura. Múltiples filtros detectan múltiples patrones</p>
+      </div>
+    </div>
+    <div class="icon-card">
+      <i data-lucide="minimize"></i>
+      <div class="icon-card-content">
+        <strong>Pooling</strong>
+        <p>Reduce la resolución manteniendo la información importante. Max pooling: toma el valor máximo de cada zona. Hace la red invariante a pequeños desplazamientos</p>
+      </div>
+    </div>
+    <div class="icon-card">
+      <i data-lucide="layers"></i>
+      <div class="icon-card-content">
+        <strong>Feature maps</strong>
+        <p>La salida de cada capa de convolución. Capas tempranas: bordes y colores. Capas profundas: ojos, ruedas, letras. La red "aprende" qué patrones son relevantes</p>
+      </div>
+    </div>
+    <div class="icon-card">
+      <i data-lucide="arrow-right"></i>
+      <div class="icon-card-content">
+        <strong>Skip connections (ResNet)</strong>
+        <p>Atajos que permiten que la información salte capas. Resolvió el problema de entrenar redes muy profundas (100+ capas). Innovación clave de 2015</p>
+      </div>
+    </div>
+  </div>
+  <div class="callout">
+    <p class="callout-title"><i data-lucide="lightbulb"></i> Relevancia actual</p>
+    <p>Las CNNs siguen siendo la base de la visión por computador (detección de objetos, segmentación). Los Vision Transformers (ViT) las están reemplazando en algunas tareas, pero las CNNs dominan en edge/móvil por su eficiencia. Stable Diffusion usa un U-Net (basado en CNNs) para el denoising.</p>
+  </div>
+  <div class="refs">
+    <p class="refs-title">Para profundizar</p>
+    <a href="https://poloclub.github.io/cnn-explainer/" target="_blank">CNN Explainer (demo interactiva)</a>
+    <a href="https://cs231n.github.io/" target="_blank">Stanford CS231n - CNNs</a>
+  </div>
+</Slide>
+
+<!-- SLIDE 11 -->
+<Slide id="rnns-lstms" number={11} title="RNNs y LSTMs: redes para secuencias">
+  <p><i data-lucide="list-ordered"></i> Antes de los Transformers, las <strong>Recurrent Neural Networks</strong> eran la forma de procesar secuencias (texto, audio, series temporales). Entenderlas explica por qué el Transformer fue revolucionario.</p>
+  <h3><i data-lucide="route"></i> Cómo funciona una RNN</h3>
+  <div class="flow">
+    <span class="flow-step">Token 1</span>
+    <span class="flow-arrow">&rarr;</span>
+    <span class="flow-step">RNN (hidden state)</span>
+    <span class="flow-arrow">&rarr;</span>
+    <span class="flow-step">Token 2 + state</span>
+    <span class="flow-arrow">&rarr;</span>
+    <span class="flow-step">RNN (actualiza state)</span>
+    <span class="flow-arrow">&rarr;</span>
+    <span class="flow-step">Token 3 + state...</span>
+  </div>
+  <p>Procesa un token a la vez, manteniendo un "estado oculto" (hidden state) que resume todo lo que ha visto antes. El problema: al llegar al token 500, ya ha "olvidado" el token 1.</p>
+  <h3><i data-lucide="scale"></i> RNN vs LSTM vs Transformer</h3>
+  <table>
+    <thead>
+      <tr><th></th><th>RNN</th><th>LSTM</th><th>Transformer</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>Procesamiento</strong></td><td>Secuencial</td><td>Secuencial</td><td>Paralelo</td></tr>
+      <tr><td><strong>Memoria</strong></td><td>Corto plazo</td><td>Largo plazo (gates)</td><td>Toda la secuencia</td></tr>
+      <tr><td><strong>Contexto máximo</strong></td><td>~100 tokens</td><td>~500 tokens</td><td>128K-1M+ tokens</td></tr>
+      <tr><td><strong>Paralelizable</strong></td><td>No</td><td>No</td><td>Sí (GPUs)</td></tr>
+      <tr><td><strong>Velocidad</strong></td><td>Lenta</td><td>Lenta</td><td>Rápida</td></tr>
+    </tbody>
+  </table>
+  <div class="callout">
+    <p class="callout-title"><i data-lucide="zap"></i> ¿Por qué el Transformer ganó?</p>
+    <p>Dos razones: (1) <strong>paralelismo</strong>: mira todos los tokens a la vez, aprovechando GPUs masivamente paralelas. (2) <strong>atención</strong>: en vez de comprimir todo en un hidden state fijo, cada token puede "mirar" directamente a cualquier otro token de la secuencia. Más detalles en la slide de Transformers.</p>
+  </div>
+  <div class="refs">
+    <p class="refs-title">Para profundizar</p>
+    <a href="https://colah.github.io/posts/2015-08-Understanding-LSTMs/" target="_blank">Colah - Understanding LSTMs</a>
+  </div>
+</Slide>
+
+<!-- SLIDE 12 -->
+<Slide id="tokens" number={12} title="¿Qué es un token?">
+  <p><i data-lucide="scissors"></i> Un token es la <strong>unidad mínima</strong> que procesa el modelo. No es una palabra ni un carácter: es un trozo de texto que el tokenizador decide según su vocabulario.</p>
+  <h3><i data-lucide="code"></i> Ejemplos de tokenización</h3>
+  <div class="code-block">
+    <span class="comment">// Cada [...] es un token</span><br/>
+    <span class="string">"Hola mundo"</span> &rarr; [<span class="string">"Hola"</span>, <span class="string">" mundo"</span>] <span class="comment">// 2 tokens</span><br/>
+    <span class="string">"desarrolladores"</span> &rarr; [<span class="string">"des"</span>, <span class="string">"arrol"</span>, <span class="string">"ladores"</span>] <span class="comment">// 3 tokens</span><br/>
+    <span class="string">"function getName()"</span> &rarr; [<span class="string">"function"</span>, <span class="string">" get"</span>, <span class="string">"Name"</span>, <span class="string">"()"</span>] <span class="comment">// 4+ tokens</span>
+  </div>
+  <h3><i data-lucide="calculator"></i> Palabras frente a tokens</h3>
+  <p>1 token &#8776; 4 caracteres en inglés, &#8776; 3 en español. El español gasta más tokens porque los tokenizadores se entrenan mayoritariamente con texto en inglés.</p>
+  <table>
+    <thead>
+      <tr><th>Frase</th><th>Palabras</th><th>Tokens (aprox.)</th><th>Ratio</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>"Hello world"</td><td>2</td><td>2</td><td>1:1</td></tr>
+      <tr><td>"Hola mundo"</td><td>2</td><td>2-3</td><td>~1:1.25</td></tr>
+      <tr><td>"Machine learning is great"</td><td>4</td><td>4</td><td>1:1</td></tr>
+      <tr><td>"El aprendizaje automático es genial"</td><td>5</td><td>7-8</td><td>1:1.5</td></tr>
+      <tr><td><code>const getData = async () =&gt; &#123;&#125;</code></td><td>7</td><td>10-12</td><td>1:1.6</td></tr>
+    </tbody>
+  </table>
+  <ul>
+    <li><i data-lucide="alert-triangle"></i> <strong>En español se gastan más tokens</strong> que en inglés para decir lo mismo (~20-30% más). Los tokenizadores se entrenan mayoritariamente con texto en inglés.</li>
+    <li><i data-lucide="code"></i> <strong>El modelo no ve texto:</strong> ve secuencias de números (IDs de token). Cada token tiene un ID único en el vocabulario del modelo.</li>
+    <li><i data-lucide="database"></i> <strong>Todo se mide en tokens:</strong> el context window, el precio de la API, el límite de respuesta. Es la "moneda" de la IA.</li>
+    <li><i data-lucide="zap"></i> <strong>Regla rápida:</strong> 1 token &#8776; 3/4 de una palabra en inglés, algo menos en español.</li>
+  </ul>
+  <div class="refs">
+    <p class="refs-title">Para profundizar</p>
+    <a href="https://platform.openai.com/tokenizer" target="_blank">OpenAI Tokenizer (prueba interactiva)</a>
+    <a href="https://thenewstack.io/the-building-blocks-of-llms-vectors-tokens-and-embeddings/" target="_blank">The Building Blocks of LLMs: Vectors, Tokens and Embeddings</a>
+  </div>
+</Slide>
+
+<!-- SLIDE 13 -->
+<Slide id="embeddings" number={13} title="¿Qué es un embedding?">
+  <p><i data-lucide="scatter-chart"></i> Un embedding es la <strong>representación numérica de un concepto</strong> (palabra, frase, imagen, código...). Convierte texto en un vector de cientos o miles de números. Cada número representa una <strong>dimensión</strong> del significado.</p>
+  <h3><i data-lucide="move"></i> ¿Qué es una dimensión?</h3>
+  <p>Un vector de embedding tiene cientos o miles de componentes. Cada componente (dimensión) codifica un aspecto del significado: puede capturar si algo es animado/inanimado, positivo/negativo, concreto/abstracto, etc. No hay etiquetas explícitas: el modelo las descubre durante el entrenamiento.</p>
+  <div class="code-block">
+    <span class="comment">// "gato" representado como vector de 1536 dimensiones</span><br/>
+    <span class="comment">// Cada número es una dimensión que captura un aspecto del significado</span><br/>
+    <span class="string">"gato"</span> &rarr; [<br/>
+    &nbsp;&nbsp;0.23,&nbsp; <span class="comment">// dim 0: ¿animado? (positivo = sí)</span><br/>
+    &nbsp;&nbsp;-0.87,&nbsp;<span class="comment">// dim 1: ¿abstracto? (negativo = concreto)</span><br/>
+    &nbsp;&nbsp;0.45,&nbsp; <span class="comment">// dim 2: ¿doméstico? (positivo = sí)</span><br/>
+    &nbsp;&nbsp;0.12,&nbsp; <span class="comment">// dim 3: ¿tamaño? (cercano a 0 = pequeño)</span><br/>
+    &nbsp;&nbsp;...&nbsp;&nbsp;&nbsp; <span class="comment">// ... hasta 1536 dimensiones</span><br/>
+    ]<br/><br/>
+    <span class="string">"felino"</span> &rarr; [0.21, -0.85, 0.48, 0.11, ...] <span class="comment">// muy cercano a "gato"</span><br/>
+    <span class="string">"JavaScript"</span> &rarr; [-0.56, 0.33, -0.12, 0.78, ...] <span class="comment">// completamente diferente</span>
+  </div>
+  <div class="callout">
+    <p class="callout-title"><i data-lucide="lightbulb"></i> Más dimensiones = más matices</p>
+    <p>Con 2 dimensiones solo puedes distinguir arriba/abajo e izquierda/derecha. Con 1536 dimensiones puedes codificar miles de matices de significado. Por eso los modelos de embedding modernos usan entre 768 y 3072 dimensiones.</p>
+  </div>
+  <div class="analogy">
+    <p class="analogy-label"><i data-lucide="move"></i> Analogía: espacio semántico</p>
+    <p>Imagina un mapa donde las palabras se colocan según su significado. "Perro" y "gato" están cerca (ambos son animales). "Python" y "JavaScript" están cerca (ambos son lenguajes). Pero "perro" y "Python" están lejos. El embedding es la coordenada de cada palabra en ese mapa de miles de dimensiones.</p>
+  </div>
+  <div class="refs">
+    <p class="refs-title">Para profundizar</p>
+    <a href="https://www.pinecone.io/learn/vector-embeddings/" target="_blank">Pinecone - Vector Embeddings Explained</a>
+    <a href="https://jalammar.github.io/illustrated-word2vec/" target="_blank">Jay Alammar - The Illustrated Word2Vec</a>
+  </div>
+</Slide>
+
+<!-- SLIDE 14 -->
+<Slide id="embeddings-practica" number={14} title="Embeddings en la práctica">
+  <h3><i data-lucide="sparkles"></i> Aritmética de significado</h3>
+  <p>Los embeddings capturan relaciones semánticas que se pueden operar como vectores:</p>
+  <div class="code-block">
+    <span class="comment">// Analogías clásicas de Word2Vec</span><br/>
+    rey - hombre + mujer &#8776; <span class="string">reina</span><br/>
+    Madrid - España + Francia &#8776; <span class="string">Paris</span><br/>
+    Python - scripting + compilado &#8776; <span class="string">Go</span>
+  </div>
+  <h3><i data-lucide="search"></i> Similitud semántica</h3>
+  <table>
+    <thead>
+      <tr><th>Par de palabras</th><th>Similitud coseno</th><th>Interpretación</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>"gato" / "felino"</td><td>~0.92</td><td>Muy cercanos: cuasi-sinónimos</td></tr>
+      <tr><td>"gato" / "perro"</td><td>~0.80</td><td>Cercanos: misma categoría (animal)</td></tr>
+      <tr><td>"gato" / "coche"</td><td>~0.25</td><td>Lejanos: conceptos sin relación</td></tr>
+      <tr><td>"deploy" / "desplegar"</td><td>~0.85</td><td>Cercanos: mismo concepto, distinto idioma</td></tr>
+    </tbody>
+  </table>
+  <p><strong>La clave:</strong> conceptos similares quedan <strong>cerca</strong> en el espacio vectorial. Esto permite buscar por significado, no por palabras exactas.</p>
+  <h3><i data-lucide="database"></i> ¿Para qué sirven?</h3>
+  <ul>
+    <li><i data-lucide="search"></i> <strong>Búsqueda semántica:</strong> encontrar documentos por significado ("¿cómo despliego en producción?" encuentra docs sobre "deploy to prod")</li>
+    <li><i data-lucide="layers"></i> <strong>RAG (Retrieval-Augmented Generation):</strong> así se buscan los fragmentos relevantes para inyectar en el prompt del modelo</li>
+    <li><i data-lucide="target"></i> <strong>Clasificación:</strong> agrupar textos similares automáticamente (tickets de soporte, emails...)</li>
+    <li><i data-lucide="repeat"></i> <strong>Detección de duplicados:</strong> comparar si dos textos dicen lo mismo con palabras diferentes</li>
+  </ul>
+  <h3><i data-lucide="layers"></i> Modelos de embedding (marzo 2026)</h3>
+  <table>
+    <thead>
+      <tr><th>Modelo</th><th>Empresa</th><th>Dimensiones</th><th>Punto fuerte</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>text-embedding-3-large</strong></td><td>OpenAI</td><td>3072</td><td>Alta calidad general. Dimensiones configurables (256-3072). Buen equilibrio coste/rendimiento.</td></tr>
+      <tr><td><strong>Voyage 3</strong></td><td>Anthropic (Voyage AI)</td><td>1024</td><td>Recomendado por Anthropic. Excelente en código y documentación técnica. Menor dimensionalidad, más rápido.</td></tr>
+      <tr><td><strong>BGE-M3</strong></td><td>BAAI (open source)</td><td>1024</td><td>Multilingüe (100+ idiomas). Búsqueda híbrida (densa + dispersa). Ideal si necesitas soporte robusto de español.</td></tr>
+      <tr><td><strong>E5-Mistral</strong></td><td>Microsoft (open source)</td><td>4096</td><td>Basado en Mistral 7B. Muy alta calidad en benchmarks. Requiere más compute por su tamaño.</td></tr>
+      <tr><td><strong>Cohere Embed v3</strong></td><td>Cohere</td><td>1024</td><td>Compresión nativa (binary/int8). Reduce almacenamiento x32 con mínima pérdida de calidad.</td></tr>
+    </tbody>
+  </table>
+  <p>Los embeddings se almacenan en bases de datos vectoriales: Pinecone, Chroma, Weaviate, pgvector. La elección del modelo depende del idioma, tipo de contenido y presupuesto.</p>
+  <div class="callout">
+    <p class="callout-title"><i data-lucide="alert-triangle"></i> No confundir</p>
+    <p>El modelo de embedding solo convierte texto a vector. No genera texto. Es diferente del LLM. Los embeddings sirven para buscar; el LLM sirve para generar.</p>
+  </div>
+  <div class="refs">
+    <p class="refs-title">Para profundizar</p>
+    <a href="https://www.pinecone.io/learn/vector-embeddings/" target="_blank">Pinecone - Vector Embeddings Explained</a>
+    <a href="https://jalammar.github.io/illustrated-word2vec/" target="_blank">Jay Alammar - The Illustrated Word2Vec</a>
+  </div>
+</Slide>
+
+<!-- SLIDE 15 -->
+<Slide id="entrenamiento-inferencia" number={15} title="Entrenamiento vs inferencia">
+  <div class="two-cols">
+    <div>
+      <h3><i data-lucide="graduation-cap"></i> Entrenamiento</h3>
+      <p>El proceso de <strong>crear</strong> el modelo. Se ajustan billones de parámetros con datos masivos.</p>
+      <div class="flow">
+        <span class="flow-step">Datos masivos</span>
+        <span class="flow-arrow">&rarr;</span>
+        <span class="flow-step">Pre-entrenamiento</span>
+        <span class="flow-arrow">&rarr;</span>
+        <span class="flow-step">RLHF</span>
+        <span class="flow-arrow">&rarr;</span>
+        <span class="flow-step">Modelo listo</span>
+      </div>
+      <table>
+        <thead>
+          <tr><th>Aspecto</th><th>Valor</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Duración</td><td>Semanas a meses</td></tr>
+          <tr><td>Hardware</td><td>Miles de GPUs (A100/H100)</td></tr>
+          <tr><td>Coste</td><td>Millones de dólares</td></tr>
+          <tr><td>Quién lo hace</td><td>Anthropic, OpenAI, Google, Meta</td></tr>
+          <tr><td>Frecuencia</td><td>Cada pocos meses</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div>
+      <h3><i data-lucide="play"></i> Inferencia</h3>
+      <p>Usar el modelo <strong>ya entrenado</strong> para obtener respuestas. Es lo que haces cuando chateas con Claude o llamas a la API.</p>
+      <div class="flow">
+        <span class="flow-step">Tu prompt</span>
+        <span class="flow-arrow">&rarr;</span>
+        <span class="flow-step">Modelo</span>
+        <span class="flow-arrow">&rarr;</span>
+        <span class="flow-step">Respuesta</span>
+      </div>
+      <table>
+        <thead>
+          <tr><th>Aspecto</th><th>Valor</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Duración</td><td>Segundos</td></tr>
+          <tr><td>Hardware</td><td>1 GPU o CPU optimizada</td></tr>
+          <tr><td>Coste</td><td>Céntimos por petición</td></tr>
+          <tr><td>Quién lo hace</td><td>Cualquiera con acceso a la API</td></tr>
+          <tr><td>Frecuencia</td><td>Miles de veces por segundo</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <h3><i data-lucide="cog"></i> Fine-tuning</h3>
+  <p>Reentrenar <strong>parcialmente</strong> un modelo existente con tus propios datos. Mucho más barato que entrenar desde cero. Cambia el comportamiento y estilo del modelo, pero no le "enseña" datos nuevos en tiempo real. Para acceder a datos propios cambiantes, es mejor usar RAG.</p>
+  <div class="refs">
+    <p class="refs-title">Para profundizar</p>
+    <a href="https://huggingface.co/docs/transformers/training" target="_blank">Hugging Face - Training and fine-tuning</a>
+  </div>
+</Slide>
+
+<!-- SLIDE 16 -->
+<Slide id="quantizacion" number={16} title="Quantización: modelos que caben en tu portátil">
+  <p>Comprimir el modelo reduciendo la precisión numérica de cada parámetro. Un modelo guarda millones de números decimales (pesos). La quantización reduce cuántos bits usa cada uno.</p>
+  <table>
+    <thead>
+      <tr><th>Formato</th><th>Bits por peso</th><th>Rango de valores</th><th>RAM para 7B params</th><th>Calidad</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>FP32</strong> (original)</td><td>32 bits</td><td>~7 dígitos decimales</td><td>~28 GB</td><td>Máxima</td></tr>
+      <tr><td><strong>FP16</strong></td><td>16 bits</td><td>~3-4 dígitos</td><td>~14 GB</td><td>Casi igual</td></tr>
+      <tr><td><strong>INT8 (Q8)</strong></td><td>8 bits</td><td>256 valores posibles</td><td>~7 GB</td><td>Muy buena</td></tr>
+      <tr><td><strong>INT4 (Q4)</strong></td><td>4 bits</td><td>16 valores posibles</td><td>~3.5 GB</td><td>Aceptable</td></tr>
+    </tbody>
+  </table>
+  <div class="code-block">
+    <span class="comment">// Ejemplo: un peso del modelo en diferentes precisiones</span><br/>
+    <span class="keyword">FP32</span>: 0.18723541498... <span class="comment">// precisión total, 32 bits</span><br/>
+    <span class="keyword">FP16</span>: 0.1872&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="comment">// pierde decimales, 16 bits</span><br/>
+    <span class="keyword">INT8</span>: 0.19&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="comment">// redondeado, 8 bits</span><br/>
+    <span class="keyword">INT4</span>: 0.2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="comment">// muy redondeado, 4 bits</span><br/><br/>
+    <span class="comment">// La clave: con billones de parámetros, cada bit cuenta</span><br/>
+    <span class="comment">// 7B params x 32 bits = 28 GB &rarr; 7B x 4 bits = 3.5 GB</span>
+  </div>
+  <p>Esto es lo que hace posible <strong>LM Studio</strong> y <strong>Ollama</strong>: ejecutar modelos de 7B-70B parámetros en tu portátil usando formatos GGUF quantizados (Q4, Q5, Q8). A menor precisión, menor calidad, pero la pérdida suele ser sorprendentemente pequeña para la mayoría de tareas.</p>
+  <div class="callout">
+    <p class="callout-title"><i data-lucide="cpu"></i> Formatos GGUF habituales</p>
+    <p><strong>Q4_K_M</strong>: 4 bits con corrección K-means. Buena relación calidad/tamaño. El más usado en Ollama.<br/>
+    <strong>Q5_K_M</strong>: 5 bits. Mayor calidad que Q4, sigue cabiendo en portátiles con 16 GB.<br/>
+    <strong>Q8_0</strong>: 8 bits. Casi sin pérdida de calidad. Requiere ~7 GB para un modelo de 7B parámetros.</p>
+  </div>
+  <div class="refs">
+    <p class="refs-title">Para profundizar</p>
+    <a href="https://huggingface.co/docs/optimum/concept_guides/quantization" target="_blank">Hugging Face - Quantization</a>
+  </div>
+</Slide>
+
+<!-- SLIDE 17 -->
+<Slide id="recap-fundamentos" number={17} title="Lo que deberías saber: fundamentos">
+  <table>
+    <thead>
+      <tr><th>Concepto</th><th>Slide</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>La IA no piensa ni es consciente: es predicción estadística</td><td>2-3</td></tr>
+      <tr><td>Sistemas estocásticos: misma entrada, distintas salidas</td><td>4</td></tr>
+      <tr><td>Aprendizaje supervisado, no supervisado, RLHF</td><td>5</td></tr>
+      <tr><td>Neurona artificial = función con pesos, bias y activación</td><td>6</td></tr>
+      <tr><td>Redes neuronales: capas que aprenden abstracciones</td><td>7</td></tr>
+      <tr><td>Backpropagation: forward, loss, backward, update</td><td>8</td></tr>
+      <tr><td>Overfitting, vanishing gradients, optimizadores (Adam)</td><td>9</td></tr>
+      <tr><td>CNNs para imágenes, RNNs/LSTMs para secuencias</td><td>10-11</td></tr>
+      <tr><td>Token = unidad mínima que procesa el modelo</td><td>12</td></tr>
+      <tr><td>Embedding = vector numérico que codifica significado</td><td>13-14</td></tr>
+      <tr><td>Entrenamiento (crear el modelo) vs inferencia (usarlo)</td><td>15</td></tr>
+      <tr><td>Quantización: comprimir modelos para hardware modesto</td><td>16</td></tr>
+    </tbody>
+  </table>
+</Slide>
+
+<!-- SLIDE 18: SECCION -->
+<Slide id="sec-arquitecturas" number={18} section
+  title="Arquitecturas y modelos"
+  subtitle="Transformers, Mixture of Experts, LLMs y los parámetros que controlan su comportamiento." />
+
+<!-- SLIDE 19 -->
+<Slide id="llm" number={19} title="¿Qué es un modelo LLM?">
+  <p><i data-lucide="brain"></i> <strong>Large Language Model</strong>: un modelo de lenguaje a gran escala. Entrenado con cantidades masivas de texto (internet, libros, código...) para predecir el siguiente token dada una secuencia.</p>
+  <div class="icon-grid">
+    <div class="icon-card">
+      <i data-lucide="file-text"></i>
+      <div class="icon-card-content">
+        <strong>Generación de texto</strong>
+        <p>Redacción, resumen, traducción, reformulación de contenido</p>
+      </div>
+    </div>
+    <div class="icon-card">
+      <i data-lucide="brain"></i>
+      <div class="icon-card-content">
+        <strong>Razonamiento</strong>
+        <p>Lógica, matemáticas, análisis, resolución de problemas complejos</p>
+      </div>
+    </div>
+    <div class="icon-card">
+      <i data-lucide="code"></i>
+      <div class="icon-card-content">
+        <strong>Código</strong>
+        <p>Generación, depuración, refactorización en múltiples lenguajes</p>
+      </div>
+    </div>
+    <div class="icon-card">
+      <i data-lucide="globe"></i>
+      <div class="icon-card-content">
+        <strong>Multilingüe</strong>
+        <p>Comprensión y generación en decenas de idiomas simultáneamente</p>
+      </div>
+    </div>
+  </div>
+  <h3><i data-lucide="database"></i> Modelos principales (marzo 2026)</h3>
+  <table>
+    <thead>
+      <tr><th>Modelo</th><th>Empresa</th><th>Context window</th><th>Tipo</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>Claude Opus 4.6</strong></td><td>Anthropic</td><td>200k tokens</td><td>Propietario</td></tr>
+      <tr><td><strong>Claude Sonnet 4.6</strong></td><td>Anthropic</td><td>200k tokens</td><td>Propietario</td></tr>
+      <tr><td><strong>GPT-5.2</strong></td><td>OpenAI</td><td>128k tokens</td><td>Propietario</td></tr>
+      <tr><td><strong>Gemini 3</strong></td><td>Google</td><td>1M+ tokens</td><td>Propietario</td></tr>
+      <tr><td><strong>Llama 3</strong></td><td>Meta</td><td>128k tokens</td><td>Open source</td></tr>
+      <tr><td><strong>Mistral / Mixtral</strong></td><td>Mistral AI</td><td>32-128k tokens</td><td>Open source</td></tr>
+      <tr><td><strong>Qwen</strong></td><td>Alibaba</td><td>128k tokens</td><td>Open source</td></tr>
+    </tbody>
+  </table>
+  <div class="callout">
+    <p class="callout-title"><i data-lucide="layers"></i> Idea clave</p>
+    <p>El modelo no "sabe" cosas: calcula probabilidades sobre patrones aprendidos. La escala importa: capacidades emergentes aparecen con más parámetros. Pero más grande no siempre es mejor para tu caso de uso.</p>
+  </div>
+  <div class="refs">
+    <p class="refs-title">Para profundizar</p>
+    <a href="https://en.wikipedia.org/wiki/Large_language_model" target="_blank">Wikipedia - Large Language Model</a>
+    <a href="https://arxiv.org/abs/2303.18223" target="_blank">A Survey of Large Language Models (paper)</a>
+  </div>
+</Slide>
+
+<!-- SLIDE 20 -->
+<Slide id="arquitecturas" number={20} title="Arquitecturas">
+  <h3><i data-lucide="network"></i> Evolución de las arquitecturas</h3>
+  <p>Las arquitecturas de redes neuronales han evolucionado radicalmente en la última década. Cada salto resolvió limitaciones fundamentales del anterior.</p>
+  <div class="flow">
+    <span class="flow-step">Perceptron (1958)</span>
+    <span class="flow-arrow">&rarr;</span>
+    <span class="flow-step">RNN (1986)</span>
+    <span class="flow-arrow">&rarr;</span>
+    <span class="flow-step">LSTM (1997)</span>
+    <span class="flow-arrow">&rarr;</span>
+    <span class="flow-step">Transformer (2017)</span>
+    <span class="flow-arrow">&rarr;</span>
+    <span class="flow-step">LLMs actuales</span>
+  </div>
+  <h3><i data-lucide="layers"></i> De RNN a Transformer</h3>
+  <table>
+    <thead>
+      <tr><th>Arquitectura</th><th>Cómo procesa</th><th>Limitación</th><th>Solución</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>RNN</strong></td><td>Token a token, secuencial</td><td>Olvida el inicio en secuencias largas</td><td>LSTM con "celdas de memoria"</td></tr>
+      <tr><td><strong>LSTM</strong></td><td>Secuencial, con memoria a largo plazo</td><td>Lenta (no paralelizable), límite práctico ~500 tokens</td><td>Transformer con atención</td></tr>
+      <tr><td><strong>Transformer</strong></td><td>Todos los tokens en paralelo</td><td>Coste cuadrático con la longitud de secuencia</td><td>MoE, atención dispersa, contextos extendidos</td></tr>
+    </tbody>
+  </table>
+  <h3><i data-lucide="blocks"></i> Variantes del Transformer</h3>
+  <table>
+    <thead>
+      <tr><th>Año</th><th>Arquitectura</th><th>Tipo</th><th>Para qué</th><th>Ejemplos</th><th>Paper</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>2017</strong></td><td>Transformer</td><td>Base</td><td>Secuencia a secuencia</td><td>Modelo original</td><td><a href="https://arxiv.org/abs/1706.03762" target="_blank">Attention Is All You Need</a></td></tr>
+      <tr><td><strong>2018</strong></td><td>Encoder-only</td><td>Comprensión</td><td>Clasificar, analizar</td><td>BERT</td><td><a href="https://arxiv.org/abs/1810.04805" target="_blank">BERT (Devlin et al.)</a></td></tr>
+      <tr><td><strong>2018-26</strong></td><td><strong>Decoder-only</strong></td><td>Generación</td><td>Generar texto, código</td><td>GPT, Claude, Llama</td><td><a href="https://cdn.openai.com/research-covers/language-unsupervised/language_understanding_paper.pdf" target="_blank">GPT-1 (Radford et al.)</a></td></tr>
+      <tr><td><strong>2019</strong></td><td>Encoder-Decoder</td><td>Seq2Seq</td><td>Traducción, resumen</td><td>T5, BART</td><td><a href="https://arxiv.org/abs/1910.10683" target="_blank">T5 (Raffel et al.)</a></td></tr>
+      <tr><td><strong>2020</strong></td><td>Vision Transformer</td><td>Vision</td><td>Imágenes</td><td>ViT, CLIP</td><td><a href="https://arxiv.org/abs/2010.11929" target="_blank">ViT (Dosovitskiy et al.)</a></td></tr>
+      <tr><td><strong>2023-26</strong></td><td>Multimodal</td><td>Varios</td><td>Texto + imagen + audio</td><td>GPT-5.2, Gemini 3, Claude</td><td><a href="https://arxiv.org/abs/2303.08774" target="_blank">GPT-4 Technical Report</a></td></tr>
+    </tbody>
+  </table>
+  <p>Los modelos que usamos hoy (Claude, GPT, Llama) son todos <strong>decoder-only Transformers</strong>. La arquitectura Transformer de 2017 fue el punto de inflexión que hizo posible todo lo que vino después.</p>
+  <div class="refs">
+    <p class="refs-title">Para profundizar</p>
+    <a href="https://arxiv.org/abs/1706.03762" target="_blank">Paper original: Attention Is All You Need (2017)</a>
+    <a href="https://www.datacamp.com/tutorial/how-transformers-work" target="_blank">DataCamp - How Transformers Work</a>
+  </div>
+</Slide>
+
+<!-- SLIDE 21 -->
+<Slide id="transformer-ninos" number={21} title="¿Cómo funciona un Transformer?">
+  <div class="analogy">
+    <p class="analogy-label"><i data-lucide="users"></i> Analogía</p>
+    <p>Imagina que estás leyendo una frase y tienes que adivinar la siguiente palabra. El Transformer lee <strong>TODAS</strong> las palabras a la vez (no una por una como se hacía antes con las RNN).</p>
+  </div>
+  <h3><i data-lucide="search"></i> Atención = subrayar lo importante</h3>
+  <p>"El gato se subió al árbol porque <strong>tenía</strong> miedo" &rarr; "tenía" mira a "gato" para saber QUIEN tenía miedo. Es como subrayar las palabras importantes para entender cada parte de la frase.</p>
+  <h3><i data-lucide="lightbulb"></i> Paso a paso simplificado</h3>
+  <ol class="steps">
+    <li>El texto se trocea en <strong>tokens</strong> (palabras o trozos de palabras)</li>
+    <li>Cada token se convierte en un <strong>vector</strong> (embedding) con su significado y posición</li>
+    <li>El mecanismo de <strong>atención</strong> compara cada token con todos los demás: "¿quién es relevante para quién?"</li>
+    <li>Esta información se mezcla y se pasa por <strong>redes neuronales</strong></li>
+    <li>Al final, el modelo predice: "la siguiente palabra más probable es..."</li>
+  </ol>
+  <h3><i data-lucide="route"></i> Flujo del mecanismo de atención</h3>
+  <div class="flow">
+    <span class="flow-step">Token actual ("tenía")</span>
+    <span class="flow-arrow">&rarr;</span>
+    <span class="flow-step">Query: "¿quién es relevante?"</span>
+    <span class="flow-arrow">&rarr;</span>
+    <span class="flow-step">Key: cada token ofrece su "etiqueta"</span>
+    <span class="flow-arrow">&rarr;</span>
+    <span class="flow-step">Puntuación: similitud Q*K</span>
+    <span class="flow-arrow">&rarr;</span>
+    <span class="flow-step">Value: información ponderada</span>
+    <span class="flow-arrow">&rarr;</span>
+    <span class="flow-step">Salida enriquecida</span>
+  </div>
+  <div class="analogy">
+    <p class="analogy-label"><i data-lucide="users"></i> Analogía de la reunión</p>
+    <p>Imagina una reunión donde cada persona (token) tiene una pregunta (Query), una tarjeta de presentación (Key) y una respuesta útil (Value). Cada persona mira las tarjetas de todos, decide a quién prestar atención, y combina las respuestas de los más relevantes. Eso es exactamente lo que hace Self-Attention.</p>
+  </div>
+  <div class="callout">
+    <p class="callout-title"><i data-lucide="zap"></i> ¿Por qué fue revolucionario?</p>
+    <p>Cómo mira todo a la vez (en paralelo), se puede distribuir en miles de GPUs. Esto permitió entrenar con MUCHOS más datos que antes. Más datos + más parámetros = modelos más capaces.</p>
+  </div>
+  <div class="refs">
+    <p class="refs-title">Para profundizar</p>
+    <a href="https://jalammar.github.io/illustrated-transformer/" target="_blank">Jay Alammar - The Illustrated Transformer (la mejor guía visual)</a>
+    <a href="https://poloclub.github.io/transformer-explainer/" target="_blank">Transformer Explainer (demo interactiva)</a>
+  </div>
+</Slide>
+
+<!-- SLIDE 22 -->
+<Slide id="moe" number={22} title="Arquitectura MoE (Mixture of Experts)">
+  <p><i data-lucide="route"></i> En vez de un modelo monolítico donde todos los parámetros se activan en cada petición, MoE divide el modelo en múltiples <strong>"expertos" especializados</strong>.</p>
+  <h3><i data-lucide="zap"></i> Flujo de una petición MoE</h3>
+  <div class="flow">
+    <span class="flow-step">Token de entrada</span>
+    <span class="flow-arrow">&rarr;</span>
+    <span class="flow-step">Router (gate)</span>
+    <span class="flow-arrow">&rarr;</span>
+    <span class="flow-step">Experto 3 + Experto 7</span>
+    <span class="flow-arrow">&rarr;</span>
+    <span class="flow-step">Combinar salidas</span>
+    <span class="flow-arrow">&rarr;</span>
+    <span class="flow-step">Resultado</span>
+  </div>
+  <h3><i data-lucide="users"></i> Cómo funciona el routing</h3>
+  <ul>
+    <li><i data-lucide="route"></i> Un <strong>router</strong> (red neuronal pequeña) decide qué expertos activa para cada token</li>
+    <li><i data-lucide="network"></i> Cada experto es una red feed-forward completa, especializada en ciertos patrones</li>
+    <li><i data-lucide="zap"></i> Solo se activa una <strong>fracción</strong> de los parámetros por inferencia (ej: 2 de 8 expertos)</li>
+    <li><i data-lucide="scale"></i> El router asigna pesos a los expertos activos; la salida final es la suma ponderada</li>
+    <li><i data-lucide="repeat"></i> Se aplica <strong>load balancing</strong> durante el entrenamiento para que todos los expertos se utilicen de forma equilibrada</li>
+  </ul>
+  <h3><i data-lucide="scale"></i> Modelo denso frente a MoE</h3>
+  <div class="two-cols">
+    <div class="compare-card">
+      <p class="compare-card-title"><i data-lucide="blocks"></i> Modelo denso (ej: Llama 3)</p>
+      <p class="compare-card-desc">Todos los parámetros se activan en cada petición. 70B parámetros = 70B activos siempre. Más simple de entrenar, pero el coste computacional crece linealmente con el tamaño del modelo.</p>
+      <span class="tag">70B params</span>
+      <span class="tag">70B activos</span>
+      <span class="tag">100% uso</span>
+    </div>
+    <div class="compare-card">
+      <p class="compare-card-title"><i data-lucide="route"></i> Modelo MoE (ej: Mixtral)</p>
+      <p class="compare-card-desc">Solo una fracción se activa por petición. 8x7B = 56B parámetros totales, pero solo 2x7B = 14B activos por token. Modelo grande en capacidad, pequeño en coste por inferencia.</p>
+      <span class="tag">56B params totales</span>
+      <span class="tag">14B activos</span>
+      <span class="tag">25% uso</span>
+    </div>
+  </div>
+  <ul>
+    <li><strong>Mixtral:</strong> 8 expertos, activa 2 por token. GPT-4 y GPT-5.2 usan variantes de MoE</li>
+    <li><strong>Trade-off:</strong> más parámetros totales (más memoria para almacenar), pero menos activos por petición (más rápido y barato)</li>
+  </ul>
+  <div class="refs">
+    <p class="refs-title">Para profundizar</p>
+    <a href="https://huggingface.co/blog/moe" target="_blank">Hugging Face - Mixture of Experts Explained</a>
+    <a href="https://newsletter.maartengrootendorst.com/p/a-visual-guide-to-mixture-of-experts" target="_blank">A Visual Guide to Mixture of Experts</a>
+  </div>
+</Slide>

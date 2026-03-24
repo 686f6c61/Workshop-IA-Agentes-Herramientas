@@ -1,0 +1,90 @@
+---
+interface Props {
+  title: string;
+}
+
+const { title } = Astro.props;
+const description = 'Workshop de IA para ingenieros: 113 slides sobre agentes, modelos, arquitecturas, herramientas y buenas practicas. Actualizado a marzo 2026.';
+const siteUrl = 'https://workshop-ia-agentes-herramientas.onrender.com';
+const author = '686f6c61';
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- SEO basico -->
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="author" content={author} />
+    <meta name="keywords" content="inteligencia artificial, IA, agentes, LLM, modelos, transformers, RAG, MCP, Claude, GPT, prompt engineering, machine learning, deep learning, workshop, ingenieros" />
+    <link rel="canonical" href={siteUrl} />
+    <meta name="robots" content="index, follow" />
+
+    <!-- Google Search Console -->
+    <meta name="google-site-verification" content="V01N0m3ugN8QxmKCZwztPsxWFSvl-wlqIPXBaqaCBVo" />
+
+    <!-- Open Graph (Facebook, LinkedIn, WhatsApp) -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={siteUrl} />
+    <meta property="og:site_name" content="Workshop de IA" />
+    <meta property="og:locale" content="es_ES" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>></text></svg>" />
+
+    <!-- Structured Data (JSON-LD) -->
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "PresentationDigitalDocument",
+      "name": title,
+      "description": description,
+      "url": siteUrl,
+      "author": {
+        "@type": "Person",
+        "name": author,
+        "url": `https://github.com/${author}`
+      },
+      "datePublished": "2026-03-09",
+      "dateModified": "2026-03-24",
+      "inLanguage": "es",
+      "keywords": "inteligencia artificial, agentes, LLM, modelos, transformers, RAG, MCP, workshop",
+      "educationalLevel": "advanced",
+      "audience": {
+        "@type": "Audience",
+        "audienceType": "ingenieros de software"
+      },
+      "numberOfPages": 113,
+      "license": "https://opensource.org/licenses/MIT"
+    })} />
+
+    <!-- Google Analytics -->
+    <script is:inline async src="https://www.googletagmanager.com/gtag/js?id=G-KDL1DVQ6SK"></script>
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-KDL1DVQ6SK');
+    </script>
+
+    <!-- Lucide Icons -->
+    <script is:inline src="https://unpkg.com/lucide@0.460.0/dist/umd/lucide.min.js"></script>
+  </head>
+  <body>
+    <slot />
+    <script is:inline>
+      document.addEventListener('DOMContentLoaded', function() {
+        if (window.lucide) lucide.createIcons();
+      });
+    </script>
+  </body>
+</html>

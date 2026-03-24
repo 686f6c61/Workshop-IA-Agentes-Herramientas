@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://workshop-ia-agentes-herramientas.onrender.com/sitemap-index.xml

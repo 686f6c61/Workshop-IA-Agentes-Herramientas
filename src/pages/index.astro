@@ -1,0 +1,322 @@
+---
+import Layout from '../layouts/Layout.astro';
+import SlidesIntro from '../components/SlidesIntro.astro';
+import SlidesModelos from '../components/SlidesModelos.astro';
+import SlidesAgentes from '../components/SlidesAgentes.astro';
+import SlidesOllamaCloud from '../components/SlidesOllamaCloud.astro';
+import '../styles/global.css';
+
+const tocSections = [
+  {
+    title: 'Fundamentos',
+    sectionSlide: 'sec-fundamentos',
+    items: [
+      { num: 2, label: '¿Qué NO es la IA?', id: 'que-no-es' },
+      { num: 3, label: '¿Qué SÍ es la IA?', id: 'que-si-es' },
+      { num: 4, label: 'Determinismo vs estocástico', id: 'determinismo' },
+      { num: 5, label: 'Principios de la IA', id: 'principios' },
+      { num: 6, label: 'La neurona artificial', id: 'neurona-artificial' },
+      { num: 7, label: 'Redes neuronales: capas', id: 'redes-neuronales-capas' },
+      { num: 8, label: 'Backpropagation', id: 'backpropagation' },
+      { num: 9, label: 'Funciones de pérdida y optimizadores', id: 'funciones-perdida' },
+      { num: 10, label: 'CNNs: redes para visión', id: 'cnns' },
+      { num: 11, label: 'RNNs y LSTMs', id: 'rnns-lstms' },
+      { num: 12, label: '¿Qué es un token?', id: 'tokens' },
+      { num: 13, label: '¿Qué es un embedding?', id: 'embeddings' },
+      { num: 14, label: 'Embeddings en la práctica', id: 'embeddings-practica' },
+      { num: 15, label: 'Entrenamiento vs inferencia', id: 'entrenamiento-inferencia' },
+      { num: 16, label: 'Quantización', id: 'quantizacion' },
+      { num: 17, label: 'Recapitulación', id: 'recap-fundamentos' },
+    ],
+  },
+  {
+    title: 'Arquitecturas y modelos',
+    sectionSlide: 'sec-arquitecturas',
+    items: [
+      { num: 19, label: '¿Qué es un LLM?', id: 'llm' },
+      { num: 20, label: 'Arquitecturas', id: 'arquitecturas' },
+      { num: 21, label: '¿Cómo funciona un Transformer?', id: 'transformer-ninos' },
+      { num: 22, label: 'Arquitectura MoE', id: 'moe' },
+      { num: 23, label: 'Atención en detalle (Q, K, V)', id: 'atencion-detalle' },
+      { num: 24, label: 'Tokenización en profundidad', id: 'tokenizacion-profundidad' },
+      { num: 25, label: 'Transfer learning', id: 'transfer-learning' },
+      { num: 26, label: '¿Cómo funciona MoE?', id: 'moe-ninos' },
+      { num: 27, label: 'Parámetros de configuración', id: 'parametros' },
+      { num: 28, label: 'Modelos de razonamiento', id: 'razonamiento' },
+      { num: 29, label: 'Modelos multimodales nativos', id: 'multimodales-nativos' },
+      { num: 30, label: 'Open source vs propietario', id: 'open-vs-closed' },
+      { num: 31, label: 'Destilación de modelos', id: 'distilacion' },
+      { num: 32, label: 'Inferencia optimizada', id: 'inferencia-optimizada' },
+      { num: 33, label: 'Edge AI: modelos en el dispositivo', id: 'edge-ai' },
+      { num: 34, label: 'Recapitulación', id: 'recap-arquitecturas' },
+    ],
+  },
+  {
+    title: 'Uso práctico',
+    sectionSlide: 'sec-uso-practico',
+    items: [
+      { num: 36, label: 'Prompt engineering', id: 'prompt-engineering' },
+      { num: 37, label: 'Context engineering', id: 'context-engineering' },
+      { num: 38, label: 'Alucinaciones', id: 'alucinaciones' },
+      { num: 39, label: 'Structured output / JSON mode', id: 'structured-output' },
+      { num: 40, label: 'Visión y multimodalidad', id: 'vision-multimodal' },
+      { num: 41, label: 'Voz y APIs en tiempo real', id: 'voice-realtime' },
+      { num: 42, label: 'Generación de imágenes y vídeo', id: 'gen-imagenes-video' },
+      { num: 43, label: 'Modelos de difusión', id: 'modelos-difusion' },
+      { num: 44, label: 'Entrenamiento para imagen', id: 'entrenamiento-imagen' },
+      { num: 45, label: 'Herramientas OSS y plataformas', id: 'herramientas-imagen-oss' },
+      { num: 46, label: 'Técnicas de control (ControlNet)', id: 'control-imagen' },
+      { num: 47, label: 'Modelos frontier', id: 'frontier' },
+      { num: 48, label: 'Hugging Face + LM Studio', id: 'huggingface-lmstudio' },
+      { num: 49, label: 'RAG', id: 'rag' },
+      { num: 50, label: 'Agentic RAG', id: 'agentic-rag' },
+      { num: 51, label: 'GraphRAG y retrieval avanzado', id: 'graphrag' },
+      { num: 52, label: '¿Prompt, RAG o fine-tuning?', id: 'cuando-que-tecnica' },
+      { num: 53, label: 'Fine-tuning en la práctica', id: 'fine-tuning-practico' },
+      { num: 54, label: 'Datos sintéticos', id: 'datos-sinteticos' },
+      { num: 55, label: 'Bases de datos vectoriales', id: 'vectordb' },
+      { num: 56, label: 'Text-to-SQL', id: 'text-to-sql' },
+      { num: 57, label: 'Prompt caching', id: 'prompt-caching' },
+      { num: 58, label: 'Context window en la práctica', id: 'context-window-practica' },
+      { num: 59, label: 'API Hello World', id: 'api-hello-world' },
+      { num: 60, label: 'Streaming', id: 'streaming' },
+      { num: 61, label: 'Arquitectura de apps con LLM', id: 'arquitectura-apps-llm' },
+      { num: 62, label: 'Recapitulación', id: 'recap-uso-practico' },
+    ],
+  },
+  {
+    title: 'Agentes y orquestación',
+    sectionSlide: 'sec-agentes',
+    items: [
+      { num: 64, label: 'Agente vs prompt', id: 'agente-vs-prompt' },
+      { num: 65, label: '¿Qué es un agente?', id: 'agentes' },
+      { num: 66, label: 'Contexto y memoria', id: 'contexto-memoria' },
+      { num: 67, label: 'Memoria persistente', id: 'memoria-persistente' },
+      { num: 68, label: 'Function calling (tool use)', id: 'function-calling' },
+      { num: 69, label: 'Arquitecturas de agentes', id: 'arquitecturas-agentes' },
+      { num: 70, label: 'Patrones de diseño', id: 'patrones-agentes' },
+      { num: 71, label: 'Multi-modelo', id: 'multi-modelo' },
+      { num: 72, label: 'Patrones de orquestación', id: 'patrones-orquestacion' },
+      { num: 73, label: 'Ejemplo: agente con tools', id: 'ejemplo-codigo-agente' },
+      { num: 74, label: 'Sistemas de orquestación', id: 'orquestacion' },
+      { num: 75, label: 'Orquestadores y ADKs', id: 'orquestadores-adks' },
+      { num: 76, label: 'Claude Code (estructura)', id: 'claude-code-estructura' },
+      { num: 77, label: 'Coding agents', id: 'coding-agents' },
+      { num: 78, label: 'MCP', id: 'mcp' },
+      { num: 79, label: 'MCP en la práctica', id: 'mcp-practica' },
+      { num: 80, label: 'Computer Use y Browser Use', id: 'computer-use' },
+      { num: 81, label: 'A2A (Agent-to-Agent)', id: 'a2a' },
+      { num: 82, label: 'Human-in-the-loop', id: 'human-in-the-loop' },
+      { num: 83, label: 'Recapitulación', id: 'recap-agentes' },
+    ],
+  },
+  {
+    title: 'Realidad del ingeniero',
+    sectionSlide: 'sec-realidad',
+    items: [
+      { num: 85, label: 'IDE web vs terminal', id: 'ide-terminal' },
+      { num: 86, label: 'Comparativa coding assistants', id: 'comparativa-coding' },
+      { num: 87, label: 'AI coding benchmarks', id: 'ai-benchmarks' },
+      { num: 88, label: 'IA en CI/CD', id: 'ai-cicd' },
+      { num: 89, label: 'Seguridad y riesgos', id: 'seguridad' },
+      { num: 90, label: 'Guardrails en la práctica', id: 'guardrails' },
+      { num: 91, label: 'Testing adversarial y red teaming', id: 'testing-adversarial' },
+      { num: 92, label: 'EU AI Act y compliance', id: 'eu-ai-act' },
+      { num: 93, label: 'Tokens y coste', id: 'costes' },
+      { num: 94, label: 'Observabilidad de LLMs', id: 'observabilidad' },
+      { num: 95, label: 'Prompts como código', id: 'prompt-como-codigo' },
+      { num: 96, label: 'Evaluaciones (evals)', id: 'evals' },
+      { num: 97, label: 'Testing de código generado', id: 'testing-codigo-ia' },
+      { num: 98, label: 'Vibe coding', id: 'vibe-coding' },
+      { num: 99, label: 'Cambio de paradigma', id: 'cambio-paradigma' },
+      { num: 100, label: 'Patrones de trabajo con IA', id: 'workflow-patterns' },
+      { num: 101, label: 'Configurar Claude Code', id: 'config-claude-code' },
+      { num: 102, label: 'Configurar OpenCode y Cursor', id: 'config-opencode-cursor' },
+      { num: 103, label: 'Agentes en producción: lecciones', id: 'agentes-produccion' },
+      { num: 104, label: 'Recapitulación', id: 'recap-realidad' },
+      { num: 112, label: 'Recursos y siguiente paso', id: 'recursos' },
+    ],
+  },
+  {
+    title: 'Modelos OSS con Ollama Cloud',
+    sectionSlide: 'sec-ollama-cloud',
+    items: [
+      { num: 106, label: 'Ollama Cloud: modelos OSS sin GPU', id: 'ollama-cloud-intro' },
+      { num: 107, label: 'Catálogo de modelos', id: 'modelos-disponibles' },
+      { num: 108, label: 'Primeros pasos', id: 'ollama-cloud-setup' },
+      { num: 109, label: 'Integración con herramientas', id: 'ollama-cloud-herramientas' },
+      { num: 110, label: 'Cloud vs local', id: 'cloud-vs-local' },
+      { num: 111, label: 'Recapitulación', id: 'recap-ollama-cloud' },
+    ],
+  },
+];
+---
+
+<Layout title="Workshop de IA: agentes, modelos y herramientas - by 686f6c61">
+  <!-- TABLE OF CONTENTS OVERLAY -->
+  <div class="toc-overlay" id="toc">
+    <div class="toc-content">
+      <div class="toc-header">
+        <h2>Índice</h2>
+        <button class="toc-close" id="toc-close" aria-label="Cerrar índice">&times;</button>
+      </div>
+      {tocSections.map((section) => (
+        <div class="toc-section">
+          <button class="toc-section-title" data-goto={section.sectionSlide}>{section.title}</button>
+          {section.items.map((item) => (
+            <button class="toc-item" data-goto={item.id}>
+              <span class="toc-num">{String(item.num).padStart(2, '0')}</span>
+              {item.label}
+            </button>
+          ))}
+        </div>
+      ))}
+    </div>
+  </div>
+
+  <!-- SLIDES -->
+  <div class="slides-container" id="slides-container">
+    <SlidesIntro />
+    <SlidesModelos />
+    <SlidesAgentes />
+    <SlidesOllamaCloud />
+  </div>
+
+  <!-- NAVIGATION BAR -->
+  <nav class="nav-bar">
+    <div class="nav-buttons">
+      <button class="nav-btn" id="prev-btn" aria-label="Slide anterior">&#8592;</button>
+      <span class="nav-counter" id="nav-counter">0 / 0</span>
+      <button class="nav-btn" id="next-btn" aria-label="Slide siguiente">&#8594;</button>
+    </div>
+    <div class="nav-progress">
+      <div class="nav-progress-bar" id="progress-bar"></div>
+    </div>
+    <button class="nav-toc-btn" id="toc-btn">Índice</button>
+    <div class="nav-keys">
+      <kbd id="kbd-prev" role="button" tabindex="0" style="cursor:pointer;">&#8592;</kbd><kbd id="kbd-next" role="button" tabindex="0" style="cursor:pointer;">&#8594;</kbd>
+    </div>
+  </nav>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const slides = /** @type {NodeListOf<HTMLElement>} */ (document.querySelectorAll('.slide'));
+      const counter = document.getElementById('nav-counter');
+      const progressBar = document.getElementById('progress-bar');
+      const prevBtn = document.getElementById('prev-btn');
+      const nextBtn = document.getElementById('next-btn');
+      const tocOverlay = document.getElementById('toc');
+      const tocBtn = document.getElementById('toc-btn');
+      const tocClose = document.getElementById('toc-close');
+      const tocItems = /** @type {NodeListOf<HTMLElement>} */ (document.querySelectorAll('.toc-item, .toc-section-title'));
+
+      let current = 0;
+      const total = slides.length;
+      let numberBuffer = '';
+      let numberTimer = null;
+
+      function showSlide(index) {
+        if (index < 0 || index >= total) return;
+        slides[current].classList.remove('active');
+        current = index;
+        slides[current].classList.add('active');
+        slides[current].scrollTop = 0;
+        updateUI();
+        const id = slides[current].id;
+        history.replaceState(null, '', `#${id}`);
+      }
+
+      function updateUI() {
+        counter.textContent = `${current} / ${total - 1}`;
+        const progress = total > 1 ? (current / (total - 1)) * 100 : 0;
+        progressBar.style.width = `${progress}%`;
+        prevBtn.disabled = current === 0;
+        nextBtn.disabled = current === total - 1;
+      }
+
+      function next() { showSlide(current + 1); }
+      function prev() { showSlide(current - 1); }
+
+      function goToSlide(id) {
+        const index = Array.from(slides).findIndex(s => s.id === id);
+        if (index !== -1) {
+          showSlide(index);
+          closeToc();
+        }
+      }
+
+      function openToc() { tocOverlay.classList.add('active'); }
+      function closeToc() { tocOverlay.classList.remove('active'); }
+
+      prevBtn.addEventListener('click', prev);
+      nextBtn.addEventListener('click', next);
+      tocBtn.addEventListener('click', openToc);
+      tocClose.addEventListener('click', closeToc);
+
+      const kbdPrev = document.getElementById('kbd-prev');
+      const kbdNext = document.getElementById('kbd-next');
+      if (kbdPrev) kbdPrev.addEventListener('click', prev);
+      if (kbdNext) kbdNext.addEventListener('click', next);
+
+      tocOverlay.addEventListener('click', (e) => {
+        if (e.target === tocOverlay) closeToc();
+      });
+
+      tocItems.forEach(item => {
+        item.addEventListener('click', () => {
+          const id = item.dataset.goto;
+          if (id) goToSlide(id);
+        });
+      });
+
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') { closeToc(); return; }
+        if (tocOverlay.classList.contains('active')) return;
+
+        if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' ') {
+          e.preventDefault(); next();
+        } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+          e.preventDefault(); prev();
+        } else if (e.key === 'Home') {
+          e.preventDefault(); showSlide(0);
+        } else if (e.key === 'End') {
+          e.preventDefault(); showSlide(total - 1);
+        } else if (e.key >= '0' && e.key <= '9') {
+          numberBuffer += e.key;
+          clearTimeout(numberTimer);
+          numberTimer = setTimeout(() => {
+            const num = parseInt(numberBuffer, 10);
+            if (num >= 0 && num < total) showSlide(num);
+            numberBuffer = '';
+          }, 500);
+        }
+      });
+
+      // Touch/swipe support
+      let touchStartX = 0;
+      let touchStartY = 0;
+
+      document.addEventListener('touchstart', (e) => {
+        touchStartX = e.touches[0].clientX;
+        touchStartY = e.touches[0].clientY;
+      }, { passive: true });
+
+      document.addEventListener('touchend', (e) => {
+        const deltaX = e.changedTouches[0].clientX - touchStartX;
+        const deltaY = e.changedTouches[0].clientY - touchStartY;
+        if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > 50) {
+          if (deltaX < 0) next(); else prev();
+        }
+      }, { passive: true });
+
+      // Initial slide from hash
+      const hash = window.location.hash.slice(1);
+      if (hash) {
+        const index = Array.from(slides).findIndex(s => s.id === hash);
+        if (index !== -1) current = index;
+      }
+      slides[current].classList.add('active');
+      updateUI();
+    });
+  </script>
+</Layout>

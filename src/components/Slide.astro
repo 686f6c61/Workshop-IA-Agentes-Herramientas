@@ -1,0 +1,41 @@
+---
+interface Props {
+  id: string;
+  number?: number;
+  title?: string;
+  cover?: boolean;
+  section?: boolean;
+  subtitle?: string;
+}
+
+const { id, number, title, cover = false, section = false, subtitle } = Astro.props;
+---
+
+<section
+  class={`slide ${cover ? 'slide-cover' : ''} ${section ? 'slide-section' : ''}`}
+  id={id}
+  data-slide-number={number}
+>
+  <div class="slide-inner">
+    {title && !cover && !section && (
+      <h2>
+        {number !== undefined && <span class="slide-number">{String(number).padStart(2, '0')}</span>}
+        {title}
+      </h2>
+    )}
+    {section && (
+      <div class="section-title-block">
+        {number !== undefined && <span class="section-number">{String(number).padStart(2, '0')}</span>}
+        <h2 class="section-heading">{title}</h2>
+        {subtitle && <p class="section-subtitle">{subtitle}</p>}
+      </div>
+    )}
+    <slot />
+  </div>
+  <div class="slide-author">
+    <a href="https://github.com/686f6c61" target="_blank" rel="noopener noreferrer">
+      <i data-lucide="github"></i>
+      <span>686f6c61</span>
+    </a>
+  </div>
+</section>

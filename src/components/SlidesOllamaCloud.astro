@@ -1,0 +1,263 @@
+---
+import Slide from './Slide.astro';
+---
+
+<!-- SECTION: OLLAMA CLOUD -->
+<Slide id="sec-ollama-cloud" number={105} section
+  title="Modelos OSS en la nube"
+  subtitle="Ollama Cloud: ejecutar modelos open source sin GPU local, catálogo de modelos, integración con herramientas de coding y cuándo elegir cloud vs local." />
+
+<!-- SLIDE 106 -->
+<Slide id="ollama-cloud-intro" number={106} title="Ollama Cloud: modelos OSS sin GPU">
+  <p><i data-lucide="cloud"></i> Ollama Cloud da acceso a modelos open source (Qwen, DeepSeek, Llama, Kimi...) a través de una API en la nube. Misma interfaz que Ollama local, pero sin necesidad de hardware.</p>
+  <div class="icon-grid">
+    <div class="icon-card">
+      <i data-lucide="zap"></i>
+      <div class="icon-card-content">
+        <strong>Sin GPU local</strong>
+        <p>Accede a modelos de 70B-671B sin tarjeta gráfica. Ideal cuando tu portátil no tiene VRAM suficiente.</p>
+      </div>
+    </div>
+    <div class="icon-card">
+      <i data-lucide="refresh-cw"></i>
+      <div class="icon-card-content">
+        <strong>Misma API</strong>
+        <p>Compatible con la API de Ollama local. Cambiar entre local y cloud es solo cambiar la URL base.</p>
+      </div>
+    </div>
+    <div class="icon-card">
+      <i data-lucide="dollar-sign"></i>
+      <div class="icon-card-content">
+        <strong>Modelo freemium</strong>
+        <p>Plan gratuito con límites. Plan Pro para uso intensivo. Mucho más barato que GPUs propias.</p>
+      </div>
+    </div>
+    <div class="icon-card">
+      <i data-lucide="plug"></i>
+      <div class="icon-card-content">
+        <strong>Integración directa</strong>
+        <p>Funciona con Claude Code, Cursor, OpenCode, Continue y cualquier herramienta que soporte Ollama.</p>
+      </div>
+    </div>
+  </div>
+  <div class="callout">
+    <p class="callout-title"><i data-lucide="lightbulb"></i> Caso de uso principal</p>
+    <p>Tienes un portátil sin GPU dedicada pero quieres usar qwen3-coder-next (el mejor modelo OSS de código en marzo 2026) para programar. Ollama Cloud te lo da en segundos.</p>
+  </div>
+  <div class="refs">
+    <p class="refs-title">Para profundizar</p>
+    <a href="https://ollama.com/cloud" target="_blank">Ollama Cloud</a>
+    <a href="https://ollama.com/blog" target="_blank">Blog de Ollama</a>
+  </div>
+</Slide>
+
+<!-- SLIDE 107 -->
+<Slide id="modelos-disponibles" number={107} title="Catálogo de modelos (marzo 2026)">
+  <p><i data-lucide="database"></i> Selección de los modelos más relevantes disponibles en Ollama Cloud.</p>
+  <table>
+    <thead>
+      <tr><th>Categoría</th><th>Modelo</th><th>Detalle</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><i data-lucide="code"></i> <strong>Código</strong></td><td><strong>qwen3-coder-next</strong></td><td>El más usado (901K pulls). Referencia en coding OSS</td></tr>
+      <tr><td></td><td><strong>devstral-2</strong></td><td>123B. Mistral AI, excelente en refactoring</td></tr>
+      <tr><td></td><td><strong>kimi-k2</strong></td><td>Moonshot AI. Buen rendimiento en tareas largas</td></tr>
+      <tr><td><i data-lucide="brain"></i> <strong>Razonamiento</strong></td><td><strong>deepseek-v3.1</strong></td><td>671B, thinking/non-thinking híbrido</td></tr>
+      <tr><td></td><td><strong>qwen3-next</strong></td><td>80B. Muy bueno en matemáticas y lógica</td></tr>
+      <tr><td></td><td><strong>cogito-2.1</strong></td><td>671B MoE. Chain-of-thought nativo</td></tr>
+      <tr><td><i data-lucide="image"></i> <strong>Visión</strong></td><td><strong>qwen3-vl</strong></td><td>2B-235B. El más versátil en visión</td></tr>
+      <tr><td></td><td><strong>kimi-k2.5</strong></td><td>Multimodal completo (179K pulls)</td></tr>
+      <tr><td></td><td><strong>mistral-large-3</strong></td><td>Visión + texto. Buena calidad general</td></tr>
+      <tr><td><i data-lucide="sparkles"></i> <strong>Otros</strong></td><td><strong>glm-5</strong></td><td>744B total, 40B activa (MoE)</td></tr>
+      <tr><td></td><td><strong>minimax-m2.7</strong></td><td>Bueno en generación creativa</td></tr>
+      <tr><td></td><td><strong>devstral-small-2</strong></td><td>24B. Ligero y rápido para coding</td></tr>
+    </tbody>
+  </table>
+  <div class="refs">
+    <p class="refs-title">Para profundizar</p>
+    <a href="https://ollama.com/models" target="_blank">Catálogo completo de modelos</a>
+  </div>
+</Slide>
+
+<!-- SLIDE 108 -->
+<Slide id="ollama-cloud-setup" number={108} title="Primeros pasos con Ollama Cloud">
+  <p><i data-lucide="terminal"></i> Configurar Ollama Cloud lleva menos de 2 minutos. Solo necesitas una API key.</p>
+  <h3><i data-lucide="key"></i> 1. Obtener la API key</h3>
+  <div class="code-block">
+    <span class="comment"># Registrarse en ollama.com/cloud y copiar la API key</span><br/>
+    <span class="comment"># Exportar como variable de entorno:</span><br/>
+    export OLLAMA_API_KEY=<span class="string">"sk-..."</span><br/><br/>
+    <span class="comment"># Verificar que funciona:</span><br/>
+    curl -s https://api.ollama.com/v1/models \<br/>
+    &nbsp;&nbsp;-H <span class="string">"Authorization: Bearer $OLLAMA_API_KEY"</span> | jq <span class="string">'.models[:3]'</span>
+  </div>
+  <h3><i data-lucide="message-square"></i> 2. Primer chat</h3>
+  <div class="code-block">
+    <span class="comment"># API compatible con OpenAI (drop-in replacement)</span><br/>
+    curl https://api.ollama.com/v1/chat/completions \<br/>
+    &nbsp;&nbsp;-H <span class="string">"Authorization: Bearer $OLLAMA_API_KEY"</span> \<br/>
+    &nbsp;&nbsp;-H <span class="string">"Content-Type: application/json"</span> \<br/>
+    &nbsp;&nbsp;-d <span class="string">'&#123;"model": "qwen3-coder-next", "messages": [&#123;"role": "user", "content": "Hola"&#125;]&#125;'</span>
+  </div>
+  <h3><i data-lucide="code"></i> 3. Desde Python</h3>
+  <div class="code-block">
+    <span class="keyword">from</span> openai <span class="keyword">import</span> OpenAI<br/><br/>
+    client = OpenAI(<br/>
+    &nbsp;&nbsp;base_url=<span class="string">"https://api.ollama.com/v1"</span>,<br/>
+    &nbsp;&nbsp;api_key=os.environ[<span class="string">"OLLAMA_API_KEY"</span>]<br/>
+    )<br/>
+    resp = client.chat.completions.create(<br/>
+    &nbsp;&nbsp;model=<span class="string">"qwen3-coder-next"</span>,<br/>
+    &nbsp;&nbsp;messages=[&#123;<span class="string">"role"</span>: <span class="string">"user"</span>, <span class="string">"content"</span>: <span class="string">"Explica async/await"</span>&#125;]<br/>
+    )
+  </div>
+  <div class="callout">
+    <p class="callout-title"><i data-lucide="lightbulb"></i> Dato clave</p>
+    <p>La API es compatible con el formato OpenAI. Si tu código ya usa la librería <code>openai</code>, solo cambias <code>base_url</code> y <code>api_key</code>.</p>
+  </div>
+</Slide>
+
+<!-- SLIDE 109 -->
+<Slide id="ollama-cloud-herramientas" number={109} title="Ollama Cloud + herramientas de coding">
+  <p><i data-lucide="wrench"></i> Cómo integrar Ollama Cloud en las tres herramientas más populares de AI coding.</p>
+  <div class="icon-grid">
+    <div class="icon-card">
+      <i data-lucide="terminal"></i>
+      <div class="icon-card-content">
+        <strong>Claude Code</strong>
+        <p>Soporta modelos de Ollama Cloud como provider alternativo. Útil para tareas de coding con modelos OSS.</p>
+      </div>
+    </div>
+    <div class="icon-card">
+      <i data-lucide="layout"></i>
+      <div class="icon-card-content">
+        <strong>Cursor</strong>
+        <p>Selector de modelos en el panel lateral. Elige ollama/qwen3-coder-next directamente. Requiere suscripción Pro.</p>
+      </div>
+    </div>
+    <div class="icon-card">
+      <i data-lucide="code"></i>
+      <div class="icon-card-content">
+        <strong>OpenCode</strong>
+        <p>Ollama Cloud viene preconfigurado. Solo necesitas la API key. Comando: <code>/connect ollama</code></p>
+      </div>
+    </div>
+    <div class="icon-card">
+      <i data-lucide="puzzle"></i>
+      <div class="icon-card-content">
+        <strong>Continue / otros</strong>
+        <p>Cualquier extensión o herramienta que soporte la API de Ollama funciona sin cambios.</p>
+      </div>
+    </div>
+  </div>
+  <h3><i data-lucide="settings"></i> Configuración rápida por herramienta</h3>
+  <table>
+    <thead>
+      <tr><th>Herramienta</th><th>Cómo configurar</th><th>Comando</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>Claude Code</strong></td><td>Exportar OLLAMA_API_KEY</td><td><code>claude --model ollama/qwen3-coder-next</code></td></tr>
+      <tr><td><strong>Cursor</strong></td><td>Settings &gt; Models &gt; Ollama</td><td>Seleccionar en el panel lateral</td></tr>
+      <tr><td><strong>OpenCode</strong></td><td>Exportar OLLAMA_API_KEY</td><td><code>/connect ollama</code></td></tr>
+      <tr><td><strong>Continue</strong></td><td>config.json &gt; provider: ollama</td><td>Autocompletado en VS Code</td></tr>
+    </tbody>
+  </table>
+  <div class="callout">
+    <p class="callout-title"><i data-lucide="target"></i> Consejo práctico</p>
+    <p>Usa modelos propietarios (Claude, GPT) para tareas complejas de arquitectura. Usa modelos OSS via Ollama Cloud para tareas repetitivas de código: completar funciones, generar tests, refactoring mecánico.</p>
+  </div>
+</Slide>
+
+<!-- SLIDE 110 -->
+<Slide id="cloud-vs-local" number={110} title="Cloud vs local: cuándo usar cada uno">
+  <p><i data-lucide="scale"></i> No es una cuestión de cuál es mejor, sino de cuál encaja en tu situación.</p>
+  <table>
+    <thead>
+      <tr><th>Criterio</th><th><i data-lucide="cloud"></i> Cloud (Ollama)</th><th><i data-lucide="monitor"></i> Local (LM Studio / Ollama)</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>Hardware necesario</strong></td><td>Ninguno</td><td>GPU con 8-128 GB VRAM</td></tr>
+      <tr><td><strong>Modelos grandes (671B)</strong></td><td>Sí, sin problema</td><td>Imposible sin cluster</td></tr>
+      <tr><td><strong>Latencia</strong></td><td>50-200 ms (red)</td><td>10-50 ms (local)</td></tr>
+      <tr><td><strong>Velocidad (tk/s)</strong></td><td>30-80 tk/s</td><td>20-120 tk/s (según GPU)</td></tr>
+      <tr><td><strong>Privacidad</strong></td><td>Datos viajan a la nube</td><td>Todo queda en tu máquina</td></tr>
+      <tr><td><strong>Coste mensual</strong></td><td>Suscripción (~20 USD/mes)</td><td>Electricidad (+ inversión HW)</td></tr>
+      <tr><td><strong>Offline</strong></td><td>No</td><td>Sí</td></tr>
+    </tbody>
+  </table>
+  <div class="two-cols">
+    <div class="compare-card">
+      <p class="compare-card-title"><i data-lucide="cloud"></i> Elige cloud cuando...</p>
+      <p class="compare-card-desc">No tienes GPU, necesitas modelos grandes (deepseek-v3.1 a 671B), quieres empezar en 2 minutos o trabajas en equipo y necesitas un endpoint compartido.</p>
+      <span class="tag">Sin inversión HW</span>
+      <span class="tag">Setup instantáneo</span>
+    </div>
+    <div class="compare-card">
+      <p class="compare-card-title"><i data-lucide="monitor"></i> Elige local cuando...</p>
+      <p class="compare-card-desc">Manejas datos sensibles (código propietario, datos de clientes), necesitas latencia mínima, trabajas offline o ya tienes una GPU potente.</p>
+      <span class="tag">Privacidad total</span>
+      <span class="tag">Sin costes recurrentes</span>
+    </div>
+  </div>
+  <div class="callout">
+    <p class="callout-title"><i data-lucide="compass"></i> Recomendación</p>
+    <p>Lo más práctico: usa ambos. Cloud para modelos grandes y pruebas rápidas, local para código sensible y trabajo diario si tienes GPU. Cambiar es solo cambiar la URL base.</p>
+  </div>
+</Slide>
+
+<!-- SLIDE 111 -->
+<Slide id="recap-ollama-cloud" number={111} title="Lo que deberías saber: Ollama Cloud">
+  <table>
+    <thead>
+      <tr><th>Concepto</th><th>Slide</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Ollama Cloud: modelos OSS sin GPU, misma API que local</td><td>106</td></tr>
+      <tr><td>Catálogo: qwen3-coder-next, deepseek-v3.1, qwen3-vl...</td><td>107</td></tr>
+      <tr><td>Setup en 2 minutos: API key + curl o Python (compatible OpenAI)</td><td>108</td></tr>
+      <tr><td>Integración: Claude Code, Cursor, OpenCode, Continue</td><td>109</td></tr>
+      <tr><td>Cloud para modelos grandes y prototipos; local para privacidad</td><td>110</td></tr>
+    </tbody>
+  </table>
+</Slide>
+
+<!-- SLIDE 112 -->
+<Slide id="recursos" number={112} title="Recursos y siguiente paso">
+  <div class="two-cols">
+    <div>
+      <h3><i data-lucide="book-open"></i> Cursos y guías</h3>
+      <ul>
+        <li><i data-lucide="link"></i> <a href="https://www.promptingguide.ai/" target="_blank">Prompt Engineering Guide</a></li>
+        <li><i data-lucide="link"></i> <a href="https://stanford-cs324.github.io/winter2022/" target="_blank">Stanford CS324 - LLMs</a></li>
+        <li><i data-lucide="link"></i> <a href="https://github.com/anthropics/courses" target="_blank">Anthropic Courses (GitHub)</a></li>
+        <li><i data-lucide="link"></i> <a href="https://www.deeplearning.ai/courses/" target="_blank">DeepLearning.AI (Andrew Ng)</a></li>
+      </ul>
+      <h3><i data-lucide="file-text"></i> Papers fundamentales</h3>
+      <ul>
+        <li><i data-lucide="link"></i> <a href="https://arxiv.org/abs/1706.03762" target="_blank">Attention Is All You Need (2017)</a></li>
+        <li><i data-lucide="link"></i> <a href="https://arxiv.org/abs/2005.11401" target="_blank">RAG (2020)</a></li>
+        <li><i data-lucide="link"></i> <a href="https://arxiv.org/abs/2203.02155" target="_blank">RLHF - InstructGPT (2022)</a></li>
+      </ul>
+    </div>
+    <div>
+      <h3><i data-lucide="wrench"></i> Herramientas para probar hoy</h3>
+      <ul>
+        <li><i data-lucide="terminal"></i> <a href="https://code.claude.com/" target="_blank">Claude Code</a></li>
+        <li><i data-lucide="download"></i> <a href="https://lmstudio.ai/" target="_blank">LM Studio (modelos locales)</a></li>
+        <li><i data-lucide="search"></i> <a href="https://huggingface.co/models" target="_blank">Hugging Face (explorar modelos)</a></li>
+        <li><i data-lucide="play"></i> <a href="https://platform.openai.com/tokenizer" target="_blank">Tokenizer interactivo (OpenAI)</a></li>
+      </ul>
+      <h3><i data-lucide="eye"></i> Visualizaciones interactivas</h3>
+      <ul>
+        <li><i data-lucide="play"></i> <a href="https://poloclub.github.io/transformer-explainer/" target="_blank">Transformer Explainer</a></li>
+        <li><i data-lucide="play"></i> <a href="https://jalammar.github.io/illustrated-transformer/" target="_blank">The Illustrated Transformer</a></li>
+        <li><i data-lucide="play"></i> <a href="https://poloclub.github.io/cnn-explainer/" target="_blank">CNN Explainer</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="refs">
+    <p class="refs-title">MCP</p>
+    <a href="https://modelcontextprotocol.io/" target="_blank">Especificación oficial</a>
+    <a href="https://github.com/modelcontextprotocol/servers" target="_blank">Servidores disponibles</a>
+  </div>
+</Slide>
