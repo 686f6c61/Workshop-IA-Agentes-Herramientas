@@ -620,7 +620,74 @@ import Slide from './Slide.astro';
 </Slide>
 
 <!-- SLIDE 38 -->
-<Slide id="alucinaciones" number={38} title="Alucinaciones: cuando la IA inventa con total confianza">
+<Slide id="formatos-datos-llm" number={38} title="Formatos de datos para LLMs: JSON, YAML, Markdown y más">
+  <p><i data-lucide="file-json"></i> Los LLMs no leen datos como un parser: los interpretan como <strong>secuencia de tokens</strong>. El formato que elijas afecta directamente a la calidad de la respuesta, el coste y la velocidad.</p>
+  <h3><i data-lucide="scale"></i> Comparativa de formatos</h3>
+  <table>
+    <thead>
+      <tr><th>Formato</th><th>Tokens (mismo dato)</th><th>Fuerza</th><th>Caso de uso ideal</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>JSON</strong></td><td>~120</td><td>Parseo exacto, schema validation</td><td>Structured output, APIs, function calling</td></tr>
+      <tr><td><strong>YAML</strong></td><td>~85</td><td>Legible, menos ruido sintáctico</td><td>Configuración, frontmatter de skills, prompts complejos</td></tr>
+      <tr><td><strong>Markdown</strong></td><td>~70</td><td>Natural para el modelo, jerárquico</td><td>System prompts, CLAUDE.md, documentación como contexto</td></tr>
+      <tr><td><strong>XML / tags</strong></td><td>~100</td><td>Separación clara de bloques</td><td>Prompts con múltiples secciones (Anthropic recomienda <code>&lt;tags&gt;</code>)</td></tr>
+      <tr><td><strong>TOML</strong></td><td>~90</td><td>Secciones explícitas, tipado</td><td>Ficheros de configuración de herramientas</td></tr>
+      <tr><td><strong>CSV / tabular</strong></td><td>~50</td><td>Mínimo overhead</td><td>Datos tabulares masivos, few-shot con muchos ejemplos</td></tr>
+    </tbody>
+  </table>
+  <h3><i data-lucide="code"></i> El mismo dato en 3 formatos</h3>
+  <div class="two-cols">
+    <div>
+      <div class="code-block">
+        <span class="comment">// JSON: preciso pero verboso</span><br/>
+        &#123;<br/>
+        &nbsp;&nbsp;<span class="string">"name"</span>: <span class="string">"Ana"</span>,<br/>
+        &nbsp;&nbsp;<span class="string">"role"</span>: <span class="string">"backend"</span>,<br/>
+        &nbsp;&nbsp;<span class="string">"skills"</span>: [<span class="string">"Go"</span>, <span class="string">"Rust"</span>]<br/>
+        &#125;
+      </div>
+      <div class="code-block">
+        <span class="comment"># YAML: menos ruido</span><br/>
+        name: Ana<br/>
+        role: backend<br/>
+        skills:<br/>
+        &nbsp;&nbsp;- Go<br/>
+        &nbsp;&nbsp;- Rust
+      </div>
+    </div>
+    <div>
+      <div class="code-block">
+        <span class="comment"># Markdown: natural</span><br/>
+        <span class="keyword">## Ana</span><br/>
+        - Rol: backend<br/>
+        - Skills: Go, Rust
+      </div>
+      <div class="code-block">
+        <span class="comment">&lt;!-- XML tags --&gt;</span><br/>
+        <span class="keyword">&lt;developer&gt;</span><br/>
+        &nbsp;&nbsp;<span class="keyword">&lt;name&gt;</span>Ana<span class="keyword">&lt;/name&gt;</span><br/>
+        &nbsp;&nbsp;<span class="keyword">&lt;role&gt;</span>backend<span class="keyword">&lt;/role&gt;</span><br/>
+        &nbsp;&nbsp;<span class="keyword">&lt;skills&gt;</span>Go, Rust<span class="keyword">&lt;/skills&gt;</span><br/>
+        <span class="keyword">&lt;/developer&gt;</span>
+      </div>
+    </div>
+  </div>
+  <h3><i data-lucide="target"></i> Regla práctica: ¿cuándo usar cada uno?</h3>
+  <ul>
+    <li><i data-lucide="code"></i> <strong>¿Tu código parsea la salida?</strong> → JSON con strict mode (slide 40)</li>
+    <li><i data-lucide="file-text"></i> <strong>¿El LLM lee la entrada como contexto?</strong> → Markdown (más natural, menos tokens)</li>
+    <li><i data-lucide="settings"></i> <strong>¿Configuras herramientas de IA?</strong> → YAML (skills, agentes, frontmatter)</li>
+    <li><i data-lucide="layout"></i> <strong>¿Separas bloques en un prompt largo?</strong> → XML tags (<code>&lt;context&gt;</code>, <code>&lt;instructions&gt;</code>)</li>
+  </ul>
+  <div class="callout">
+    <p class="callout-title"><i data-lucide="lightbulb"></i> Consejo clave</p>
+    <p>Markdown es el idioma nativo de los LLMs: los modelos se entrenaron con millones de ficheros .md. Usar Markdown como formato de contexto (CLAUDE.md, system prompts, documentación) aprovecha esa ventaja. Reserva JSON para cuando necesites que <strong>tu código</strong> parsee la salida.</p>
+  </div>
+</Slide>
+
+<!-- SLIDE 39 -->
+<Slide id="alucinaciones" number={39} title="Alucinaciones: cuando la IA inventa con total confianza">
   <p><i data-lucide="alert-triangle"></i> Una alucinación ocurre cuando el modelo genera información <strong>falsa, inventada o sin base</strong>, pero la presenta con la misma confianza que un dato real. No es un bug: es una consecuencia del mecanismo de predicción estadística.</p>
   <h3><i data-lucide="code"></i> Ejemplo real: código alucinado</h3>
   <div class="two-cols">
@@ -678,8 +745,8 @@ import Slide from './Slide.astro';
   </div>
 </Slide>
 
-<!-- SLIDE 39 -->
-<Slide id="structured-output" number={39} title="Structured output: que el modelo devuelva datos parseables">
+<!-- SLIDE 40 -->
+<Slide id="structured-output" number={40} title="Structured output: que el modelo devuelva datos parseables">
   <p><i data-lucide="code"></i> En producción no quieres texto libre: quieres <strong>JSON válido</strong>, con campos tipados, que tu código pueda parsear sin romper. Los modelos modernos soportan modos para garantizarlo.</p>
   <h3><i data-lucide="layers"></i> Tres niveles de control</h3>
   <table>
@@ -735,8 +802,8 @@ import Slide from './Slide.astro';
   </div>
 </Slide>
 
-<!-- SLIDE 40 -->
-<Slide id="vision-multimodal" number={40} title="Visión y multimodalidad: más allá del texto">
+<!-- SLIDE 41 -->
+<Slide id="vision-multimodal" number={41} title="Visión y multimodalidad: más allá del texto">
   <p><i data-lucide="image"></i> Los modelos actuales no solo leen texto: pueden <strong>ver imágenes, leer PDFs y procesar audio</strong>. Esto abre casos de uso que antes requerían herramientas especializadas.</p>
   <h3><i data-lucide="eye"></i> ¿Qué puedes enviar al modelo?</h3>
   <div class="icon-grid">
@@ -806,8 +873,8 @@ import Slide from './Slide.astro';
   </div>
 </Slide>
 
-<!-- SLIDE 41 -->
-<Slide id="voice-realtime" number={41} title="Voz y APIs en tiempo real">
+<!-- SLIDE 42 -->
+<Slide id="voice-realtime" number={42} title="Voz y APIs en tiempo real">
   <p><i data-lucide="mic"></i> En 2026, los agentes ya no solo leen y escriben texto: <strong>hablan</strong>. Las APIs de voz en tiempo real permiten construir agentes conversacionales con latencia de milisegundos.</p>
   <h3><i data-lucide="route"></i> Pipeline clásico vs nativo</h3>
   <div class="two-cols">
@@ -853,8 +920,8 @@ import Slide from './Slide.astro';
   </div>
 </Slide>
 
-<!-- SLIDE 42 -->
-<Slide id="gen-imagenes-video" number={42} title="Generación de imágenes y vídeo con IA">
+<!-- SLIDE 43 -->
+<Slide id="gen-imagenes-video" number={43} title="Generación de imágenes y vídeo con IA">
   <p><i data-lucide="image"></i> Los modelos generativos no solo producen texto: generan <strong>imágenes, vídeo, audio y 3D</strong> a partir de descripciones en lenguaje natural.</p>
   <h3><i data-lucide="image"></i> Modelos de imagen (marzo 2026)</h3>
   <table>
@@ -896,8 +963,8 @@ import Slide from './Slide.astro';
   </div>
 </Slide>
 
-<!-- SLIDE 43 -->
-<Slide id="modelos-difusion" number={43} title="Cómo funcionan los modelos de difusión">
+<!-- SLIDE 44 -->
+<Slide id="modelos-difusion" number={44} title="Cómo funcionan los modelos de difusión">
   <p><i data-lucide="wand-sparkles"></i> Los modelos de difusión generan imágenes <strong>eliminando ruido progresivamente</strong>. Empiezan con ruido puro y, paso a paso, lo convierten en una imagen coherente guiada por tu prompt.</p>
   <h3><i data-lucide="route"></i> Proceso de generación</h3>
   <div class="flow">
@@ -965,8 +1032,8 @@ import Slide from './Slide.astro';
   </div>
 </Slide>
 
-<!-- SLIDE 44 -->
-<Slide id="entrenamiento-imagen" number={44} title="Tipos de entrenamiento para modelos de imagen">
+<!-- SLIDE 45 -->
+<Slide id="entrenamiento-imagen" number={45} title="Tipos de entrenamiento para modelos de imagen">
   <p><i data-lucide="graduation-cap"></i> No necesitas entrenar un modelo desde cero. Existen técnicas para <strong>adaptar modelos existentes</strong> a tu estilo, personaje o dominio con pocos datos y hardware modesto.</p>
   <table>
     <thead>
@@ -1026,8 +1093,8 @@ import Slide from './Slide.astro';
   </div>
 </Slide>
 
-<!-- SLIDE 45 -->
-<Slide id="herramientas-imagen-oss" number={45} title="Herramientas OSS y plataformas para imagen">
+<!-- SLIDE 46 -->
+<Slide id="herramientas-imagen-oss" number={46} title="Herramientas OSS y plataformas para imagen">
   <p><i data-lucide="wrench"></i> El ecosistema open source de generación de imágenes es enorme. Estas son las herramientas que un ingeniero necesita conocer.</p>
   <h3><i data-lucide="monitor"></i> Interfaces locales</h3>
   <table>
@@ -1081,8 +1148,8 @@ import Slide from './Slide.astro';
   </div>
 </Slide>
 
-<!-- SLIDE 46 -->
-<Slide id="control-imagen" number={46} title="Técnicas de control: ControlNet, IP-Adapter y más">
+<!-- SLIDE 47 -->
+<Slide id="control-imagen" number={47} title="Técnicas de control: ControlNet, IP-Adapter y más">
   <p><i data-lucide="sliders-horizontal"></i> Generar imágenes "a ver qué sale" es divertido. En producción, necesitas <strong>control preciso</strong> sobre la composición, la pose, el estilo y los detalles.</p>
   <h3><i data-lucide="layers"></i> Técnicas principales</h3>
   <div class="icon-grid">
@@ -1139,8 +1206,8 @@ import Slide from './Slide.astro';
   </div>
 </Slide>
 
-<!-- SLIDE 47 -->
-<Slide id="frontier" number={47} title="¿Cómo se crea un modelo frontier?">
+<!-- SLIDE 48 -->
+<Slide id="frontier" number={48} title="¿Cómo se crea un modelo frontier?">
   <ol class="steps">
     <li><i data-lucide="database"></i> <strong>Pre-entrenamiento:</strong> billones de tokens, semanas de entrenamiento en miles de GPUs. El modelo aprende patrones del lenguaje prediciendo la siguiente palabra en textos masivos (internet, libros, código). Esta fase consume el 90%+ del presupuesto de compute.</li>
     <li><i data-lucide="graduation-cap"></i> <strong>Fine-tuning supervisado (SFT):</strong> ejemplos curados de conversaciones de calidad. Humanos escriben respuestas ideales y el modelo aprende a imitarlas. Típicamente 10.000-100.000 ejemplos de alta calidad.</li>
@@ -1175,8 +1242,8 @@ import Slide from './Slide.astro';
   </div>
 </Slide>
 
-<!-- SLIDE 48 -->
-<Slide id="huggingface-lmstudio" number={48} title="Hugging Face + LM Studio: modelos en local">
+<!-- SLIDE 49 -->
+<Slide id="huggingface-lmstudio" number={49} title="Hugging Face + LM Studio: modelos en local">
   <div class="two-cols">
     <div>
       <h3><i data-lucide="globe"></i> Hugging Face</h3>
@@ -1220,8 +1287,8 @@ import Slide from './Slide.astro';
   </div>
 </Slide>
 
-<!-- SLIDE 49 -->
-<Slide id="rag" number={49} title="RAG (Retrieval Augmented Generation)">
+<!-- SLIDE 50 -->
+<Slide id="rag" number={50} title="RAG (Retrieval Augmented Generation)">
   <p><i data-lucide="search"></i> <strong>Problema:</strong> el modelo no sabe de tus datos internos (documentación, BD, wikis). Fue entrenado con datos públicos hasta cierta fecha.</p>
   <p><i data-lucide="lightbulb"></i> <strong>Solución:</strong> en vez de reentrenar el modelo, le pasas contexto relevante en cada consulta.</p>
   <div class="flow">
@@ -1292,8 +1359,8 @@ import Slide from './Slide.astro';
   </div>
 </Slide>
 
-<!-- SLIDE 50 -->
-<Slide id="agentic-rag" number={50} title="Agentic RAG: la evolución del retrieval">
+<!-- SLIDE 51 -->
+<Slide id="agentic-rag" number={51} title="Agentic RAG: la evolución del retrieval">
   <p><i data-lucide="search"></i> El RAG básico (slide anterior) busca, inyecta y genera. <strong>Agentic RAG</strong> añade razonamiento: el agente decide <strong>qué buscar, cómo buscarlo, y si el resultado es suficiente</strong>.</p>
   <h3><i data-lucide="git-branch"></i> RAG básico vs agentic RAG</h3>
   <div class="two-cols">
@@ -1352,8 +1419,8 @@ import Slide from './Slide.astro';
   </div>
 </Slide>
 
-<!-- SLIDE 51 -->
-<Slide id="graphrag" number={51} title="GraphRAG y estrategias avanzadas de retrieval">
+<!-- SLIDE 52 -->
+<Slide id="graphrag" number={52} title="GraphRAG y estrategias avanzadas de retrieval">
   <p><i data-lucide="network"></i> Más allá de buscar fragmentos similares: estrategias que combinan <strong>grafos de conocimiento, búsqueda híbrida y contexto enriquecido</strong>.</p>
   <h3><i data-lucide="layers"></i> Estrategias de retrieval (de simple a avanzado)</h3>
   <table>
@@ -1390,8 +1457,8 @@ import Slide from './Slide.astro';
   </div>
 </Slide>
 
-<!-- SLIDE 52 -->
-<Slide id="cuando-que-tecnica" number={52} title="¿Cuándo usar prompt, RAG o fine-tuning?">
+<!-- SLIDE 53 -->
+<Slide id="cuando-que-tecnica" number={53} title="¿Cuándo usar prompt, RAG o fine-tuning?">
   <p><i data-lucide="compass"></i> Las tres técnicas resuelven problemas diferentes. Elegir mal cuesta tiempo y dinero.</p>
   <table>
     <thead>
@@ -1434,8 +1501,8 @@ import Slide from './Slide.astro';
   </div>
 </Slide>
 
-<!-- SLIDE 53 -->
-<Slide id="fine-tuning-practico" number={53} title="Fine-tuning en la práctica">
+<!-- SLIDE 54 -->
+<Slide id="fine-tuning-practico" number={54} title="Fine-tuning en la práctica">
   <p><i data-lucide="settings"></i> Fine-tuning es <strong>reentrenar parcialmente un modelo</strong> con tus propios datos para que se especialice en tu tarea. No cambias el modelo entero: solo ajustas una parte.</p>
   <h3><i data-lucide="puzzle"></i> LoRA y QLoRA</h3>
   <p>En vez de reentrenar los miles de millones de parámetros del modelo, <strong>LoRA</strong> (Low-Rank Adaptation) añade pequeñas matrices entrenables en capas clave. Resultado: entrenas <strong>0.1-1% de los parámetros</strong> con una fracción de la memoria.</p>
@@ -1484,8 +1551,8 @@ import Slide from './Slide.astro';
   </div>
 </Slide>
 
-<!-- SLIDE 54 -->
-<Slide id="datos-sinteticos" number={54} title="Datos sintéticos">
+<!-- SLIDE 55 -->
+<Slide id="datos-sinteticos" number={55} title="Datos sintéticos">
   <p><i data-lucide="factory"></i> Usar un LLM grande para <strong>generar datos de entrenamiento</strong> para otros modelos o sistemas. Cada vez más común como alternativa a la recolección manual de datos.</p>
   <h3><i data-lucide="list-tree"></i> Patrones comunes</h3>
   <div class="icon-grid">
@@ -1535,8 +1602,8 @@ import Slide from './Slide.astro';
   </div>
 </Slide>
 
-<!-- SLIDE 55 -->
-<Slide id="vectordb" number={55} title="Bases de datos vectoriales: ¿qué son y en qué se diferencian?">
+<!-- SLIDE 56 -->
+<Slide id="vectordb" number={56} title="Bases de datos vectoriales: ¿qué son y en qué se diferencian?">
   <p><i data-lucide="database"></i> Bases de datos optimizadas para almacenar y buscar <strong>vectores (embeddings)</strong> por similitud. En vez de buscar por coincidencia exacta (<code>WHERE nombre = 'X'</code>), buscan por distancia entre vectores: "¿qué vectores se parecen más a este?"</p>
   <h3><i data-lucide="compass"></i> SQL vs NoSQL vs Vectorial</h3>
   <table>
@@ -1574,8 +1641,8 @@ import Slide from './Slide.astro';
   </div>
 </Slide>
 
-<!-- SLIDE 56 -->
-<Slide id="text-to-sql" number={56} title="Text-to-SQL: consultas en lenguaje natural">
+<!-- SLIDE 57 -->
+<Slide id="text-to-sql" number={57} title="Text-to-SQL: consultas en lenguaje natural">
   <p><i data-lucide="database"></i> Convertir preguntas en español a <strong>queries SQL ejecutables</strong>. El caso de uso más inmediato de IA para backend engineers.</p>
   <h3><i data-lucide="route"></i> Flujo</h3>
   <div class="flow">
@@ -1613,8 +1680,8 @@ import Slide from './Slide.astro';
   </div>
 </Slide>
 
-<!-- SLIDE 57 -->
-<Slide id="prompt-caching" number={57} title="Prompt caching: pagar una vez, reutilizar siempre">
+<!-- SLIDE 58 -->
+<Slide id="prompt-caching" number={58} title="Prompt caching: pagar una vez, reutilizar siempre">
   <p><i data-lucide="database"></i> Cuando usas system prompts largos o contexto RAG fijo, estás pagando los mismos tokens en cada llamada. El prompt caching guarda los tokens estáticos en caché y solo cobras una fracción en llamadas posteriores.</p>
   <div class="flow">
     <span class="flow-step">Primera llamada</span>
@@ -1661,8 +1728,8 @@ import Slide from './Slide.astro';
   </div>
 </Slide>
 
-<!-- SLIDE 58 -->
-<Slide id="context-window-practica" number={58} title="Context window en la práctica: no todo es lo que parece">
+<!-- SLIDE 59 -->
+<Slide id="context-window-practica" number={59} title="Context window en la práctica: no todo es lo que parece">
   <p><i data-lucide="layers"></i> Un modelo con 200k tokens de context window no significa que puedas meter 200k tokens y funcione igual de bien. Hay límites prácticos que todo ingeniero debe conocer.</p>
   <h3><i data-lucide="alert-triangle"></i> "Lost in the middle"</h3>
   <p>Los modelos prestan más atención al inicio y al final del contexto, y tienden a "olvidar" información que está en el medio. Si metes un dato importante en la página 50 de 100, el modelo puede ignorarlo. (<a href="https://arxiv.org/abs/2307.03172" target="_blank">Lost in the Middle paper</a>)</p>
@@ -1696,8 +1763,8 @@ import Slide from './Slide.astro';
   </div>
 </Slide>
 
-<!-- SLIDE 59 -->
-<Slide id="api-hello-world" number={59} title="API Hello World: tu primera llamada a un LLM">
+<!-- SLIDE 60 -->
+<Slide id="api-hello-world" number={60} title="API Hello World: tu primera llamada a un LLM">
   <p><i data-lucide="terminal"></i> Antes de hablar de agentes, veamos lo más básico: hacer una llamada a la API de un modelo. Es sorprendentemente simple.</p>
   <h3><i data-lucide="terminal"></i> Con curl</h3>
   <div class="code-block">
@@ -1744,8 +1811,8 @@ import Slide from './Slide.astro';
   </div>
 </Slide>
 
-<!-- SLIDE 60 -->
-<Slide id="streaming" number={60} title="Streaming de respuestas">
+<!-- SLIDE 61 -->
+<Slide id="streaming" number={61} title="Streaming de respuestas">
   <p><i data-lucide="radio"></i> En vez de esperar a que el modelo genere toda la respuesta, recibes <strong>token por token</strong> en tiempo real. Todo producto serio usa streaming: ChatGPT, Claude, Gemini.</p>
   <h3><i data-lucide="arrow-right"></i> ¿Cómo funciona?</h3>
   <div class="icon-grid">
@@ -1803,8 +1870,8 @@ import Slide from './Slide.astro';
   </div>
 </Slide>
 
-<!-- SLIDE 61 -->
-<Slide id="arquitectura-apps-llm" number={61} title="Arquitectura de aplicaciones con LLM">
+<!-- SLIDE 62 -->
+<Slide id="arquitectura-apps-llm" number={62} title="Arquitectura de aplicaciones con LLM">
   <p><i data-lucide="building"></i> Saber llamar a la API es el primer paso. Construir un <strong>producto en producción</strong> requiere patrones de ingeniería que la documentación del modelo no enseña.</p>
   <h3><i data-lucide="layers"></i> Capas de una app LLM en producción</h3>
   <div class="flow">
@@ -1864,8 +1931,8 @@ import Slide from './Slide.astro';
   </div>
 </Slide>
 
-<!-- SLIDE 62 -->
-<Slide id="recap-uso-practico" number={62} title="Lo que deberías saber: uso práctico">
+<!-- SLIDE 63 -->
+<Slide id="recap-uso-practico" number={63} title="Lo que deberías saber: uso práctico">
   <table>
     <thead>
       <tr><th>Concepto</th><th>Slide</th></tr>
@@ -1873,17 +1940,18 @@ import Slide from './Slide.astro';
     <tbody>
       <tr><td>Prompt engineering: contexto claro + restricciones precisas</td><td>36</td></tr>
       <tr><td>Context engineering: gestionar las 6 capas del contexto</td><td>37</td></tr>
-      <tr><td>Alucinaciones: el modelo no sabe que no sabe</td><td>38</td></tr>
-      <tr><td>Structured output: JSON garantizado con schema</td><td>39</td></tr>
-      <tr><td>Multimodal: enviar imágenes, PDFs y audio al modelo</td><td>40</td></tr>
-      <tr><td>Voz en tiempo real: speech-to-speech con 300 ms de latencia</td><td>41</td></tr>
-      <tr><td>Generación de imágenes: difusión, LoRA, ControlNet, ComfyUI</td><td>42-46</td></tr>
-      <tr><td>RAG: inyectar contexto desde tus documentos</td><td>49</td></tr>
-      <tr><td>Agentic RAG y GraphRAG: retrieval inteligente y multi-fuente</td><td>50-51</td></tr>
-      <tr><td>Fine-tuning con LoRA/QLoRA cuando el prompt no basta</td><td>53</td></tr>
-      <tr><td>Prompt caching: ahorro de hasta 90% en tokens repetidos</td><td>57</td></tr>
-      <tr><td>Streaming: token por token para mejor UX</td><td>60</td></tr>
-      <tr><td>Arquitectura de apps LLM: retry, fallback, circuit breaker</td><td>61</td></tr>
+      <tr><td>Formatos de datos: JSON, YAML, Markdown, XML y cuándo usar cada uno</td><td>38</td></tr>
+      <tr><td>Alucinaciones: el modelo no sabe que no sabe</td><td>39</td></tr>
+      <tr><td>Structured output: JSON garantizado con schema</td><td>40</td></tr>
+      <tr><td>Multimodal: enviar imágenes, PDFs y audio al modelo</td><td>41</td></tr>
+      <tr><td>Voz en tiempo real: speech-to-speech con 300 ms de latencia</td><td>42</td></tr>
+      <tr><td>Generación de imágenes: difusión, LoRA, ControlNet, ComfyUI</td><td>43-47</td></tr>
+      <tr><td>RAG: inyectar contexto desde tus documentos</td><td>50</td></tr>
+      <tr><td>Agentic RAG y GraphRAG: retrieval inteligente y multi-fuente</td><td>51-52</td></tr>
+      <tr><td>Fine-tuning con LoRA/QLoRA cuando el prompt no basta</td><td>54</td></tr>
+      <tr><td>Prompt caching: ahorro de hasta 90% en tokens repetidos</td><td>58</td></tr>
+      <tr><td>Streaming: token por token para mejor UX</td><td>61</td></tr>
+      <tr><td>Arquitectura de apps LLM: retry, fallback, circuit breaker</td><td>62</td></tr>
     </tbody>
   </table>
 </Slide>
