@@ -1,5 +1,10 @@
 FROM node:22-alpine AS build
 WORKDIR /app
+
+# Build-time public identifier de GlitchTip. Se recibe desde Coolify.
+ARG PUBLIC_GLITCHTIP_DSN
+ENV PUBLIC_GLITCHTIP_DSN=$PUBLIC_GLITCHTIP_DSN
+
 COPY package*.json ./
 RUN npm ci
 COPY . .
