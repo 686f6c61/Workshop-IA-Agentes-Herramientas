@@ -586,11 +586,14 @@ import Slide from './Slide.astro';
       <tr><th>Modelo</th><th>Empresa</th><th>Dimensiones</th><th>Punto fuerte</th></tr>
     </thead>
     <tbody>
-      <tr><td><strong>text-embedding-3-large</strong></td><td>OpenAI</td><td>3072</td><td>Alta calidad general. Dimensiones configurables (256-3072). Buen equilibrio coste/rendimiento.</td></tr>
-      <tr><td><strong>voyage-3.5 / voyage-3-large</strong></td><td>Voyage AI</td><td>1024 por defecto; 256-2048 configurable</td><td>Recomendado por Anthropic para RAG. Buen soporte multilingüe, código y documentación técnica.</td></tr>
-      <tr><td><strong>BGE-M3</strong></td><td>BAAI (open source)</td><td>1024</td><td>Multilingüe (100+ idiomas). Búsqueda híbrida (densa + dispersa). Ideal si necesitas soporte robusto de español.</td></tr>
-      <tr><td><strong>E5-Mistral</strong></td><td>Microsoft (open source)</td><td>4096</td><td>Basado en Mistral 7B. Muy alta calidad en benchmarks. Requiere más compute por su tamaño.</td></tr>
-      <tr><td><strong>Cohere Embed v4</strong></td><td>Cohere</td><td>256-1536</td><td>Embeddings multimodales texto/imagen/PDF, dimensiones Matryoshka y contexto 128k.</td></tr>
+      <tr><td><strong>text-embedding-3-large</strong></td><td>OpenAI</td><td>3072 por defecto; configurable</td><td>Alta calidad general para inglés y multilingüe. API madura y coste predecible.</td></tr>
+      <tr><td><strong>voyage-4-large / voyage-4 / voyage-4-lite</strong></td><td>Voyage AI</td><td>1024 por defecto; 256, 512, 2048</td><td>Muy fuerte para RAG general y multilingüe. Matryoshka y cuantización para reducir coste de vector DB.</td></tr>
+      <tr><td><strong>gemini-embedding-001</strong></td><td>Google</td><td>3072 por defecto; reducible</td><td>Modelo unificado para inglés, multilingüe y código. Buena opción si ya usas Vertex/Gemini.</td></tr>
+      <tr><td><strong>Qwen3-Embedding</strong></td><td>Qwen (open weights)</td><td>1024 / 2560 / 4096 según tamaño</td><td>0.6B, 4B y 8B. 100+ idiomas, 32k contexto, MRL y ejecución self-host.</td></tr>
+      <tr><td><strong>BGE-M3</strong></td><td>BAAI (open source)</td><td>1024</td><td>Multilingüe (100+ idiomas), 8192 tokens y retrieval híbrido: denso + sparse + multi-vector.</td></tr>
+      <tr><td><strong>Cohere embed-v4.0</strong></td><td>Cohere</td><td>1536 por defecto; 256, 512, 1024, 1536</td><td>Embeddings multimodales texto/imagen/PDF, Matryoshka y contexto 128k.</td></tr>
+      <tr><td><strong>codestral-embed</strong></td><td>Mistral AI</td><td>1536 por defecto; hasta 3072</td><td>Especializado en code retrieval: búsqueda semántica sobre repositorios y documentación técnica.</td></tr>
+      <tr><td><strong>e5-mistral-7b-instruct</strong></td><td>IntFloat / Microsoft</td><td>4096</td><td>Baseline open-weight de alta calidad, pero pesado: requiere más compute que BGE o Qwen pequeños.</td></tr>
     </tbody>
   </table>
   <p>Los embeddings se almacenan en bases de datos vectoriales: Pinecone, Chroma, Weaviate, pgvector. La elección del modelo depende del idioma, tipo de contenido y presupuesto.</p>
@@ -600,10 +603,15 @@ import Slide from './Slide.astro';
   </div>
   <div class="refs">
     <p class="refs-title">Para profundizar</p>
-    <a href="https://developers.openai.com/api/docs/models/text-embedding-3-large" target="_blank">OpenAI - text-embedding-3-large</a>
+    <a href="https://developers.openai.com/api/docs/guides/embeddings" target="_blank">OpenAI - Embeddings</a>
+    <a href="https://docs.voyageai.com/docs/embeddings" target="_blank">Voyage AI - Text embeddings</a>
+    <a href="https://docs.cloud.google.com/vertex-ai/generative-ai/docs/embeddings/get-text-embeddings" target="_blank">Google Vertex AI - Text embeddings</a>
+    <a href="https://huggingface.co/Qwen/Qwen3-Embedding-8B" target="_blank">Qwen3-Embedding model card</a>
     <a href="https://docs.anthropic.com/en/docs/build-with-claude/embeddings" target="_blank">Anthropic - Embeddings con Voyage AI</a>
     <a href="https://docs.cohere.com/docs/cohere-embed" target="_blank">Cohere - Embed models</a>
+    <a href="https://docs.mistral.ai/capabilities/embeddings/code_embeddings" target="_blank">Mistral - Codestral Embed</a>
     <a href="https://arxiv.org/abs/2402.03216" target="_blank">BGE-M3 paper</a>
+    <a href="https://huggingface.co/intfloat/e5-mistral-7b-instruct" target="_blank">E5-Mistral model card</a>
     <a href="https://www.pinecone.io/learn/vector-embeddings/" target="_blank">Pinecone - Vector Embeddings Explained</a>
     <a href="https://jalammar.github.io/illustrated-word2vec/" target="_blank">Jay Alammar - The Illustrated Word2Vec</a>
   </div>
@@ -671,49 +679,49 @@ import Slide from './Slide.astro';
 
 <!-- SLIDE 16 -->
 <Slide id="quantizacion" number={16} title="Quantización: modelos que caben en tu portátil">
-  <p>Comprimir el modelo reduciendo la precisión numérica de cada peso. La quantización cambia el tipo de dato: menos bits por parámetro, menos memoria, más velocidad; a cambio, algo de error numérico.</p>
-  <table>
+  <p>Comprimir el modelo reduciendo la precisión numérica de cada <strong>peso</strong>. Un peso es un número aprendido durante el entrenamiento; al quantizar no cambias la arquitectura, cambias cómo se guarda ese número.</p>
+  <div class="callout">
+    <p class="callout-title"><i data-lucide="book-open"></i> Cómo leer la tabla</p>
+    <p><strong>Formato</strong> es el tipo de dato usado para guardar cada peso. <strong>Bits/peso</strong> es el espacio que ocupa cada número. <strong>Memoria 7B</strong> estima solo los pesos: 7.000 millones de pesos x bits / 8. <strong>Trade-off</strong> es lo que ganas y pierdes al comprimir.</p>
+  </div>
+  <table class="compact-table">
     <thead>
-      <tr><th>Formato</th><th>Bits/peso</th><th>Uso típico</th><th>Memoria 7B</th><th>Trade-off</th></tr>
+      <tr><th>Formato</th><th>Qué significa</th><th>Bits/peso</th><th>Uso típico</th><th>Memoria 7B</th><th>Trade-off</th></tr>
     </thead>
     <tbody>
-      <tr><td><strong>FP32</strong></td><td>32</td><td>Entrenamiento clásico</td><td>~28 GB</td><td>Máxima precisión, memoria enorme</td></tr>
-      <tr><td><strong>BF16 / FP16</strong></td><td>16</td><td>Entrenamiento e inferencia GPU</td><td>~14 GB</td><td>Casi calidad original, buen rendimiento</td></tr>
-      <tr><td><strong>FP8 / INT8</strong></td><td>8</td><td>Inferencia optimizada</td><td>~7 GB</td><td>Muy buena calidad, mitad de memoria</td></tr>
-      <tr><td><strong>INT4 / NF4</strong></td><td>4</td><td>Local, QLoRA, despliegue barato</td><td>~3.5-4.5 GB</td><td>Gran ahorro; puede perder razonamiento fino</td></tr>
+      <tr><td><strong>FP32</strong></td><td>Floating Point 32: número decimal de alta precisión</td><td>32</td><td>Entrenamiento clásico</td><td>~28 GB</td><td>Máxima precisión, memoria enorme</td></tr>
+      <tr><td><strong>BF16 / FP16</strong></td><td>Half precision: decimales de 16 bits; BF16 conserva mejor el rango, FP16 más detalle local</td><td>16</td><td>Entrenamiento e inferencia GPU</td><td>~14 GB</td><td>Casi calidad original, buen rendimiento</td></tr>
+      <tr><td><strong>FP8 / INT8</strong></td><td>8 bits por peso: FP8 guarda decimales pequeños; INT8 guarda enteros con escala</td><td>8</td><td>Inferencia optimizada</td><td>~7 GB</td><td>Muy buena calidad, mitad de memoria</td></tr>
+      <tr><td><strong>INT4 / NF4</strong></td><td>4 bits: INT4 usa 16 niveles; NF4 está diseñado para pesos con distribución normal</td><td>4</td><td>Local, QLoRA, despliegue barato</td><td>~3.5-4.5 GB</td><td>Gran ahorro; puede perder razonamiento fino</td></tr>
     </tbody>
   </table>
-  <div class="code-block">
-    <span class="comment">// Ejemplo: un peso del modelo en diferentes precisiones</span><br/>
-    <span class="keyword">FP32</span>: 0.18723541498... <span class="comment">// precisión total, 32 bits</span><br/>
-    <span class="keyword">FP16</span>: 0.1872&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="comment">// pierde decimales, 16 bits</span><br/>
-    <span class="keyword">INT8</span>: 0.19&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="comment">// redondeado, 8 bits</span><br/>
-    <span class="keyword">INT4</span>: 0.2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="comment">// muy redondeado, 4 bits</span><br/><br/>
-    <span class="comment">// La clave: con miles de millones de parámetros, cada bit cuenta</span><br/>
-    <span class="comment">// 7B params x 32 bits = 28 GB &rarr; 7B x 4 bits = 3.5 GB</span>
+  <div class="callout">
+    <p class="callout-title"><i data-lucide="calculator"></i> De dónde salen esos GB</p>
+    <p>Un modelo 7B tiene unos 7.000 millones de pesos. Si cada peso ocupa 32 bits: 7B x 32 / 8 = ~28 GB. Si ocupa 4 bits: 7B x 4 / 8 = ~3.5 GB. En la práctica se suma memoria para tokenizer, activaciones, KV cache y runtime.</p>
   </div>
   <p>Esto es lo que hace posible <strong>LM Studio</strong> y <strong>Ollama</strong>: ejecutar modelos de 7B-70B parámetros en hardware de consumo usando formatos GGUF quantizados. A menor precisión, menor memoria; la pérdida depende del modelo, del método y de la tarea.</p>
   <h3><i data-lucide="sliders-horizontal"></i> No todas las quantizaciones son iguales</h3>
-  <table>
+  <table class="compact-table">
     <thead>
       <tr><th>Familia</th><th>Dónde se ve</th><th>Idea</th><th>Cuándo usarla</th></tr>
     </thead>
     <tbody>
       <tr><td><strong>GGUF / GGML</strong></td><td>Ollama, LM Studio, llama.cpp</td><td>Archivo con pesos + tokenizer + metadata; optimizado para CPU/GPU local</td><td>Modelos locales y portátiles</td></tr>
       <tr><td><strong>bitsandbytes</strong></td><td>Transformers</td><td>Carga en 8-bit o 4-bit al vuelo</td><td>Prototipos, fine-tuning con QLoRA</td></tr>
-      <tr><td><strong>GPTQ / AWQ</strong></td><td>Hugging Face, vLLM, ExLlama</td><td>Post-training quantization calibrada</td><td>GPU, inferencia rápida en producción</td></tr>
+      <tr><td><strong>GPTQ / AWQ</strong></td><td>Hugging Face, vLLM, ExLlama</td><td>Quantización post-training: comprimir después de entrenar usando ejemplos de calibración</td><td>GPU, inferencia rápida en producción</td></tr>
       <tr><td><strong>FP8</strong></td><td>H100/H200, proveedores cloud</td><td>Formato de baja precisión pensado para aceleradores modernos</td><td>Servir modelos grandes con buen throughput</td></tr>
     </tbody>
   </table>
   <div class="callout">
     <p class="callout-title"><i data-lucide="cpu"></i> Formatos GGUF habituales</p>
-    <p><strong>Q4_K_M</strong>: equilibrio por defecto en llama.cpp; suele ser el primer intento. <strong>Q5_K_M</strong>: más calidad con algo más de RAM. <strong>Q6_K / Q8_0</strong>: mejor fidelidad para razonamiento, extracción precisa o producción local. <strong>IQ quants</strong>: usan matriz de importancia; útiles cuando necesitas comprimir mucho y tienes datos de calibración representativos.</p>
+    <p><strong>Q4_K_M</strong>: equilibrio por defecto en llama.cpp; suele ser el primer intento. <strong>Q5_K_M</strong>: más calidad con algo más de RAM. <strong>Q6_K / Q8_0</strong>: mejor fidelidad para razonamiento, extracción precisa o producción local. <strong>IQ quants</strong>: usan una matriz de importancia, es decir, datos de ejemplo para decidir qué pesos conviene conservar mejor.</p>
   </div>
   <div class="refs">
     <p class="refs-title">Para profundizar</p>
     <a href="https://huggingface.co/docs/transformers/main/quantization" target="_blank">Hugging Face Transformers - Quantization</a>
     <a href="https://huggingface.co/docs/hub/main/gguf" target="_blank">Hugging Face Hub - GGUF</a>
     <a href="https://www.mintlify.com/ggml-org/llama.cpp/concepts/quantization" target="_blank">llama.cpp - Model Quantization</a>
+    <a href="https://arxiv.org/abs/2305.14314" target="_blank">QLoRA paper - NF4</a>
   </div>
 </Slide>
 
@@ -834,7 +842,7 @@ import Slide from './Slide.astro';
 <!-- SLIDE 20 -->
 <Slide id="arquitecturas" number={20} title="Arquitecturas">
   <h3><i data-lucide="network"></i> Evolución de las arquitecturas</h3>
-  <p>Las arquitecturas de redes neuronales han evolucionado radicalmente en la última década. Cada salto resolvió limitaciones fundamentales del anterior.</p>
+  <p>La historia no acaba en Transformer. En 2026 la base dominante sigue siendo la familia Transformer, pero los modelos punteros combinan bloques: decoder-only, MoE, atención eficiente, memoria larga, SSM/Mamba e incluso procesamiento por bytes o latentes.</p>
   <div class="flow">
     <span class="flow-step">Perceptron (1958)</span>
     <span class="flow-arrow">&rarr;</span>
@@ -844,38 +852,51 @@ import Slide from './Slide.astro';
     <span class="flow-arrow">&rarr;</span>
     <span class="flow-step">Transformer (2017)</span>
     <span class="flow-arrow">&rarr;</span>
-    <span class="flow-step">LLMs actuales</span>
+    <span class="flow-step">Decoder-only + MoE</span>
+    <span class="flow-arrow">&rarr;</span>
+    <span class="flow-step">SSM / híbridos</span>
   </div>
-  <h3><i data-lucide="layers"></i> De RNN a Transformer</h3>
-  <table>
+  <h3><i data-lucide="layers"></i> Qué problema intenta resolver cada familia</h3>
+  <table class="compact-table">
     <thead>
-      <tr><th>Arquitectura</th><th>Cómo procesa</th><th>Limitación</th><th>Solución</th></tr>
+      <tr><th>Familia</th><th>Cómo procesa</th><th>Ventaja</th><th>Limitación</th></tr>
     </thead>
     <tbody>
-      <tr><td><strong>RNN</strong></td><td>Token a token, secuencial</td><td>Olvida el inicio en secuencias largas</td><td>LSTM con "celdas de memoria"</td></tr>
-      <tr><td><strong>LSTM</strong></td><td>Secuencial, con memoria a largo plazo</td><td>Lenta (no paralelizable), límite práctico ~500 tokens</td><td>Transformer con atención</td></tr>
-      <tr><td><strong>Transformer</strong></td><td>Todos los tokens en paralelo</td><td>Coste cuadrático con la longitud de secuencia</td><td>MoE, atención dispersa, contextos extendidos</td></tr>
+      <tr><td><strong>RNN / LSTM</strong></td><td>Token a token, con estado recurrente</td><td>Memoria compacta y coste lineal</td><td>Difícil de paralelizar y peor escalado en lenguaje</td></tr>
+      <tr><td><strong>Transformer</strong></td><td>Todos los tokens atienden a todos</td><td>Entrenamiento paralelo y gran calidad</td><td>Atención O(n²) y KV cache grande en contexto largo</td></tr>
+      <tr><td><strong>Decoder-only Transformer</strong></td><td>Predice el siguiente token de izquierda a derecha</td><td>Base práctica de chat, código y agentes</td><td>Necesita ingeniería para memoria, herramientas y contexto largo</td></tr>
+      <tr><td><strong>MoE Transformer</strong></td><td>Un router activa pocos expertos por token</td><td>Más capacidad total sin activar todo el modelo</td><td>Más complejo de entrenar, servir y comparar</td></tr>
+      <tr><td><strong>SSM / Mamba</strong></td><td>Estado selectivo con coste lineal en secuencia</td><td>Promete mejor throughput y menos memoria en contexto largo</td><td>Aún no desplaza al Transformer en modelos frontier generalistas</td></tr>
+      <tr><td><strong>Híbridos</strong></td><td>Intercalan atención, Mamba/SSM y a veces MoE</td><td>Buscan calidad de Transformer + eficiencia de SSM</td><td>Más moving parts; la receta óptima sigue abierta</td></tr>
     </tbody>
   </table>
-  <h3><i data-lucide="blocks"></i> Variantes del Transformer</h3>
-  <table>
+  <h3><i data-lucide="blocks"></i> Mapa actualizado de arquitecturas</h3>
+  <table class="compact-table">
     <thead>
-      <tr><th>Año</th><th>Arquitectura</th><th>Tipo</th><th>Para qué</th><th>Ejemplos</th><th>Paper</th></tr>
+      <tr><th>Año</th><th>Arquitectura</th><th>Idea clave</th><th>Estado en 2026</th><th>Fuente</th></tr>
     </thead>
     <tbody>
-      <tr><td><strong>2017</strong></td><td>Transformer</td><td>Base</td><td>Secuencia a secuencia</td><td>Modelo original</td><td><a href="https://arxiv.org/abs/1706.03762" target="_blank">Attention Is All You Need</a></td></tr>
-      <tr><td><strong>2018</strong></td><td>Encoder-only</td><td>Comprensión</td><td>Clasificar, analizar</td><td>BERT</td><td><a href="https://arxiv.org/abs/1810.04805" target="_blank">BERT (Devlin et al.)</a></td></tr>
-      <tr><td><strong>2018-26</strong></td><td><strong>Decoder-only</strong></td><td>Generación</td><td>Generar texto, código</td><td>GPT, Claude, Llama</td><td><a href="https://cdn.openai.com/research-covers/language-unsupervised/language_understanding_paper.pdf" target="_blank">GPT-1 (Radford et al.)</a></td></tr>
-      <tr><td><strong>2019</strong></td><td>Encoder-Decoder</td><td>Seq2Seq</td><td>Traducción, resumen</td><td>T5, BART</td><td><a href="https://arxiv.org/abs/1910.10683" target="_blank">T5 (Raffel et al.)</a></td></tr>
-      <tr><td><strong>2020</strong></td><td>Vision Transformer</td><td>Vision</td><td>Imágenes</td><td>ViT, CLIP</td><td><a href="https://arxiv.org/abs/2010.11929" target="_blank">ViT (Dosovitskiy et al.)</a></td></tr>
-      <tr><td><strong>2023-26</strong></td><td>Multimodal</td><td>Varios</td><td>Texto + imagen + audio</td><td>GPT-5.5, Gemini 3.1, Claude</td><td><a href="https://arxiv.org/abs/2303.08774" target="_blank">GPT-4 Technical Report</a></td></tr>
+      <tr><td><strong>2017</strong></td><td>Transformer</td><td>Atención como bloque central</td><td>Base conceptual de casi todo</td><td><a href="https://arxiv.org/abs/1706.03762" target="_blank">Attention Is All You Need</a></td></tr>
+      <tr><td><strong>2018-26</strong></td><td>Decoder-only</td><td>Modelo autoregresivo: predice siguiente token</td><td>Patrón dominante en LLMs de texto/código</td><td><a href="https://cdn.openai.com/research-covers/language-unsupervised/language_understanding_paper.pdf" target="_blank">GPT-1</a></td></tr>
+      <tr><td><strong>2021-26</strong></td><td>MoE / sparse experts</td><td>Muchos parámetros almacenados, pocos activos por token</td><td>Muy usado en open weights y modelos eficientes</td><td><a href="https://arxiv.org/abs/2101.03961" target="_blank">Switch Transformers</a></td></tr>
+      <tr><td><strong>2023</strong></td><td>RWKV / RetNet</td><td>Entrenar en paralelo, inferir como recurrente</td><td>Alternativas eficientes; menos mainstream que Transformer</td><td><a href="https://arxiv.org/abs/2305.13048" target="_blank">RWKV</a> / <a href="https://arxiv.org/abs/2307.08621" target="_blank">RetNet</a></td></tr>
+      <tr><td><strong>2023</strong></td><td>Hyena</td><td>Convoluciones largas + gating como sustituto subcuadrático</td><td>Importante en investigación de contexto largo</td><td><a href="https://arxiv.org/abs/2302.10866" target="_blank">Hyena</a></td></tr>
+      <tr><td><strong>2023-24</strong></td><td>Mamba / Mamba-2</td><td>State Space Models selectivos; coste lineal</td><td>Muy relevante para long context y eficiencia</td><td><a href="https://arxiv.org/abs/2312.00752" target="_blank">Mamba</a> / <a href="https://arxiv.org/abs/2405.21060" target="_blank">Mamba-2</a></td></tr>
+      <tr><td><strong>2024-26</strong></td><td>Híbridos Transformer-SSM</td><td>Mezclan atención, Mamba y MoE</td><td>Producción real en familias como Jamba</td><td><a href="https://arxiv.org/abs/2403.19887" target="_blank">Jamba</a></td></tr>
+      <tr><td><strong>2024-26</strong></td><td>Byte / latent / multimodal</td><td>Menos dependencia del tokenizador; texto+imagen+audio/video</td><td>Frontera activa, no un estándar único</td><td><a href="https://arxiv.org/abs/2412.09871" target="_blank">BLT</a> / <a href="https://arxiv.org/abs/2303.08774" target="_blank">GPT-4 report</a></td></tr>
     </tbody>
   </table>
-  <p>Los modelos que usamos hoy (Claude, GPT, Llama) son todos <strong>decoder-only Transformers</strong>. La arquitectura Transformer de 2017 fue el punto de inflexión que hizo posible todo lo que vino después.</p>
+  <div class="callout">
+    <p class="callout-title"><i data-lucide="alert-triangle"></i> Lectura correcta en 2026</p>
+    <p>No digas "todo es Transformer" ni "Transformer ha muerto". Lo correcto es: <strong>la familia Transformer sigue dominando</strong>, pero la innovación se está moviendo hacia bloques híbridos que reducen coste de contexto, KV cache y memoria, especialmente para agentes y documentos largos.</p>
+  </div>
   <div class="refs">
     <p class="refs-title">Para profundizar</p>
     <a href="https://arxiv.org/abs/1706.03762" target="_blank">Paper original: Attention Is All You Need (2017)</a>
-    <a href="https://www.datacamp.com/tutorial/how-transformers-work" target="_blank">DataCamp - How Transformers Work</a>
+    <a href="https://arxiv.org/abs/2101.03961" target="_blank">Switch Transformers - MoE</a>
+    <a href="https://arxiv.org/abs/2312.00752" target="_blank">Mamba - Selective SSM</a>
+    <a href="https://arxiv.org/abs/2403.19887" target="_blank">Jamba - Hybrid Transformer-Mamba</a>
+    <a href="https://arxiv.org/abs/2412.09871" target="_blank">Byte Latent Transformer</a>
   </div>
 </Slide>
 

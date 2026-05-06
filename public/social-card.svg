@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-label="Workshop de IA: agentes, modelos y herramientas">
+  <rect width="1200" height="630" fill="#ffffff"/>
+  <rect x="64" y="64" width="1072" height="502" rx="18" fill="#ffffff" stroke="#0a0a0a" stroke-width="3"/>
+  <line x1="64" y1="186" x2="1136" y2="186" stroke="#0a0a0a" stroke-width="3"/>
+  <text x="96" y="132" font-family="IBM Plex Mono, Menlo, Consolas, monospace" font-size="24" font-weight="700" fill="#0a0a0a" letter-spacing="3">MAYO 2026 · UPDATE 05/26</text>
+  <text x="96" y="274" font-family="Space Grotesk, Inter, Arial, sans-serif" font-size="68" font-weight="800" fill="#0a0a0a" letter-spacing="0">Workshop de IA</text>
+  <text x="96" y="348" font-family="Space Grotesk, Inter, Arial, sans-serif" font-size="50" font-weight="700" fill="#0a0a0a" letter-spacing="0">agentes, modelos y herramientas</text>
+  <text x="96" y="430" font-family="Space Grotesk, Inter, Arial, sans-serif" font-size="28" font-weight="500" fill="#525252" letter-spacing="0">140 slides para ingenieros: LLMs, RAG, Hugging Face,</text>
+  <text x="96" y="470" font-family="Space Grotesk, Inter, Arial, sans-serif" font-size="28" font-weight="500" fill="#525252" letter-spacing="0">benchmarks, fine-tuning, MCP, agentes y producción.</text>
+  <text x="96" y="532" font-family="IBM Plex Mono, Menlo, Consolas, monospace" font-size="22" font-weight="700" fill="#0a0a0a" letter-spacing="1">workshop-ia-2026.686f6c61.dev</text>
+  <text x="822" y="532" font-family="IBM Plex Mono, Menlo, Consolas, monospace" font-size="22" font-weight="700" fill="#0a0a0a" letter-spacing="1">github.com/686f6c61</text>
+  <g transform="translate(918 246)">
+    <rect x="0" y="0" width="168" height="168" rx="22" fill="#f5f5f5" stroke="#0a0a0a" stroke-width="3"/>
+    <circle cx="56" cy="56" r="18" fill="none" stroke="#0a0a0a" stroke-width="8"/>
+    <circle cx="112" cy="56" r="18" fill="none" stroke="#0a0a0a" stroke-width="8"/>
+    <circle cx="84" cy="112" r="18" fill="none" stroke="#0a0a0a" stroke-width="8"/>
+    <line x1="70" y1="68" x2="78" y2="98" stroke="#0a0a0a" stroke-width="8" stroke-linecap="round"/>
+    <line x1="98" y1="68" x2="90" y2="98" stroke="#0a0a0a" stroke-width="8" stroke-linecap="round"/>
+  </g>
+</svg>

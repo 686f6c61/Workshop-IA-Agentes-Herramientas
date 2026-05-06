@@ -425,6 +425,45 @@ code {
   font-size: 0.95rem;
 }
 
+.slide table.compact-table {
+  font-size: 0.84rem;
+}
+
+.slide table.compact-table th,
+.slide table.compact-table td {
+  padding: 0.5rem 0.65rem;
+}
+
+.slide table.cost-table {
+  font-size: 0.7rem;
+  line-height: 1.28;
+  margin: 0.55rem 0 0.65rem;
+}
+
+.slide table.cost-table th,
+.slide table.cost-table td {
+  padding: 0.22rem 0.42rem;
+}
+
+.slide table.resource-table {
+  font-size: 0.8rem;
+  line-height: 1.35;
+  margin: 0.9rem 0;
+}
+
+.slide table.resource-table th,
+.slide table.resource-table td {
+  padding: 0.42rem 0.55rem;
+  vertical-align: top;
+}
+
+.slide table.resource-table a {
+  color: var(--fg);
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
 .slide th {
   text-align: left;
   font-weight: 700;
@@ -464,6 +503,21 @@ code {
   letter-spacing: 0.05em;
   margin-bottom: 0.4rem;
   color: var(--fg-secondary);
+}
+
+.callout.compact-callout {
+  margin: 0.8rem 0;
+  padding: 0.65rem 0.9rem;
+  font-size: 0.88rem;
+}
+
+.callout.compact-callout .callout-title {
+  font-size: 0.72rem;
+  margin-bottom: 0.25rem;
+}
+
+.callout.compact-callout p:last-child {
+  margin: 0;
 }
 
 .analogy {
@@ -531,6 +585,146 @@ code {
 .refs a:hover {
   color: var(--fg);
   text-decoration: underline;
+}
+
+.refs.compact-refs {
+  display: flex;
+  align-items: baseline;
+  gap: 0.9rem;
+  flex-wrap: wrap;
+  margin-top: 0.7rem;
+  padding-top: 0.55rem;
+}
+
+.refs.compact-refs .refs-title {
+  margin: 0;
+}
+
+.refs.compact-refs a {
+  display: inline;
+  padding: 0;
+  font-size: 0.76rem;
+  word-break: normal;
+}
+
+#arquitecturas-single-agent-svg h2,
+#arquitecturas-multiagente-svg h2 {
+  margin-bottom: 1.1rem;
+  padding-bottom: 0.75rem;
+}
+
+#arquitecturas-single-agent-svg > .slide-inner > p,
+#arquitecturas-multiagente-svg > .slide-inner > p {
+  margin-bottom: 0.4rem;
+}
+
+#arquitecturas-single-agent-svg .refs.compact-refs,
+#arquitecturas-multiagente-svg .refs.compact-refs {
+  margin-top: 0.3rem;
+  padding-top: 0.3rem;
+}
+
+#costes h2 {
+  margin-bottom: 1.1rem;
+  padding-bottom: 0.75rem;
+}
+
+#costes h3 {
+  margin-top: 1rem;
+  margin-bottom: 0.45rem;
+}
+
+#costes > .slide-inner > p {
+  margin-bottom: 0.65rem;
+}
+
+#costes .compact-callout {
+  font-size: 0.78rem;
+  margin: 0.45rem 0;
+}
+
+#costes .refs.compact-refs {
+  margin-top: 0.35rem;
+  padding-top: 0.35rem;
+}
+
+/* ---- DIAGRAMAS SVG ---- */
+
+.agent-architecture-svg {
+  width: 100%;
+  height: auto;
+  margin: 0.35rem 0 0.15rem;
+  display: block;
+}
+
+.agent-architecture-svg .panel {
+  fill: #fff;
+  stroke: var(--border);
+  stroke-width: 1.4;
+}
+
+.agent-architecture-svg .node {
+  stroke: var(--border-strong);
+  stroke-width: 1.4;
+}
+
+.agent-architecture-svg .model {
+  fill: var(--accent-light);
+}
+
+.agent-architecture-svg .tool {
+  fill: #f2f2ef;
+}
+
+.agent-architecture-svg .data,
+.agent-architecture-svg .user,
+.agent-architecture-svg .memory {
+  fill: #fff;
+}
+
+.agent-architecture-svg .arrow {
+  fill: none;
+  stroke: var(--fg);
+  stroke-width: 2;
+}
+
+.agent-architecture-svg .dashed {
+  stroke-dasharray: 7 6;
+}
+
+.agent-architecture-svg .arrow-head {
+  fill: var(--fg);
+}
+
+.agent-architecture-svg text {
+  font-family: var(--font-sans);
+  fill: var(--fg);
+  letter-spacing: 0;
+}
+
+.agent-architecture-svg .panel-title {
+  font-size: 24px;
+  font-weight: 800;
+  text-anchor: middle;
+}
+
+.agent-architecture-svg .panel-subtitle {
+  font-size: 14px;
+  fill: var(--fg-muted);
+  text-anchor: middle;
+}
+
+.agent-architecture-svg .node-title {
+  font-size: 15px;
+  font-weight: 700;
+  text-anchor: middle;
+}
+
+.agent-architecture-svg .node-small,
+.agent-architecture-svg .note {
+  font-size: 13px;
+  fill: var(--fg-secondary);
+  text-anchor: middle;
 }
 
 /* ---- VIDEO EMBEDS ---- */

@@ -1,5 +1,28 @@
 # Changelog
 
+## [2.1.3] - 2026-05-07
+
+Decision de fine-tuning, calculo de memoria, lectura de fichas y arquitecturas documentadas de agentes integradas en el workshop.
+
+### Added
+- Slide nueva sobre fine-tuning: casos donde si tiene sentido, casos donde es mejor no meterse y regla RAG vs cambio de comportamiento.
+- Slides nuevas para Hugging Face/local: formula de RAM/VRAM con pesos + KV cache + margen, ejemplo 7B Q4 y separacion de formatos safetensors/GGUF/GPTQ/AWQ.
+- Dos slides nuevas para traducir los terminos de una ficha real DeepSeek-V4: tags, licencia, runtimes, MoE, context length y precision FP4/FP8.
+- Slide nueva con repos y Colabs de referencia para practicar inferencia HF, Trainer/PEFT, RAG, Diffusers y evals.
+- Dos slides nuevas con diagramas SVG de arquitecturas documentadas de agentes: ReAct, ReWOO, Reflexion, manager/supervisor, handoffs y workflow critic.
+- Bloque final de recursos ampliado a cuatro slides: mapa de estudio, papers/benchmarks, laboratorio practico y ruta de 30 dias.
+- Imagen social 1200x630 para compartir en X/Twitter, LinkedIn y WhatsApp, con metadatos Open Graph y Twitter Card completos.
+- Referencias oficiales de OpenAI, Google Vertex AI y Anthropic para fine-tuning, evals y limitaciones de acceso en Claude API.
+
+### Changed
+- Slide de modelos de razonamiento actualizada con routing por tarea: esfuerzo bajo para tareas cerradas/latencia, reasoning medio/alto para planificacion, herramientas, ambiguedad y riesgo, con Claude 4.7/4.6/4.5 y GPT-5.5/GPT-5.4-mini referenciados.
+- Slide de arquitecturas actualizada a 2026: Transformer sigue dominante, pero se explican MoE, SSM/Mamba, Mamba-2, RWKV/RetNet, Hyena, Jamba e ideas byte/latent sin presentarlas como reemplazo universal.
+- Slide de quantizacion reescrita para explicar formato, bits/peso, memoria estimada, trade-offs y terminos FP32, BF16/FP16, FP8/INT8 e INT4/NF4 sin darlos por sabidos.
+- Slide practica de fine-tuning ajustada para distinguir APIs de fine-tuning, LoRA/QLoRA y alternativas con prompt, RAG, tools o proveedor.
+- Slide de costes ampliada con modelos chinos estado del arte: Qwen3-Max/Qwen Plus, DeepSeek chat/reasoner y GLM-5.1/4.7/4.5, con notas sobre region, cache y thinking.
+- Slides de Google Colab reescritas para explicar que toca el alumno y que aprende en inferencia HF, fine-tuning pequeño, RAG minimo, imagen/difusion y eval propia, mas limites, secretos y entregable reproducible.
+- Indice, recaps, README y metadatos sincronizados con la nueva numeracion de 140 slides.
+
 ## [2.1.2] - 2026-05-06
 
 Ampliacion integrada de Hugging Face y lectura de fichas de modelos.

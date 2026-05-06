@@ -4,8 +4,11 @@ interface Props {
 }
 
 const { title } = Astro.props;
-const description = 'Workshop de IA para ingenieros: 128 slides sobre agentes, modelos, arquitecturas, Hugging Face, Google Colab, benchmarks, herramientas y buenas practicas. Actualizado a mayo 2026.';
+const description = 'Workshop de IA para ingenieros: 140 slides sobre agentes, modelos, arquitecturas, Hugging Face, Google Colab, benchmarks, fine-tuning, herramientas y buenas practicas. Actualizado a mayo 2026.';
 const siteUrl = 'https://workshop-ia-2026.686f6c61.dev';
+const socialTitle = 'Workshop de IA: agentes, modelos y herramientas';
+const socialImage = `${siteUrl}/social-card.png`;
+const socialImageAlt = 'Portada del Workshop de IA: agentes, modelos y herramientas, actualizado a mayo 2026.';
 const author = '686f6c61';
 ---
 
@@ -19,7 +22,7 @@ const author = '686f6c61';
     <title>{title}</title>
     <meta name="description" content={description} />
     <meta name="author" content={author} />
-    <meta name="keywords" content="inteligencia artificial, IA, agentes, LLM, modelos, transformers, RAG, MCP, Claude, GPT, prompt engineering, machine learning, deep learning, workshop, ingenieros" />
+    <meta name="keywords" content="inteligencia artificial, IA, agentes, LLM, modelos, transformers, RAG, fine-tuning, MCP, Claude, GPT, prompt engineering, machine learning, deep learning, workshop, ingenieros" />
     <link rel="canonical" href={siteUrl} />
     <meta name="robots" content="index, follow" />
 
@@ -28,16 +31,26 @@ const author = '686f6c61';
 
     <!-- Open Graph (Facebook, LinkedIn, WhatsApp) -->
     <meta property="og:type" content="website" />
-    <meta property="og:title" content={title} />
+    <meta property="og:title" content={socialTitle} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={siteUrl} />
     <meta property="og:site_name" content="Workshop de IA" />
     <meta property="og:locale" content="es_ES" />
+    <meta property="og:image" content={socialImage} />
+    <meta property="og:image:secure_url" content={socialImage} />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={socialImageAlt} />
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content={title} />
+    <meta name="twitter:site" content="@686f6c61" />
+    <meta name="twitter:creator" content="@686f6c61" />
+    <meta name="twitter:title" content={socialTitle} />
     <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={socialImage} />
+    <meta name="twitter:image:alt" content={socialImageAlt} />
 
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>></text></svg>" />
@@ -49,21 +62,23 @@ const author = '686f6c61';
       "name": title,
       "description": description,
       "url": siteUrl,
+      "image": socialImage,
+      "thumbnailUrl": socialImage,
       "author": {
         "@type": "Person",
         "name": author,
         "url": `https://github.com/${author}`
       },
       "datePublished": "2026-03-09",
-      "dateModified": "2026-05-06",
+      "dateModified": "2026-05-07",
       "inLanguage": "es",
-      "keywords": "inteligencia artificial, agentes, LLM, modelos, transformers, RAG, MCP, workshop",
+      "keywords": "inteligencia artificial, agentes, LLM, modelos, transformers, RAG, fine-tuning, MCP, workshop",
       "educationalLevel": "advanced",
       "audience": {
         "@type": "Audience",
         "audienceType": "ingenieros de software"
       },
-      "numberOfPages": 128,
+      "numberOfPages": 140,
       "license": "https://opensource.org/licenses/MIT"
     })} />
 

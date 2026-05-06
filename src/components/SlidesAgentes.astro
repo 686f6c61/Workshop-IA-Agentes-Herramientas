@@ -2,13 +2,13 @@
 import Slide from './Slide.astro';
 ---
 
-<!-- SLIDE 74: SECCION -->
-<Slide id="sec-agentes" number={74} section
+<!-- SLIDE 81: SECCION -->
+<Slide id="sec-agentes" number={81} section
   title="Agentes y orquestación"
   subtitle="Qué es un agente, cuándo usarlo, function calling, arquitecturas, patrones, orquestadores, MCP, computer use, A2A y human-in-the-loop." />
 
-<!-- SLIDE 75 -->
-<Slide id="agente-vs-prompt" number={75} title="¿Cuándo usar un agente y no un prompt?">
+<!-- SLIDE 82 -->
+<Slide id="agente-vs-prompt" number={82} title="¿Cuándo usar un agente y no un prompt?">
   <div class="two-cols">
     <div>
       <h3><i data-lucide="message-square"></i> Usa un prompt cuando</h3>
@@ -44,8 +44,8 @@ import Slide from './Slide.astro';
   </div>
 </Slide>
 
-<!-- SLIDE 76 -->
-<Slide id="agentes" number={76} title="¿Qué es un agente?">
+<!-- SLIDE 83 -->
+<Slide id="agentes" number={83} title="¿Qué es un agente?">
   <p><i data-lucide="bot"></i> Un LLM con capacidad de <strong>actuar</strong>: no solo responde, <strong>ejecuta</strong>. Tiene acceso a herramientas (tools) y puede completar tareas complejas de forma autónoma.</p>
   <div class="flow">
     <span class="flow-step"><i data-lucide="eye"></i> Percibir</span>
@@ -106,8 +106,8 @@ import Slide from './Slide.astro';
   </div>
 </Slide>
 
-<!-- SLIDE 77 -->
-<Slide id="contexto-memoria" number={77} title="Contexto y memoria en agentes: por qué importa empezar limpio">
+<!-- SLIDE 84 -->
+<Slide id="contexto-memoria" number={84} title="Contexto y memoria en agentes: por qué importa empezar limpio">
   <p><i data-lucide="brain"></i> El <strong>context window</strong> es la memoria de trabajo del agente: lo que "ve" en cada momento. Cuanto más larga la conversación, más tokens consume &rarr; más caro, más lento y peor rendimiento.</p>
   <h3><i data-lucide="zap"></i> ¿Por qué usar contextos nuevos para tareas nuevas?</h3>
   <ul>
@@ -137,8 +137,8 @@ import Slide from './Slide.astro';
   </div>
 </Slide>
 
-<!-- SLIDE 78 -->
-<Slide id="memoria-persistente" number={78} title="Memoria persistente para agentes">
+<!-- SLIDE 85 -->
+<Slide id="memoria-persistente" number={85} title="Memoria persistente para agentes">
   <p><i data-lucide="hard-drive"></i> Un agente sin memoria entre sesiones empieza de cero cada vez. La <strong>memoria persistente</strong> permite que recuerde decisiones, preferencias y contexto de conversaciones anteriores.</p>
   <h3><i data-lucide="layers"></i> Tipos de memoria persistente</h3>
   <table>
@@ -186,8 +186,8 @@ import Slide from './Slide.astro';
   </div>
 </Slide>
 
-<!-- SLIDE 79 -->
-<Slide id="function-calling" number={79} title="Function calling (tool use): cómo el modelo ejecuta acciones">
+<!-- SLIDE 86 -->
+<Slide id="function-calling" number={86} title="Function calling (tool use): cómo el modelo ejecuta acciones">
   <p><i data-lucide="wrench"></i> El modelo no puede ejecutar código directamente. Lo que puede hacer es <strong>decidir qué herramienta llamar</strong> y con qué parámetros. El sistema anfitrión ejecuta la herramienta y le devuelve el resultado.</p>
   <h3><i data-lucide="route"></i> Flujo de una tool call</h3>
   <div class="flow">
@@ -245,8 +245,8 @@ import Slide from './Slide.astro';
   </div>
 </Slide>
 
-<!-- SLIDE 80 -->
-<Slide id="arquitecturas-agentes" number={80} title="Arquitecturas de agentes: el bucle fundamental">
+<!-- SLIDE 87 -->
+<Slide id="arquitecturas-agentes" number={87} title="Arquitecturas de agentes: el bucle fundamental">
   <p>Un agente no es solo un modelo que responde. Es un <strong>sistema que razona, actúa y aprende del resultado</strong> en un bucle continuo.</p>
   <h3><i data-lucide="repeat"></i> El bucle ReAct (Reason + Act)</h3>
   <div class="flow">
@@ -303,8 +303,149 @@ import Slide from './Slide.astro';
   </div>
 </Slide>
 
-<!-- SLIDE 81 -->
-<Slide id="patrones-agentes" number={81} title="Patrones de diseño de sistemas de agentes">
+<!-- SLIDE 88 -->
+<Slide id="arquitecturas-single-agent-svg" number={88} title="Arquitecturas documentadas: agente único">
+  <p><i data-lucide="git-branch"></i> Estas arquitecturas aparecen en papers o documentación técnica y sirven para reconocer el patrón real que hay debajo de muchos agentes actuales.</p>
+  <svg class="agent-architecture-svg" viewBox="0 0 1120 450" role="img" aria-label="Diagramas SVG de ReAct, ReWOO y Reflexion">
+    <defs>
+      <marker id="arrow-single" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto">
+        <path class="arrow-head" d="M0,0 L10,5 L0,10 Z"></path>
+      </marker>
+    </defs>
+
+    <rect class="panel" x="20" y="24" width="340" height="422" rx="8"></rect>
+    <text class="panel-title" x="190" y="58">ReAct</text>
+    <text class="panel-subtitle" x="190" y="82">razonar y actuar intercalado</text>
+    <rect class="node model" x="70" y="118" width="240" height="48" rx="6"></rect>
+    <text class="node-title" x="190" y="147">Thought / razonamiento</text>
+    <rect class="node tool" x="70" y="210" width="240" height="48" rx="6"></rect>
+    <text class="node-title" x="190" y="239">Action / tool call</text>
+    <rect class="node data" x="70" y="302" width="240" height="48" rx="6"></rect>
+    <text class="node-title" x="190" y="331">Observation</text>
+    <line class="arrow" x1="190" y1="166" x2="190" y2="204" marker-end="url(#arrow-single)"></line>
+    <line class="arrow" x1="190" y1="258" x2="190" y2="296" marker-end="url(#arrow-single)"></line>
+    <path class="arrow" d="M82,326 C38,326 38,142 64,142" marker-end="url(#arrow-single)"></path>
+    <text class="note" x="190" y="404">Bueno para tareas interactivas:</text>
+    <text class="note" x="190" y="426">buscar, navegar, depurar, probar.</text>
+
+    <rect class="panel" x="390" y="24" width="340" height="422" rx="8"></rect>
+    <text class="panel-title" x="560" y="58">ReWOO</text>
+    <text class="panel-subtitle" x="560" y="82">planificar sin observar cada paso</text>
+    <rect class="node model" x="440" y="112" width="240" height="48" rx="6"></rect>
+    <text class="node-title" x="560" y="141">Planner</text>
+    <rect class="node data" x="440" y="188" width="240" height="70" rx="6"></rect>
+    <text class="node-title" x="560" y="216">Plan con E1, E2...</text>
+    <text class="node-small" x="560" y="238">variables para evidencias</text>
+    <rect class="node tool" x="424" y="306" width="126" height="48" rx="6"></rect>
+    <text class="node-title" x="487" y="335">Tool E1</text>
+    <rect class="node tool" x="570" y="306" width="126" height="48" rx="6"></rect>
+    <text class="node-title" x="633" y="335">Tool E2</text>
+    <rect class="node model" x="440" y="398" width="240" height="48" rx="6"></rect>
+    <text class="node-title" x="560" y="427">Solver sintetiza</text>
+    <line class="arrow" x1="560" y1="160" x2="560" y2="182" marker-end="url(#arrow-single)"></line>
+    <line class="arrow" x1="510" y1="258" x2="488" y2="300" marker-end="url(#arrow-single)"></line>
+    <line class="arrow" x1="610" y1="258" x2="632" y2="300" marker-end="url(#arrow-single)"></line>
+    <line class="arrow" x1="488" y1="354" x2="530" y2="392" marker-end="url(#arrow-single)"></line>
+    <line class="arrow" x1="632" y1="354" x2="590" y2="392" marker-end="url(#arrow-single)"></line>
+    <rect class="panel" x="760" y="24" width="340" height="422" rx="8"></rect>
+    <text class="panel-title" x="930" y="58">Reflexion</text>
+    <text class="panel-subtitle" x="930" y="82">aprender por feedback verbal</text>
+    <rect class="node model" x="810" y="105" width="240" height="48" rx="6"></rect>
+    <text class="node-title" x="930" y="134">Actor</text>
+    <rect class="node tool" x="810" y="188" width="240" height="48" rx="6"></rect>
+    <text class="node-title" x="930" y="217">Entorno / tests</text>
+    <rect class="node model" x="810" y="271" width="240" height="48" rx="6"></rect>
+    <text class="node-title" x="930" y="300">Evaluador</text>
+    <rect class="node memory" x="810" y="354" width="240" height="48" rx="6"></rect>
+    <text class="node-title" x="930" y="383">Memoria episódica</text>
+    <line class="arrow" x1="930" y1="153" x2="930" y2="182" marker-end="url(#arrow-single)"></line>
+    <line class="arrow" x1="930" y1="236" x2="930" y2="265" marker-end="url(#arrow-single)"></line>
+    <line class="arrow" x1="930" y1="319" x2="930" y2="348" marker-end="url(#arrow-single)"></line>
+    <path class="arrow" d="M812,378 C766,378 766,130 804,130" marker-end="url(#arrow-single)"></path>
+    <text class="note" x="930" y="448">Útil con tests, jueces o señales de error.</text>
+  </svg>
+  <div class="refs compact-refs">
+    <p class="refs-title">Para profundizar</p>
+    <a href="https://arxiv.org/abs/2210.03629" target="_blank">ReAct</a>
+    <a href="https://arxiv.org/abs/2305.18323" target="_blank">ReWOO</a>
+    <a href="https://arxiv.org/abs/2303.11366" target="_blank">Reflexion</a>
+  </div>
+</Slide>
+
+<!-- SLIDE 89 -->
+<Slide id="arquitecturas-multiagente-svg" number={89} title="Arquitecturas documentadas: multiagente">
+  <p><i data-lucide="network"></i> Cuando un agente único se queda corto, aparecen tres familias prácticas: un manager central, handoffs entre especialistas o un workflow explícito con revisión.</p>
+  <svg class="agent-architecture-svg" viewBox="0 0 1120 450" role="img" aria-label="Diagramas SVG de arquitecturas multiagente: manager, handoffs y generator critic">
+    <defs>
+      <marker id="arrow-multi" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto">
+        <path class="arrow-head" d="M0,0 L10,5 L0,10 Z"></path>
+      </marker>
+    </defs>
+
+    <rect class="panel" x="20" y="24" width="340" height="422" rx="8"></rect>
+    <text class="panel-title" x="190" y="58">Manager / supervisor</text>
+    <text class="panel-subtitle" x="190" y="82">control centralizado</text>
+    <rect class="node user" x="78" y="110" width="224" height="42" rx="6"></rect>
+    <text class="node-title" x="190" y="137">Usuario</text>
+    <rect class="node model" x="78" y="190" width="224" height="54" rx="6"></rect>
+    <text class="node-title" x="190" y="222">Manager</text>
+    <rect class="node tool" x="48" y="302" width="92" height="44" rx="6"></rect>
+    <text class="node-small" x="94" y="328">Billing</text>
+    <rect class="node tool" x="144" y="302" width="92" height="44" rx="6"></rect>
+    <text class="node-small" x="190" y="328">Search</text>
+    <rect class="node tool" x="240" y="302" width="92" height="44" rx="6"></rect>
+    <text class="node-small" x="286" y="328">Refund</text>
+    <line class="arrow" x1="190" y1="152" x2="190" y2="184" marker-end="url(#arrow-multi)"></line>
+    <line class="arrow" x1="160" y1="244" x2="98" y2="296" marker-end="url(#arrow-multi)"></line>
+    <line class="arrow" x1="190" y1="244" x2="190" y2="296" marker-end="url(#arrow-multi)"></line>
+    <line class="arrow" x1="220" y1="244" x2="282" y2="296" marker-end="url(#arrow-multi)"></line>
+    <path class="arrow" d="M94,346 C94,382 190,382 190,250" marker-end="url(#arrow-multi)"></path>
+    <path class="arrow" d="M286,346 C286,382 190,382 190,250" marker-end="url(#arrow-multi)"></path>
+    <text class="note" x="190" y="430">Guardrails y trazas en un solo sitio.</text>
+
+    <rect class="panel" x="390" y="24" width="340" height="422" rx="8"></rect>
+    <text class="panel-title" x="560" y="58">Handoffs / swarm</text>
+    <text class="panel-subtitle" x="560" y="82">el control cambia de agente</text>
+    <rect class="node user" x="448" y="110" width="224" height="42" rx="6"></rect>
+    <text class="node-title" x="560" y="137">Usuario</text>
+    <rect class="node model" x="448" y="188" width="224" height="52" rx="6"></rect>
+    <text class="node-title" x="560" y="219">Triage</text>
+    <rect class="node tool" x="412" y="310" width="116" height="48" rx="6"></rect>
+    <text class="node-small" x="470" y="339">Booking</text>
+    <rect class="node tool" x="592" y="310" width="116" height="48" rx="6"></rect>
+    <text class="node-small" x="650" y="339">Refund</text>
+    <line class="arrow" x1="560" y1="152" x2="560" y2="182" marker-end="url(#arrow-multi)"></line>
+    <line class="arrow" x1="530" y1="240" x2="474" y2="304" marker-end="url(#arrow-multi)"></line>
+    <line class="arrow" x1="590" y1="240" x2="646" y2="304" marker-end="url(#arrow-multi)"></line>
+    <path class="arrow dashed" d="M650,358 C650,420 560,420 560,250" marker-end="url(#arrow-multi)"></path>
+    <text class="note" x="560" y="430">Especialistas con prompts pequeños.</text>
+
+    <rect class="panel" x="760" y="24" width="340" height="422" rx="8"></rect>
+    <text class="panel-title" x="930" y="58">Workflow + critic</text>
+    <text class="panel-subtitle" x="930" y="82">control explícito y revisión</text>
+    <rect class="node data" x="810" y="112" width="240" height="42" rx="6"></rect>
+    <text class="node-title" x="930" y="139">Input versionado</text>
+    <rect class="node model" x="810" y="190" width="240" height="48" rx="6"></rect>
+    <text class="node-title" x="930" y="219">Generator</text>
+    <rect class="node model" x="810" y="276" width="240" height="48" rx="6"></rect>
+    <text class="node-title" x="930" y="305">Critic / evaluator</text>
+    <rect class="node data" x="810" y="386" width="240" height="48" rx="6"></rect>
+    <text class="node-title" x="930" y="415">Aprobar o revisar</text>
+    <line class="arrow" x1="930" y1="154" x2="930" y2="184" marker-end="url(#arrow-multi)"></line>
+    <line class="arrow" x1="930" y1="238" x2="930" y2="270" marker-end="url(#arrow-multi)"></line>
+    <line class="arrow" x1="930" y1="324" x2="930" y2="380" marker-end="url(#arrow-multi)"></line>
+    <path class="arrow dashed" d="M810,300 C764,300 764,214 802,214" marker-end="url(#arrow-multi)"></path>
+  </svg>
+  <div class="refs compact-refs">
+    <p class="refs-title">Para profundizar</p>
+    <a href="https://www.anthropic.com/engineering/building-effective-agents" target="_blank">Anthropic - Building Effective Agents</a>
+    <a href="https://openai.github.io/openai-agents-js/guides/agents/" target="_blank">OpenAI Agents SDK - composition patterns</a>
+    <a href="https://adk.dev/agents/multi-agents/" target="_blank">Google ADK - multi-agent systems</a>
+  </div>
+</Slide>
+
+<!-- SLIDE 90 -->
+<Slide id="patrones-agentes" number={90} title="Patrones de diseño de sistemas de agentes">
   <p>Los bloques fundamentales para construir sistemas de agentes, según la guía de <strong>Anthropic "Building Effective Agents"</strong>:</p>
   <div class="icon-grid">
     <div class="icon-card">
@@ -367,8 +508,8 @@ import Slide from './Slide.astro';
   </div>
 </Slide>
 
-<!-- SLIDE 82 -->
-<Slide id="multi-modelo" number={82} title="Multi-modelo: usar varios modelos y stack de orquestación">
+<!-- SLIDE 91 -->
+<Slide id="multi-modelo" number={91} title="Multi-modelo: usar varios modelos y stack de orquestación">
   <p>No todos los modelos son iguales ni cuestan lo mismo. La clave es usar el <strong>modelo adecuado para cada tarea</strong>.</p>
   <h3><i data-lucide="route"></i> Patrón de routing</h3>
   <div class="flow">
@@ -401,8 +542,8 @@ import Slide from './Slide.astro';
   </div>
 </Slide>
 
-<!-- SLIDE 83 -->
-<Slide id="patrones-orquestacion" number={83} title="Patrones de orquestación en OpenAI y Claude">
+<!-- SLIDE 92 -->
+<Slide id="patrones-orquestacion" number={92} title="Patrones de orquestación en OpenAI y Claude">
   <div class="two-cols">
     <div>
       <h3><i data-lucide="bot"></i> OpenAI Agents SDK</h3>
@@ -439,8 +580,8 @@ import Slide from './Slide.astro';
   </div>
 </Slide>
 
-<!-- SLIDE 84 -->
-<Slide id="ejemplo-codigo-agente" number={84} title="Ejemplo: un agente con tools en código real">
+<!-- SLIDE 93 -->
+<Slide id="ejemplo-codigo-agente" number={93} title="Ejemplo: un agente con tools en código real">
   <p><i data-lucide="code"></i> Un agente mínimo tiene tres partes: un <strong>modelo</strong>, unas <strong>herramientas</strong> y un <strong>bucle</strong> que ejecuta las tool calls hasta que el modelo termina.</p>
   <h3><i data-lucide="terminal"></i> Agente básico con Claude API (TypeScript)</h3>
   <div class="code-block">
@@ -496,8 +637,8 @@ import Slide from './Slide.astro';
   </div>
 </Slide>
 
-<!-- SLIDE 85 -->
-<Slide id="orquestacion" number={85} title="Sistemas de orquestación de agentes">
+<!-- SLIDE 94 -->
+<Slide id="orquestacion" number={94} title="Sistemas de orquestación de agentes">
   <p>Coordinan <strong>múltiples agentes</strong> para resolver problemas complejos. Un agente solo no puede con todo: necesitas especialización, división de tareas y coordinación.</p>
   <h3><i data-lucide="network"></i> Patrones principales</h3>
   <div class="icon-grid">
@@ -540,8 +681,8 @@ import Slide from './Slide.astro';
   </div>
 </Slide>
 
-<!-- SLIDE 86 -->
-<Slide id="orquestadores-adks" number={86} title="¿Cuáles hay? (orquestadores y ADKs)">
+<!-- SLIDE 95 -->
+<Slide id="orquestadores-adks" number={95} title="¿Cuáles hay? (orquestadores y ADKs)">
   <div class="compare-card">
     <p class="compare-card-title"><i data-lucide="link"></i> LangChain + LangGraph <span class="tag">v1.0</span> <span class="tag">Python</span> <span class="tag">JS</span></p>
     <p class="compare-card-desc">El veterano. LangChain para construir agentes, LangGraph para orquestarlos con grafos de estado. Persistencia durable, human-in-the-loop.</p>
@@ -582,8 +723,8 @@ import Slide from './Slide.astro';
   </div>
 </Slide>
 
-<!-- SLIDE 87 -->
-<Slide id="claude-code-estructura" number={87} title="Estructura de un agente sobre Claude Code">
+<!-- SLIDE 96 -->
+<Slide id="claude-code-estructura" number={96} title="Estructura de un agente sobre Claude Code">
   <div class="icon-grid">
     <div class="icon-card">
       <i data-lucide="file-text"></i>
@@ -642,8 +783,8 @@ import Slide from './Slide.astro';
   </div>
 </Slide>
 
-<!-- SLIDE 88 -->
-<Slide id="coding-agents" number={88} title="Coding agents: el estado del arte">
+<!-- SLIDE 97 -->
+<Slide id="coding-agents" number={97} title="Coding agents: el estado del arte">
   <p><i data-lucide="code"></i> Agentes que <strong>programan de forma autónoma</strong>: leen código, planifican cambios, implementan, ejecutan tests y corrigen errores. El salto de "asistente" a "programador autónomo".</p>
   <h3><i data-lucide="database"></i> Comparativa (mayo 2026)</h3>
   <table>
@@ -676,8 +817,8 @@ import Slide from './Slide.astro';
   </div>
 </Slide>
 
-<!-- SLIDE 89 -->
-<Slide id="mcp" number={89} title="MCP (Model Context Protocol): el estándar que conecta modelos con el mundo">
+<!-- SLIDE 98 -->
+<Slide id="mcp" number={98} title="MCP (Model Context Protocol): el estándar que conecta modelos con el mundo">
   <p><i data-lucide="plug"></i> Un protocolo abierto (creado por Anthropic, adoptado por la industria) que estandariza cómo un modelo se conecta con <strong>herramientas externas</strong>.</p>
   <div class="analogy">
     <p class="analogy-label"><i data-lucide="lightbulb"></i> Analogía</p>
@@ -702,8 +843,8 @@ import Slide from './Slide.astro';
   </div>
 </Slide>
 
-<!-- SLIDE 90 -->
-<Slide id="mcp-practica" number={90} title="MCP en la práctica: crear un servidor mínimo">
+<!-- SLIDE 99 -->
+<Slide id="mcp-practica" number={99} title="MCP en la práctica: crear un servidor mínimo">
   <p><i data-lucide="code"></i> Crear un MCP server es sorprendentemente simple. Aquí tienes un servidor completo en TypeScript que expone una herramienta.</p>
   <h3><i data-lucide="terminal"></i> Servidor MCP mínimo (TypeScript)</h3>
   <div class="code-block">
@@ -763,8 +904,8 @@ import Slide from './Slide.astro';
   </div>
 </Slide>
 
-<!-- SLIDE 91 -->
-<Slide id="computer-use" number={91} title="Computer Use y Browser Use">
+<!-- SLIDE 100 -->
+<Slide id="computer-use" number={100} title="Computer Use y Browser Use">
   <p><i data-lucide="monitor"></i> Agentes que <strong>controlan el ordenador como un humano</strong>: mueven el ratón, hacen clic, leen la pantalla, rellenan formularios. El siguiente salto en capacidad de los agentes.</p>
   <h3><i data-lucide="layers"></i> Tipos de control</h3>
   <div class="icon-grid">
@@ -806,8 +947,8 @@ import Slide from './Slide.astro';
   </div>
 </Slide>
 
-<!-- SLIDE 92 -->
-<Slide id="a2a" number={92} title="A2A (Agent-to-Agent): agentes que hablan entre sí">
+<!-- SLIDE 101 -->
+<Slide id="a2a" number={101} title="A2A (Agent-to-Agent): agentes que hablan entre sí">
   <p><i data-lucide="users"></i> <strong>Agent-to-Agent Protocol</strong> (Google, 2025): un protocolo abierto para que agentes de <strong>distintos proveedores</strong> colaboren entre sí. Si MCP conecta agentes con herramientas, A2A conecta agentes con otros agentes.</p>
   <div class="analogy">
     <p class="analogy-label"><i data-lucide="lightbulb"></i> Analogía</p>
@@ -856,8 +997,8 @@ import Slide from './Slide.astro';
   </div>
 </Slide>
 
-<!-- SLIDE 93 -->
-<Slide id="human-in-the-loop" number={93} title="Human-in-the-loop">
+<!-- SLIDE 102 -->
+<Slide id="human-in-the-loop" number={102} title="Human-in-the-loop">
   <p><i data-lucide="user-check"></i> Un agente autónomo sin supervisión es un riesgo. <strong>Human-in-the-loop</strong> (HITL) son patrones para mantener al humano en el bucle de decisión en los momentos críticos.</p>
   <h3><i data-lucide="git-branch"></i> Patrones de intervención</h3>
   <div class="icon-grid">
@@ -908,34 +1049,34 @@ import Slide from './Slide.astro';
   </div>
 </Slide>
 
-<!-- SLIDE 94 -->
-<Slide id="recap-agentes" number={94} title="Lo que deberías saber: agentes y orquestación">
+<!-- SLIDE 103 -->
+<Slide id="recap-agentes" number={103} title="Lo que deberías saber: agentes y orquestación">
   <table>
     <thead>
       <tr><th>Concepto</th><th>Slide</th></tr>
     </thead>
     <tbody>
-      <tr><td>Agente vs prompt: cuándo necesitas un agente de verdad</td><td>75-76</td></tr>
-      <tr><td>Contexto, memoria y memoria persistente entre sesiones</td><td>77-78</td></tr>
-      <tr><td>Function calling: cómo el modelo ejecuta acciones</td><td>79</td></tr>
-      <tr><td>Arquitecturas: ReAct, plan-and-execute, router, multi-agente</td><td>80-82</td></tr>
-      <tr><td>Orquestación: LangGraph, CrewAI, Autogen, Claude Agent SDK</td><td>83-86</td></tr>
-      <tr><td>Coding agents: Claude Code, Aider, Cursor Agent, Copilot</td><td>87-88</td></tr>
-      <tr><td>MCP: protocolo universal para conectar tools</td><td>89-90</td></tr>
-      <tr><td>Computer Use y Browser Use: agentes que usan interfaces</td><td>91</td></tr>
-      <tr><td>A2A: agentes que hablan entre sí (Google, 2025)</td><td>92</td></tr>
-      <tr><td>Human-in-the-loop: el humano como última defensa</td><td>93</td></tr>
+      <tr><td>Agente vs prompt y definición de agente</td><td>82-83</td></tr>
+      <tr><td>Contexto, memoria y memoria persistente entre sesiones</td><td>84-85</td></tr>
+      <tr><td>Function calling: cómo el modelo ejecuta acciones</td><td>86</td></tr>
+      <tr><td>Arquitecturas documentadas: ReAct, ReWOO, Reflexion y multiagente</td><td>87-89</td></tr>
+      <tr><td>Patrones y orquestación: LangGraph, CrewAI, Autogen, Claude Agent SDK</td><td>90-95</td></tr>
+      <tr><td>Claude Code y coding agents</td><td>96-97</td></tr>
+      <tr><td>MCP: protocolo universal para conectar tools</td><td>98-99</td></tr>
+      <tr><td>Computer Use y Browser Use: agentes que usan interfaces</td><td>100</td></tr>
+      <tr><td>A2A: agentes que hablan entre sí (Google, 2025)</td><td>101</td></tr>
+      <tr><td>Human-in-the-loop: el humano como última defensa</td><td>102</td></tr>
     </tbody>
   </table>
 </Slide>
 
-<!-- SLIDE 95: SECCION -->
-<Slide id="sec-realidad" number={95} section
+<!-- SLIDE 104: SECCION -->
+<Slide id="sec-realidad" number={104} section
   title="Realidad del ingeniero"
   subtitle="Herramientas, CI/CD con IA, seguridad, red teaming, regulación, costes, observabilidad y el cambio de paradigma." />
 
-<!-- SLIDE 96 -->
-<Slide id="ide-terminal" number={96} title="IDE web vs terminal: ¿dónde usar la IA?">
+<!-- SLIDE 105 -->
+<Slide id="ide-terminal" number={105} title="IDE web vs terminal: ¿dónde usar la IA?">
   <div class="two-cols">
     <div>
       <h3><i data-lucide="monitor"></i> IDEs web (chat)</h3>
@@ -999,8 +1140,8 @@ import Slide from './Slide.astro';
   </div>
 </Slide>
 
-<!-- SLIDE 97 -->
-<Slide id="comparativa-coding" number={97} title="Comparativa de AI coding assistants (mayo 2026)">
+<!-- SLIDE 106 -->
+<Slide id="comparativa-coding" number={106} title="Comparativa de AI coding assistants (mayo 2026)">
   <p><i data-lucide="code"></i> Todos usan IA, pero cada herramienta tiene un enfoque diferente. La elección depende de <strong>cómo trabajas</strong>, no solo de qué modelo usa.</p>
   <table>
     <thead>
@@ -1062,8 +1203,8 @@ import Slide from './Slide.astro';
   </div>
 </Slide>
 
-<!-- SLIDE 98 -->
-<Slide id="ai-benchmarks" number={98} title="Benchmarks: qué miden (y qué no)">
+<!-- SLIDE 107 -->
+<Slide id="ai-benchmarks" number={107} title="Benchmarks: qué miden (y qué no)">
   <p><i data-lucide="bar-chart"></i> Un benchmark no mide "inteligencia" en abstracto. Mide una <strong>tarea operacional concreta</strong>, con un dataset, una métrica y un protocolo. Leerlo bien evita comprar marketing con forma de tabla.</p>
   <h3><i data-lucide="database"></i> Familias de benchmarks</h3>
   <table>
@@ -1092,8 +1233,8 @@ import Slide from './Slide.astro';
   </div>
 </Slide>
 
-<!-- SLIDE 99 -->
-<Slide id="swe-bench" number={99} title="SWE-bench: qué mide exactamente">
+<!-- SLIDE 108 -->
+<Slide id="swe-bench" number={108} title="SWE-bench: qué mide exactamente">
   <p><i data-lucide="git-pull-request"></i> SWE-bench evalúa modelos y agentes en <strong>issues reales de GitHub</strong>. Dado un repositorio y una descripción de problema, el sistema debe generar un patch que arregle el issue.</p>
   <h3><i data-lucide="route"></i> Flujo de evaluación</h3>
   <div class="flow">
@@ -1132,8 +1273,8 @@ import Slide from './Slide.astro';
   </div>
 </Slide>
 
-<!-- SLIDE 100 -->
-<Slide id="leer-leaderboards" number={100} title="Cómo leer un leaderboard de benchmarks">
+<!-- SLIDE 109 -->
+<Slide id="leer-leaderboards" number={109} title="Cómo leer un leaderboard de benchmarks">
   <p><i data-lucide="line-chart"></i> Un leaderboard mezcla modelo, agente, prompt, herramientas, presupuesto y protocolo. El número final es útil, pero solo si entiendes qué hay debajo.</p>
   <h3><i data-lucide="list-checks"></i> Checklist de lectura crítica</h3>
   <table>
@@ -1162,8 +1303,8 @@ import Slide from './Slide.astro';
   </div>
 </Slide>
 
-<!-- SLIDE 101 -->
-<Slide id="ai-cicd" number={101} title="IA en CI/CD">
+<!-- SLIDE 110 -->
+<Slide id="ai-cicd" number={110} title="IA en CI/CD">
   <p><i data-lucide="git-pull-request"></i> Los agentes de IA ya se integran en los pipelines de desarrollo. No solo generan código: lo <strong>revisan, testean y despliegan</strong>.</p>
   <h3><i data-lucide="layers"></i> Dónde encaja la IA en el pipeline</h3>
   <table>
@@ -1206,8 +1347,8 @@ import Slide from './Slide.astro';
   </div>
 </Slide>
 
-<!-- SLIDE 102 -->
-<Slide id="seguridad" number={102} title="Seguridad y riesgos">
+<!-- SLIDE 111 -->
+<Slide id="seguridad" number={111} title="Seguridad y riesgos">
   <div class="icon-grid">
     <div class="icon-card">
       <i data-lucide="shield-alert"></i>
@@ -1291,8 +1432,8 @@ import Slide from './Slide.astro';
   </div>
 </Slide>
 
-<!-- SLIDE 103 -->
-<Slide id="guardrails" number={103}
+<!-- SLIDE 112 -->
+<Slide id="guardrails" number={112}
   title="Guardrails en la práctica"
   subtitle="Capas de protección para sistemas con LLMs">
   <p>Los guardrails son <strong>mecanismos de control</strong> que limitan y validan el comportamiento de un LLM en producción. No es solo "pon un system prompt": son capas independientes que se aplican antes, durante y después de la generación.</p>
@@ -1388,8 +1529,8 @@ if (!parsed.success) &#123;
   </div>
 </Slide>
 
-<!-- SLIDE 104 -->
-<Slide id="testing-adversarial" number={104} title="Testing adversarial y red teaming">
+<!-- SLIDE 113 -->
+<Slide id="testing-adversarial" number={113} title="Testing adversarial y red teaming">
   <p><i data-lucide="shield-alert"></i> No basta con que tu sistema funcione con inputs normales. Necesitas probar que <strong>resiste ataques deliberados</strong>. El red teaming es testear tu sistema intentando romperlo.</p>
   <h3><i data-lucide="swords"></i> Vectores de ataque comunes</h3>
   <table>
@@ -1439,8 +1580,8 @@ if (!parsed.success) &#123;
   </div>
 </Slide>
 
-<!-- SLIDE 105 -->
-<Slide id="eu-ai-act" number={105} title="EU AI Act y compliance">
+<!-- SLIDE 114 -->
+<Slide id="eu-ai-act" number={114} title="EU AI Act y compliance">
   <p><i data-lucide="scale"></i> La <strong>Ley de IA de la UE</strong> entró en vigor en agosto 2024. Es la primera regulación integral de IA del mundo y afecta a cualquier sistema de IA que opere en la UE, independientemente de dónde se desarrolle.</p>
   <h3><i data-lucide="layers"></i> Clasificación por riesgo</h3>
   <table>
@@ -1473,43 +1614,44 @@ if (!parsed.success) &#123;
   </div>
 </Slide>
 
-<!-- SLIDE 106 -->
-<Slide id="costes" number={106} title="Tokens y coste: ¿cuánto cuesta usar IA?">
+<!-- SLIDE 115 -->
+<Slide id="costes" number={115} title="Tokens y coste: ¿cuánto cuesta usar IA?">
   <p><i data-lucide="coins"></i> Se paga por <strong>tokens de entrada + tokens de salida</strong>. La salida suele ser más cara (el modelo trabaja más generando que leyendo).</p>
   <h3><i data-lucide="trending-up"></i> Precios por millón de tokens (mayo 2026)</h3>
-  <table>
+  <table class="compact-table cost-table">
     <thead>
-      <tr><th>Modelo</th><th>Entrada</th><th>Salida</th><th>Nivel</th></tr>
+      <tr><th>Modelo/API</th><th>Entrada</th><th>Salida</th><th>Lectura correcta</th></tr>
     </thead>
     <tbody>
-      <tr><td><strong>Claude Opus 4.7</strong></td><td>$5</td><td>$25</td><td>Premium</td></tr>
-      <tr><td><strong>Claude Sonnet 4.6</strong></td><td>$3</td><td>$15</td><td>Estándar</td></tr>
-      <tr><td><strong>Claude Haiku 4.5</strong></td><td>$1</td><td>$5</td><td>Económico</td></tr>
-      <tr><td><strong>GPT-5.5</strong></td><td>$5</td><td>$30</td><td>Premium</td></tr>
-      <tr><td><strong>GPT-5.4</strong></td><td>$2.50</td><td>$15</td><td>Estándar</td></tr>
-      <tr><td><strong>GPT-5.4 mini</strong></td><td>$0.75</td><td>$4.50</td><td>Económico</td></tr>
+      <tr><td><strong>Claude Opus 4.7</strong></td><td>$5</td><td>$25</td><td>Premium occidental para tareas críticas</td></tr>
+      <tr><td><strong>Claude Sonnet 4.6</strong></td><td>$3</td><td>$15</td><td>Estándar fuerte para agentes/código</td></tr>
+      <tr><td><strong>GPT-5.5</strong></td><td>$5</td><td>$30</td><td>Premium OpenAI para trabajo profesional</td></tr>
+      <tr><td><strong>GPT-5.4 mini</strong></td><td>$0.75</td><td>$4.50</td><td>Económico OpenAI</td></tr>
+      <tr><td><strong>Qwen3-Max</strong></td><td>$1.20</td><td>$6</td><td>Frontier chino; EU/Intl. &lt;=32K tokens</td></tr>
+      <tr><td><strong>Qwen Plus</strong></td><td>$0.40</td><td>$1.20-$4</td><td>Generalista barato; output cambia si usa thinking</td></tr>
+      <tr><td><strong>DeepSeek reasoner</strong></td><td>$0.55</td><td>$2.19</td><td>Razonamiento barato; input cache miss</td></tr>
+      <tr><td><strong>DeepSeek chat</strong></td><td>$0.27</td><td>$1.10</td><td>Coste muy bajo; cache hit desde $0.07 input</td></tr>
+      <tr><td><strong>GLM-5.1</strong></td><td>$1.40</td><td>$4.40</td><td>Frontier chino reciente de Z.AI</td></tr>
+      <tr><td><strong>GLM-4.7 / 4.5</strong></td><td>$0.60</td><td>$2.20</td><td>Agentes/coding con coste competitivo</td></tr>
+      <tr><td><strong>GLM-4.5-Air</strong></td><td>$0.20</td><td>$1.10</td><td>Opción económica para alto volumen</td></tr>
     </tbody>
   </table>
-  <h3><i data-lucide="sliders-horizontal"></i> Estrategias para optimizar coste</h3>
-  <ul>
-    <li><i data-lucide="scale"></i> Usar el modelo más barato que resuelva la tarea (no todo necesita Opus)</li>
-    <li><i data-lucide="database"></i> Caching de prompts (Anthropic y OpenAI lo soportan nativamente)</li>
-    <li><i data-lucide="scissors"></i> Acortar system prompts y contexto innecesario</li>
-    <li><i data-lucide="hard-drive"></i> Modelos locales para desarrollo y pruebas</li>
-  </ul>
-  <div class="callout">
+  <div class="callout compact-callout">
     <p class="callout-title"><i data-lucide="coins"></i> Rango de coste</p>
-    <p>Un proyecto real puede costar desde <strong>céntimos hasta miles de euros/mes</strong> según volumen. OpenAI y Anthropic tienen descuentos por cache; OpenAI aplica condiciones especiales a contextos muy largos. La clave es medir tokens, cache hit rate, herramientas y coste por tarea resuelta.</p>
+    <p>No compares solo el precio nominal: región, cache hit rate, modo thinking/CoT, contexto, tools y latencia cambian la factura. Mide coste por tarea resuelta.</p>
   </div>
-  <div class="refs">
+  <div class="refs compact-refs">
     <p class="refs-title">Para profundizar</p>
     <a href="https://platform.claude.com/docs/en/about-claude/pricing" target="_blank">Claude API Pricing</a>
     <a href="https://openai.com/api/pricing/" target="_blank">OpenAI API Pricing</a>
+    <a href="https://www.alibabacloud.com/help/en/model-studio/model-pricing" target="_blank">Alibaba Model Studio Pricing</a>
+    <a href="https://api-docs.deepseek.com/quick_start/pricing-details-usd/" target="_blank">DeepSeek API Pricing</a>
+    <a href="https://docs.z.ai/guides/overview/pricing" target="_blank">Z.AI Pricing</a>
   </div>
 </Slide>
 
-<!-- SLIDE 107 -->
-<Slide id="observabilidad" number={107} title="Observabilidad de LLMs">
+<!-- SLIDE 116 -->
+<Slide id="observabilidad" number={116} title="Observabilidad de LLMs">
   <p><i data-lucide="activity"></i> En producción, un LLM sin observabilidad es una caja negra. Necesitas saber <strong>qué está pasando</strong> en cada llamada: latencia, coste, calidad, errores, y poder investigar cuando algo falla.</p>
   <h3><i data-lucide="search"></i> ¿Qué observar?</h3>
   <div class="icon-grid">
@@ -1565,8 +1707,8 @@ if (!parsed.success) &#123;
   </div>
 </Slide>
 
-<!-- SLIDE 108 -->
-<Slide id="prompt-como-codigo" number={108} title="Gestión de prompts como código">
+<!-- SLIDE 117 -->
+<Slide id="prompt-como-codigo" number={117} title="Gestión de prompts como código">
   <p><i data-lucide="file-code"></i> Un prompt en producción no es un string pegado en el código. Es un <strong>artefacto de ingeniería</strong> que necesita versionado, testing, review y rollback.</p>
   <div class="icon-grid">
     <div class="icon-card">
@@ -1622,8 +1764,8 @@ if (!parsed.success) &#123;
   </div>
 </Slide>
 
-<!-- SLIDE 109 -->
-<Slide id="evals" number={109} title="Evaluaciones (evals): ¿cómo saber si tu IA funciona bien?">
+<!-- SLIDE 118 -->
+<Slide id="evals" number={118} title="Evaluaciones (evals): ¿cómo saber si tu IA funciona bien?">
   <p><i data-lucide="check-circle"></i> No puedes escribir tests unitarios clásicos contra un LLM (la salida cambia cada vez). Necesitas <strong>evaluaciones (evals)</strong>: métricas y frameworks para medir la calidad de un sistema de IA de forma sistemática.</p>
   <h3><i data-lucide="layers"></i> Tipos de evaluación</h3>
   <table>
@@ -1689,8 +1831,8 @@ if (!parsed.success) &#123;
   </div>
 </Slide>
 
-<!-- SLIDE 110 -->
-<Slide id="testing-codigo-ia" number={110} title="Testing de código generado por IA">
+<!-- SLIDE 119 -->
+<Slide id="testing-codigo-ia" number={119} title="Testing de código generado por IA">
   <p><i data-lucide="test-tubes"></i> El código generado por IA parece correcto y tiene buena pinta. Pero <strong>esconde bugs sutiles</strong> que solo se detectan con testing riguroso.</p>
   <h3><i data-lucide="alert-triangle"></i> Errores típicos del código generado</h3>
   <table>
@@ -1747,8 +1889,8 @@ if (!parsed.success) &#123;
   </div>
 </Slide>
 
-<!-- SLIDE 111 -->
-<Slide id="vibe-coding" number={111} title="Vibe coding: programar por intención">
+<!-- SLIDE 120 -->
+<Slide id="vibe-coding" number={120} title="Vibe coding: programar por intención">
   <p><i data-lucide="sparkles"></i> Término acuñado por <strong>Andrej Karpathy</strong> (febrero 2025): "un nuevo tipo de programación donde te dejas llevar por las vibes, abrazas lo exponencial, y olvidas que el código existe".</p>
   <div class="two-cols">
     <div class="compare-card">
@@ -1788,8 +1930,8 @@ if (!parsed.success) &#123;
   </div>
 </Slide>
 
-<!-- SLIDE 112 -->
-<Slide id="cambio-paradigma" number={112} title="El cambio de paradigma en el trabajo del ingeniero">
+<!-- SLIDE 121 -->
+<Slide id="cambio-paradigma" number={121} title="El cambio de paradigma en el trabajo del ingeniero">
   <div class="two-cols">
     <div>
       <h3><i data-lucide="trending-up"></i> Lo que cambia</h3>
@@ -1839,8 +1981,8 @@ if (!parsed.success) &#123;
   </div>
 </Slide>
 
-<!-- SLIDE 113 -->
-<Slide id="workflow-patterns" number={113} title="Patrones de trabajo con IA en el día a día">
+<!-- SLIDE 122 -->
+<Slide id="workflow-patterns" number={122} title="Patrones de trabajo con IA en el día a día">
   <p><i data-lucide="workflow"></i> Más allá de las herramientas, lo que marca la diferencia es <strong>cómo integras la IA en tu flujo de trabajo</strong>. Estos son los patrones que los equipos más productivos usan en 2026.</p>
   <div class="icon-grid">
     <div class="icon-card">
@@ -1897,8 +2039,8 @@ if (!parsed.success) &#123;
   </div>
 </Slide>
 
-<!-- SLIDE 114 -->
-<Slide id="config-claude-code" number={114} title="Configurar Claude Code como un pro">
+<!-- SLIDE 123 -->
+<Slide id="config-claude-code" number={123} title="Configurar Claude Code como un pro">
   <p><i data-lucide="settings"></i> La diferencia entre un Claude Code que "funciona" y uno que <strong>multiplica tu productividad</strong> está en cómo lo configuras. Estos ficheros definen su comportamiento.</p>
   <h3><i data-lucide="file-text"></i> Estructura de configuración</h3>
   <table>
@@ -1954,8 +2096,8 @@ if (!parsed.success) &#123;
   </div>
 </Slide>
 
-<!-- SLIDE 115 -->
-<Slide id="config-opencode-cursor" number={115} title="Configurar OpenCode y Cursor">
+<!-- SLIDE 124 -->
+<Slide id="config-opencode-cursor" number={124} title="Configurar OpenCode y Cursor">
   <p><i data-lucide="settings"></i> Cada herramienta tiene su propio sistema de reglas. La idea es la misma: <strong>darle contexto persistente</strong> para que no tengas que repetirte en cada conversación.</p>
   <h3><i data-lucide="terminal"></i> OpenCode</h3>
   <table>
@@ -2028,8 +2170,8 @@ if (!parsed.success) &#123;
   </div>
 </Slide>
 
-<!-- SLIDE 116 -->
-<Slide id="rules-efectivas" number={116} title="Escribir rules efectivas: el arte de instruir al modelo">
+<!-- SLIDE 125 -->
+<Slide id="rules-efectivas" number={125} title="Escribir rules efectivas: el arte de instruir al modelo">
   <p><i data-lucide="pen-tool"></i> Las rules son el <strong>ROI más alto</strong> que puedes conseguir con una herramienta de IA. 30 minutos bien invertidos te ahorran horas de correcciones. Pero no todas las rules son iguales.</p>
   <h3><i data-lucide="x-circle"></i> Rules malas vs buenas</h3>
   <div class="two-cols">
@@ -2083,8 +2225,8 @@ if (!parsed.success) &#123;
   </div>
 </Slide>
 
-<!-- SLIDE 117 -->
-<Slide id="crear-skill" number={117} title="Crear una skill: extensiones reutilizables para tu agente">
+<!-- SLIDE 126 -->
+<Slide id="crear-skill" number={126} title="Crear una skill: extensiones reutilizables para tu agente">
   <p><i data-lucide="puzzle"></i> Una <strong>skill</strong> es una capacidad empaquetada que el modelo activa automáticamente cuando detecta que aplica, o que invocas manualmente con <code>/nombre</code>. Cada skill vive en su propio directorio con un fichero <strong><code>SKILL.md</code></strong>.</p>
   <h3><i data-lucide="folder-tree"></i> Estructura oficial (directorio + SKILL.md)</h3>
   <div class="code-block">
@@ -2145,8 +2287,8 @@ if (!parsed.success) &#123;
   </div>
 </Slide>
 
-<!-- SLIDE 118 -->
-<Slide id="anatomia-plugin" number={118} title="Anatomía de un plugin: skills + agentes + hooks">
+<!-- SLIDE 127 -->
+<Slide id="anatomia-plugin" number={127} title="Anatomía de un plugin: skills + agentes + hooks">
   <p><i data-lucide="package"></i> Un <strong>plugin</strong> empaqueta skills, agentes, hooks y comandos en una unidad instalable y compartible. Es así como se distribuyen las extensiones de Claude Code.</p>
   <h3><i data-lucide="folder-tree"></i> Estructura de directorios</h3>
   <div class="code-block">
@@ -2199,8 +2341,8 @@ if (!parsed.success) &#123;
   </div>
 </Slide>
 
-<!-- SLIDE 119 -->
-<Slide id="agentes-produccion" number={119} title="AI agents en producción: lecciones aprendidas">
+<!-- SLIDE 128 -->
+<Slide id="agentes-produccion" number={128} title="AI agents en producción: lecciones aprendidas">
   <p><i data-lucide="building"></i> Tras un año de agentes en producción real, estas son las <strong>lecciones que no aparecen en los tutoriales</strong>.</p>
   <h3><i data-lucide="check-circle"></i> Lo que funciona</h3>
   <div class="icon-grid">
@@ -2248,31 +2390,31 @@ if (!parsed.success) &#123;
   </div>
 </Slide>
 
-<!-- SLIDE 120 -->
-<Slide id="recap-realidad" number={120} title="Lo que deberías saber: realidad del ingeniero">
+<!-- SLIDE 129 -->
+<Slide id="recap-realidad" number={129} title="Lo que deberías saber: realidad del ingeniero">
   <table>
     <thead>
       <tr><th>Concepto</th><th>Slide</th></tr>
     </thead>
     <tbody>
-      <tr><td>Terminal (Claude Code, Aider) vs IDE (Cursor, Copilot)</td><td>96-97</td></tr>
-      <tr><td>Benchmarks: familias, SWE-bench y lectura crítica de leaderboards</td><td>98-100</td></tr>
-      <tr><td>IA en CI/CD: PR review, testing, seguridad automatizada</td><td>101</td></tr>
-      <tr><td>Prompt injection, data leakage, supply chain poisoning</td><td>102</td></tr>
-      <tr><td>Guardrails: input validation, output validation, sandboxing</td><td>103</td></tr>
-      <tr><td>Red teaming: testear tu sistema intentando romperlo</td><td>104</td></tr>
-      <tr><td>EU AI Act: clasificación por riesgo, calendario de compliance</td><td>105</td></tr>
-      <tr><td>Costes: pago por tokens, estrategias de optimización</td><td>106</td></tr>
-      <tr><td>Observabilidad: Langfuse, Helicone, logging de cada llamada</td><td>107</td></tr>
-      <tr><td>Prompts como código: versionado, evals, A/B testing, rollback</td><td>108</td></tr>
-      <tr><td>Evals: medir si tu IA funciona bien de forma sistemática</td><td>109</td></tr>
-      <tr><td>Testing de código generado: mutation testing, property-based</td><td>110</td></tr>
-      <tr><td>Vibe coding: programar por intención, con disciplina</td><td>111</td></tr>
-      <tr><td>Spec-first + test-first: el flujo más productivo con IA</td><td>112-113</td></tr>
-      <tr><td>Configurar Claude Code, OpenCode y Cursor como un pro</td><td>114-115</td></tr>
-      <tr><td>Escribir rules efectivas: el arte de instruir al modelo</td><td>116</td></tr>
-      <tr><td>Crear skills y plugins: extender tu herramienta de IA</td><td>117-118</td></tr>
-      <tr><td>Agentes en producción: agent tax, autonomía real, lecciones</td><td>119</td></tr>
+      <tr><td>Terminal (Claude Code, Aider) vs IDE (Cursor, Copilot)</td><td>105-106</td></tr>
+      <tr><td>Benchmarks: familias, SWE-bench y lectura crítica de leaderboards</td><td>107-109</td></tr>
+      <tr><td>IA en CI/CD: PR review, testing, seguridad automatizada</td><td>110</td></tr>
+      <tr><td>Prompt injection, data leakage, supply chain poisoning</td><td>111</td></tr>
+      <tr><td>Guardrails: input validation, output validation, sandboxing</td><td>112</td></tr>
+      <tr><td>Red teaming: testear tu sistema intentando romperlo</td><td>113</td></tr>
+      <tr><td>EU AI Act: clasificación por riesgo, calendario de compliance</td><td>114</td></tr>
+      <tr><td>Costes: pago por tokens, estrategias de optimización</td><td>115</td></tr>
+      <tr><td>Observabilidad: Langfuse, Helicone, logging de cada llamada</td><td>116</td></tr>
+      <tr><td>Prompts como código: versionado, evals, A/B testing, rollback</td><td>117</td></tr>
+      <tr><td>Evals: medir si tu IA funciona bien de forma sistemática</td><td>118</td></tr>
+      <tr><td>Testing de código generado: mutation testing, property-based</td><td>119</td></tr>
+      <tr><td>Vibe coding: programar por intención, con disciplina</td><td>120</td></tr>
+      <tr><td>Spec-first + test-first: el flujo más productivo con IA</td><td>121-122</td></tr>
+      <tr><td>Configurar Claude Code, OpenCode y Cursor como un pro</td><td>123-124</td></tr>
+      <tr><td>Escribir rules efectivas: el arte de instruir al modelo</td><td>125</td></tr>
+      <tr><td>Crear skills y plugins: extender tu herramienta de IA</td><td>126-127</td></tr>
+      <tr><td>Agentes en producción: agent tax, autonomía real, lecciones</td><td>128</td></tr>
     </tbody>
   </table>
 </Slide>
