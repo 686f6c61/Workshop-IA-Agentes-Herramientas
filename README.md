@@ -1,8 +1,8 @@
 # Workshop de IA: agentes, modelos y herramientas
 
-De la neurona al agente: 113 slides para entender la IA moderna y aplicarla en tu dia a dia como ingeniero. Desde backpropagation hasta desplegar agentes en produccion, pasando por RAG, MCP, ControlNet y vibe coding.
+De la neurona al agente: 116 slides para entender la IA moderna y aplicarla en tu dia a dia como ingeniero. Desde backpropagation hasta desplegar agentes en produccion, pasando por RAG, MCP, ControlNet, modelos open weights y vibe coding.
 
-**[Ver presentacion](https://workshop-ia-agentes-herramientas.onrender.com)** | Actualizado a marzo 2026 (update 04/26)
+**[Ver presentacion](https://workshop-ia-2026.686f6c61.dev)** | Actualizado a mayo 2026 (update 05/26)
 
 ## Contenido
 
@@ -13,17 +13,18 @@ De la neurona al agente: 113 slides para entender la IA moderna y aplicarla en t
 - [x] Funciones de perdida, optimizadores (Adam, SGD)
 - [x] CNNs para vision, RNNs y LSTMs para secuencias
 - [x] Tokens, embeddings, similitud coseno
-- [x] Entrenamiento vs inferencia, quantizacion (GGUF, Q4, Q8)
+- [x] Entrenamiento vs inferencia, quantizacion (GGUF, bitsandbytes, GPTQ/AWQ, Q4-Q8)
 
 ### Arquitecturas y modelos (slides 19-34)
 - [x] LLMs, Transformers, Mixture of Experts
+- [x] Dimensiones de modelos: parametros totales/activos, capas, hidden size, heads, context window
 - [x] Atencion en detalle: matrices Q, K, V, multi-head, RoPE
 - [x] Tokenizacion en profundidad: BPE, WordPiece, SentencePiece
 - [x] Transfer learning: de ImageNet a GPT
 - [x] Modelos multimodales nativos (texto + imagen + audio + video)
 - [x] Parametros: temperature, top_p, top_k
 - [x] Modelos de razonamiento (thinking tokens)
-- [x] Open source vs propietario, destilacion, inferencia optimizada
+- [x] Open weights vs propietario, destilacion, inferencia optimizada
 - [x] Edge AI: modelos en navegador, movil e IoT
 
 ### Uso practico (slides 36-62)
@@ -35,6 +36,7 @@ De la neurona al agente: 113 slides para entender la IA moderna y aplicarla en t
 - [x] Entrenamiento de imagen: LoRA, DreamBooth, Textual Inversion
 - [x] Herramientas: ComfyUI, Forge, Civitai, Replicate, RunPod
 - [x] Tecnicas de control: ControlNet, IP-Adapter, inpainting, upscaling
+- [x] Hugging Face + LM Studio: model cards, licencias, formatos y quantizaciones
 - [x] RAG, agentic RAG, GraphRAG, hybrid search, contextual retrieval
 - [x] Fine-tuning con LoRA/QLoRA (Unsloth, Axolotl)
 - [x] Datos sinteticos, bases de datos vectoriales
@@ -68,8 +70,8 @@ De la neurona al agente: 113 slides para entender la IA moderna y aplicarla en t
 - [x] Configurar Claude Code, OpenCode y Cursor como un pro
 - [x] Agentes en produccion: lecciones aprendidas y el "agent tax"
 
-### Modelos OSS con Ollama Cloud (slides 106-111)
-- [x] Ollama Cloud: modelos OSS sin GPU
+### Modelos open weights con Ollama Cloud (slides 109-115)
+- [x] Ollama Cloud: modelos open weights sin GPU
 - [x] Catalogo, setup, integracion con herramientas
 - [x] Cloud vs local: cuando usar cada uno
 
@@ -91,7 +93,7 @@ npm run build    # genera dist/
 npm run preview  # preview local del build
 ```
 
-Deploy automatico en Render via `render.yaml`. Cada push a `main` redespliega.
+Deploy automatico en Coolify usando el `Dockerfile`. Cada push a `main` redespliega el servicio conectado al repo.
 
 ## Stack
 
@@ -99,7 +101,7 @@ Deploy automatico en Render via `render.yaml`. Cada push a `main` redespliega.
 - Lucide Icons (CDN)
 - Space Grotesk + IBM Plex Mono
 - Google Analytics + Search Console
-- Render (hosting)
+- Coolify en VPS (Docker + nginx)
 
 ## Autor
 

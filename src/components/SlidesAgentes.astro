@@ -152,7 +152,7 @@ import Slide from './Slide.astro';
       <tr><td><strong>Memoria semántica</strong></td><td>Hechos y relaciones extraídos y almacenados como grafo</td><td>"El usuario es senior en Go, nuevo en React"</td></tr>
     </tbody>
   </table>
-  <h3><i data-lucide="wrench"></i> Herramientas (marzo 2026)</h3>
+  <h3><i data-lucide="wrench"></i> Herramientas (mayo 2026)</h3>
   <div class="icon-grid">
     <div class="icon-card">
       <i data-lucide="file-text"></i>
@@ -383,15 +383,15 @@ import Slide from './Slide.astro';
       <tr><th>Tarea</th><th>Modelo recomendado</th><th>Coste relativo</th></tr>
     </thead>
     <tbody>
-      <tr><td>Resumir, clasificar, extraer datos</td><td>Haiku / GPT-4o Mini / modelo local</td><td>Bajo</td></tr>
-      <tr><td>Código complejo, razonamiento</td><td>Opus / GPT-5.2 / Sonnet</td><td>Alto</td></tr>
-      <tr><td>Validación, formato</td><td>Sonnet / Haiku</td><td>Medio-bajo</td></tr>
+      <tr><td>Resumir, clasificar, extraer datos</td><td>Haiku / GPT-5.4 mini / modelo local</td><td>Bajo</td></tr>
+      <tr><td>Código complejo, razonamiento</td><td>Opus / GPT-5.5 / Gemini 3.1 Pro</td><td>Alto</td></tr>
+      <tr><td>Validación, formato</td><td>Sonnet / GPT-5.4 mini / Haiku</td><td>Medio-bajo</td></tr>
     </tbody>
   </table>
   <h3><i data-lucide="layers"></i> Stack típico de orquestación</h3>
   <ul>
     <li><i data-lucide="network"></i> <strong>Orquestador:</strong> coordina el flujo (LangGraph, Mastra, Google ADK, tu propio código)</li>
-    <li><i data-lucide="brain"></i> <strong>Agente planificador:</strong> modelo potente que descompone la tarea (Opus, GPT-5.2)</li>
+    <li><i data-lucide="brain"></i> <strong>Agente planificador:</strong> modelo potente que descompone la tarea (Opus, GPT-5.5, Gemini 3.1 Pro)</li>
     <li><i data-lucide="cpu"></i> <strong>Agentes ejecutores:</strong> modelos más baratos que ejecutan subtareas (Sonnet, Haiku, modelos locales)</li>
     <li><i data-lucide="check-circle"></i> <strong>Agente validador:</strong> revisa la salida antes de entregarla</li>
   </ul>
@@ -645,7 +645,7 @@ import Slide from './Slide.astro';
 <!-- SLIDE 78 -->
 <Slide id="coding-agents" number={78} title="Coding agents: el estado del arte">
   <p><i data-lucide="code"></i> Agentes que <strong>programan de forma autónoma</strong>: leen código, planifican cambios, implementan, ejecutan tests y corrigen errores. El salto de "asistente" a "programador autónomo".</p>
-  <h3><i data-lucide="database"></i> Comparativa (marzo 2026)</h3>
+  <h3><i data-lucide="database"></i> Comparativa (mayo 2026)</h3>
   <table>
     <thead>
       <tr><th>Agente</th><th>Tipo</th><th>Modelo</th><th>Punto fuerte</th></tr>
@@ -689,7 +689,7 @@ import Slide from './Slide.astro';
     <li><i data-lucide="search"></i> El agente/modelo <strong>descubre</strong> qué herramientas tiene disponibles y las llama cuando las necesita</li>
     <li><i data-lucide="code"></i> Protocolo JSON-RPC sobre stdio o HTTP con SSE</li>
   </ul>
-  <h3><i data-lucide="globe"></i> ¿Quién lo soporta? (marzo 2026)</h3>
+  <h3><i data-lucide="globe"></i> ¿Quién lo soporta? (mayo 2026)</h3>
   <p>Claude Code, Claude Desktop, Cursor, Windsurf, VS Code (GitHub Copilot), OpenAI (anunciado), Google ADK (nativo). Cientos de servidores disponibles: PostgreSQL, GitHub, Slack, Playwright, Pinecone, filesystem...</p>
   <div class="callout">
     <p class="callout-title"><i data-lucide="rocket"></i> ¿Por qué importa para un ingeniero?</p>
@@ -1000,7 +1000,7 @@ import Slide from './Slide.astro';
 </Slide>
 
 <!-- SLIDE 87 -->
-<Slide id="comparativa-coding" number={87} title="Comparativa de AI coding assistants (marzo 2026)">
+<Slide id="comparativa-coding" number={87} title="Comparativa de AI coding assistants (mayo 2026)">
   <p><i data-lucide="code"></i> Todos usan IA, pero cada herramienta tiene un enfoque diferente. La elección depende de <strong>cómo trabajas</strong>, no solo de qué modelo usa.</p>
   <table>
     <thead>
@@ -1009,7 +1009,7 @@ import Slide from './Slide.astro';
     <tbody>
       <tr><td><strong>Claude Code</strong></td><td>Terminal (agente)</td><td>Claude (Opus, Sonnet, Haiku)</td><td>Agente autónomo. Lee, escribe, ejecuta, corrige. Subagentes, MCP, plugins</td><td>~$17 (Max) / API pay-per-use</td></tr>
       <tr><td><strong>Cursor</strong></td><td>IDE (fork VS Code)</td><td>Claude, GPT, modelos propios</td><td>Autocompletado + chat + agente integrado en IDE. Tab para aceptar. Multi-fichero</td><td>$20 (Pro) / $40 (Business)</td></tr>
-      <tr><td><strong>GitHub Copilot</strong></td><td>Extension IDE</td><td>GPT-5.2, Claude, Gemini</td><td>Integrado en VS Code/JetBrains. Copilot Chat + agent mode. Ecosistema GitHub</td><td>$10 (Individual) / $19 (Business)</td></tr>
+      <tr><td><strong>GitHub Copilot</strong></td><td>Extension IDE</td><td>GPT-5.x, Claude, Gemini</td><td>Integrado en VS Code/JetBrains. Copilot Chat + agent mode. Ecosistema GitHub</td><td>$10 (Individual) / $19 (Business)</td></tr>
       <tr><td><strong>Windsurf</strong></td><td>IDE (fork VS Code)</td><td>Claude, GPT, modelos propios</td><td>Cascade: agente que ejecuta multi-paso. Buena UX para no-expertos</td><td>$15 (Pro) / pay-per-use</td></tr>
       <tr><td><strong>Aider</strong></td><td>Terminal (open source)</td><td>Cualquiera (API)</td><td>Open source, ligero, git-aware. Ideal para quién quiere control total</td><td>Gratis (pagas la API)</td></tr>
       <tr><td><strong>OpenCode</strong></td><td>Terminal (open source)</td><td>Cualquiera (API)</td><td>Terminal TUI elegante. LSP integrado. Alternativa open source a Claude Code</td><td>Gratis (pagas la API)</td></tr>
@@ -1401,18 +1401,18 @@ if (!parsed.success) &#123;
 <!-- SLIDE 94 -->
 <Slide id="costes" number={94} title="Tokens y coste: ¿cuánto cuesta usar IA?">
   <p><i data-lucide="coins"></i> Se paga por <strong>tokens de entrada + tokens de salida</strong>. La salida suele ser más cara (el modelo trabaja más generando que leyendo).</p>
-  <h3><i data-lucide="trending-up"></i> Precios por millón de tokens (marzo 2026)</h3>
+  <h3><i data-lucide="trending-up"></i> Precios por millón de tokens (mayo 2026)</h3>
   <table>
     <thead>
       <tr><th>Modelo</th><th>Entrada</th><th>Salida</th><th>Nivel</th></tr>
     </thead>
     <tbody>
-      <tr><td><strong>Claude Opus 4.6</strong></td><td>~4,60 &euro;</td><td>~23 &euro;</td><td>Premium</td></tr>
-      <tr><td><strong>Claude Sonnet 4.6</strong></td><td>~2,75 &euro;</td><td>~13,80 &euro;</td><td>Estándar</td></tr>
-      <tr><td><strong>Claude Haiku 4.5</strong></td><td>~0,92 &euro;</td><td>~4,60 &euro;</td><td>Económico</td></tr>
-      <tr><td><strong>GPT-5.2</strong></td><td>~1,60 &euro;</td><td>~12,90 &euro;</td><td>Premium</td></tr>
-      <tr><td><strong>GLM 5</strong> (Zhipu AI)</td><td>~0,70 &euro;</td><td>~2,80 &euro;</td><td>Económico</td></tr>
-      <tr><td><strong>Qwen 3.5</strong> (Alibaba)</td><td>~0,55 &euro;</td><td>~2,20 &euro;</td><td>Económico</td></tr>
+      <tr><td><strong>Claude Opus 4.6</strong></td><td>$5</td><td>$25</td><td>Premium</td></tr>
+      <tr><td><strong>Claude Sonnet 4.6</strong></td><td>$3</td><td>$15</td><td>Estándar</td></tr>
+      <tr><td><strong>Claude Haiku 4.5</strong></td><td>$1</td><td>$5</td><td>Económico</td></tr>
+      <tr><td><strong>GPT-5.5</strong></td><td>$5</td><td>$30</td><td>Premium</td></tr>
+      <tr><td><strong>GPT-5.4</strong></td><td>$2.50</td><td>$15</td><td>Estándar</td></tr>
+      <tr><td><strong>GPT-5.4 mini</strong></td><td>$0.75</td><td>$4.50</td><td>Económico</td></tr>
     </tbody>
   </table>
   <h3><i data-lucide="sliders-horizontal"></i> Estrategias para optimizar coste</h3>

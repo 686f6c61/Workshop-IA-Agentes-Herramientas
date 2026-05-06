@@ -4,12 +4,12 @@ import Slide from './Slide.astro';
 
 <!-- SECTION: OLLAMA CLOUD -->
 <Slide id="sec-ollama-cloud" number={109} section
-  title="Modelos OSS en la nube"
-  subtitle="Ollama Cloud: ejecutar modelos open source sin GPU local, catálogo de modelos, integración con herramientas de coding y cuándo elegir cloud vs local." />
+  title="Modelos open weights en la nube"
+  subtitle="Ollama Cloud: ejecutar modelos open weights sin GPU local, catálogo de modelos, integración con herramientas de coding y cuándo elegir cloud vs local." />
 
 <!-- SLIDE 110 -->
-<Slide id="ollama-cloud-intro" number={110} title="Ollama Cloud: modelos OSS sin GPU">
-  <p><i data-lucide="cloud"></i> Ollama Cloud da acceso a modelos open source (Qwen, DeepSeek, Llama, Kimi...) a través de una API en la nube. Misma interfaz que Ollama local, pero sin necesidad de hardware.</p>
+<Slide id="ollama-cloud-intro" number={110} title="Ollama Cloud: modelos open weights sin GPU">
+  <p><i data-lucide="cloud"></i> Ollama Cloud da acceso a modelos open weights (Qwen, DeepSeek, Kimi, GLM, Mistral...) a través de una API en la nube. Misma experiencia que Ollama local, pero sin comprar ni mantener GPU.</p>
   <div class="icon-grid">
     <div class="icon-card">
       <i data-lucide="zap"></i>
@@ -42,40 +42,40 @@ import Slide from './Slide.astro';
   </div>
   <div class="callout">
     <p class="callout-title"><i data-lucide="lightbulb"></i> Caso de uso principal</p>
-    <p>Tienes un portátil sin GPU dedicada pero quieres usar qwen3-coder-next (el mejor modelo OSS de código en marzo 2026) para programar. Ollama Cloud te lo da en segundos.</p>
+    <p>Tienes un portátil sin GPU dedicada pero quieres probar modelos grandes de código o razonamiento como qwen3-coder-next, kimi-k2.6 o deepseek-v4. Ollama Cloud te da un endpoint en segundos.</p>
   </div>
   <div class="refs">
     <p class="refs-title">Para profundizar</p>
-    <a href="https://ollama.com/cloud" target="_blank">Ollama Cloud</a>
-    <a href="https://ollama.com/blog" target="_blank">Blog de Ollama</a>
+    <a href="https://ollama.com/pricing" target="_blank">Ollama Cloud Pricing</a>
+    <a href="https://ollama.com/search" target="_blank">Catálogo de modelos Ollama</a>
   </div>
 </Slide>
 
 <!-- SLIDE 111 -->
-<Slide id="modelos-disponibles" number={111} title="Catálogo de modelos (marzo 2026)">
-  <p><i data-lucide="database"></i> Selección de los modelos más relevantes disponibles en Ollama Cloud.</p>
+<Slide id="modelos-disponibles" number={111} title="Catálogo de modelos (mayo 2026)">
+  <p><i data-lucide="database"></i> Selección representativa del catálogo de Ollama Cloud a mayo de 2026. La lista cambia rápido: confirma siempre tags, tamaño y soporte de tools antes de fijar un modelo en producción.</p>
   <table>
     <thead>
       <tr><th>Categoría</th><th>Modelo</th><th>Detalle</th></tr>
     </thead>
     <tbody>
-      <tr><td><i data-lucide="code"></i> <strong>Código</strong></td><td><strong>qwen3-coder-next</strong></td><td>El más usado (901K pulls). Referencia en coding OSS</td></tr>
-      <tr><td></td><td><strong>devstral-2</strong></td><td>123B. Mistral AI, excelente en refactoring</td></tr>
-      <tr><td></td><td><strong>kimi-k2</strong></td><td>Moonshot AI. Buen rendimiento en tareas largas</td></tr>
-      <tr><td><i data-lucide="brain"></i> <strong>Razonamiento</strong></td><td><strong>deepseek-v3.1</strong></td><td>671B, thinking/non-thinking híbrido</td></tr>
-      <tr><td></td><td><strong>qwen3-next</strong></td><td>80B. Muy bueno en matemáticas y lógica</td></tr>
-      <tr><td></td><td><strong>cogito-2.1</strong></td><td>671B MoE. Chain-of-thought nativo</td></tr>
-      <tr><td><i data-lucide="image"></i> <strong>Visión</strong></td><td><strong>qwen3-vl</strong></td><td>2B-235B. El más versátil en visión</td></tr>
-      <tr><td></td><td><strong>kimi-k2.5</strong></td><td>Multimodal completo (179K pulls)</td></tr>
-      <tr><td></td><td><strong>mistral-large-3</strong></td><td>Visión + texto. Buena calidad general</td></tr>
-      <tr><td><i data-lucide="sparkles"></i> <strong>Otros</strong></td><td><strong>glm-5</strong></td><td>744B total, 40B activa (MoE)</td></tr>
-      <tr><td></td><td><strong>minimax-m2.7</strong></td><td>Bueno en generación creativa</td></tr>
-      <tr><td></td><td><strong>devstral-small-2</strong></td><td>24B. Ligero y rápido para coding</td></tr>
+      <tr><td><i data-lucide="code"></i> <strong>Código</strong></td><td><strong>qwen3-coder-next</strong></td><td>Modelo de coding de Qwen para workflows agentic coding</td></tr>
+      <tr><td></td><td><strong>kimi-k2.6</strong></td><td>Multimodal agentic, enfocado en long-horizon coding y diseño</td></tr>
+      <tr><td></td><td><strong>mistral-medium-3.5</strong></td><td>128B, multimodal, orientado a agentic/coding</td></tr>
+      <tr><td><i data-lucide="brain"></i> <strong>Razonamiento</strong></td><td><strong>deepseek-v4-pro</strong></td><td>MoE con contexto 1M y modos de razonamiento</td></tr>
+      <tr><td></td><td><strong>deepseek-v4-flash</strong></td><td>MoE 284B total / 13B activos, contexto 1M</td></tr>
+      <tr><td></td><td><strong>qwen3.6</strong></td><td>Familia Qwen con tools, thinking y visión</td></tr>
+      <tr><td><i data-lucide="image"></i> <strong>Multimodal</strong></td><td><strong>nemotron3</strong></td><td>Video, audio, imagen y texto para Q&A y documentos</td></tr>
+      <tr><td></td><td><strong>gemma4</strong></td><td>Modelos Gemma con visión, tools, thinking y audio</td></tr>
+      <tr><td></td><td><strong>qwen3.5</strong></td><td>Familia multimodal con tamaños de 0.8B a 122B</td></tr>
+      <tr><td><i data-lucide="cpu"></i> <strong>Eficientes</strong></td><td><strong>lfm2 / lfm2.5-thinking</strong></td><td>Modelos híbridos para despliegue on-device</td></tr>
+      <tr><td></td><td><strong>granite4.1</strong></td><td>Familia IBM Granite con soporte de tools</td></tr>
+      <tr><td></td><td><strong>laguna-xs.2</strong></td><td>MoE 33B total / 3B activos para agentic coding local</td></tr>
     </tbody>
   </table>
   <div class="refs">
     <p class="refs-title">Para profundizar</p>
-    <a href="https://ollama.com/models" target="_blank">Catálogo completo de modelos</a>
+    <a href="https://ollama.com/search" target="_blank">Catálogo completo de modelos</a>
   </div>
 </Slide>
 
@@ -125,7 +125,7 @@ import Slide from './Slide.astro';
       <i data-lucide="terminal"></i>
       <div class="icon-card-content">
         <strong>Claude Code</strong>
-        <p>Soporta modelos de Ollama Cloud como provider alternativo. Útil para tareas de coding con modelos OSS.</p>
+        <p>Soporta modelos de Ollama Cloud como provider alternativo si tu configuración usa un bridge compatible. Útil para tareas de coding con modelos open weights.</p>
       </div>
     </div>
     <div class="icon-card">
@@ -164,7 +164,7 @@ import Slide from './Slide.astro';
   </table>
   <div class="callout">
     <p class="callout-title"><i data-lucide="target"></i> Consejo práctico</p>
-    <p>Usa modelos propietarios (Claude, GPT) para tareas complejas de arquitectura. Usa modelos OSS via Ollama Cloud para tareas repetitivas de código: completar funciones, generar tests, refactoring mecánico.</p>
+    <p>Usa modelos propietarios (Claude, GPT, Gemini) cuando necesites máxima fiabilidad o integración específica. Usa modelos open weights vía Ollama Cloud para evaluación rápida, privacidad contractual clara, tareas repetitivas de código y evitar depender de un único proveedor.</p>
   </div>
 </Slide>
 
@@ -180,15 +180,16 @@ import Slide from './Slide.astro';
       <tr><td><strong>Modelos grandes (671B)</strong></td><td>Sí, sin problema</td><td>Imposible sin cluster</td></tr>
       <tr><td><strong>Latencia</strong></td><td>50-200 ms (red)</td><td>10-50 ms (local)</td></tr>
       <tr><td><strong>Velocidad (tk/s)</strong></td><td>30-80 tk/s</td><td>20-120 tk/s (según GPU)</td></tr>
-      <tr><td><strong>Privacidad</strong></td><td>Datos viajan a la nube</td><td>Todo queda en tu máquina</td></tr>
-      <tr><td><strong>Coste mensual</strong></td><td>Suscripción (~20 USD/mes)</td><td>Electricidad (+ inversión HW)</td></tr>
+      <tr><td><strong>Privacidad</strong></td><td>Datos viajan a la nube; Ollama declara no logging ni training</td><td>Todo queda en tu máquina</td></tr>
+      <tr><td><strong>Coste mensual</strong></td><td>Free / Pro $20 / Max $100</td><td>Electricidad (+ inversión HW)</td></tr>
+      <tr><td><strong>Formato</strong></td><td>Pesos nativos del proveedor; hardware cloud optimizado</td><td>GGUF/MLX/safetensors según runtime</td></tr>
       <tr><td><strong>Offline</strong></td><td>No</td><td>Sí</td></tr>
     </tbody>
   </table>
   <div class="two-cols">
     <div class="compare-card">
       <p class="compare-card-title"><i data-lucide="cloud"></i> Elige cloud cuando...</p>
-      <p class="compare-card-desc">No tienes GPU, necesitas modelos grandes (deepseek-v3.1 a 671B), quieres empezar en 2 minutos o trabajas en equipo y necesitas un endpoint compartido.</p>
+      <p class="compare-card-desc">No tienes GPU, necesitas modelos muy grandes, quieres empezar en 2 minutos o trabajas en equipo y necesitas un endpoint compartido.</p>
       <span class="tag">Sin inversión HW</span>
       <span class="tag">Setup instantáneo</span>
     </div>
@@ -212,11 +213,11 @@ import Slide from './Slide.astro';
       <tr><th>Concepto</th><th>Slide</th></tr>
     </thead>
     <tbody>
-      <tr><td>Ollama Cloud: modelos OSS sin GPU, misma API que local</td><td>106</td></tr>
-      <tr><td>Catálogo: qwen3-coder-next, deepseek-v3.1, qwen3-vl...</td><td>107</td></tr>
-      <tr><td>Setup en 2 minutos: API key + curl o Python (compatible OpenAI)</td><td>108</td></tr>
-      <tr><td>Integración: Claude Code, Cursor, OpenCode, Continue</td><td>109</td></tr>
-      <tr><td>Cloud para modelos grandes y prototipos; local para privacidad</td><td>110</td></tr>
+      <tr><td>Ollama Cloud: modelos open weights sin GPU, misma experiencia que local</td><td>110</td></tr>
+      <tr><td>Catálogo: qwen3.6, kimi-k2.6, deepseek-v4, gemma4...</td><td>111</td></tr>
+      <tr><td>Setup en 2 minutos: API key + curl o Python (compatible OpenAI)</td><td>112</td></tr>
+      <tr><td>Integración: Claude Code, Cursor, OpenCode, Continue</td><td>113</td></tr>
+      <tr><td>Cloud para modelos grandes y prototipos; local para privacidad extrema</td><td>114</td></tr>
     </tbody>
   </table>
 </Slide>

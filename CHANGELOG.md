@@ -1,5 +1,17 @@
 # Changelog
 
+## [2.1.0] - 2026-05-06
+
+Actualizacion de mayo 2026 manteniendo el estilo academico del workshop.
+
+### Changed
+- Portada y metadatos actualizados a mayo 2026 (05/26).
+- Modelos actualizados: GPT-5.5/GPT-5.4, Claude Opus/Sonnet 4.6, Gemini 3.1 Pro, Llama 4, Qwen3, DeepSeek-R1 y Mistral actual.
+- MoE ampliado con parametros totales vs activos, routing, ejemplos reales y advertencias de comparacion.
+- Quantizacion ampliada: GGUF/GGML, bitsandbytes, GPTQ/AWQ, FP8, Q4-Q8 e importancia de calibracion.
+- Hugging Face + LM Studio convertido en checklist de model cards, licencias, formatos, base model y quantizaciones.
+- README actualizado para Coolify/Docker y URL actual del despliegue.
+
 ## [2.0.0] - 2026-03-24
 
 Workshop reescrito y ampliado. De 69 slides a 113. Nuevo nombre, nuevo repo, nueva estructura.

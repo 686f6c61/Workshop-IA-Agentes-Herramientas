@@ -138,11 +138,12 @@ import Slide from './Slide.astro';
   </ul>
   <div class="callout">
     <p class="callout-title"><i data-lucide="zap"></i> ¿Por qué es brillante?</p>
-    <p>Puedes tener un modelo con 100.000 millones de parámetros, pero en cada pregunta solo usas 20.000 millones &rarr; rápido y barato. Mixtral: 8 expertos, activa 2 por token. Resultado: rendimiento de un modelo 4x mayor con el coste de uno pequeño.</p>
+    <p>Puedes cargar un modelo con cientos de miles de millones de parámetros, pero calcular solo una parte en cada token. Eso reduce coste de inferencia sin renunciar a capacidad total. La trampa: necesitas memoria para los expertos, buen routing y hardware que mueva datos rápido.</p>
   </div>
   <div class="refs">
     <p class="refs-title">Para profundizar</p>
     <a href="https://www.louisbouchard.ai/moe/" target="_blank">Louis Bouchard - MoE Explained Simply (explicación visual)</a>
+    <a href="https://arxiv.org/abs/2401.04088" target="_blank">Mixtral of Experts</a>
   </div>
 </Slide>
 
@@ -236,7 +237,7 @@ import Slide from './Slide.astro';
       <i data-lucide="brain"></i>
       <div class="icon-card-content">
         <strong>Reasoning models</strong>
-        <p>o1/o3 de OpenAI: modelos entrenados específicamente para razonar. Más lentos pero mejores en matemáticas, lógica y código complejo</p>
+        <p>GPT-5.5 / GPT-5.4 de OpenAI: modelos con reasoning effort configurable. Más lentos si aumentas esfuerzo, pero mejores en planificación, matemáticas y código complejo</p>
       </div>
     </div>
     <div class="icon-card">
@@ -270,7 +271,7 @@ import Slide from './Slide.astro';
   </table>
   <div class="callout">
     <p class="callout-title"><i data-lucide="target"></i> Regla práctica</p>
-    <p>Usa modelos de razonamiento cuando la tarea requiere planificación, lógica multi-paso o análisis profundo. Para todo lo demás, un modelo estándar (Sonnet, GPT-5.2) es más eficiente.</p>
+    <p>Usa modelos de razonamiento cuando la tarea requiere planificación, lógica multi-paso o análisis profundo. Para todo lo demás, un modelo rápido (Sonnet, GPT-5.4 mini, Haiku o local) suele ser más eficiente.</p>
   </div>
   <div class="refs">
     <p class="refs-title">Para profundizar</p>
@@ -297,15 +298,16 @@ import Slide from './Slide.astro';
       <span class="tag">Contexto cruzado</span>
     </div>
   </div>
-  <h3><i data-lucide="database"></i> Estado del arte (marzo 2026)</h3>
+  <h3><i data-lucide="database"></i> Estado del arte (mayo 2026)</h3>
   <table>
     <thead>
       <tr><th>Modelo</th><th>Texto</th><th>Imagen</th><th>Audio</th><th>Vídeo</th><th>Generación</th></tr>
     </thead>
     <tbody>
-      <tr><td><strong>Gemini 3</strong></td><td>Sí</td><td>Sí</td><td>Sí</td><td>Sí (1h+)</td><td>Texto + imagen</td></tr>
-      <tr><td><strong>GPT-5.2</strong></td><td>Sí</td><td>Sí</td><td>Sí</td><td>Sí (limitado)</td><td>Texto + imagen + audio</td></tr>
-      <tr><td><strong>Claude Opus 4.6</strong></td><td>Sí</td><td>Sí</td><td>En desarrollo</td><td>No</td><td>Texto</td></tr>
+      <tr><td><strong>Gemini 3.1 Pro</strong></td><td>Sí</td><td>Sí</td><td>Sí</td><td>Sí</td><td>Texto</td></tr>
+      <tr><td><strong>GPT-5.5</strong></td><td>Sí</td><td>Sí</td><td>Especializado vía Realtime</td><td>Herramientas especializadas</td><td>Texto + tools</td></tr>
+      <tr><td><strong>Claude Opus/Sonnet 4.6</strong></td><td>Sí</td><td>Sí</td><td>No nativo en Messages</td><td>No</td><td>Texto</td></tr>
+      <tr><td><strong>Gemini 3.1 Flash Live</strong></td><td>Sí</td><td>Sí</td><td>Sí</td><td>Sí</td><td>Audio en tiempo real</td></tr>
     </tbody>
   </table>
   <h3><i data-lucide="target"></i> ¿Qué cambia para un ingeniero?</h3>
@@ -320,31 +322,32 @@ import Slide from './Slide.astro';
   </div>
   <div class="refs">
     <p class="refs-title">Para profundizar</p>
-    <a href="https://deepmind.google/technologies/gemini/" target="_blank">Google - Gemini</a>
+    <a href="https://deepmind.google/models/gemini/pro/" target="_blank">Google DeepMind - Gemini 3.1 Pro</a>
+    <a href="https://developers.openai.com/api/docs/models" target="_blank">OpenAI - Models</a>
     <a href="https://platform.claude.com/docs/en/build-with-claude/vision" target="_blank">Anthropic - Vision</a>
   </div>
 </Slide>
 
 <!-- SLIDE 30 -->
-<Slide id="open-vs-closed" number={30} title="Open source vs propietario: ¿cuál elegir?">
-  <p><i data-lucide="scale"></i> No todos los modelos son iguales ni se licencian igual. Entender la diferencia entre open source y propietario es clave para elegir la herramienta correcta.</p>
+<Slide id="open-vs-closed" number={30} title="Open weights vs propietario: ¿cuál elegir?">
+  <p><i data-lucide="scale"></i> No todos los modelos son iguales ni se licencian igual. En LLMs, muchas veces lo correcto es decir <strong>open weights</strong>: puedes descargar pesos, pero no necesariamente tienes datos, entrenamiento, infraestructura ni una licencia libre clásica.</p>
   <h3><i data-lucide="database"></i> Modelos principales</h3>
   <table>
     <thead>
       <tr><th>Modelo</th><th>Empresa</th><th>Tipo</th><th>Licencia</th><th>Punto fuerte</th></tr>
     </thead>
     <tbody>
-      <tr><td><strong>Claude Opus/Sonnet</strong></td><td>Anthropic</td><td>Propietario</td><td>Comercial</td><td>Razonamiento y código</td></tr>
-      <tr><td><strong>GPT-5.2</strong></td><td>OpenAI</td><td>Propietario</td><td>Comercial</td><td>Multimodal y ecosistema</td></tr>
-      <tr><td><strong>Gemini 3</strong></td><td>Google</td><td>Propietario</td><td>Comercial</td><td>Contexto 1M+ y multimedia</td></tr>
-      <tr><td><strong>Llama 3</strong></td><td>Meta</td><td>Open source</td><td>Llama License</td><td>El más adoptado, fine-tuning fácil</td></tr>
-      <tr><td><strong>Mistral/Mixtral</strong></td><td>Mistral AI</td><td>Open source</td><td>Apache 2.0</td><td>MoE eficiente, buen rendimiento/coste</td></tr>
-      <tr><td><strong>Qwen 3</strong></td><td>Alibaba</td><td>Open source</td><td>Apache 2.0</td><td>Multilingüe, fuerte en chino</td></tr>
-      <tr><td><strong>Phi-4</strong></td><td>Microsoft</td><td>Open source</td><td>MIT</td><td>Pequeño pero potente, ideal para edge</td></tr>
-      <tr><td><strong>Gemma 3</strong></td><td>Google</td><td>Open source</td><td>Gemma License</td><td>Ligero, optimizado para móvil/edge</td></tr>
+      <tr><td><strong>Claude Opus/Sonnet 4.6</strong></td><td>Anthropic</td><td>Propietario</td><td>Comercial</td><td>Agentes, código y contexto largo</td></tr>
+      <tr><td><strong>GPT-5.5 / GPT-5.4</strong></td><td>OpenAI</td><td>Propietario</td><td>Comercial</td><td>Reasoning, computer use y ecosistema API</td></tr>
+      <tr><td><strong>Gemini 3.1 Pro</strong></td><td>Google</td><td>Propietario</td><td>Comercial</td><td>Contexto 1M, multimodalidad y herramientas Google</td></tr>
+      <tr><td><strong>Llama 4 Scout/Maverick</strong></td><td>Meta</td><td>Open weights</td><td>Llama 4 License</td><td>MoE multimodal, contextos muy largos</td></tr>
+      <tr><td><strong>Mistral Large 3 / Small 4</strong></td><td>Mistral AI</td><td>Open / Premier</td><td>Apache 2.0 o comercial</td><td>Modelos europeos, código y despliegue empresarial</td></tr>
+      <tr><td><strong>Qwen3</strong></td><td>Alibaba</td><td>Open weights</td><td>Apache 2.0</td><td>MoE eficiente, multilingüe, fuerte en código</td></tr>
+      <tr><td><strong>DeepSeek-R1</strong></td><td>DeepSeek</td><td>Open weights</td><td>MIT</td><td>Reasoning abierto y destilación</td></tr>
+      <tr><td><strong>Gemma / Phi</strong></td><td>Google / Microsoft</td><td>Open weights</td><td>Licencias propias / MIT</td><td>Modelos pequeños para edge y fine-tuning</td></tr>
     </tbody>
   </table>
-  <h3><i data-lucide="columns"></i> Propietario vs open source</h3>
+  <h3><i data-lucide="columns"></i> Propietario vs open weights</h3>
   <div class="two-cols">
     <div class="compare-card">
       <p class="compare-title"><i data-lucide="building"></i> Propietario</p>
@@ -357,7 +360,7 @@ import Slide from './Slide.astro';
       </ul>
     </div>
     <div class="compare-card">
-      <p class="compare-title"><i data-lucide="github"></i> Open source</p>
+      <p class="compare-title"><i data-lucide="github"></i> Open weights</p>
       <ul>
         <li>Ejecutar en tu infraestructura</li>
         <li>Privacidad total: datos nunca salen</li>
@@ -369,7 +372,7 @@ import Slide from './Slide.astro';
   </div>
   <div class="callout">
     <p class="callout-title"><i data-lucide="compass"></i> ¿Cómo elegir?</p>
-    <p>Si necesitas máximo rendimiento y no te importa la dependencia: propietario (Claude, GPT). Si necesitas privacidad o personalización: open source (Llama, Mistral). En la práctica, muchos equipos combinan ambos.</p>
+    <p>Si necesitas máximo rendimiento y no te importa la dependencia: propietario (Claude, GPT, Gemini). Si necesitas privacidad, coste controlado o personalización: open weights (Llama, Qwen, DeepSeek, Mistral). En la práctica, muchos equipos combinan ambos.</p>
   </div>
   <div class="refs">
     <p class="refs-title">Para profundizar</p>
@@ -469,7 +472,7 @@ import Slide from './Slide.astro';
 
 <!-- SLIDE 33 -->
 <Slide id="edge-ai" number={33} title="Edge AI: modelos en el dispositivo">
-  <p><i data-lucide="smartphone"></i> Ejecutar modelos de IA <strong>directamente en el dispositivo del usuario</strong> (móvil, navegador, IoT) sin depender de un servidor. La quantización (slide 10) es lo que lo hace posible.</p>
+  <p><i data-lucide="smartphone"></i> Ejecutar modelos de IA <strong>directamente en el dispositivo del usuario</strong> (móvil, navegador, IoT) sin depender de un servidor. La quantización (slide 16) es lo que lo hace posible.</p>
   <h3><i data-lucide="layers"></i> Opciones por plataforma</h3>
   <table>
     <thead>
@@ -524,7 +527,7 @@ import Slide from './Slide.astro';
       <tr><td>Temperature y top_p controlan la aleatoriedad de la salida</td><td>27</td></tr>
       <tr><td>Modelos de razonamiento: thinking tokens para tareas complejas</td><td>28</td></tr>
       <tr><td>Modelos multimodales nativos: texto, imagen, audio y vídeo en un solo modelo</td><td>29</td></tr>
-      <tr><td>Open source vs propietario: privacidad vs rendimiento</td><td>30</td></tr>
+      <tr><td>Open weights vs propietario: privacidad vs rendimiento</td><td>30</td></tr>
       <tr><td>Destilación: modelo grande enseña a modelo pequeño</td><td>31</td></tr>
       <tr><td>Inferencia optimizada: KV cache, vLLM, speculative decoding</td><td>32</td></tr>
       <tr><td>Edge AI: modelos en navegador, móvil e IoT</td><td>33</td></tr>
@@ -850,16 +853,16 @@ import Slide from './Slide.astro';
     &nbsp;&nbsp;] &#125;]<br/>
     &#125;);
   </div>
-  <h3><i data-lucide="database"></i> Soporte por modelo (marzo 2026)</h3>
+  <h3><i data-lucide="database"></i> Soporte por modelo (mayo 2026)</h3>
   <table>
     <thead>
-      <tr><th>Capacidad</th><th>Claude</th><th>GPT-5.2</th><th>Gemini 3</th></tr>
+      <tr><th>Capacidad</th><th>Claude 4.6</th><th>GPT-5.5</th><th>Gemini 3.1</th></tr>
     </thead>
     <tbody>
       <tr><td><strong>Imágenes</strong></td><td>Sí (hasta 20 por mensaje)</td><td>Sí</td><td>Sí</td></tr>
       <tr><td><strong>PDFs</strong></td><td>Sí (nativo)</td><td>Sí</td><td>Sí</td></tr>
-      <tr><td><strong>Audio</strong></td><td>No (en desarrollo)</td><td>Sí</td><td>Sí (nativo)</td></tr>
-      <tr><td><strong>Video</strong></td><td>No</td><td>Sí (limitado)</td><td>Sí (hasta 1h)</td></tr>
+      <tr><td><strong>Audio</strong></td><td>No en Messages</td><td>Sí vía modelos Realtime/audio</td><td>Sí vía Live/API</td></tr>
+      <tr><td><strong>Video</strong></td><td>No</td><td>Herramientas especializadas</td><td>Sí</td></tr>
     </tbody>
   </table>
   <div class="callout">
@@ -891,7 +894,7 @@ import Slide from './Slide.astro';
       <span class="tag">Más natural</span>
     </div>
   </div>
-  <h3><i data-lucide="wrench"></i> Herramientas (marzo 2026)</h3>
+  <h3><i data-lucide="wrench"></i> Herramientas (mayo 2026)</h3>
   <table>
     <thead>
       <tr><th>Herramienta</th><th>Tipo</th><th>Punto fuerte</th></tr>
@@ -923,16 +926,16 @@ import Slide from './Slide.astro';
 <!-- SLIDE 43 -->
 <Slide id="gen-imagenes-video" number={43} title="Generación de imágenes y vídeo con IA">
   <p><i data-lucide="image"></i> Los modelos generativos no solo producen texto: generan <strong>imágenes, vídeo, audio y 3D</strong> a partir de descripciones en lenguaje natural.</p>
-  <h3><i data-lucide="image"></i> Modelos de imagen (marzo 2026)</h3>
+  <h3><i data-lucide="image"></i> Modelos de imagen (mayo 2026)</h3>
   <table>
     <thead>
       <tr><th>Modelo</th><th>Empresa</th><th>Punto fuerte</th></tr>
     </thead>
     <tbody>
-      <tr><td><strong>DALL-E 3</strong></td><td>OpenAI</td><td>Integrado en ChatGPT. Buena comprensión de prompts complejos</td></tr>
-      <tr><td><strong>Midjourney v7</strong></td><td>Midjourney</td><td>Máxima calidad estética. El estándar para diseño</td></tr>
-      <tr><td><strong>Flux</strong></td><td>Black Forest Labs</td><td>Open source. Muy bueno en texto dentro de imágenes</td></tr>
-      <tr><td><strong>Stable Diffusion 3</strong></td><td>Stability AI</td><td>Open source. Ejecutable en local. Gran comunidad de LoRAs</td></tr>
+      <tr><td><strong>GPT Image 2</strong></td><td>OpenAI</td><td>Generación y edición de imagen en API; DALL-E 3 queda como generación anterior</td></tr>
+      <tr><td><strong>Nano Banana Pro / Imagen 4</strong></td><td>Google</td><td>Imagen nativa con razonamiento, texto y edición contextual</td></tr>
+      <tr><td><strong>Midjourney v7</strong></td><td>Midjourney</td><td>Calidad estética y workflows creativos</td></tr>
+      <tr><td><strong>Flux / Stable Diffusion</strong></td><td>BFL / Stability</td><td>Open weights, control local y ecosistema de LoRAs</td></tr>
     </tbody>
   </table>
   <h3><i data-lucide="video"></i> Modelos de vídeo</h3>
@@ -941,9 +944,9 @@ import Slide from './Slide.astro';
       <tr><th>Modelo</th><th>Empresa</th><th>Capacidad</th></tr>
     </thead>
     <tbody>
-      <tr><td><strong>Sora</strong></td><td>OpenAI</td><td>Hasta 1 minuto, alta calidad. Comprende física básica</td></tr>
-      <tr><td><strong>Runway Gen-3</strong></td><td>Runway</td><td>Referencia en producción profesional. Image-to-video</td></tr>
-      <tr><td><strong>Veo 2</strong></td><td>Google</td><td>1080p, hasta 2 minutos. Ecosistema Google</td></tr>
+      <tr><td><strong>Sora 2 / Sora 2 Pro</strong></td><td>OpenAI</td><td>Vídeo con audio sincronizado y modelos especializados</td></tr>
+      <tr><td><strong>Veo 3.1</strong></td><td>Google</td><td>Vídeo cinematográfico, edición y audio nativo</td></tr>
+      <tr><td><strong>Runway</strong></td><td>Runway</td><td>Referencia en producción creativa y image-to-video</td></tr>
     </tbody>
   </table>
   <h3><i data-lucide="target"></i> Casos de uso para ingenieros</h3>
@@ -958,7 +961,8 @@ import Slide from './Slide.astro';
   </div>
   <div class="refs">
     <p class="refs-title">Para profundizar</p>
-    <a href="https://openai.com/dall-e-3" target="_blank">DALL-E 3</a>
+    <a href="https://developers.openai.com/api/docs/models" target="_blank">OpenAI - modelos de imagen y vídeo</a>
+    <a href="https://ai.google.dev/gemini-api/docs/models" target="_blank">Google Gemini API - modelos generativos</a>
     <a href="https://blackforestlabs.ai/" target="_blank">Black Forest Labs (Flux)</a>
   </div>
 </Slide>
@@ -1244,44 +1248,47 @@ import Slide from './Slide.astro';
 
 <!-- SLIDE 49 -->
 <Slide id="huggingface-lmstudio" number={49} title="Hugging Face + LM Studio: modelos en local">
+  <p><i data-lucide="globe"></i> Hugging Face es el registro de referencia para modelos abiertos. Una <strong>model card</strong> bien leída evita tres errores clásicos: descargar un modelo que no puedes ejecutar, incumplir una licencia o comparar benchmarks que no significan lo mismo.</p>
+  <h3><i data-lucide="file-text"></i> Anatomía de una ficha de modelo</h3>
+  <table>
+    <thead>
+      <tr><th>Campo</th><th>Qué mirar</th><th>Pregunta práctica</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>Arquitectura</strong></td><td>Denso, MoE, multimodal, nº capas, heads, expertos</td><td>¿Mi motor lo soporta?</td></tr>
+      <tr><td><strong>Parámetros</strong></td><td>Total vs activos, hidden size, context length</td><td>¿Cabe en RAM/VRAM?</td></tr>
+      <tr><td><strong>Licencia</strong></td><td>Apache, MIT, Llama, research, comercial</td><td>¿Puedo usarlo en mi producto?</td></tr>
+      <tr><td><strong>Base model</strong></td><td>Base, instruct, fine-tune, adapter, merge, quantized</td><td>¿Estoy usando el modelo correcto?</td></tr>
+      <tr><td><strong>Datos/evals</strong></td><td>Datasets, benchmarks, idiomas, limitaciones</td><td>¿Sirve para mi dominio?</td></tr>
+      <tr><td><strong>Files</strong></td><td>safetensors, GGUF, GPTQ, AWQ, FP8</td><td>¿Qué runtime necesito?</td></tr>
+    </tbody>
+  </table>
+  <h3><i data-lucide="package"></i> Elegir fichero: safetensors vs GGUF vs GPTQ/AWQ</h3>
   <div class="two-cols">
-    <div>
-      <h3><i data-lucide="globe"></i> Hugging Face</h3>
-      <p>El <strong>"GitHub de los modelos de IA"</strong>. Miles de modelos abiertos listos para descargar: Llama 3, Mistral, Qwen, Phi, Gemma...</p>
-      <ul>
-        <li><i data-lucide="file-text"></i> <strong>Model cards:</strong> arquitectura, licencia, benchmarks, tamaño, quantizaciones</li>
-        <li><i data-lucide="search"></i> <strong>Filtros útiles:</strong> por tarea, licencia, tamaño, trending</li>
-        <li><i data-lucide="package"></i> <strong>Formatos:</strong> safetensors (nativo), GGUF (quantizado para CPU/GPU consumer)</li>
-        <li><i data-lucide="database"></i> También: datasets y Spaces (demos interactivas)</li>
-      </ul>
+    <div class="compare-card">
+      <p class="compare-card-title"><i data-lucide="server"></i> Servir / fine-tune</p>
+      <p class="compare-card-desc"><strong>safetensors</strong> mantiene pesos completos o FP8/BF16. Es el formato natural para Transformers, vLLM, SGLang y entrenamiento. Requiere GPU y más memoria.</p>
+      <span class="tag">BF16/FP8</span>
+      <span class="tag">vLLM</span>
+      <span class="tag">SGLang</span>
     </div>
-    <div>
-      <h3><i data-lucide="monitor"></i> LM Studio</h3>
-      <p><strong>Ejecutar modelos en tu máquina</strong> sin escribir código. Interfaz gráfica para descargar, probar y servir modelos.</p>
-      <ul>
-        <li><i data-lucide="download"></i> Descarga modelos directamente desde Hugging Face</li>
-        <li><i data-lucide="lock"></i> Chat local, sin enviar datos a ningún servidor</li>
-        <li><i data-lucide="code"></i> Expone una <strong>API compatible con OpenAI</strong> (localhost:1234)</li>
-        <li><i data-lucide="sliders-horizontal"></i> Cuantizaciones GGUF: Q4, Q5, Q8... equilibrio RAM/VRAM vs calidad</li>
-      </ul>
+    <div class="compare-card">
+      <p class="compare-card-title"><i data-lucide="laptop"></i> Local / escritorio</p>
+      <p class="compare-card-desc"><strong>GGUF</strong> empaqueta pesos, tokenizer y metadata para llama.cpp, Ollama y LM Studio. Q4_K_M para empezar; Q5/Q6/Q8 si necesitas más fidelidad.</p>
+      <span class="tag">GGUF</span>
+      <span class="tag">Ollama</span>
+      <span class="tag">LM Studio</span>
     </div>
-  </div>
-  <div class="flow">
-    <span class="flow-step"><i data-lucide="search"></i> Buscar en HF</span>
-    <span class="flow-arrow">&rarr;</span>
-    <span class="flow-step"><i data-lucide="download"></i> Descargar GGUF</span>
-    <span class="flow-arrow">&rarr;</span>
-    <span class="flow-step"><i data-lucide="play"></i> Probar en LM Studio</span>
-    <span class="flow-arrow">&rarr;</span>
-    <span class="flow-step"><i data-lucide="globe"></i> Exponer API local</span>
   </div>
   <div class="callout">
-    <p class="callout-title"><i data-lucide="package"></i> Formatos de quantización GGUF</p>
-    <p><strong>Q4_K_M:</strong> ~4.5 bits/peso. Archivo ~4 GB, necesita ~6.5 GB RAM para 7B. Recomendado para empezar. <strong>Q5_K_M:</strong> ~5 bits. Calidad notablemente mejor (+2 GB RAM). <strong>Q8_0:</strong> 8 bits. Casi idéntico al original (~7 GB archivo, ~10 GB RAM). GGUF corre en CPU (RAM del sistema); si descargas capas a GPU, usa VRAM. Regla: empieza por Q4_K_M, sube si tu hardware lo permite.</p>
+    <p class="callout-title"><i data-lucide="search"></i> Checklist antes de descargar</p>
+    <p>1) licencia; 2) contexto; 3) idioma/dominio; 4) total y activo si es MoE; 5) formato compatible; 6) quantización; 7) benchmarks con metodología comparable; 8) riesgos declarados en la model card. Si falta alguno, trátalo como incertidumbre, no como verdad.</p>
   </div>
-  <p>Ideal para: prototipos, datos sensibles, trabajar sin conexión, evaluar modelos antes de pagar API.</p>
+  <p>LM Studio y Ollama son la vía rápida para probar localmente. Hugging Face es la fuente para verificar procedencia, licencia, arquitectura y variantes quantizadas.</p>
   <div class="refs">
     <p class="refs-title">Para profundizar</p>
+    <a href="https://huggingface.co/docs/hub/main/model-cards" target="_blank">Hugging Face - Model Cards</a>
+    <a href="https://huggingface.co/docs/hub/main/gguf" target="_blank">Hugging Face - GGUF</a>
     <a href="https://huggingface.co/models" target="_blank">Hugging Face Models</a>
     <a href="https://lmstudio.ai/" target="_blank">LM Studio</a>
   </div>
@@ -1616,7 +1623,7 @@ import Slide from './Slide.astro';
       <tr><td><strong>Vectorial</strong></td><td>Similitud semántica</td><td>"gato doméstico" encuentra "felino de compañía"</td></tr>
     </tbody>
   </table>
-  <h3><i data-lucide="search"></i> Proveedores principales (marzo 2026)</h3>
+  <h3><i data-lucide="search"></i> Proveedores principales (mayo 2026)</h3>
   <table>
     <thead>
       <tr><th>Proveedor</th><th>Tipo</th><th>Ideal para</th></tr>
@@ -1730,7 +1737,7 @@ import Slide from './Slide.astro';
 
 <!-- SLIDE 59 -->
 <Slide id="context-window-practica" number={59} title="Context window en la práctica: no todo es lo que parece">
-  <p><i data-lucide="layers"></i> Un modelo con 200k tokens de context window no significa que puedas meter 200k tokens y funcione igual de bien. Hay límites prácticos que todo ingeniero debe conocer.</p>
+  <p><i data-lucide="layers"></i> Un modelo con 1M tokens de context window no significa que puedas meter 1M tokens y funcione igual de bien. Hay límites prácticos que todo ingeniero debe conocer.</p>
   <h3><i data-lucide="alert-triangle"></i> "Lost in the middle"</h3>
   <p>Los modelos prestan más atención al inicio y al final del contexto, y tienden a "olvidar" información que está en el medio. Si metes un dato importante en la página 50 de 100, el modelo puede ignorarlo. (<a href="https://arxiv.org/abs/2307.03172" target="_blank">Lost in the Middle paper</a>)</p>
   <h3><i data-lucide="table"></i> Context teórico vs práctico</h3>
@@ -1739,9 +1746,9 @@ import Slide from './Slide.astro';
       <tr><th>Modelo</th><th>Context window</th><th>Zona óptima</th><th>Nota</th></tr>
     </thead>
     <tbody>
-      <tr><td><strong>Claude</strong></td><td>200k</td><td>&lt;100k para máximo rendimiento</td><td>Compactación automática en Claude Code</td></tr>
-      <tr><td><strong>GPT-5.2</strong></td><td>128k</td><td>&lt;64k</td><td>Cached prefixes ayudan</td></tr>
-      <tr><td><strong>Gemini 3</strong></td><td>1M+</td><td>Varía</td><td>Mejor retención en contextos largos</td></tr>
+      <tr><td><strong>Claude Opus/Sonnet 4.6</strong></td><td>1M</td><td>Usar citas y estructura en contextos largos</td><td>Compaction y output largo vía beta</td></tr>
+      <tr><td><strong>GPT-5.5 / GPT-5.4</strong></td><td>1M</td><td>Segmentar por secciones y usar tools</td><td>Cached prefixes ayudan a coste y latencia</td></tr>
+      <tr><td><strong>Gemini 3.1 Pro</strong></td><td>1M</td><td>Muy fuerte en multimodal largo</td><td>Verificar recuperación, no asumir lectura perfecta</td></tr>
     </tbody>
   </table>
   <h3><i data-lucide="list"></i> Estrategias para contextos grandes</h3>

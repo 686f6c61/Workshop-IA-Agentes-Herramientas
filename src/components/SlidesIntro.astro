@@ -6,7 +6,7 @@ import Slide from './Slide.astro';
 <Slide id="cover" cover>
   <h1 class="cover-title">Workshop de IA: agentes, modelos y herramientas</h1>
   <p class="cover-subtitle">by 686f6c61</p>
-  <p class="cover-meta">En marzo 2026 (Update: 04/26)</p>
+  <p class="cover-meta">Mayo 2026 (Update: 05/26)</p>
   <p class="cover-repo">
     <a href="https://github.com/686f6c61/Workshop-IA-Agentes-Herramientas" target="_blank" rel="noopener noreferrer">
       <i data-lucide="github"></i> github.com/686f6c61/Workshop-IA-Agentes-Herramientas
@@ -580,7 +580,7 @@ import Slide from './Slide.astro';
     <li><i data-lucide="target"></i> <strong>Clasificación:</strong> agrupar textos similares automáticamente (tickets de soporte, emails...)</li>
     <li><i data-lucide="repeat"></i> <strong>Detección de duplicados:</strong> comparar si dos textos dicen lo mismo con palabras diferentes</li>
   </ul>
-  <h3><i data-lucide="layers"></i> Modelos de embedding (marzo 2026)</h3>
+  <h3><i data-lucide="layers"></i> Modelos de embedding (mayo 2026)</h3>
   <table>
     <thead>
       <tr><th>Modelo</th><th>Empresa</th><th>Dimensiones</th><th>Punto fuerte</th></tr>
@@ -590,7 +590,7 @@ import Slide from './Slide.astro';
       <tr><td><strong>Voyage 3</strong></td><td>Anthropic (Voyage AI)</td><td>1024</td><td>Recomendado por Anthropic. Excelente en código y documentación técnica. Menor dimensionalidad, más rápido.</td></tr>
       <tr><td><strong>BGE-M3</strong></td><td>BAAI (open source)</td><td>1024</td><td>Multilingüe (100+ idiomas). Búsqueda híbrida (densa + dispersa). Ideal si necesitas soporte robusto de español.</td></tr>
       <tr><td><strong>E5-Mistral</strong></td><td>Microsoft (open source)</td><td>4096</td><td>Basado en Mistral 7B. Muy alta calidad en benchmarks. Requiere más compute por su tamaño.</td></tr>
-      <tr><td><strong>Cohere Embed v3</strong></td><td>Cohere</td><td>1024</td><td>Compresión nativa (binary/int8). Reduce almacenamiento x32 con mínima pérdida de calidad.</td></tr>
+      <tr><td><strong>Cohere Embed v4</strong></td><td>Cohere</td><td>256-1536</td><td>Embeddings multimodales texto/imagen/PDF, dimensiones Matryoshka y contexto 128k.</td></tr>
     </tbody>
   </table>
   <p>Los embeddings se almacenan en bases de datos vectoriales: Pinecone, Chroma, Weaviate, pgvector. La elección del modelo depende del idioma, tipo de contenido y presupuesto.</p>
@@ -600,6 +600,9 @@ import Slide from './Slide.astro';
   </div>
   <div class="refs">
     <p class="refs-title">Para profundizar</p>
+    <a href="https://developers.openai.com/api/docs/models/text-embedding-3-large" target="_blank">OpenAI - text-embedding-3-large</a>
+    <a href="https://docs.cohere.com/docs/cohere-embed" target="_blank">Cohere - Embed models</a>
+    <a href="https://arxiv.org/abs/2402.03216" target="_blank">BGE-M3 paper</a>
     <a href="https://www.pinecone.io/learn/vector-embeddings/" target="_blank">Pinecone - Vector Embeddings Explained</a>
     <a href="https://jalammar.github.io/illustrated-word2vec/" target="_blank">Jay Alammar - The Illustrated Word2Vec</a>
   </div>
@@ -667,16 +670,16 @@ import Slide from './Slide.astro';
 
 <!-- SLIDE 16 -->
 <Slide id="quantizacion" number={16} title="Quantización: modelos que caben en tu portátil">
-  <p>Comprimir el modelo reduciendo la precisión numérica de cada parámetro. Un modelo guarda millones de números decimales (pesos). La quantización reduce cuántos bits usa cada uno.</p>
+  <p>Comprimir el modelo reduciendo la precisión numérica de cada peso. La quantización cambia el tipo de dato: menos bits por parámetro, menos memoria, más velocidad; a cambio, algo de error numérico.</p>
   <table>
     <thead>
-      <tr><th>Formato</th><th>Bits por peso</th><th>Rango de valores</th><th>RAM para 7B params</th><th>Calidad</th></tr>
+      <tr><th>Formato</th><th>Bits/peso</th><th>Uso típico</th><th>Memoria 7B</th><th>Trade-off</th></tr>
     </thead>
     <tbody>
-      <tr><td><strong>FP32</strong> (original)</td><td>32 bits</td><td>~7 dígitos decimales</td><td>~28 GB</td><td>Máxima</td></tr>
-      <tr><td><strong>FP16</strong></td><td>16 bits</td><td>~3-4 dígitos</td><td>~14 GB</td><td>Casi igual</td></tr>
-      <tr><td><strong>INT8 (Q8)</strong></td><td>8 bits</td><td>256 valores posibles</td><td>~7 GB</td><td>Muy buena</td></tr>
-      <tr><td><strong>INT4 (Q4)</strong></td><td>4 bits</td><td>16 valores posibles</td><td>~3.5 GB</td><td>Aceptable</td></tr>
+      <tr><td><strong>FP32</strong></td><td>32</td><td>Entrenamiento clásico</td><td>~28 GB</td><td>Máxima precisión, memoria enorme</td></tr>
+      <tr><td><strong>BF16 / FP16</strong></td><td>16</td><td>Entrenamiento e inferencia GPU</td><td>~14 GB</td><td>Casi calidad original, buen rendimiento</td></tr>
+      <tr><td><strong>FP8 / INT8</strong></td><td>8</td><td>Inferencia optimizada</td><td>~7 GB</td><td>Muy buena calidad, mitad de memoria</td></tr>
+      <tr><td><strong>INT4 / NF4</strong></td><td>4</td><td>Local, QLoRA, despliegue barato</td><td>~3.5-4.5 GB</td><td>Gran ahorro; puede perder razonamiento fino</td></tr>
     </tbody>
   </table>
   <div class="code-block">
@@ -688,16 +691,28 @@ import Slide from './Slide.astro';
     <span class="comment">// La clave: con billones de parámetros, cada bit cuenta</span><br/>
     <span class="comment">// 7B params x 32 bits = 28 GB &rarr; 7B x 4 bits = 3.5 GB</span>
   </div>
-  <p>Esto es lo que hace posible <strong>LM Studio</strong> y <strong>Ollama</strong>: ejecutar modelos de 7B-70B parámetros en tu portátil usando formatos GGUF quantizados (Q4, Q5, Q8). A menor precisión, menor calidad, pero la pérdida suele ser sorprendentemente pequeña para la mayoría de tareas.</p>
+  <p>Esto es lo que hace posible <strong>LM Studio</strong> y <strong>Ollama</strong>: ejecutar modelos de 7B-70B parámetros en hardware de consumo usando formatos GGUF quantizados. A menor precisión, menor memoria; la pérdida depende del modelo, del método y de la tarea.</p>
+  <h3><i data-lucide="sliders-horizontal"></i> No todas las quantizaciones son iguales</h3>
+  <table>
+    <thead>
+      <tr><th>Familia</th><th>Dónde se ve</th><th>Idea</th><th>Cuándo usarla</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>GGUF / GGML</strong></td><td>Ollama, LM Studio, llama.cpp</td><td>Archivo con pesos + tokenizer + metadata; optimizado para CPU/GPU local</td><td>Modelos locales y portátiles</td></tr>
+      <tr><td><strong>bitsandbytes</strong></td><td>Transformers</td><td>Carga en 8-bit o 4-bit al vuelo</td><td>Prototipos, fine-tuning con QLoRA</td></tr>
+      <tr><td><strong>GPTQ / AWQ</strong></td><td>Hugging Face, vLLM, ExLlama</td><td>Post-training quantization calibrada</td><td>GPU, inferencia rápida en producción</td></tr>
+      <tr><td><strong>FP8</strong></td><td>H100/H200, proveedores cloud</td><td>Formato de baja precisión pensado para aceleradores modernos</td><td>Servir modelos grandes con buen throughput</td></tr>
+    </tbody>
+  </table>
   <div class="callout">
     <p class="callout-title"><i data-lucide="cpu"></i> Formatos GGUF habituales</p>
-    <p><strong>Q4_K_M</strong>: 4 bits con corrección K-means. Buena relación calidad/tamaño. El más usado en Ollama.<br/>
-    <strong>Q5_K_M</strong>: 5 bits. Mayor calidad que Q4, sigue cabiendo en portátiles con 16 GB.<br/>
-    <strong>Q8_0</strong>: 8 bits. Casi sin pérdida de calidad. Requiere ~7 GB para un modelo de 7B parámetros.</p>
+    <p><strong>Q4_K_M</strong>: equilibrio por defecto en llama.cpp; suele ser el primer intento. <strong>Q5_K_M</strong>: más calidad con algo más de RAM. <strong>Q6_K / Q8_0</strong>: mejor fidelidad para razonamiento, extracción precisa o producción local. <strong>IQ quants</strong>: usan matriz de importancia; útiles cuando necesitas comprimir mucho y tienes datos de calibración representativos.</p>
   </div>
   <div class="refs">
     <p class="refs-title">Para profundizar</p>
-    <a href="https://huggingface.co/docs/optimum/concept_guides/quantization" target="_blank">Hugging Face - Quantization</a>
+    <a href="https://huggingface.co/docs/transformers/main/quantization" target="_blank">Hugging Face Transformers - Quantization</a>
+    <a href="https://huggingface.co/docs/hub/main/gguf" target="_blank">Hugging Face Hub - GGUF</a>
+    <a href="https://www.mintlify.com/ggml-org/llama.cpp/concepts/quantization" target="_blank">llama.cpp - Model Quantization</a>
   </div>
 </Slide>
 
@@ -762,28 +777,49 @@ import Slide from './Slide.astro';
       </div>
     </div>
   </div>
-  <h3><i data-lucide="database"></i> Modelos principales (marzo 2026)</h3>
+  <h3><i data-lucide="database"></i> Modelos principales (mayo 2026)</h3>
   <table>
     <thead>
-      <tr><th>Modelo</th><th>Empresa</th><th>Context window</th><th>Tipo</th></tr>
+      <tr><th>Modelo</th><th>Empresa</th><th>Dimensiones públicas</th><th>Context window</th><th>Tipo</th></tr>
     </thead>
     <tbody>
-      <tr><td><strong>Claude Opus 4.6</strong></td><td>Anthropic</td><td>200k tokens</td><td>Propietario</td></tr>
-      <tr><td><strong>Claude Sonnet 4.6</strong></td><td>Anthropic</td><td>200k tokens</td><td>Propietario</td></tr>
-      <tr><td><strong>GPT-5.2</strong></td><td>OpenAI</td><td>128k tokens</td><td>Propietario</td></tr>
-      <tr><td><strong>Gemini 3</strong></td><td>Google</td><td>1M+ tokens</td><td>Propietario</td></tr>
-      <tr><td><strong>Llama 3</strong></td><td>Meta</td><td>128k tokens</td><td>Open source</td></tr>
-      <tr><td><strong>Mistral / Mixtral</strong></td><td>Mistral AI</td><td>32-128k tokens</td><td>Open source</td></tr>
-      <tr><td><strong>Qwen</strong></td><td>Alibaba</td><td>128k tokens</td><td>Open source</td></tr>
+      <tr><td><strong>GPT-5.5</strong></td><td>OpenAI</td><td>No publica pesos ni arquitectura</td><td>1M</td><td>Propietario</td></tr>
+      <tr><td><strong>Claude Opus 4.6</strong></td><td>Anthropic</td><td>No publica pesos ni arquitectura</td><td>1M</td><td>Propietario</td></tr>
+      <tr><td><strong>Claude Sonnet 4.6</strong></td><td>Anthropic</td><td>No publica pesos ni arquitectura</td><td>1M</td><td>Propietario</td></tr>
+      <tr><td><strong>Gemini 3.1 Pro</strong></td><td>Google</td><td>No publica pesos; multimodal nativo</td><td>1M</td><td>Propietario</td></tr>
+      <tr><td><strong>Llama 4 Scout</strong></td><td>Meta</td><td>MoE: 109B total, 17B activos, 16 expertos</td><td>10M</td><td>Open weights</td></tr>
+      <tr><td><strong>Llama 4 Maverick</strong></td><td>Meta</td><td>MoE: 400B total, 17B activos, 128 expertos</td><td>1M</td><td>Open weights</td></tr>
+      <tr><td><strong>Qwen3-235B-A22B</strong></td><td>Alibaba</td><td>MoE: 235B total, 22B activos, 94 capas</td><td>32k nativo / 131k YaRN</td><td>Apache 2.0</td></tr>
+      <tr><td><strong>DeepSeek-R1</strong></td><td>DeepSeek</td><td>MoE: 671B total, 37B activos</td><td>128k</td><td>Open weights</td></tr>
+      <tr><td><strong>Mistral Large 3 / Medium 3.5</strong></td><td>Mistral AI</td><td>Multimodales; Large 3 open-weight</td><td>Según versión</td><td>Open / Premier</td></tr>
+    </tbody>
+  </table>
+  <h3><i data-lucide="ruler"></i> Dimensiones de un modelo: qué significan</h3>
+  <table>
+    <thead>
+      <tr><th>Dimensión</th><th>Qué mide</th><th>Por qué importa</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>Parámetros totales</strong></td><td>Todos los pesos guardados</td><td>Memoria necesaria para cargar el modelo</td></tr>
+      <tr><td><strong>Parámetros activos</strong></td><td>Pesos usados por token en MoE</td><td>Coste de cómputo por inferencia</td></tr>
+      <tr><td><strong>Capas</strong></td><td>Profundidad del Transformer</td><td>Más pasos de abstracción, más latencia secuencial</td></tr>
+      <tr><td><strong>Hidden size / d_model</strong></td><td>Anchura del vector interno</td><td>Capacidad representacional y tamaño de matrices</td></tr>
+      <tr><td><strong>Attention heads / KV heads</strong></td><td>Paralelismo de atención</td><td>Calidad de atención y tamaño de KV cache</td></tr>
+      <tr><td><strong>Context window</strong></td><td>Tokens máximos de entrada</td><td>No garantiza buena recuperación en todo el contexto</td></tr>
     </tbody>
   </table>
   <div class="callout">
     <p class="callout-title"><i data-lucide="layers"></i> Idea clave</p>
-    <p>El modelo no "sabe" cosas: calcula probabilidades sobre patrones aprendidos. La escala importa: capacidades emergentes aparecen con más parámetros. Pero más grande no siempre es mejor para tu caso de uso.</p>
+    <p>En modelos densos, "parámetros" aproxima memoria y coste. En MoE hay que separar <strong>total</strong> (lo que cargas) de <strong>activo</strong> (lo que calculas por token). Por eso un 400B MoE puede costar por token mucho menos que un 400B denso.</p>
   </div>
   <div class="refs">
     <p class="refs-title">Para profundizar</p>
-    <a href="https://en.wikipedia.org/wiki/Large_language_model" target="_blank">Wikipedia - Large Language Model</a>
+    <a href="https://developers.openai.com/api/docs/models" target="_blank">OpenAI - Models</a>
+    <a href="https://platform.claude.com/docs/en/about-claude/models/overview" target="_blank">Anthropic - Models overview</a>
+    <a href="https://deepmind.google/models/gemini/pro/" target="_blank">Google DeepMind - Gemini 3.1 Pro</a>
+    <a href="https://huggingface.co/meta-llama/Llama-4-Scout-17B-16E-Instruct" target="_blank">Meta Llama 4 - Model card</a>
+    <a href="https://huggingface.co/Qwen/Qwen3-235B-A22B" target="_blank">Qwen3-235B-A22B - Model card</a>
+    <a href="https://huggingface.co/deepseek-ai/DeepSeek-R1" target="_blank">DeepSeek-R1 - Model card</a>
     <a href="https://arxiv.org/abs/2303.18223" target="_blank">A Survey of Large Language Models (paper)</a>
   </div>
 </Slide>
@@ -825,7 +861,7 @@ import Slide from './Slide.astro';
       <tr><td><strong>2018-26</strong></td><td><strong>Decoder-only</strong></td><td>Generación</td><td>Generar texto, código</td><td>GPT, Claude, Llama</td><td><a href="https://cdn.openai.com/research-covers/language-unsupervised/language_understanding_paper.pdf" target="_blank">GPT-1 (Radford et al.)</a></td></tr>
       <tr><td><strong>2019</strong></td><td>Encoder-Decoder</td><td>Seq2Seq</td><td>Traducción, resumen</td><td>T5, BART</td><td><a href="https://arxiv.org/abs/1910.10683" target="_blank">T5 (Raffel et al.)</a></td></tr>
       <tr><td><strong>2020</strong></td><td>Vision Transformer</td><td>Vision</td><td>Imágenes</td><td>ViT, CLIP</td><td><a href="https://arxiv.org/abs/2010.11929" target="_blank">ViT (Dosovitskiy et al.)</a></td></tr>
-      <tr><td><strong>2023-26</strong></td><td>Multimodal</td><td>Varios</td><td>Texto + imagen + audio</td><td>GPT-5.2, Gemini 3, Claude</td><td><a href="https://arxiv.org/abs/2303.08774" target="_blank">GPT-4 Technical Report</a></td></tr>
+      <tr><td><strong>2023-26</strong></td><td>Multimodal</td><td>Varios</td><td>Texto + imagen + audio</td><td>GPT-5.5, Gemini 3.1, Claude</td><td><a href="https://arxiv.org/abs/2303.08774" target="_blank">GPT-4 Technical Report</a></td></tr>
     </tbody>
   </table>
   <p>Los modelos que usamos hoy (Claude, GPT, Llama) son todos <strong>decoder-only Transformers</strong>. La arquitectura Transformer de 2017 fue el punto de inflexión que hizo posible todo lo que vino después.</p>
@@ -907,27 +943,42 @@ import Slide from './Slide.astro';
   <h3><i data-lucide="scale"></i> Modelo denso frente a MoE</h3>
   <div class="two-cols">
     <div class="compare-card">
-      <p class="compare-card-title"><i data-lucide="blocks"></i> Modelo denso (ej: Llama 3)</p>
+      <p class="compare-card-title"><i data-lucide="blocks"></i> Modelo denso</p>
       <p class="compare-card-desc">Todos los parámetros se activan en cada petición. 70B parámetros = 70B activos siempre. Más simple de entrenar, pero el coste computacional crece linealmente con el tamaño del modelo.</p>
       <span class="tag">70B params</span>
       <span class="tag">70B activos</span>
       <span class="tag">100% uso</span>
     </div>
     <div class="compare-card">
-      <p class="compare-card-title"><i data-lucide="route"></i> Modelo MoE (ej: Mixtral)</p>
-      <p class="compare-card-desc">Solo una fracción se activa por petición. 8x7B = 56B parámetros totales, pero solo 2x7B = 14B activos por token. Modelo grande en capacidad, pequeño en coste por inferencia.</p>
-      <span class="tag">56B params totales</span>
-      <span class="tag">14B activos</span>
-      <span class="tag">25% uso</span>
+      <p class="compare-card-title"><i data-lucide="route"></i> Modelo MoE</p>
+      <p class="compare-card-desc">Solo una fracción se activa por token. El modelo tiene muchos parámetros almacenados, pero el router elige pocos expertos en cada capa. Más capacidad total, menor coste por token.</p>
+      <span class="tag">Total alto</span>
+      <span class="tag">Activos bajos</span>
+      <span class="tag">Sparse</span>
     </div>
   </div>
-  <ul>
-    <li><strong>Mixtral:</strong> 8 expertos, activa 2 por token. GPT-4 y GPT-5.2 usan variantes de MoE</li>
-    <li><strong>Trade-off:</strong> más parámetros totales (más memoria para almacenar), pero menos activos por petición (más rápido y barato)</li>
-  </ul>
+  <h3><i data-lucide="database"></i> Ejemplos reales</h3>
+  <table>
+    <thead>
+      <tr><th>Modelo</th><th>Total</th><th>Activo/token</th><th>Routing</th><th>Contexto</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>Mixtral 8x7B</strong></td><td>~47B</td><td>~13B</td><td>Top-2 de 8 expertos</td><td>32k</td></tr>
+      <tr><td><strong>DeepSeek-R1</strong></td><td>671B</td><td>37B</td><td>MoE sobre DeepSeek-V3</td><td>128k</td></tr>
+      <tr><td><strong>Qwen3-235B-A22B</strong></td><td>235B</td><td>22B</td><td>8 de 128 expertos</td><td>32k / 131k</td></tr>
+      <tr><td><strong>Llama 4 Maverick</strong></td><td>400B</td><td>17B</td><td>128 expertos</td><td>1M</td></tr>
+    </tbody>
+  </table>
+  <div class="callout">
+    <p class="callout-title"><i data-lucide="alert-triangle"></i> Cuidado con las comparaciones</p>
+    <p>Un MoE no es "mejor" por tener más parámetros totales. Importan el routing, la calidad de datos, el post-training, el número de expertos activos, la KV cache y el hardware. Además, los modelos propietarios no siempre publican arquitectura: no conviene atribuirles MoE si no hay fuente pública.</p>
+  </div>
   <div class="refs">
     <p class="refs-title">Para profundizar</p>
     <a href="https://huggingface.co/blog/moe" target="_blank">Hugging Face - Mixture of Experts Explained</a>
+    <a href="https://arxiv.org/abs/2401.04088" target="_blank">Mixtral of Experts (Mistral AI, 2024)</a>
+    <a href="https://arxiv.org/abs/2101.03961" target="_blank">Switch Transformers (Google, 2021)</a>
+    <a href="https://arxiv.org/abs/2412.19437" target="_blank">DeepSeek-V3 Technical Report</a>
     <a href="https://newsletter.maartengrootendorst.com/p/a-visual-guide-to-mixture-of-experts" target="_blank">A Visual Guide to Mixture of Experts</a>
   </div>
 </Slide>
