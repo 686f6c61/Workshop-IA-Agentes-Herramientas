@@ -3,12 +3,12 @@ import Slide from './Slide.astro';
 ---
 
 <!-- SECTION: OLLAMA CLOUD -->
-<Slide id="sec-ollama-cloud" number={111} section
+<Slide id="sec-ollama-cloud" number={121} section
   title="Modelos open weights en la nube"
   subtitle="Ollama Cloud: ejecutar modelos open weights sin GPU local, catálogo de modelos, integración con herramientas de coding y cuándo elegir cloud vs local." />
 
-<!-- SLIDE 112 -->
-<Slide id="ollama-cloud-intro" number={112} title="Ollama Cloud: modelos open weights sin GPU">
+<!-- SLIDE 122 -->
+<Slide id="ollama-cloud-intro" number={122} title="Ollama Cloud: modelos open weights sin GPU">
   <p><i data-lucide="cloud"></i> Ollama Cloud da acceso a modelos open weights (Qwen, DeepSeek, Kimi, GLM, Mistral...) a través de una API en la nube. Misma experiencia que Ollama local, pero sin comprar ni mantener GPU.</p>
   <div class="icon-grid">
     <div class="icon-card">
@@ -42,7 +42,7 @@ import Slide from './Slide.astro';
   </div>
   <div class="callout">
     <p class="callout-title"><i data-lucide="lightbulb"></i> Caso de uso principal</p>
-    <p>Tienes un portátil sin GPU dedicada pero quieres probar modelos grandes de código o razonamiento como qwen3-coder-next, kimi-k2.6 o deepseek-v4. Ollama Cloud te da un endpoint en segundos.</p>
+    <p>Tienes un portátil sin GPU dedicada pero quieres probar modelos grandes de código o razonamiento como qwen3.6, kimi-k2.6 o deepseek-v4-pro/flash. Ollama Cloud te da un endpoint en segundos.</p>
   </div>
   <div class="refs">
     <p class="refs-title">Para profundizar</p>
@@ -51,20 +51,20 @@ import Slide from './Slide.astro';
   </div>
 </Slide>
 
-<!-- SLIDE 113 -->
-<Slide id="modelos-disponibles" number={113} title="Catálogo de modelos (mayo 2026)">
+<!-- SLIDE 123 -->
+<Slide id="modelos-disponibles" number={123} title="Catálogo de modelos (mayo 2026)">
   <p><i data-lucide="database"></i> Selección representativa del catálogo de Ollama Cloud a mayo de 2026. La lista cambia rápido: confirma siempre tags, tamaño y soporte de tools antes de fijar un modelo en producción.</p>
   <table>
     <thead>
       <tr><th>Categoría</th><th>Modelo</th><th>Detalle</th></tr>
     </thead>
     <tbody>
-      <tr><td><i data-lucide="code"></i> <strong>Código</strong></td><td><strong>qwen3-coder-next</strong></td><td>Modelo de coding de Qwen para workflows agentic coding</td></tr>
+      <tr><td><i data-lucide="code"></i> <strong>Código</strong></td><td><strong>qwen3.6</strong></td><td>35B-A3B open-weight con visión, tools, thinking y agentic coding</td></tr>
       <tr><td></td><td><strong>kimi-k2.6</strong></td><td>Multimodal agentic, enfocado en long-horizon coding y diseño</td></tr>
-      <tr><td></td><td><strong>mistral-medium-3.5</strong></td><td>128B, multimodal, orientado a agentic/coding</td></tr>
+      <tr><td></td><td><strong>mistral-medium-3.5</strong></td><td>Multimodal open-weight, orientado a agentic/coding, contexto 256k</td></tr>
       <tr><td><i data-lucide="brain"></i> <strong>Razonamiento</strong></td><td><strong>deepseek-v4-pro</strong></td><td>MoE con contexto 1M y modos de razonamiento</td></tr>
       <tr><td></td><td><strong>deepseek-v4-flash</strong></td><td>MoE 284B total / 13B activos, contexto 1M</td></tr>
-      <tr><td></td><td><strong>qwen3.6</strong></td><td>Familia Qwen con tools, thinking y visión</td></tr>
+      <tr><td></td><td><strong>qwen3-vl</strong></td><td>Familia Qwen de visión-lenguaje con tools y thinking</td></tr>
       <tr><td><i data-lucide="image"></i> <strong>Multimodal</strong></td><td><strong>nemotron3</strong></td><td>Video, audio, imagen y texto para Q&A y documentos</td></tr>
       <tr><td></td><td><strong>gemma4</strong></td><td>Modelos Gemma con visión, tools, thinking y audio</td></tr>
       <tr><td></td><td><strong>qwen3.5</strong></td><td>Familia multimodal con tamaños de 0.8B a 122B</td></tr>
@@ -76,11 +76,13 @@ import Slide from './Slide.astro';
   <div class="refs">
     <p class="refs-title">Para profundizar</p>
     <a href="https://ollama.com/search" target="_blank">Catálogo completo de modelos</a>
+    <a href="https://ollama.com/library/qwen3.6" target="_blank">Ollama - qwen3.6</a>
+    <a href="https://ollama.com/search?q=deepseek+V4" target="_blank">Ollama - DeepSeek V4</a>
   </div>
 </Slide>
 
-<!-- SLIDE 114 -->
-<Slide id="ollama-cloud-setup" number={114} title="Primeros pasos con Ollama Cloud">
+<!-- SLIDE 124 -->
+<Slide id="ollama-cloud-setup" number={124} title="Primeros pasos con Ollama Cloud">
   <p><i data-lucide="terminal"></i> Configurar Ollama Cloud lleva menos de 2 minutos. Solo necesitas una API key.</p>
   <h3><i data-lucide="key"></i> 1. Obtener la API key</h3>
   <div class="code-block">
@@ -97,7 +99,7 @@ import Slide from './Slide.astro';
     curl https://api.ollama.com/v1/chat/completions \<br/>
     &nbsp;&nbsp;-H <span class="string">"Authorization: Bearer $OLLAMA_API_KEY"</span> \<br/>
     &nbsp;&nbsp;-H <span class="string">"Content-Type: application/json"</span> \<br/>
-    &nbsp;&nbsp;-d <span class="string">'&#123;"model": "qwen3-coder-next", "messages": [&#123;"role": "user", "content": "Hola"&#125;]&#125;'</span>
+    &nbsp;&nbsp;-d <span class="string">'&#123;"model": "qwen3.6", "messages": [&#123;"role": "user", "content": "Hola"&#125;]&#125;'</span>
   </div>
   <h3><i data-lucide="code"></i> 3. Desde Python</h3>
   <div class="code-block">
@@ -107,7 +109,7 @@ import Slide from './Slide.astro';
     &nbsp;&nbsp;api_key=os.environ[<span class="string">"OLLAMA_API_KEY"</span>]<br/>
     )<br/>
     resp = client.chat.completions.create(<br/>
-    &nbsp;&nbsp;model=<span class="string">"qwen3-coder-next"</span>,<br/>
+    &nbsp;&nbsp;model=<span class="string">"qwen3.6"</span>,<br/>
     &nbsp;&nbsp;messages=[&#123;<span class="string">"role"</span>: <span class="string">"user"</span>, <span class="string">"content"</span>: <span class="string">"Explica async/await"</span>&#125;]<br/>
     )
   </div>
@@ -117,8 +119,8 @@ import Slide from './Slide.astro';
   </div>
 </Slide>
 
-<!-- SLIDE 115 -->
-<Slide id="ollama-cloud-herramientas" number={115} title="Ollama Cloud + herramientas de coding">
+<!-- SLIDE 125 -->
+<Slide id="ollama-cloud-herramientas" number={125} title="Ollama Cloud + herramientas de coding">
   <p><i data-lucide="wrench"></i> Cómo integrar Ollama Cloud en las tres herramientas más populares de AI coding.</p>
   <div class="icon-grid">
     <div class="icon-card">
@@ -132,7 +134,7 @@ import Slide from './Slide.astro';
       <i data-lucide="layout"></i>
       <div class="icon-card-content">
         <strong>Cursor</strong>
-        <p>Selector de modelos en el panel lateral. Elige ollama/qwen3-coder-next directamente. Requiere suscripción Pro.</p>
+        <p>Selector de modelos en el panel lateral. Elige ollama/qwen3.6 o deepseek-v4-flash:cloud directamente. Requiere suscripción Pro.</p>
       </div>
     </div>
     <div class="icon-card">
@@ -156,7 +158,7 @@ import Slide from './Slide.astro';
       <tr><th>Herramienta</th><th>Cómo configurar</th><th>Comando</th></tr>
     </thead>
     <tbody>
-      <tr><td><strong>Claude Code</strong></td><td>Exportar OLLAMA_API_KEY</td><td><code>claude --model ollama/qwen3-coder-next</code></td></tr>
+      <tr><td><strong>Claude Code</strong></td><td>Exportar OLLAMA_API_KEY</td><td><code>claude --model ollama/qwen3.6</code></td></tr>
       <tr><td><strong>Cursor</strong></td><td>Settings &gt; Models &gt; Ollama</td><td>Seleccionar en el panel lateral</td></tr>
       <tr><td><strong>OpenCode</strong></td><td>Exportar OLLAMA_API_KEY</td><td><code>/connect ollama</code></td></tr>
       <tr><td><strong>Continue</strong></td><td>config.json &gt; provider: ollama</td><td>Autocompletado en VS Code</td></tr>
@@ -168,8 +170,8 @@ import Slide from './Slide.astro';
   </div>
 </Slide>
 
-<!-- SLIDE 116 -->
-<Slide id="cloud-vs-local" number={116} title="Cloud vs local: cuándo usar cada uno">
+<!-- SLIDE 126 -->
+<Slide id="cloud-vs-local" number={126} title="Cloud vs local: cuándo usar cada uno">
   <p><i data-lucide="scale"></i> No es una cuestión de cuál es mejor, sino de cuál encaja en tu situación.</p>
   <table>
     <thead>
@@ -206,24 +208,24 @@ import Slide from './Slide.astro';
   </div>
 </Slide>
 
-<!-- SLIDE 117 -->
-<Slide id="recap-ollama-cloud" number={117} title="Lo que deberías saber: Ollama Cloud">
+<!-- SLIDE 127 -->
+<Slide id="recap-ollama-cloud" number={127} title="Lo que deberías saber: Ollama Cloud">
   <table>
     <thead>
       <tr><th>Concepto</th><th>Slide</th></tr>
     </thead>
     <tbody>
-      <tr><td>Ollama Cloud: modelos open weights sin GPU, misma experiencia que local</td><td>112</td></tr>
-      <tr><td>Catálogo: qwen3.6, kimi-k2.6, deepseek-v4, gemma4...</td><td>113</td></tr>
-      <tr><td>Setup en 2 minutos: API key + curl o Python (compatible OpenAI)</td><td>114</td></tr>
-      <tr><td>Integración: Claude Code, Cursor, OpenCode, Continue</td><td>115</td></tr>
-      <tr><td>Cloud para modelos grandes y prototipos; local para privacidad extrema</td><td>116</td></tr>
+      <tr><td>Ollama Cloud: modelos open weights sin GPU, misma experiencia que local</td><td>122</td></tr>
+      <tr><td>Catálogo: qwen3.6, kimi-k2.6, deepseek-v4-pro/flash, gemma4...</td><td>123</td></tr>
+      <tr><td>Setup en 2 minutos: API key + curl o Python (compatible OpenAI)</td><td>124</td></tr>
+      <tr><td>Integración: Claude Code, Cursor, OpenCode, Continue</td><td>125</td></tr>
+      <tr><td>Cloud para modelos grandes y prototipos; local para privacidad extrema</td><td>126</td></tr>
     </tbody>
   </table>
 </Slide>
 
-<!-- SLIDE 118 -->
-<Slide id="recursos" number={118} title="Recursos y siguiente paso">
+<!-- SLIDE 128 -->
+<Slide id="recursos" number={128} title="Recursos y siguiente paso">
   <div class="two-cols">
     <div>
       <h3><i data-lucide="book-open"></i> Cursos y guías</h3>

@@ -1,5 +1,20 @@
 # Changelog
 
+## [2.1.2] - 2026-05-06
+
+Ampliacion integrada de Hugging Face y lectura de fichas de modelos.
+
+### Added
+- Tres slides nuevas sobre Hugging Face: caso real DeepSeek-V4 Pro/Flash, glosario de terminos de model cards y lectura de eval results.
+- Siete slides nuevas de metodologia practica: mantenerse actualizado, matriz de eleccion de modelos, mini-lab Hugging Face, Google Colab, experimentos buenos, eval interna y errores comunes.
+- Explicacion de terminos como base, instruct, adapter, LoRA, merge, quantized, safetensors, GGUF, gated y chat template.
+- Guia de metricas de benchmarks en fichas: EM, Pass@1, Resolved, Accuracy, F1, Elo/rating y campos de setup.
+
+### Changed
+- Indice, recaps de seccion, README y metadatos sincronizados con la nueva numeracion de 128 slides.
+- Estado del arte revisado con fuentes primarias: Claude Opus 4.7, Qwen3.6-35B-A3B y DeepSeek-V4 Pro/Flash.
+- Revisión final de mayo 2026: gpt-oss-120b, Mistral Large 3 / Medium 3.5, embeddings Voyage/Cohere, SWE-bench Lite y precios de coding assistants.
+
 ## [2.1.1] - 2026-05-06
 
 Ampliacion de benchmarks y evaluacion de agentes de coding.
@@ -15,7 +30,7 @@ Actualizacion de mayo 2026 manteniendo el estilo academico del workshop.
 
 ### Changed
 - Portada y metadatos actualizados a mayo 2026 (05/26).
-- Modelos actualizados: GPT-5.5/GPT-5.4, Claude Opus/Sonnet 4.6, Gemini 3.1 Pro, Llama 4, Qwen3, DeepSeek-R1 y Mistral actual.
+- Modelos actualizados: GPT-5.5/GPT-5.4, Claude Opus 4.7/Sonnet 4.6, Gemini 3.1 Pro, gpt-oss-120b, Llama 4, Qwen3.6, DeepSeek-V4 Pro/Flash y Mistral Large 3 / Medium 3.5.
 - MoE ampliado con parametros totales vs activos, routing, ejemplos reales y advertencias de comparacion.
 - Quantizacion ampliada: GGUF/GGML, bitsandbytes, GPTQ/AWQ, FP8, Q4-Q8 e importancia de calibracion.
 - Hugging Face + LM Studio convertido en checklist de model cards, licencias, formatos, base model y quantizaciones.

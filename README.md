@@ -1,6 +1,6 @@
 # Workshop de IA: agentes, modelos y herramientas
 
-De la neurona al agente: 118 slides para entender la IA moderna y aplicarla en tu dia a dia como ingeniero. Desde backpropagation hasta desplegar agentes en produccion, pasando por RAG, MCP, ControlNet, benchmarks, modelos open weights y vibe coding.
+De la neurona al agente: 128 slides para entender la IA moderna y aplicarla en tu dia a dia como ingeniero. Desde backpropagation hasta desplegar agentes en produccion, pasando por RAG, MCP, ControlNet, Hugging Face, Google Colab, benchmarks, modelos open weights y vibe coding.
 
 **[Ver presentacion](https://workshop-ia-2026.686f6c61.dev)** | Actualizado a mayo 2026 (update 05/26)
 
@@ -18,6 +18,7 @@ De la neurona al agente: 118 slides para entender la IA moderna y aplicarla en t
 ### Arquitecturas y modelos (slides 19-34)
 - [x] LLMs, Transformers, Mixture of Experts
 - [x] Dimensiones de modelos: parametros totales/activos, capas, hidden size, heads, context window
+- [x] Estado del arte mayo 2026: GPT-5.5/5.4, Claude Opus 4.7, Gemini 3.1, gpt-oss, Qwen3.6, DeepSeek-V4, Llama 4 y Mistral 3
 - [x] Atencion en detalle: matrices Q, K, V, multi-head, RoPE
 - [x] Tokenizacion en profundidad: BPE, WordPiece, SentencePiece
 - [x] Transfer learning: de ImageNet a GPT
@@ -27,7 +28,7 @@ De la neurona al agente: 118 slides para entender la IA moderna y aplicarla en t
 - [x] Open weights vs propietario, destilacion, inferencia optimizada
 - [x] Edge AI: modelos en navegador, movil e IoT
 
-### Uso practico (slides 36-62)
+### Uso practico (slides 36-72)
 - [x] Prompt engineering y context engineering
 - [x] Alucinaciones y como protegerte
 - [x] Structured output / JSON mode con schema
@@ -37,6 +38,14 @@ De la neurona al agente: 118 slides para entender la IA moderna y aplicarla en t
 - [x] Herramientas: ComfyUI, Forge, Civitai, Replicate, RunPod
 - [x] Tecnicas de control: ControlNet, IP-Adapter, inpainting, upscaling
 - [x] Hugging Face + LM Studio: model cards, licencias, formatos y quantizaciones
+- [x] Glosario de fichas de Hugging Face: base, instruct, adapter, LoRA, merge, safetensors, GGUF, gated, chat template
+- [x] Caso real DeepSeek-V4 Pro/Flash: MoE, parametros totales/activos, FP4+FP8 mixed, 1M context, eval results
+- [x] Benchmarks en model cards: EM, Pass@1, Resolved, Acc, F1, Elo/rating y setup de evaluacion
+- [x] Metodologia para mantenerse actualizado sin comprar humo
+- [x] Matriz de eleccion de modelos segun coste, privacidad, contexto, tools y riesgo
+- [x] Mini-lab de Hugging Face para decidir si una model card sirve
+- [x] Google Colab para probar experimentos sin instalar nada
+- [x] Checklist de experimentos buenos, eval interna y errores comunes
 - [x] RAG, agentic RAG, GraphRAG, hybrid search, contextual retrieval
 - [x] Fine-tuning con LoRA/QLoRA (Unsloth, Axolotl)
 - [x] Datos sinteticos, bases de datos vectoriales
@@ -44,7 +53,7 @@ De la neurona al agente: 118 slides para entender la IA moderna y aplicarla en t
 - [x] API hello world, streaming (SSE)
 - [x] Arquitectura de apps con LLM: retry, fallback, circuit breaker, model routing
 
-### Agentes y orquestacion (slides 64-83)
+### Agentes y orquestacion (slides 75-93)
 - [x] Cuando usar un agente y cuando un prompt
 - [x] Bucle ReAct, Plan-and-Execute, Reflexion
 - [x] Memoria persistente: CLAUDE.md, Zep, MemGPT
@@ -57,10 +66,11 @@ De la neurona al agente: 118 slides para entender la IA moderna y aplicarla en t
 - [x] Computer Use, Browser Use, A2A (Agent-to-Agent)
 - [x] Human-in-the-loop: niveles de autonomia
 
-### Realidad del ingeniero (slides 85-110)
+### Realidad del ingeniero (slides 96-120)
 - [x] IDE web vs terminal, comparativa de coding assistants
 - [x] Benchmarks: que miden, que no miden, SWE-bench, leaderboards y evals internas
 - [x] SWE-bench: Full, Verified, Lite, Multilingual, Multimodal, % Resolved y coste por resolucion
+- [x] Precios y cambios actuales en herramientas de coding: Claude Code, Cursor, Copilot y Windsurf
 - [x] IA en CI/CD, seguridad (OWASP Top 10 for LLMs), guardrails
 - [x] Testing adversarial, red teaming, prompt injection
 - [x] EU AI Act: clasificacion por riesgo, calendario
@@ -71,7 +81,7 @@ De la neurona al agente: 118 slides para entender la IA moderna y aplicarla en t
 - [x] Configurar Claude Code, OpenCode y Cursor como un pro
 - [x] Agentes en produccion: lecciones aprendidas y el "agent tax"
 
-### Modelos open weights con Ollama Cloud (slides 111-117)
+### Modelos open weights con Ollama Cloud (slides 122-127)
 - [x] Ollama Cloud: modelos open weights sin GPU
 - [x] Catalogo, setup, integracion con herramientas
 - [x] Cloud vs local: cuando usar cada uno

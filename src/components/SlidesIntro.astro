@@ -76,7 +76,7 @@ import Slide from './Slide.astro';
       <i data-lucide="brain"></i>
       <div class="icon-card-content">
         <strong>Modelos matemáticos masivos</strong>
-        <p>Redes neuronales con billones de parámetros ajustados para reconocer patrones en texto, imágenes, código y audio.</p>
+        <p>Redes neuronales con miles de millones o billones de parámetros ajustados para reconocer patrones en texto, imágenes, código y audio.</p>
       </div>
     </div>
     <div class="icon-card">
@@ -251,7 +251,7 @@ import Slide from './Slide.astro';
   </table>
   <div class="callout">
     <p class="callout-title"><i data-lucide="lightbulb"></i> Para ingenieros</p>
-    <p>Una neurona es una función pura con parámetros aprendidos (pesos y bias). La "inteligencia" no está en una neurona individual: está en los <strong>miles de millones de parámetros</strong> ajustados durante el entrenamiento. Un LLM como Claude tiene cientos de miles de millones de estos "pesos".</p>
+    <p>Una neurona es una función pura con parámetros aprendidos (pesos y bias). La "inteligencia" no está en una neurona individual: está en los <strong>miles de millones de parámetros</strong> ajustados durante el entrenamiento. En modelos propietarios como Claude o GPT, el proveedor no publica siempre el número exacto de pesos.</p>
   </div>
 </Slide>
 
@@ -294,7 +294,7 @@ import Slide from './Slide.astro';
   </div>
   <div class="callout">
     <p class="callout-title"><i data-lucide="lightbulb"></i> "Deep" learning = muchas capas</p>
-    <p>Una red con 2-3 capas es "shallow". Con decenas o cientos de capas es "deep". GPT-4 tiene 120+ capas de transformer. Más capas = más capacidad de abstracción, pero más difícil y caro de entrenar.</p>
+    <p>Una red con 2-3 capas es "shallow". Con decenas o cientos de capas es "deep". En modelos propietarios no conviene inventar el número de capas si no está publicado. Más capas suelen aportar más capacidad de abstracción, pero aumentan latencia, memoria y dificultad de entrenamiento.</p>
   </div>
   <div class="refs">
     <p class="refs-title">Para profundizar</p>
@@ -587,7 +587,7 @@ import Slide from './Slide.astro';
     </thead>
     <tbody>
       <tr><td><strong>text-embedding-3-large</strong></td><td>OpenAI</td><td>3072</td><td>Alta calidad general. Dimensiones configurables (256-3072). Buen equilibrio coste/rendimiento.</td></tr>
-      <tr><td><strong>Voyage 3</strong></td><td>Anthropic (Voyage AI)</td><td>1024</td><td>Recomendado por Anthropic. Excelente en código y documentación técnica. Menor dimensionalidad, más rápido.</td></tr>
+      <tr><td><strong>voyage-3.5 / voyage-3-large</strong></td><td>Voyage AI</td><td>1024 por defecto; 256-2048 configurable</td><td>Recomendado por Anthropic para RAG. Buen soporte multilingüe, código y documentación técnica.</td></tr>
       <tr><td><strong>BGE-M3</strong></td><td>BAAI (open source)</td><td>1024</td><td>Multilingüe (100+ idiomas). Búsqueda híbrida (densa + dispersa). Ideal si necesitas soporte robusto de español.</td></tr>
       <tr><td><strong>E5-Mistral</strong></td><td>Microsoft (open source)</td><td>4096</td><td>Basado en Mistral 7B. Muy alta calidad en benchmarks. Requiere más compute por su tamaño.</td></tr>
       <tr><td><strong>Cohere Embed v4</strong></td><td>Cohere</td><td>256-1536</td><td>Embeddings multimodales texto/imagen/PDF, dimensiones Matryoshka y contexto 128k.</td></tr>
@@ -601,6 +601,7 @@ import Slide from './Slide.astro';
   <div class="refs">
     <p class="refs-title">Para profundizar</p>
     <a href="https://developers.openai.com/api/docs/models/text-embedding-3-large" target="_blank">OpenAI - text-embedding-3-large</a>
+    <a href="https://docs.anthropic.com/en/docs/build-with-claude/embeddings" target="_blank">Anthropic - Embeddings con Voyage AI</a>
     <a href="https://docs.cohere.com/docs/cohere-embed" target="_blank">Cohere - Embed models</a>
     <a href="https://arxiv.org/abs/2402.03216" target="_blank">BGE-M3 paper</a>
     <a href="https://www.pinecone.io/learn/vector-embeddings/" target="_blank">Pinecone - Vector Embeddings Explained</a>
@@ -613,7 +614,7 @@ import Slide from './Slide.astro';
   <div class="two-cols">
     <div>
       <h3><i data-lucide="graduation-cap"></i> Entrenamiento</h3>
-      <p>El proceso de <strong>crear</strong> el modelo. Se ajustan billones de parámetros con datos masivos.</p>
+      <p>El proceso de <strong>crear</strong> el modelo. Se ajustan miles de millones o billones de parámetros con datos masivos.</p>
       <div class="flow">
         <span class="flow-step">Datos masivos</span>
         <span class="flow-arrow">&rarr;</span>
@@ -688,7 +689,7 @@ import Slide from './Slide.astro';
     <span class="keyword">FP16</span>: 0.1872&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="comment">// pierde decimales, 16 bits</span><br/>
     <span class="keyword">INT8</span>: 0.19&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="comment">// redondeado, 8 bits</span><br/>
     <span class="keyword">INT4</span>: 0.2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="comment">// muy redondeado, 4 bits</span><br/><br/>
-    <span class="comment">// La clave: con billones de parámetros, cada bit cuenta</span><br/>
+    <span class="comment">// La clave: con miles de millones de parámetros, cada bit cuenta</span><br/>
     <span class="comment">// 7B params x 32 bits = 28 GB &rarr; 7B x 4 bits = 3.5 GB</span>
   </div>
   <p>Esto es lo que hace posible <strong>LM Studio</strong> y <strong>Ollama</strong>: ejecutar modelos de 7B-70B parámetros en hardware de consumo usando formatos GGUF quantizados. A menor precisión, menor memoria; la pérdida depende del modelo, del método y de la tarea.</p>
@@ -783,15 +784,17 @@ import Slide from './Slide.astro';
       <tr><th>Modelo</th><th>Empresa</th><th>Dimensiones públicas</th><th>Context window</th><th>Tipo</th></tr>
     </thead>
     <tbody>
-      <tr><td><strong>GPT-5.5</strong></td><td>OpenAI</td><td>No publica pesos ni arquitectura</td><td>1M</td><td>Propietario</td></tr>
-      <tr><td><strong>Claude Opus 4.6</strong></td><td>Anthropic</td><td>No publica pesos ni arquitectura</td><td>1M</td><td>Propietario</td></tr>
+      <tr><td><strong>GPT-5.5</strong></td><td>OpenAI</td><td>No publica pesos ni arquitectura</td><td>1.05M</td><td>Propietario</td></tr>
+      <tr><td><strong>Claude Opus 4.7</strong></td><td>Anthropic</td><td>No publica pesos ni arquitectura</td><td>1M</td><td>Propietario</td></tr>
       <tr><td><strong>Claude Sonnet 4.6</strong></td><td>Anthropic</td><td>No publica pesos ni arquitectura</td><td>1M</td><td>Propietario</td></tr>
       <tr><td><strong>Gemini 3.1 Pro</strong></td><td>Google</td><td>No publica pesos; multimodal nativo</td><td>1M</td><td>Propietario</td></tr>
+      <tr><td><strong>gpt-oss-120b</strong></td><td>OpenAI</td><td>MoE: 117B total, 5.1B activos; reasoning open-weight</td><td>131k</td><td>Apache 2.0</td></tr>
       <tr><td><strong>Llama 4 Scout</strong></td><td>Meta</td><td>MoE: 109B total, 17B activos, 16 expertos</td><td>10M</td><td>Open weights</td></tr>
       <tr><td><strong>Llama 4 Maverick</strong></td><td>Meta</td><td>MoE: 400B total, 17B activos, 128 expertos</td><td>1M</td><td>Open weights</td></tr>
-      <tr><td><strong>Qwen3-235B-A22B</strong></td><td>Alibaba</td><td>MoE: 235B total, 22B activos, 94 capas</td><td>32k nativo / 131k YaRN</td><td>Apache 2.0</td></tr>
-      <tr><td><strong>DeepSeek-R1</strong></td><td>DeepSeek</td><td>MoE: 671B total, 37B activos</td><td>128k</td><td>Open weights</td></tr>
-      <tr><td><strong>Mistral Large 3 / Medium 3.5</strong></td><td>Mistral AI</td><td>Multimodales; Large 3 open-weight</td><td>Según versión</td><td>Open / Premier</td></tr>
+      <tr><td><strong>Qwen3.6-35B-A3B</strong></td><td>Alibaba</td><td>MoE multimodal: 35B total, 3B activos, 40 capas, 256 expertos</td><td>262k nativo / 1.01M YaRN</td><td>Apache 2.0</td></tr>
+      <tr><td><strong>DeepSeek-V4-Pro</strong></td><td>DeepSeek</td><td>MoE: 1.6T total, 49B activos, FP4+FP8 mixed</td><td>1M</td><td>MIT</td></tr>
+      <tr><td><strong>DeepSeek-V4-Flash</strong></td><td>DeepSeek</td><td>MoE: 284B total, 13B activos, FP4+FP8 mixed</td><td>1M</td><td>MIT</td></tr>
+      <tr><td><strong>Mistral Large 3 / Medium 3.5</strong></td><td>Mistral AI</td><td>Large 3 MoE: 675B total, 41B activos; Medium 3.5 multimodal agentic/coding</td><td>Large 3 según runtime / Medium 3.5 256k</td><td>Apache 2.0 / Modified MIT</td></tr>
     </tbody>
   </table>
   <h3><i data-lucide="ruler"></i> Dimensiones de un modelo: qué significan</h3>
@@ -815,11 +818,15 @@ import Slide from './Slide.astro';
   <div class="refs">
     <p class="refs-title">Para profundizar</p>
     <a href="https://developers.openai.com/api/docs/models" target="_blank">OpenAI - Models</a>
-    <a href="https://platform.claude.com/docs/en/about-claude/models/overview" target="_blank">Anthropic - Models overview</a>
+    <a href="https://developers.openai.com/api/docs/models/gpt-oss-120b" target="_blank">OpenAI - gpt-oss-120b</a>
+    <a href="https://platform.claude.com/docs/en/about-claude/models/whats-new-claude-4-7" target="_blank">Anthropic - Claude Opus 4.7</a>
     <a href="https://deepmind.google/models/gemini/pro/" target="_blank">Google DeepMind - Gemini 3.1 Pro</a>
     <a href="https://huggingface.co/meta-llama/Llama-4-Scout-17B-16E-Instruct" target="_blank">Meta Llama 4 - Model card</a>
-    <a href="https://huggingface.co/Qwen/Qwen3-235B-A22B" target="_blank">Qwen3-235B-A22B - Model card</a>
-    <a href="https://huggingface.co/deepseek-ai/DeepSeek-R1" target="_blank">DeepSeek-R1 - Model card</a>
+    <a href="https://huggingface.co/Qwen/Qwen3.6-35B-A3B" target="_blank">Qwen3.6-35B-A3B - Model card</a>
+    <a href="https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro" target="_blank">DeepSeek-V4-Pro - Model card</a>
+    <a href="https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash" target="_blank">DeepSeek-V4-Flash - Model card</a>
+    <a href="https://mistral.ai/news/mistral-3" target="_blank">Mistral 3 - anuncio oficial</a>
+    <a href="https://docs.mistral.ai/models/model-cards/mistral-medium-3-5-26-04" target="_blank">Mistral Medium 3.5 - Model card</a>
     <a href="https://arxiv.org/abs/2303.18223" target="_blank">A Survey of Large Language Models (paper)</a>
   </div>
 </Slide>
@@ -964,8 +971,11 @@ import Slide from './Slide.astro';
     </thead>
     <tbody>
       <tr><td><strong>Mixtral 8x7B</strong></td><td>~47B</td><td>~13B</td><td>Top-2 de 8 expertos</td><td>32k</td></tr>
-      <tr><td><strong>DeepSeek-R1</strong></td><td>671B</td><td>37B</td><td>MoE sobre DeepSeek-V3</td><td>128k</td></tr>
-      <tr><td><strong>Qwen3-235B-A22B</strong></td><td>235B</td><td>22B</td><td>8 de 128 expertos</td><td>32k / 131k</td></tr>
+      <tr><td><strong>Mistral Large 3</strong></td><td>675B</td><td>41B</td><td>MoE granular, Apache 2.0</td><td>Según runtime</td></tr>
+      <tr><td><strong>gpt-oss-120b</strong></td><td>117B</td><td>5.1B</td><td>MoE reasoning open-weight</td><td>131k</td></tr>
+      <tr><td><strong>DeepSeek-V4-Pro</strong></td><td>1.6T</td><td>49B</td><td>MoE frontier, FP4+FP8 mixed</td><td>1M</td></tr>
+      <tr><td><strong>DeepSeek-V4-Flash</strong></td><td>284B</td><td>13B</td><td>MoE eficiente, misma familia V4</td><td>1M</td></tr>
+      <tr><td><strong>Qwen3.6-35B-A3B</strong></td><td>35B</td><td>3B</td><td>8 routed + 1 shared de 256 expertos</td><td>262k / 1.01M</td></tr>
       <tr><td><strong>Llama 4 Maverick</strong></td><td>400B</td><td>17B</td><td>128 expertos</td><td>1M</td></tr>
     </tbody>
   </table>
@@ -978,7 +988,10 @@ import Slide from './Slide.astro';
     <a href="https://huggingface.co/blog/moe" target="_blank">Hugging Face - Mixture of Experts Explained</a>
     <a href="https://arxiv.org/abs/2401.04088" target="_blank">Mixtral of Experts (Mistral AI, 2024)</a>
     <a href="https://arxiv.org/abs/2101.03961" target="_blank">Switch Transformers (Google, 2021)</a>
-    <a href="https://arxiv.org/abs/2412.19437" target="_blank">DeepSeek-V3 Technical Report</a>
+    <a href="https://mistral.ai/news/mistral-3" target="_blank">Mistral 3 - Large 3 MoE</a>
+    <a href="https://developers.openai.com/api/docs/models/gpt-oss-120b" target="_blank">OpenAI - gpt-oss-120b</a>
+    <a href="https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro" target="_blank">DeepSeek-V4-Pro - Model card</a>
+    <a href="https://huggingface.co/Qwen/Qwen3.6-35B-A3B" target="_blank">Qwen3.6-35B-A3B - Model card</a>
     <a href="https://newsletter.maartengrootendorst.com/p/a-visual-guide-to-mixture-of-experts" target="_blank">A Visual Guide to Mixture of Experts</a>
   </div>
 </Slide>
