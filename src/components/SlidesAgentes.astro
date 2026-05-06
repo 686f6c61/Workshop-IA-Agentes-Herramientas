@@ -1059,36 +1059,107 @@ import Slide from './Slide.astro';
 </Slide>
 
 <!-- SLIDE 88 -->
-<Slide id="ai-benchmarks" number={88} title="AI coding benchmarks: medir con datos, no con marketing">
-  <p><i data-lucide="bar-chart"></i> Cada herramienta dice ser "la mejor". Los <strong>benchmarks</strong> te dan datos objetivos para comparar modelos y agentes de coding.</p>
-  <h3><i data-lucide="database"></i> Benchmarks principales</h3>
+<Slide id="ai-benchmarks" number={88} title="Benchmarks: qué miden (y qué no)">
+  <p><i data-lucide="bar-chart"></i> Un benchmark no mide "inteligencia" en abstracto. Mide una <strong>tarea operacional concreta</strong>, con un dataset, una métrica y un protocolo. Leerlo bien evita comprar marketing con forma de tabla.</p>
+  <h3><i data-lucide="database"></i> Familias de benchmarks</h3>
   <table>
     <thead>
-      <tr><th>Benchmark</th><th>Qué mide</th><th>Cómo funciona</th></tr>
+      <tr><th>Familia</th><th>Ejemplos</th><th>Qué mide</th><th>No mide bien</th></tr>
     </thead>
     <tbody>
-      <tr><td><strong><a href="https://www.swebench.com/" target="_blank">SWE-bench</a></strong></td><td>Resolver issues reales de GitHub</td><td>2294 issues de repos open source (Django, Flask, sympy...). El agente debe entender, localizar y corregir el bug. Gold standard</td></tr>
-      <tr><td><strong><a href="https://aider.chat/docs/leaderboards/" target="_blank">Aider Polyglot</a></strong></td><td>Edición de código multi-lenguaje</td><td>225 ejercicios en Python, JS, Java, C++... Mide si el agente puede editar código existente correctamente</td></tr>
-      <tr><td><strong><a href="https://github.com/openai/human-eval" target="_blank">HumanEval</a></strong></td><td>Generación de funciones</td><td>164 problemas tipo LeetCode. Sencillo pero útil para comparar modelos base</td></tr>
-      <tr><td><strong><a href="https://webarena.dev/" target="_blank">WebArena</a></strong></td><td>Tareas web complejas</td><td>El agente navega sitios web reales, rellena formularios, extrae datos. Mide browser use</td></tr>
-      <tr><td><strong><a href="https://github.com/sierra-research/tau-bench" target="_blank">TAU-bench</a></strong></td><td>Agentes en entornos reales</td><td>Tareas de retail y aerolínea con APIs reales. Mide tool use en escenarios de producción</td></tr>
+      <tr><td><strong>Conocimiento / razonamiento</strong></td><td>MMLU, GPQA</td><td>Preguntas cerradas, razonamiento académico, factualidad</td><td>Uso de herramientas, ejecución real, coste</td></tr>
+      <tr><td><strong>Código pequeño</strong></td><td>HumanEval, MBPP</td><td>Generar funciones autocontenidas que pasan tests</td><td>Repos grandes, dependencias, refactors</td></tr>
+      <tr><td><strong>Edición de código</strong></td><td>Aider Polyglot</td><td>Modificar código existente en varios lenguajes</td><td>Producto completo, deuda técnica, contexto empresarial</td></tr>
+      <tr><td><strong>Ingeniería real</strong></td><td>SWE-bench</td><td>Resolver issues de GitHub generando patches aplicables</td><td>Arquitectura, UX, seguridad si no está cubierta por tests</td></tr>
+      <tr><td><strong>Agentes con entorno</strong></td><td>WebArena, TAU-bench</td><td>Navegación web, tool use, acciones multi-paso</td><td>Calidad del código o diseño interno</td></tr>
+      <tr><td><strong>Operacional</strong></td><td>Artificial Analysis, HELM</td><td>Latencia, coste, throughput, calidad comparada</td><td>Si tu workflow concreto mejora o no</td></tr>
     </tbody>
   </table>
-  <h3><i data-lucide="alert-triangle"></i> Cómo leer benchmarks sin engañarte</h3>
-  <ul>
-    <li><i data-lucide="eye"></i> <strong>Verified vs unverified:</strong> SWE-bench Verified (500 issues curados) es más fiable que el full (2294, con ruido)</li>
-    <li><i data-lucide="coins"></i> <strong>Coste por resolución:</strong> un agente que resuelve el 50% gastando 10x más tokens no es mejor que uno que resuelve el 45% barato</li>
-    <li><i data-lucide="repeat"></i> <strong>Contaminación:</strong> si el modelo se entrenó con los datos del benchmark, el score no es representativo</li>
-    <li><i data-lucide="target"></i> <strong>Tu caso de uso:</strong> SWE-bench mide bugs en Python OSS. Si trabajas con TypeScript empresarial, el ranking puede ser distinto</li>
-  </ul>
   <div class="callout">
-    <p class="callout-title"><i data-lucide="compass"></i> Dónde consultar</p>
-    <p><a href="https://www.swebench.com/" target="_blank">swebench.com</a> para SWE-bench, <a href="https://aider.chat/docs/leaderboards/" target="_blank">aider.chat/leaderboards</a> para el Aider Polyglot, <a href="https://artificialanalysis.ai/" target="_blank">artificialanalysis.ai</a> para comparar velocidad/precio/calidad de modelos.</p>
+    <p class="callout-title"><i data-lucide="target"></i> Pregunta correcta</p>
+    <p>No preguntes "¿qué modelo gana?". Pregunta: <strong>¿qué dataset?</strong>, <strong>qué split</strong>, <strong>qué métrica</strong>, <strong>qué agente/scaffold</strong>, <strong>cuánto presupuesto</strong>, <strong>cuántos intentos</strong> y <strong>qué parecido tiene a mi trabajo real</strong>.</p>
+  </div>
+  <div class="refs">
+    <p class="refs-title">Para profundizar</p>
+    <a href="https://www.swebench.com/" target="_blank">SWE-bench leaderboard</a>
+    <a href="https://aider.chat/docs/leaderboards/" target="_blank">Aider leaderboards</a>
+    <a href="https://crfm.stanford.edu/helm/latest/" target="_blank">HELM - Holistic Evaluation of Language Models</a>
+    <a href="https://artificialanalysis.ai/" target="_blank">Artificial Analysis</a>
   </div>
 </Slide>
 
 <!-- SLIDE 89 -->
-<Slide id="ai-cicd" number={89} title="IA en CI/CD">
+<Slide id="swe-bench" number={89} title="SWE-bench: qué mide exactamente">
+  <p><i data-lucide="git-pull-request"></i> SWE-bench evalúa modelos y agentes en <strong>issues reales de GitHub</strong>. Dado un repositorio y una descripción de problema, el sistema debe generar un patch que arregle el issue.</p>
+  <h3><i data-lucide="route"></i> Flujo de evaluación</h3>
+  <div class="flow">
+    <span class="flow-step">Issue real<br/>+ commit base</span>
+    <span class="flow-arrow">&rarr;</span>
+    <span class="flow-step">Agente lee repo<br/>y decide cambios</span>
+    <span class="flow-arrow">&rarr;</span>
+    <span class="flow-step">Genera patch<br/><code>diff</code></span>
+    <span class="flow-arrow">&rarr;</span>
+    <span class="flow-step">Docker aplica patch<br/>y ejecuta tests</span>
+    <span class="flow-arrow">&rarr;</span>
+    <span class="flow-step">% Resolved</span>
+  </div>
+  <h3><i data-lucide="table"></i> Familia SWE-bench</h3>
+  <table>
+    <thead>
+      <tr><th>Variante</th><th>Tamaño</th><th>Para qué sirve</th><th>Qué mide mejor</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>Full</strong></td><td>2,294</td><td>Evaluación amplia en repos Python populares</td><td>Capacidad general en issues reales</td></tr>
+      <tr><td><strong>Verified</strong></td><td>500</td><td>Subset revisado por humanos con problemas claros y resolubles</td><td>Comparación fiable de coding agents</td></tr>
+      <tr><td><strong>Lite</strong></td><td>300 test</td><td>Iteración más barata y rápida</td><td>Bugs más autocontenidos</td></tr>
+      <tr><td><strong>Multilingual</strong></td><td>300</td><td>42 repos en 9 lenguajes</td><td>Generalización fuera de Python</td></tr>
+      <tr><td><strong>Multimodal</strong></td><td>517</td><td>Issues con screenshots, mockups o diagramas</td><td>Uso conjunto de texto + visión</td></tr>
+    </tbody>
+  </table>
+  <div class="callout">
+    <p class="callout-title"><i data-lucide="check-circle"></i> Qué significa "resolved"</p>
+    <p>El patch aplica correctamente y los tests relevantes pasan. Esto mide navegación de repos, localización del bug, edición multi-fichero, uso de terminal y autocorrección. No garantiza que el diseño sea elegante ni que cubra riesgos no expresados en tests.</p>
+  </div>
+  <div class="refs">
+    <p class="refs-title">Para profundizar</p>
+    <a href="https://www.swebench.com/SWE-bench/" target="_blank">SWE-bench docs - Overview</a>
+    <a href="https://www.swebench.com/SWE-bench/guides/evaluation/" target="_blank">SWE-bench docs - Evaluation</a>
+    <a href="https://openreview.net/forum?id=VTF8yNQM66" target="_blank">SWE-bench paper - ICLR 2024</a>
+  </div>
+</Slide>
+
+<!-- SLIDE 90 -->
+<Slide id="leer-leaderboards" number={90} title="Cómo leer un leaderboard de benchmarks">
+  <p><i data-lucide="line-chart"></i> Un leaderboard mezcla modelo, agente, prompt, herramientas, presupuesto y protocolo. El número final es útil, pero solo si entiendes qué hay debajo.</p>
+  <h3><i data-lucide="list-checks"></i> Checklist de lectura crítica</h3>
+  <table>
+    <thead>
+      <tr><th>Pregunta</th><th>Por qué importa</th><th>Ejemplo en SWE-bench</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>¿Qué split?</strong></td><td>No es lo mismo Full, Verified, Lite o Multilingual</td><td>Verified reduce ruido; Full es más amplio</td></tr>
+      <tr><td><strong>¿Modelo o sistema?</strong></td><td>Un agente bueno puede elevar a un modelo mediano</td><td>mini-SWE-agent normaliza una configuración bash-only</td></tr>
+      <tr><td><strong>¿Cuánto presupuesto?</strong></td><td>Más pasos, tokens o rollouts suben score y coste</td><td>Compara % resolved junto a coste medio</td></tr>
+      <tr><td><strong>¿Reproducible?</strong></td><td>Necesitas harness, logs, versión y configuración</td><td>SWE-bench usa evaluación en Docker</td></tr>
+      <tr><td><strong>¿Contaminado?</strong></td><td>El modelo pudo ver issues o soluciones en training</td><td>Preferir splits recientes, privados o live</td></tr>
+      <tr><td><strong>¿Transferible?</strong></td><td>Tu stack puede no parecerse al benchmark</td><td>Python OSS no equivale a monorepo TypeScript privado</td></tr>
+    </tbody>
+  </table>
+  <div class="callout">
+    <p class="callout-title"><i data-lucide="flask-conical"></i> De benchmark público a eval interna</p>
+    <p>Para producción, crea tu propio mini-benchmark: 20-100 bugs reales de tu repo, tests ocultos, límite de coste, tiempo máximo, revisión humana y regresión antes/después de cambiar modelo o prompt. Eso vale más que perseguir el top 1 global.</p>
+  </div>
+  <div class="refs">
+    <p class="refs-title">Para profundizar</p>
+    <a href="https://www.swebench.com/verified.html" target="_blank">SWE-bench Verified</a>
+    <a href="https://www.swebench.com/SWE-bench/guides/datasets/" target="_blank">SWE-bench datasets</a>
+    <a href="https://www.swebench.com/multilingual-leaderboard.html" target="_blank">SWE-bench Multilingual</a>
+    <a href="https://www.swebench.com/multimodal.html" target="_blank">SWE-bench Multimodal</a>
+  </div>
+</Slide>
+
+<!-- SLIDE 91 -->
+<Slide id="ai-cicd" number={91} title="IA en CI/CD">
   <p><i data-lucide="git-pull-request"></i> Los agentes de IA ya se integran en los pipelines de desarrollo. No solo generan código: lo <strong>revisan, testean y despliegan</strong>.</p>
   <h3><i data-lucide="layers"></i> Dónde encaja la IA en el pipeline</h3>
   <table>
@@ -1131,8 +1202,8 @@ import Slide from './Slide.astro';
   </div>
 </Slide>
 
-<!-- SLIDE 90 -->
-<Slide id="seguridad" number={90} title="Seguridad y riesgos">
+<!-- SLIDE 92 -->
+<Slide id="seguridad" number={92} title="Seguridad y riesgos">
   <div class="icon-grid">
     <div class="icon-card">
       <i data-lucide="shield-alert"></i>
@@ -1216,8 +1287,8 @@ import Slide from './Slide.astro';
   </div>
 </Slide>
 
-<!-- SLIDE 91 -->
-<Slide id="guardrails" number={91}
+<!-- SLIDE 93 -->
+<Slide id="guardrails" number={93}
   title="Guardrails en la práctica"
   subtitle="Capas de protección para sistemas con LLMs">
   <p>Los guardrails son <strong>mecanismos de control</strong> que limitan y validan el comportamiento de un LLM en producción. No es solo "pon un system prompt": son capas independientes que se aplican antes, durante y después de la generación.</p>
@@ -1313,8 +1384,8 @@ if (!parsed.success) &#123;
   </div>
 </Slide>
 
-<!-- SLIDE 92 -->
-<Slide id="testing-adversarial" number={92} title="Testing adversarial y red teaming">
+<!-- SLIDE 94 -->
+<Slide id="testing-adversarial" number={94} title="Testing adversarial y red teaming">
   <p><i data-lucide="shield-alert"></i> No basta con que tu sistema funcione con inputs normales. Necesitas probar que <strong>resiste ataques deliberados</strong>. El red teaming es testear tu sistema intentando romperlo.</p>
   <h3><i data-lucide="swords"></i> Vectores de ataque comunes</h3>
   <table>
@@ -1364,8 +1435,8 @@ if (!parsed.success) &#123;
   </div>
 </Slide>
 
-<!-- SLIDE 93 -->
-<Slide id="eu-ai-act" number={93} title="EU AI Act y compliance">
+<!-- SLIDE 95 -->
+<Slide id="eu-ai-act" number={95} title="EU AI Act y compliance">
   <p><i data-lucide="scale"></i> La <strong>Ley de IA de la UE</strong> entró en vigor en agosto 2024. Es la primera regulación integral de IA del mundo y afecta a cualquier sistema de IA que opere en la UE, independientemente de dónde se desarrolle.</p>
   <h3><i data-lucide="layers"></i> Clasificación por riesgo</h3>
   <table>
@@ -1398,8 +1469,8 @@ if (!parsed.success) &#123;
   </div>
 </Slide>
 
-<!-- SLIDE 94 -->
-<Slide id="costes" number={94} title="Tokens y coste: ¿cuánto cuesta usar IA?">
+<!-- SLIDE 96 -->
+<Slide id="costes" number={96} title="Tokens y coste: ¿cuánto cuesta usar IA?">
   <p><i data-lucide="coins"></i> Se paga por <strong>tokens de entrada + tokens de salida</strong>. La salida suele ser más cara (el modelo trabaja más generando que leyendo).</p>
   <h3><i data-lucide="trending-up"></i> Precios por millón de tokens (mayo 2026)</h3>
   <table>
@@ -1433,8 +1504,8 @@ if (!parsed.success) &#123;
   </div>
 </Slide>
 
-<!-- SLIDE 95 -->
-<Slide id="observabilidad" number={95} title="Observabilidad de LLMs">
+<!-- SLIDE 97 -->
+<Slide id="observabilidad" number={97} title="Observabilidad de LLMs">
   <p><i data-lucide="activity"></i> En producción, un LLM sin observabilidad es una caja negra. Necesitas saber <strong>qué está pasando</strong> en cada llamada: latencia, coste, calidad, errores, y poder investigar cuando algo falla.</p>
   <h3><i data-lucide="search"></i> ¿Qué observar?</h3>
   <div class="icon-grid">
@@ -1490,8 +1561,8 @@ if (!parsed.success) &#123;
   </div>
 </Slide>
 
-<!-- SLIDE 96 -->
-<Slide id="prompt-como-codigo" number={96} title="Gestión de prompts como código">
+<!-- SLIDE 98 -->
+<Slide id="prompt-como-codigo" number={98} title="Gestión de prompts como código">
   <p><i data-lucide="file-code"></i> Un prompt en producción no es un string pegado en el código. Es un <strong>artefacto de ingeniería</strong> que necesita versionado, testing, review y rollback.</p>
   <div class="icon-grid">
     <div class="icon-card">
@@ -1547,8 +1618,8 @@ if (!parsed.success) &#123;
   </div>
 </Slide>
 
-<!-- SLIDE 97 -->
-<Slide id="evals" number={97} title="Evaluaciones (evals): ¿cómo saber si tu IA funciona bien?">
+<!-- SLIDE 99 -->
+<Slide id="evals" number={99} title="Evaluaciones (evals): ¿cómo saber si tu IA funciona bien?">
   <p><i data-lucide="check-circle"></i> No puedes escribir tests unitarios clásicos contra un LLM (la salida cambia cada vez). Necesitas <strong>evaluaciones (evals)</strong>: métricas y frameworks para medir la calidad de un sistema de IA de forma sistemática.</p>
   <h3><i data-lucide="layers"></i> Tipos de evaluación</h3>
   <table>
@@ -1614,8 +1685,8 @@ if (!parsed.success) &#123;
   </div>
 </Slide>
 
-<!-- SLIDE 98 -->
-<Slide id="testing-codigo-ia" number={98} title="Testing de código generado por IA">
+<!-- SLIDE 100 -->
+<Slide id="testing-codigo-ia" number={100} title="Testing de código generado por IA">
   <p><i data-lucide="test-tubes"></i> El código generado por IA parece correcto y tiene buena pinta. Pero <strong>esconde bugs sutiles</strong> que solo se detectan con testing riguroso.</p>
   <h3><i data-lucide="alert-triangle"></i> Errores típicos del código generado</h3>
   <table>
@@ -1672,8 +1743,8 @@ if (!parsed.success) &#123;
   </div>
 </Slide>
 
-<!-- SLIDE 99 -->
-<Slide id="vibe-coding" number={99} title="Vibe coding: programar por intención">
+<!-- SLIDE 101 -->
+<Slide id="vibe-coding" number={101} title="Vibe coding: programar por intención">
   <p><i data-lucide="sparkles"></i> Término acuñado por <strong>Andrej Karpathy</strong> (febrero 2025): "un nuevo tipo de programación donde te dejas llevar por las vibes, abrazas lo exponencial, y olvidas que el código existe".</p>
   <div class="two-cols">
     <div class="compare-card">
@@ -1713,8 +1784,8 @@ if (!parsed.success) &#123;
   </div>
 </Slide>
 
-<!-- SLIDE 100 -->
-<Slide id="cambio-paradigma" number={100} title="El cambio de paradigma en el trabajo del ingeniero">
+<!-- SLIDE 102 -->
+<Slide id="cambio-paradigma" number={102} title="El cambio de paradigma en el trabajo del ingeniero">
   <div class="two-cols">
     <div>
       <h3><i data-lucide="trending-up"></i> Lo que cambia</h3>
@@ -1764,8 +1835,8 @@ if (!parsed.success) &#123;
   </div>
 </Slide>
 
-<!-- SLIDE 101 -->
-<Slide id="workflow-patterns" number={101} title="Patrones de trabajo con IA en el día a día">
+<!-- SLIDE 103 -->
+<Slide id="workflow-patterns" number={103} title="Patrones de trabajo con IA en el día a día">
   <p><i data-lucide="workflow"></i> Más allá de las herramientas, lo que marca la diferencia es <strong>cómo integras la IA en tu flujo de trabajo</strong>. Estos son los patrones que los equipos más productivos usan en 2026.</p>
   <div class="icon-grid">
     <div class="icon-card">
@@ -1822,8 +1893,8 @@ if (!parsed.success) &#123;
   </div>
 </Slide>
 
-<!-- SLIDE 102 -->
-<Slide id="config-claude-code" number={102} title="Configurar Claude Code como un pro">
+<!-- SLIDE 104 -->
+<Slide id="config-claude-code" number={104} title="Configurar Claude Code como un pro">
   <p><i data-lucide="settings"></i> La diferencia entre un Claude Code que "funciona" y uno que <strong>multiplica tu productividad</strong> está en cómo lo configuras. Estos ficheros definen su comportamiento.</p>
   <h3><i data-lucide="file-text"></i> Estructura de configuración</h3>
   <table>
@@ -1879,8 +1950,8 @@ if (!parsed.success) &#123;
   </div>
 </Slide>
 
-<!-- SLIDE 103 -->
-<Slide id="config-opencode-cursor" number={103} title="Configurar OpenCode y Cursor">
+<!-- SLIDE 105 -->
+<Slide id="config-opencode-cursor" number={105} title="Configurar OpenCode y Cursor">
   <p><i data-lucide="settings"></i> Cada herramienta tiene su propio sistema de reglas. La idea es la misma: <strong>darle contexto persistente</strong> para que no tengas que repetirte en cada conversación.</p>
   <h3><i data-lucide="terminal"></i> OpenCode</h3>
   <table>
@@ -1953,8 +2024,8 @@ if (!parsed.success) &#123;
   </div>
 </Slide>
 
-<!-- SLIDE 104 -->
-<Slide id="rules-efectivas" number={104} title="Escribir rules efectivas: el arte de instruir al modelo">
+<!-- SLIDE 106 -->
+<Slide id="rules-efectivas" number={106} title="Escribir rules efectivas: el arte de instruir al modelo">
   <p><i data-lucide="pen-tool"></i> Las rules son el <strong>ROI más alto</strong> que puedes conseguir con una herramienta de IA. 30 minutos bien invertidos te ahorran horas de correcciones. Pero no todas las rules son iguales.</p>
   <h3><i data-lucide="x-circle"></i> Rules malas vs buenas</h3>
   <div class="two-cols">
@@ -2008,8 +2079,8 @@ if (!parsed.success) &#123;
   </div>
 </Slide>
 
-<!-- SLIDE 105 -->
-<Slide id="crear-skill" number={105} title="Crear una skill: extensiones reutilizables para tu agente">
+<!-- SLIDE 107 -->
+<Slide id="crear-skill" number={107} title="Crear una skill: extensiones reutilizables para tu agente">
   <p><i data-lucide="puzzle"></i> Una <strong>skill</strong> es una capacidad empaquetada que el modelo activa automáticamente cuando detecta que aplica, o que invocas manualmente con <code>/nombre</code>. Cada skill vive en su propio directorio con un fichero <strong><code>SKILL.md</code></strong>.</p>
   <h3><i data-lucide="folder-tree"></i> Estructura oficial (directorio + SKILL.md)</h3>
   <div class="code-block">
@@ -2070,8 +2141,8 @@ if (!parsed.success) &#123;
   </div>
 </Slide>
 
-<!-- SLIDE 106 -->
-<Slide id="anatomia-plugin" number={106} title="Anatomía de un plugin: skills + agentes + hooks">
+<!-- SLIDE 108 -->
+<Slide id="anatomia-plugin" number={108} title="Anatomía de un plugin: skills + agentes + hooks">
   <p><i data-lucide="package"></i> Un <strong>plugin</strong> empaqueta skills, agentes, hooks y comandos en una unidad instalable y compartible. Es así como se distribuyen las extensiones de Claude Code.</p>
   <h3><i data-lucide="folder-tree"></i> Estructura de directorios</h3>
   <div class="code-block">
@@ -2124,8 +2195,8 @@ if (!parsed.success) &#123;
   </div>
 </Slide>
 
-<!-- SLIDE 107 -->
-<Slide id="agentes-produccion" number={107} title="AI agents en producción: lecciones aprendidas">
+<!-- SLIDE 109 -->
+<Slide id="agentes-produccion" number={109} title="AI agents en producción: lecciones aprendidas">
   <p><i data-lucide="building"></i> Tras un año de agentes en producción real, estas son las <strong>lecciones que no aparecen en los tutoriales</strong>.</p>
   <h3><i data-lucide="check-circle"></i> Lo que funciona</h3>
   <div class="icon-grid">
@@ -2173,31 +2244,31 @@ if (!parsed.success) &#123;
   </div>
 </Slide>
 
-<!-- SLIDE 108 -->
-<Slide id="recap-realidad" number={108} title="Lo que deberías saber: realidad del ingeniero">
+<!-- SLIDE 110 -->
+<Slide id="recap-realidad" number={110} title="Lo que deberías saber: realidad del ingeniero">
   <table>
     <thead>
       <tr><th>Concepto</th><th>Slide</th></tr>
     </thead>
     <tbody>
       <tr><td>Terminal (Claude Code, Aider) vs IDE (Cursor, Copilot)</td><td>86-87</td></tr>
-      <tr><td>Benchmarks: SWE-bench, Aider Polyglot, cómo leerlos sin engañarte</td><td>88</td></tr>
-      <tr><td>IA en CI/CD: PR review, testing, seguridad automatizada</td><td>89</td></tr>
-      <tr><td>Prompt injection, data leakage, supply chain poisoning</td><td>90</td></tr>
-      <tr><td>Guardrails: input validation, output validation, sandboxing</td><td>91</td></tr>
-      <tr><td>Red teaming: testear tu sistema intentando romperlo</td><td>92</td></tr>
-      <tr><td>EU AI Act: clasificación por riesgo, calendario de compliance</td><td>93</td></tr>
-      <tr><td>Costes: pago por tokens, estrategias de optimización</td><td>94</td></tr>
-      <tr><td>Observabilidad: Langfuse, Helicone, logging de cada llamada</td><td>95</td></tr>
-      <tr><td>Prompts como código: versionado, evals, A/B testing, rollback</td><td>96</td></tr>
-      <tr><td>Evals: medir si tu IA funciona bien de forma sistemática</td><td>97</td></tr>
-      <tr><td>Testing de código generado: mutation testing, property-based</td><td>98</td></tr>
-      <tr><td>Vibe coding: programar por intención, con disciplina</td><td>99</td></tr>
-      <tr><td>Spec-first + test-first: el flujo más productivo con IA</td><td>100-101</td></tr>
-      <tr><td>Configurar Claude Code, OpenCode y Cursor como un pro</td><td>102-103</td></tr>
-      <tr><td>Escribir rules efectivas: el arte de instruir al modelo</td><td>104</td></tr>
-      <tr><td>Crear skills y plugins: extender tu herramienta de IA</td><td>105-106</td></tr>
-      <tr><td>Agentes en producción: agent tax, autonomía real, lecciones</td><td>107</td></tr>
+      <tr><td>Benchmarks: familias, SWE-bench y lectura crítica de leaderboards</td><td>88-90</td></tr>
+      <tr><td>IA en CI/CD: PR review, testing, seguridad automatizada</td><td>91</td></tr>
+      <tr><td>Prompt injection, data leakage, supply chain poisoning</td><td>92</td></tr>
+      <tr><td>Guardrails: input validation, output validation, sandboxing</td><td>93</td></tr>
+      <tr><td>Red teaming: testear tu sistema intentando romperlo</td><td>94</td></tr>
+      <tr><td>EU AI Act: clasificación por riesgo, calendario de compliance</td><td>95</td></tr>
+      <tr><td>Costes: pago por tokens, estrategias de optimización</td><td>96</td></tr>
+      <tr><td>Observabilidad: Langfuse, Helicone, logging de cada llamada</td><td>97</td></tr>
+      <tr><td>Prompts como código: versionado, evals, A/B testing, rollback</td><td>98</td></tr>
+      <tr><td>Evals: medir si tu IA funciona bien de forma sistemática</td><td>99</td></tr>
+      <tr><td>Testing de código generado: mutation testing, property-based</td><td>100</td></tr>
+      <tr><td>Vibe coding: programar por intención, con disciplina</td><td>101</td></tr>
+      <tr><td>Spec-first + test-first: el flujo más productivo con IA</td><td>102-103</td></tr>
+      <tr><td>Configurar Claude Code, OpenCode y Cursor como un pro</td><td>104-105</td></tr>
+      <tr><td>Escribir rules efectivas: el arte de instruir al modelo</td><td>106</td></tr>
+      <tr><td>Crear skills y plugins: extender tu herramienta de IA</td><td>107-108</td></tr>
+      <tr><td>Agentes en producción: agent tax, autonomía real, lecciones</td><td>109</td></tr>
     </tbody>
   </table>
 </Slide>

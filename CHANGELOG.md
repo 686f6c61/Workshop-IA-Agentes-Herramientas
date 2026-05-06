@@ -1,5 +1,14 @@
 # Changelog
 
+## [2.1.1] - 2026-05-06
+
+Ampliacion de benchmarks y evaluacion de agentes de coding.
+
+### Added
+- Bloque de benchmarks: que mide cada familia, que no mide y como leer resultados sin extrapolar de mas.
+- Slide dedicada a SWE-bench: flujo issue -> patch -> Docker/test harness -> % Resolved, con variantes Full, Verified, Lite, Multilingual y Multimodal.
+- Checklist para interpretar leaderboards: split, scaffold, coste, reproducibilidad, contaminacion y transferencia al repo propio.
+
 ## [2.1.0] - 2026-05-06
 
 Actualizacion de mayo 2026 manteniendo el estilo academico del workshop.
