@@ -1,5 +1,29 @@
 # Changelog
 
+## [2.1.7] - 2026-05-07
+
+### Added
+- Cuatro slides finales nuevas: glosario de siglas, checklist de exactitud para claims de IA, pipeline de entrega IA y benchmarks contaminados/eval privada.
+- Referencias de rigor para Gemini 3 Pro, OpenAI Evals/RFT, SWE-bench contamination, OWASP GenAI y model cards.
+
+### Changed
+- Workshop ampliado de 156 a 160 slides numeradas, manteniendo el cierre final separado con `Mayo 2026 · update 05/26`.
+- Corregida la referencia antigua de Gemini Pro a `Gemini 3 Pro` donde aplica y añadidas notas de snapshot mayo 2026.
+- Reforzado el pipeline real de entrenamiento: datos/tokenizer, pre-training, SFT, preferencias/refuerzo, safety/evals, deploy y monitorización.
+- Matizados chain-of-thought visible, privacidad/coste/latencia local, prompt caching, open weights/open source y lectura de leaderboards.
+- Ampliadas siglas en contexto: BPE, MRL, GPTQ, AWQ, SSM, BM25, ADK, SDK, E2E, QA, TTFT, p95/p99, DLP, DPA, VPC, SBOM, SAST y ROI.
+
+### Fixed
+- SWE-bench Lite corregido a 300 casos y añadida advertencia de contaminación de SWE-bench Verified con recomendación de SWE-bench Pro/evals privadas.
+- Referencia cruzada de la slide 4 corregida de slide 26 a slide 27.
+- Configuración de Sentry movida a init de cliente y sourcemaps condicionados a `SENTRY_AUTH_TOKEN`, eliminando warnings de release/upload cuando no hay token.
+
+## [2.1.6] - 2026-05-07
+
+### Changed
+- Slide 137 reestructurada para explicar post-training como eleccion de senal: ejemplos, preferencias, recompensa y optimizacion.
+- Anadido RL verificable/RLVR como caso de refuerzo sin feedback humano directo cuando existe una recompensa objetiva, con matiz sobre sus limites.
+
 ## [2.1.5] - 2026-05-07
 
 Ampliacion avanzada de estructura para separar operacion, seguridad y gobernanza.
@@ -82,7 +106,7 @@ Actualizacion de mayo 2026 manteniendo el estilo academico del workshop.
 
 ### Changed
 - Portada y metadatos actualizados a mayo 2026 (05/26).
-- Modelos actualizados: GPT-5.5/GPT-5.4, Claude Opus 4.7/Sonnet 4.6, Gemini 3.1 Pro, gpt-oss-120b, Llama 4, Qwen3.6, DeepSeek-V4 Pro/Flash y Mistral Large 3 / Medium 3.5.
+- Modelos actualizados: GPT-5.5/GPT-5.4, Claude Opus 4.7/Sonnet 4.6, Gemini 3 Pro, gpt-oss-120b, Llama 4, Qwen3.6, DeepSeek-V4 Pro/Flash y Mistral Large 3 / Medium 3.5.
 - MoE ampliado con parametros totales vs activos, routing, ejemplos reales y advertencias de comparacion.
 - Quantizacion ampliada: GGUF/GGML, bitsandbytes, GPTQ/AWQ, FP8, Q4-Q8 e importancia de calibracion.
 - Hugging Face + LM Studio convertido en checklist de model cards, licencias, formatos, base model y quantizaciones.

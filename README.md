@@ -1,6 +1,6 @@
 # Workshop de IA para gente curiosa
 
-De la neurona al agente: portada, 156 slides numeradas y cierre para entender la IA moderna y aplicarla con criterio en tu dia a dia. Desde backpropagation hasta desplegar agentes en produccion, pasando por RAG, fine-tuning, MCP, ControlNet, Hugging Face, Google Colab, benchmarks, LLMOps, seguridad agentic, gobernanza, modelos open weights y vibe coding.
+De la neurona al agente: portada, 160 slides numeradas y cierre para entender la IA moderna y aplicarla con criterio en tu dia a dia. Desde backpropagation hasta desplegar agentes en produccion, pasando por RAG, fine-tuning, MCP, ControlNet, Hugging Face, Google Colab, benchmarks, LLMOps, seguridad agentic, gobernanza, modelos open weights y vibe coding.
 
 **[Ver presentacion](https://workshop-ia-2026.686f6c61.dev)** | Actualizado a mayo 2026 (update 05/26)
 
@@ -13,14 +13,14 @@ De la neurona al agente: portada, 156 slides numeradas y cierre para entender la
 - [x] Funciones de perdida, optimizadores (Adam, SGD)
 - [x] CNNs para vision, RNNs y LSTMs para secuencias
 - [x] Tokens, embeddings, similitud coseno
-- [x] Entrenamiento vs inferencia, quantizacion (GGUF, bitsandbytes, GPTQ/AWQ, Q4-Q8)
+- [x] Entrenamiento vs inferencia, quantizacion (GGUF, bitsandbytes, GPTQ = GPT Quantization, AWQ = Activation-aware Weight Quantization, Q4-Q8)
 
 ### Arquitecturas y modelos (slides 19-34)
-- [x] LLMs, Transformers, Mixture of Experts, SSM/Mamba, RWKV/RetNet, Hyena, Jamba y arquitecturas byte/latent
+- [x] LLMs, Transformers, Mixture of Experts, SSM (State Space Model)/Mamba, RWKV/RetNet, Hyena, Jamba y arquitecturas byte/latent
 - [x] Dimensiones de modelos: parametros totales/activos, capas, hidden size, heads, context window
-- [x] Estado del arte mayo 2026: GPT-5.5/5.4, Claude Opus 4.7, Gemini 3.1, gpt-oss, Qwen3.6, DeepSeek-V4, Llama 4 y Mistral 3
+- [x] Estado del arte mayo 2026: GPT-5.5/5.4, Claude Opus 4.7, Gemini 3 Pro, gpt-oss, Qwen3.6, DeepSeek-V4, Llama 4 y Mistral 3
 - [x] Atencion en detalle: matrices Q, K, V, multi-head, RoPE
-- [x] Tokenizacion en profundidad: BPE, WordPiece, SentencePiece
+- [x] Tokenizacion en profundidad: BPE (Byte Pair Encoding), WordPiece, SentencePiece
 - [x] Transfer learning: de ImageNet a GPT
 - [x] Modelos multimodales nativos (texto + imagen + audio + video)
 - [x] Parametros: temperature, top_p, top_k
@@ -61,7 +61,7 @@ De la neurona al agente: portada, 156 slides numeradas y cierre para entender la
 - [x] Memoria persistente: CLAUDE.md, Zep, MemGPT
 - [x] Function calling (tool use) con ejemplo completo
 - [x] Patrones: chaining, routing, paralelizacion, orchestrator-workers
-- [x] Orquestadores: LangGraph, CrewAI, Claude Agent SDK, Google ADK, Mastra
+- [x] Orquestadores: LangGraph, CrewAI, Claude Agent SDK, Google ADK (Agent Development Kit), Mastra
 - [x] Claude Code: rules, skills, hooks, MCPs, subagentes, plugins
 - [x] Coding agents: Claude Code, Devin, OpenHands, Aider, Codex CLI
 - [x] MCP: concepto (el "USB de la IA") + servidor minimo en TypeScript
@@ -71,7 +71,7 @@ De la neurona al agente: portada, 156 slides numeradas y cierre para entender la
 ### Realidad de construir con IA (slides 104-129)
 - [x] IDE web vs terminal, comparativa de coding assistants
 - [x] Benchmarks: que miden, que no miden, SWE-bench, leaderboards y evals internas
-- [x] SWE-bench: Full, Verified, Lite, Multilingual, Multimodal, % Resolved y coste por resolucion
+- [x] SWE-bench: Full, Verified, Lite, Multilingual, Multimodal, % Resolved, contaminacion, SWE-bench Pro y coste por resolucion
 - [x] Precios y cambios actuales en herramientas de coding: Claude Code, Cursor, Copilot y Windsurf
 - [x] IA en CI/CD, seguridad (OWASP Top 10 for LLMs), guardrails
 - [x] Testing adversarial, red teaming, prompt injection
@@ -90,22 +90,22 @@ De la neurona al agente: portada, 156 slides numeradas y cierre para entender la
 - [x] Routing, fallback y budgets por tarea segun riesgo, coste y dificultad
 - [x] EvalOps: offline evals, shadow runs, canary releases, release gates y rollback
 - [x] DataOps para IA: linaje, PII, licencias, calidad del corpus y drift
-- [x] Post-training avanzado: SFT, DPO, RLHF/RLAIF, Constitutional AI y reinforcement fine-tuning con graders
+- [x] Post-training avanzado: SFT, DPO, RLHF/RLAIF, Constitutional AI, RFT con graders y RL verificable/RLVR
 
 ### Seguridad, gobernanza y confianza (slides 139-145)
 - [x] Seguridad agentic: tools, MCP, permisos minimos, confused deputy, tool poisoning y exfiltracion
 - [x] OWASP LLM Top 10 aplicado a controles, CI y datasets adversariales
-- [x] Privacidad y private AI: API publica, VPC, on-prem, despliegue hibrido, retencion y region
+- [x] Privacidad y private AI: API publica, VPC (Virtual Private Cloud), on-prem, despliegue hibrido, retencion y region
 - [x] Gobernanza: EU AI Act, NIST AI RMF, NIST GenAI Profile e ISO/IEC 42001
 - [x] Interpretabilidad: mechanistic interpretability, sparse autoencoders, features y limites de confianza
 
-### Modelos open weights con Ollama Cloud (slides 146-156 + cierre)
+### Modelos open weights con Ollama Cloud (slides 146-160 + cierre)
 - [x] Ollama Cloud: modelos open weights sin GPU
 - [x] Catalogo, setup, integracion con herramientas
 - [x] Cloud vs local: cuando usar cada uno
-- [x] Recursos finales ampliados: mapa de estudio, papers, benchmarks, laboratorio practico y ruta de 30 dias
+- [x] Recursos finales ampliados: mapa de estudio, papers, benchmarks, laboratorio practico, glosario, checklist de exactitud, pipeline de entrega, contaminacion de benchmarks y ruta de 30 dias
 
-Las secciones principales incluyen slides de recapitulacion con referencias cruzadas; el bloque final añade recursos, laboratorio y ruta de 30 dias.
+Las secciones principales incluyen slides de recapitulacion con referencias cruzadas; el bloque final añade recursos, laboratorio, glosario, checklist de exactitud y ruta de 30 dias.
 
 ## Arrancar en local
 

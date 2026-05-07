@@ -248,12 +248,12 @@ import Slide from './Slide.astro';
 
 <!-- SLIDE 87 -->
 <Slide id="arquitecturas-agentes" number={87} title="Arquitecturas de agentes: el bucle fundamental">
-  <p>Un agente no es solo un modelo que responde. Es un <strong>sistema que razona, actúa y aprende del resultado</strong> en un bucle continuo.</p>
+  <p>Un agente no es solo un modelo que responde. Es un <strong>sistema que planifica, actúa y aprende del resultado</strong> en un bucle continuo.</p>
   <h3><i data-lucide="repeat"></i> El bucle ReAct (Reason + Act)</h3>
   <div class="flow">
     <span class="flow-step">Observar</span>
     <span class="flow-arrow">&rarr;</span>
-    <span class="flow-step">Razonar (CoT)</span>
+    <span class="flow-step">Razonar internamente</span>
     <span class="flow-arrow">&rarr;</span>
     <span class="flow-step">Actuar (tool call)</span>
     <span class="flow-arrow">&rarr;</span>
@@ -261,7 +261,7 @@ import Slide from './Slide.astro';
     <span class="flow-arrow">&rarr;</span>
     <span class="flow-step">Repetir</span>
   </div>
-  <p>El agente <strong>piensa en voz alta</strong> (chain of thought), decide qué herramienta usar, ejecuta, lee el resultado y decide el siguiente paso. Este patrón (ReAct, 2022) es la base de casi todos los agentes actuales.</p>
+  <p>El agente mantiene razonamiento de trabajo, decide qué herramienta usar, ejecuta, lee el resultado y decide el siguiente paso. En producto conviene registrar plan, acciones, observaciones y verificación; no pedir que exponga todo su chain of thought.</p>
   <h3><i data-lucide="git-branch"></i> Variantes del bucle</h3>
   <div class="icon-grid">
     <div class="icon-card">
@@ -288,14 +288,14 @@ import Slide from './Slide.astro';
     <div class="icon-card">
       <i data-lucide="brain"></i>
       <div class="icon-card-content">
-        <strong>Chain of Thought (CoT)</strong>
-        <p>El modelo razona paso a paso antes de actuar. No es un agente en sí, pero es la base del razonamiento de todos los agentes</p>
+        <strong>Razonamiento guiado</strong>
+        <p>El modelo puede usar pasos internos; tú pides plan, criterios, evidencias y checks visibles, no razonamiento privado completo</p>
       </div>
     </div>
   </div>
   <div class="callout">
     <p class="callout-title"><i data-lucide="lightbulb"></i> En la práctica</p>
-    <p>La mayoría de agentes reales combinan estos patrones: planifican (Plan-and-Execute), razonan paso a paso (CoT), usan herramientas (Tool-augmented) y se autocorrigen (Reflexion).</p>
+    <p>La mayoría de agentes reales combinan estos patrones: planifican (Plan-and-Execute), usan razonamiento interno, llaman herramientas (Tool-augmented) y se autocorrigen (Reflexion) con logs auditables.</p>
   </div>
   <div class="refs">
     <p class="refs-title">Para profundizar</p>
@@ -526,14 +526,14 @@ import Slide from './Slide.astro';
     </thead>
     <tbody>
       <tr><td>Resumir, clasificar, extraer datos</td><td>Haiku / GPT-5.4 mini / modelo local</td><td>Bajo</td></tr>
-      <tr><td>Código complejo, razonamiento</td><td>Opus 4.7 / GPT-5.5 / Gemini 3.1 Pro</td><td>Alto</td></tr>
+      <tr><td>Código complejo, razonamiento</td><td>Opus 4.7 / GPT-5.5 / Gemini 3 Pro</td><td>Alto</td></tr>
       <tr><td>Validación, formato</td><td>Sonnet 4.6 / GPT-5.4 mini / Haiku</td><td>Medio-bajo</td></tr>
     </tbody>
   </table>
   <h3><i data-lucide="layers"></i> Stack típico de orquestación</h3>
   <ul>
-    <li><i data-lucide="network"></i> <strong>Orquestador:</strong> coordina el flujo (LangGraph, Mastra, Google ADK, tu propio código)</li>
-    <li><i data-lucide="brain"></i> <strong>Agente planificador:</strong> modelo potente que descompone la tarea (Opus 4.7, GPT-5.5, Gemini 3.1 Pro)</li>
+    <li><i data-lucide="network"></i> <strong>Orquestador:</strong> coordina el flujo (LangGraph, Mastra, Google ADK, tu propio código). ADK = Agent Development Kit.</li>
+    <li><i data-lucide="brain"></i> <strong>Agente planificador:</strong> modelo potente que descompone la tarea (Opus 4.7, GPT-5.5, Gemini 3 Pro)</li>
     <li><i data-lucide="cpu"></i> <strong>Agentes ejecutores:</strong> modelos más baratos que ejecutan subtareas (Sonnet 4.6, Haiku, modelos locales)</li>
     <li><i data-lucide="check-circle"></i> <strong>Agente validador:</strong> revisa la salida antes de entregarla</li>
   </ul>
@@ -545,6 +545,7 @@ import Slide from './Slide.astro';
 
 <!-- SLIDE 92 -->
 <Slide id="patrones-orquestacion" number={92} title="Patrones de orquestación en OpenAI y Claude">
+  <p><i data-lucide="book-open"></i> SDK = Software Development Kit: librería para construir sobre una plataforma. ADK = Agent Development Kit: toolkit específico para definir agentes, workflows, tools y estado.</p>
   <div class="two-cols">
     <div>
       <h3><i data-lucide="bot"></i> OpenAI Agents SDK</h3>
@@ -934,7 +935,7 @@ import Slide from './Slide.astro';
       <tr><th>Escenario</th><th>Enfoque</th><th>Ejemplo</th></tr>
     </thead>
     <tbody>
-      <tr><td>Testing E2E con IA</td><td>Browser Use</td><td>El agente navega la app y verifica flujos como un QA</td></tr>
+      <tr><td>Testing E2E (end-to-end) con IA</td><td>Browser Use</td><td>El agente navega la app y verifica flujos como QA (Quality Assurance)</td></tr>
       <tr><td>Scraping de webs complejas</td><td>Browser Use</td><td>SPAs con login, paginación, JS dinámico</td></tr>
       <tr><td>Automatizar apps legacy</td><td>Computer Use</td><td>Aplicaciones de escritorio sin API (SAP, ERPs antiguos)</td></tr>
       <tr><td>Rellenar formularios</td><td>Ambos</td><td>Migración de datos entre sistemas sin integración</td></tr>
@@ -1260,7 +1261,7 @@ import Slide from './Slide.astro';
     <tbody>
       <tr><td><strong>Full</strong></td><td>2,294</td><td>Evaluación amplia en repos Python populares</td><td>Capacidad general en issues reales</td></tr>
       <tr><td><strong>Verified</strong></td><td>500</td><td>Subset revisado por humanos con problemas claros y resolubles</td><td>Comparación fiable de coding agents</td></tr>
-      <tr><td><strong>Lite</strong></td><td>534</td><td>Iteración más barata y rápida</td><td>Bugs más autocontenidos</td></tr>
+      <tr><td><strong>Lite</strong></td><td>300</td><td>Iteración más barata y rápida</td><td>Bugs más autocontenidos</td></tr>
       <tr><td><strong>Multilingual</strong></td><td>300</td><td>42 repos en 9 lenguajes</td><td>Generalización fuera de Python</td></tr>
       <tr><td><strong>Multimodal</strong></td><td>517</td><td>Issues con screenshots, mockups o diagramas</td><td>Uso conjunto de texto + visión</td></tr>
     </tbody>
@@ -1269,10 +1270,15 @@ import Slide from './Slide.astro';
     <p class="callout-title"><i data-lucide="check-circle"></i> Qué significa "resolved"</p>
     <p>El patch aplica correctamente y los tests relevantes pasan. Esto mide navegación de repos, localización del bug, edición multi-fichero, uso de terminal y autocorrección. No garantiza que el diseño sea elegante ni que cubra riesgos no expresados en tests.</p>
   </div>
+  <div class="callout">
+    <p class="callout-title"><i data-lucide="alert-triangle"></i> Contaminación y fecha</p>
+    <p>Para modelos frontier, SWE-bench Verified ya no basta como señal principal: en febrero de 2026 OpenAI anunció que dejaba de usarlo por riesgo de contaminación y recomienda SWE-bench Pro o evals privadas recientes. Úsalo como orientación, no como prueba definitiva.</p>
+  </div>
   <div class="refs">
     <p class="refs-title">Para profundizar</p>
     <a href="https://www.swebench.com/SWE-bench/" target="_blank">SWE-bench docs - Overview</a>
     <a href="https://www.swebench.com/SWE-bench/guides/evaluation/" target="_blank">SWE-bench docs - Evaluation</a>
+    <a href="https://openai.com/es-419/index/why-we-no-longer-evaluate-swe-bench-verified/" target="_blank">OpenAI - Why we no longer evaluate SWE-bench Verified</a>
     <a href="https://openreview.net/forum?id=VTF8yNQM66" target="_blank">SWE-bench paper - ICLR 2024</a>
   </div>
 </Slide>
@@ -1642,7 +1648,7 @@ if (!parsed.success) &#123;
   </table>
   <div class="callout compact-callout">
     <p class="callout-title"><i data-lucide="coins"></i> Rango de coste</p>
-    <p>No compares solo el precio nominal: región, cache hit rate, modo thinking/CoT, contexto, tools y latencia cambian la factura. Mide coste por tarea resuelta.</p>
+    <p>Snapshot mayo 2026. No compares solo el precio nominal: región, cache hit rate, modo thinking/reasoning, contexto, tools y latencia cambian la factura. Verifica pricing oficial antes de producción y mide coste por tarea resuelta.</p>
   </div>
   <div class="refs compact-refs">
     <p class="refs-title">Para profundizar</p>
@@ -1848,7 +1854,7 @@ if (!parsed.success) &#123;
       <tr><td><strong>Race conditions</strong></td><td>Acceso concurrente no protegido</td><td>Tests de concurrencia, stress testing</td></tr>
       <tr><td><strong>Happy path only</strong></td><td>Solo maneja el caso exitoso</td><td>Tests con inputs inválidos, nulos, vacíos</td></tr>
       <tr><td><strong>APIs inventadas</strong></td><td>Métodos o paquetes que no existen</td><td>Compilación + ejecución real</td></tr>
-      <tr><td><strong>Seguridad</strong></td><td>SQL injection, XSS, secrets en código</td><td>SAST (Semgrep), OWASP checks</td></tr>
+      <tr><td><strong>Seguridad</strong></td><td>SQL injection, XSS, secrets en código</td><td>SAST (Static Application Security Testing; por ejemplo Semgrep), OWASP checks</td></tr>
     </tbody>
   </table>
   <h3><i data-lucide="shield"></i> Estrategia de testing</h3>
@@ -2176,7 +2182,7 @@ if (!parsed.success) &#123;
 
 <!-- SLIDE 125 -->
 <Slide id="rules-efectivas" number={125} title="Escribir rules efectivas: el arte de instruir al modelo">
-  <p><i data-lucide="pen-tool"></i> Las rules son el <strong>ROI más alto</strong> que puedes conseguir con una herramienta de IA. 30 minutos bien invertidos te ahorran horas de correcciones. Pero no todas las rules son iguales.</p>
+  <p><i data-lucide="pen-tool"></i> Las rules son el <strong>ROI (Return on Investment) más alto</strong> que puedes conseguir con una herramienta de IA. 30 minutos bien invertidos te ahorran horas de correcciones. Pero no todas las rules son iguales.</p>
   <h3><i data-lucide="x-circle"></i> Rules malas vs buenas</h3>
   <div class="two-cols">
     <div>
@@ -2556,15 +2562,15 @@ if (!parsed.success) &#123;
   </div>
   <h3><i data-lucide="gauge"></i> Cuadro de mando mínimo</h3>
   <div class="metric-strip">
-    <div class="metric-card"><strong>TTFT</strong><span>tiempo hasta el primer token</span></div>
-    <div class="metric-card"><strong>p95/p99</strong><span>latencia de cola, no media feliz</span></div>
+    <div class="metric-card"><strong>TTFT</strong><span>time to first token: tiempo hasta el primer token</span></div>
+    <div class="metric-card"><strong>p95/p99</strong><span>percentiles 95/99: latencia de cola, no media feliz</span></div>
     <div class="metric-card"><strong>tok/s</strong><span>velocidad de generación</span></div>
     <div class="metric-card"><strong>$/ok</strong><span>coste por respuesta aceptada</span></div>
     <div class="metric-card"><strong>GPU%</strong><span>saturación y memoria</span></div>
   </div>
   <div class="callout">
     <p class="callout-title"><i data-lucide="scale"></i> Métrica correcta</p>
-    <p>No optimices solo tokens/segundo. Mide <strong>TTFT</strong>, tiempo total, tokens por segundo, coste por respuesta aceptada, tasa de timeout y saturación de GPU.</p>
+    <p>No optimices solo tokens/segundo. Mide <strong>TTFT</strong> (time to first token), tiempo total, tokens por segundo, coste por respuesta aceptada, tasa de timeout y saturación de GPU.</p>
   </div>
   <div class="refs">
     <p class="refs-title">Para profundizar</p>
@@ -2620,7 +2626,7 @@ if (!parsed.success) &#123;
   <div class="metric-strip">
     <div class="metric-card"><strong>Success</strong><span>tareas aceptadas</span></div>
     <div class="metric-card"><strong>$/success</strong><span>coste por éxito</span></div>
-    <div class="metric-card"><strong>p95/p99</strong><span>latencia real</span></div>
+    <div class="metric-card"><strong>p95/p99</strong><span>percentiles de latencia real</span></div>
     <div class="metric-card"><strong>Safety</strong><span>regresiones de riesgo</span></div>
   </div>
   <div class="refs">
@@ -2664,28 +2670,24 @@ if (!parsed.success) &#123;
 </Slide>
 
 <!-- SLIDE 137 -->
-<Slide id="post-training-avanzado" number={137} title="Post-training avanzado: SFT, DPO, RLHF/RLAIF y RFT">
+<Slide id="post-training-avanzado" number={137} title="Post-training avanzado: SFT, preferencias y refuerzo">
   <div class="big-idea">
-    <p>Pretraining enseña a completar texto; post-training enseña qué respuestas preferimos, rechazamos y premiamos.</p>
+    <p>Post-training no es una técnica: eliges una señal. El refuerzo "solo" merece sitio cuando la recompensa se puede verificar.</p>
   </div>
+  <div class="process-lane">
+    <div class="process-step"><span class="step-label">1</span><strong>Ejemplos</strong><p>Imitar respuestas buenas escritas o curadas.</p></div>
+    <div class="process-step"><span class="step-label">2</span><strong>Preferencias</strong><p>Comparar respuesta A contra respuesta B.</p></div>
+    <div class="process-step"><span class="step-label">3</span><strong>Recompensa</strong><p>Puntuar outputs con humanos, IA o verificadores.</p></div>
+    <div class="process-step"><span class="step-label">4</span><strong>Optimización</strong><p>Hacer más probables las respuestas mejor puntuadas.</p></div>
+  </div>
+  <h3><i data-lucide="route"></i> Mapa de métodos</h3>
   <div class="tool-grid">
-    <div class="tool-card"><strong>SFT</strong><p><em>Supervised Fine-Tuning</em>. Ajuste supervisado con ejemplos correctos: "ante esta instrucción, responde así".</p><span class="tag">formato</span></div>
-    <div class="tool-card"><strong>DPO</strong><p><em>Direct Preference Optimization</em>. Aprende de pares: respuesta preferida frente a respuesta rechazada.</p><span class="tag">preferencias</span></div>
-    <div class="tool-card"><strong>RLHF</strong><p><em>Reinforcement Learning from Human Feedback</em>. Optimiza contra un reward model entrenado con feedback humano.</p><span class="tag">feedback humano</span></div>
-    <div class="tool-card"><strong>RLAIF / Constitutional AI</strong><p><em>Reinforcement Learning from AI Feedback</em>. Usa juez IA y principios escritos para criticar respuestas.</p><span class="tag">feedback IA</span></div>
-    <div class="tool-card"><strong>RFT</strong><p><em>Reinforcement Fine-Tuning</em>. Refuerza tareas verificables usando graders automáticos.</p><span class="tag">graders</span></div>
-  </div>
-  <h3><i data-lucide="book-open"></i> Traducción de conceptos</h3>
-  <div class="term-grid">
-    <div class="term-card"><strong>Reward model</strong><p>Modelo que puntúa respuestas como aproximación a la preferencia humana.</p></div>
-    <div class="term-card"><strong>Grader</strong><p>Evaluador automático: test, función, regla, modelo juez o mezcla.</p></div>
-    <div class="term-card"><strong>Reward hacking</strong><p>Maximizar la puntuación sin resolver realmente la tarea.</p></div>
-    <div class="term-card"><strong>Preferencias</strong><p>Datos tipo "A es mejor que B" para enseñar criterio.</p></div>
-    <div class="term-card"><strong>Constitución</strong><p>Principios explícitos que guían críticas y revisiones.</p></div>
-  </div>
-  <div class="callout">
-    <p class="callout-title"><i data-lucide="flask-conical"></i> Cuándo merece la pena</p>
-    <p>Post-training avanzado tiene sentido cuando tienes tarea repetible, datos de alta calidad, eval fiable y un baseline que prompt/RAG no resuelve. Sin eval fuerte, solo estarás cambiando el modelo sin saber si mejora.</p>
+    <div class="tool-card"><strong>SFT</strong><p><em>Supervised Fine-Tuning</em>. Aprende a imitar ejemplos buenos de instrucción y respuesta.</p><span class="tag">imitar formato</span></div>
+    <div class="tool-card"><strong>DPO</strong><p><em>Direct Preference Optimization</em>. Aprende de pares preferido/rechazado sin entrenar reward model separado.</p><span class="tag">preferencias</span></div>
+    <div class="tool-card"><strong>RLHF</strong><p><em>Reinforcement Learning from Human Feedback</em>. Usa feedback humano para entrenar un reward model y optimizar contra él.</p><span class="tag">alineamiento</span></div>
+    <div class="tool-card"><strong>RLAIF / Constitutional AI</strong><p><em>Reinforcement Learning from AI Feedback</em>. Sustituye parte del feedback humano por jueces IA y principios explícitos.</p><span class="tag">feedback IA</span></div>
+    <div class="tool-card"><strong>RFT</strong><p><em>Reinforcement Fine-Tuning</em>. Optimiza con graders durante entrenamiento; exige grader robusto para evitar reward hacking.</p><span class="tag">dominio experto</span></div>
+    <div class="tool-card"><strong>RL verificable / RLVR</strong><p>Refuerzo con recompensa objetiva: test pasa/falla, solución matemática, checker o ejecución de código.</p><span class="tag">math / code / STEM</span></div>
   </div>
   <div class="refs">
     <p class="refs-title">Para profundizar</p>
@@ -2693,6 +2695,7 @@ if (!parsed.success) &#123;
     <a href="https://arxiv.org/abs/2305.18290" target="_blank">Direct Preference Optimization paper</a>
     <a href="https://www.anthropic.com/research/constitutional-ai-harmlessness-from-ai-feedback" target="_blank">Anthropic - Constitutional AI</a>
     <a href="https://platform.openai.com/docs/guides/reinforcement-fine-tuning" target="_blank">OpenAI - Reinforcement fine-tuning</a>
+    <a href="https://arxiv.org/abs/2501.12948" target="_blank">DeepSeek-R1 / pure reinforcement learning paper</a>
   </div>
 </Slide>
 
@@ -2737,12 +2740,12 @@ if (!parsed.success) &#123;
     <div class="risk-card">
       <strong>Exceso de agencia</strong>
       <p>Tools demasiado potentes: shell, email, pagos, deploy o APIs administrativas.</p>
-      <p class="risk-control">Control: permisos mínimos, sandbox, dry-run, HITL y rollback.</p>
+      <p class="risk-control">Control: permisos mínimos, sandbox, dry-run, HITL (human-in-the-loop) y rollback.</p>
     </div>
     <div class="risk-card">
       <strong>Exfiltración</strong>
       <p>Una tool externa recibe secretos, contexto sensible o datos de otro usuario.</p>
-      <p class="risk-control">Control: DLP, redacción, egress control y clasificación de datos.</p>
+      <p class="risk-control">Control: DLP (Data Loss Prevention), redacción, egress control y clasificación de datos.</p>
     </div>
   </div>
   <div class="callout">
@@ -2765,9 +2768,9 @@ if (!parsed.success) &#123;
   <div class="risk-grid">
     <div class="risk-card"><strong>Prompt injection</strong><p>Documento RAG con "ignora instrucciones" o una web que intenta controlar al agente.</p><p class="risk-control">Separar datos/instrucciones y crear eval adversarial.</p></div>
     <div class="risk-card"><strong>Sensitive information disclosure</strong><p>El modelo revela contexto de otro usuario, secretos o datos internos.</p><p class="risk-control">Aislamiento por tenant, redacción y tests de fuga.</p></div>
-    <div class="risk-card"><strong>Supply chain</strong><p>Modelo, dataset, plugin, dependencia o MCP server comprometido.</p><p class="risk-control">Pinning, firmas, revisión de fuentes y SBOM.</p></div>
+    <div class="risk-card"><strong>Supply chain</strong><p>Modelo, dataset, plugin, dependencia o MCP server comprometido.</p><p class="risk-control">Pinning, firmas, revisión de fuentes y SBOM (Software Bill of Materials).</p></div>
     <div class="risk-card"><strong>Data poisoning</strong><p>Corpus o feedback contaminado para sesgar retrieval, entrenamiento o respuestas.</p><p class="risk-control">Linaje, revisión de datos y detección de anomalías.</p></div>
-    <div class="risk-card"><strong>Excessive agency</strong><p>Agente con permisos para borrar, enviar, comprar o desplegar sin aprobación.</p><p class="risk-control">Least privilege, HITL, dry-run y rollback.</p></div>
+    <div class="risk-card"><strong>Excessive agency</strong><p>Agente con permisos para borrar, enviar, comprar o desplegar sin aprobación.</p><p class="risk-control">Least privilege, HITL (human-in-the-loop), dry-run y rollback.</p></div>
   </div>
   <h3><i data-lucide="test-tubes"></i> Convertir riesgo en prueba</h3>
   <div class="process-lane">
@@ -2789,8 +2792,8 @@ if (!parsed.success) &#123;
     <p>La decisión no es "cloud o local": es qué datos viajan, quién los procesa, cuánto se guardan y con qué garantías.</p>
   </div>
   <div class="tool-grid">
-    <div class="tool-card"><strong>API pública</strong><p>Mejor calidad, sin operar GPUs y escala rápida.</p><span class="tag">revisar DPA y retención</span></div>
-    <div class="tool-card"><strong>Cloud privado / VPC</strong><p>Más control de red, logs y acceso en una red privada cloud.</p><span class="tag">más coste y configuración</span></div>
+    <div class="tool-card"><strong>API pública</strong><p>Mejor calidad, sin operar GPUs y escala rápida.</p><span class="tag">revisar DPA (Data Processing Agreement) y retención</span></div>
+    <div class="tool-card"><strong>Cloud privado / VPC</strong><p>VPC = Virtual Private Cloud: red privada dentro del proveedor cloud con más control de acceso, logs y egress.</p><span class="tag">más coste y configuración</span></div>
     <div class="tool-card"><strong>On-prem / local</strong><p>Datos dentro de tu entorno y control directo del runtime.</p><span class="tag">operas hardware y seguridad</span></div>
     <div class="tool-card"><strong>Híbrido</strong><p>Cloud para bajo riesgo; local o privado para datos sensibles.</p><span class="tag">routing y clasificación</span></div>
   </div>
@@ -2800,7 +2803,7 @@ if (!parsed.success) &#123;
     <div class="process-step"><span class="step-label">Tiempo</span><strong>Retención</strong><p>Prompts, outputs, archivos y logs.</p></div>
     <div class="process-step"><span class="step-label">Lugar</span><strong>Región</strong><p>Dónde se procesa y almacena la información.</p></div>
     <div class="process-step"><span class="step-label">Uso</span><strong>Training</strong><p>Si puede usarse para entrenar o mejorar modelos.</p></div>
-    <div class="process-step"><span class="step-label">Legal</span><strong>Contrato</strong><p>DPA, términos enterprise, auditorías y subprocesadores.</p></div>
+    <div class="process-step"><span class="step-label">Legal</span><strong>Contrato</strong><p>DPA (Data Processing Agreement), términos enterprise, auditorías y subprocesadores.</p></div>
   </div>
   <div class="refs">
     <p class="refs-title">Para profundizar</p>
@@ -2872,7 +2875,7 @@ if (!parsed.success) &#123;
   <div class="recap-map">
     <div class="recap-card"><strong>Actuar con permisos</strong><p>Tools, MCP, confused deputy, exfiltración y permisos mínimos.</p><span class="tag">140</span></div>
     <div class="recap-card"><strong>Probar ataques</strong><p>OWASP LLM Top 10 convertido en controles y pruebas repetibles.</p><span class="tag">141</span></div>
-    <div class="recap-card"><strong>Proteger datos</strong><p>API pública, VPC, on-prem, híbrido, retención, región y contrato.</p><span class="tag">142</span></div>
+    <div class="recap-card"><strong>Proteger datos</strong><p>API pública, VPC (Virtual Private Cloud), on-prem, híbrido, retención, región y contrato.</p><span class="tag">142</span></div>
     <div class="recap-card"><strong>Gobernar</strong><p>EU AI Act, NIST AI RMF, NIST GenAI Profile e ISO/IEC 42001.</p><span class="tag">143</span></div>
     <div class="recap-card"><strong>Entender límites</strong><p>SAEs, features, circuitos y confianza basada en evidencia.</p><span class="tag">144</span></div>
   </div>

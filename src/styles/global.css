@@ -1320,8 +1320,34 @@ code {
   font-size: 0.85rem;
 }
 
+#post-training-avanzado .big-idea p {
+  font-size: clamp(1.05rem, 2vw, 1.55rem);
+}
+
+#post-training-avanzado .process-lane,
+#post-training-avanzado .tool-grid {
+  gap: 0.65rem;
+}
+
+#post-training-avanzado .tool-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+#post-training-avanzado .tool-card {
+  padding: 0.75rem;
+}
+
+#post-training-avanzado .tool-card p {
+  font-size: 0.8rem;
+  line-height: 1.35;
+}
+
 @media (max-width: 900px) {
   .ops-stack {
+    grid-template-columns: 1fr;
+  }
+
+  #post-training-avanzado .tool-grid {
     grid-template-columns: 1fr;
   }
 }

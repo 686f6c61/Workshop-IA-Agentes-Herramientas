@@ -50,7 +50,7 @@ import Slide from './Slide.astro';
       <tr><th>Algoritmo</th><th>Cómo funciona</th><th>Quién lo usa</th></tr>
     </thead>
     <tbody>
-      <tr><td><strong>BPE</strong></td><td>Empieza con unidades pequeñas y fusiona pares frecuentes iterativamente. "low" + "er" = "lower"</td><td>GPT, Llama y muchos LLMs modernos</td></tr>
+      <tr><td><strong>BPE</strong></td><td>Byte Pair Encoding. Empieza con unidades pequeñas y fusiona pares frecuentes iterativamente. "low" + "er" = "lower"</td><td>GPT, Llama y muchos LLMs modernos</td></tr>
       <tr><td><strong>WordPiece</strong></td><td>Similar a BPE pero maximiza la probabilidad del corpus en cada fusión</td><td>BERT, DistilBERT</td></tr>
       <tr><td><strong>SentencePiece</strong></td><td>Trata el texto como una secuencia continua y no presupone que el espacio sea un separador especial. Útil para idiomas sin espacios claros</td><td>T5, Llama, modelos multilingües</td></tr>
     </tbody>
@@ -290,10 +290,10 @@ import Slide from './Slide.astro';
       <tr><th>Modelo</th><th>Texto</th><th>Imagen</th><th>Audio</th><th>Vídeo</th><th>Generación</th></tr>
     </thead>
     <tbody>
-      <tr><td><strong>Gemini 3.1 Pro</strong></td><td>Sí</td><td>Sí</td><td>Sí</td><td>Sí</td><td>Texto</td></tr>
+      <tr><td><strong>Gemini 3 Pro</strong></td><td>Sí</td><td>Sí</td><td>Sí</td><td>Sí</td><td>Texto</td></tr>
       <tr><td><strong>GPT-5.5</strong></td><td>Sí</td><td>Sí</td><td>No en el modelo base; vía GPT-realtime-1.5</td><td>Modelos/herramientas especializadas</td><td>Texto + tools</td></tr>
       <tr><td><strong>Claude Opus 4.7 / Sonnet 4.6</strong></td><td>Sí</td><td>Sí</td><td>No nativo en Messages</td><td>No</td><td>Texto</td></tr>
-      <tr><td><strong>Gemini 3.1 Flash Live</strong></td><td>Sí</td><td>Sí</td><td>Sí</td><td>Sí</td><td>Audio en tiempo real</td></tr>
+      <tr><td><strong>Gemini Live / Flash Live</strong></td><td>Sí</td><td>Sí</td><td>Sí</td><td>Sí</td><td>Audio en tiempo real</td></tr>
     </tbody>
   </table>
   <h3><i data-lucide="target"></i> ¿Qué cambia en la práctica?</h3>
@@ -304,11 +304,11 @@ import Slide from './Slide.astro';
   </ul>
   <div class="callout">
     <p class="callout-title"><i data-lucide="lightbulb"></i> Tendencia 2026</p>
-    <p>La distinción entre "modelo de texto" y "modelo de visión" está desapareciendo. En 2-3 años, todos los modelos serán multimodales por defecto. Diseña tus apps para recibir y enviar múltiples modalidades desde el principio.</p>
+    <p>La distinción entre "modelo de texto" y "modelo de visión" está desapareciendo, pero las modalidades exactas dependen del endpoint, región y modelo. Diseña tus apps para recibir múltiples modalidades y verifica la matriz oficial antes de integrar.</p>
   </div>
   <div class="refs">
     <p class="refs-title">Para profundizar</p>
-    <a href="https://deepmind.google/models/gemini/pro/" target="_blank">Google DeepMind - Gemini 3.1 Pro</a>
+    <a href="https://docs.cloud.google.com/vertex-ai/generative-ai/docs/models/gemini/3-pro" target="_blank">Google - Gemini 3 Pro</a>
     <a href="https://developers.openai.com/api/docs/models" target="_blank">OpenAI - Models</a>
     <a href="https://platform.claude.com/docs/en/build-with-claude/vision" target="_blank">Anthropic - Vision</a>
   </div>
@@ -326,7 +326,7 @@ import Slide from './Slide.astro';
       <tr><td><strong>Claude Opus 4.7 / Sonnet 4.6</strong></td><td>Anthropic</td><td>Propietario</td><td>Comercial</td><td>Agentes, código y contexto largo</td></tr>
       <tr><td><strong>GPT-5.5 / GPT-5.4</strong></td><td>OpenAI</td><td>Propietario</td><td>Comercial</td><td>Reasoning, computer use y ecosistema API</td></tr>
       <tr><td><strong>gpt-oss-120b / 20b</strong></td><td>OpenAI</td><td>Open weights</td><td>Apache 2.0</td><td>Reasoning auto-hospedado, tool use y fine-tuning</td></tr>
-      <tr><td><strong>Gemini 3.1 Pro</strong></td><td>Google</td><td>Propietario</td><td>Comercial</td><td>Contexto 1M, multimodalidad y herramientas Google</td></tr>
+      <tr><td><strong>Gemini 3 Pro</strong></td><td>Google</td><td>Propietario</td><td>Comercial</td><td>Contexto 1M, multimodalidad y herramientas Google</td></tr>
       <tr><td><strong>Llama 4 Scout/Maverick</strong></td><td>Meta</td><td>Open weights</td><td>Llama 4 License</td><td>MoE multimodal, contextos muy largos</td></tr>
       <tr><td><strong>Mistral Large 3 / Medium 3.5</strong></td><td>Mistral AI</td><td>Open weights</td><td>Apache 2.0 / Modified MIT</td><td>Large 3 MoE abierto; Medium 3.5 agentic coding y 256k</td></tr>
       <tr><td><strong>Qwen3.6</strong></td><td>Alibaba</td><td>Open weights</td><td>Apache 2.0</td><td>MoE multimodal, agentic coding y contexto largo</td></tr>
@@ -485,9 +485,9 @@ import Slide from './Slide.astro';
     </div>
     <div class="compare-card">
       <p class="compare-card-title"><i data-lucide="smartphone"></i> Edge / on-device</p>
-      <p class="compare-card-desc">Latencia cero (no hay red), privacidad total (datos no salen), funciona offline, coste cero por inferencia.</p>
-      <span class="tag">Sin latencia de red</span>
-      <span class="tag">Privacidad total</span>
+      <p class="compare-card-desc">Sin latencia de red, datos dentro del dispositivo si no hay telemetría ni llamadas externas, funciona offline y no tiene coste variable por token.</p>
+      <span class="tag">Sin red externa</span>
+      <span class="tag">Control de datos</span>
     </div>
   </div>
   <div class="callout">
@@ -512,7 +512,7 @@ import Slide from './Slide.astro';
       <tr><td>De RNN a Transformer: la evolución de las arquitecturas</td><td>20</td></tr>
       <tr><td>Transformer: atención paralela sobre toda la secuencia</td><td>21</td></tr>
       <tr><td>Q, K, V: las matemáticas de la atención, multi-head, positional encoding</td><td>23</td></tr>
-      <tr><td>Tokenización: BPE, impacto en coste y soporte multilingüe</td><td>24</td></tr>
+      <tr><td>Tokenización: BPE (Byte Pair Encoding), impacto en coste y soporte multilingüe</td><td>24</td></tr>
       <tr><td>Transfer learning: pre-entrenar una vez, adaptar a cualquier tarea</td><td>25</td></tr>
       <tr><td>MoE: activar solo una fracción de los parámetros por inferencia</td><td>22 y 26</td></tr>
       <tr><td>Temperature y top_p controlan la aleatoriedad de la salida</td><td>27</td></tr>
@@ -542,7 +542,7 @@ import Slide from './Slide.astro';
     <tbody>
       <tr><td><strong>Zero-shot</strong></td><td>Pregunta directa sin ejemplos</td><td>"Traduce esto al inglés"</td></tr>
       <tr><td><strong>Few-shot</strong></td><td>Incluir 2-3 ejemplos del formato esperado</td><td>{"'Entrada: X → Salida: Y. Ahora: Z →'"}</td></tr>
-      <tr><td><strong>Chain-of-thought</strong></td><td>"Piensa paso a paso"</td><td>Mejora razonamiento matemático y lógico</td></tr>
+      <tr><td><strong>Razonamiento guiado</strong></td><td>"Analiza internamente y devuelve solo pasos verificables"</td><td>Útil para tareas complejas sin exponer razonamiento privado</td></tr>
       <tr><td><strong>System prompt</strong></td><td>Define rol, restricciones, formato</td><td>"Eres un experto en seguridad. Responde en JSON"</td></tr>
       <tr><td><strong>Structured output</strong></td><td>Pedir formato específico</td><td>{"'Devuelve un JSON con los campos: nombre, tipo'"}</td></tr>
       <tr><td><strong>Prompt negativo</strong></td><td>Decir lo que NO debe hacer</td><td>"No inventes datos. No uses markdown"</td></tr>
@@ -676,7 +676,7 @@ import Slide from './Slide.astro';
   </ul>
   <div class="callout">
     <p class="callout-title"><i data-lucide="lightbulb"></i> Consejo clave</p>
-    <p>Markdown es el idioma nativo de los LLMs: los modelos se entrenaron con millones de ficheros .md. Usar Markdown como formato de contexto (CLAUDE.md, system prompts, documentación) aprovecha esa ventaja. Reserva JSON para cuando necesites que <strong>tu código</strong> parsee la salida.</p>
+    <p>Markdown suele funcionar bien con LLMs porque aparece mucho en documentación, issues, repositorios y datos de entrenamiento. Úsalo para estructurar contexto legible (CLAUDE.md, system prompts, documentación). Reserva JSON para cuando necesites que <strong>tu código</strong> parsee la salida.</p>
   </div>
 </Slide>
 
@@ -786,7 +786,7 @@ import Slide from './Slide.astro';
   </ul>
   <div class="callout">
     <p class="callout-title"><i data-lucide="lightbulb"></i> Clave práctica</p>
-    <p>Structured output reduce mucho la necesidad de parsear texto con regex. Defines el schema una vez, fuerzas la forma de la salida y después validas en código. Es la diferencia entre "espero que devuelva JSON" y "mi sistema rechaza lo que no cumple".</p>
+    <p>Structured output reduce mucho la necesidad de parsear texto con regex. Defines el schema una vez, fuerzas la forma de la salida y después validas en código. Aun con schema, rechaza, reintenta y registra fallos: la garantía final la da tu backend.</p>
   </div>
   <div class="refs">
     <p class="refs-title">Para profundizar</p>
@@ -846,7 +846,7 @@ import Slide from './Slide.astro';
   <h3><i data-lucide="database"></i> Soporte por modelo (mayo 2026)</h3>
   <table>
     <thead>
-      <tr><th>Capacidad</th><th>Claude Opus 4.7</th><th>GPT-5.5</th><th>Gemini 3.1</th></tr>
+      <tr><th>Capacidad</th><th>Claude Opus 4.7</th><th>GPT-5.5</th><th>Gemini 3 Pro</th></tr>
     </thead>
     <tbody>
       <tr><td><strong>Imágenes</strong></td><td>Sí (hasta 20 por mensaje)</td><td>Sí</td><td>Sí</td></tr>
@@ -916,13 +916,13 @@ import Slide from './Slide.astro';
 <!-- SLIDE 43 -->
 <Slide id="gen-imagenes-video" number={43} title="Generación de imágenes y vídeo con IA">
   <p><i data-lucide="image"></i> Los modelos generativos no solo producen texto: generan <strong>imágenes, vídeo, audio y 3D</strong> a partir de descripciones en lenguaje natural.</p>
-  <h3><i data-lucide="image"></i> Modelos de imagen (mayo 2026)</h3>
+  <h3><i data-lucide="image"></i> Modelos de imagen (snapshot mayo 2026)</h3>
   <table>
     <thead>
       <tr><th>Modelo</th><th>Empresa</th><th>Punto fuerte</th></tr>
     </thead>
     <tbody>
-      <tr><td><strong>GPT Image 2</strong></td><td>OpenAI</td><td>Generación y edición de imagen en API; DALL-E 3 queda como generación anterior</td></tr>
+      <tr><td><strong>GPT Image 2</strong></td><td>OpenAI</td><td>Generación y edición de imagen en API; DALL-E 3 queda como generación anterior en muchos flujos</td></tr>
       <tr><td><strong>Nano Banana Pro / Imagen 4</strong></td><td>Google</td><td>Imagen nativa con razonamiento, texto y edición contextual</td></tr>
       <tr><td><strong>Midjourney v7</strong></td><td>Midjourney</td><td>Calidad estética y workflows creativos</td></tr>
       <tr><td><strong>Flux / Stable Diffusion</strong></td><td>BFL / Stability</td><td>Open weights, control local y ecosistema de LoRAs</td></tr>
@@ -947,7 +947,7 @@ import Slide from './Slide.astro';
   </ul>
   <div class="callout">
     <p class="callout-title"><i data-lucide="alert-triangle"></i> Limitaciones actuales</p>
-    <p>Imágenes: aún fallan con texto exacto, consistencia entre imágenes del mismo personaje. Vídeo: física inconsistente, artefactos en movimientos complejos, duración limitada.</p>
+    <p>Imágenes: aún fallan con texto exacto y consistencia entre imágenes del mismo personaje. Vídeo: física inconsistente, artefactos en movimientos complejos, duración limitada. Catálogo, nombres de modelo, límites y regiones cambian según proveedor y plan.</p>
   </div>
   <div class="refs">
     <p class="refs-title">Para profundizar</p>
@@ -1017,7 +1017,7 @@ import Slide from './Slide.astro';
   </table>
   <div class="callout">
     <p class="callout-title"><i data-lucide="lightbulb"></i> Por qué Stable Diffusion cambió todo</p>
-    <p>Fue el primer modelo de difusión de alta calidad publicado como <strong>open source</strong> (agosto 2022). Permitió que cualquiera con una GPU de 8 GB generase imágenes. Abrió la puerta a LoRAs, ControlNet, ComfyUI y todo el ecosistema que existe hoy.</p>
+    <p>Fue el primer modelo de difusión de alta calidad publicado con <strong>pesos abiertos y un ecosistema ampliamente reutilizable</strong> (agosto 2022). Permitió que cualquiera con una GPU de 8 GB generase imágenes. Abrió la puerta a LoRAs, ControlNet, ComfyUI y todo el ecosistema que existe hoy.</p>
   </div>
   <div class="refs">
     <p class="refs-title">Para profundizar</p>
@@ -1203,10 +1203,12 @@ import Slide from './Slide.astro';
 <!-- SLIDE 48 -->
 <Slide id="frontier" number={48} title="¿Cómo se crea un modelo frontier?">
   <ol class="steps">
-    <li><i data-lucide="database"></i> <strong>Pre-entrenamiento:</strong> billones de tokens, semanas de entrenamiento en miles de GPUs. El modelo aprende patrones del lenguaje prediciendo tokens en textos masivos (internet, libros, código). Esta fase suele consumir la mayor parte del presupuesto de compute.</li>
-    <li><i data-lucide="graduation-cap"></i> <strong>Fine-tuning supervisado (SFT):</strong> ejemplos curados de conversaciones de calidad. Humanos escriben respuestas ideales y el modelo aprende a imitarlas. Típicamente 10.000-100.000 ejemplos de alta calidad.</li>
-    <li><i data-lucide="users"></i> <strong>RLHF / RLAIF:</strong> RLHF = Reinforcement Learning from Human Feedback (aprendizaje por refuerzo con feedback humano). RLAIF = lo mismo pero con feedback de otro modelo de IA en vez de humanos. Se comparan respuestas y el modelo aprende cuál es "mejor". Esto es lo que hace que el modelo sea útil y seguro. Técnicas recientes: DPO (Direct Preference Optimization) y GRPO (Group Relative Policy Optimization) simplifican el proceso eliminando la necesidad de un reward model separado.</li>
-    <li><i data-lucide="check-circle"></i> <strong>Evaluación:</strong> benchmarks estandarizados (MMLU, HumanEval, GPQA, SWE-bench...) para medir capacidades y comparar con la competencia. Red-teaming para seguridad.</li>
+    <li><i data-lucide="database"></i> <strong>Datos, tokenizer y filtrado:</strong> deduplicar, limpiar, clasificar licencias, quitar PII/secrets y decidir cómo partir texto en tokens. Esta fase define buena parte de lo que el modelo podrá aprender.</li>
+    <li><i data-lucide="cpu"></i> <strong>Pre-training:</strong> billones de tokens, semanas de entrenamiento en miles de GPUs. El modelo aprende patrones prediciendo tokens en texto, código e inputs multimodales. Suele consumir la mayor parte del compute.</li>
+    <li><i data-lucide="graduation-cap"></i> <strong>SFT:</strong> Supervised Fine-Tuning. Ejemplos curados de instrucción/respuesta para enseñar formato, estilo, seguimiento de instrucciones y tareas conversacionales.</li>
+    <li><i data-lucide="users"></i> <strong>Preferencias y refuerzo:</strong> RLHF/RLAIF entrenan o usan señales de recompensa. DPO (Direct Preference Optimization) aprende de pares preferido/rechazado sin reward model explícito. GRPO (Group Relative Policy Optimization) es una receta de RL que evita critic/value model en algunos entrenamientos, pero no es "DPO con otro nombre". RFT/RLVR refuerzan tareas verificables con graders o tests.</li>
+    <li><i data-lucide="shield-check"></i> <strong>Safety, evals y red-teaming:</strong> benchmarks públicos, evals privadas, pruebas adversariales, políticas de seguridad y análisis de regresiones antes de abrir el modelo.</li>
+    <li><i data-lucide="rocket"></i> <strong>Serving y monitorización:</strong> optimizar inferencia, medir coste/latencia, observar abuso, alucinaciones y regresiones, y preparar rollback o cambios de modelo.</li>
   </ol>
   <div class="two-cols">
     <div class="callout">
@@ -1219,15 +1221,17 @@ import Slide from './Slide.astro';
     </div>
   </div>
   <div class="flow">
-    <span class="flow-step">Datos (trillones tokens)</span>
+    <span class="flow-step">Datos + tokenizer</span>
     <span class="flow-arrow">&rarr;</span>
-    <span class="flow-step">Pre-train (semanas)</span>
+    <span class="flow-step">Pre-train</span>
     <span class="flow-arrow">&rarr;</span>
-    <span class="flow-step">SFT (días)</span>
+    <span class="flow-step">SFT</span>
     <span class="flow-arrow">&rarr;</span>
-    <span class="flow-step">RLHF (días)</span>
+    <span class="flow-step">Preferencias / RL</span>
     <span class="flow-arrow">&rarr;</span>
-    <span class="flow-step">Eval + deploy</span>
+    <span class="flow-step">Evals + safety</span>
+    <span class="flow-arrow">&rarr;</span>
+    <span class="flow-step">Deploy + monitorización</span>
   </div>
   <div class="refs">
     <p class="refs-title">Para profundizar</p>
@@ -1250,7 +1254,7 @@ import Slide from './Slide.astro';
       <tr><td><strong>Licencia</strong></td><td>Apache, MIT, Llama, research, comercial</td><td>¿Puedo usarlo en mi producto?</td></tr>
       <tr><td><strong>Base model</strong></td><td>Base, instruct, fine-tune, adapter, merge, quantized</td><td>¿Estoy usando el modelo correcto?</td></tr>
       <tr><td><strong>Datos/evals</strong></td><td>Datasets, benchmarks, idiomas, limitaciones</td><td>¿Sirve para mi dominio?</td></tr>
-      <tr><td><strong>Files</strong></td><td>safetensors, GGUF, GPTQ, AWQ, FP8</td><td>¿Qué runtime necesito?</td></tr>
+      <tr><td><strong>Files</strong></td><td>safetensors, GGUF, GPTQ (GPT Quantization), AWQ (Activation-aware Weight Quantization), FP8</td><td>¿Qué runtime necesito?</td></tr>
     </tbody>
   </table>
 </Slide>
@@ -1295,6 +1299,7 @@ import Slide from './Slide.astro';
 <Slide id="formatos-modelos-local" number={51} title="Elegir fichero: safetensors, GGUF, GPTQ/AWQ">
   <p><i data-lucide="package"></i> La model card puede tener varios ficheros para el mismo modelo. Elegir mal el formato es una de las causas más comunes de "lo he descargado pero no arranca".</p>
   <h3><i data-lucide="package"></i> Elegir fichero: safetensors vs GGUF vs GPTQ/AWQ</h3>
+  <p>GPTQ = GPT Quantization. AWQ = Activation-aware Weight Quantization. Ambos son formatos de quantización post-training pensados para reducir memoria y acelerar inferencia, con distinta compatibilidad por runtime.</p>
   <div class="two-cols">
     <div class="compare-card">
       <p class="compare-card-title"><i data-lucide="server"></i> Servir / fine-tune</p>
@@ -1691,13 +1696,15 @@ import Slide from './Slide.astro';
   <p><i data-lucide="search"></i> <strong>Problema:</strong> el modelo no accede por sí solo a tus datos internos (documentación, BD, wikis). Su conocimiento viene del entrenamiento y del contexto que le das en la petición.</p>
   <p><i data-lucide="lightbulb"></i> <strong>Solución:</strong> en vez de reentrenar el modelo, le pasas contexto relevante en cada consulta.</p>
   <div class="flow">
-    <span class="flow-step">Pregunta del usuario</span>
+    <span class="flow-step">Ingesta + chunking</span>
     <span class="flow-arrow">&rarr;</span>
-    <span class="flow-step">Buscar docs relevantes</span>
+    <span class="flow-step">Embeddings + índice</span>
     <span class="flow-arrow">&rarr;</span>
-    <span class="flow-step">Inyectar en el prompt</span>
+    <span class="flow-step">Retrieval / rerank</span>
     <span class="flow-arrow">&rarr;</span>
-    <span class="flow-step">LLM responde apoyado en contexto</span>
+    <span class="flow-step">Contexto con citas</span>
+    <span class="flow-arrow">&rarr;</span>
+    <span class="flow-step">Respuesta o no-answer</span>
   </div>
   <h3><i data-lucide="layers"></i> Componentes clave</h3>
   <div class="icon-grid">
@@ -1725,10 +1732,14 @@ import Slide from './Slide.astro';
     <div class="icon-card">
       <i data-lucide="database"></i>
       <div class="icon-card-content">
-        <strong>Vector DB</strong>
-        <p>Almacena vectores y permite buscar los más similares a la consulta</p>
+        <strong>Vector DB + reranker</strong>
+        <p>Almacena vectores, recupera candidatos y puede reordenarlos por relevancia antes de responder</p>
       </div>
     </div>
+  </div>
+  <div class="callout">
+    <p class="callout-title"><i data-lucide="quote"></i> Calidad mínima</p>
+    <p>Un RAG serio muestra citas, conserva metadatos, sabe decir "no hay evidencia suficiente" y mide retrieval por separado de la generación. Si solo pega chunks al prompt, es una demo, no una base fiable.</p>
   </div>
   <h3><i data-lucide="code"></i> Flujo RAG en código (simplificado)</h3>
   <div class="code-block">
@@ -1828,7 +1839,7 @@ import Slide from './Slide.astro';
     </thead>
     <tbody>
       <tr><td><strong>Vector search</strong></td><td>Embedding de la query, buscar los K más similares</td><td>Corpus homogéneo, preguntas directas</td></tr>
-      <tr><td><strong>Hybrid search</strong></td><td>Vector search + BM25 (keyword). Fusiona resultados</td><td>Cuando las keywords importan (nombres, IDs)</td></tr>
+      <tr><td><strong>Hybrid search</strong></td><td>Vector search + BM25 (ranking lexical por palabras clave). Fusiona resultados</td><td>Cuando las keywords importan (nombres, IDs)</td></tr>
       <tr><td><strong>Contextual retrieval</strong></td><td>Un LLM añade contexto a cada chunk antes de indexar</td><td>Chunks que pierden sentido fuera de contexto</td></tr>
       <tr><td><strong>GraphRAG</strong></td><td>Grafo de entidades y relaciones. Busca por conexiones</td><td>Preguntas que cruzan múltiples documentos</td></tr>
     </tbody>
@@ -2139,9 +2150,9 @@ import Slide from './Slide.astro';
       <tr><th>Proveedor</th><th>Cómo funciona</th><th>Ahorro</th></tr>
     </thead>
     <tbody>
-      <tr><td><strong>Anthropic</strong></td><td><code>cache_control</code> breakpoints en el mensaje</td><td>Hasta 90% en tokens cacheados</td></tr>
-      <tr><td><strong>OpenAI</strong></td><td>Automático para prefijos largos repetidos</td><td>50% en cached tokens</td></tr>
-      <tr><td><strong>Google</strong></td><td>Context caching explícito</td><td>Hasta 75%</td></tr>
+      <tr><td><strong>Anthropic</strong></td><td><code>cache_control</code> breakpoints en el mensaje</td><td>Descuentos en tokens cacheados según modelo y plan</td></tr>
+      <tr><td><strong>OpenAI</strong></td><td>Automático para prefijos largos repetidos</td><td>Precio reducido para cached tokens según modelo</td></tr>
+      <tr><td><strong>Google</strong></td><td>Context caching explícito</td><td>Descuento y retención de caché según configuración</td></tr>
     </tbody>
   </table>
   <h3><i data-lucide="code"></i> Ejemplo con la API de Anthropic</h3>
@@ -2182,7 +2193,7 @@ import Slide from './Slide.astro';
     <tbody>
       <tr><td><strong>Claude Opus 4.7 / Sonnet 4.6</strong></td><td>1M</td><td>Usar citas y estructura en contextos largos</td><td>Opus 4.7 añade 128k max output y task budgets</td></tr>
       <tr><td><strong>GPT-5.5 / GPT-5.4</strong></td><td>1.05M</td><td>Segmentar por secciones y usar tools</td><td>Cached prefixes ayudan; ojo a pricing de contexto largo</td></tr>
-      <tr><td><strong>Gemini 3.1 Pro</strong></td><td>1M</td><td>Muy fuerte en multimodal largo</td><td>Verificar recuperación, no asumir lectura perfecta</td></tr>
+      <tr><td><strong>Gemini 3 Pro</strong></td><td>1M</td><td>Muy fuerte en multimodal largo</td><td>Verificar recuperación, no asumir lectura perfecta</td></tr>
       <tr><td><strong>DeepSeek-V4 Pro/Flash</strong></td><td>1M</td><td>Separar Pro para calidad y Flash para coste/latencia</td><td>Think Max recomienda al menos 384k en despliegue local</td></tr>
       <tr><td><strong>Qwen3.6-35B-A3B</strong></td><td>262k / 1.01M YaRN</td><td>Activar YaRN solo cuando haga falta contexto ultra-largo</td><td>El escalado puede afectar prompts cortos</td></tr>
     </tbody>

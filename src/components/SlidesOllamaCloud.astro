@@ -219,7 +219,7 @@ import Slide from './Slide.astro';
       <tr><td>Setup: API key + curl o Python con la API nativa de Ollama</td><td>149</td></tr>
       <tr><td>Integración: Claude Code, Codex CLI, OpenCode y herramientas con provider Ollama</td><td>150</td></tr>
       <tr><td>Cloud para modelos grandes y prototipos; local para privacidad extrema</td><td>151</td></tr>
-      <tr><td>Recursos y ruta de estudio para seguir aprendiendo</td><td>153-156</td></tr>
+      <tr><td>Recursos, checklist de exactitud, glosario y ruta de estudio</td><td>153-160</td></tr>
     </tbody>
   </table>
 </Slide>
@@ -295,7 +295,115 @@ import Slide from './Slide.astro';
 </Slide>
 
 <!-- SLIDE 156 -->
-<Slide id="siguiente-paso-30-dias" number={156} title="Siguiente paso: ruta de 30 días">
+<Slide id="glosario-siglas" number={156} title="Glosario de siglas usadas">
+  <p><i data-lucide="book-open"></i> Si una sigla aparece en la presentación, debe poder leerse sin buscarla fuera. Esta slide compacta las más importantes para repasar antes de compartir el material.</p>
+  <table class="compact-table resource-table">
+    <thead>
+      <tr><th>Sigla</th><th>Significado</th><th>Lectura práctica</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>LLM</strong></td><td>Large Language Model</td><td>Modelo de lenguaje a gran escala que genera tokens.</td></tr>
+      <tr><td><strong>MoE</strong></td><td>Mixture of Experts</td><td>Muchos expertos almacenados; pocos activos por token.</td></tr>
+      <tr><td><strong>SSM</strong></td><td>State Space Model</td><td>Arquitectura eficiente para secuencias largas; Mamba es la referencia conocida.</td></tr>
+      <tr><td><strong>BPE</strong></td><td>Byte Pair Encoding</td><td>Algoritmo de tokenización por fusiones frecuentes.</td></tr>
+      <tr><td><strong>GPTQ / AWQ</strong></td><td>GPT Quantization / Activation-aware Weight Quantization</td><td>Quantización post-training para ejecutar modelos con menos memoria.</td></tr>
+      <tr><td><strong>RAG</strong></td><td>Retrieval-Augmented Generation</td><td>Buscar documentos externos y pasarlos al modelo con citas.</td></tr>
+      <tr><td><strong>BM25</strong></td><td>Ranking lexical clásico</td><td>Búsqueda por palabras clave; útil junto a embeddings.</td></tr>
+      <tr><td><strong>CRAG</strong></td><td>Corrective RAG</td><td>RAG que verifica si el retrieval es suficiente y corrige si no.</td></tr>
+      <tr><td><strong>MCP / A2A</strong></td><td>Model Context Protocol / Agent-to-Agent</td><td>MCP conecta agentes con tools; A2A conecta agentes entre sí.</td></tr>
+      <tr><td><strong>ADK / SDK</strong></td><td>Agent Development Kit / Software Development Kit</td><td>Toolkits para construir agentes o integrarse con una plataforma.</td></tr>
+      <tr><td><strong>HITL</strong></td><td>Human-in-the-loop</td><td>Humano aprueba pasos críticos antes de ejecutar acciones.</td></tr>
+      <tr><td><strong>TTFT / p95 / p99</strong></td><td>Time to First Token / percentiles 95 y 99</td><td>Miden latencia inicial y latencia de cola, no solo la media.</td></tr>
+      <tr><td><strong>DLP / DPA / VPC</strong></td><td>Data Loss Prevention / Data Processing Agreement / Virtual Private Cloud</td><td>Controles de fuga, contrato de tratamiento de datos y red privada cloud.</td></tr>
+      <tr><td><strong>SBOM / SAST</strong></td><td>Software Bill of Materials / Static Application Security Testing</td><td>Inventario de dependencias y análisis estático de seguridad.</td></tr>
+      <tr><td><strong>RFT / RLVR</strong></td><td>Reinforcement Fine-Tuning / Reinforcement Learning from Verifiable Rewards</td><td>Refuerzo con graders o recompensas verificables como tests, checkers o soluciones matemáticas.</td></tr>
+    </tbody>
+  </table>
+</Slide>
+
+<!-- SLIDE 157 -->
+<Slide id="checklist-exactitud-ia" number={157} title="Checklist de exactitud para claims de IA">
+  <p><i data-lucide="clipboard-check"></i> La presentación circula mucho, así que los claims temporales deben leerse como snapshots verificables, no como verdades permanentes.</p>
+  <table class="compact-table resource-table">
+    <thead>
+      <tr><th>Claim</th><th>Cómo verificar</th><th>Riesgo si no lo haces</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Nombre de modelo</td><td>Docs oficiales o model card; usar ID exacto cuando exista</td><td>Inventar versiones como si fueran públicas.</td></tr>
+      <tr><td>Precio</td><td>Pricing oficial, región, cache, batch, input/output y plan</td><td>Costes reales distintos a los de la slide.</td></tr>
+      <tr><td>Context window</td><td>Docs del endpoint concreto; separar input, output y thinking tokens</td><td>Prometer 1M tokens sin medir recuperación ni coste.</td></tr>
+      <tr><td>Licencia</td><td>Model card, LICENSE y condiciones comerciales</td><td>Confundir open weights con open source clásico.</td></tr>
+      <tr><td>Benchmark</td><td>Split, fecha, scaffold, herramientas, presupuesto y contaminación</td><td>Leer un leaderboard como si midiera tu producto.</td></tr>
+      <tr><td>API example</td><td>Ejecutar snippet o enlazar docs activas</td><td>Enseñar parámetros obsoletos o métodos inventados.</td></tr>
+      <tr><td>Seguridad/legal</td><td>OWASP, política de datos del proveedor, DPA y retención</td><td>Mandar datos sensibles sin base contractual clara.</td></tr>
+    </tbody>
+  </table>
+  <div class="refs compact-refs">
+    <p class="refs-title">Fuentes vivas</p>
+    <a href="https://developers.openai.com/api/docs/models" target="_blank">OpenAI Models</a>
+    <a href="https://platform.claude.com/docs/en/about-claude/pricing" target="_blank">Anthropic Pricing</a>
+    <a href="https://docs.cloud.google.com/vertex-ai/generative-ai/docs/models/gemini/3-pro" target="_blank">Google Gemini 3 Pro</a>
+    <a href="https://huggingface.co/models" target="_blank">Hugging Face model cards</a>
+    <a href="https://genai.owasp.org/" target="_blank">OWASP GenAI Security</a>
+  </div>
+</Slide>
+
+<!-- SLIDE 158 -->
+<Slide id="pipeline-entrega-ia" number={158} title="Pipeline de entrega IA: de idea a producción">
+  <p><i data-lucide="route"></i> Un proyecto de IA no termina cuando una demo responde bien. Termina cuando puedes decidir con datos si seguir, parar o simplificar.</p>
+  <div class="process-lane">
+    <div class="process-step"><span class="step-label">1</span><strong>Caso</strong><p>Tarea repetitiva, usuario, riesgo y coste de error.</p></div>
+    <div class="process-step"><span class="step-label">2</span><strong>Dataset</strong><p>20-100 casos reales con expected o rúbrica.</p></div>
+    <div class="process-step"><span class="step-label">3</span><strong>Baseline</strong><p>Humano, script, búsqueda clásica o modelo barato.</p></div>
+    <div class="process-step"><span class="step-label">4</span><strong>Intervención</strong><p>Prompt, RAG, tool, fine-tune o agente.</p></div>
+    <div class="process-step"><span class="step-label">5</span><strong>Medición</strong><p>Calidad, coste, latencia, seguridad y revisión humana.</p></div>
+    <div class="process-step"><span class="step-label">6</span><strong>Entrega</strong><p>Canary, logs, rollback, owner y decisión escrita.</p></div>
+  </div>
+  <table class="compact-table resource-table">
+    <thead>
+      <tr><th>Señal</th><th>Buena práctica</th><th>Red flag</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Calidad</td><td>Eval con fallos reales y casos límite</td><td>Solo screenshots de una demo feliz</td></tr>
+      <tr><td>Coste</td><td>$/tarea aceptada, no solo $/token</td><td>No contar reintentos ni revisión humana</td></tr>
+      <tr><td>Riesgo</td><td>Permisos mínimos, HITL y logs por acción</td><td>Tool genérica con acceso amplio</td></tr>
+      <tr><td>Mantenimiento</td><td>Versiones, datasets, prompts y modelos fijados</td><td>Cambiar modelo sin regresión automática</td></tr>
+    </tbody>
+  </table>
+</Slide>
+
+<!-- SLIDE 159 -->
+<Slide id="benchmarks-contaminacion-eval-privada" number={159} title="Benchmarks contaminados y eval privada">
+  <p><i data-lucide="flask-conical"></i> Un benchmark público orienta, pero no sustituye tu eval. Cuanto más famoso es un benchmark, más probable es que parte del dataset, soluciones o estilo hayan entrado en datos de entrenamiento o tuning.</p>
+  <div class="two-cols">
+    <div class="compare-card">
+      <p class="compare-card-title"><i data-lucide="bar-chart-3"></i> Benchmark público</p>
+      <p class="compare-card-desc">Sirve para comparar tendencias, familias de modelos y scaffolds. Lee fecha, split, presupuesto, herramientas y reproducibilidad.</p>
+      <span class="tag">orientación</span>
+      <span class="tag">riesgo de contaminación</span>
+    </div>
+    <div class="compare-card">
+      <p class="compare-card-title"><i data-lucide="lock"></i> Eval privada</p>
+      <p class="compare-card-desc">Casos recientes de tu dominio, tests ocultos, datos no publicados y métricas ligadas a negocio. Es lo que decide producción.</p>
+      <span class="tag">decisión real</span>
+      <span class="tag">regresión continua</span>
+    </div>
+  </div>
+  <div class="callout">
+    <p class="callout-title"><i data-lucide="alert-triangle"></i> SWE-bench Verified</p>
+    <p>OpenAI dejó de usar SWE-bench Verified en febrero de 2026 por contaminación y recomienda SWE-bench Pro para evaluar coding agents frontier. La lectura correcta: leaderboard público para contexto; eval privada para decidir.</p>
+  </div>
+  <div class="refs compact-refs">
+    <p class="refs-title">Para profundizar</p>
+    <a href="https://openai.com/es-419/index/why-we-no-longer-evaluate-swe-bench-verified/" target="_blank">OpenAI - SWE-bench Verified contamination</a>
+    <a href="https://www.swebench.com/" target="_blank">SWE-bench</a>
+    <a href="https://platform.openai.com/docs/guides/evals" target="_blank">OpenAI Evals</a>
+    <a href="https://www.anthropic.com/engineering/demystifying-evals-for-ai-agents" target="_blank">Anthropic - Agent evals</a>
+  </div>
+</Slide>
+
+<!-- SLIDE 160 -->
+<Slide id="siguiente-paso-30-dias" number={160} title="Siguiente paso: ruta de 30 días">
   <p><i data-lucide="calendar-days"></i> Si quieres convertir el workshop en habilidad real, trabaja por entregables pequeños. Cada semana debe dejar algo que puedas enseñar o reutilizar.</p>
   <table class="compact-table resource-table">
     <thead>
