@@ -1,5 +1,18 @@
 # Changelog
 
+## [2.1.5] - 2026-05-07
+
+Ampliacion avanzada de estructura para separar operacion, seguridad y gobernanza.
+
+### Added
+- Nueva seccion `Operar IA en produccion` con LLMOps, serving open weights, escalado de inferencia, routing, fallback, budgets, EvalOps, DataOps y post-training avanzado.
+- Nueva seccion `Seguridad, gobernanza y confianza` con seguridad agentic/MCP, OWASP LLM Top 10 aplicado, privacidad/private AI, EU AI Act, NIST AI RMF, NIST GenAI Profile, ISO/IEC 42001 e interpretabilidad.
+- Referencias primarias y oficiales para vLLM, SGLang, TensorRT-LLM, OpenAI Evals/RFT/tracing, Anthropic evals, MCP Authorization, OWASP, NIST, ISO y EU AI Act.
+
+### Changed
+- Workshop ampliado de 140 a 156 slides numeradas, manteniendo el cierre final separado con `Mayo 2026 · update 05/26`.
+- Indice, README, metadatos SEO y JSON-LD sincronizados con la nueva estructura y numeracion.
+
 ## [2.1.4] - 2026-05-07
 
 Correcciones de exactitud en ejemplos copiables, costes y metadatos de publicacion.

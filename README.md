@@ -1,6 +1,6 @@
 # Workshop de IA para gente curiosa
 
-De la neurona al agente: portada, 140 slides numeradas y cierre para entender la IA moderna y aplicarla con criterio en tu dia a dia. Desde backpropagation hasta desplegar agentes en produccion, pasando por RAG, fine-tuning, MCP, ControlNet, Hugging Face, Google Colab, benchmarks, modelos open weights y vibe coding.
+De la neurona al agente: portada, 156 slides numeradas y cierre para entender la IA moderna y aplicarla con criterio en tu dia a dia. Desde backpropagation hasta desplegar agentes en produccion, pasando por RAG, fine-tuning, MCP, ControlNet, Hugging Face, Google Colab, benchmarks, LLMOps, seguridad agentic, gobernanza, modelos open weights y vibe coding.
 
 **[Ver presentacion](https://workshop-ia-2026.686f6c61.dev)** | Actualizado a mayo 2026 (update 05/26)
 
@@ -83,13 +83,29 @@ De la neurona al agente: portada, 140 slides numeradas y cierre para entender la
 - [x] Configurar Claude Code, OpenCode y Cursor como un pro
 - [x] Agentes en produccion: lecciones aprendidas y el "agent tax"
 
-### Modelos open weights con Ollama Cloud (slides 130-140 + cierre)
+### Operar IA en produccion (slides 130-138)
+- [x] LLMOps: control plane, runtime, observabilidad, evals y gobernanza
+- [x] Serving open weights con vLLM, SGLang, TensorRT-LLM, llama.cpp y Ollama
+- [x] Escalado de inferencia: continuous batching, KV cache, prefix caching, speculative decoding y chunked prefill
+- [x] Routing, fallback y budgets por tarea segun riesgo, coste y dificultad
+- [x] EvalOps: offline evals, shadow runs, canary releases, release gates y rollback
+- [x] DataOps para IA: linaje, PII, licencias, calidad del corpus y drift
+- [x] Post-training avanzado: SFT, DPO, RLHF/RLAIF, Constitutional AI y reinforcement fine-tuning con graders
+
+### Seguridad, gobernanza y confianza (slides 139-145)
+- [x] Seguridad agentic: tools, MCP, permisos minimos, confused deputy, tool poisoning y exfiltracion
+- [x] OWASP LLM Top 10 aplicado a controles, CI y datasets adversariales
+- [x] Privacidad y private AI: API publica, VPC, on-prem, despliegue hibrido, retencion y region
+- [x] Gobernanza: EU AI Act, NIST AI RMF, NIST GenAI Profile e ISO/IEC 42001
+- [x] Interpretabilidad: mechanistic interpretability, sparse autoencoders, features y limites de confianza
+
+### Modelos open weights con Ollama Cloud (slides 146-156 + cierre)
 - [x] Ollama Cloud: modelos open weights sin GPU
 - [x] Catalogo, setup, integracion con herramientas
 - [x] Cloud vs local: cuando usar cada uno
 - [x] Recursos finales ampliados: mapa de estudio, papers, benchmarks, laboratorio practico y ruta de 30 dias
 
-Cada seccion termina con una slide de recapitulacion con referencias cruzadas.
+Las secciones principales incluyen slides de recapitulacion con referencias cruzadas; el bloque final añade recursos, laboratorio y ruta de 30 dias.
 
 ## Arrancar en local
 

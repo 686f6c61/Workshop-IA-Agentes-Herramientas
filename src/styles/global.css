@@ -1145,6 +1145,187 @@ code {
   justify-content: center;
 }
 
+/* ---- VARIANTES DE COMPOSICION AVANZADA ---- */
+
+.big-idea {
+  border-left: 4px solid var(--fg);
+  padding: 0.8rem 1rem;
+  margin: 0.8rem 0 1.2rem;
+  background: var(--accent-light);
+}
+
+.big-idea p {
+  font-size: clamp(1.2rem, 2.3vw, 1.8rem);
+  line-height: 1.25;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  margin: 0;
+}
+
+.ops-stack,
+.tool-grid,
+.term-grid,
+.risk-grid,
+.evidence-grid,
+.recap-map {
+  display: grid;
+  gap: 0.9rem;
+  margin: 1rem 0;
+}
+
+.ops-stack {
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+
+.tool-grid,
+.risk-grid,
+.evidence-grid {
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
+
+.term-grid {
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+}
+
+.recap-map {
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+}
+
+.ops-card,
+.tool-card,
+.term-card,
+.risk-card,
+.evidence-card,
+.recap-card {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 0.9rem;
+  background: var(--bg);
+}
+
+.ops-card {
+  border-top: 4px solid var(--fg);
+  background: var(--accent-light);
+}
+
+.ops-card strong,
+.tool-card strong,
+.term-card strong,
+.risk-card strong,
+.evidence-card strong,
+.recap-card strong {
+  display: block;
+  margin-bottom: 0.25rem;
+}
+
+.ops-card p,
+.tool-card p,
+.term-card p,
+.risk-card p,
+.evidence-card p,
+.recap-card p {
+  color: var(--fg-secondary);
+  font-size: 0.88rem;
+  line-height: 1.45;
+  margin: 0;
+}
+
+.tool-card .tag,
+.risk-card .tag,
+.recap-card .tag {
+  margin-top: 0.55rem;
+}
+
+.term-card {
+  background: var(--accent-light);
+}
+
+.term-card code {
+  background: var(--bg);
+}
+
+.process-lane {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(155px, 1fr));
+  gap: 0.65rem;
+  margin: 1rem 0;
+}
+
+.process-step {
+  border: 1px solid var(--border-strong);
+  border-radius: 8px;
+  padding: 0.8rem;
+  background: var(--accent-light);
+  position: relative;
+}
+
+.process-step .step-label {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--fg-muted);
+  margin-bottom: 0.35rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.process-step strong {
+  display: block;
+  line-height: 1.25;
+}
+
+.process-step p {
+  color: var(--fg-secondary);
+  font-size: 0.85rem;
+  margin: 0.35rem 0 0;
+  line-height: 1.4;
+}
+
+.metric-strip {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 0.65rem;
+  margin: 0.9rem 0;
+}
+
+.metric-card {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 0.8rem;
+  text-align: center;
+  background: var(--bg);
+}
+
+.metric-card strong {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 1.05rem;
+  margin-bottom: 0.25rem;
+}
+
+.metric-card span {
+  color: var(--fg-secondary);
+  font-size: 0.8rem;
+}
+
+.risk-card {
+  border-left: 4px solid var(--fg);
+}
+
+.risk-card .risk-control {
+  margin-top: 0.45rem;
+  padding-top: 0.45rem;
+  border-top: 1px solid var(--border);
+  color: var(--fg);
+  font-size: 0.85rem;
+}
+
+@media (max-width: 900px) {
+  .ops-stack {
+    grid-template-columns: 1fr;
+  }
+}
+
 /* Scrollbar para slides con mucho contenido */
 .slide::-webkit-scrollbar {
   width: 4px;

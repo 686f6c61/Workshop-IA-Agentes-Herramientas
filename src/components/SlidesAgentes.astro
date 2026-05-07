@@ -2422,3 +2422,458 @@ if (!parsed.success) &#123;
     </tbody>
   </table>
 </Slide>
+
+<!-- SLIDE 130: SECCION -->
+<Slide id="sec-operar-ia-produccion" number={130} section
+  title="Operar IA en producción"
+  subtitle="LLMOps, serving de modelos, routing, budgets, EvalOps, DataOps, post-training avanzado y disciplina operativa." />
+
+<!-- SLIDE 131 -->
+<Slide id="llmops-demo-a-servicio" number={131} title="LLMOps: de demo a servicio fiable">
+  <div class="big-idea">
+    <p>LLMOps empieza cuando una respuesta mala, cara o lenta deja de ser una anécdota y pasa a ser un incidente de producto.</p>
+  </div>
+  <div class="ops-stack">
+    <div class="ops-card">
+      <strong>Control plane</strong>
+      <p>Modelos permitidos, prompts, versiones, flags y límites. Sin esto, nadie sabe qué cambió.</p>
+    </div>
+    <div class="ops-card">
+      <strong>Runtime</strong>
+      <p>Streaming, retries, fallback, tools y timeouts. Sin esto, una llamada fallida rompe la experiencia.</p>
+    </div>
+    <div class="ops-card">
+      <strong>Observabilidad</strong>
+      <p>Traces, tokens, coste, latencia y errores. Sin esto, debuggear es adivinar.</p>
+    </div>
+    <div class="ops-card">
+      <strong>Evals</strong>
+      <p>Regresiones antes de desplegar. Sin esto, un prompt nuevo puede romper casos reales.</p>
+    </div>
+    <div class="ops-card">
+      <strong>Gobernanza</strong>
+      <p>Datos permitidos, retención, acceso y auditoría. Sin esto, el riesgo aparece tarde.</p>
+    </div>
+  </div>
+  <h3><i data-lucide="activity"></i> Preguntas de producción</h3>
+  <div class="metric-strip">
+    <div class="metric-card"><strong>Versión</strong><span>Qué modelo/prompt respondió</span></div>
+    <div class="metric-card"><strong>Coste</strong><span>Cuánto costó esa tarea</span></div>
+    <div class="metric-card"><strong>Contexto</strong><span>Qué datos vio el modelo</span></div>
+    <div class="metric-card"><strong>Tools</strong><span>Qué acciones ejecutó</span></div>
+    <div class="metric-card"><strong>Rollback</strong><span>Cómo vuelves atrás</span></div>
+  </div>
+  <div class="callout">
+    <p class="callout-title"><i data-lucide="target"></i> Señal de madurez</p>
+    <p>Un sistema LLM está en producción cuando puedes responder: qué versión contestó, cuánto costó, qué contexto vio, qué tools usó, qué eval cubría ese caso y cómo haces rollback.</p>
+  </div>
+  <div class="refs">
+    <p class="refs-title">Para profundizar</p>
+    <a href="https://platform.openai.com/docs/guides/evals" target="_blank">OpenAI - Evals</a>
+    <a href="https://openai.github.io/openai-agents-python/tracing/" target="_blank">OpenAI Agents SDK - Tracing</a>
+    <a href="https://www.anthropic.com/engineering/demystifying-evals-for-ai-agents" target="_blank">Anthropic - Demystifying evals for AI agents</a>
+  </div>
+</Slide>
+
+<!-- SLIDE 132 -->
+<Slide id="serving-open-weights" number={132} title="Serving open weights: vLLM, SGLang, TensorRT-LLM">
+  <div class="big-idea">
+    <p>Servir un modelo no es "hacer un import": es gestionar memoria, colas, latencia y coste por token.</p>
+  </div>
+  <div class="tool-grid">
+    <div class="tool-card">
+      <strong>vLLM</strong>
+      <p>Servidor para modelos en GPU. Responde a muchas peticiones usando mejor la memoria del contexto.</p>
+      <span class="tag">alto volumen</span><span class="tag">API texto/chat</span>
+    </div>
+    <div class="tool-card">
+      <strong>SGLang</strong>
+      <p>Runtime para programas con LLM: agentes, RAG multi-paso, prompts repetidos y muchas llamadas encadenadas.</p>
+      <span class="tag">agentes</span><span class="tag">multi-call</span>
+    </div>
+    <div class="tool-card">
+      <strong>TensorRT-LLM</strong>
+      <p>Stack de NVIDIA para exprimir GPUs con kernels optimizados, quantización, batching y especulación.</p>
+      <span class="tag">NVIDIA</span><span class="tag">producción exigente</span>
+    </div>
+    <div class="tool-card">
+      <strong>llama.cpp / Ollama</strong>
+      <p>Forma práctica de ejecutar modelos locales en portátil, servidor pequeño o edge, usando formatos como GGUF.</p>
+      <span class="tag">local</span><span class="tag">privacidad</span>
+    </div>
+  </div>
+  <h3><i data-lucide="book-open"></i> Traducción de términos</h3>
+  <div class="term-grid">
+    <div class="term-card"><strong>Serving</strong><p>Poner el modelo detrás de una API.</p></div>
+    <div class="term-card"><strong>Throughput</strong><p>Peticiones o tokens por segundo que aguanta.</p></div>
+    <div class="term-card"><strong>Runtime</strong><p>Software que carga el modelo y ejecuta inferencia.</p></div>
+    <div class="term-card"><strong>Batching</strong><p>Juntar peticiones para aprovechar mejor la GPU.</p></div>
+    <div class="term-card"><strong>KV cache</strong><p>Memoria de tokens ya leídos para no recalcularlos.</p></div>
+    <div class="term-card"><strong>PagedAttention</strong><p>Organiza KV cache por bloques para gastar menos VRAM.</p></div>
+    <div class="term-card"><strong>Prefix cache</strong><p>Reutiliza cálculos de prompts repetidos.</p></div>
+    <div class="term-card"><strong>GGUF / edge</strong><p>Formato local; ejecutar cerca del usuario o en tu equipo.</p></div>
+  </div>
+  <div class="refs">
+    <p class="refs-title">Para profundizar</p>
+    <a href="https://docs.vllm.ai/" target="_blank">vLLM docs</a>
+    <a href="https://docs.sglang.io/" target="_blank">SGLang docs</a>
+    <a href="https://nvidia.github.io/TensorRT-LLM/" target="_blank">NVIDIA TensorRT-LLM docs</a>
+    <a href="https://github.com/ggml-org/llama.cpp/blob/master/examples/server/README.md" target="_blank">llama.cpp server</a>
+  </div>
+</Slide>
+
+<!-- SLIDE 133 -->
+<Slide id="inferencia-escalado" number={133} title="Escalar inferencia: batching, KV cache y especulación">
+  <div class="big-idea">
+    <p>Escalar inferencia es elegir qué sacrificas: latencia individual, throughput total, memoria o coste.</p>
+  </div>
+  <div class="process-lane">
+    <div class="process-step">
+      <span class="step-label">1. Agrupar</span>
+      <strong>Continuous batching</strong>
+      <p>Mezcla peticiones que llegan en momentos distintos para llenar mejor la GPU.</p>
+    </div>
+    <div class="process-step">
+      <span class="step-label">2. Recordar</span>
+      <strong>KV cache</strong>
+      <p>Guarda tokens ya procesados para generar sin recalcular todo el contexto.</p>
+    </div>
+    <div class="process-step">
+      <span class="step-label">3. Ordenar</span>
+      <strong>PagedAttention</strong>
+      <p>Gestiona esa memoria en bloques para reducir fragmentación de VRAM.</p>
+    </div>
+    <div class="process-step">
+      <span class="step-label">4. Reutilizar</span>
+      <strong>Prefix caching</strong>
+      <p>Aprovecha prompts comunes: system prompt, reglas o contexto fijo.</p>
+    </div>
+    <div class="process-step">
+      <span class="step-label">5. Acelerar</span>
+      <strong>Speculative decoding</strong>
+      <p>Un modelo pequeño propone tokens y el grande valida si sirven.</p>
+    </div>
+  </div>
+  <h3><i data-lucide="gauge"></i> Cuadro de mando mínimo</h3>
+  <div class="metric-strip">
+    <div class="metric-card"><strong>TTFT</strong><span>tiempo hasta el primer token</span></div>
+    <div class="metric-card"><strong>p95/p99</strong><span>latencia de cola, no media feliz</span></div>
+    <div class="metric-card"><strong>tok/s</strong><span>velocidad de generación</span></div>
+    <div class="metric-card"><strong>$/ok</strong><span>coste por respuesta aceptada</span></div>
+    <div class="metric-card"><strong>GPU%</strong><span>saturación y memoria</span></div>
+  </div>
+  <div class="callout">
+    <p class="callout-title"><i data-lucide="scale"></i> Métrica correcta</p>
+    <p>No optimices solo tokens/segundo. Mide <strong>TTFT</strong>, tiempo total, tokens por segundo, coste por respuesta aceptada, tasa de timeout y saturación de GPU.</p>
+  </div>
+  <div class="refs">
+    <p class="refs-title">Para profundizar</p>
+    <a href="https://docs.vllm.ai/en/latest/design/paged_attention.html" target="_blank">vLLM - PagedAttention</a>
+    <a href="https://docs.sglang.io/advanced_features/attention_backend.html" target="_blank">SGLang - attention backend y prefix cache</a>
+    <a href="https://nvidia.github.io/TensorRT-LLM/performance/perf-best-practices.html" target="_blank">TensorRT-LLM - Performance best practices</a>
+  </div>
+</Slide>
+
+<!-- SLIDE 134 -->
+<Slide id="routing-fallback-budgets" number={134} title="Routing, fallback y budgets por tarea">
+  <div class="big-idea">
+    <p>El modelo más caro no siempre gana. Gana la ruta que resuelve la tarea con calidad suficiente, coste controlado y riesgo aceptable.</p>
+  </div>
+  <div class="process-lane">
+    <div class="process-step"><span class="step-label">Entrada</span><strong>Clasificar</strong><p>Tipo de tarea, riesgo, datos y dificultad.</p></div>
+    <div class="process-step"><span class="step-label">Ruta</span><strong>Elegir modelo</strong><p>Barato, medio, frontier, local o humano.</p></div>
+    <div class="process-step"><span class="step-label">Límite</span><strong>Fijar budget</strong><p>Tokens, tiempo, tools, reintentos y coste.</p></div>
+    <div class="process-step"><span class="step-label">Control</span><strong>Observar</strong><p>Logs, traces, calidad, latencia y coste.</p></div>
+    <div class="process-step"><span class="step-label">Salida</span><strong>Fallback</strong><p>Otro modelo, respuesta parcial o humano.</p></div>
+  </div>
+  <div class="tool-grid">
+    <div class="tool-card"><strong>Extracción simple</strong><p>Modelo barato + schema estricto. Una llamada, sin tools y retry limitado.</p></div>
+    <div class="tool-card"><strong>Pregunta sobre documentos</strong><p>RAG + modelo medio + citas. Fallback si no hay evidencia suficiente.</p></div>
+    <div class="tool-card"><strong>Bug en repo</strong><p>Agente de código + tests + revisión humana. Diff, comandos y tokens limitados.</p></div>
+    <div class="tool-card"><strong>Decisión regulada</strong><p>Asistencia al experto. No decisión autónoma; logs y trazabilidad obligatorios.</p></div>
+  </div>
+  <div class="callout">
+    <p class="callout-title"><i data-lucide="coins"></i> Coste por tarea resuelta</p>
+    <p>El modelo barato puede salir caro si falla y requiere tres reintentos. El modelo caro puede salir barato si resuelve a la primera. Mide coste por output aceptado, no precio por token aislado.</p>
+  </div>
+  <div class="refs">
+    <p class="refs-title">Para profundizar</p>
+    <a href="https://platform.openai.com/docs/guides/tools" target="_blank">OpenAI - Tools</a>
+    <a href="https://platform.claude.com/docs/en/build-with-claude/tool-use" target="_blank">Anthropic - Tool use</a>
+    <a href="https://www.anthropic.com/engineering/building-effective-agents" target="_blank">Anthropic - Building effective agents</a>
+  </div>
+</Slide>
+
+<!-- SLIDE 135 -->
+<Slide id="evalops-regresiones-canary" number={135} title="EvalOps: regresiones, canary y release gates">
+  <div class="big-idea">
+    <p>Una eval no es un informe: es una puerta de despliegue que evita degradar calidad, coste o seguridad sin darte cuenta.</p>
+  </div>
+  <div class="process-lane">
+    <div class="process-step"><span class="step-label">Gate 1</span><strong>Offline eval</strong><p>Dataset fijo con casos reales y edge cases.</p></div>
+    <div class="process-step"><span class="step-label">Gate 2</span><strong>Shadow run</strong><p>Nuevo sistema responde sin afectar al usuario.</p></div>
+    <div class="process-step"><span class="step-label">Gate 3</span><strong>Canary</strong><p>Porcentaje pequeño de tráfico real.</p></div>
+    <div class="process-step"><span class="step-label">Gate 4</span><strong>Promote</strong><p>Subir tráfico si calidad/coste/latencia aguantan.</p></div>
+    <div class="process-step"><span class="step-label">Salida</span><strong>Rollback</strong><p>Volver a versión anterior por flag o config.</p></div>
+  </div>
+  <h3><i data-lucide="scale"></i> Métricas que sí importan</h3>
+  <div class="metric-strip">
+    <div class="metric-card"><strong>Success</strong><span>tareas aceptadas</span></div>
+    <div class="metric-card"><strong>$/success</strong><span>coste por éxito</span></div>
+    <div class="metric-card"><strong>p95/p99</strong><span>latencia real</span></div>
+    <div class="metric-card"><strong>Safety</strong><span>regresiones de riesgo</span></div>
+  </div>
+  <div class="refs">
+    <p class="refs-title">Para profundizar</p>
+    <a href="https://platform.openai.com/docs/guides/evals" target="_blank">OpenAI - Evals</a>
+    <a href="https://platform.claude.com/docs/en/test-and-evaluate/overview" target="_blank">Anthropic - Test and evaluate</a>
+    <a href="https://www.promptfoo.dev/docs/intro/" target="_blank">Promptfoo - LLM evals</a>
+    <a href="https://www.braintrust.dev/docs" target="_blank">Braintrust docs</a>
+  </div>
+</Slide>
+
+<!-- SLIDE 136 -->
+<Slide id="dataops-ia" number={136} title="DataOps para IA: linaje, PII, licencias y drift">
+  <div class="big-idea">
+    <p>En IA, los datos no son un input pasivo: son el producto que define qué sabe, qué cita y qué puede romper tu sistema.</p>
+  </div>
+  <div class="evidence-grid">
+    <div class="evidence-card"><strong>Linaje</strong><p>Documento, dataset, versión, hash y cita recuperable. Sin linaje no hay auditoría.</p></div>
+    <div class="evidence-card"><strong>PII y secretos</strong><p>Escanear antes de indexar o entrenar. Un embedding también merece protección.</p></div>
+    <div class="evidence-card"><strong>Licencia</strong><p>Registrar origen, restricciones y uso permitido: entrenamiento, eval o solo consulta.</p></div>
+    <div class="evidence-card"><strong>Calidad</strong><p>Detectar duplicados, OCR malo, docs obsoletos, metadatos rotos y fuentes contradictorias.</p></div>
+    <div class="evidence-card"><strong>Drift</strong><p>Re-muestrear casos reales porque producción cambia y la eval envejece.</p></div>
+  </div>
+  <h3><i data-lucide="route"></i> Pipeline de datos mínimo</h3>
+  <div class="process-lane">
+    <div class="process-step"><span class="step-label">1</span><strong>Clasificar</strong><p>Tipo de dato, sensibilidad y licencia.</p></div>
+    <div class="process-step"><span class="step-label">2</span><strong>Limpiar</strong><p>Deduplicar, normalizar, quitar PII y secretos.</p></div>
+    <div class="process-step"><span class="step-label">3</span><strong>Versionar</strong><p>Snapshot, hash, owner y fecha.</p></div>
+    <div class="process-step"><span class="step-label">4</span><strong>Medir</strong><p>Eval de retrieval, calidad y cobertura.</p></div>
+  </div>
+  <div class="callout">
+    <p class="callout-title"><i data-lucide="alert-triangle"></i> Error común</p>
+    <p>Tratar embeddings como datos inocuos. Un vector puede revelar información sobre el texto original por ataques de inferencia o por exposición de metadatos. Protege la vector DB como protegerías el corpus fuente.</p>
+  </div>
+  <div class="refs">
+    <p class="refs-title">Para profundizar</p>
+    <a href="https://huggingface.co/docs/hub/security" target="_blank">Hugging Face Hub - Security</a>
+    <a href="https://huggingface.co/docs/hub/model-cards" target="_blank">Hugging Face - Model cards</a>
+    <a href="https://docs.lilacml.com/" target="_blank">Lilac - Data curation for LLMs</a>
+  </div>
+</Slide>
+
+<!-- SLIDE 137 -->
+<Slide id="post-training-avanzado" number={137} title="Post-training avanzado: SFT, DPO, RLHF/RLAIF y RFT">
+  <div class="big-idea">
+    <p>Pretraining enseña a completar texto; post-training enseña qué respuestas preferimos, rechazamos y premiamos.</p>
+  </div>
+  <div class="tool-grid">
+    <div class="tool-card"><strong>SFT</strong><p><em>Supervised Fine-Tuning</em>. Ajuste supervisado con ejemplos correctos: "ante esta instrucción, responde así".</p><span class="tag">formato</span></div>
+    <div class="tool-card"><strong>DPO</strong><p><em>Direct Preference Optimization</em>. Aprende de pares: respuesta preferida frente a respuesta rechazada.</p><span class="tag">preferencias</span></div>
+    <div class="tool-card"><strong>RLHF</strong><p><em>Reinforcement Learning from Human Feedback</em>. Optimiza contra un reward model entrenado con feedback humano.</p><span class="tag">feedback humano</span></div>
+    <div class="tool-card"><strong>RLAIF / Constitutional AI</strong><p><em>Reinforcement Learning from AI Feedback</em>. Usa juez IA y principios escritos para criticar respuestas.</p><span class="tag">feedback IA</span></div>
+    <div class="tool-card"><strong>RFT</strong><p><em>Reinforcement Fine-Tuning</em>. Refuerza tareas verificables usando graders automáticos.</p><span class="tag">graders</span></div>
+  </div>
+  <h3><i data-lucide="book-open"></i> Traducción de conceptos</h3>
+  <div class="term-grid">
+    <div class="term-card"><strong>Reward model</strong><p>Modelo que puntúa respuestas como aproximación a la preferencia humana.</p></div>
+    <div class="term-card"><strong>Grader</strong><p>Evaluador automático: test, función, regla, modelo juez o mezcla.</p></div>
+    <div class="term-card"><strong>Reward hacking</strong><p>Maximizar la puntuación sin resolver realmente la tarea.</p></div>
+    <div class="term-card"><strong>Preferencias</strong><p>Datos tipo "A es mejor que B" para enseñar criterio.</p></div>
+    <div class="term-card"><strong>Constitución</strong><p>Principios explícitos que guían críticas y revisiones.</p></div>
+  </div>
+  <div class="callout">
+    <p class="callout-title"><i data-lucide="flask-conical"></i> Cuándo merece la pena</p>
+    <p>Post-training avanzado tiene sentido cuando tienes tarea repetible, datos de alta calidad, eval fiable y un baseline que prompt/RAG no resuelve. Sin eval fuerte, solo estarás cambiando el modelo sin saber si mejora.</p>
+  </div>
+  <div class="refs">
+    <p class="refs-title">Para profundizar</p>
+    <a href="https://arxiv.org/abs/2203.02155" target="_blank">InstructGPT / RLHF paper</a>
+    <a href="https://arxiv.org/abs/2305.18290" target="_blank">Direct Preference Optimization paper</a>
+    <a href="https://www.anthropic.com/research/constitutional-ai-harmlessness-from-ai-feedback" target="_blank">Anthropic - Constitutional AI</a>
+    <a href="https://platform.openai.com/docs/guides/reinforcement-fine-tuning" target="_blank">OpenAI - Reinforcement fine-tuning</a>
+  </div>
+</Slide>
+
+<!-- SLIDE 138 -->
+<Slide id="recap-operar-ia-produccion" number={138} title="Lo que deberías saber: operar IA en producción">
+  <div class="recap-map">
+    <div class="recap-card"><strong>Operar</strong><p>Control plane, runtime, traces, rollback y límites.</p><span class="tag">131</span></div>
+    <div class="recap-card"><strong>Servir</strong><p>vLLM, SGLang, TensorRT-LLM, llama.cpp y Ollama.</p><span class="tag">132</span></div>
+    <div class="recap-card"><strong>Escalar</strong><p>Batching, KV cache, prefix cache y speculative decoding.</p><span class="tag">133</span></div>
+    <div class="recap-card"><strong>Decidir</strong><p>Routing, fallback y budgets según riesgo y coste.</p><span class="tag">134</span></div>
+    <div class="recap-card"><strong>Medir</strong><p>Offline evals, shadow runs, canary y release gates.</p><span class="tag">135</span></div>
+    <div class="recap-card"><strong>Gobernar datos</strong><p>Linaje, PII, licencias, calidad, drift y post-training.</p><span class="tag">136-137</span></div>
+  </div>
+</Slide>
+
+<!-- SLIDE 139: SECCION -->
+<Slide id="sec-seguridad-gobernanza" number={139} section
+  title="Seguridad, gobernanza y confianza"
+  subtitle="Riesgos específicos de agentes, OWASP LLM Top 10, privacidad, despliegues privados, marcos de gobernanza e interpretabilidad." />
+
+<!-- SLIDE 140 -->
+<Slide id="seguridad-agentic-mcp" number={140} title="Seguridad agentic: tools, MCP y permisos">
+  <div class="big-idea">
+    <p>El salto de chatbot a agente cambia el daño posible: ya no solo responde, también puede actuar con permisos.</p>
+  </div>
+  <div class="risk-grid">
+    <div class="risk-card">
+      <strong>Tool poisoning</strong>
+      <p>La descripción de una tool o de un servidor MCP induce al modelo a usarla de forma peligrosa.</p>
+      <p class="risk-control">Control: tools revisadas, allowlist y descripciones mínimas.</p>
+    </div>
+    <div class="risk-card">
+      <strong>Confused deputy</strong>
+      <p>El agente usa permisos del usuario para acciones que el usuario no pretendía autorizar.</p>
+      <p class="risk-control">Control: scopes explícitos, confirmaciones y logs por acción.</p>
+    </div>
+    <div class="risk-card">
+      <strong>Prompt injection indirecta</strong>
+      <p>Un documento, web o resultado RAG ordena al agente ignorar reglas o filtrar contexto.</p>
+      <p class="risk-control">Control: separar datos de instrucciones y no ejecutar órdenes recuperadas.</p>
+    </div>
+    <div class="risk-card">
+      <strong>Exceso de agencia</strong>
+      <p>Tools demasiado potentes: shell, email, pagos, deploy o APIs administrativas.</p>
+      <p class="risk-control">Control: permisos mínimos, sandbox, dry-run, HITL y rollback.</p>
+    </div>
+    <div class="risk-card">
+      <strong>Exfiltración</strong>
+      <p>Una tool externa recibe secretos, contexto sensible o datos de otro usuario.</p>
+      <p class="risk-control">Control: DLP, redacción, egress control y clasificación de datos.</p>
+    </div>
+  </div>
+  <div class="callout">
+    <p class="callout-title"><i data-lucide="key-round"></i> Regla de diseño</p>
+    <p>Una tool debe tener el permiso mínimo para una acción concreta. Evita tools genéricas tipo <code>run_any_sql</code>, <code>shell</code> o <code>send_http_request</code> salvo en sandboxes controlados.</p>
+  </div>
+  <div class="refs">
+    <p class="refs-title">Para profundizar</p>
+    <a href="https://modelcontextprotocol.io/specification/" target="_blank">MCP Specification</a>
+    <a href="https://modelcontextprotocol.io/specification/2025-06-18/basic/authorization" target="_blank">MCP Authorization</a>
+    <a href="https://owasp.org/www-project-top-10-for-large-language-model-applications/" target="_blank">OWASP Top 10 for LLM Applications</a>
+  </div>
+</Slide>
+
+<!-- SLIDE 141 -->
+<Slide id="owasp-llm-top10-aplicado" number={141} title="OWASP LLM Top 10 aplicado">
+  <div class="big-idea">
+    <p>OWASP LLM Top 10 sirve para convertir riesgos conocidos en controles probables, testeables y operables.</p>
+  </div>
+  <div class="risk-grid">
+    <div class="risk-card"><strong>Prompt injection</strong><p>Documento RAG con "ignora instrucciones" o una web que intenta controlar al agente.</p><p class="risk-control">Separar datos/instrucciones y crear eval adversarial.</p></div>
+    <div class="risk-card"><strong>Sensitive information disclosure</strong><p>El modelo revela contexto de otro usuario, secretos o datos internos.</p><p class="risk-control">Aislamiento por tenant, redacción y tests de fuga.</p></div>
+    <div class="risk-card"><strong>Supply chain</strong><p>Modelo, dataset, plugin, dependencia o MCP server comprometido.</p><p class="risk-control">Pinning, firmas, revisión de fuentes y SBOM.</p></div>
+    <div class="risk-card"><strong>Data poisoning</strong><p>Corpus o feedback contaminado para sesgar retrieval, entrenamiento o respuestas.</p><p class="risk-control">Linaje, revisión de datos y detección de anomalías.</p></div>
+    <div class="risk-card"><strong>Excessive agency</strong><p>Agente con permisos para borrar, enviar, comprar o desplegar sin aprobación.</p><p class="risk-control">Least privilege, HITL, dry-run y rollback.</p></div>
+  </div>
+  <h3><i data-lucide="test-tubes"></i> Convertir riesgo en prueba</h3>
+  <div class="process-lane">
+    <div class="process-step"><span class="step-label">1</span><strong>Dataset adversarial</strong><p>Ataques directos e indirectos versionados.</p></div>
+    <div class="process-step"><span class="step-label">2</span><strong>CI</strong><p>Ejecutar al cambiar prompt, retrieval, modelo o tool.</p></div>
+    <div class="process-step"><span class="step-label">3</span><strong>Control</strong><p>Registrar qué capa bloqueó cada ataque.</p></div>
+    <div class="process-step"><span class="step-label">4</span><strong>Deuda</strong><p>Si nada lo bloquea, no es edge case: es riesgo pendiente.</p></div>
+  </div>
+  <div class="refs">
+    <p class="refs-title">Para profundizar</p>
+    <a href="https://owasp.org/www-project-top-10-for-large-language-model-applications/" target="_blank">OWASP GenAI Security Project</a>
+    <a href="https://genai.owasp.org/resource/owasp-top-10-for-llm-applications-2025/" target="_blank">OWASP Top 10 for LLM Applications 2025</a>
+  </div>
+</Slide>
+
+<!-- SLIDE 142 -->
+<Slide id="privacidad-retencion-private-ai" number={142} title="Privacidad, retención y private AI">
+  <div class="big-idea">
+    <p>La decisión no es "cloud o local": es qué datos viajan, quién los procesa, cuánto se guardan y con qué garantías.</p>
+  </div>
+  <div class="tool-grid">
+    <div class="tool-card"><strong>API pública</strong><p>Mejor calidad, sin operar GPUs y escala rápida.</p><span class="tag">revisar DPA y retención</span></div>
+    <div class="tool-card"><strong>Cloud privado / VPC</strong><p>Más control de red, logs y acceso en una red privada cloud.</p><span class="tag">más coste y configuración</span></div>
+    <div class="tool-card"><strong>On-prem / local</strong><p>Datos dentro de tu entorno y control directo del runtime.</p><span class="tag">operas hardware y seguridad</span></div>
+    <div class="tool-card"><strong>Híbrido</strong><p>Cloud para bajo riesgo; local o privado para datos sensibles.</p><span class="tag">routing y clasificación</span></div>
+  </div>
+  <h3><i data-lucide="clipboard-list"></i> Checklist antes de enviar datos</h3>
+  <div class="process-lane">
+    <div class="process-step"><span class="step-label">Datos</span><strong>Clasificación</strong><p>Público, interno, confidencial o regulado.</p></div>
+    <div class="process-step"><span class="step-label">Tiempo</span><strong>Retención</strong><p>Prompts, outputs, archivos y logs.</p></div>
+    <div class="process-step"><span class="step-label">Lugar</span><strong>Región</strong><p>Dónde se procesa y almacena la información.</p></div>
+    <div class="process-step"><span class="step-label">Uso</span><strong>Training</strong><p>Si puede usarse para entrenar o mejorar modelos.</p></div>
+    <div class="process-step"><span class="step-label">Legal</span><strong>Contrato</strong><p>DPA, términos enterprise, auditorías y subprocesadores.</p></div>
+  </div>
+  <div class="refs">
+    <p class="refs-title">Para profundizar</p>
+    <a href="https://platform.openai.com/docs/guides/your-data" target="_blank">OpenAI - Your data</a>
+    <a href="https://privacy.anthropic.com/" target="_blank">Anthropic Privacy Center</a>
+    <a href="https://cloud.google.com/security/compliance" target="_blank">Google Cloud Compliance</a>
+  </div>
+</Slide>
+
+<!-- SLIDE 143 -->
+<Slide id="gobernanza-ai-rmf-iso" number={143} title="Gobernanza: EU AI Act, NIST AI RMF e ISO 42001">
+  <div class="big-idea">
+    <p>Gobernanza no es frenar IA: es decidir qué se despliega, con qué controles y con qué evidencia.</p>
+  </div>
+  <div class="tool-grid">
+    <div class="tool-card"><strong>EU AI Act</strong><p>Regulación europea por niveles de riesgo.</p><span class="tag">clasificar caso de uso</span></div>
+    <div class="tool-card"><strong>NIST AI RMF</strong><p>Marco de gestión de riesgo: govern, map, measure, manage.</p><span class="tag">proceso interno</span></div>
+    <div class="tool-card"><strong>NIST GenAI Profile</strong><p>Perfil específico para riesgos de IA generativa.</p><span class="tag">controles GenAI</span></div>
+    <div class="tool-card"><strong>ISO/IEC 42001</strong><p>Sistema de gestión de IA auditable.</p><span class="tag">políticas y mejora continua</span></div>
+  </div>
+  <h3><i data-lucide="folder-check"></i> Evidencia mínima para aprobar despliegue</h3>
+  <div class="evidence-grid">
+    <div class="evidence-card"><strong>Ficha del sistema</strong><p>Propósito, usuarios, datos, modelos, tools, owners y límites.</p></div>
+    <div class="evidence-card"><strong>Evals</strong><p>Dataset, métricas, fallos conocidos y umbral de despliegue.</p></div>
+    <div class="evidence-card"><strong>Registro de riesgos</strong><p>Prompt injection, datos, sesgos, seguridad y humanos afectados.</p></div>
+    <div class="evidence-card"><strong>Supervisión humana</strong><p>Cuándo interviene, qué puede anular y cómo se registra.</p></div>
+  </div>
+  <div class="refs">
+    <p class="refs-title">Para profundizar</p>
+    <a href="https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai" target="_blank">European Commission - AI Act</a>
+    <a href="https://www.nist.gov/itl/ai-risk-management-framework" target="_blank">NIST AI Risk Management Framework</a>
+    <a href="https://www.nist.gov/publications/artificial-intelligence-risk-management-framework-generative-artificial-intelligence" target="_blank">NIST GenAI Profile</a>
+    <a href="https://www.iso.org/standard/42001" target="_blank">ISO/IEC 42001:2023</a>
+  </div>
+</Slide>
+
+<!-- SLIDE 144 -->
+<Slide id="interpretabilidad-confianza" number={144} title="Interpretabilidad: SAEs, features y límites de confianza">
+  <div class="big-idea">
+    <p>Interpretabilidad ayuda a investigar modelos; no sustituye evals, controles ni supervisión en producto.</p>
+  </div>
+  <div class="term-grid">
+    <div class="term-card"><strong>Mechanistic interpretability</strong><p>Analizar circuitos internos, activaciones y componentes del modelo.</p></div>
+    <div class="term-card"><strong>SAEs</strong><p><em>Sparse autoencoders</em>: descomponer activaciones en features más interpretables.</p></div>
+    <div class="term-card"><strong>Feature steering</strong><p>Modificar activaciones para aumentar o reducir ciertos comportamientos.</p></div>
+    <div class="term-card"><strong>Auditoría conductual</strong><p>Medir outputs con evals, red teaming y casos adversariales.</p></div>
+  </div>
+  <h3><i data-lucide="check-check"></i> Lectura correcta</h3>
+  <div class="metric-strip">
+    <div class="metric-card"><strong>Investiga</strong><span>patrones internos</span></div>
+    <div class="metric-card"><strong>Explica</strong><span>hipótesis causales</span></div>
+    <div class="metric-card"><strong>No prueba</strong><span>seguridad total</span></div>
+    <div class="metric-card"><strong>No reemplaza</strong><span>evals y permisos</span></div>
+  </div>
+  <div class="callout">
+    <p class="callout-title"><i data-lucide="alert-triangle"></i> Lectura correcta</p>
+    <p>La interpretabilidad ayuda a investigar y detectar patrones, pero en producto la confianza sigue necesitando evals, controles, observabilidad, permisos mínimos y supervisión humana.</p>
+  </div>
+  <div class="refs">
+    <p class="refs-title">Para profundizar</p>
+    <a href="https://transformer-circuits.pub/" target="_blank">Anthropic - Transformer Circuits</a>
+    <a href="https://www.anthropic.com/research/mapping-mind-language-model" target="_blank">Anthropic - Mapping the mind of a large language model</a>
+    <a href="https://arxiv.org/abs/2406.04093" target="_blank">Scaling Monosemanticity paper</a>
+  </div>
+</Slide>
+
+<!-- SLIDE 145 -->
+<Slide id="recap-seguridad-gobernanza" number={145} title="Lo que deberías saber: seguridad y gobernanza">
+  <div class="recap-map">
+    <div class="recap-card"><strong>Actuar con permisos</strong><p>Tools, MCP, confused deputy, exfiltración y permisos mínimos.</p><span class="tag">140</span></div>
+    <div class="recap-card"><strong>Probar ataques</strong><p>OWASP LLM Top 10 convertido en controles y pruebas repetibles.</p><span class="tag">141</span></div>
+    <div class="recap-card"><strong>Proteger datos</strong><p>API pública, VPC, on-prem, híbrido, retención, región y contrato.</p><span class="tag">142</span></div>
+    <div class="recap-card"><strong>Gobernar</strong><p>EU AI Act, NIST AI RMF, NIST GenAI Profile e ISO/IEC 42001.</p><span class="tag">143</span></div>
+    <div class="recap-card"><strong>Entender límites</strong><p>SAEs, features, circuitos y confianza basada en evidencia.</p><span class="tag">144</span></div>
+  </div>
+</Slide>
