@@ -13,5 +13,7 @@ export default defineConfig({
       environment: 'production',
       tracesSampleRate: 0.01,
       sourceMapsUploadOptions: { telemetry: false },
-    }),sitemap()],
+    }),
+    sitemap(),
+  ],
 });

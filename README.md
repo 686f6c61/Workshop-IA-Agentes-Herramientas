@@ -1,6 +1,6 @@
-# Workshop de IA: agentes, modelos y herramientas
+# Workshop de IA para gente curiosa
 
-De la neurona al agente: 140 slides para entender la IA moderna y aplicarla en tu dia a dia como ingeniero. Desde backpropagation hasta desplegar agentes en produccion, pasando por RAG, fine-tuning, MCP, ControlNet, Hugging Face, Google Colab, benchmarks, modelos open weights y vibe coding.
+De la neurona al agente: portada, 140 slides numeradas y cierre para entender la IA moderna y aplicarla con criterio en tu dia a dia. Desde backpropagation hasta desplegar agentes en produccion, pasando por RAG, fine-tuning, MCP, ControlNet, Hugging Face, Google Colab, benchmarks, modelos open weights y vibe coding.
 
 **[Ver presentacion](https://workshop-ia-2026.686f6c61.dev)** | Actualizado a mayo 2026 (update 05/26)
 
@@ -68,7 +68,7 @@ De la neurona al agente: 140 slides para entender la IA moderna y aplicarla en t
 - [x] Computer Use, Browser Use, A2A (Agent-to-Agent)
 - [x] Human-in-the-loop: niveles de autonomia
 
-### Realidad del ingeniero (slides 104-129)
+### Realidad de construir con IA (slides 104-129)
 - [x] IDE web vs terminal, comparativa de coding assistants
 - [x] Benchmarks: que miden, que no miden, SWE-bench, leaderboards y evals internas
 - [x] SWE-bench: Full, Verified, Lite, Multilingual, Multimodal, % Resolved y coste por resolucion
@@ -83,7 +83,7 @@ De la neurona al agente: 140 slides para entender la IA moderna y aplicarla en t
 - [x] Configurar Claude Code, OpenCode y Cursor como un pro
 - [x] Agentes en produccion: lecciones aprendidas y el "agent tax"
 
-### Modelos open weights con Ollama Cloud (slides 130-140)
+### Modelos open weights con Ollama Cloud (slides 130-140 + cierre)
 - [x] Ollama Cloud: modelos open weights sin GPU
 - [x] Catalogo, setup, integracion con herramientas
 - [x] Cloud vs local: cuando usar cada uno
@@ -107,7 +107,7 @@ npm run build    # genera dist/
 npm run preview  # preview local del build
 ```
 
-Deploy automatico en Coolify usando el `Dockerfile`. Cada push a `main` redespliega el servicio conectado al repo.
+Deploy automatico en Coolify usando el `Dockerfile`. Cada push a `main` redespliega el servicio conectado al repo. El `render.yaml` se mantiene como configuracion estatica alternativa para Render.
 
 ## Stack
 

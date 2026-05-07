@@ -4,8 +4,8 @@ import Slide from './Slide.astro';
 
 <!-- PORTADA -->
 <Slide id="cover" cover>
-  <h1 class="cover-title">Workshop de IA: agentes, modelos y herramientas</h1>
-  <p class="cover-subtitle">by 686f6c61</p>
+  <h1 class="cover-title">Workshop de IA para gente curiosa</h1>
+  <p class="cover-subtitle">Agentes, modelos y herramientas - by 686f6c61</p>
   <p class="cover-meta">Mayo 2026 (Update: 05/26)</p>
   <p class="cover-repo">
     <a href="https://github.com/686f6c61/Workshop-IA-Agentes-Herramientas" target="_blank" rel="noopener noreferrer">
@@ -25,9 +25,9 @@ import Slide from './Slide.astro';
   <ul>
     <li><i data-lucide="x-circle"></i> <strong>No es magia ni ciencia ficción.</strong> No hay una "mente" dentro de la máquina. Es software, ejecutándose en servidores, con electricidad y silicio.</li>
     <li><i data-lucide="x-circle"></i> <strong>No es una mente consciente.</strong> No tiene deseos, emociones ni intenciones. No "quiere" nada. Procesa tokens y calcula probabilidades.</li>
-    <li><i data-lucide="x-circle"></i> <strong>No es un buscador glorificado.</strong> Google busca páginas que existen. Un LLM (Large Language Model, modelo grande de lenguaje) genera texto nuevo que nunca existió, a partir de patrones aprendidos.</li>
-    <li><i data-lucide="x-circle"></i> <strong>No "piensa" como un humano.</strong> No razona causalmente. Predice la siguiente palabra más probable dada una secuencia. El resultado puede parecer razonamiento, pero el mecanismo es estadístico.</li>
-    <li><i data-lucide="x-circle"></i> <strong>No es infalible ni objetiva.</strong> Alucina (genera información falsa con confianza), tiene sesgos heredados de los datos de entrenamiento, y no sabe que no sabe.</li>
+    <li><i data-lucide="x-circle"></i> <strong>No es un buscador glorificado.</strong> Un buscador recupera páginas o documentos. Un LLM (Large Language Model, modelo grande de lenguaje) genera texto a partir de patrones aprendidos y no consulta fuentes por defecto.</li>
+    <li><i data-lucide="x-circle"></i> <strong>No "piensa" como un humano.</strong> Puede producir pasos que parecen razonamiento, pero su mecanismo base es predecir tokens a partir de patrones aprendidos.</li>
+    <li><i data-lucide="x-circle"></i> <strong>No es infalible ni objetiva.</strong> Puede alucinar (generar información falsa con confianza), heredar sesgos de los datos de entrenamiento y carece de introspección fiable sobre sus errores.</li>
   </ul>
   <div class="icon-grid">
     <div class="icon-card">
@@ -47,8 +47,8 @@ import Slide from './Slide.astro';
     <div class="icon-card">
       <i data-lucide="message-square"></i>
       <div class="icon-card-content">
-        <strong>No entiende</strong>
-        <p>Detecta correlaciones estadísticas entre tokens. Lo que parece comprensión es predicción sofisticada.</p>
+        <strong>No entiende como una persona</strong>
+        <p>Aprende representaciones estadísticas de tokens y conceptos. Puede comportarse como si entendiera, pero no tiene experiencia ni criterio propio.</p>
       </div>
     </div>
     <div class="icon-card">
@@ -117,7 +117,7 @@ import Slide from './Slide.astro';
   </table>
   <div class="callout">
     <p class="callout-title"><i data-lucide="lightbulb"></i> Idea clave</p>
-    <p>La IA no sustituye el criterio del ingeniero. Lo amplifica. Si le das contexto claro y restricciones precisas, el resultado es impresionante. Si le das ambigüedad, el resultado es impredecible.</p>
+    <p>La IA no sustituye el criterio humano. Lo amplifica. Si le das contexto claro y restricciones precisas, el resultado es impresionante. Si le das ambigüedad, el resultado es impredecible.</p>
   </div>
   <div class="refs">
     <p class="refs-title">Para profundizar</p>
@@ -130,7 +130,7 @@ import Slide from './Slide.astro';
   <div class="two-cols">
     <div>
       <h3><i data-lucide="calculator"></i> Sistema determinista</h3>
-      <p>Misma entrada &rarr; siempre la misma salida. Un compilador, una query SQL, una función pura. Los ingenieros estamos entrenados para pensar así: <code>f(x) = y</code>, siempre.</p>
+      <p>Misma entrada &rarr; siempre la misma salida. Un compilador, una query SQL, una función pura. Quienes programamos estamos entrenados para pensar así: <code>f(x) = y</code>, siempre.</p>
       <div class="code-block">
         <span class="keyword">function</span> <span class="string">sumar</span>(a, b) &#123;<br/>
         &nbsp;&nbsp;<span class="keyword">return</span> a + b;<br/>
@@ -140,7 +140,7 @@ import Slide from './Slide.astro';
     </div>
     <div>
       <h3><i data-lucide="dices"></i> Sistema estocástico (la IA)</h3>
-      <p>Misma entrada &rarr; salidas <strong>diferentes</strong> cada vez. El modelo muestrea de una distribución de probabilidades. Cada ejecución puede dar un resultado distinto.</p>
+      <p>Misma entrada &rarr; salidas <strong>potencialmente diferentes</strong>. El modelo puede muestrear de una distribución de probabilidades. Cada ejecución puede dar un resultado distinto según configuración e infraestructura.</p>
       <div class="code-block">
         <span class="keyword">prompt</span>: <span class="string">"Explica qué es Rust"</span><br/>
         <span class="comment">// Ejecución 1: "Rust es un lenguaje..."</span><br/>
@@ -165,7 +165,7 @@ import Slide from './Slide.astro';
   </div>
   <div class="callout">
     <p class="callout-title"><i data-lucide="alert-triangle"></i> Consecuencia práctica</p>
-    <p>No puedes escribir un test unitario clásico contra la salida de un LLM. Cambió de mentalidad: de "esto devuelve X" a "esto devuelve algo razonable dentro de un rango". Estrategias: evaluaciones (evals), validación de estructura, asserts sobre propiedades, no sobre valores exactos.</p>
+    <p>No basta con un test unitario que espere una frase exacta. Cambia la mentalidad: de "esto devuelve X" a "esto devuelve algo razonable dentro de un rango". Estrategias: evaluaciones (evals), validación de estructura, asserts sobre propiedades y no solo sobre valores exactos.</p>
   </div>
   <div class="callout">
     <p class="callout-title"><i data-lucide="lightbulb"></i> Conexión con la slide 26</p>
@@ -250,7 +250,7 @@ import Slide from './Slide.astro';
     </tbody>
   </table>
   <div class="callout">
-    <p class="callout-title"><i data-lucide="lightbulb"></i> Para ingenieros</p>
+    <p class="callout-title"><i data-lucide="lightbulb"></i> Para gente curiosa</p>
     <p>Una neurona es una función pura con parámetros aprendidos (pesos y bias). La "inteligencia" no está en una neurona individual: está en los <strong>miles de millones de parámetros</strong> ajustados durante el entrenamiento. En modelos propietarios como Claude o GPT, el proveedor no publica siempre el número exacto de pesos.</p>
   </div>
 </Slide>
@@ -482,16 +482,16 @@ import Slide from './Slide.astro';
 
 <!-- SLIDE 12 -->
 <Slide id="tokens" number={12} title="¿Qué es un token?">
-  <p><i data-lucide="scissors"></i> Un token es la <strong>unidad mínima</strong> que procesa el modelo. No es una palabra ni un carácter: es un trozo de texto que el tokenizador decide según su vocabulario.</p>
+  <p><i data-lucide="scissors"></i> Un token es la <strong>unidad discreta</strong> que procesa el modelo. Puede ser una palabra, parte de una palabra, un carácter o incluso bytes, según el tokenizador y el vocabulario.</p>
   <h3><i data-lucide="code"></i> Ejemplos de tokenización</h3>
   <div class="code-block">
-    <span class="comment">// Cada [...] es un token</span><br/>
+    <span class="comment">// Ejemplo didáctico: la tokenización real depende del modelo</span><br/>
     <span class="string">"Hola mundo"</span> &rarr; [<span class="string">"Hola"</span>, <span class="string">" mundo"</span>] <span class="comment">// 2 tokens</span><br/>
     <span class="string">"desarrolladores"</span> &rarr; [<span class="string">"des"</span>, <span class="string">"arrol"</span>, <span class="string">"ladores"</span>] <span class="comment">// 3 tokens</span><br/>
     <span class="string">"function getName()"</span> &rarr; [<span class="string">"function"</span>, <span class="string">" get"</span>, <span class="string">"Name"</span>, <span class="string">"()"</span>] <span class="comment">// 4+ tokens</span>
   </div>
   <h3><i data-lucide="calculator"></i> Palabras frente a tokens</h3>
-  <p>1 token &#8776; 4 caracteres en inglés, &#8776; 3 en español. El español gasta más tokens porque los tokenizadores se entrenan mayoritariamente con texto en inglés.</p>
+  <p>Como regla muy aproximada, 1 token suele rondar 3-4 caracteres en texto latino. Idioma, símbolos, código y tokenizador cambian mucho el resultado.</p>
   <table>
     <thead>
       <tr><th>Frase</th><th>Palabras</th><th>Tokens (aprox.)</th><th>Ratio</th></tr>
@@ -505,10 +505,10 @@ import Slide from './Slide.astro';
     </tbody>
   </table>
   <ul>
-    <li><i data-lucide="alert-triangle"></i> <strong>En español se gastan más tokens</strong> que en inglés para decir lo mismo (~20-30% más). Los tokenizadores se entrenan mayoritariamente con texto en inglés.</li>
+    <li><i data-lucide="alert-triangle"></i> <strong>En español a menudo se gastan más tokens</strong> que en inglés para decir lo mismo, aunque el porcentaje depende del tokenizador y del texto.</li>
     <li><i data-lucide="code"></i> <strong>El modelo no ve texto:</strong> ve secuencias de números (IDs de token). Cada token tiene un ID único en el vocabulario del modelo.</li>
     <li><i data-lucide="database"></i> <strong>Todo se mide en tokens:</strong> el context window, el precio de la API, el límite de respuesta. Es la "moneda" de la IA.</li>
-    <li><i data-lucide="zap"></i> <strong>Regla rápida:</strong> 1 token &#8776; 3/4 de una palabra en inglés, algo menos en español.</li>
+    <li><i data-lucide="zap"></i> <strong>Regla rápida:</strong> 1 token suele ser menos que una palabra; úsalo solo como estimación inicial.</li>
   </ul>
   <div class="refs">
     <p class="refs-title">Para profundizar</p>
@@ -519,17 +519,17 @@ import Slide from './Slide.astro';
 
 <!-- SLIDE 13 -->
 <Slide id="embeddings" number={13} title="¿Qué es un embedding?">
-  <p><i data-lucide="scatter-chart"></i> Un embedding es la <strong>representación numérica de un concepto</strong> (palabra, frase, imagen, código...). Convierte texto en un vector de cientos o miles de números. Cada número representa una <strong>dimensión</strong> del significado.</p>
+  <p><i data-lucide="scatter-chart"></i> Un embedding es una <strong>representación numérica</strong> de una palabra, frase, imagen, código o documento. Convierte el contenido en un vector de cientos o miles de números para poder comparar cercanía semántica.</p>
   <h3><i data-lucide="move"></i> ¿Qué es una dimensión?</h3>
-  <p>Un vector de embedding tiene cientos o miles de componentes. Cada componente (dimensión) codifica un aspecto del significado: puede capturar si algo es animado/inanimado, positivo/negativo, concreto/abstracto, etc. No hay etiquetas explícitas: el modelo las descubre durante el entrenamiento.</p>
+  <p>Un vector de embedding tiene cientos o miles de componentes. Las dimensiones no suelen tener una etiqueta humana limpia; lo importante es la posición global del vector y sus distancias respecto a otros vectores.</p>
   <div class="code-block">
     <span class="comment">// "gato" representado como vector de 1536 dimensiones</span><br/>
-    <span class="comment">// Cada número es una dimensión que captura un aspecto del significado</span><br/>
+    <span class="comment">// Números ilustrativos: no son dimensiones interpretables una a una</span><br/>
     <span class="string">"gato"</span> &rarr; [<br/>
-    &nbsp;&nbsp;0.23,&nbsp; <span class="comment">// dim 0: ¿animado? (positivo = sí)</span><br/>
-    &nbsp;&nbsp;-0.87,&nbsp;<span class="comment">// dim 1: ¿abstracto? (negativo = concreto)</span><br/>
-    &nbsp;&nbsp;0.45,&nbsp; <span class="comment">// dim 2: ¿doméstico? (positivo = sí)</span><br/>
-    &nbsp;&nbsp;0.12,&nbsp; <span class="comment">// dim 3: ¿tamaño? (cercano a 0 = pequeño)</span><br/>
+    &nbsp;&nbsp;0.23,&nbsp;<br/>
+    &nbsp;&nbsp;-0.87,<br/>
+    &nbsp;&nbsp;0.45,&nbsp;<br/>
+    &nbsp;&nbsp;0.12,&nbsp;<br/>
     &nbsp;&nbsp;...&nbsp;&nbsp;&nbsp; <span class="comment">// ... hasta 1536 dimensiones</span><br/>
     ]<br/><br/>
     <span class="string">"felino"</span> &rarr; [0.21, -0.85, 0.48, 0.11, ...] <span class="comment">// muy cercano a "gato"</span><br/>
@@ -537,7 +537,7 @@ import Slide from './Slide.astro';
   </div>
   <div class="callout">
     <p class="callout-title"><i data-lucide="lightbulb"></i> Más dimensiones = más matices</p>
-    <p>Con 2 dimensiones solo puedes distinguir arriba/abajo e izquierda/derecha. Con 1536 dimensiones puedes codificar miles de matices de significado. Por eso los modelos de embedding modernos usan entre 768 y 3072 dimensiones.</p>
+    <p>Con más dimensiones hay más capacidad para separar matices, aunque la calidad no depende solo del tamaño: importan los datos, el objetivo de entrenamiento y el tipo de contenido.</p>
   </div>
   <div class="analogy">
     <p class="analogy-label"><i data-lucide="move"></i> Analogía: espacio semántico</p>
@@ -553,9 +553,9 @@ import Slide from './Slide.astro';
 <!-- SLIDE 14 -->
 <Slide id="embeddings-practica" number={14} title="Embeddings en la práctica">
   <h3><i data-lucide="sparkles"></i> Aritmética de significado</h3>
-  <p>Los embeddings capturan relaciones semánticas que se pueden operar como vectores:</p>
+  <p>Los embeddings pueden capturar relaciones semánticas que a veces aparecen como operaciones vectoriales aproximadas:</p>
   <div class="code-block">
-    <span class="comment">// Analogías clásicas de Word2Vec</span><br/>
+    <span class="comment">// Analogías clásicas de Word2Vec: ilustrativas, no garantizadas</span><br/>
     rey - hombre + mujer &#8776; <span class="string">reina</span><br/>
     Madrid - España + Francia &#8776; <span class="string">Paris</span><br/>
     Python - scripting + compilado &#8776; <span class="string">Go</span>
@@ -566,10 +566,10 @@ import Slide from './Slide.astro';
       <tr><th>Par de palabras</th><th>Similitud coseno</th><th>Interpretación</th></tr>
     </thead>
     <tbody>
-      <tr><td>"gato" / "felino"</td><td>~0.92</td><td>Muy cercanos: cuasi-sinónimos</td></tr>
-      <tr><td>"gato" / "perro"</td><td>~0.80</td><td>Cercanos: misma categoría (animal)</td></tr>
-      <tr><td>"gato" / "coche"</td><td>~0.25</td><td>Lejanos: conceptos sin relación</td></tr>
-      <tr><td>"deploy" / "desplegar"</td><td>~0.85</td><td>Cercanos: mismo concepto, distinto idioma</td></tr>
+      <tr><td>"gato" / "felino"</td><td>alta</td><td>Muy cercanos: cuasi-sinónimos</td></tr>
+      <tr><td>"gato" / "perro"</td><td>media-alta</td><td>Cercanos: misma categoría (animal)</td></tr>
+      <tr><td>"gato" / "coche"</td><td>baja</td><td>Lejanos: conceptos poco relacionados</td></tr>
+      <tr><td>"deploy" / "desplegar"</td><td>alta</td><td>Cercanos en un buen modelo multilingüe</td></tr>
     </tbody>
   </table>
   <p><strong>La clave:</strong> conceptos similares quedan <strong>cerca</strong> en el espacio vectorial. Esto permite buscar por significado, no por palabras exactas.</p>
@@ -740,7 +740,7 @@ import Slide from './Slide.astro';
       <tr><td>Backpropagation: forward, loss, backward, update</td><td>8</td></tr>
       <tr><td>Overfitting, vanishing gradients, optimizadores (Adam)</td><td>9</td></tr>
       <tr><td>CNNs para imágenes, RNNs/LSTMs para secuencias</td><td>10-11</td></tr>
-      <tr><td>Token = unidad mínima que procesa el modelo</td><td>12</td></tr>
+      <tr><td>Token = unidad discreta que procesa el modelo</td><td>12</td></tr>
       <tr><td>Embedding = vector numérico que codifica significado</td><td>13-14</td></tr>
       <tr><td>Entrenamiento (crear el modelo) vs inferencia (usarlo)</td><td>15</td></tr>
       <tr><td>Quantización: comprimir modelos para hardware modesto</td><td>16</td></tr>
@@ -904,7 +904,7 @@ import Slide from './Slide.astro';
 <Slide id="transformer-ninos" number={21} title="¿Cómo funciona un Transformer?">
   <div class="analogy">
     <p class="analogy-label"><i data-lucide="users"></i> Analogía</p>
-    <p>Imagina que estás leyendo una frase y tienes que adivinar la siguiente palabra. El Transformer lee <strong>TODAS</strong> las palabras a la vez (no una por una como se hacía antes con las RNN).</p>
+    <p>Imagina que estás leyendo una frase y tienes que adivinar el siguiente token. El Transformer puede procesar muchos tokens de la ventana en paralelo durante el cálculo interno, a diferencia de las RNN clásicas.</p>
   </div>
   <h3><i data-lucide="search"></i> Atención = subrayar lo importante</h3>
   <p>"El gato se subió al árbol porque <strong>tenía</strong> miedo" &rarr; "tenía" mira a "gato" para saber QUIEN tenía miedo. Es como subrayar las palabras importantes para entender cada parte de la frase.</p>
@@ -914,7 +914,7 @@ import Slide from './Slide.astro';
     <li>Cada token se convierte en un <strong>vector</strong> (embedding) con su significado y posición</li>
     <li>El mecanismo de <strong>atención</strong> compara cada token con todos los demás: "¿quién es relevante para quién?"</li>
     <li>Esta información se mezcla y se pasa por <strong>redes neuronales</strong></li>
-    <li>Al final, el modelo predice: "la siguiente palabra más probable es..."</li>
+    <li>Al final, el modelo predice: "el siguiente token más probable es..."</li>
   </ol>
   <h3><i data-lucide="route"></i> Flujo del mecanismo de atención</h3>
   <div class="flow">
@@ -932,11 +932,11 @@ import Slide from './Slide.astro';
   </div>
   <div class="analogy">
     <p class="analogy-label"><i data-lucide="users"></i> Analogía de la reunión</p>
-    <p>Imagina una reunión donde cada persona (token) tiene una pregunta (Query), una tarjeta de presentación (Key) y una respuesta útil (Value). Cada persona mira las tarjetas de todos, decide a quién prestar atención, y combina las respuestas de los más relevantes. Eso es exactamente lo que hace Self-Attention.</p>
+    <p>Imagina una reunión donde cada persona (token) tiene una pregunta (Query), una tarjeta de presentación (Key) y una respuesta útil (Value). Cada persona mira las tarjetas permitidas, decide a quién prestar atención y combina las respuestas de los más relevantes. Esa es la intuición de Self-Attention.</p>
   </div>
   <div class="callout">
     <p class="callout-title"><i data-lucide="zap"></i> ¿Por qué fue revolucionario?</p>
-    <p>Cómo mira todo a la vez (en paralelo), se puede distribuir en miles de GPUs. Esto permitió entrenar con MUCHOS más datos que antes. Más datos + más parámetros = modelos más capaces.</p>
+    <p>Como el cálculo de atención se paraleliza muy bien, se puede distribuir en miles de GPUs. Esto permitió entrenar con MUCHOS más datos que antes. Más datos + más parámetros, con buen entrenamiento, suelen producir modelos más capaces.</p>
   </div>
   <div class="refs">
     <p class="refs-title">Para profundizar</p>
@@ -947,7 +947,7 @@ import Slide from './Slide.astro';
 
 <!-- SLIDE 22 -->
 <Slide id="moe" number={22} title="Arquitectura MoE (Mixture of Experts)">
-  <p><i data-lucide="route"></i> En vez de un modelo monolítico donde todos los parámetros se activan en cada petición, MoE divide el modelo en múltiples <strong>"expertos" especializados</strong>.</p>
+  <p><i data-lucide="route"></i> En vez de un modelo denso donde todos los parámetros participan en cada paso, MoE divide parte del modelo en múltiples <strong>expertos</strong> seleccionados por un router.</p>
   <h3><i data-lucide="zap"></i> Flujo de una petición MoE</h3>
   <div class="flow">
     <span class="flow-step">Token de entrada</span>
@@ -963,7 +963,7 @@ import Slide from './Slide.astro';
   <h3><i data-lucide="users"></i> Cómo funciona el routing</h3>
   <ul>
     <li><i data-lucide="route"></i> Un <strong>router</strong> (red neuronal pequeña) decide qué expertos activa para cada token</li>
-    <li><i data-lucide="network"></i> Cada experto es una red feed-forward completa, especializada en ciertos patrones</li>
+    <li><i data-lucide="network"></i> Cada experto suele ser una red feed-forward; durante el entrenamiento puede especializarse en ciertos patrones</li>
     <li><i data-lucide="zap"></i> Solo se activa una <strong>fracción</strong> de los parámetros por inferencia (ej: 2 de 8 expertos)</li>
     <li><i data-lucide="scale"></i> El router asigna pesos a los expertos activos; la salida final es la suma ponderada</li>
     <li><i data-lucide="repeat"></i> Se aplica <strong>load balancing</strong> durante el entrenamiento para que todos los expertos se utilicen de forma equilibrada</li>
@@ -972,7 +972,7 @@ import Slide from './Slide.astro';
   <div class="two-cols">
     <div class="compare-card">
       <p class="compare-card-title"><i data-lucide="blocks"></i> Modelo denso</p>
-      <p class="compare-card-desc">Todos los parámetros se activan en cada petición. 70B parámetros = 70B activos siempre. Más simple de entrenar, pero el coste computacional crece linealmente con el tamaño del modelo.</p>
+      <p class="compare-card-desc">En un modelo denso, todos los parámetros relevantes de las capas participan en cada token. 70B parámetros implica un coste activo mucho mayor que un modelo sparse equivalente.</p>
       <span class="tag">70B params</span>
       <span class="tag">70B activos</span>
       <span class="tag">100% uso</span>

@@ -46,7 +46,7 @@ import Slide from './Slide.astro';
 
 <!-- SLIDE 83 -->
 <Slide id="agentes" number={83} title="¿Qué es un agente?">
-  <p><i data-lucide="bot"></i> Un LLM con capacidad de <strong>actuar</strong>: no solo responde, <strong>ejecuta</strong>. Tiene acceso a herramientas (tools) y puede completar tareas complejas de forma autónoma.</p>
+  <p><i data-lucide="bot"></i> Un LLM con capacidad de <strong>actuar a través de herramientas</strong>: no solo responde, sino que decide llamadas a tools que ejecuta el sistema anfitrión. Puede completar tareas complejas con distintos niveles de autonomía.</p>
   <div class="flow">
     <span class="flow-step"><i data-lucide="eye"></i> Percibir</span>
     <span class="flow-arrow">&rarr;</span>
@@ -97,7 +97,7 @@ import Slide from './Slide.astro';
     <li><strong>Corrige</strong> errores si algún test falla y vuelve a ejecutar</li>
   </ol>
   <h3><i data-lucide="bot"></i> Diferencia clave con un chatbot</h3>
-  <p>Un chatbot responde preguntas. Un agente <strong>completa tareas</strong>. El chatbot te dice cómo hacerlo; el agente lo hace por ti (con tu supervisión).</p>
+  <p>Un chatbot responde preguntas. Un agente <strong>completa tareas</strong>. El chatbot te dice cómo hacerlo; el agente coordina acciones por ti mediante herramientas y con tu supervisión.</p>
   <p><strong>Ejemplos:</strong> Claude Code, Devin, Cursor Agent, Aider</p>
   <div class="refs">
     <p class="refs-title">Para profundizar</p>
@@ -108,7 +108,7 @@ import Slide from './Slide.astro';
 
 <!-- SLIDE 84 -->
 <Slide id="contexto-memoria" number={84} title="Contexto y memoria en agentes: por qué importa empezar limpio">
-  <p><i data-lucide="brain"></i> El <strong>context window</strong> es la memoria de trabajo del agente: lo que "ve" en cada momento. Cuanto más larga la conversación, más tokens consume &rarr; más caro, más lento y peor rendimiento.</p>
+  <p><i data-lucide="brain"></i> El <strong>context window</strong> es la memoria de trabajo del agente: lo que "ve" en cada momento. Cuanto más larga la conversación, más tokens consume &rarr; más caro, más lento y con más riesgo de perder información relevante.</p>
   <h3><i data-lucide="zap"></i> ¿Por qué usar contextos nuevos para tareas nuevas?</h3>
   <ul>
     <li><i data-lucide="shield"></i> <strong>Evitas contaminación:</strong> instrucciones o errores de una tarea anterior no afectan a la siguiente</li>
@@ -217,17 +217,18 @@ import Slide from './Slide.astro';
     &nbsp;&nbsp;&#125;<br/>
     &#125;];<br/><br/>
     <span class="comment">// 2. El modelo decide usar la herramienta</span><br/>
-    <span class="comment">// Respuesta del modelo:</span><br/>
-    &#123; type: <span class="string">"tool_use"</span>, name: <span class="string">"get_weather"</span>,<br/>
-    &nbsp;&nbsp;input: &#123; city: <span class="string">"Madrid"</span> &#125; &#125;<br/><br/>
+    <span class="comment">// Respuesta del modelo: stop_reason = "tool_use"</span><br/>
+    <span class="keyword">const</span> toolUse = &#123; type: <span class="string">"tool_use"</span>, id: <span class="string">"toolu_01"</span>,<br/>
+    &nbsp;&nbsp;name: <span class="string">"get_weather"</span>, input: &#123; city: <span class="string">"Madrid"</span> &#125; &#125;;<br/><br/>
     <span class="comment">// 3. TU código ejecuta la función real</span><br/>
-    <span class="keyword">const</span> result = <span class="keyword">await</span> fetchWeather(<span class="string">"Madrid"</span>);<br/><br/>
-    <span class="comment">// 4. Devuelves el resultado al modelo</span><br/>
-    &#123; type: <span class="string">"tool_result"</span>, content: <span class="string">"22C, soleado"</span> &#125;<br/><br/>
-    <span class="comment">// 5. El modelo genera la respuesta final</span><br/>
+    <span class="keyword">const</span> result = <span class="keyword">await</span> fetchWeather(toolUse.input.city);<br/><br/>
+    <span class="comment">// 4. Devuelves tool_result en el siguiente turno</span><br/>
+    &#123; role: <span class="string">"user"</span>, content: [&#123; type: <span class="string">"tool_result"</span>,<br/>
+    &nbsp;&nbsp;tool_use_id: toolUse.id, content: result &#125;] &#125;<br/><br/>
+    <span class="comment">// 5. Llamas de nuevo al modelo y genera la respuesta final</span><br/>
     <span class="comment">// "En Madrid ahora hace 22 grados y esta soleado."</span>
   </div>
-  <h3><i data-lucide="lightbulb"></i> Claves para ingenieros</h3>
+  <h3><i data-lucide="lightbulb"></i> Claves prácticas</h3>
   <ul>
     <li><i data-lucide="shield"></i> <strong>El modelo NO ejecuta nada:</strong> solo emite un JSON con la herramienta y parámetros. Tu código decide si ejecutar o no (sandboxing, permisos)</li>
     <li><i data-lucide="file-text"></i> <strong>La descripción importa:</strong> el modelo elige la herramienta por su nombre y descripción. Una descripción mala = herramienta ignorada o mal usada</li>
@@ -808,7 +809,7 @@ import Slide from './Slide.astro';
   </ul>
   <div class="callout">
     <p class="callout-title"><i data-lucide="lightbulb"></i> Realismo</p>
-    <p>Un coding agent no es un "programador junior infinito". Es un <strong>amplificador</strong>: multiplica la productividad de un ingeniero que sabe qué pedir y puede verificar el resultado. Sin esa verificación, genera deuda técnica a velocidad de máquina.</p>
+    <p>Un coding agent no es un "programador junior infinito". Es un <strong>amplificador</strong>: multiplica la productividad de quien sabe qué pedir y puede verificar el resultado. Sin esa verificación, genera deuda técnica a velocidad de máquina.</p>
   </div>
   <div class="refs">
     <p class="refs-title">Para profundizar</p>
@@ -833,7 +834,7 @@ import Slide from './Slide.astro';
   <h3><i data-lucide="globe"></i> ¿Quién lo soporta? (mayo 2026)</h3>
   <p>Claude Code, Claude Desktop, Cursor, Windsurf, VS Code (GitHub Copilot), OpenAI (anunciado), Google ADK (nativo). Cientos de servidores disponibles: PostgreSQL, GitHub, Slack, Playwright, Pinecone, filesystem...</p>
   <div class="callout">
-    <p class="callout-title"><i data-lucide="rocket"></i> ¿Por qué importa para un ingeniero?</p>
+    <p class="callout-title"><i data-lucide="rocket"></i> ¿Por qué importa?</p>
     <p>Escribes la integración una vez como MCP Server, y cualquier agente compatible lo usa. Los agentes pasan de "chatear" a "actuar" en sistemas reales.</p>
   </div>
   <div class="refs">
@@ -851,6 +852,9 @@ import Slide from './Slide.astro';
     <span class="keyword">import</span> &#123; McpServer &#125; <span class="keyword">from</span> <span class="string">"@modelcontextprotocol/sdk/server/mcp.js"</span>;<br/>
     <span class="keyword">import</span> &#123; StdioServerTransport &#125; <span class="keyword">from</span> <span class="string">"@modelcontextprotocol/sdk/server/stdio.js"</span>;<br/>
     <span class="keyword">import</span> &#123; z &#125; <span class="keyword">from</span> <span class="string">"zod"</span>;<br/><br/>
+    <span class="keyword">const</span> users = <span class="keyword">new</span> Map([<br/>
+    &nbsp;&nbsp;[<span class="string">"ana@example.com"</span>, &#123; id: <span class="string">1</span>, name: <span class="string">"Ana"</span>, email: <span class="string">"ana@example.com"</span> &#125;]<br/>
+    ]);<br/><br/>
     <span class="keyword">const</span> server = <span class="keyword">new</span> McpServer(&#123;<br/>
     &nbsp;&nbsp;name: <span class="string">"mi-servidor"</span>, version: <span class="string">"1.0.0"</span><br/>
     &#125;);<br/><br/>
@@ -859,7 +863,7 @@ import Slide from './Slide.astro';
     &nbsp;&nbsp;<span class="string">"Busca un usuario por email en la BD"</span>,<br/>
     &nbsp;&nbsp;&#123; email: z.string().email() &#125;,<br/>
     &nbsp;&nbsp;<span class="keyword">async</span> (&#123; email &#125;) =&gt; &#123;<br/>
-    &nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">const</span> user = <span class="keyword">await</span> db.users.findByEmail(email);<br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">const</span> user = users.get(email) ?? <span class="keyword">null</span>;<br/>
     &nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">return</span> &#123;<br/>
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;content: [&#123; type: <span class="string">"text"</span>,<br/>
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text: JSON.stringify(user) &#125;]<br/>
@@ -1072,7 +1076,7 @@ import Slide from './Slide.astro';
 
 <!-- SLIDE 104: SECCION -->
 <Slide id="sec-realidad" number={104} section
-  title="Realidad del ingeniero"
+  title="Realidad de construir con IA"
   subtitle="Herramientas, CI/CD con IA, seguridad, red teaming, regulación, costes, observabilidad y el cambio de paradigma." />
 
 <!-- SLIDE 105 -->
@@ -1189,7 +1193,7 @@ import Slide from './Slide.astro';
   </div>
   <div class="callout">
     <p class="callout-title"><i data-lucide="lightbulb"></i> Consejo práctico</p>
-    <p>No elijas una sola herramienta. Muchos ingenieros combinan: Claude Code para tareas grandes (refactoring, features completas) y Copilot/Cursor para el día a día (autocompletado, snippets). Son complementarias, no excluyentes.</p>
+    <p>No elijas una sola herramienta. Mucha gente combina: Claude Code para tareas grandes (refactoring, features completas) y Copilot/Cursor para el día a día (autocompletado, snippets). Son complementarias, no excluyentes.</p>
   </div>
   <div class="refs">
     <p class="refs-title">Para profundizar</p>
@@ -1368,7 +1372,7 @@ import Slide from './Slide.astro';
       <i data-lucide="alert-triangle"></i>
       <div class="icon-card-content">
         <strong>Alucinaciones</strong>
-        <p>Genera información falsa con total confianza: funciones que no existen, librerías inventadas, queries SQL con columnas inexistentes, comandos de sistema destructivos. El modelo no "sabe" que no sabe: no tiene mecanismo interno para distinguir hechos de invenciones. Cuanto más específica es la pregunta, más probable es la alucinación.</p>
+        <p>Puede generar información falsa con total confianza: funciones que no existen, librerías inventadas, queries SQL con columnas inexistentes o comandos destructivos. Sin herramientas ni verificación externa, mezcla hechos e invenciones de forma plausible. Cuanto más específica es la pregunta, más necesaria es la comprobación.</p>
       </div>
     </div>
     <div class="icon-card">
@@ -1629,8 +1633,8 @@ if (!parsed.success) &#123;
       <tr><td><strong>GPT-5.4 mini</strong></td><td>$0.75</td><td>$4.50</td><td>Económico OpenAI</td></tr>
       <tr><td><strong>Qwen3-Max</strong></td><td>$1.20</td><td>$6</td><td>Frontier chino; EU/Intl. &lt;=32K tokens</td></tr>
       <tr><td><strong>Qwen Plus</strong></td><td>$0.40</td><td>$1.20-$4</td><td>Generalista barato; output cambia si usa thinking</td></tr>
-      <tr><td><strong>DeepSeek reasoner</strong></td><td>$0.55</td><td>$2.19</td><td>Razonamiento barato; input cache miss</td></tr>
-      <tr><td><strong>DeepSeek chat</strong></td><td>$0.27</td><td>$1.10</td><td>Coste muy bajo; cache hit desde $0.07 input</td></tr>
+      <tr><td><strong>DeepSeek V4 Pro</strong></td><td>$1.74 miss / $0.145 hit</td><td>$3.48</td><td>Modelo Pro 1M; thinking y non-thinking</td></tr>
+      <tr><td><strong>DeepSeek V4 Flash</strong></td><td>$0.14 miss / $0.028 hit</td><td>$0.28</td><td>chat/reasoner apuntan a V4 Flash por compatibilidad</td></tr>
       <tr><td><strong>GLM-5.1</strong></td><td>$1.40</td><td>$4.40</td><td>Frontier chino reciente de Z.AI</td></tr>
       <tr><td><strong>GLM-4.7 / 4.5</strong></td><td>$0.60</td><td>$2.20</td><td>Agentes/coding con coste competitivo</td></tr>
       <tr><td><strong>GLM-4.5-Air</strong></td><td>$0.20</td><td>$1.10</td><td>Opción económica para alto volumen</td></tr>
@@ -1645,7 +1649,7 @@ if (!parsed.success) &#123;
     <a href="https://platform.claude.com/docs/en/about-claude/pricing" target="_blank">Claude API Pricing</a>
     <a href="https://openai.com/api/pricing/" target="_blank">OpenAI API Pricing</a>
     <a href="https://www.alibabacloud.com/help/en/model-studio/model-pricing" target="_blank">Alibaba Model Studio Pricing</a>
-    <a href="https://api-docs.deepseek.com/quick_start/pricing-details-usd/" target="_blank">DeepSeek API Pricing</a>
+    <a href="https://api-docs.deepseek.com/quick_start/pricing" target="_blank">DeepSeek API Pricing</a>
     <a href="https://docs.z.ai/guides/overview/pricing" target="_blank">Z.AI Pricing</a>
   </div>
 </Slide>
@@ -1698,7 +1702,7 @@ if (!parsed.success) &#123;
   </table>
   <div class="callout">
     <p class="callout-title"><i data-lucide="lightbulb"></i> Mínimo viable</p>
-    <p>Si no quieres montar nada: loguea cada llamada con timestamp, modelo, tokens input/output, latencia y coste en una tabla. Con eso ya puedes detectar anomalías y controlar el gasto. Las herramientas especializadas añaden tracing, evals y visualización, pero el logging básico es innegociable.</p>
+    <p>Si no quieres montar nada: loguea cada llamada con timestamp, modelo, tokens input/output, latencia y coste en una tabla. Con eso ya puedes detectar anomalías y controlar el gasto. Las herramientas especializadas añaden tracing, evals y visualización, pero el logging básico es el mínimo razonable.</p>
   </div>
   <div class="refs">
     <p class="refs-title">Para profundizar</p>
@@ -1766,7 +1770,7 @@ if (!parsed.success) &#123;
 
 <!-- SLIDE 118 -->
 <Slide id="evals" number={118} title="Evaluaciones (evals): ¿cómo saber si tu IA funciona bien?">
-  <p><i data-lucide="check-circle"></i> No puedes escribir tests unitarios clásicos contra un LLM (la salida cambia cada vez). Necesitas <strong>evaluaciones (evals)</strong>: métricas y frameworks para medir la calidad de un sistema de IA de forma sistemática.</p>
+  <p><i data-lucide="check-circle"></i> Los tests unitarios clásicos no bastan para un LLM: parte de la salida puede variar aunque la respuesta sea válida. Necesitas <strong>evaluaciones (evals)</strong>: métricas y frameworks para medir la calidad de un sistema de IA de forma sistemática.</p>
   <h3><i data-lucide="layers"></i> Tipos de evaluación</h3>
   <table>
     <thead>
@@ -1895,13 +1899,13 @@ if (!parsed.success) &#123;
   <div class="two-cols">
     <div class="compare-card">
       <p class="compare-card-title"><i data-lucide="code"></i> Programación tradicional</p>
-      <p class="compare-card-desc">El ingeniero escribe cada línea. Domina la sintaxis, las APIs, los patrones. El valor está en saber cómo implementar.</p>
+      <p class="compare-card-desc">La persona escribe cada línea. Domina la sintaxis, las APIs, los patrones. El valor está en saber cómo implementar.</p>
       <span class="tag">Escribir código</span>
       <span class="tag">Dominar sintaxis</span>
     </div>
     <div class="compare-card">
       <p class="compare-card-title"><i data-lucide="sparkles"></i> Vibe coding</p>
-      <p class="compare-card-desc">El ingeniero describe qué quiere. La IA escribe el código. El valor está en saber qué construir, cómo verificarlo y cuándo la IA se equivoca.</p>
+      <p class="compare-card-desc">La persona describe qué quiere. La IA escribe el código. El valor está en saber qué construir, cómo verificarlo y cuándo la IA se equivoca.</p>
       <span class="tag">Describir intención</span>
       <span class="tag">Verificar resultado</span>
     </div>
@@ -1921,7 +1925,7 @@ if (!parsed.success) &#123;
   </ul>
   <div class="callout">
     <p class="callout-title"><i data-lucide="lightbulb"></i> La clave</p>
-    <p>Vibe coding no es "dejar que la IA haga todo". Es <strong>elevar el nivel de abstracción</strong>: de líneas de código a intenciones y restricciones. El ingeniero que mejor "vibea" es el que mejor sabe especificar, verificar y corregir.</p>
+    <p>Vibe coding no es "dejar que la IA haga todo". Es <strong>elevar el nivel de abstracción</strong>: de líneas de código a intenciones y restricciones. Quien mejor lo usa es quien mejor sabe especificar, verificar y corregir.</p>
   </div>
   <div class="refs">
     <p class="refs-title">Para profundizar</p>
@@ -1931,7 +1935,7 @@ if (!parsed.success) &#123;
 </Slide>
 
 <!-- SLIDE 121 -->
-<Slide id="cambio-paradigma" number={121} title="El cambio de paradigma en el trabajo del ingeniero">
+<Slide id="cambio-paradigma" number={121} title="El cambio de paradigma al trabajar con IA">
   <div class="two-cols">
     <div>
       <h3><i data-lucide="trending-up"></i> Lo que cambia</h3>
@@ -1955,14 +1959,14 @@ if (!parsed.success) &#123;
     </div>
   </div>
   <h3><i data-lucide="rocket"></i> Exponential Programming (Diverger)</h3>
-  <p>No es solo "programar más rápido". Es un cambio de modelo mental. Diverger acuña el término <strong>Exponential Programming</strong> para describir cómo la IA transforma la relación entre el ingeniero y el código:</p>
+  <p>No es solo "programar más rápido". Es un cambio de modelo mental. Diverger acuña el término <strong>Exponential Programming</strong> para describir cómo la IA transforma la relación entre las personas y el código:</p>
   <ul>
-    <li><i data-lucide="trending-up"></i> <strong>Productividad no lineal:</strong> un ingeniero con agentes no es 2x más rápido, puede ser 10x o 50x en ciertas tareas. El cuello de botella deja de ser escribir código y pasa a ser pensar qué construir</li>
+    <li><i data-lucide="trending-up"></i> <strong>Productividad no lineal:</strong> una persona con agentes no es 2x más rápida, puede ser 10x o 50x en ciertas tareas. El cuello de botella deja de ser escribir código y pasa a ser pensar qué construir</li>
     <li><i data-lucide="layers"></i> <strong>Abstracción sobre abstracción:</strong> antes abstraíamos con funciones, clases y frameworks. Ahora abstraemos con prompts, agentes y flujos. El nivel de abstracción sube un orden de magnitud</li>
-    <li><i data-lucide="users"></i> <strong>Equipos más pequeños, más impacto:</strong> lo que antes requería un equipo de 10 personas durante meses, un ingeniero con agentes bien orquestados puede hacerlo en días. Cambia la economía de los proyectos</li>
-    <li><i data-lucide="brain"></i> <strong>El ingeniero como director:</strong> tu trabajo no es escribir cada línea, es definir la visión, establecer las restricciones, revisar el resultado y tomar decisiones que la IA no puede tomar por ti</li>
+    <li><i data-lucide="users"></i> <strong>Equipos más pequeños, más impacto:</strong> lo que antes requería un equipo de 10 personas durante meses, una persona con agentes bien orquestados puede hacerlo en días. Cambia la economía de los proyectos</li>
+    <li><i data-lucide="brain"></i> <strong>La persona como directora:</strong> tu trabajo no es escribir cada línea, es definir la visión, establecer las restricciones, revisar el resultado y tomar decisiones que la IA no puede tomar por ti</li>
   </ul>
-  <h3><i data-lucide="brain"></i> Nuevas habilidades del ingeniero IA-aumentado</h3>
+  <h3><i data-lucide="brain"></i> Nuevas habilidades con IA</h3>
   <ul>
     <li><i data-lucide="code"></i> Prompt engineering y diseño de system prompts</li>
     <li><i data-lucide="check-circle"></i> Evaluación de salidas de modelos (evals)</li>
@@ -1972,7 +1976,7 @@ if (!parsed.success) &#123;
   </ul>
   <div class="callout">
     <p class="callout-title"><i data-lucide="alert-triangle"></i> El riesgo real</p>
-    <p>No es que la IA te sustituya. Es que un ingeniero que usa IA sustituya a uno que no la usa.</p>
+    <p>No es que la IA te sustituya. Es que alguien que usa IA con criterio puede adelantar a quien no la usa.</p>
   </div>
   <div class="refs">
     <p class="refs-title">Para profundizar</p>
@@ -2386,12 +2390,12 @@ if (!parsed.success) &#123;
   </ul>
   <div class="callout">
     <p class="callout-title"><i data-lucide="lightbulb"></i> Regla de oro para producción</p>
-    <p>Empieza con el agente más simple que resuelva tu problema. Añade complejidad solo cuando el simple no baste. El 80% de los casos de uso reales se resuelven con un prompt bien diseñado + una tool, no con un sistema multi-agente de 5 capas.</p>
+    <p>Empieza con el agente más simple que resuelva tu problema. Añade complejidad solo cuando el simple no baste. Muchos casos de uso reales se resuelven con un prompt bien diseñado + una tool, no con un sistema multi-agente de 5 capas.</p>
   </div>
 </Slide>
 
 <!-- SLIDE 129 -->
-<Slide id="recap-realidad" number={129} title="Lo que deberías saber: realidad del ingeniero">
+<Slide id="recap-realidad" number={129} title="Lo que deberías saber: construir con IA">
   <table>
     <thead>
       <tr><th>Concepto</th><th>Slide</th></tr>

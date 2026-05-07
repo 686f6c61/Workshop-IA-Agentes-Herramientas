@@ -131,7 +131,7 @@ const tocSections = [
     ],
   },
   {
-    title: 'Realidad del ingeniero',
+    title: 'Realidad de construir con IA',
     sectionSlide: 'sec-realidad',
     items: [
       { num: 105, label: 'IDE web vs terminal', id: 'ide-terminal' },
@@ -180,7 +180,7 @@ const tocSections = [
 ];
 ---
 
-<Layout title="Workshop de IA: agentes, modelos y herramientas - by 686f6c61">
+<Layout title="Workshop de IA para gente curiosa - by 686f6c61">
   <!-- TABLE OF CONTENTS OVERLAY -->
   <div class="toc-overlay" id="toc">
     <div class="toc-content">
@@ -240,6 +240,13 @@ const tocSections = [
 
       let current = 0;
       const total = slides.length;
+      const numberedSlideNumbers = Array.from(slides)
+        .map((slide) => slide.dataset.slideNumber)
+        .filter((value) => value !== undefined && value !== '')
+        .map((value) => Number(value));
+      const lastSlideNumber = numberedSlideNumbers.length
+        ? Math.max(...numberedSlideNumbers)
+        : Math.max(total - 1, 0);
       let numberBuffer = '';
       let numberTimer = null;
 
@@ -255,7 +262,10 @@ const tocSections = [
       }
 
       function updateUI() {
-        counter.textContent = `${current} / ${total - 1}`;
+        const slideNumber = slides[current].dataset.slideNumber;
+        counter.textContent = slideNumber
+          ? `${slideNumber} / ${lastSlideNumber}`
+          : `${current === 0 ? 'Portada' : 'Cierre'} / ${lastSlideNumber}`;
         const progress = total > 1 ? (current / (total - 1)) * 100 : 0;
         progressBar.style.width = `${progress}%`;
         prevBtn.disabled = current === 0;
@@ -271,6 +281,16 @@ const tocSections = [
           showSlide(index);
           closeToc();
         }
+      }
+
+      function goToSlideNumber(num) {
+        if (num === 0) {
+          showSlide(0);
+          return;
+        }
+
+        const index = Array.from(slides).findIndex(s => Number(s.dataset.slideNumber) === num);
+        if (index !== -1) showSlide(index);
       }
 
       function openToc() { tocOverlay.classList.add('active'); }
@@ -314,7 +334,7 @@ const tocSections = [
           clearTimeout(numberTimer);
           numberTimer = setTimeout(() => {
             const num = parseInt(numberBuffer, 10);
-            if (num >= 0 && num < total) showSlide(num);
+            if (num >= 0 && num <= lastSlideNumber) goToSlideNumber(num);
             numberBuffer = '';
           }, 500);
         }

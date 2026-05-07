@@ -6,9 +6,10 @@ interface Props {
   cover?: boolean;
   section?: boolean;
   subtitle?: string;
+  hideAuthor?: boolean;
 }
 
-const { id, number, title, cover = false, section = false, subtitle } = Astro.props;
+const { id, number, title, cover = false, section = false, subtitle, hideAuthor = false } = Astro.props;
 ---
 
 <section
@@ -32,10 +33,12 @@ const { id, number, title, cover = false, section = false, subtitle } = Astro.pr
     )}
     <slot />
   </div>
-  <div class="slide-author">
-    <a href="https://github.com/686f6c61" target="_blank" rel="noopener noreferrer">
-      <i data-lucide="github"></i>
-      <span>686f6c61</span>
-    </a>
-  </div>
+  {!hideAuthor && (
+    <div class="slide-author">
+      <a href="https://github.com/686f6c61" target="_blank" rel="noopener noreferrer">
+        <i data-lucide="github"></i>
+        <span>686f6c61</span>
+      </a>
+    </div>
+  )}
 </section>

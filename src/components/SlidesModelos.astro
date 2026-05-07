@@ -19,7 +19,7 @@ import Slide from './Slide.astro';
   <h3><i data-lucide="layers"></i> Multi-head attention</h3>
   <p>En vez de una sola atención, el modelo ejecuta <strong>múltiples "cabezas"</strong> en paralelo (32-128 en modelos grandes). Cada cabeza aprende a fijarse en algo diferente: una en sintaxis, otra en semántica, otra en correferencia. Los resultados se concatenan.</p>
   <h3><i data-lucide="hash"></i> Positional encoding</h3>
-  <p>Como el Transformer procesa todos los tokens en paralelo, no sabe el orden. Se le añade información de posición a cada token:</p>
+  <p>La atención por sí sola no codifica orden; compara tokens como un conjunto. Por eso se añade información de posición a cada token:</p>
   <table>
     <thead>
       <tr><th>Tipo</th><th>Cómo funciona</th><th>Quién lo usa</th></tr>
@@ -50,28 +50,28 @@ import Slide from './Slide.astro';
       <tr><th>Algoritmo</th><th>Cómo funciona</th><th>Quién lo usa</th></tr>
     </thead>
     <tbody>
-      <tr><td><strong>BPE</strong></td><td>Empieza con caracteres individuales y fusiona los pares más frecuentes iterativamente. "low" + "er" = "lower"</td><td>GPT, Llama, Claude</td></tr>
+      <tr><td><strong>BPE</strong></td><td>Empieza con unidades pequeñas y fusiona pares frecuentes iterativamente. "low" + "er" = "lower"</td><td>GPT, Llama y muchos LLMs modernos</td></tr>
       <tr><td><strong>WordPiece</strong></td><td>Similar a BPE pero maximiza la probabilidad del corpus en cada fusión</td><td>BERT, DistilBERT</td></tr>
-      <tr><td><strong>SentencePiece</strong></td><td>Trata el texto como secuencia de bytes, sin presuponer espacios entre palabras. Ideal para idiomas sin espacios (chino, japonés)</td><td>T5, Llama, modelos multilingües</td></tr>
+      <tr><td><strong>SentencePiece</strong></td><td>Trata el texto como una secuencia continua y no presupone que el espacio sea un separador especial. Útil para idiomas sin espacios claros</td><td>T5, Llama, modelos multilingües</td></tr>
     </tbody>
   </table>
   <h3><i data-lucide="globe"></i> Impacto en idiomas</h3>
   <div class="code-block">
-    <span class="comment">// Tokenización de la misma frase en distintos idiomas:</span><br/>
+    <span class="comment">// Ejemplo ilustrativo: cada tokenizador puede partir distinto</span><br/>
     <span class="string">"Hello world"</span> &rarr; [<span class="string">"Hello"</span>, <span class="string">" world"</span>] &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">// 2 tokens</span><br/>
     <span class="string">"Hola mundo"</span> &nbsp;&rarr; [<span class="string">"H"</span>, <span class="string">"ola"</span>, <span class="string">" mundo"</span>] &nbsp;&nbsp;&nbsp;<span class="comment">// 3 tokens</span><br/>
     <span class="string">"こんにちは世界"</span> &rarr; [<span class="string">"こん"</span>, <span class="string">"にち"</span>, <span class="string">"は"</span>, <span class="string">"世界"</span>] <span class="comment">// 4 tokens</span><br/><br/>
     <span class="comment">// Mismo significado, distinto coste.</span><br/>
-    <span class="comment">// Inglés siempre es el más eficiente (más datos de entrenamiento)</span>
+    <span class="comment">// El inglés suele ser eficiente, pero no hay una regla universal</span>
   </div>
   <h3><i data-lucide="coins"></i> Implicaciones prácticas</h3>
   <ul>
-    <li><i data-lucide="coins"></i> <strong>Coste:</strong> más tokens = más caro. Español gasta ~20-30% más tokens que inglés para el mismo contenido</li>
-    <li><i data-lucide="brain"></i> <strong>Calidad:</strong> si una palabra se parte en muchos tokens, el modelo la "entiende" peor. Palabras raras o técnicas se fragmentan más</li>
+    <li><i data-lucide="coins"></i> <strong>Coste:</strong> más tokens = más caro. El español puede gastar más tokens que el inglés para el mismo contenido, según tokenizador y texto</li>
+    <li><i data-lucide="brain"></i> <strong>Calidad/eficiencia:</strong> mucha fragmentación puede hacer menos eficiente representar palabras raras, nombres propios o términos técnicos</li>
     <li><i data-lucide="ruler"></i> <strong>Context window:</strong> el límite es en tokens, no en palabras. Un documento en español consume más context que el mismo en inglés</li>
   </ul>
   <div class="callout">
-    <p class="callout-title"><i data-lucide="target"></i> Para ingenieros</p>
+    <p class="callout-title"><i data-lucide="target"></i> Para gente curiosa</p>
     <p>Puedes contar tokens antes de enviar a la API con <code>tiktoken</code> (OpenAI) o las librerías de Anthropic. Si tu prompt es largo, tokeniza primero para estimar coste y verificar que cabe en el context window.</p>
   </div>
   <div class="refs">
@@ -185,7 +185,7 @@ import Slide from './Slide.astro';
   </div>
   <div class="analogy">
     <p class="analogy-label">Analogía</p>
-    <p><code>temperature</code> es "cuanto riesgo toma al elegir la siguiente palabra". Un valor bajo es conservador (elige lo seguro), un valor alto es atrevido (puede sorprender o desvariar).</p>
+    <p><code>temperature</code> es "cuanto riesgo toma al elegir el siguiente token". Un valor bajo es conservador (elige lo seguro), un valor alto es atrevido (puede sorprender o desvariar).</p>
   </div>
   <h3><i data-lucide="target"></i> ¿Qué hace top_p (nucleus sampling)?</h3>
   <p>Imagina que el modelo ha calculado las probabilidades de los siguientes tokens posibles:</p>
@@ -202,7 +202,7 @@ import Slide from './Slide.astro';
       <tr><td><strong>"querido"</strong></td><td>0.03</td><td>1.00</td><td>No</td></tr>
     </tbody>
   </table>
-  <p>Con <code>top_p=0.9</code> solo se consideran los tokens cuya probabilidad acumulada no supere el 90%. Se descartan los menos probables ("estimado", "querido") y se elige entre los restantes. Cuanto menor el valor, más conservador: <code>top_p=0.1</code> solo elige entre el top 10% de probabilidad.</p>
+  <p>Con <code>top_p=0.9</code> se toma el conjunto mínimo de tokens más probables cuya probabilidad acumulada cubre aproximadamente el 90%, y se muestrea dentro de ese núcleo. Cuanto menor el valor, más conservador.</p>
   <h3><i data-lucide="layers"></i> ¿Qué hace top_k?</h3>
   <p>Más simple: solo mira los <strong>k tokens más probables</strong>, independientemente de cuánta probabilidad acumulen.</p>
   <ul>
@@ -296,7 +296,7 @@ import Slide from './Slide.astro';
       <tr><td><strong>Gemini 3.1 Flash Live</strong></td><td>Sí</td><td>Sí</td><td>Sí</td><td>Sí</td><td>Audio en tiempo real</td></tr>
     </tbody>
   </table>
-  <h3><i data-lucide="target"></i> ¿Qué cambia para un ingeniero?</h3>
+  <h3><i data-lucide="target"></i> ¿Qué cambia en la práctica?</h3>
   <ul>
     <li><i data-lucide="code"></i> <strong>Menos pegamento:</strong> puedes enviar texto, imágenes, PDFs, audio o vídeo según el proveedor sin montar pipelines frágiles para cada modalidad</li>
     <li><i data-lucide="brain"></i> <strong>Razonamiento cruzado:</strong> "¿Este diagrama de arquitectura coincide con la documentación?" El modelo entiende ambos formatos</li>
@@ -350,7 +350,7 @@ import Slide from './Slide.astro';
       <p class="compare-title"><i data-lucide="github"></i> Open weights</p>
       <ul>
         <li>Ejecutar en tu infraestructura</li>
-        <li>Privacidad total: datos nunca salen</li>
+        <li>Privacidad alta si lo ejecutas en tu infraestructura</li>
         <li>Personalizar: fine-tuning, quantizar, modificar</li>
         <li>Sin coste de licencia (pagas compute)</li>
         <li>Más control, más responsabilidad</li>
@@ -598,7 +598,7 @@ import Slide from './Slide.astro';
   </table>
   <div class="callout">
     <p class="callout-title"><i data-lucide="lightbulb"></i> Cambio de mentalidad</p>
-    <p>El prompt del usuario es solo una fracción del contexto. Un buen <strong>context engineer</strong> diseña las 6 capas para que el modelo tenga exactamente la información que necesita, ni más ni menos. Demasiado contexto degrada la calidad (lost in the middle); poco contexto produce alucinaciones.</p>
+    <p>El prompt del usuario es solo una fracción del contexto. Un buen <strong>context engineer</strong> diseña las 6 capas para acercar al modelo la información relevante sin ruido innecesario. Demasiado contexto puede degradar la calidad (lost in the middle); poco contexto aumenta el riesgo de alucinaciones.</p>
   </div>
   <h3><i data-lucide="target"></i> Técnicas de context engineering (2026)</h3>
   <ul>
@@ -682,7 +682,7 @@ import Slide from './Slide.astro';
 
 <!-- SLIDE 39 -->
 <Slide id="alucinaciones" number={39} title="Alucinaciones: cuando la IA inventa con total confianza">
-  <p><i data-lucide="alert-triangle"></i> Una alucinación ocurre cuando el modelo genera información <strong>falsa, inventada o sin base</strong>, pero la presenta con la misma confianza que un dato real. No es un bug: es una consecuencia del mecanismo de predicción estadística.</p>
+  <p><i data-lucide="alert-triangle"></i> Una alucinación ocurre cuando el modelo genera información <strong>falsa, inventada o sin base suficiente</strong>, pero la presenta con apariencia de dato real. No es un simple bug de implementación: es un riesgo propio de generar lenguaje por probabilidad sin verificación externa.</p>
   <h3><i data-lucide="code"></i> Ejemplo real: código alucinado</h3>
   <div class="two-cols">
     <div>
@@ -711,9 +711,9 @@ import Slide from './Slide.astro';
   </div>
   <h3><i data-lucide="search"></i> ¿Por qué ocurre?</h3>
   <ul>
-    <li><i data-lucide="brain"></i> <strong>No tiene base de datos interna:</strong> el modelo no "busca" información. Genera la siguiente palabra más probable dada la secuencia. Si "fast-csv-validator" suena plausible, lo genera</li>
-    <li><i data-lucide="eye"></i> <strong>No distingue hechos de invenciones:</strong> no tiene un mecanismo para verificar si lo que genera es real. Todo es predicción estadística</li>
-    <li><i data-lucide="target"></i> <strong>Cuanto más específico, más riesgo:</strong> preguntas generales ("¿qué es REST?") rara vez alucinan. Preguntas específicas ("¿qué método de la API de Stripe v4.2 maneja reembolsos parciales?") alucinan frecuentemente</li>
+    <li><i data-lucide="brain"></i> <strong>No consulta automáticamente una base de datos:</strong> si no le das herramientas o contexto, responde desde patrones aprendidos. Si "fast-csv-validator" suena plausible, puede generarlo</li>
+    <li><i data-lucide="eye"></i> <strong>No verifica por defecto:</strong> puede mezclar datos reales, inferencias y elementos inventados con el mismo tono de confianza</li>
+    <li><i data-lucide="target"></i> <strong>Cuanto más específico, más riesgo:</strong> preguntas generales ("¿qué es REST?") suelen ser más seguras. Preguntas específicas ("¿qué método de la API de Stripe v4.2 maneja reembolsos parciales?") requieren verificación</li>
   </ul>
   <h3><i data-lucide="shield"></i> Cómo protegerte</h3>
   <table>
@@ -741,7 +741,7 @@ import Slide from './Slide.astro';
 
 <!-- SLIDE 40 -->
 <Slide id="structured-output" number={40} title="Structured output: que el modelo devuelva datos parseables">
-  <p><i data-lucide="code"></i> En producción no quieres texto libre: quieres <strong>JSON válido</strong>, con campos tipados, que tu código pueda parsear sin romper. Los modelos modernos soportan modos para garantizarlo.</p>
+  <p><i data-lucide="code"></i> En producción no quieres texto libre: quieres <strong>JSON válido</strong>, con campos tipados, que tu código pueda parsear sin romper. Los modelos modernos ofrecen modos para aumentar mucho la fiabilidad del formato.</p>
   <h3><i data-lucide="layers"></i> Tres niveles de control</h3>
   <table>
     <thead>
@@ -749,24 +749,23 @@ import Slide from './Slide.astro';
     </thead>
     <tbody>
       <tr><td><strong>Prompt</strong></td><td>"Responde en JSON con los campos name y age"</td><td>Media: el modelo puede añadir texto extra o romper el formato</td></tr>
-      <tr><td><strong>JSON mode</strong></td><td>Parámetro <code>response_format: &#123; type: "json_object" &#125;</code></td><td>Alta: garantiza JSON válido, pero no garantiza el schema</td></tr>
-      <tr><td><strong>Strict mode</strong></td><td>Schema JSON en la definición de la tool o respuesta</td><td>Máxima: el modelo solo puede emitir JSON que cumpla tu schema exacto</td></tr>
+      <tr><td><strong>JSON mode</strong></td><td>Parámetro tipo <code>response_format</code>, según proveedor</td><td>Alta: fuerza JSON válido en condiciones normales, pero no garantiza el schema</td></tr>
+      <tr><td><strong>Schema / tool use</strong></td><td>JSON Schema en la definición de la tool o respuesta</td><td>Muy alta: restringe la salida al schema, pero valida igualmente en tu backend</td></tr>
     </tbody>
   </table>
-  <h3><i data-lucide="code"></i> Ejemplo con Anthropic (strict tool use)</h3>
+  <h3><i data-lucide="code"></i> Ejemplo con Anthropic (tool use con schema)</h3>
   <div class="code-block">
     <span class="keyword">const</span> response = <span class="keyword">await</span> client.messages.create(&#123;<br/>
     &nbsp;&nbsp;model: <span class="string">"claude-sonnet-4-6"</span>,<br/>
     &nbsp;&nbsp;tools: [&#123;<br/>
     &nbsp;&nbsp;&nbsp;&nbsp;name: <span class="string">"extract_contact"</span>,<br/>
     &nbsp;&nbsp;&nbsp;&nbsp;description: <span class="string">"Extrae datos de contacto del texto"</span>,<br/>
-    &nbsp;&nbsp;&nbsp;&nbsp;strict: <span class="keyword">true</span>, <span class="comment">// garantiza schema</span><br/>
     &nbsp;&nbsp;&nbsp;&nbsp;input_schema: &#123;<br/>
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;type: <span class="string">"object"</span>,<br/>
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;properties: &#123;<br/>
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;name: &#123; type: <span class="string">"string"</span> &#125;,<br/>
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;email: &#123; type: <span class="string">"string"</span> &#125;,<br/>
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;phone: &#123; type: <span class="string">"string"</span>, nullable: <span class="keyword">true</span> &#125;<br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;phone: &#123; type: [<span class="string">"string"</span>, <span class="string">"null"</span>] &#125;<br/>
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#125;, required: [<span class="string">"name"</span>, <span class="string">"email"</span>]<br/>
     &nbsp;&nbsp;&nbsp;&nbsp;&#125;<br/>
     &nbsp;&nbsp;&#125;],<br/>
@@ -775,7 +774,7 @@ import Slide from './Slide.astro';
     &nbsp;&nbsp;&nbsp;&nbsp;content: <span class="string">"Ana Garcia, ana@acme.com, tel 612345678"</span><br/>
     &nbsp;&nbsp;&#125;]<br/>
     &#125;);<br/><br/>
-    <span class="comment">// Resultado GARANTIZADO:</span><br/>
+    <span class="comment">// Resultado esperado: valida siempre antes de usar</span><br/>
     <span class="comment">// &#123; name: "Ana Garcia", email: "ana@acme.com",</span><br/>
     <span class="comment">//   phone: "612345678" &#125;</span>
   </div>
@@ -786,8 +785,8 @@ import Slide from './Slide.astro';
     <li><i data-lucide="shield"></i> <strong>Strict mode:</strong> producción, pipelines automatizados, integraciones API donde un campo que falta rompe el flujo</li>
   </ul>
   <div class="callout">
-    <p class="callout-title"><i data-lucide="lightbulb"></i> Clave para ingenieros</p>
-    <p>Structured output elimina la necesidad de parsear texto con regex o try/catch. Defines el schema una vez y el modelo <strong>siempre</strong> lo cumple. Es la diferencia entre "espero que devuelva JSON" y "garantizo que devuelve JSON".</p>
+    <p class="callout-title"><i data-lucide="lightbulb"></i> Clave práctica</p>
+    <p>Structured output reduce mucho la necesidad de parsear texto con regex. Defines el schema una vez, fuerzas la forma de la salida y después validas en código. Es la diferencia entre "espero que devuelva JSON" y "mi sistema rechaza lo que no cumple".</p>
   </div>
   <div class="refs">
     <p class="refs-title">Para profundizar</p>
@@ -857,7 +856,7 @@ import Slide from './Slide.astro';
     </tbody>
   </table>
   <div class="callout">
-    <p class="callout-title"><i data-lucide="zap"></i> Caso de uso inmediato para ingenieros</p>
+    <p class="callout-title"><i data-lucide="zap"></i> Caso de uso inmediato</p>
     <p>En vez de describir un bug con texto, envía la captura de pantalla. En vez de copiar una tabla de un PDF, envía el PDF. En vez de transcribir un diagrama, envía la foto. El modelo hace el trabajo de interpretación por ti.</p>
   </div>
   <div class="refs">
@@ -869,18 +868,18 @@ import Slide from './Slide.astro';
 
 <!-- SLIDE 42 -->
 <Slide id="voice-realtime" number={42} title="Voz y APIs en tiempo real">
-  <p><i data-lucide="mic"></i> En 2026, los agentes ya no solo leen y escriben texto: <strong>hablan</strong>. Las APIs de voz en tiempo real permiten construir agentes conversacionales con latencia de milisegundos.</p>
+  <p><i data-lucide="mic"></i> En 2026, los agentes ya no solo leen y escriben texto: <strong>hablan</strong>. Las APIs de voz en tiempo real permiten construir agentes conversacionales con baja latencia.</p>
   <h3><i data-lucide="route"></i> Pipeline clásico vs nativo</h3>
   <div class="two-cols">
     <div class="compare-card">
       <p class="compare-card-title"><i data-lucide="link"></i> Pipeline (STT + LLM + TTS)</p>
-      <p class="compare-card-desc">Audio entra como texto (Whisper), el modelo responde en texto, y se sintetiza voz (ElevenLabs). Funciona, pero la latencia se acumula: 500 ms + 1-3 s + 300 ms.</p>
+      <p class="compare-card-desc">Audio entra como texto (STT), el modelo responde en texto, y se sintetiza voz (TTS). Funciona, pero cada etapa añade latencia.</p>
       <span class="tag">Mayor latencia</span>
       <span class="tag">Más control</span>
     </div>
     <div class="compare-card">
       <p class="compare-card-title"><i data-lucide="zap"></i> Nativo (speech-to-speech)</p>
-      <p class="compare-card-desc">Audio entra y sale directamente del modelo, sin pasos intermedios. OpenAI Realtime API y Gemini Live lo soportan. Latencia total: 300-500 ms.</p>
+      <p class="compare-card-desc">Audio entra y sale directamente del modelo, sin pasos intermedios. OpenAI Realtime API y Gemini Live lo soportan. La latencia depende de red, región, modelo y configuración.</p>
       <span class="tag">Baja latencia</span>
       <span class="tag">Más natural</span>
     </div>
@@ -897,7 +896,7 @@ import Slide from './Slide.astro';
       <tr><td><strong>Gemini Live</strong></td><td>Speech-to-speech nativo</td><td>Integrado con el ecosistema Google, soporte de vídeo en tiempo real</td></tr>
     </tbody>
   </table>
-  <h3><i data-lucide="target"></i> Casos de uso para ingenieros</h3>
+  <h3><i data-lucide="target"></i> Casos de uso prácticos</h3>
   <ul>
     <li><i data-lucide="headphones"></i> <strong>Agentes de soporte telefónico:</strong> sustituyen IVRs tradicionales por conversaciones naturales con acceso a herramientas</li>
     <li><i data-lucide="mic"></i> <strong>Pair programming por voz:</strong> hablar con el agente mientras programas, sin cambiar de contexto</li>
@@ -940,7 +939,7 @@ import Slide from './Slide.astro';
       <tr><td><strong>Runway</strong></td><td>Runway</td><td>Referencia en producción creativa y image-to-video</td></tr>
     </tbody>
   </table>
-  <h3><i data-lucide="target"></i> Casos de uso para ingenieros</h3>
+  <h3><i data-lucide="target"></i> Casos de uso prácticos</h3>
   <ul>
     <li><i data-lucide="layout"></i> <strong>Prototipar UIs:</strong> generar mockups desde descripciones antes de programar</li>
     <li><i data-lucide="image"></i> <strong>Assets y placeholders:</strong> iconos, fondos, avatares para tests y demos</li>
@@ -1047,7 +1046,7 @@ import Slide from './Slide.astro';
       <i data-lucide="sparkles"></i>
       <div class="icon-card-content">
         <strong>LoRA (lo más común)</strong>
-        <p>Entrena en 1-4 horas con 50-100 imágenes. Fichero pequeño, apilable (puedes combinar varios LoRAs). Funciona en GPU consumer (RTX 3060+). El 90% de las veces es lo que necesitas</p>
+        <p>Entrena en horas con decenas de imágenes, según GPU y configuración. Fichero pequeño, apilable (puedes combinar varios LoRAs). En muchos casos es la opción práctica antes de tocar el modelo completo</p>
       </div>
     </div>
     <div class="icon-card">
@@ -1090,7 +1089,7 @@ import Slide from './Slide.astro';
 
 <!-- SLIDE 46 -->
 <Slide id="herramientas-imagen-oss" number={46} title="Herramientas OSS y plataformas para imagen">
-  <p><i data-lucide="wrench"></i> El ecosistema open source de generación de imágenes es enorme. Estas son las herramientas que un ingeniero necesita conocer.</p>
+  <p><i data-lucide="wrench"></i> El ecosistema open source de generación de imágenes es enorme. Estas son las herramientas que conviene conocer.</p>
   <h3><i data-lucide="monitor"></i> Interfaces locales</h3>
   <table>
     <thead>
@@ -1132,7 +1131,7 @@ import Slide from './Slide.astro';
     </div>
   </div>
   <div class="callout">
-    <p class="callout-title"><i data-lucide="route"></i> Flujo típico de un ingeniero</p>
+    <p class="callout-title"><i data-lucide="route"></i> Flujo típico</p>
     <p><strong>Explorar</strong> en Civitai/HF → <strong>Descargar</strong> modelo + LoRAs → <strong>Cargar</strong> en ComfyUI → <strong>Crear workflow</strong> (text → img, con ControlNet si necesitas control) → <strong>Automatizar</strong> vía API de ComfyUI o Replicate para integrar en tu app.</p>
   </div>
   <div class="refs">
@@ -1191,7 +1190,7 @@ import Slide from './Slide.astro';
     </tbody>
   </table>
   <div class="callout">
-    <p class="callout-title"><i data-lucide="target"></i> Para ingenieros que integran en apps</p>
+    <p class="callout-title"><i data-lucide="target"></i> Para integrar en apps</p>
     <p>ComfyUI expone una <strong>API REST</strong>. Puedes crear un workflow complejo (ControlNet + LoRA + upscaling), guardarlo como JSON, y llamarlo desde tu backend. Replicate y fal.ai ya tienen modelos con ControlNet preconfigurados como endpoints API.</p>
   </div>
   <div class="refs">
@@ -1204,7 +1203,7 @@ import Slide from './Slide.astro';
 <!-- SLIDE 48 -->
 <Slide id="frontier" number={48} title="¿Cómo se crea un modelo frontier?">
   <ol class="steps">
-    <li><i data-lucide="database"></i> <strong>Pre-entrenamiento:</strong> billones de tokens, semanas de entrenamiento en miles de GPUs. El modelo aprende patrones del lenguaje prediciendo la siguiente palabra en textos masivos (internet, libros, código). Esta fase consume el 90%+ del presupuesto de compute.</li>
+    <li><i data-lucide="database"></i> <strong>Pre-entrenamiento:</strong> billones de tokens, semanas de entrenamiento en miles de GPUs. El modelo aprende patrones del lenguaje prediciendo tokens en textos masivos (internet, libros, código). Esta fase suele consumir la mayor parte del presupuesto de compute.</li>
     <li><i data-lucide="graduation-cap"></i> <strong>Fine-tuning supervisado (SFT):</strong> ejemplos curados de conversaciones de calidad. Humanos escriben respuestas ideales y el modelo aprende a imitarlas. Típicamente 10.000-100.000 ejemplos de alta calidad.</li>
     <li><i data-lucide="users"></i> <strong>RLHF / RLAIF:</strong> RLHF = Reinforcement Learning from Human Feedback (aprendizaje por refuerzo con feedback humano). RLAIF = lo mismo pero con feedback de otro modelo de IA en vez de humanos. Se comparan respuestas y el modelo aprende cuál es "mejor". Esto es lo que hace que el modelo sea útil y seguro. Técnicas recientes: DPO (Direct Preference Optimization) y GRPO (Group Relative Policy Optimization) simplifican el proceso eliminando la necesidad de un reward model separado.</li>
     <li><i data-lucide="check-circle"></i> <strong>Evaluación:</strong> benchmarks estandarizados (MMLU, HumanEval, GPQA, SWE-bench...) para medir capacidades y comparar con la competencia. Red-teaming para seguridad.</li>
@@ -1689,7 +1688,7 @@ import Slide from './Slide.astro';
 
 <!-- SLIDE 66 -->
 <Slide id="rag" number={66} title="RAG (Retrieval Augmented Generation)">
-  <p><i data-lucide="search"></i> <strong>Problema:</strong> el modelo no sabe de tus datos internos (documentación, BD, wikis). Fue entrenado con datos públicos hasta cierta fecha.</p>
+  <p><i data-lucide="search"></i> <strong>Problema:</strong> el modelo no accede por sí solo a tus datos internos (documentación, BD, wikis). Su conocimiento viene del entrenamiento y del contexto que le das en la petición.</p>
   <p><i data-lucide="lightbulb"></i> <strong>Solución:</strong> en vez de reentrenar el modelo, le pasas contexto relevante en cada consulta.</p>
   <div class="flow">
     <span class="flow-step">Pregunta del usuario</span>
@@ -1698,7 +1697,7 @@ import Slide from './Slide.astro';
     <span class="flow-arrow">&rarr;</span>
     <span class="flow-step">Inyectar en el prompt</span>
     <span class="flow-arrow">&rarr;</span>
-    <span class="flow-step">LLM responde con esos datos</span>
+    <span class="flow-step">LLM responde apoyado en contexto</span>
   </div>
   <h3><i data-lucide="layers"></i> Componentes clave</h3>
   <div class="icon-grid">
@@ -1903,7 +1902,7 @@ import Slide from './Slide.astro';
 
 <!-- SLIDE 70 -->
 <Slide id="fine-tuning-cuando" number={70} title="Fine-tuning: cuándo sí y cuándo no">
-  <p><i data-lucide="settings"></i> Fine-tuning es <strong>reentrenar parcialmente un modelo existente</strong> con tus propios datos. Es mucho más barato que entrenar desde cero, pero sigue siendo un proyecto de datos: cambia comportamiento, estilo y patrones de salida; no convierte el modelo en una base de conocimiento viva.</p>
+  <p><i data-lucide="settings"></i> Fine-tuning es <strong>ajustar un modelo existente</strong> con tus propios datos, a menudo mediante entrenamiento parcial o adaptadores. Es mucho más barato que entrenar desde cero, pero sigue siendo un proyecto de datos: cambia comportamiento, estilo y patrones de salida; no convierte el modelo en una base de conocimiento viva.</p>
   <div class="two-cols">
     <div>
       <h3><i data-lucide="check-circle"></i> Sí tiene sentido</h3>
@@ -1941,7 +1940,7 @@ import Slide from './Slide.astro';
 
 <!-- SLIDE 71 -->
 <Slide id="fine-tuning-practico" number={71} title="Fine-tuning en la práctica">
-  <p><i data-lucide="settings"></i> Fine-tuning es <strong>reentrenar parcialmente un modelo</strong> con tus propios datos para que se especialice en tu tarea. No cambias el modelo entero: solo ajustas una parte.</p>
+  <p><i data-lucide="settings"></i> Fine-tuning ajusta un modelo con tus propios datos para que se especialice en tu tarea. En LoRA/QLoRA no cambias el modelo entero: entrenas adaptadores pequeños.</p>
   <h3><i data-lucide="puzzle"></i> LoRA y QLoRA</h3>
   <p>En vez de reentrenar los miles de millones de parámetros del modelo, <strong>LoRA</strong> (Low-Rank Adaptation) añade pequeñas matrices entrenables en capas clave. Resultado: entrenas <strong>0.1-1% de los parámetros</strong> con una fracción de la memoria.</p>
   <table>
@@ -2032,7 +2031,7 @@ import Slide from './Slide.astro';
   </ul>
   <div class="callout">
     <p class="callout-title"><i data-lucide="lightbulb"></i> Buenas prácticas</p>
-    <p>Mezcla datos sintéticos con datos reales (ratio 3:1 a 5:1 sintético:real). Filtra por calidad (otro LLM como juez, o métricas automáticas). Valida siempre con un subset de datos reales etiquetados por humanos.</p>
+    <p>No hay un ratio universal. Empieza mezclando datos sintéticos con datos reales, filtra por calidad (otro LLM como juez o métricas automáticas) y valida siempre con un subset de datos reales etiquetados por humanos.</p>
   </div>
   <div class="refs">
     <p class="refs-title">Para profundizar</p>
@@ -2114,7 +2113,7 @@ import Slide from './Slide.astro';
   </ul>
   <div class="callout">
     <p class="callout-title"><i data-lucide="lightbulb"></i> En la práctica</p>
-    <p>No expongas text-to-SQL directamente a usuarios finales sin guardrails. Funciona bien como herramienta interna para analistas y producto que necesitan consultar datos sin depender de un ingeniero.</p>
+    <p>No expongas text-to-SQL directamente a usuarios finales sin guardrails. Funciona bien como herramienta interna para analistas y producto que necesitan consultar datos sin depender del equipo técnico.</p>
   </div>
   <div class="refs">
     <p class="refs-title">Para profundizar</p>
@@ -2123,8 +2122,8 @@ import Slide from './Slide.astro';
 </Slide>
 
 <!-- SLIDE 75 -->
-<Slide id="prompt-caching" number={75} title="Prompt caching: pagar una vez, reutilizar siempre">
-  <p><i data-lucide="database"></i> Cuando usas system prompts largos o contexto RAG fijo, estás pagando los mismos tokens en cada llamada. El prompt caching guarda los tokens estáticos en caché y solo cobras una fracción en llamadas posteriores.</p>
+<Slide id="prompt-caching" number={75} title="Prompt caching: reutilizar prefijos repetidos">
+  <p><i data-lucide="database"></i> Cuando usas system prompts largos o contexto RAG fijo, puedes pagar repetidamente los mismos tokens. El prompt caching permite reutilizar prefijos estáticos y cobrar menos por tokens cacheados, según proveedor y ventana de caché.</p>
   <div class="flow">
     <span class="flow-step">Primera llamada</span>
     <span class="flow-arrow">&rarr;</span>
@@ -2132,7 +2131,7 @@ import Slide from './Slide.astro';
     <span class="flow-arrow">&rarr;</span>
     <span class="flow-step">Siguientes llamadas</span>
     <span class="flow-arrow">&rarr;</span>
-    <span class="flow-step">Solo tokens nuevos + caché (90% descuento)</span>
+    <span class="flow-step">Tokens nuevos + tokens cacheados con descuento</span>
   </div>
   <h3><i data-lucide="table"></i> Soporte por proveedor</h3>
   <table>
@@ -2157,7 +2156,7 @@ import Slide from './Slide.astro';
     &nbsp;&nbsp;messages: [&#123; role: <span class="string">"user"</span>, content: pregunta &#125;]<br/>
     &#125;);<br/>
     <span class="comment">// Primera llamada: precio normal</span><br/>
-    <span class="comment">// Siguientes (5 min): ~90% descuento en el system prompt</span>
+    <span class="comment">// Siguientes dentro de la ventana: descuento en tokens cacheados</span>
   </div>
   <div class="callout">
     <p class="callout-title"><i data-lucide="lightbulb"></i> ¿Cuándo usarlo?</p>
@@ -2172,7 +2171,7 @@ import Slide from './Slide.astro';
 
 <!-- SLIDE 76 -->
 <Slide id="context-window-practica" number={76} title="Context window en la práctica: no todo es lo que parece">
-  <p><i data-lucide="layers"></i> Un modelo con 1M tokens de context window no significa que puedas meter 1M tokens y funcione igual de bien. Hay límites prácticos que todo ingeniero debe conocer.</p>
+  <p><i data-lucide="layers"></i> Un modelo con 1M tokens de context window no significa que puedas meter 1M tokens y funcione igual de bien. Hay límites prácticos que conviene conocer.</p>
   <h3><i data-lucide="alert-triangle"></i> "Lost in the middle"</h3>
   <p>Los modelos prestan más atención al inicio y al final del contexto, y tienden a "olvidar" información que está en el medio. Si metes un dato importante en la página 50 de 100, el modelo puede ignorarlo. (<a href="https://arxiv.org/abs/2307.03172" target="_blank">Lost in the Middle paper</a>)</p>
   <h3><i data-lucide="table"></i> Context teórico vs práctico</h3>
@@ -2257,7 +2256,7 @@ import Slide from './Slide.astro';
 
 <!-- SLIDE 78 -->
 <Slide id="streaming" number={78} title="Streaming de respuestas">
-  <p><i data-lucide="radio"></i> En vez de esperar a que el modelo genere toda la respuesta, recibes <strong>token por token</strong> en tiempo real. Todo producto serio usa streaming: ChatGPT, Claude, Gemini.</p>
+  <p><i data-lucide="radio"></i> En vez de esperar a que el modelo genere toda la respuesta, recibes <strong>fragmentos</strong> en tiempo real. Es el patrón habitual en interfaces conversacionales como ChatGPT, Claude o Gemini.</p>
   <h3><i data-lucide="arrow-right"></i> ¿Cómo funciona?</h3>
   <div class="icon-grid">
     <div class="icon-card">
@@ -2271,7 +2270,7 @@ import Slide from './Slide.astro';
       <i data-lucide="timer"></i>
       <div class="icon-card-content">
         <strong>Time to First Token (TTFT)</strong>
-        <p>Métrica clave: cuánto tarda en llegar el primer token. Con streaming, el usuario ve actividad en 200-500 ms en vez de esperar 5-30 segundos a la respuesta completa</p>
+        <p>Métrica clave: cuánto tarda en llegar el primer fragmento. Con streaming, el usuario ve actividad antes de esperar a la respuesta completa</p>
       </div>
     </div>
   </div>
@@ -2284,7 +2283,7 @@ import Slide from './Slide.astro';
     &nbsp;&nbsp;max_tokens: <span class="string">1024</span>,<br/>
     &nbsp;&nbsp;messages: [&#123; role: <span class="string">"user"</span>, content: <span class="string">"Explica qué es Docker"</span> &#125;]<br/>
     &#125;);<br/><br/>
-    <span class="comment">// Evento por evento (cada token/chunk)</span><br/>
+    <span class="comment">// Evento por evento (fragmentos/chunks de texto)</span><br/>
     stream.<strong>on</strong>(<span class="string">'text'</span>, (text) =&gt; &#123;<br/>
     &nbsp;&nbsp;process.stdout.write(text); <span class="comment">// Imprime en tiempo real</span><br/>
     &#125;);<br/><br/>
@@ -2298,14 +2297,14 @@ import Slide from './Slide.astro';
     </thead>
     <tbody>
       <tr><td><code>message_start</code></td><td>Metadata del mensaje (id, modelo)</td><td>Inicializar UI</td></tr>
-      <tr><td><code>content_block_delta</code></td><td>Fragmento de texto (delta)</td><td>Mostrar token por token</td></tr>
+      <tr><td><code>content_block_delta</code></td><td>Fragmento de texto (delta)</td><td>Mostrar texto incrementalmente</td></tr>
       <tr><td><code>message_delta</code></td><td>Razón de parada, uso de tokens</td><td>Contabilizar coste</td></tr>
       <tr><td><code>message_stop</code></td><td>Fin del mensaje</td><td>Cerrar la UI de escritura</td></tr>
     </tbody>
   </table>
   <div class="callout">
     <p class="callout-title"><i data-lucide="lightbulb"></i> En la práctica</p>
-    <p>Streaming no cambia el coste ni la calidad de la respuesta: genera exactamente los mismos tokens. Solo cambia <strong>cuándo los recibes</strong>. La percepción de velocidad mejora enormemente aunque el tiempo total sea el mismo.</p>
+    <p>Streaming no cambia el precio por token ni la lógica de generación. Cambia <strong>cuándo recibes</strong> la respuesta. La percepción de velocidad mejora aunque el tiempo total pueda ser parecido.</p>
   </div>
   <div class="refs">
     <p class="refs-title">Para profundizar</p>
@@ -2353,7 +2352,7 @@ import Slide from './Slide.astro';
       <i data-lucide="route"></i>
       <div class="icon-card-content">
         <strong>Model routing</strong>
-        <p>Clasificar complejidad y enviar al modelo adecuado: Haiku para lo simple, Opus para lo complejo. Ahorra hasta 80%</p>
+        <p>Clasificar complejidad y enviar al modelo adecuado: modelos baratos para lo simple, modelos potentes para lo complejo. Puede reducir coste sin perder calidad</p>
       </div>
     </div>
   </div>
@@ -2385,10 +2384,10 @@ import Slide from './Slide.astro';
       <tr><td>Prompt engineering: contexto claro + restricciones precisas</td><td>36</td></tr>
       <tr><td>Context engineering: gestionar las 6 capas del contexto</td><td>37</td></tr>
       <tr><td>Formatos de datos: JSON, YAML, Markdown, XML y cuándo usar cada uno</td><td>38</td></tr>
-      <tr><td>Alucinaciones: el modelo no sabe que no sabe</td><td>39</td></tr>
-      <tr><td>Structured output: JSON garantizado con schema</td><td>40</td></tr>
+      <tr><td>Alucinaciones: generar sin verificar puede inventar datos plausibles</td><td>39</td></tr>
+      <tr><td>Structured output: schema + validación para salidas parseables</td><td>40</td></tr>
       <tr><td>Multimodal: enviar imágenes, PDFs y audio al modelo</td><td>41</td></tr>
-      <tr><td>Voz en tiempo real: speech-to-speech con 300 ms de latencia</td><td>42</td></tr>
+      <tr><td>Voz en tiempo real: speech-to-speech con baja latencia</td><td>42</td></tr>
       <tr><td>Generación de imágenes: difusión, LoRA, ControlNet, ComfyUI</td><td>43-47</td></tr>
       <tr><td>Hugging Face: model cards, memoria, formatos y eval results</td><td>49-56</td></tr>
       <tr><td>Mantenerse actualizado, elegir modelo y diseñar mini-labs</td><td>57-59</td></tr>
@@ -2396,8 +2395,8 @@ import Slide from './Slide.astro';
       <tr><td>RAG: inyectar contexto desde tus documentos</td><td>66</td></tr>
       <tr><td>Agentic RAG y GraphRAG: retrieval inteligente y multi-fuente</td><td>67-68</td></tr>
       <tr><td>Prompt, RAG o fine-tuning: elegir la técnica correcta</td><td>69-71</td></tr>
-      <tr><td>Prompt caching: ahorro de hasta 90% en tokens repetidos</td><td>75</td></tr>
-      <tr><td>Streaming: token por token para mejor UX</td><td>78</td></tr>
+      <tr><td>Prompt caching: descuentos en prefijos repetidos según proveedor</td><td>75</td></tr>
+      <tr><td>Streaming: fragmentos incrementales para mejor UX</td><td>78</td></tr>
       <tr><td>Arquitectura de apps LLM: retry, fallback, circuit breaker</td><td>79</td></tr>
     </tbody>
   </table>

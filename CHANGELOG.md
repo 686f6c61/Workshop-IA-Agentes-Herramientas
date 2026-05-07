@@ -1,5 +1,21 @@
 # Changelog
 
+## [2.1.4] - 2026-05-07
+
+Correcciones de exactitud en ejemplos copiables, costes y metadatos de publicacion.
+
+### Fixed
+- Ejemplos de Ollama Cloud actualizados a la API oficial de `ollama.com/api/chat` y `ollama.com/api/tags`, diferenciando API nativa de Ollama y compatibilidad OpenAI local bajo `/v1`.
+- Catalogo de Ollama Cloud ajustado para marcar modelos con tag `cloud` y evitar listar modelos sin cloud como si fueran endpoint remoto garantizado.
+- Integraciones de herramientas actualizadas a comandos `ollama launch` para Claude Code, Codex CLI y OpenCode.
+- Precios DeepSeek actualizados a `deepseek-v4-pro` y `deepseek-v4-flash`, con cache hit/miss segun documentacion actual.
+- Ejemplo de tool use de Anthropic corregido para incluir `tool_use.id`, `tool_result.tool_use_id` y el siguiente turno de conversacion.
+- Ejemplo MCP convertido en ejemplo autocontenido con datos mock en vez de una variable `db` inexistente.
+- Metadatos sincronizados como portada + 140 slides numeradas y anadido fichero `LICENSE` MIT.
+- Cierre final separado de la slide 140 con la fecha `Mayo 2026 · update 05/26` y feedback a `@686f6c61`.
+- Branding publico ajustado a `Workshop de IA para gente curiosa`.
+- Conceptos teoricos matizados para evitar garantias absolutas: tokens, embeddings, attention, MoE, hallucinations, structured output, prompt caching, streaming, evals y agentes.
+
 ## [2.1.3] - 2026-05-07
 
 Decision de fine-tuning, calculo de memoria, lectura de fichas y arquitecturas documentadas de agentes integradas en el workshop.
@@ -87,7 +103,7 @@ Workshop reescrito y ampliado. De 69 slides a 113. Nuevo nombre, nuevo repo, nue
 - Soporte de Astro 6
 
 ### Changed
-- Titulo: de "IA entre amigos" a "Workshop de IA: agentes, modelos y herramientas"
+- Titulo: de "IA entre amigos" a "Workshop de IA para gente curiosa"
 - Repo: de `IA-Entre-Amigos` a `Workshop-IA-Agentes-Herramientas`
 - URL: de `ia-entre-amigos.onrender.com` a `workshop-ia-agentes-herramientas.onrender.com`
 - Tildes corregidas en todas las slides
@@ -103,4 +119,4 @@ Workshop reescrito y ampliado. De 69 slides a 113. Nuevo nombre, nuevo repo, nue
 
 ## [1.0.0] - 2026-03-09
 
-Version inicial con 69 slides en 5 secciones: fundamentos, arquitecturas, uso practico, agentes, realidad del ingeniero.
+Version inicial con 69 slides en 5 secciones: fundamentos, arquitecturas, uso practico, agentes y realidad de construir con IA.

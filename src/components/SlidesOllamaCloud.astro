@@ -9,40 +9,40 @@ import Slide from './Slide.astro';
 
 <!-- SLIDE 131 -->
 <Slide id="ollama-cloud-intro" number={131} title="Ollama Cloud: modelos open weights sin GPU">
-  <p><i data-lucide="cloud"></i> Ollama Cloud da acceso a modelos open weights (Qwen, DeepSeek, Kimi, GLM, Mistral...) a través de una API en la nube. Misma experiencia que Ollama local, pero sin comprar ni mantener GPU.</p>
+  <p><i data-lucide="cloud"></i> Ollama Cloud da acceso a modelos open weights (DeepSeek, Kimi, GLM, Mistral, Gemma...) a través de una API en la nube. Misma experiencia de Ollama, pero sin comprar ni mantener GPU.</p>
   <div class="icon-grid">
     <div class="icon-card">
       <i data-lucide="zap"></i>
       <div class="icon-card-content">
         <strong>Sin GPU local</strong>
-        <p>Accede a modelos de 70B-671B sin tarjeta gráfica. Ideal cuando tu portátil no tiene VRAM suficiente.</p>
+        <p>Accede a modelos grandes sin depender de la VRAM de tu portátil. Ideal para evaluar modelos que no caben en local.</p>
       </div>
     </div>
     <div class="icon-card">
       <i data-lucide="refresh-cw"></i>
       <div class="icon-card-content">
-        <strong>Misma API</strong>
-        <p>Compatible con la API de Ollama local. Cambiar entre local y cloud es solo cambiar la URL base.</p>
+        <strong>Misma API de Ollama</strong>
+        <p>Cloud funciona como un host remoto de Ollama. En local usas <code>localhost:11434</code>; en cloud apuntas a <code>ollama.com</code>.</p>
       </div>
     </div>
     <div class="icon-card">
       <i data-lucide="dollar-sign"></i>
       <div class="icon-card-content">
         <strong>Modelo freemium</strong>
-        <p>Plan gratuito con límites. Plan Pro para uso intensivo. Mucho más barato que GPUs propias.</p>
+        <p>Plan gratuito con límites. Plan Pro a $20/mes y Max a $100/mes para más uso y concurrencia.</p>
       </div>
     </div>
     <div class="icon-card">
       <i data-lucide="plug"></i>
       <div class="icon-card-content">
         <strong>Integración directa</strong>
-        <p>Funciona con Claude Code, Cursor, OpenCode, Continue y cualquier herramienta que soporte Ollama.</p>
+        <p>Funciona con Claude Code, Codex CLI, OpenCode y herramientas que soporten Ollama como provider.</p>
       </div>
     </div>
   </div>
   <div class="callout">
     <p class="callout-title"><i data-lucide="lightbulb"></i> Caso de uso principal</p>
-    <p>Tienes un portátil sin GPU dedicada pero quieres probar modelos grandes de código o razonamiento como qwen3.6, kimi-k2.6 o deepseek-v4-pro/flash. Ollama Cloud te da un endpoint en segundos.</p>
+    <p>Tienes un portátil sin GPU dedicada pero quieres probar modelos grandes de código o razonamiento como kimi-k2.6, deepseek-v4-pro/flash o mistral-large-3. Ollama Cloud te da un endpoint sin montar infraestructura.</p>
   </div>
   <div class="refs">
     <p class="refs-title">Para profundizar</p>
@@ -53,102 +53,101 @@ import Slide from './Slide.astro';
 
 <!-- SLIDE 132 -->
 <Slide id="modelos-disponibles" number={132} title="Catálogo de modelos (mayo 2026)">
-  <p><i data-lucide="database"></i> Selección representativa del catálogo de Ollama Cloud a mayo de 2026. La lista cambia rápido: confirma siempre tags, tamaño y soporte de tools antes de fijar un modelo en producción.</p>
+  <p><i data-lucide="database"></i> Selección representativa del catálogo de Ollama Cloud a mayo de 2026. La lista cambia rápido: confirma siempre el tag <code>cloud</code>, tamaño, contexto y soporte de tools antes de fijar un modelo en producción.</p>
   <table>
     <thead>
       <tr><th>Categoría</th><th>Modelo</th><th>Detalle</th></tr>
     </thead>
     <tbody>
-      <tr><td><i data-lucide="code"></i> <strong>Código</strong></td><td><strong>qwen3.6</strong></td><td>35B-A3B open-weight con visión, tools, thinking y agentic coding</td></tr>
-      <tr><td></td><td><strong>kimi-k2.6</strong></td><td>Multimodal agentic, enfocado en long-horizon coding y diseño</td></tr>
-      <tr><td></td><td><strong>mistral-medium-3.5</strong></td><td>Multimodal open-weight, orientado a agentic/coding, contexto 256k</td></tr>
-      <tr><td><i data-lucide="brain"></i> <strong>Razonamiento</strong></td><td><strong>deepseek-v4-pro</strong></td><td>MoE con contexto 1M y modos de razonamiento</td></tr>
-      <tr><td></td><td><strong>deepseek-v4-flash</strong></td><td>MoE 284B total / 13B activos, contexto 1M</td></tr>
-      <tr><td></td><td><strong>qwen3-vl</strong></td><td>Familia Qwen de visión-lenguaje con tools y thinking</td></tr>
-      <tr><td><i data-lucide="image"></i> <strong>Multimodal</strong></td><td><strong>nemotron3</strong></td><td>Video, audio, imagen y texto para Q&A y documentos</td></tr>
-      <tr><td></td><td><strong>gemma4</strong></td><td>Modelos Gemma con visión, tools, thinking y audio</td></tr>
-      <tr><td></td><td><strong>qwen3.5</strong></td><td>Familia multimodal con tamaños de 0.8B a 122B</td></tr>
-      <tr><td><i data-lucide="cpu"></i> <strong>Eficientes</strong></td><td><strong>lfm2 / lfm2.5-thinking</strong></td><td>Modelos híbridos para despliegue on-device</td></tr>
-      <tr><td></td><td><strong>granite4.1</strong></td><td>Familia IBM Granite con soporte de tools</td></tr>
-      <tr><td></td><td><strong>laguna-xs.2</strong></td><td>MoE 33B total / 3B activos para agentic coding local</td></tr>
+      <tr><td><i data-lucide="code"></i> <strong>Código</strong></td><td><strong>kimi-k2.6</strong> <span class="tag">cloud</span></td><td>Multimodal agentic, enfocado en long-horizon coding, diseño y ejecución autónoma</td></tr>
+      <tr><td></td><td><strong>qwen3-coder-next</strong> <span class="tag">cloud</span></td><td>Modelo de código de la familia Qwen para workflows agentic coding</td></tr>
+      <tr><td></td><td><strong>minimax-m2.7</strong> <span class="tag">cloud</span></td><td>Orientado a coding, agentes y productividad profesional</td></tr>
+      <tr><td><i data-lucide="brain"></i> <strong>Razonamiento</strong></td><td><strong>deepseek-v4-pro</strong> <span class="tag">cloud</span></td><td>MoE frontier con contexto 1M y tres modos de razonamiento</td></tr>
+      <tr><td></td><td><strong>deepseek-v4-flash</strong> <span class="tag">cloud</span></td><td>MoE 284B total / 13B activos, contexto 1M</td></tr>
+      <tr><td></td><td><strong>glm-5.1</strong> <span class="tag">cloud</span></td><td>Modelo flagship de Z.AI para agentic engineering y coding</td></tr>
+      <tr><td><i data-lucide="image"></i> <strong>Multimodal</strong></td><td><strong>mistral-large-3</strong> <span class="tag">cloud</span></td><td>MoE multimodal generalista para producción y herramientas</td></tr>
+      <tr><td></td><td><strong>gemma4</strong> <span class="tag">cloud</span></td><td>Familia Gemma con visión, tools, thinking y audio</td></tr>
+      <tr><td></td><td><strong>qwen3.5</strong> <span class="tag">cloud</span></td><td>Familia multimodal con tamaños desde pequeños hasta 122B</td></tr>
     </tbody>
   </table>
   <div class="refs">
     <p class="refs-title">Para profundizar</p>
     <a href="https://ollama.com/search" target="_blank">Catálogo completo de modelos</a>
-    <a href="https://ollama.com/library/qwen3.6" target="_blank">Ollama - qwen3.6</a>
-    <a href="https://ollama.com/search?q=deepseek+V4" target="_blank">Ollama - DeepSeek V4</a>
+    <a href="https://ollama.com/library/kimi-k2.6" target="_blank">Ollama - kimi-k2.6</a>
+    <a href="https://ollama.com/library/deepseek-v4-pro" target="_blank">Ollama - deepseek-v4-pro</a>
   </div>
 </Slide>
 
 <!-- SLIDE 133 -->
 <Slide id="ollama-cloud-setup" number={133} title="Primeros pasos con Ollama Cloud">
-  <p><i data-lucide="terminal"></i> Configurar Ollama Cloud lleva menos de 2 minutos. Solo necesitas una API key.</p>
+  <p><i data-lucide="terminal"></i> Configurar Ollama Cloud lleva poco tiempo. Solo necesitas una cuenta de Ollama y una API key.</p>
   <h3><i data-lucide="key"></i> 1. Obtener la API key</h3>
   <div class="code-block">
-    <span class="comment"># Registrarse en ollama.com/cloud y copiar la API key</span><br/>
+    <span class="comment"># Crear una API key en ollama.com/settings/keys</span><br/>
     <span class="comment"># Exportar como variable de entorno:</span><br/>
     export OLLAMA_API_KEY=<span class="string">"sk-..."</span><br/><br/>
     <span class="comment"># Verificar que funciona:</span><br/>
-    curl -s https://api.ollama.com/v1/models \<br/>
+    curl -s https://ollama.com/api/tags \<br/>
     &nbsp;&nbsp;-H <span class="string">"Authorization: Bearer $OLLAMA_API_KEY"</span> | jq <span class="string">'.models[:3]'</span>
   </div>
   <h3><i data-lucide="message-square"></i> 2. Primer chat</h3>
   <div class="code-block">
-    <span class="comment"># API compatible con OpenAI (drop-in replacement)</span><br/>
-    curl https://api.ollama.com/v1/chat/completions \<br/>
+    <span class="comment"># API nativa de Ollama Cloud</span><br/>
+    curl https://ollama.com/api/chat \<br/>
     &nbsp;&nbsp;-H <span class="string">"Authorization: Bearer $OLLAMA_API_KEY"</span> \<br/>
     &nbsp;&nbsp;-H <span class="string">"Content-Type: application/json"</span> \<br/>
-    &nbsp;&nbsp;-d <span class="string">'&#123;"model": "qwen3.6", "messages": [&#123;"role": "user", "content": "Hola"&#125;]&#125;'</span>
+    &nbsp;&nbsp;-d <span class="string">'&#123;"model": "gpt-oss:120b", "messages": [&#123;"role": "user", "content": "Hola"&#125;], "stream": false&#125;'</span>
   </div>
   <h3><i data-lucide="code"></i> 3. Desde Python</h3>
   <div class="code-block">
-    <span class="keyword">from</span> openai <span class="keyword">import</span> OpenAI<br/><br/>
-    client = OpenAI(<br/>
-    &nbsp;&nbsp;base_url=<span class="string">"https://api.ollama.com/v1"</span>,<br/>
-    &nbsp;&nbsp;api_key=os.environ[<span class="string">"OLLAMA_API_KEY"</span>]<br/>
+    <span class="keyword">import</span> os<br/>
+    <span class="keyword">from</span> ollama <span class="keyword">import</span> Client<br/><br/>
+    client = Client(<br/>
+    &nbsp;&nbsp;host=<span class="string">"https://ollama.com"</span>,<br/>
+    &nbsp;&nbsp;headers=&#123;<span class="string">"Authorization"</span>: <span class="string">"Bearer "</span> + os.environ[<span class="string">"OLLAMA_API_KEY"</span>]&#125;<br/>
     )<br/>
-    resp = client.chat.completions.create(<br/>
-    &nbsp;&nbsp;model=<span class="string">"qwen3.6"</span>,<br/>
-    &nbsp;&nbsp;messages=[&#123;<span class="string">"role"</span>: <span class="string">"user"</span>, <span class="string">"content"</span>: <span class="string">"Explica async/await"</span>&#125;]<br/>
+    resp = client.chat(<br/>
+    &nbsp;&nbsp;model=<span class="string">"gpt-oss:120b"</span>,<br/>
+    &nbsp;&nbsp;messages=[&#123;<span class="string">"role"</span>: <span class="string">"user"</span>, <span class="string">"content"</span>: <span class="string">"Explica async/await"</span>&#125;],<br/>
+    &nbsp;&nbsp;stream=False<br/>
     )
   </div>
   <div class="callout">
     <p class="callout-title"><i data-lucide="lightbulb"></i> Dato clave</p>
-    <p>La API es compatible con el formato OpenAI. Si tu código ya usa la librería <code>openai</code>, solo cambias <code>base_url</code> y <code>api_key</code>.</p>
+    <p>Cloud directo usa la API nativa de Ollama. Ollama local también expone endpoints OpenAI-compatible bajo <code>/v1</code> cuando una herramienta necesita ese formato.</p>
   </div>
 </Slide>
 
 <!-- SLIDE 134 -->
 <Slide id="ollama-cloud-herramientas" number={134} title="Ollama Cloud + herramientas de coding">
-  <p><i data-lucide="wrench"></i> Cómo integrar Ollama Cloud en las tres herramientas más populares de AI coding.</p>
+  <p><i data-lucide="wrench"></i> Cómo integrar Ollama Cloud en herramientas habituales de AI coding.</p>
   <div class="icon-grid">
     <div class="icon-card">
       <i data-lucide="terminal"></i>
       <div class="icon-card-content">
         <strong>Claude Code</strong>
-        <p>Soporta modelos de Ollama Cloud como provider alternativo si tu configuración usa un bridge compatible. Útil para tareas de coding con modelos open weights.</p>
+        <p>Ollama puede lanzar Claude Code con un modelo cloud usando <code>ollama launch</code>. Útil para probar modelos open weights sin cambiar de herramienta.</p>
       </div>
     </div>
     <div class="icon-card">
       <i data-lucide="layout"></i>
       <div class="icon-card-content">
-        <strong>Cursor</strong>
-        <p>Selector de modelos en el panel lateral. Elige ollama/qwen3.6 o deepseek-v4-flash:cloud directamente. Requiere suscripción Pro.</p>
+        <strong>Codex CLI</strong>
+        <p>Ollama puede lanzar Codex apuntando a un modelo cloud. El modelo se sirve desde Ollama y la herramienta sigue trabajando en terminal.</p>
       </div>
     </div>
     <div class="icon-card">
       <i data-lucide="code"></i>
       <div class="icon-card-content">
         <strong>OpenCode</strong>
-        <p>Ollama Cloud viene preconfigurado. Solo necesitas la API key. Comando: <code>/connect ollama</code></p>
+        <p>Ollama puede lanzar OpenCode con un modelo cloud usando el mismo patrón de <code>ollama launch</code>.</p>
       </div>
     </div>
     <div class="icon-card">
       <i data-lucide="puzzle"></i>
       <div class="icon-card-content">
-        <strong>Continue / otros</strong>
-        <p>Cualquier extensión o herramienta que soporte la API de Ollama funciona sin cambios.</p>
+        <strong>Continue / Cursor / otros</strong>
+        <p>Usa el provider Ollama local y un modelo <code>:cloud</code> cuando la herramienta soporte Ollama como backend.</p>
       </div>
     </div>
   </div>
@@ -158,15 +157,15 @@ import Slide from './Slide.astro';
       <tr><th>Herramienta</th><th>Cómo configurar</th><th>Comando</th></tr>
     </thead>
     <tbody>
-      <tr><td><strong>Claude Code</strong></td><td>Exportar OLLAMA_API_KEY</td><td><code>claude --model ollama/qwen3.6</code></td></tr>
-      <tr><td><strong>Cursor</strong></td><td>Settings &gt; Models &gt; Ollama</td><td>Seleccionar en el panel lateral</td></tr>
-      <tr><td><strong>OpenCode</strong></td><td>Exportar OLLAMA_API_KEY</td><td><code>/connect ollama</code></td></tr>
-      <tr><td><strong>Continue</strong></td><td>config.json &gt; provider: ollama</td><td>Autocompletado en VS Code</td></tr>
+      <tr><td><strong>Claude Code</strong></td><td><code>ollama signin</code> o <code>OLLAMA_API_KEY</code></td><td><code>ollama launch claude --model kimi-k2.6:cloud</code></td></tr>
+      <tr><td><strong>Codex CLI</strong></td><td><code>ollama signin</code> o <code>OLLAMA_API_KEY</code></td><td><code>ollama launch codex --model kimi-k2.6:cloud</code></td></tr>
+      <tr><td><strong>OpenCode</strong></td><td><code>ollama signin</code> o <code>OLLAMA_API_KEY</code></td><td><code>ollama launch opencode --model kimi-k2.6:cloud</code></td></tr>
+      <tr><td><strong>Continue / Cursor</strong></td><td>Provider Ollama local</td><td>Usar un tag <code>:cloud</code> si la herramienta lo acepta</td></tr>
     </tbody>
   </table>
   <div class="callout">
     <p class="callout-title"><i data-lucide="target"></i> Consejo práctico</p>
-    <p>Usa modelos propietarios (Claude, GPT, Gemini) cuando necesites máxima fiabilidad o integración específica. Usa modelos open weights vía Ollama Cloud para evaluación rápida, privacidad contractual clara, tareas repetitivas de código y evitar depender de un único proveedor.</p>
+    <p>Usa modelos propietarios (Claude, GPT, Gemini) cuando necesites máxima fiabilidad o integración específica. Usa modelos open weights vía Ollama Cloud para evaluación rápida, tareas repetitivas de código y evitar depender de un único proveedor. Para datos sensibles, revisa región, retención y política contractual.</p>
   </div>
 </Slide>
 
@@ -178,20 +177,20 @@ import Slide from './Slide.astro';
       <tr><th>Criterio</th><th><i data-lucide="cloud"></i> Cloud (Ollama)</th><th><i data-lucide="monitor"></i> Local (LM Studio / Ollama)</th></tr>
     </thead>
     <tbody>
-      <tr><td><strong>Hardware necesario</strong></td><td>Ninguno</td><td>GPU con 8-128 GB VRAM</td></tr>
-      <tr><td><strong>Modelos grandes (671B)</strong></td><td>Sí, sin problema</td><td>Imposible sin cluster</td></tr>
-      <tr><td><strong>Latencia</strong></td><td>50-200 ms (red)</td><td>10-50 ms (local)</td></tr>
-      <tr><td><strong>Velocidad (tk/s)</strong></td><td>30-80 tk/s</td><td>20-120 tk/s (según GPU)</td></tr>
-      <tr><td><strong>Privacidad</strong></td><td>Datos viajan a la nube; Ollama declara no logging ni training</td><td>Todo queda en tu máquina</td></tr>
-      <tr><td><strong>Coste mensual</strong></td><td>Free / Pro $20 / Max $100</td><td>Electricidad (+ inversión HW)</td></tr>
-      <tr><td><strong>Formato</strong></td><td>Pesos nativos del proveedor; hardware cloud optimizado</td><td>GGUF/MLX/safetensors según runtime</td></tr>
+      <tr><td><strong>Hardware necesario</strong></td><td>Ninguno local</td><td>GPU/RAM suficientes para el modelo y la quantización</td></tr>
+      <tr><td><strong>Modelos muy grandes</strong></td><td>Sí, si están en el catálogo cloud</td><td>Limitado por VRAM, RAM, quantización y número de GPUs</td></tr>
+      <tr><td><strong>Latencia</strong></td><td>Depende de red, región, cola, modelo y plan</td><td>Sin red externa; depende de GPU y runtime</td></tr>
+      <tr><td><strong>Velocidad</strong></td><td>Gestionada por infraestructura cloud; no fija por plan</td><td>Limitada por GPU, quantización, batch y contexto</td></tr>
+      <tr><td><strong>Privacidad</strong></td><td>Datos viajan a Ollama Cloud; Ollama declara no logging ni training</td><td>Todo queda en tu máquina si no llamas servicios externos</td></tr>
+      <tr><td><strong>Coste mensual</strong></td><td>Free / Pro $20 / Max $100; uso medido por GPU time</td><td>Electricidad + inversión y mantenimiento de hardware</td></tr>
+      <tr><td><strong>Formato</strong></td><td>Pesos nativos del proveedor; hardware cloud optimizado</td><td>GGUF/MLX/safetensors o formato del runtime elegido</td></tr>
       <tr><td><strong>Offline</strong></td><td>No</td><td>Sí</td></tr>
     </tbody>
   </table>
   <div class="two-cols">
     <div class="compare-card">
       <p class="compare-card-title"><i data-lucide="cloud"></i> Elige cloud cuando...</p>
-      <p class="compare-card-desc">No tienes GPU, necesitas modelos muy grandes, quieres empezar en 2 minutos o trabajas en equipo y necesitas un endpoint compartido.</p>
+      <p class="compare-card-desc">No tienes GPU, necesitas modelos muy grandes, quieres setup rápido o trabajas en equipo y necesitas un endpoint compartido.</p>
       <span class="tag">Sin inversión HW</span>
       <span class="tag">Setup instantáneo</span>
     </div>
@@ -204,7 +203,7 @@ import Slide from './Slide.astro';
   </div>
   <div class="callout">
     <p class="callout-title"><i data-lucide="compass"></i> Recomendación</p>
-    <p>Lo más práctico: usa ambos. Cloud para modelos grandes y pruebas rápidas, local para código sensible y trabajo diario si tienes GPU. Cambiar es solo cambiar la URL base.</p>
+    <p>Lo más práctico: usa ambos. Cloud para modelos grandes y pruebas rápidas, local para código sensible y trabajo diario si tienes GPU. Mantén una capa de configuración para cambiar host/modelo sin reescribir la aplicación.</p>
   </div>
 </Slide>
 
@@ -216,9 +215,9 @@ import Slide from './Slide.astro';
     </thead>
     <tbody>
       <tr><td>Ollama Cloud: modelos open weights sin GPU, misma experiencia que local</td><td>130-131</td></tr>
-      <tr><td>Catálogo: qwen3.6, kimi-k2.6, deepseek-v4-pro/flash, gemma4...</td><td>132</td></tr>
-      <tr><td>Setup en 2 minutos: API key + curl o Python (compatible OpenAI)</td><td>133</td></tr>
-      <tr><td>Integración: Claude Code, Cursor, OpenCode, Continue</td><td>134</td></tr>
+      <tr><td>Catálogo cloud: kimi-k2.6, deepseek-v4-pro/flash, glm-5.1, gemma4...</td><td>132</td></tr>
+      <tr><td>Setup: API key + curl o Python con la API nativa de Ollama</td><td>133</td></tr>
+      <tr><td>Integración: Claude Code, Codex CLI, OpenCode y herramientas con provider Ollama</td><td>134</td></tr>
       <tr><td>Cloud para modelos grandes y prototipos; local para privacidad extrema</td><td>135</td></tr>
       <tr><td>Recursos y ruta de estudio para seguir aprendiendo</td><td>137-140</td></tr>
     </tbody>
@@ -313,8 +312,12 @@ import Slide from './Slide.astro';
     <p class="callout-title"><i data-lucide="rocket"></i> Proyecto final recomendado</p>
     <p>Elige una tarea repetitiva de tu trabajo, crea una eval pequeña, prueba dos modelos, añade una tool o RAG, mide coste y deja una decisión escrita: seguir, parar o simplificar.</p>
   </div>
-  <div class="refs compact-refs">
-    <p class="refs-title">Mayo 2026 · update 05/26</p>
-    <a href="https://x.com/686f6c61" target="_blank">Sugerencias y feedback: @686f6c61</a>
+</Slide>
+
+<!-- CIERRE -->
+<Slide id="cierre" hideAuthor>
+  <div class="closing-slide">
+    <p class="closing-date">Mayo 2026 · update 05/26</p>
+    <a class="closing-feedback" href="https://x.com/686f6c61" target="_blank" rel="noopener noreferrer">Sugerencias y feedback: @686f6c61</a>
   </div>
 </Slide>
