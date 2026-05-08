@@ -526,14 +526,14 @@ import Slide from './Slide.astro';
     </thead>
     <tbody>
       <tr><td>Resumir, clasificar, extraer datos</td><td>Haiku / GPT-5.4 mini / modelo local</td><td>Bajo</td></tr>
-      <tr><td>Código complejo, razonamiento</td><td>Opus 4.7 / GPT-5.5 / Gemini 3 Pro</td><td>Alto</td></tr>
+      <tr><td>Código complejo, razonamiento</td><td>Opus 4.7 / GPT-5.5 / Gemini 3.1 Pro Preview</td><td>Alto</td></tr>
       <tr><td>Validación, formato</td><td>Sonnet 4.6 / GPT-5.4 mini / Haiku</td><td>Medio-bajo</td></tr>
     </tbody>
   </table>
   <h3><i data-lucide="layers"></i> Stack típico de orquestación</h3>
   <ul>
     <li><i data-lucide="network"></i> <strong>Orquestador:</strong> coordina el flujo (LangGraph, Mastra, Google ADK, tu propio código). ADK = Agent Development Kit.</li>
-    <li><i data-lucide="brain"></i> <strong>Agente planificador:</strong> modelo potente que descompone la tarea (Opus 4.7, GPT-5.5, Gemini 3 Pro)</li>
+    <li><i data-lucide="brain"></i> <strong>Agente planificador:</strong> modelo potente que descompone la tarea (Opus 4.7, GPT-5.5, Gemini 3.1 Pro Preview)</li>
     <li><i data-lucide="cpu"></i> <strong>Agentes ejecutores:</strong> modelos más baratos que ejecutan subtareas (Sonnet 4.6, Haiku, modelos locales)</li>
     <li><i data-lucide="check-circle"></i> <strong>Agente validador:</strong> revisa la salida antes de entregarla</li>
   </ul>
@@ -1261,9 +1261,9 @@ import Slide from './Slide.astro';
     <tbody>
       <tr><td><strong>Full</strong></td><td>2,294</td><td>Evaluación amplia en repos Python populares</td><td>Capacidad general en issues reales</td></tr>
       <tr><td><strong>Verified</strong></td><td>500</td><td>Subset revisado por humanos con problemas claros y resolubles</td><td>Comparación fiable de coding agents</td></tr>
-      <tr><td><strong>Lite</strong></td><td>300</td><td>Iteración más barata y rápida</td><td>Bugs más autocontenidos</td></tr>
+      <tr><td><strong>Lite</strong></td><td>534</td><td>Iteración más barata y rápida</td><td>Bugs más autocontenidos</td></tr>
       <tr><td><strong>Multilingual</strong></td><td>300</td><td>42 repos en 9 lenguajes</td><td>Generalización fuera de Python</td></tr>
-      <tr><td><strong>Multimodal</strong></td><td>517</td><td>Issues con screenshots, mockups o diagramas</td><td>Uso conjunto de texto + visión</td></tr>
+      <tr><td><strong>Multimodal</strong></td><td>100 dev / 500 test</td><td>Issues con screenshots, mockups o diagramas</td><td>Uso conjunto de texto + visión</td></tr>
     </tbody>
   </table>
   <div class="callout">
@@ -1277,6 +1277,7 @@ import Slide from './Slide.astro';
   <div class="refs">
     <p class="refs-title">Para profundizar</p>
     <a href="https://www.swebench.com/SWE-bench/" target="_blank">SWE-bench docs - Overview</a>
+    <a href="https://www.swebench.com/SWE-bench/guides/datasets/" target="_blank">SWE-bench docs - Datasets</a>
     <a href="https://www.swebench.com/SWE-bench/guides/evaluation/" target="_blank">SWE-bench docs - Evaluation</a>
     <a href="https://openai.com/es-419/index/why-we-no-longer-evaluate-swe-bench-verified/" target="_blank">OpenAI - Why we no longer evaluate SWE-bench Verified</a>
     <a href="https://openreview.net/forum?id=VTF8yNQM66" target="_blank">SWE-bench paper - ICLR 2024</a>
@@ -1627,7 +1628,7 @@ if (!parsed.success) &#123;
 <!-- SLIDE 115 -->
 <Slide id="costes" number={115} title="Tokens y coste: ¿cuánto cuesta usar IA?">
   <p><i data-lucide="coins"></i> Se paga por <strong>tokens de entrada + tokens de salida</strong>. La salida suele ser más cara (el modelo trabaja más generando que leyendo).</p>
-  <h3><i data-lucide="trending-up"></i> Precios por millón de tokens (mayo 2026)</h3>
+  <h3><i data-lucide="trending-up"></i> Precios por millón de tokens (mayo 2026, API estándar)</h3>
   <table class="compact-table cost-table">
     <thead>
       <tr><th>Modelo/API</th><th>Entrada</th><th>Salida</th><th>Lectura correcta</th></tr>
@@ -1648,7 +1649,7 @@ if (!parsed.success) &#123;
   </table>
   <div class="callout compact-callout">
     <p class="callout-title"><i data-lucide="coins"></i> Rango de coste</p>
-    <p>Snapshot mayo 2026. No compares solo el precio nominal: región, cache hit rate, modo thinking/reasoning, contexto, tools y latencia cambian la factura. Verifica pricing oficial antes de producción y mide coste por tarea resuelta.</p>
+    <p>Snapshot mayo 2026. No compares solo el precio nominal: región, cache hit rate, batch/flex, modo thinking/reasoning, contexto, tools y latencia cambian la factura. Verifica pricing oficial antes de producción y mide coste por tarea aceptada.</p>
   </div>
   <div class="refs compact-refs">
     <p class="refs-title">Para profundizar</p>
@@ -2430,12 +2431,231 @@ if (!parsed.success) &#123;
 </Slide>
 
 <!-- SLIDE 130: SECCION -->
-<Slide id="sec-operar-ia-produccion" number={130} section
+<Slide id="sec-evals-medicion-avanzada" number={130} section
+  title="Evals y medición avanzada"
+  subtitle="Cómo medir RAG, agentes, jueces LLM, coste por tarea aceptada y regresiones reales antes de confiar en un sistema de IA." />
+
+<!-- SLIDE 131 -->
+<Slide id="eval-rag-retrieval-groundedness" number={131} title="Eval de RAG: retrieval, groundedness y abstención">
+  <p><i data-lucide="search-check"></i> Un RAG no se evalúa solo leyendo respuestas bonitas. Se separan dos problemas: <strong>si recupera la evidencia correcta</strong> y <strong>si responde apoyándose en ella</strong>.</p>
+  <h3><i data-lucide="layers"></i> Capas de medición</h3>
+  <table>
+    <thead>
+      <tr><th>Capa</th><th>Métrica útil</th><th>Qué detecta</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>Retrieval</strong></td><td>Recall@k, MRR, nDCG</td><td>Si los chunks relevantes aparecen arriba</td></tr>
+      <tr><td><strong>Reranking</strong></td><td>Precisión top-k, cobertura por fuente</td><td>Si el ranking mejora o entierra evidencia</td></tr>
+      <tr><td><strong>Groundedness</strong></td><td>Respuesta soportada por citas</td><td>Alucinación aunque hubiera documentos buenos</td></tr>
+      <tr><td><strong>Answerability</strong></td><td>Debe responder / debe abstenerse</td><td>Preguntas sin evidencia o fuera de corpus</td></tr>
+      <tr><td><strong>UX</strong></td><td>Citas clicables, fragmentos y fecha</td><td>Si el usuario puede verificar la respuesta</td></tr>
+    </tbody>
+  </table>
+  <div class="callout">
+    <p class="callout-title"><i data-lucide="target"></i> Dataset mínimo serio</p>
+    <p>Empieza con 50-100 preguntas reales: algunas con respuesta, otras sin respuesta, algunas ambiguas y otras con documentos contradictorios. Si todas tienen respuesta fácil, no estás midiendo el fallo que aparecerá en producción.</p>
+  </div>
+  <div class="refs">
+    <p class="refs-title">Para profundizar</p>
+    <a href="https://arxiv.org/abs/2005.11401" target="_blank">Retrieval-Augmented Generation paper</a>
+    <a href="https://platform.openai.com/docs/guides/evals" target="_blank">OpenAI - Evals</a>
+    <a href="https://www.ragas.io/" target="_blank">Ragas</a>
+  </div>
+</Slide>
+
+<!-- SLIDE 132 -->
+<Slide id="llm-as-judge-rubricas-calibracion" number={132} title="LLM-as-judge: usar jueces sin autoengañarte">
+  <p><i data-lucide="scale"></i> Un juez LLM puede acelerar evaluación, pero no convierte una rúbrica vaga en verdad objetiva. El juez también tiene sesgos, sensibilidad al prompt y preferencias de estilo.</p>
+  <h3><i data-lucide="clipboard-check"></i> Checklist de juez fiable</h3>
+  <div class="tool-grid">
+    <div class="tool-card"><strong>Rúbrica explícita</strong><p>Define criterios observables: exactitud, evidencia, completitud, seguridad y formato.</p><span class="tag">criterio</span></div>
+    <div class="tool-card"><strong>Etiquetas humanas</strong><p>Calibra contra un subconjunto revisado por personas; mide acuerdo juez-humano.</p><span class="tag">ground truth</span></div>
+    <div class="tool-card"><strong>Evaluación ciega</strong><p>Oculta modelo, proveedor y versión para reducir sesgo de marca o longitud.</p><span class="tag">blind</span></div>
+    <div class="tool-card"><strong>Pares y orden aleatorio</strong><p>Alterna A/B para evitar sesgo por posición o respuesta más larga.</p><span class="tag">A/B</span></div>
+    <div class="tool-card"><strong>Casos negativos</strong><p>Incluye respuestas peligrosas, inventadas y parcialmente correctas.</p><span class="tag">fallo</span></div>
+    <div class="tool-card"><strong>Coste y drift</strong><p>Versiona juez, prompt y dataset; un cambio de juez cambia la métrica.</p><span class="tag">versionado</span></div>
+  </div>
+  <div class="callout">
+    <p class="callout-title"><i data-lucide="alert-triangle"></i> Regla práctica</p>
+    <p>Usa juez LLM para filtrar y comparar tendencias. Para decisiones críticas, añade revisión humana, tests verificables o métricas externas. El juez no debe ser la única puerta de producción.</p>
+  </div>
+  <div class="refs">
+    <p class="refs-title">Para profundizar</p>
+    <a href="https://platform.openai.com/docs/guides/evals" target="_blank">OpenAI - Evals</a>
+    <a href="https://www.anthropic.com/engineering/demystifying-evals-for-ai-agents" target="_blank">Anthropic - Agent evals</a>
+    <a href="https://github.com/promptfoo/promptfoo" target="_blank">promptfoo</a>
+  </div>
+</Slide>
+
+<!-- SLIDE 133 -->
+<Slide id="eval-agentes-tools-traces" number={133} title="Eval de agentes: éxito, tools, coste y trazas">
+  <p><i data-lucide="route"></i> Un agente no es solo una respuesta final. Es un proceso: planifica, llama tools, observa resultados, corrige y decide cuándo parar. La eval debe medir el proceso completo.</p>
+  <h3><i data-lucide="activity"></i> Señales que importan</h3>
+  <table>
+    <thead>
+      <tr><th>Señal</th><th>Cómo medirla</th><th>Fallo típico</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>Task success</strong></td><td>Objetivo logrado con criterios verificables</td><td>Respuesta convincente pero tarea sin completar</td></tr>
+      <tr><td><strong>Tool success</strong></td><td>Tool correcta, argumentos válidos, permisos mínimos</td><td>Llamada innecesaria o destructiva</td></tr>
+      <tr><td><strong>Coste</strong></td><td>Tokens, tool calls, duración y coste por tarea aceptada</td><td>Resolver con 20 pasos lo que bastaba con 2</td></tr>
+      <tr><td><strong>Robustez</strong></td><td>Reintentos, timeouts, errores de tool y recuperación</td><td>Bucle infinito o abandono silencioso</td></tr>
+      <tr><td><strong>Auditabilidad</strong></td><td>Trace con plan, acciones, observaciones y verificación</td><td>No saber por qué actuó ni cómo revertir</td></tr>
+    </tbody>
+  </table>
+  <div class="callout">
+    <p class="callout-title"><i data-lucide="wrench"></i> Eval mínima para agentes</p>
+    <p>20 tareas reales, límite de coste, límite de pasos, tools permitidas, criterios de éxito, logs completos y revisión de diffs/acciones. Sin trazas no hay debugging ni confianza.</p>
+  </div>
+  <div class="refs">
+    <p class="refs-title">Para profundizar</p>
+    <a href="https://developers.openai.com/api/docs/agents" target="_blank">OpenAI - Agents</a>
+    <a href="https://platform.openai.com/docs/guides/evals" target="_blank">OpenAI - Evals</a>
+    <a href="https://www.anthropic.com/engineering/demystifying-evals-for-ai-agents" target="_blank">Anthropic - Demystifying evals for AI agents</a>
+  </div>
+</Slide>
+
+<!-- SLIDE 134 -->
+<Slide id="coste-por-tarea-aceptada" number={134} title="Coste por tarea aceptada: la métrica que decide">
+  <p><i data-lucide="coins"></i> El precio por token no decide producción. Decide el <strong>coste por tarea aceptada</strong>: cuánto pagas por una salida que pasa calidad, seguridad y revisión humana.</p>
+  <div class="process-lane">
+    <div class="process-step"><span class="step-label">1</span><strong>Tokens</strong><p>Input, output, reasoning, cache hit/miss y batch.</p></div>
+    <div class="process-step"><span class="step-label">2</span><strong>Intentos</strong><p>Retries, rollouts, herramientas y llamadas encadenadas.</p></div>
+    <div class="process-step"><span class="step-label">3</span><strong>Revisión</strong><p>Tiempo humano para aceptar, editar o rechazar.</p></div>
+    <div class="process-step"><span class="step-label">4</span><strong>Calidad</strong><p>Tasa de aceptación, regresiones y errores evitados.</p></div>
+  </div>
+  <h3><i data-lucide="calculator"></i> Lectura FinOps</h3>
+  <table>
+    <thead>
+      <tr><th>Optimización</th><th>Cuándo ayuda</th><th>Riesgo</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>Routing barato/caro</strong></td><td>Tareas fáciles abundantes y pocas críticas</td><td>Falsos negativos: mandar difícil al barato</td></tr>
+      <tr><td><strong>Prompt caching</strong></td><td>System prompt, reglas o corpus fijo repetido</td><td>Asumir cache donde el prefijo cambia</td></tr>
+      <tr><td><strong>Batch / flex</strong></td><td>Procesos offline sin latencia estricta</td><td>No sirve para UX interactiva</td></tr>
+      <tr><td><strong>Modelo caro primero</strong></td><td>Error caro o revisión humana muy costosa</td><td>Sobrepagar por tareas triviales</td></tr>
+    </tbody>
+  </table>
+  <div class="callout">
+    <p class="callout-title"><i data-lucide="target"></i> Fórmula práctica</p>
+    <p>Coste real = coste de inferencia + coste de tools + coste de reintentos + coste de revisión. Divide por tareas aceptadas, no por tareas intentadas.</p>
+  </div>
+</Slide>
+
+<!-- SLIDE 135 -->
+<Slide id="recap-evals-medicion-avanzada" number={135} title="Lo que deberías saber: evals avanzadas">
+  <table>
+    <thead>
+      <tr><th>Concepto</th><th>Lectura correcta</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>RAG</td><td>Medir retrieval y respuesta por separado: recall@k, citas, groundedness y abstención.</td></tr>
+      <tr><td>LLM-as-judge</td><td>Útil para escalar revisión, peligroso sin rúbrica, calibración y casos negativos.</td></tr>
+      <tr><td>Agentes</td><td>Evaluar proceso completo: task success, tools, coste, límites, trazas y rollback.</td></tr>
+      <tr><td>Coste</td><td>Decidir por coste por tarea aceptada, no por precio nominal del token.</td></tr>
+      <tr><td>Producción</td><td>Una eval madura es una puerta de despliegue, no un informe decorativo.</td></tr>
+    </tbody>
+  </table>
+</Slide>
+
+<!-- SLIDE 136: SECCION -->
+<Slide id="sec-producto-ux-ia" number={136} section
+  title="Producto y UX de IA"
+  subtitle="Cómo diseñar experiencias de IA con incertidumbre, citas, confirmaciones humanas, memoria, límites y recuperación de errores." />
+
+<!-- SLIDE 137 -->
+<Slide id="ux-incertidumbre-citas-abstencion" number={137} title="Diseñar para incertidumbre: confianza, citas y abstención">
+  <p><i data-lucide="badge-help"></i> La UX de IA debe enseñar al usuario cuándo confiar, cuándo verificar y cuándo el sistema no sabe. Una respuesta segura pero falsa es peor que una abstención honesta.</p>
+  <h3><i data-lucide="eye"></i> Patrones de interfaz</h3>
+  <div class="tool-grid">
+    <div class="tool-card"><strong>Citas visibles</strong><p>Fuente, fragmento, fecha y enlace. La cita debe sostener exactamente la frase que acompaña.</p><span class="tag">verificación</span></div>
+    <div class="tool-card"><strong>Confianza accionable</strong><p>No muestres un porcentaje mágico. Explica qué evidencia falta o qué parte es incierta.</p><span class="tag">incertidumbre</span></div>
+    <div class="tool-card"><strong>Abstención útil</strong><p>Si no hay evidencia, decirlo y proponer cómo conseguirla.</p><span class="tag">no-answer</span></div>
+    <div class="tool-card"><strong>Comparación</strong><p>Cuando hay contradicción, mostrar opciones y fuentes en conflicto.</p><span class="tag">conflicto</span></div>
+    <div class="tool-card"><strong>Estado del sistema</strong><p>Qué buscó, qué herramientas usó y qué no pudo comprobar.</p><span class="tag">transparencia</span></div>
+    <div class="tool-card"><strong>Acción reversible</strong><p>Antes de enviar, borrar, comprar o desplegar: preview, confirmación y undo.</p><span class="tag">control</span></div>
+  </div>
+  <div class="callout">
+    <p class="callout-title"><i data-lucide="lightbulb"></i> Buen criterio de producto</p>
+    <p>La IA debe reducir trabajo, no esconder incertidumbre. En tareas de riesgo, una interfaz honesta vale más que una respuesta elegante.</p>
+  </div>
+</Slide>
+
+<!-- SLIDE 138 -->
+<Slide id="ux-human-approval-rollback" number={138} title="Aprobación humana: confirmar, editar y revertir">
+  <p><i data-lucide="user-check"></i> Human-in-the-loop no es poner un humano al final de todo. Es diseñar puntos de control donde el usuario pueda entender, corregir y revertir acciones.</p>
+  <h3><i data-lucide="shield-check"></i> Matriz de aprobación</h3>
+  <table>
+    <thead>
+      <tr><th>Acción</th><th>Control UX</th><th>Registro mínimo</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>Leer / resumir</strong></td><td>Citas y feedback rápido</td><td>Fuentes usadas, modelo, timestamp</td></tr>
+      <tr><td><strong>Crear borrador</strong></td><td>Editar antes de enviar</td><td>Prompt, versión y cambios humanos</td></tr>
+      <tr><td><strong>Modificar datos</strong></td><td>Preview de diff + confirmación</td><td>Antes/después, usuario aprobador</td></tr>
+      <tr><td><strong>Ejecutar tool externa</strong></td><td>Permiso por scope, no token genérico</td><td>Tool, argumentos, resultado, coste</td></tr>
+      <tr><td><strong>Acción irreversible</strong></td><td>Doble confirmación o prohibición</td><td>Justificación, rollback o ausencia de rollback</td></tr>
+    </tbody>
+  </table>
+  <div class="callout">
+    <p class="callout-title"><i data-lucide="rotate-ccw"></i> Rollback como requisito</p>
+    <p>Si una acción no se puede revertir, no debería ser automática por defecto. El diseño correcto es dry-run, diff, confirmación y límites de permisos.</p>
+  </div>
+</Slide>
+
+<!-- SLIDE 139 -->
+<Slide id="ux-conversaciones-memoria-handoff" number={139} title="Conversaciones recuperables: memoria, límites y handoff">
+  <p><i data-lucide="messages-square"></i> Un producto con IA falla de formas distintas a un formulario clásico: se desvía, olvida, mezcla contexto o no sabe cuándo parar. La UX debe tener salidas claras.</p>
+  <h3><i data-lucide="map"></i> Controles que espera un usuario real</h3>
+  <div class="two-cols">
+    <div class="compare-card">
+      <p class="compare-card-title"><i data-lucide="history"></i> Memoria controlable</p>
+      <ul>
+        <li>Ver qué recuerda el sistema</li>
+        <li>Editar o borrar memoria</li>
+        <li>Separar memoria personal, proyecto y sesión</li>
+        <li>No mezclar tenants ni conversaciones</li>
+      </ul>
+    </div>
+    <div class="compare-card">
+      <p class="compare-card-title"><i data-lucide="handshake"></i> Handoff y recuperación</p>
+      <ul>
+        <li>Escalar a humano cuando hay riesgo o bloqueo</li>
+        <li>Reanudar una tarea con estado visible</li>
+        <li>Exportar contexto, decisiones y próximos pasos</li>
+        <li>Marcar respuesta como incorrecta y re-evaluar</li>
+      </ul>
+    </div>
+  </div>
+  <div class="callout">
+    <p class="callout-title"><i data-lucide="message-circle-warning"></i> Señal de madurez</p>
+    <p>Un buen producto de IA no obliga al usuario a discutir con el modelo. Ofrece controles: rehacer, limitar, verificar, escalar y cerrar.</p>
+  </div>
+</Slide>
+
+<!-- SLIDE 140 -->
+<Slide id="recap-producto-ux-ia" number={140} title="Lo que deberías saber: producto y UX de IA">
+  <table>
+    <thead>
+      <tr><th>Área</th><th>Regla práctica</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Confianza</td><td>No finjas certeza. Muestra evidencia, límites y qué no se ha comprobado.</td></tr>
+      <tr><td>Citas</td><td>La cita debe sostener la afirmación concreta, no solo enlazar un documento relacionado.</td></tr>
+      <tr><td>Aprobación</td><td>Acciones con impacto necesitan preview, diff, confirmación, permisos mínimos y rollback.</td></tr>
+      <tr><td>Memoria</td><td>Debe ser visible, editable, separada por scope y borrable.</td></tr>
+      <tr><td>Handoff</td><td>Cuando la IA no puede resolver, debe cerrar bien: humano, ticket, export o siguiente paso.</td></tr>
+    </tbody>
+  </table>
+</Slide>
+
+<!-- SLIDE 141: SECCION -->
+<Slide id="sec-operar-ia-produccion" number={141} section
   title="Operar IA en producción"
   subtitle="LLMOps, serving de modelos, routing, budgets, EvalOps, DataOps, post-training avanzado y disciplina operativa." />
 
-<!-- SLIDE 131 -->
-<Slide id="llmops-demo-a-servicio" number={131} title="LLMOps: de demo a servicio fiable">
+<!-- SLIDE 142 -->
+<Slide id="llmops-demo-a-servicio" number={142} title="LLMOps: de demo a servicio fiable">
   <div class="big-idea">
     <p>LLMOps empieza cuando una respuesta mala, cara o lenta deja de ser una anécdota y pasa a ser un incidente de producto.</p>
   </div>
@@ -2481,8 +2701,8 @@ if (!parsed.success) &#123;
   </div>
 </Slide>
 
-<!-- SLIDE 132 -->
-<Slide id="serving-open-weights" number={132} title="Serving open weights: vLLM, SGLang, TensorRT-LLM">
+<!-- SLIDE 143 -->
+<Slide id="serving-open-weights" number={143} title="Serving open weights: vLLM, SGLang, TensorRT-LLM">
   <div class="big-idea">
     <p>Servir un modelo no es "hacer un import": es gestionar memoria, colas, latencia y coste por token.</p>
   </div>
@@ -2528,8 +2748,8 @@ if (!parsed.success) &#123;
   </div>
 </Slide>
 
-<!-- SLIDE 133 -->
-<Slide id="inferencia-escalado" number={133} title="Escalar inferencia: batching, KV cache y especulación">
+<!-- SLIDE 144 -->
+<Slide id="inferencia-escalado" number={144} title="Escalar inferencia: batching, KV cache y especulación">
   <div class="big-idea">
     <p>Escalar inferencia es elegir qué sacrificas: latencia individual, throughput total, memoria o coste.</p>
   </div>
@@ -2580,8 +2800,8 @@ if (!parsed.success) &#123;
   </div>
 </Slide>
 
-<!-- SLIDE 134 -->
-<Slide id="routing-fallback-budgets" number={134} title="Routing, fallback y budgets por tarea">
+<!-- SLIDE 145 -->
+<Slide id="routing-fallback-budgets" number={145} title="Routing, fallback y budgets por tarea">
   <div class="big-idea">
     <p>El modelo más caro no siempre gana. Gana la ruta que resuelve la tarea con calidad suficiente, coste controlado y riesgo aceptable.</p>
   </div>
@@ -2610,8 +2830,8 @@ if (!parsed.success) &#123;
   </div>
 </Slide>
 
-<!-- SLIDE 135 -->
-<Slide id="evalops-regresiones-canary" number={135} title="EvalOps: regresiones, canary y release gates">
+<!-- SLIDE 146 -->
+<Slide id="evalops-regresiones-canary" number={146} title="EvalOps: regresiones, canary y release gates">
   <div class="big-idea">
     <p>Una eval no es un informe: es una puerta de despliegue que evita degradar calidad, coste o seguridad sin darte cuenta.</p>
   </div>
@@ -2638,8 +2858,8 @@ if (!parsed.success) &#123;
   </div>
 </Slide>
 
-<!-- SLIDE 136 -->
-<Slide id="dataops-ia" number={136} title="DataOps para IA: linaje, PII, licencias y drift">
+<!-- SLIDE 147 -->
+<Slide id="dataops-ia" number={147} title="DataOps para IA: linaje, PII, licencias y drift">
   <div class="big-idea">
     <p>En IA, los datos no son un input pasivo: son el producto que define qué sabe, qué cita y qué puede romper tu sistema.</p>
   </div>
@@ -2669,8 +2889,8 @@ if (!parsed.success) &#123;
   </div>
 </Slide>
 
-<!-- SLIDE 137 -->
-<Slide id="post-training-avanzado" number={137} title="Post-training avanzado: SFT, preferencias y refuerzo">
+<!-- SLIDE 148 -->
+<Slide id="post-training-avanzado" number={148} title="Post-training avanzado: SFT, preferencias y refuerzo">
   <div class="big-idea">
     <p>Post-training no es una técnica: eliges una señal. El refuerzo "solo" merece sitio cuando la recompensa se puede verificar.</p>
   </div>
@@ -2699,25 +2919,25 @@ if (!parsed.success) &#123;
   </div>
 </Slide>
 
-<!-- SLIDE 138 -->
-<Slide id="recap-operar-ia-produccion" number={138} title="Lo que deberías saber: operar IA en producción">
+<!-- SLIDE 149 -->
+<Slide id="recap-operar-ia-produccion" number={149} title="Lo que deberías saber: operar IA en producción">
   <div class="recap-map">
-    <div class="recap-card"><strong>Operar</strong><p>Control plane, runtime, traces, rollback y límites.</p><span class="tag">131</span></div>
-    <div class="recap-card"><strong>Servir</strong><p>vLLM, SGLang, TensorRT-LLM, llama.cpp y Ollama.</p><span class="tag">132</span></div>
-    <div class="recap-card"><strong>Escalar</strong><p>Batching, KV cache, prefix cache y speculative decoding.</p><span class="tag">133</span></div>
-    <div class="recap-card"><strong>Decidir</strong><p>Routing, fallback y budgets según riesgo y coste.</p><span class="tag">134</span></div>
-    <div class="recap-card"><strong>Medir</strong><p>Offline evals, shadow runs, canary y release gates.</p><span class="tag">135</span></div>
-    <div class="recap-card"><strong>Gobernar datos</strong><p>Linaje, PII, licencias, calidad, drift y post-training.</p><span class="tag">136-137</span></div>
+    <div class="recap-card"><strong>Operar</strong><p>Control plane, runtime, traces, rollback y límites.</p><span class="tag">142</span></div>
+    <div class="recap-card"><strong>Servir</strong><p>vLLM, SGLang, TensorRT-LLM, llama.cpp y Ollama.</p><span class="tag">143</span></div>
+    <div class="recap-card"><strong>Escalar</strong><p>Batching, KV cache, prefix cache y speculative decoding.</p><span class="tag">144</span></div>
+    <div class="recap-card"><strong>Decidir</strong><p>Routing, fallback y budgets según riesgo y coste.</p><span class="tag">145</span></div>
+    <div class="recap-card"><strong>Medir</strong><p>Offline evals, shadow runs, canary y release gates.</p><span class="tag">146</span></div>
+    <div class="recap-card"><strong>Gobernar datos</strong><p>Linaje, PII, licencias, calidad, drift y post-training.</p><span class="tag">147-148</span></div>
   </div>
 </Slide>
 
-<!-- SLIDE 139: SECCION -->
-<Slide id="sec-seguridad-gobernanza" number={139} section
+<!-- SLIDE 150: SECCION -->
+<Slide id="sec-seguridad-gobernanza" number={150} section
   title="Seguridad, gobernanza y confianza"
   subtitle="Riesgos específicos de agentes, OWASP LLM Top 10, privacidad, despliegues privados, marcos de gobernanza e interpretabilidad." />
 
-<!-- SLIDE 140 -->
-<Slide id="seguridad-agentic-mcp" number={140} title="Seguridad agentic: tools, MCP y permisos">
+<!-- SLIDE 151 -->
+<Slide id="seguridad-agentic-mcp" number={151} title="Seguridad agentic: tools, MCP y permisos">
   <div class="big-idea">
     <p>El salto de chatbot a agente cambia el daño posible: ya no solo responde, también puede actuar con permisos.</p>
   </div>
@@ -2748,6 +2968,18 @@ if (!parsed.success) &#123;
       <p class="risk-control">Control: DLP (Data Loss Prevention), redacción, egress control y clasificación de datos.</p>
     </div>
   </div>
+  <h3><i data-lucide="map"></i> Modelo de amenazas mínimo</h3>
+  <table class="compact-table">
+    <thead>
+      <tr><th>Frontera</th><th>Qué no debe cruzar sin control</th><th>Control práctico</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Usuario &rarr; modelo</td><td>Instrucciones maliciosas o datos prohibidos</td><td>Validación, clasificación y límites por tenant</td></tr>
+      <tr><td>RAG &rarr; modelo</td><td>Instrucciones escondidas en documentos</td><td>Tratar retrieval como datos, no como órdenes</td></tr>
+      <tr><td>Modelo &rarr; tools</td><td>Acciones no pretendidas por el usuario</td><td>Scopes, confirmación, dry-run y allowlist</td></tr>
+      <tr><td>Tools &rarr; exterior</td><td>Secretos, PII o contexto sensible</td><td>DLP, redacción, egress control y logs</td></tr>
+    </tbody>
+  </table>
   <div class="callout">
     <p class="callout-title"><i data-lucide="key-round"></i> Regla de diseño</p>
     <p>Una tool debe tener el permiso mínimo para una acción concreta. Evita tools genéricas tipo <code>run_any_sql</code>, <code>shell</code> o <code>send_http_request</code> salvo en sandboxes controlados.</p>
@@ -2760,8 +2992,8 @@ if (!parsed.success) &#123;
   </div>
 </Slide>
 
-<!-- SLIDE 141 -->
-<Slide id="owasp-llm-top10-aplicado" number={141} title="OWASP LLM Top 10 aplicado">
+<!-- SLIDE 152 -->
+<Slide id="owasp-llm-top10-aplicado" number={152} title="OWASP LLM Top 10 aplicado">
   <div class="big-idea">
     <p>OWASP LLM Top 10 sirve para convertir riesgos conocidos en controles probables, testeables y operables.</p>
   </div>
@@ -2786,8 +3018,8 @@ if (!parsed.success) &#123;
   </div>
 </Slide>
 
-<!-- SLIDE 142 -->
-<Slide id="privacidad-retencion-private-ai" number={142} title="Privacidad, retención y private AI">
+<!-- SLIDE 153 -->
+<Slide id="privacidad-retencion-private-ai" number={153} title="Privacidad, retención y private AI">
   <div class="big-idea">
     <p>La decisión no es "cloud o local": es qué datos viajan, quién los procesa, cuánto se guardan y con qué garantías.</p>
   </div>
@@ -2813,8 +3045,8 @@ if (!parsed.success) &#123;
   </div>
 </Slide>
 
-<!-- SLIDE 143 -->
-<Slide id="gobernanza-ai-rmf-iso" number={143} title="Gobernanza: EU AI Act, NIST AI RMF e ISO 42001">
+<!-- SLIDE 154 -->
+<Slide id="gobernanza-ai-rmf-iso" number={154} title="Gobernanza: EU AI Act, NIST AI RMF e ISO 42001">
   <div class="big-idea">
     <p>Gobernanza no es frenar IA: es decidir qué se despliega, con qué controles y con qué evidencia.</p>
   </div>
@@ -2840,8 +3072,8 @@ if (!parsed.success) &#123;
   </div>
 </Slide>
 
-<!-- SLIDE 144 -->
-<Slide id="interpretabilidad-confianza" number={144} title="Interpretabilidad: SAEs, features y límites de confianza">
+<!-- SLIDE 155 -->
+<Slide id="interpretabilidad-confianza" number={155} title="Interpretabilidad: SAEs, features y límites de confianza">
   <div class="big-idea">
     <p>Interpretabilidad ayuda a investigar modelos; no sustituye evals, controles ni supervisión en producto.</p>
   </div>
@@ -2870,13 +3102,13 @@ if (!parsed.success) &#123;
   </div>
 </Slide>
 
-<!-- SLIDE 145 -->
-<Slide id="recap-seguridad-gobernanza" number={145} title="Lo que deberías saber: seguridad y gobernanza">
+<!-- SLIDE 156 -->
+<Slide id="recap-seguridad-gobernanza" number={156} title="Lo que deberías saber: seguridad y gobernanza">
   <div class="recap-map">
-    <div class="recap-card"><strong>Actuar con permisos</strong><p>Tools, MCP, confused deputy, exfiltración y permisos mínimos.</p><span class="tag">140</span></div>
-    <div class="recap-card"><strong>Probar ataques</strong><p>OWASP LLM Top 10 convertido en controles y pruebas repetibles.</p><span class="tag">141</span></div>
-    <div class="recap-card"><strong>Proteger datos</strong><p>API pública, VPC (Virtual Private Cloud), on-prem, híbrido, retención, región y contrato.</p><span class="tag">142</span></div>
-    <div class="recap-card"><strong>Gobernar</strong><p>EU AI Act, NIST AI RMF, NIST GenAI Profile e ISO/IEC 42001.</p><span class="tag">143</span></div>
-    <div class="recap-card"><strong>Entender límites</strong><p>SAEs, features, circuitos y confianza basada en evidencia.</p><span class="tag">144</span></div>
+    <div class="recap-card"><strong>Actuar con permisos</strong><p>Tools, MCP, confused deputy, exfiltración y permisos mínimos.</p><span class="tag">151</span></div>
+    <div class="recap-card"><strong>Probar ataques</strong><p>OWASP LLM Top 10 convertido en controles y pruebas repetibles.</p><span class="tag">152</span></div>
+    <div class="recap-card"><strong>Proteger datos</strong><p>API pública, VPC (Virtual Private Cloud), on-prem, híbrido, retención, región y contrato.</p><span class="tag">153</span></div>
+    <div class="recap-card"><strong>Gobernar</strong><p>EU AI Act, NIST AI RMF, NIST GenAI Profile e ISO/IEC 42001.</p><span class="tag">154</span></div>
+    <div class="recap-card"><strong>Entender límites</strong><p>SAEs, features, circuitos y confianza basada en evidencia.</p><span class="tag">155</span></div>
   </div>
 </Slide>

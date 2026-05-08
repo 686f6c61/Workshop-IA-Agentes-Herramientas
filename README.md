@@ -1,6 +1,6 @@
 # Workshop de IA para gente curiosa
 
-De la neurona al agente: portada, 160 slides numeradas y cierre para entender la IA moderna y aplicarla con criterio en tu dia a dia. Desde backpropagation hasta desplegar agentes en produccion, pasando por RAG, fine-tuning, MCP, ControlNet, Hugging Face, Google Colab, benchmarks, LLMOps, seguridad agentic, gobernanza, modelos open weights y vibe coding.
+De la neurona al agente: portada, 171 slides numeradas y cierre para entender la IA moderna y aplicarla con criterio en tu dia a dia. Desde backpropagation hasta desplegar agentes en produccion, pasando por RAG, fine-tuning, MCP, ControlNet, Hugging Face, Google Colab, evals avanzadas, UX de IA, LLMOps, seguridad agentic, gobernanza, modelos open weights y vibe coding.
 
 **[Ver presentacion](https://workshop-ia-2026.686f6c61.dev)** | Actualizado a mayo 2026 (update 05/26)
 
@@ -18,7 +18,7 @@ De la neurona al agente: portada, 160 slides numeradas y cierre para entender la
 ### Arquitecturas y modelos (slides 19-34)
 - [x] LLMs, Transformers, Mixture of Experts, SSM (State Space Model)/Mamba, RWKV/RetNet, Hyena, Jamba y arquitecturas byte/latent
 - [x] Dimensiones de modelos: parametros totales/activos, capas, hidden size, heads, context window
-- [x] Estado del arte mayo 2026: GPT-5.5/5.4, Claude Opus 4.7, Gemini 3 Pro, gpt-oss, Qwen3.6, DeepSeek-V4, Llama 4 y Mistral 3
+- [x] Estado del arte mayo 2026: GPT-5.5/5.4, Claude Opus 4.7, Gemini 3.1 Pro Preview (`gemini-3.1-pro-preview`), gpt-oss, Qwen3.6, DeepSeek-V4, Llama 4 y Mistral 3
 - [x] Atencion en detalle: matrices Q, K, V, multi-head, RoPE
 - [x] Tokenizacion en profundidad: BPE (Byte Pair Encoding), WordPiece, SentencePiece
 - [x] Transfer learning: de ImageNet a GPT
@@ -71,7 +71,7 @@ De la neurona al agente: portada, 160 slides numeradas y cierre para entender la
 ### Realidad de construir con IA (slides 104-129)
 - [x] IDE web vs terminal, comparativa de coding assistants
 - [x] Benchmarks: que miden, que no miden, SWE-bench, leaderboards y evals internas
-- [x] SWE-bench: Full, Verified, Lite, Multilingual, Multimodal, % Resolved, contaminacion, SWE-bench Pro y coste por resolucion
+- [x] SWE-bench: Full, Verified, Lite (534), Multilingual, Multimodal (100 dev / 500 test), % Resolved, contaminacion, SWE-bench Pro y coste por resolucion
 - [x] Precios y cambios actuales en herramientas de coding: Claude Code, Cursor, Copilot y Windsurf
 - [x] IA en CI/CD, seguridad (OWASP Top 10 for LLMs), guardrails
 - [x] Testing adversarial, red teaming, prompt injection
@@ -83,7 +83,18 @@ De la neurona al agente: portada, 160 slides numeradas y cierre para entender la
 - [x] Configurar Claude Code, OpenCode y Cursor como un pro
 - [x] Agentes en produccion: lecciones aprendidas y el "agent tax"
 
-### Operar IA en produccion (slides 130-138)
+### Evals y medicion avanzada (slides 130-135)
+- [x] Eval de RAG: retrieval, recall@k, MRR, nDCG, groundedness, answerability y abstencion
+- [x] LLM-as-judge: rubricas, calibracion con humanos, evaluacion ciega, pares A/B y casos negativos
+- [x] Eval de agentes: task success, tool success, coste, robustez, trazas y rollback
+- [x] FinOps de IA: coste por tarea aceptada, routing barato/caro, cache, batch/flex y revision humana
+
+### Producto y UX de IA (slides 136-140)
+- [x] Disenar para incertidumbre: citas visibles, confianza accionable, abstencion y conflictos de fuentes
+- [x] Aprobacion humana: preview, diff, confirmacion, permisos minimos, logs y rollback
+- [x] Conversaciones recuperables: memoria visible/editable, limites, handoff a humano y recuperacion de errores
+
+### Operar IA en produccion (slides 141-149)
 - [x] LLMOps: control plane, runtime, observabilidad, evals y gobernanza
 - [x] Serving open weights con vLLM, SGLang, TensorRT-LLM, llama.cpp y Ollama
 - [x] Escalado de inferencia: continuous batching, KV cache, prefix caching, speculative decoding y chunked prefill
@@ -92,14 +103,14 @@ De la neurona al agente: portada, 160 slides numeradas y cierre para entender la
 - [x] DataOps para IA: linaje, PII, licencias, calidad del corpus y drift
 - [x] Post-training avanzado: SFT, DPO, RLHF/RLAIF, Constitutional AI, RFT con graders y RL verificable/RLVR
 
-### Seguridad, gobernanza y confianza (slides 139-145)
-- [x] Seguridad agentic: tools, MCP, permisos minimos, confused deputy, tool poisoning y exfiltracion
+### Seguridad, gobernanza y confianza (slides 150-156)
+- [x] Seguridad agentic: tools, MCP, permisos minimos, threat modeling, confused deputy, tool poisoning y exfiltracion
 - [x] OWASP LLM Top 10 aplicado a controles, CI y datasets adversariales
 - [x] Privacidad y private AI: API publica, VPC (Virtual Private Cloud), on-prem, despliegue hibrido, retencion y region
 - [x] Gobernanza: EU AI Act, NIST AI RMF, NIST GenAI Profile e ISO/IEC 42001
 - [x] Interpretabilidad: mechanistic interpretability, sparse autoencoders, features y limites de confianza
 
-### Modelos open weights con Ollama Cloud (slides 146-160 + cierre)
+### Modelos open weights con Ollama Cloud (slides 157-171 + cierre)
 - [x] Ollama Cloud: modelos open weights sin GPU
 - [x] Catalogo, setup, integracion con herramientas
 - [x] Cloud vs local: cuando usar cada uno

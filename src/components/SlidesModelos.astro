@@ -287,11 +287,11 @@ import Slide from './Slide.astro';
   <h3><i data-lucide="database"></i> Estado del arte (mayo 2026)</h3>
   <table>
     <thead>
-      <tr><th>Modelo</th><th>Texto</th><th>Imagen</th><th>Audio</th><th>Vídeo</th><th>Generación</th></tr>
+      <tr><th>Modelo / endpoint</th><th>Texto</th><th>Imagen input</th><th>Audio input</th><th>Vídeo input</th><th>Generación</th></tr>
     </thead>
     <tbody>
-      <tr><td><strong>Gemini 3 Pro</strong></td><td>Sí</td><td>Sí</td><td>Sí</td><td>Sí</td><td>Texto</td></tr>
-      <tr><td><strong>GPT-5.5</strong></td><td>Sí</td><td>Sí</td><td>No en el modelo base; vía GPT-realtime-1.5</td><td>Modelos/herramientas especializadas</td><td>Texto + tools</td></tr>
+      <tr><td><strong>Gemini 3.1 Pro Preview</strong></td><td>Sí</td><td>Sí</td><td>Sí</td><td>Sí</td><td>Texto; no Live API en este endpoint</td></tr>
+      <tr><td><strong>GPT-5.5</strong></td><td>Sí</td><td>Sí</td><td>No en el modelo base; vía gpt-realtime-2/audio</td><td>Modelos/herramientas especializadas</td><td>Texto + tools</td></tr>
       <tr><td><strong>Claude Opus 4.7 / Sonnet 4.6</strong></td><td>Sí</td><td>Sí</td><td>No nativo en Messages</td><td>No</td><td>Texto</td></tr>
       <tr><td><strong>Gemini Live / Flash Live</strong></td><td>Sí</td><td>Sí</td><td>Sí</td><td>Sí</td><td>Audio en tiempo real</td></tr>
     </tbody>
@@ -304,11 +304,11 @@ import Slide from './Slide.astro';
   </ul>
   <div class="callout">
     <p class="callout-title"><i data-lucide="lightbulb"></i> Tendencia 2026</p>
-    <p>La distinción entre "modelo de texto" y "modelo de visión" está desapareciendo, pero las modalidades exactas dependen del endpoint, región y modelo. Diseña tus apps para recibir múltiples modalidades y verifica la matriz oficial antes de integrar.</p>
+    <p>La distinción entre "modelo de texto" y "modelo de visión" está desapareciendo, pero input y output no son lo mismo. Las modalidades exactas dependen del endpoint, región y modelo. Diseña tus apps para recibir múltiples modalidades y verifica la matriz oficial antes de integrar.</p>
   </div>
   <div class="refs">
     <p class="refs-title">Para profundizar</p>
-    <a href="https://docs.cloud.google.com/vertex-ai/generative-ai/docs/models/gemini/3-pro" target="_blank">Google - Gemini 3 Pro</a>
+    <a href="https://docs.cloud.google.com/vertex-ai/generative-ai/docs/models/gemini/3-1-pro" target="_blank">Google - Gemini 3.1 Pro Preview</a>
     <a href="https://developers.openai.com/api/docs/models" target="_blank">OpenAI - Models</a>
     <a href="https://platform.claude.com/docs/en/build-with-claude/vision" target="_blank">Anthropic - Vision</a>
   </div>
@@ -326,7 +326,7 @@ import Slide from './Slide.astro';
       <tr><td><strong>Claude Opus 4.7 / Sonnet 4.6</strong></td><td>Anthropic</td><td>Propietario</td><td>Comercial</td><td>Agentes, código y contexto largo</td></tr>
       <tr><td><strong>GPT-5.5 / GPT-5.4</strong></td><td>OpenAI</td><td>Propietario</td><td>Comercial</td><td>Reasoning, computer use y ecosistema API</td></tr>
       <tr><td><strong>gpt-oss-120b / 20b</strong></td><td>OpenAI</td><td>Open weights</td><td>Apache 2.0</td><td>Reasoning auto-hospedado, tool use y fine-tuning</td></tr>
-      <tr><td><strong>Gemini 3 Pro</strong></td><td>Google</td><td>Propietario</td><td>Comercial</td><td>Contexto 1M, multimodalidad y herramientas Google</td></tr>
+      <tr><td><strong>Gemini 3.1 Pro Preview</strong></td><td>Google</td><td>Propietario</td><td>Comercial</td><td>Contexto 1M, multimodalidad y herramientas Google</td></tr>
       <tr><td><strong>Llama 4 Scout/Maverick</strong></td><td>Meta</td><td>Open weights</td><td>Llama 4 License</td><td>MoE multimodal, contextos muy largos</td></tr>
       <tr><td><strong>Mistral Large 3 / Medium 3.5</strong></td><td>Mistral AI</td><td>Open weights</td><td>Apache 2.0 / Modified MIT</td><td>Large 3 MoE abierto; Medium 3.5 agentic coding y 256k</td></tr>
       <tr><td><strong>Qwen3.6</strong></td><td>Alibaba</td><td>Open weights</td><td>Apache 2.0</td><td>MoE multimodal, agentic coding y contexto largo</td></tr>
@@ -846,7 +846,7 @@ import Slide from './Slide.astro';
   <h3><i data-lucide="database"></i> Soporte por modelo (mayo 2026)</h3>
   <table>
     <thead>
-      <tr><th>Capacidad</th><th>Claude Opus 4.7</th><th>GPT-5.5</th><th>Gemini 3 Pro</th></tr>
+      <tr><th>Capacidad</th><th>Claude Opus 4.7</th><th>GPT-5.5</th><th>Gemini 3.1 Pro Preview</th></tr>
     </thead>
     <tbody>
       <tr><td><strong>Imágenes</strong></td><td>Sí (hasta 20 por mensaje)</td><td>Sí</td><td>Sí</td></tr>
@@ -934,7 +934,7 @@ import Slide from './Slide.astro';
       <tr><th>Modelo</th><th>Empresa</th><th>Capacidad</th></tr>
     </thead>
     <tbody>
-      <tr><td><strong>Sora 2 / Sora 2 Pro</strong></td><td>OpenAI</td><td>Vídeo con audio sincronizado y modelos especializados</td></tr>
+      <tr><td><strong>Sora 2 / Sora 2 Pro</strong></td><td>OpenAI</td><td>Vídeo con audio sincronizado; verificar estado API porque el catálogo los marca legacy/deprecated</td></tr>
       <tr><td><strong>Veo 3.1</strong></td><td>Google</td><td>Vídeo cinematográfico, edición y audio nativo</td></tr>
       <tr><td><strong>Runway</strong></td><td>Runway</td><td>Referencia en producción creativa y image-to-video</td></tr>
     </tbody>
@@ -2193,7 +2193,7 @@ import Slide from './Slide.astro';
     <tbody>
       <tr><td><strong>Claude Opus 4.7 / Sonnet 4.6</strong></td><td>1M</td><td>Usar citas y estructura en contextos largos</td><td>Opus 4.7 añade 128k max output y task budgets</td></tr>
       <tr><td><strong>GPT-5.5 / GPT-5.4</strong></td><td>1.05M</td><td>Segmentar por secciones y usar tools</td><td>Cached prefixes ayudan; ojo a pricing de contexto largo</td></tr>
-      <tr><td><strong>Gemini 3 Pro</strong></td><td>1M</td><td>Muy fuerte en multimodal largo</td><td>Verificar recuperación, no asumir lectura perfecta</td></tr>
+      <tr><td><strong>Gemini 3.1 Pro Preview</strong></td><td>1M</td><td>Muy fuerte en multimodal largo</td><td>Verificar recuperación, no asumir lectura perfecta</td></tr>
       <tr><td><strong>DeepSeek-V4 Pro/Flash</strong></td><td>1M</td><td>Separar Pro para calidad y Flash para coste/latencia</td><td>Think Max recomienda al menos 384k en despliegue local</td></tr>
       <tr><td><strong>Qwen3.6-35B-A3B</strong></td><td>262k / 1.01M YaRN</td><td>Activar YaRN solo cuando haga falta contexto ultra-largo</td><td>El escalado puede afectar prompts cortos</td></tr>
     </tbody>
