@@ -219,7 +219,7 @@ import Slide from './Slide.astro';
       <tr><td>Setup: API key + curl o Python con la API nativa de Ollama</td><td>160</td></tr>
       <tr><td>Integración: Claude Code, Codex CLI, OpenCode y herramientas con provider Ollama</td><td>161</td></tr>
       <tr><td>Cloud para modelos grandes y prototipos; local para privacidad extrema</td><td>162</td></tr>
-      <tr><td>Recursos, checklist de exactitud, glosario y ruta de estudio</td><td>164-171</td></tr>
+      <tr><td>Recursos, checklist de exactitud, glosario y ruta de estudio</td><td>164-172</td></tr>
     </tbody>
   </table>
 </Slide>
@@ -295,34 +295,64 @@ import Slide from './Slide.astro';
 </Slide>
 
 <!-- SLIDE 167 -->
-<Slide id="glosario-siglas" number={167} title="Glosario de siglas usadas">
-  <p><i data-lucide="book-open"></i> Si una sigla aparece en la presentación, debe poder leerse sin buscarla fuera. Esta slide compacta las más importantes para repasar antes de compartir el material.</p>
+<Slide id="glosario-siglas" number={167} title="Glosario I: modelos, datos y evaluación">
+  <p><i data-lucide="book-open"></i> Si una sigla aparece en la presentación, debe poder leerse sin buscarla fuera. Este primer bloque cubre modelos, entrenamiento, retrieval y evaluación.</p>
   <table class="compact-table resource-table">
     <thead>
       <tr><th>Sigla</th><th>Significado</th><th>Lectura práctica</th></tr>
     </thead>
     <tbody>
       <tr><td><strong>LLM</strong></td><td>Large Language Model</td><td>Modelo de lenguaje a gran escala que genera tokens.</td></tr>
+      <tr><td><strong>VLM</strong></td><td>Vision-Language Model</td><td>Modelo que combina texto e imagen como entrada o salida.</td></tr>
       <tr><td><strong>MoE</strong></td><td>Mixture of Experts</td><td>Muchos expertos almacenados; pocos activos por token.</td></tr>
       <tr><td><strong>SSM</strong></td><td>State Space Model</td><td>Arquitectura eficiente para secuencias largas; Mamba es la referencia conocida.</td></tr>
       <tr><td><strong>BPE</strong></td><td>Byte Pair Encoding</td><td>Algoritmo de tokenización por fusiones frecuentes.</td></tr>
-      <tr><td><strong>GPTQ / AWQ</strong></td><td>GPT Quantization / Activation-aware Weight Quantization</td><td>Quantización post-training para ejecutar modelos con menos memoria.</td></tr>
+      <tr><td><strong>RoPE</strong></td><td>Rotary Position Embeddings</td><td>Codificación posicional usada por muchos Transformers modernos.</td></tr>
+      <tr><td><strong>MRL</strong></td><td>Matryoshka Representation Learning</td><td>Embeddings que permiten recortar dimensiones manteniendo utilidad.</td></tr>
       <tr><td><strong>RAG</strong></td><td>Retrieval-Augmented Generation</td><td>Buscar documentos externos y pasarlos al modelo con citas.</td></tr>
+      <tr><td><strong>GraphRAG</strong></td><td>Graph Retrieval-Augmented Generation</td><td>Retrieval que usa relaciones entre entidades, no solo chunks sueltos.</td></tr>
       <tr><td><strong>BM25</strong></td><td>Ranking lexical clásico</td><td>Búsqueda por palabras clave; útil junto a embeddings.</td></tr>
       <tr><td><strong>CRAG</strong></td><td>Corrective RAG</td><td>RAG que verifica si el retrieval es suficiente y corrige si no.</td></tr>
-      <tr><td><strong>MCP / A2A</strong></td><td>Model Context Protocol / Agent-to-Agent</td><td>MCP conecta agentes con tools; A2A conecta agentes entre sí.</td></tr>
-      <tr><td><strong>ADK / SDK</strong></td><td>Agent Development Kit / Software Development Kit</td><td>Toolkits para construir agentes o integrarse con una plataforma.</td></tr>
-      <tr><td><strong>HITL</strong></td><td>Human-in-the-loop</td><td>Humano aprueba pasos críticos antes de ejecutar acciones.</td></tr>
-      <tr><td><strong>TTFT / p95 / p99</strong></td><td>Time to First Token / percentiles 95 y 99</td><td>Miden latencia inicial y latencia de cola, no solo la media.</td></tr>
-      <tr><td><strong>DLP / DPA / VPC</strong></td><td>Data Loss Prevention / Data Processing Agreement / Virtual Private Cloud</td><td>Controles de fuga, contrato de tratamiento de datos y red privada cloud.</td></tr>
-      <tr><td><strong>SBOM / SAST</strong></td><td>Software Bill of Materials / Static Application Security Testing</td><td>Inventario de dependencias y análisis estático de seguridad.</td></tr>
-      <tr><td><strong>RFT / RLVR</strong></td><td>Reinforcement Fine-Tuning / Reinforcement Learning from Verifiable Rewards</td><td>Refuerzo con graders o recompensas verificables como tests, checkers o soluciones matemáticas.</td></tr>
+      <tr><td><strong>MRR / nDCG</strong></td><td>Mean Reciprocal Rank / normalized Discounted Cumulative Gain</td><td>Métricas de ranking: si lo relevante aparece arriba y en buen orden.</td></tr>
+      <tr><td><strong>SFT / DPO</strong></td><td>Supervised Fine-Tuning / Direct Preference Optimization</td><td>SFT imita ejemplos; DPO aprende de pares preferido/rechazado.</td></tr>
+      <tr><td><strong>RLHF / RLAIF</strong></td><td>Reinforcement Learning from Human/AI Feedback</td><td>Refuerzo con feedback humano o de un juez IA.</td></tr>
+      <tr><td><strong>RFT / RLVR</strong></td><td>Reinforcement Fine-Tuning / Reinforcement Learning from Verifiable Rewards</td><td>Refuerzo con graders o recompensas verificables como tests o checkers.</td></tr>
+      <tr><td><strong>LoRA / QLoRA</strong></td><td>Low-Rank Adaptation / Quantized LoRA</td><td>Fine-tuning eficiente entrenando adaptadores pequeños.</td></tr>
+      <tr><td><strong>GPTQ / AWQ / GGUF</strong></td><td>Quantizaciones y formato local</td><td>Reducen memoria o empaquetan modelos para ejecución local.</td></tr>
     </tbody>
   </table>
 </Slide>
 
 <!-- SLIDE 168 -->
-<Slide id="checklist-exactitud-ia" number={168} title="Checklist de exactitud para claims de IA">
+<Slide id="glosario-siglas-operacion" number={168} title="Glosario II: agentes, operación y seguridad">
+  <p><i data-lucide="book-open-check"></i> Segundo bloque de siglas prácticas: herramientas, despliegue, latencia, seguridad, gobierno y experiencia de usuario.</p>
+  <table class="compact-table resource-table">
+    <thead>
+      <tr><th>Sigla</th><th>Significado</th><th>Lectura práctica</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>MCP / A2A</strong></td><td>Model Context Protocol / Agent-to-Agent</td><td>MCP conecta agentes con tools; A2A conecta agentes entre sí.</td></tr>
+      <tr><td><strong>ADK / SDK</strong></td><td>Agent Development Kit / Software Development Kit</td><td>Toolkits para construir agentes o integrarse con una plataforma.</td></tr>
+      <tr><td><strong>API / CLI / IDE</strong></td><td>Application Programming Interface / Command-Line Interface / Integrated Development Environment</td><td>API integra software; CLI opera por terminal; IDE concentra edición y herramientas.</td></tr>
+      <tr><td><strong>HITL</strong></td><td>Human-in-the-loop</td><td>Humano aprueba pasos críticos antes de ejecutar acciones.</td></tr>
+      <tr><td><strong>STT / TTS</strong></td><td>Speech-to-Text / Text-to-Speech</td><td>Transcribir audio a texto o sintetizar voz desde texto.</td></tr>
+      <tr><td><strong>TTFT / p95 / p99</strong></td><td>Time to First Token / percentiles 95 y 99</td><td>Miden latencia inicial y latencia de cola, no solo la media.</td></tr>
+      <tr><td><strong>SLA / SLO</strong></td><td>Service Level Agreement / Service Level Objective</td><td>Compromiso contractual y objetivo interno de fiabilidad.</td></tr>
+      <tr><td><strong>KV cache</strong></td><td>Key-Value cache</td><td>Memoria de atención reutilizable durante inferencia autoregresiva.</td></tr>
+      <tr><td><strong>CPU / GPU / VRAM</strong></td><td>Central/Graphics Processing Unit / Video RAM</td><td>Hardware y memoria que condicionan si un modelo cabe y a qué velocidad.</td></tr>
+      <tr><td><strong>PII</strong></td><td>Personally Identifiable Information</td><td>Datos que identifican o pueden identificar a una persona.</td></tr>
+      <tr><td><strong>DLP / DPA / VPC</strong></td><td>Data Loss Prevention / Data Processing Agreement / Virtual Private Cloud</td><td>Controles de fuga, contrato de tratamiento de datos y red privada cloud.</td></tr>
+      <tr><td><strong>SBOM / SAST</strong></td><td>Software Bill of Materials / Static Application Security Testing</td><td>Inventario de dependencias y análisis estático de seguridad.</td></tr>
+      <tr><td><strong>CI/CD</strong></td><td>Continuous Integration / Continuous Delivery</td><td>Automatizar tests, builds, seguridad y despliegues.</td></tr>
+      <tr><td><strong>CoT</strong></td><td>Chain-of-Thought</td><td>Razonamiento paso a paso; no siempre debe exponerse al usuario.</td></tr>
+      <tr><td><strong>SAE</strong></td><td>Sparse Autoencoder</td><td>Técnica de interpretabilidad para descomponer activaciones en features.</td></tr>
+      <tr><td><strong>RMF / ISO</strong></td><td>Risk Management Framework / International Organization for Standardization</td><td>Marcos de gestión de riesgo y sistemas de gestión auditables.</td></tr>
+    </tbody>
+  </table>
+</Slide>
+
+<!-- SLIDE 169 -->
+<Slide id="checklist-exactitud-ia" number={169} title="Checklist de exactitud para claims de IA">
   <p><i data-lucide="clipboard-check"></i> La presentación circula mucho, así que los claims temporales deben leerse como snapshots verificables, no como verdades permanentes.</p>
   <table class="compact-table resource-table">
     <thead>
@@ -349,8 +379,8 @@ import Slide from './Slide.astro';
   </div>
 </Slide>
 
-<!-- SLIDE 169 -->
-<Slide id="pipeline-entrega-ia" number={169} title="Pipeline de entrega IA: de idea a producción">
+<!-- SLIDE 170 -->
+<Slide id="pipeline-entrega-ia" number={170} title="Pipeline de entrega IA: de idea a producción">
   <p><i data-lucide="route"></i> Un proyecto de IA no termina cuando una demo responde bien. Termina cuando puedes decidir con datos si seguir, parar o simplificar.</p>
   <div class="process-lane">
     <div class="process-step"><span class="step-label">1</span><strong>Caso</strong><p>Tarea repetitiva, usuario, riesgo y coste de error.</p></div>
@@ -373,8 +403,8 @@ import Slide from './Slide.astro';
   </table>
 </Slide>
 
-<!-- SLIDE 170 -->
-<Slide id="benchmarks-contaminacion-eval-privada" number={170} title="Benchmarks contaminados y eval privada">
+<!-- SLIDE 171 -->
+<Slide id="benchmarks-contaminacion-eval-privada" number={171} title="Benchmarks contaminados y eval privada">
   <p><i data-lucide="flask-conical"></i> Un benchmark público orienta, pero no sustituye tu eval. Cuanto más famoso es un benchmark, más probable es que parte del dataset, soluciones o estilo hayan entrado en datos de entrenamiento o tuning.</p>
   <div class="two-cols">
     <div class="compare-card">
@@ -403,23 +433,30 @@ import Slide from './Slide.astro';
   </div>
 </Slide>
 
-<!-- SLIDE 171 -->
-<Slide id="siguiente-paso-30-dias" number={171} title="Siguiente paso: ruta de 30 días">
-  <p><i data-lucide="calendar-days"></i> Si quieres convertir el workshop en habilidad real, trabaja por entregables pequeños. Cada semana debe dejar algo que puedas enseñar o reutilizar.</p>
+<!-- SLIDE 172 -->
+<Slide id="siguiente-paso-30-dias" number={172} title="Siguiente paso: ruta de 30 días">
+  <p><i data-lucide="calendar-days"></i> La ruta no es "aprender IA" en abstracto. Es escoger una tarea real, medir un baseline, añadir IA solo donde aporte y terminar con una decisión escrita.</p>
   <table class="compact-table resource-table">
     <thead>
-      <tr><th>Semana</th><th>Objetivo</th><th>Entregable</th><th>Criterio de calidad</th></tr>
+      <tr><th>Semana</th><th>Foco</th><th>Entregable</th><th>Criterio de calidad</th></tr>
     </thead>
     <tbody>
-      <tr><td>1</td><td>Fundamentos y coste</td><td>Comparativa de 3 modelos con el mismo prompt</td><td>Misma tarea, mismos datos, coste/token calculado</td></tr>
-      <tr><td>2</td><td>RAG mínimo</td><td>Buscador sobre 20 documentos propios</td><td>Citas visibles, chunking razonado, 20 preguntas de prueba</td></tr>
-      <tr><td>3</td><td>Evals internas</td><td>CSV de casos + script que puntúa respuestas</td><td>Falla cuando debe fallar; no depende de una demo feliz</td></tr>
-      <tr><td>4</td><td>Agente con tools</td><td>Agente con una tool real y human-in-the-loop</td><td>Logs, permisos mínimos, rollback y coste por tarea</td></tr>
+      <tr><td>1</td><td>Problema, baseline y coste</td><td>Tarea real + 30 casos + comparativa de 3 modelos</td><td>Mismos datos, versión de modelo, latencia y coste por tarea</td></tr>
+      <tr><td>2</td><td>Contexto y UX verificable</td><td>RAG mínimo o long-context con citas, abstención y conflictos</td><td>30 preguntas: con respuesta, sin respuesta y con fuentes contradictorias</td></tr>
+      <tr><td>3</td><td>Evals y seguridad</td><td>CSV de eval + rúbrica/juez + tests adversariales básicos</td><td>Falla cuando debe fallar; mide groundedness, formato, seguridad y coste</td></tr>
+      <tr><td>4</td><td>Tool, operación y decisión</td><td>Agente pequeño con una tool, HITL, logs, rollback y release gate</td><td>Trace por tarea, permisos mínimos, presupuesto y decisión seguir/parar/simplificar</td></tr>
     </tbody>
   </table>
+  <h3><i data-lucide="file-check-2"></i> Entrega final</h3>
+  <div class="process-lane">
+    <div class="process-step"><span class="step-label">A</span><strong>Decisión</strong><p>Seguir, parar o simplificar con razones escritas.</p></div>
+    <div class="process-step"><span class="step-label">B</span><strong>Arquitectura</strong><p>Prompt, RAG, tool, agente o fine-tune y por qué.</p></div>
+    <div class="process-step"><span class="step-label">C</span><strong>Métrica</strong><p>Calidad, latencia, coste por tarea aceptada y riesgos.</p></div>
+    <div class="process-step"><span class="step-label">D</span><strong>Reuso</strong><p>README, dataset de eval, script y demo reproducible.</p></div>
+  </div>
   <div class="callout">
-    <p class="callout-title"><i data-lucide="rocket"></i> Proyecto final recomendado</p>
-    <p>Elige una tarea repetitiva de tu trabajo, crea una eval pequeña, prueba dos modelos, añade una tool o RAG, mide coste y deja una decisión escrita: seguir, parar o simplificar.</p>
+    <p class="callout-title"><i data-lucide="target"></i> Proyecto final recomendado</p>
+    <p>Automatiza una tarea repetitiva de tu trabajo, pero entrega el expediente completo: caso de uso, datos, eval, modelos probados, arquitectura elegida, coste, controles de seguridad y decisión final.</p>
   </div>
 </Slide>
 

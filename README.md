@@ -1,6 +1,6 @@
 # Workshop de IA para gente curiosa
 
-De la neurona al agente: portada, 171 slides numeradas y cierre para entender la IA moderna y aplicarla con criterio en tu dia a dia. Desde backpropagation hasta desplegar agentes en produccion, pasando por RAG, fine-tuning, MCP, ControlNet, Hugging Face, Google Colab, evals avanzadas, UX de IA, LLMOps, seguridad agentic, gobernanza, modelos open weights y vibe coding.
+De la neurona al agente: portada, 172 slides numeradas y cierre para entender la IA moderna y aplicarla con criterio en tu dia a dia. Desde backpropagation hasta desplegar agentes en produccion, pasando por RAG, fine-tuning, MCP, ControlNet, Hugging Face, Google Colab, evals avanzadas, UX de IA, LLMOps, seguridad agentic, gobernanza, modelos open weights y vibe coding.
 
 **[Ver presentacion](https://workshop-ia-2026.686f6c61.dev)** | Actualizado a mayo 2026 (update 05/26)
 
@@ -110,13 +110,13 @@ De la neurona al agente: portada, 171 slides numeradas y cierre para entender la
 - [x] Gobernanza: EU AI Act, NIST AI RMF, NIST GenAI Profile e ISO/IEC 42001
 - [x] Interpretabilidad: mechanistic interpretability, sparse autoencoders, features y limites de confianza
 
-### Modelos open weights con Ollama Cloud (slides 157-171 + cierre)
+### Modelos open weights con Ollama Cloud (slides 157-172 + cierre)
 - [x] Ollama Cloud: modelos open weights sin GPU
 - [x] Catalogo, setup, integracion con herramientas
 - [x] Cloud vs local: cuando usar cada uno
-- [x] Recursos finales ampliados: mapa de estudio, papers, benchmarks, laboratorio practico, glosario, checklist de exactitud, pipeline de entrega, contaminacion de benchmarks y ruta de 30 dias
+- [x] Recursos finales ampliados: mapa de estudio, papers, benchmarks, laboratorio practico, glosario en dos partes, checklist de exactitud, pipeline de entrega, contaminacion de benchmarks y ruta de 30 dias
 
-Las secciones principales incluyen slides de recapitulacion con referencias cruzadas; el bloque final añade recursos, laboratorio, glosario, checklist de exactitud y ruta de 30 dias.
+Las secciones principales incluyen slides de recapitulacion con referencias cruzadas; el bloque final añade recursos, laboratorio, glosario ampliado, checklist de exactitud y ruta de 30 dias.
 
 ## Arrancar en local
 

@@ -1337,6 +1337,79 @@ code {
   padding: 0.75rem;
 }
 
+#recap-operar-ia-produccion .big-idea,
+#recap-seguridad-gobernanza .big-idea {
+  margin: 0.55rem 0 0.75rem;
+  padding: 0.6rem 0.85rem;
+}
+
+#recap-operar-ia-produccion .big-idea p,
+#recap-seguridad-gobernanza .big-idea p {
+  font-size: clamp(1rem, 1.6vw, 1.35rem);
+}
+
+#recap-operar-ia-produccion .recap-map {
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 0.55rem;
+  margin: 0.65rem 0 0.85rem;
+}
+
+#recap-operar-ia-produccion .recap-card {
+  padding: 0.65rem;
+}
+
+#recap-operar-ia-produccion .recap-card p {
+  font-size: 0.74rem;
+  line-height: 1.35;
+}
+
+#recap-operar-ia-produccion h3,
+#recap-seguridad-gobernanza h3 {
+  margin-top: 0.65rem;
+  margin-bottom: 0.35rem;
+}
+
+#recap-operar-ia-produccion table.compact-table th,
+#recap-operar-ia-produccion table.compact-table td,
+#recap-seguridad-gobernanza table.compact-table th,
+#recap-seguridad-gobernanza table.compact-table td {
+  padding-top: 0.42rem;
+  padding-bottom: 0.42rem;
+  font-size: 0.76rem;
+}
+
+#recap-seguridad-gobernanza .agent-architecture-svg {
+  height: 218px;
+  margin: 0.25rem 0 0.45rem;
+}
+
+#recap-seguridad-gobernanza .refs.compact-refs {
+  margin-top: 0.4rem;
+  padding-top: 0.4rem;
+}
+
+#glosario-siglas .slide-inner > p,
+#glosario-siglas-operacion .slide-inner > p {
+  font-size: 0.92rem;
+  line-height: 1.35;
+  margin-bottom: 0.65rem;
+}
+
+#glosario-siglas table.compact-table,
+#glosario-siglas-operacion table.compact-table {
+  margin-top: 0.35rem;
+}
+
+#glosario-siglas table.compact-table th,
+#glosario-siglas table.compact-table td,
+#glosario-siglas-operacion table.compact-table th,
+#glosario-siglas-operacion table.compact-table td {
+  padding-top: 0.27rem;
+  padding-bottom: 0.27rem;
+  font-size: 0.72rem;
+  line-height: 1.25;
+}
+
 #post-training-avanzado .tool-card p {
   font-size: 0.8rem;
   line-height: 1.35;

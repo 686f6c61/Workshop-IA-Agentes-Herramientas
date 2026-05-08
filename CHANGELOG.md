@@ -1,5 +1,17 @@
 # Changelog
 
+## [2.1.9] - 2026-05-08
+
+### Added
+- Glosario dividido en dos slides: modelos/datos/evals y agentes/operacion/seguridad.
+- Nuevas siglas explicadas: VLM, RoPE, MRL, GraphRAG, MRR/nDCG, SFT/DPO, RLHF/RLAIF, LoRA/QLoRA, API/CLI/IDE, STT/TTS, SLA/SLO, KV cache, CPU/GPU/VRAM, PII, CI/CD, CoT, SAE y RMF/ISO.
+- Referencias de profundizacion en recaps de operacion y seguridad.
+
+### Changed
+- Workshop ampliado de 171 a 172 slides numeradas, manteniendo el cierre final separado.
+- Recap de seguridad redisenada como mapa de fronteras usuario/contexto/modelo/tools/exterior.
+- Ruta de 30 dias replanteada como proyecto completo con baseline, RAG/contexto, evals, seguridad, tool, operacion y decision final.
+
 ## [2.1.8] - 2026-05-08
 
 ### Added
