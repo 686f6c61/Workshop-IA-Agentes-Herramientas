@@ -26,207 +26,318 @@ const tocSections = [
       { num: 14, label: 'Embeddings en la práctica', id: 'embeddings-practica' },
       { num: 15, label: 'Entrenamiento vs inferencia', id: 'entrenamiento-inferencia' },
       { num: 16, label: 'Quantización', id: 'quantizacion' },
-      { num: 17, label: 'Recapitulación', id: 'recap-fundamentos' },
+      { num: 17, label: 'ML clásico: mapa', id: 'ml-clasico-mapa' },
+      { num: 18, label: 'Dataset, features y labels', id: 'dataset-features-labels' },
+      { num: 19, label: 'Supervisado/no supervisado/refuerzo', id: 'supervisado-no-supervisado-refuerzo' },
+      { num: 20, label: 'Clasificación vs regresión', id: 'clasificacion-vs-regresion' },
+      { num: 21, label: 'Validación y generalización', id: 'validacion-generalizacion' },
+      { num: 22, label: 'Overfitting y underfitting', id: 'overfitting-underfitting' },
+      { num: 23, label: 'Matriz de confusión', id: 'matriz-confusion' },
+      { num: 24, label: 'Precision, recall y F1', id: 'precision-recall-f1' },
+      { num: 25, label: 'Clustering y k-means', id: 'clustering-kmeans' },
+      { num: 26, label: 'Cuándo no confiar en clusters', id: 'cuando-no-confiar-clusters' },
+      { num: 27, label: 'Recapitulación', id: 'recap-fundamentos' },
+    ],
+  },
+  {
+    title: 'IA clásica aplicada',
+    sectionSlide: 'sec-ia-clasica-aplicada',
+    items: [
+      { num: 29, label: 'Búsqueda como estados', id: 'busqueda-problema-estado' },
+      { num: 30, label: 'Árbol vs grafo de estados', id: 'busqueda-arbol-grafo' },
+      { num: 31, label: 'BFS', id: 'busqueda-bfs' },
+      { num: 32, label: 'DFS', id: 'busqueda-dfs' },
+      { num: 33, label: 'Coste uniforme', id: 'busqueda-coste-uniforme' },
+      { num: 34, label: 'Greedy best-first', id: 'busqueda-greedy' },
+      { num: 35, label: 'A*', id: 'busqueda-a-star' },
+      { num: 36, label: 'Heurísticas', id: 'busqueda-heuristicas' },
+      { num: 37, label: 'Búsqueda en agentes LLM', id: 'busqueda-agentes-llm' },
+      { num: 38, label: 'Qué saber: búsqueda', id: 'busqueda-que-saber' },
+      { num: 39, label: 'SAT y CSP', id: 'csp-sat-mapa' },
+      { num: 40, label: 'SAT booleana', id: 'sat-booleana' },
+      { num: 41, label: 'CSP formalización', id: 'csp-formalizacion' },
+      { num: 42, label: 'Ejemplos de CSP', id: 'csp-ejemplos' },
+      { num: 43, label: 'Propagación de restricciones', id: 'csp-propagacion' },
+      { num: 44, label: 'Backtracking', id: 'csp-backtracking' },
+      { num: 45, label: 'Heurísticas en CSP', id: 'csp-heuristicas' },
+      { num: 46, label: 'Restricciones como guardrails', id: 'csp-llm-guardrails' },
+      { num: 47, label: 'Cuándo usar CSP/SAT', id: 'csp-cuando-usar' },
+      { num: 48, label: 'Qué saber: restricciones', id: 'csp-que-saber' },
+      { num: 49, label: 'Planificación automática', id: 'planning-mapa' },
+      { num: 50, label: 'Vocabulario de planning', id: 'planning-vocabulario' },
+      { num: 51, label: 'PDDL', id: 'planning-pddl' },
+      { num: 52, label: 'Dominio vs problema', id: 'planning-domain-problem' },
+      { num: 53, label: 'Planning como búsqueda', id: 'planning-busqueda-heuristica' },
+      { num: 54, label: 'Planning con SAT', id: 'planning-sat' },
+      { num: 55, label: 'Planning y agentes LLM', id: 'planning-agentes' },
+      { num: 56, label: 'Fallos al planificar', id: 'planning-fallos' },
+      { num: 57, label: 'Mini-ejemplo planning', id: 'planning-mini-ejemplo' },
+      { num: 58, label: 'Qué saber: planificación', id: 'planning-que-saber' },
+      { num: 59, label: 'Juegos y decisión', id: 'juegos-decision' },
+      { num: 60, label: 'Minimax', id: 'juegos-minimax' },
+      { num: 61, label: 'Poda alfa-beta', id: 'juegos-alfa-beta' },
+      { num: 62, label: 'Funciones de evaluación', id: 'juegos-evaluacion' },
+      { num: 63, label: 'Monte Carlo', id: 'juegos-monte-carlo' },
+      { num: 64, label: 'MCTS', id: 'juegos-mcts' },
+      { num: 65, label: 'Simulación y LLMs', id: 'juegos-llm-simulacion' },
+      { num: 66, label: 'Decisión adversarial', id: 'juegos-adversarial' },
+      { num: 67, label: 'Puente hacia RL', id: 'juegos-rl-puente' },
+      { num: 68, label: 'Qué saber: juegos', id: 'juegos-que-saber' },
+      { num: 69, label: 'Conocimiento simbólico', id: 'conocimiento-simbolico-mapa' },
+      { num: 70, label: 'RDF tripletas', id: 'rdf-tripletas' },
+      { num: 71, label: 'RDFS y OWL', id: 'rdfs-owl' },
+      { num: 72, label: 'SPARQL', id: 'sparql-consulta' },
+      { num: 73, label: 'Ontologías', id: 'ontologia' },
+      { num: 74, label: 'Linked Data', id: 'linked-data' },
+      { num: 75, label: 'Sistemas expertos', id: 'sistemas-expertos' },
+      { num: 76, label: 'Simbólico vs neuronal', id: 'simbolico-vs-neuronal' },
+      { num: 77, label: 'KG vs vector store', id: 'kg-vs-vector-store-preview' },
+      { num: 78, label: 'Qué saber: conocimiento simbólico', id: 'conocimiento-que-saber' },
+      { num: 79, label: 'Recapitulación', id: 'recap-ia-clasica-aplicada' },
     ],
   },
   {
     title: 'Arquitecturas y modelos',
     sectionSlide: 'sec-arquitecturas',
     items: [
-      { num: 19, label: '¿Qué es un LLM?', id: 'llm' },
-      { num: 20, label: 'Arquitecturas', id: 'arquitecturas' },
-      { num: 21, label: '¿Cómo funciona un Transformer?', id: 'transformer-ninos' },
-      { num: 22, label: 'Arquitectura MoE', id: 'moe' },
-      { num: 23, label: 'Atención en detalle (Q, K, V)', id: 'atencion-detalle' },
-      { num: 24, label: 'Tokenización en profundidad', id: 'tokenizacion-profundidad' },
-      { num: 25, label: 'Transfer learning', id: 'transfer-learning' },
-      { num: 26, label: '¿Cómo funciona MoE?', id: 'moe-ninos' },
-      { num: 27, label: 'Parámetros de configuración', id: 'parametros' },
-      { num: 28, label: 'Modelos de razonamiento', id: 'razonamiento' },
-      { num: 29, label: 'Modelos multimodales nativos', id: 'multimodales-nativos' },
-      { num: 30, label: 'Open weights vs propietario', id: 'open-vs-closed' },
-      { num: 31, label: 'Destilación de modelos', id: 'distilacion' },
-      { num: 32, label: 'Inferencia optimizada', id: 'inferencia-optimizada' },
-      { num: 33, label: 'Edge AI: modelos en el dispositivo', id: 'edge-ai' },
-      { num: 34, label: 'Recapitulación', id: 'recap-arquitecturas' },
+      { num: 81, label: '¿Qué es un LLM?', id: 'llm' },
+      { num: 82, label: 'Arquitecturas', id: 'arquitecturas' },
+      { num: 83, label: '¿Cómo funciona un Transformer?', id: 'transformer-ninos' },
+      { num: 84, label: 'Arquitectura MoE', id: 'moe' },
+      { num: 85, label: 'Atención en detalle (Q, K, V)', id: 'atencion-detalle' },
+      { num: 86, label: 'Tokenización en profundidad', id: 'tokenizacion-profundidad' },
+      { num: 87, label: 'Transfer learning', id: 'transfer-learning' },
+      { num: 88, label: '¿Cómo funciona MoE?', id: 'moe-ninos' },
+      { num: 89, label: 'Parámetros de configuración', id: 'parametros' },
+      { num: 90, label: 'Modelos de razonamiento', id: 'razonamiento' },
+      { num: 91, label: 'Modelos multimodales nativos', id: 'multimodales-nativos' },
+      { num: 92, label: 'Open weights vs propietario', id: 'open-vs-closed' },
+      { num: 93, label: 'Destilación de modelos', id: 'distilacion' },
+      { num: 94, label: 'Inferencia optimizada', id: 'inferencia-optimizada' },
+      { num: 95, label: 'Edge AI: modelos en el dispositivo', id: 'edge-ai' },
+      { num: 96, label: 'Recapitulación', id: 'recap-arquitecturas' },
     ],
   },
   {
     title: 'Uso práctico',
     sectionSlide: 'sec-uso-practico',
     items: [
-      { num: 36, label: 'Prompt engineering', id: 'prompt-engineering' },
-      { num: 37, label: 'Context engineering', id: 'context-engineering' },
-      { num: 38, label: 'Formatos de datos para LLMs', id: 'formatos-datos-llm' },
-      { num: 39, label: 'Alucinaciones', id: 'alucinaciones' },
-      { num: 40, label: 'Structured output / JSON mode', id: 'structured-output' },
-      { num: 41, label: 'Visión y multimodalidad', id: 'vision-multimodal' },
-      { num: 42, label: 'Voz y APIs en tiempo real', id: 'voice-realtime' },
-      { num: 43, label: 'Generación de imágenes y vídeo', id: 'gen-imagenes-video' },
-      { num: 44, label: 'Modelos de difusión', id: 'modelos-difusion' },
-      { num: 45, label: 'Entrenamiento para imagen', id: 'entrenamiento-imagen' },
-      { num: 46, label: 'Herramientas OSS y plataformas', id: 'herramientas-imagen-oss' },
-      { num: 47, label: 'Técnicas de control (ControlNet)', id: 'control-imagen' },
-      { num: 48, label: 'Modelos frontier', id: 'frontier' },
-      { num: 49, label: 'Hugging Face model cards', id: 'huggingface-lmstudio' },
-      { num: 50, label: '¿Cabe en RAM/VRAM?', id: 'memoria-vram-local' },
-      { num: 51, label: 'Formatos locales', id: 'formatos-modelos-local' },
-      { num: 52, label: 'Caso real: DeepSeek-V4', id: 'huggingface-deepseek-v4' },
-      { num: 53, label: 'DeepSeek: tags y runtime', id: 'deepseek-v4-terminos' },
-      { num: 54, label: 'DeepSeek: arquitectura y memoria', id: 'deepseek-v4-arquitectura-memoria' },
-      { num: 55, label: 'Glosario Hugging Face', id: 'huggingface-glosario' },
-      { num: 56, label: 'Benchmarks en model cards', id: 'huggingface-evals' },
-      { num: 57, label: 'Mantenerse actualizado', id: 'actualizarse-estado-arte' },
-      { num: 58, label: 'Matriz de elección de modelo', id: 'matriz-eleccion-modelo' },
-      { num: 59, label: 'Mini-lab Hugging Face', id: 'minilab-huggingface' },
-      { num: 60, label: 'Google Colab y experimentos', id: 'google-colab-experimentos' },
-      { num: 61, label: 'Colab: límites y entregable', id: 'google-colab-limites' },
-      { num: 62, label: 'Experimentos buenos', id: 'experimentos-buenos' },
-      { num: 63, label: 'Repos Colab para practicar', id: 'repos-colab-practicar' },
-      { num: 64, label: 'Evals internas', id: 'eval-interna-paso-a-paso' },
-      { num: 65, label: 'Errores al probar modelos', id: 'errores-comunes-experimentos' },
-      { num: 66, label: 'RAG', id: 'rag' },
-      { num: 67, label: 'Agentic RAG', id: 'agentic-rag' },
-      { num: 68, label: 'GraphRAG y retrieval avanzado', id: 'graphrag' },
-      { num: 69, label: '¿Prompt, RAG o fine-tuning?', id: 'cuando-que-tecnica' },
-      { num: 70, label: 'Fine-tuning: cuándo sí/cuándo no', id: 'fine-tuning-cuando' },
-      { num: 71, label: 'Fine-tuning en la práctica', id: 'fine-tuning-practico' },
-      { num: 72, label: 'Datos sintéticos', id: 'datos-sinteticos' },
-      { num: 73, label: 'Bases de datos vectoriales', id: 'vectordb' },
-      { num: 74, label: 'Text-to-SQL', id: 'text-to-sql' },
-      { num: 75, label: 'Prompt caching', id: 'prompt-caching' },
-      { num: 76, label: 'Context window en la práctica', id: 'context-window-practica' },
-      { num: 77, label: 'API Hello World', id: 'api-hello-world' },
-      { num: 78, label: 'Streaming', id: 'streaming' },
-      { num: 79, label: 'Arquitectura de apps con LLM', id: 'arquitectura-apps-llm' },
-      { num: 80, label: 'Recapitulación', id: 'recap-uso-practico' },
+      { num: 98, label: 'Prompt engineering', id: 'prompt-engineering' },
+      { num: 99, label: 'Context engineering', id: 'context-engineering' },
+      { num: 100, label: 'Formatos de datos para LLMs', id: 'formatos-datos-llm' },
+      { num: 101, label: 'Alucinaciones', id: 'alucinaciones' },
+      { num: 102, label: 'Structured output / JSON mode', id: 'structured-output' },
+      { num: 103, label: 'Visión y multimodalidad', id: 'vision-multimodal' },
+      { num: 104, label: 'Voz y APIs en tiempo real', id: 'voice-realtime' },
+      { num: 105, label: 'Generación de imágenes y vídeo', id: 'gen-imagenes-video' },
+      { num: 106, label: 'Modelos de difusión', id: 'modelos-difusion' },
+      { num: 107, label: 'Entrenamiento para imagen', id: 'entrenamiento-imagen' },
+      { num: 108, label: 'Herramientas OSS y plataformas', id: 'herramientas-imagen-oss' },
+      { num: 109, label: 'Técnicas de control (ControlNet)', id: 'control-imagen' },
+      { num: 110, label: 'Modelos frontier', id: 'frontier' },
+      { num: 111, label: 'Hugging Face model cards', id: 'huggingface-lmstudio' },
+      { num: 112, label: '¿Cabe en RAM/VRAM?', id: 'memoria-vram-local' },
+      { num: 113, label: 'Formatos locales', id: 'formatos-modelos-local' },
+      { num: 114, label: 'Caso real: DeepSeek-V4', id: 'huggingface-deepseek-v4' },
+      { num: 115, label: 'DeepSeek: tags y runtime', id: 'deepseek-v4-terminos' },
+      { num: 116, label: 'DeepSeek: arquitectura y memoria', id: 'deepseek-v4-arquitectura-memoria' },
+      { num: 117, label: 'Glosario Hugging Face', id: 'huggingface-glosario' },
+      { num: 118, label: 'Benchmarks en model cards', id: 'huggingface-evals' },
+      { num: 119, label: 'Mantenerse actualizado', id: 'actualizarse-estado-arte' },
+      { num: 120, label: 'Matriz de elección de modelo', id: 'matriz-eleccion-modelo' },
+      { num: 121, label: 'Mini-lab Hugging Face', id: 'minilab-huggingface' },
+      { num: 122, label: 'Google Colab y experimentos', id: 'google-colab-experimentos' },
+      { num: 123, label: 'Colab: límites y entregable', id: 'google-colab-limites' },
+      { num: 124, label: 'Experimentos buenos', id: 'experimentos-buenos' },
+      { num: 125, label: 'Repos Colab para practicar', id: 'repos-colab-practicar' },
+      { num: 126, label: 'Evals internas', id: 'eval-interna-paso-a-paso' },
+      { num: 127, label: 'Errores al probar modelos', id: 'errores-comunes-experimentos' },
+      { num: 128, label: 'RAG', id: 'rag' },
+      { num: 129, label: 'Agentic RAG', id: 'agentic-rag' },
+      { num: 130, label: 'GraphRAG y retrieval avanzado', id: 'graphrag' },
+      { num: 131, label: 'RAG no es una ontología', id: 'rag-no-es-ontologia' },
+      { num: 132, label: 'Vector store', id: 'vector-store-lectura-correcta' },
+      { num: 133, label: 'Knowledge graph', id: 'knowledge-graph-lectura-correcta' },
+      { num: 134, label: 'RDF/OWL/SPARQL vs embeddings', id: 'rdf-owl-sparql-vs-embeddings' },
+      { num: 135, label: 'GraphRAG como puente', id: 'graphrag-como-puente' },
+      { num: 136, label: 'Cuándo usar vectorial', id: 'cuando-vectorial' },
+      { num: 137, label: 'Cuándo usar grafo semántico', id: 'cuando-grafo-semantico' },
+      { num: 138, label: 'Cuándo usar híbrido', id: 'cuando-hibrido' },
+      { num: 139, label: 'Errores RAG/KG', id: 'errores-rag-kg' },
+      { num: 140, label: 'Qué saber: RAG/KG', id: 'rag-kg-que-saber' },
+      { num: 141, label: '¿Prompt, RAG o fine-tuning?', id: 'cuando-que-tecnica' },
+      { num: 142, label: 'Fine-tuning: cuándo sí/cuándo no', id: 'fine-tuning-cuando' },
+      { num: 143, label: 'Fine-tuning en la práctica', id: 'fine-tuning-practico' },
+      { num: 144, label: 'Datos sintéticos', id: 'datos-sinteticos' },
+      { num: 145, label: 'Bases de datos vectoriales', id: 'vectordb' },
+      { num: 146, label: 'Text-to-SQL', id: 'text-to-sql' },
+      { num: 147, label: 'Prompt caching', id: 'prompt-caching' },
+      { num: 148, label: 'Context window en la práctica', id: 'context-window-practica' },
+      { num: 149, label: 'API Hello World', id: 'api-hello-world' },
+      { num: 150, label: 'Streaming', id: 'streaming' },
+      { num: 151, label: 'Arquitectura de apps con LLM', id: 'arquitectura-apps-llm' },
+      { num: 152, label: 'Recapitulación', id: 'recap-uso-practico' },
     ],
   },
   {
     title: 'Agentes y orquestación',
     sectionSlide: 'sec-agentes',
     items: [
-      { num: 82, label: 'Agente vs prompt', id: 'agente-vs-prompt' },
-      { num: 83, label: '¿Qué es un agente?', id: 'agentes' },
-      { num: 84, label: 'Contexto y memoria', id: 'contexto-memoria' },
-      { num: 85, label: 'Memoria persistente', id: 'memoria-persistente' },
-      { num: 86, label: 'Function calling (tool use)', id: 'function-calling' },
-      { num: 87, label: 'Arquitecturas de agentes', id: 'arquitecturas-agentes' },
-      { num: 88, label: 'Arquitecturas single-agent', id: 'arquitecturas-single-agent-svg' },
-      { num: 89, label: 'Arquitecturas multiagente', id: 'arquitecturas-multiagente-svg' },
-      { num: 90, label: 'Patrones de diseño', id: 'patrones-agentes' },
-      { num: 91, label: 'Multi-modelo', id: 'multi-modelo' },
-      { num: 92, label: 'Patrones de orquestación', id: 'patrones-orquestacion' },
-      { num: 93, label: 'Ejemplo: agente con tools', id: 'ejemplo-codigo-agente' },
-      { num: 94, label: 'Sistemas de orquestación', id: 'orquestacion' },
-      { num: 95, label: 'Orquestadores y ADKs', id: 'orquestadores-adks' },
-      { num: 96, label: 'Claude Code (estructura)', id: 'claude-code-estructura' },
-      { num: 97, label: 'Coding agents', id: 'coding-agents' },
-      { num: 98, label: 'MCP', id: 'mcp' },
-      { num: 99, label: 'MCP en la práctica', id: 'mcp-practica' },
-      { num: 100, label: 'Computer Use y Browser Use', id: 'computer-use' },
-      { num: 101, label: 'A2A (Agent-to-Agent)', id: 'a2a' },
-      { num: 102, label: 'Human-in-the-loop', id: 'human-in-the-loop' },
-      { num: 103, label: 'Recapitulación', id: 'recap-agentes' },
+      { num: 154, label: 'Agente vs prompt', id: 'agente-vs-prompt' },
+      { num: 155, label: '¿Qué es un agente?', id: 'agentes' },
+      { num: 156, label: 'Agente moderno vs clásico', id: 'agente-clasico-vs-moderno' },
+      { num: 157, label: 'Percibir y actuar', id: 'agente-percepcion-accion' },
+      { num: 158, label: 'Reactivo/deliberativo/híbrido', id: 'agente-reactivo-deliberativo' },
+      { num: 159, label: 'Estado vs contexto', id: 'estado-vs-contexto' },
+      { num: 160, label: 'Acciones vs tools', id: 'acciones-tools' },
+      { num: 161, label: 'Precondiciones y schemas', id: 'precondiciones-efectos-schemas' },
+      { num: 162, label: 'Planner vs LLM', id: 'planner-vs-llm-razonador' },
+      { num: 163, label: 'Heurística y routing', id: 'heuristica-routing-evals' },
+      { num: 164, label: 'Motor de inferencia moderno', id: 'motor-inferencia-llm-rag-reglas' },
+      { num: 165, label: 'Qué saber: agentes clásicos', id: 'agente-clasico-moderno-que-saber' },
+      { num: 166, label: 'Contexto y memoria', id: 'contexto-memoria' },
+      { num: 167, label: 'Memoria persistente', id: 'memoria-persistente' },
+      { num: 168, label: 'Function calling (tool use)', id: 'function-calling' },
+      { num: 169, label: 'Arquitecturas de agentes', id: 'arquitecturas-agentes' },
+      { num: 170, label: 'Arquitecturas single-agent', id: 'arquitecturas-single-agent-svg' },
+      { num: 171, label: 'Arquitecturas multiagente', id: 'arquitecturas-multiagente-svg' },
+      { num: 172, label: 'Patrones de diseño', id: 'patrones-agentes' },
+      { num: 173, label: 'Multi-modelo', id: 'multi-modelo' },
+      { num: 174, label: 'Patrones de orquestación', id: 'patrones-orquestacion' },
+      { num: 175, label: 'Ejemplo: agente con tools', id: 'ejemplo-codigo-agente' },
+      { num: 176, label: 'Sistemas de orquestación', id: 'orquestacion' },
+      { num: 177, label: 'Orquestadores y ADKs', id: 'orquestadores-adks' },
+      { num: 178, label: 'Claude Code (estructura)', id: 'claude-code-estructura' },
+      { num: 179, label: 'Coding agents', id: 'coding-agents' },
+      { num: 180, label: 'MCP', id: 'mcp' },
+      { num: 181, label: 'MCP en la práctica', id: 'mcp-practica' },
+      { num: 182, label: 'Computer Use y Browser Use', id: 'computer-use' },
+      { num: 183, label: 'A2A (Agent-to-Agent)', id: 'a2a' },
+      { num: 184, label: 'Human-in-the-loop', id: 'human-in-the-loop' },
+      { num: 185, label: 'Recapitulación', id: 'recap-agentes' },
     ],
   },
   {
     title: 'Realidad de construir con IA',
     sectionSlide: 'sec-realidad',
     items: [
-      { num: 105, label: 'IDE web vs terminal', id: 'ide-terminal' },
-      { num: 106, label: 'Comparativa coding assistants', id: 'comparativa-coding' },
-      { num: 107, label: 'Benchmarks: qué miden', id: 'ai-benchmarks' },
-      { num: 108, label: 'SWE-bench', id: 'swe-bench' },
-      { num: 109, label: 'Leer leaderboards', id: 'leer-leaderboards' },
-      { num: 110, label: 'IA en CI/CD', id: 'ai-cicd' },
-      { num: 111, label: 'Seguridad y riesgos', id: 'seguridad' },
-      { num: 112, label: 'Guardrails en la práctica', id: 'guardrails' },
-      { num: 113, label: 'Testing adversarial y red teaming', id: 'testing-adversarial' },
-      { num: 114, label: 'EU AI Act y compliance', id: 'eu-ai-act' },
-      { num: 115, label: 'Tokens y coste', id: 'costes' },
-      { num: 116, label: 'Observabilidad de LLMs', id: 'observabilidad' },
-      { num: 117, label: 'Prompts como código', id: 'prompt-como-codigo' },
-      { num: 118, label: 'Evaluaciones (evals)', id: 'evals' },
-      { num: 119, label: 'Testing de código generado', id: 'testing-codigo-ia' },
-      { num: 120, label: 'Vibe coding', id: 'vibe-coding' },
-      { num: 121, label: 'Cambio de paradigma', id: 'cambio-paradigma' },
-      { num: 122, label: 'Patrones de trabajo con IA', id: 'workflow-patterns' },
-      { num: 123, label: 'Configurar Claude Code', id: 'config-claude-code' },
-      { num: 124, label: 'Configurar OpenCode y Cursor', id: 'config-opencode-cursor' },
-      { num: 125, label: 'Escribir rules efectivas', id: 'rules-efectivas' },
-      { num: 126, label: 'Crear una skill', id: 'crear-skill' },
-      { num: 127, label: 'Anatomía de un plugin', id: 'anatomia-plugin' },
-      { num: 128, label: 'Agentes en producción: lecciones', id: 'agentes-produccion' },
-      { num: 129, label: 'Recapitulación', id: 'recap-realidad' },
+      { num: 187, label: 'IDE web vs terminal', id: 'ide-terminal' },
+      { num: 188, label: 'Comparativa coding assistants', id: 'comparativa-coding' },
+      { num: 189, label: 'Benchmarks: qué miden', id: 'ai-benchmarks' },
+      { num: 190, label: 'SWE-bench', id: 'swe-bench' },
+      { num: 191, label: 'Leer leaderboards', id: 'leer-leaderboards' },
+      { num: 192, label: 'IA en CI/CD', id: 'ai-cicd' },
+      { num: 193, label: 'Seguridad y riesgos', id: 'seguridad' },
+      { num: 194, label: 'Guardrails en la práctica', id: 'guardrails' },
+      { num: 195, label: 'Testing adversarial y red teaming', id: 'testing-adversarial' },
+      { num: 196, label: 'EU AI Act y compliance', id: 'eu-ai-act' },
+      { num: 197, label: 'Tokens y coste', id: 'costes' },
+      { num: 198, label: 'Observabilidad de LLMs', id: 'observabilidad' },
+      { num: 199, label: 'Prompts como código', id: 'prompt-como-codigo' },
+      { num: 200, label: 'Evaluaciones (evals)', id: 'evals' },
+      { num: 201, label: 'Testing de código generado', id: 'testing-codigo-ia' },
+      { num: 202, label: 'Vibe coding', id: 'vibe-coding' },
+      { num: 203, label: 'Cambio de paradigma', id: 'cambio-paradigma' },
+      { num: 204, label: 'Patrones de trabajo con IA', id: 'workflow-patterns' },
+      { num: 205, label: 'Configurar Claude Code', id: 'config-claude-code' },
+      { num: 206, label: 'Configurar OpenCode y Cursor', id: 'config-opencode-cursor' },
+      { num: 207, label: 'Escribir rules efectivas', id: 'rules-efectivas' },
+      { num: 208, label: 'Crear una skill', id: 'crear-skill' },
+      { num: 209, label: 'Anatomía de un plugin', id: 'anatomia-plugin' },
+      { num: 210, label: 'Agentes en producción: lecciones', id: 'agentes-produccion' },
+      { num: 211, label: 'Recapitulación', id: 'recap-realidad' },
     ],
   },
   {
     title: 'Evals y medición avanzada',
     sectionSlide: 'sec-evals-medicion-avanzada',
     items: [
-      { num: 131, label: 'Eval de RAG', id: 'eval-rag-retrieval-groundedness' },
-      { num: 132, label: 'LLM-as-judge', id: 'llm-as-judge-rubricas-calibracion' },
-      { num: 133, label: 'Eval de agentes', id: 'eval-agentes-tools-traces' },
-      { num: 134, label: 'Coste por tarea aceptada', id: 'coste-por-tarea-aceptada' },
-      { num: 135, label: 'Recapitulación', id: 'recap-evals-medicion-avanzada' },
+      { num: 213, label: 'Eval de RAG', id: 'eval-rag-retrieval-groundedness' },
+      { num: 214, label: 'LLM-as-judge', id: 'llm-as-judge-rubricas-calibracion' },
+      { num: 215, label: 'Eval de agentes', id: 'eval-agentes-tools-traces' },
+      { num: 216, label: 'Coste por tarea aceptada', id: 'coste-por-tarea-aceptada' },
+      { num: 217, label: 'Recapitulación', id: 'recap-evals-medicion-avanzada' },
     ],
   },
   {
     title: 'Producto y UX de IA',
     sectionSlide: 'sec-producto-ux-ia',
     items: [
-      { num: 137, label: 'Incertidumbre, citas y abstención', id: 'ux-incertidumbre-citas-abstencion' },
-      { num: 138, label: 'Aprobación humana y rollback', id: 'ux-human-approval-rollback' },
-      { num: 139, label: 'Memoria, límites y handoff', id: 'ux-conversaciones-memoria-handoff' },
-      { num: 140, label: 'Recapitulación', id: 'recap-producto-ux-ia' },
+      { num: 219, label: 'Incertidumbre, citas y abstención', id: 'ux-incertidumbre-citas-abstencion' },
+      { num: 220, label: 'Aprobación humana y rollback', id: 'ux-human-approval-rollback' },
+      { num: 221, label: 'Memoria, límites y handoff', id: 'ux-conversaciones-memoria-handoff' },
+      { num: 222, label: 'Recapitulación', id: 'recap-producto-ux-ia' },
     ],
   },
   {
     title: 'Operar IA en producción',
     sectionSlide: 'sec-operar-ia-produccion',
     items: [
-      { num: 142, label: 'LLMOps: de demo a servicio', id: 'llmops-demo-a-servicio' },
-      { num: 143, label: 'Serving open weights', id: 'serving-open-weights' },
-      { num: 144, label: 'Escalar inferencia', id: 'inferencia-escalado' },
-      { num: 145, label: 'Routing, fallback y budgets', id: 'routing-fallback-budgets' },
-      { num: 146, label: 'EvalOps y release gates', id: 'evalops-regresiones-canary' },
-      { num: 147, label: 'DataOps para IA', id: 'dataops-ia' },
-      { num: 148, label: 'Post-training avanzado', id: 'post-training-avanzado' },
-      { num: 149, label: 'Recapitulación', id: 'recap-operar-ia-produccion' },
+      { num: 224, label: 'LLMOps: de demo a servicio', id: 'llmops-demo-a-servicio' },
+      { num: 225, label: 'Serving open weights', id: 'serving-open-weights' },
+      { num: 226, label: 'Escalar inferencia', id: 'inferencia-escalado' },
+      { num: 227, label: 'Routing, fallback y budgets', id: 'routing-fallback-budgets' },
+      { num: 228, label: 'EvalOps y release gates', id: 'evalops-regresiones-canary' },
+      { num: 229, label: 'DataOps para IA', id: 'dataops-ia' },
+      { num: 230, label: 'Post-training avanzado', id: 'post-training-avanzado' },
+      { num: 231, label: 'Recapitulación', id: 'recap-operar-ia-produccion' },
     ],
   },
   {
     title: 'Seguridad, gobernanza y confianza',
     sectionSlide: 'sec-seguridad-gobernanza',
     items: [
-      { num: 151, label: 'Seguridad agentic y MCP', id: 'seguridad-agentic-mcp' },
-      { num: 152, label: 'OWASP LLM Top 10 aplicado', id: 'owasp-llm-top10-aplicado' },
-      { num: 153, label: 'Privacidad y private AI', id: 'privacidad-retencion-private-ai' },
-      { num: 154, label: 'EU AI Act, NIST e ISO 42001', id: 'gobernanza-ai-rmf-iso' },
-      { num: 155, label: 'Interpretabilidad y confianza', id: 'interpretabilidad-confianza' },
-      { num: 156, label: 'Recapitulación', id: 'recap-seguridad-gobernanza' },
+      { num: 233, label: 'Seguridad agentic y MCP', id: 'seguridad-agentic-mcp' },
+      { num: 234, label: 'OWASP LLM Top 10 aplicado', id: 'owasp-llm-top10-aplicado' },
+      { num: 235, label: 'Privacidad y private AI', id: 'privacidad-retencion-private-ai' },
+      { num: 236, label: 'EU AI Act, NIST e ISO 42001', id: 'gobernanza-ai-rmf-iso' },
+      { num: 237, label: 'Interpretabilidad y confianza', id: 'interpretabilidad-confianza' },
+      { num: 238, label: 'Recapitulación', id: 'recap-seguridad-gobernanza' },
     ],
   },
   {
     title: 'Modelos open weights con Ollama Cloud',
     sectionSlide: 'sec-ollama-cloud',
     items: [
-      { num: 158, label: 'Ollama Cloud: modelos open weights sin GPU', id: 'ollama-cloud-intro' },
-      { num: 159, label: 'Catálogo de modelos', id: 'modelos-disponibles' },
-      { num: 160, label: 'Primeros pasos', id: 'ollama-cloud-setup' },
-      { num: 161, label: 'Integración con herramientas', id: 'ollama-cloud-herramientas' },
-      { num: 162, label: 'Cloud vs local', id: 'cloud-vs-local' },
-      { num: 163, label: 'Recapitulación', id: 'recap-ollama-cloud' },
-      { num: 164, label: 'Recursos: mapa de estudio', id: 'recursos-mapa-estudio' },
-      { num: 165, label: 'Recursos: papers y benchmarks', id: 'recursos-papers-benchmarks' },
-      { num: 166, label: 'Recursos: laboratorio', id: 'recursos-laboratorio' },
-      { num: 167, label: 'Glosario: modelos y evals', id: 'glosario-siglas' },
-      { num: 168, label: 'Glosario: operación y seguridad', id: 'glosario-siglas-operacion' },
-      { num: 169, label: 'Checklist de exactitud', id: 'checklist-exactitud-ia' },
-      { num: 170, label: 'Pipeline de entrega IA', id: 'pipeline-entrega-ia' },
-      { num: 171, label: 'Benchmarks y eval privada', id: 'benchmarks-contaminacion-eval-privada' },
-      { num: 172, label: 'Siguiente paso: 30 días', id: 'siguiente-paso-30-dias' },
+      { num: 240, label: 'Ollama Cloud: modelos open weights sin GPU', id: 'ollama-cloud-intro' },
+      { num: 241, label: 'Catálogo de modelos', id: 'modelos-disponibles' },
+      { num: 242, label: 'Primeros pasos', id: 'ollama-cloud-setup' },
+      { num: 243, label: 'Integración con herramientas', id: 'ollama-cloud-herramientas' },
+      { num: 244, label: 'Cloud vs local', id: 'cloud-vs-local' },
+      { num: 245, label: 'Recapitulación', id: 'recap-ollama-cloud' },
+    ],
+  },
+  {
+    title: 'Laboratorios IA aplicada',
+    sectionSlide: 'sec-laboratorios-ia',
+    items: [
+      { num: 247, label: 'Labs: principios', id: 'lab-principios' },
+      { num: 248, label: 'Lab A*', id: 'lab-a-star' },
+      { num: 249, label: 'Lab mini planner', id: 'lab-mini-planner' },
+      { num: 250, label: 'Lab planner vs LLM', id: 'lab-planner-vs-llm' },
+      { num: 251, label: 'Lab clasificador', id: 'lab-clasificador-sklearn' },
+      { num: 252, label: 'Lab matriz de confusión', id: 'lab-matriz-confusion' },
+      { num: 253, label: 'Lab k-means', id: 'lab-kmeans-visual' },
+      { num: 254, label: 'Lab ontología + SPARQL', id: 'lab-ontologia-sparql' },
+      { num: 255, label: 'Lab vector vs SPARQL', id: 'lab-vector-vs-sparql' },
+      { num: 256, label: 'Lab reglas/RAG/agente', id: 'lab-reglas-rag-agente' },
+      { num: 257, label: 'Lab notebook a producción', id: 'lab-entregable-notebook-produccion' },
+      { num: 258, label: 'Qué saber: laboratorios', id: 'lab-rubrica' },
+    ],
+  },
+  {
+    title: 'Recursos y siguiente paso',
+    sectionSlide: 'recursos-mapa-estudio',
+    items: [
+      { num: 259, label: 'Recursos: mapa de estudio', id: 'recursos-mapa-estudio' },
+      { num: 260, label: 'Recursos: papers y benchmarks', id: 'recursos-papers-benchmarks' },
+      { num: 261, label: 'Recursos: laboratorio', id: 'recursos-laboratorio' },
+      { num: 262, label: 'Glosario: modelos y evals', id: 'glosario-siglas' },
+      { num: 263, label: 'Glosario: operación y seguridad', id: 'glosario-siglas-operacion' },
+      { num: 264, label: 'Checklist de exactitud', id: 'checklist-exactitud-ia' },
+      { num: 265, label: 'Pipeline de entrega IA', id: 'pipeline-entrega-ia' },
+      { num: 266, label: 'Benchmarks y eval privada', id: 'benchmarks-contaminacion-eval-privada' },
+      { num: 267, label: 'Siguiente paso: 30 días', id: 'siguiente-paso-30-dias' },
     ],
   },
 ];
@@ -251,6 +362,44 @@ const tocSections = [
           ))}
         </div>
       ))}
+    </div>
+  </div>
+
+  <!-- UPDATE MODAL -->
+  <div class="update-modal" id="update-modal" aria-hidden="true">
+    <div class="update-modal-panel" role="dialog" aria-modal="true" aria-labelledby="update-modal-title">
+      <div class="update-modal-header">
+        <div>
+          <p class="update-modal-eyebrow">Actualización del día · 16 mayo 2026</p>
+          <h2 id="update-modal-title">Nuevos contenidos añadidos</h2>
+        </div>
+        <button class="update-modal-close" id="update-modal-close" type="button" aria-label="Cerrar novedades">&times;</button>
+      </div>
+      <div class="update-modal-body">
+        <p class="update-modal-lead">Resumen de la actualización: más fundamentos clásicos, práctica con datos, agentes, evaluación, operación y criterio de producto.</p>
+        <div class="update-grid">
+          <div class="update-card">
+            <strong>IA clásica aplicada</strong>
+            <p>Búsqueda, SAT/CSP, planificación, juegos, ontologías, SPARQL y sistemas expertos conectados con agentes modernos.</p>
+          </div>
+          <div class="update-card">
+            <strong>ML clásico y laboratorios</strong>
+            <p>Supervisado, regresión, validación, matriz de confusión, precision/recall/F1, k-means y labs con scikit-learn.</p>
+          </div>
+          <div class="update-card">
+            <strong>Modelos y Hugging Face</strong>
+            <p>Arquitecturas, MoE, quantización, formatos, VRAM, model cards, embeddings, benchmarks y estado del arte.</p>
+          </div>
+          <div class="update-card">
+            <strong>Agentes y producción</strong>
+            <p>Tools, MCP, evals, observabilidad, seguridad, despliegue, costes, rate limits y patrones reales de ingeniería.</p>
+          </div>
+        </div>
+        <div class="update-source-note">
+          <p><strong>Nota académica:</strong> parte del refuerzo conceptual se ha apoyado en material de la asignatura <em>Inteligencia Artificial e Ingeniería del Conocimiento</em> del Grado de Ingeniería de Software. Se ha usado solo como guía temática parcial y el contenido se ha reescrito y complementado con fuentes técnicas reales.</p>
+          <p class="update-suggestions">Sugerencias, correcciones o mejoras: <a href="https://x.com/686f6c61" target="_blank" rel="noopener noreferrer">@686f6c61</a></p>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -289,6 +438,10 @@ const tocSections = [
       const tocBtn = document.getElementById('toc-btn');
       const tocClose = document.getElementById('toc-close');
       const tocItems = /** @type {NodeListOf<HTMLElement>} */ (document.querySelectorAll('.toc-item, .toc-section-title'));
+      const updateModal = document.getElementById('update-modal');
+      const openUpdateBtn = document.getElementById('open-update-btn');
+      const updateClose = document.getElementById('update-modal-close');
+      const updateSeenKey = 'workshop-update-2026-05-16-seen';
 
       let current = 0;
       const total = slides.length;
@@ -347,11 +500,22 @@ const tocSections = [
 
       function openToc() { tocOverlay.classList.add('active'); }
       function closeToc() { tocOverlay.classList.remove('active'); }
+      function openUpdateModal() {
+        updateModal?.classList.add('active');
+        updateModal?.setAttribute('aria-hidden', 'false');
+      }
+      function closeUpdateModal() {
+        updateModal?.classList.remove('active');
+        updateModal?.setAttribute('aria-hidden', 'true');
+        try { sessionStorage.setItem(updateSeenKey, '1'); } catch {}
+      }
 
       prevBtn.addEventListener('click', prev);
       nextBtn.addEventListener('click', next);
       tocBtn.addEventListener('click', openToc);
       tocClose.addEventListener('click', closeToc);
+      openUpdateBtn?.addEventListener('click', openUpdateModal);
+      updateClose?.addEventListener('click', closeUpdateModal);
 
       const kbdPrev = document.getElementById('kbd-prev');
       const kbdNext = document.getElementById('kbd-next');
@@ -360,6 +524,9 @@ const tocSections = [
 
       tocOverlay.addEventListener('click', (e) => {
         if (e.target === tocOverlay) closeToc();
+      });
+      updateModal?.addEventListener('click', (e) => {
+        if (e.target === updateModal) closeUpdateModal();
       });
 
       tocItems.forEach(item => {
@@ -370,8 +537,12 @@ const tocSections = [
       });
 
       document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape') { closeToc(); return; }
-        if (tocOverlay.classList.contains('active')) return;
+        if (e.key === 'Escape') {
+          if (updateModal?.classList.contains('active')) closeUpdateModal();
+          closeToc();
+          return;
+        }
+        if (tocOverlay.classList.contains('active') || updateModal?.classList.contains('active')) return;
 
         if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' ') {
           e.preventDefault(); next();
@@ -417,6 +588,12 @@ const tocSections = [
       }
       slides[current].classList.add('active');
       updateUI();
+      const shouldShowUpdate = !hash || hash === 'cover';
+      try {
+        if (shouldShowUpdate && sessionStorage.getItem(updateSeenKey) !== '1') openUpdateModal();
+      } catch {
+        if (shouldShowUpdate) openUpdateModal();
+      }
     });
   </script>
 </Layout>

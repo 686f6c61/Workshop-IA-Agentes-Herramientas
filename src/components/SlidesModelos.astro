@@ -1,9 +1,10 @@
 ---
 import Slide from './Slide.astro';
+import SlidesRAGSemantico from './SlidesRAGSemantico.astro';
 ---
 
-<!-- SLIDE 23 -->
-<Slide id="atencion-detalle" number={23} title="El mecanismo de atención en detalle">
+<!-- SLIDE 85 -->
+<Slide id="atencion-detalle" number={85} title="El mecanismo de atención en detalle">
   <p><i data-lucide="search"></i> La atención permite que cada token "mire" a todos los demás para decidir cuáles son relevantes. Aquí están las matemáticas detrás, simplificadas.</p>
   <h3><i data-lucide="code"></i> Las matrices Q, K, V</h3>
   <div class="code-block">
@@ -41,8 +42,8 @@ import Slide from './Slide.astro';
   </div>
 </Slide>
 
-<!-- SLIDE 24 -->
-<Slide id="tokenizacion-profundidad" number={24} title="Tokenización en profundidad">
+<!-- SLIDE 86 -->
+<Slide id="tokenizacion-profundidad" number={86} title="Tokenización en profundidad">
   <p><i data-lucide="scissors"></i> El tokenizador convierte texto en números antes de que el modelo lo vea. <strong>Cómo se tokeniza</strong> afecta directamente al rendimiento, al coste y al soporte multilingüe.</p>
   <h3><i data-lucide="code"></i> Algoritmos principales</h3>
   <table>
@@ -81,8 +82,8 @@ import Slide from './Slide.astro';
   </div>
 </Slide>
 
-<!-- SLIDE 25 -->
-<Slide id="transfer-learning" number={25} title="Transfer learning: el paradigma que lo cambió todo">
+<!-- SLIDE 87 -->
+<Slide id="transfer-learning" number={87} title="Transfer learning: el paradigma que lo cambió todo">
   <p><i data-lucide="share-2"></i> Antes de transfer learning, cada tarea requería entrenar un modelo desde cero. Hoy, se <strong>pre-entrena una vez</strong> con datos masivos y se <strong>adapta</strong> a cualquier tarea con poco esfuerzo.</p>
   <h3><i data-lucide="route"></i> Flujo de transfer learning</h3>
   <div class="flow">
@@ -123,32 +124,80 @@ import Slide from './Slide.astro';
   </div>
 </Slide>
 
-<!-- SLIDE 26 -->
-<Slide id="moe-ninos" number={26} title="¿Cómo funciona MoE?">
+<!-- SLIDE 88 -->
+<Slide id="moe-ninos" number={88} title="¿Cómo funciona MoE?">
   <div class="analogy">
     <p class="analogy-label"><i data-lucide="route"></i> Analogía</p>
-    <p>Imagina un <strong>hospital con médicos especialistas</strong>. Cuando llegas con dolor de muelas, no te atienden todos los médicos: te mandan al dentista. El recepcionista (router) decide a qué especialista mandarte según tu problema.</p>
+    <p>Imagina un <strong>hospital con médicos especialistas</strong>. Cuando llegas con dolor de muelas, no te atienden todos los médicos: te mandan al dentista y quizá a radiología. El recepcionista es el <strong>router</strong>: decide qué especialistas trabajan para cada caso.</p>
   </div>
-  <h3><i data-lucide="users"></i> Así funciona MoE</h3>
-  <ul>
-    <li><i data-lucide="route"></i> El modelo tiene muchos "expertos" (redes neuronales especializadas)</li>
-    <li><i data-lucide="eye"></i> Cuando llega un token, el router lo mira y decide: "esto lo sabe el experto 3 y el experto 7"</li>
-    <li><i data-lucide="zap"></i> Solo esos 2 expertos trabajan, los otros 6 descansan</li>
-    <li><i data-lucide="layers"></i> Las respuestas de los 2 expertos se combinan para dar el resultado final</li>
-  </ul>
+
+  <div class="big-idea">
+    <p>MoE aumenta capacidad total sin activar todo el modelo en cada token: muchos parámetros existen, pocos calculan.</p>
+  </div>
+
+  <div class="metric-strip">
+    <div class="metric-card">
+      <strong>Parámetros totales</strong>
+      <span>todos los expertos cargados en memoria</span>
+    </div>
+    <div class="metric-card">
+      <strong>Parámetros activos</strong>
+      <span>expertos usados por token</span>
+    </div>
+    <div class="metric-card">
+      <strong>Top-k routing</strong>
+      <span>normalmente 1 o 2 expertos</span>
+    </div>
+    <div class="metric-card">
+      <strong>Load balancing</strong>
+      <span>evita que todos usen el mismo experto</span>
+    </div>
+  </div>
+
+  <h3><i data-lucide="users"></i> Paso a paso</h3>
+  <table class="compact-table resource-table">
+    <thead>
+      <tr><th>Paso</th><th>Qué ocurre</th><th>Por qué importa</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>Token</strong></td><td>Entra una representación <code>x</code> en una capa MoE.</td><td>La decisión se toma por token, no necesariamente por frase completa.</td></tr>
+      <tr><td><strong>Router</strong></td><td>Una red pequeña calcula puntuaciones para cada experto: <code>g(x)</code>.</td><td>El router aprende qué experto conviene para cada tipo de patrón.</td></tr>
+      <tr><td><strong>Top-k</strong></td><td>Se activan solo los mejores expertos, por ejemplo experto 3 y 7.</td><td>Baja FLOPs por token frente a activar todo el modelo.</td></tr>
+      <tr><td><strong>Combinación</strong></td><td>La salida mezcla expertos ponderados: <code>y = Σ wᵢ · Eᵢ(x)</code>.</td><td>No es votar texto; es combinar activaciones internas.</td></tr>
+      <tr><td><strong>Balanceo</strong></td><td>Durante entrenamiento se penaliza saturar pocos expertos.</td><td>Sin balanceo, el modelo colapsa en expertos populares y desaprovecha capacidad.</td></tr>
+    </tbody>
+  </table>
+
+  <h3><i data-lucide="scale"></i> Lo que debes comparar en fichas de modelos</h3>
+  <table class="compact-table resource-table">
+    <thead>
+      <tr><th>Concepto</th><th>Lectura correcta</th><th>Consecuencia práctica</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>Total vs activo</strong></td><td>Un MoE puede tener 1T total y activar decenas de B por token.</td><td>Más memoria para cargarlo; menos cómputo que un denso equivalente.</td></tr>
+      <tr><td><strong>VRAM/RAM</strong></td><td>Los expertos no activos también ocupan memoria si están cargados.</td><td>“Activos” no significa que quepa como un modelo denso de ese tamaño.</td></tr>
+      <tr><td><strong>Throughput</strong></td><td>MoE puede ser rápido si routing y comunicación están optimizados.</td><td>En hardware pobre, mover expertos puede comerse el ahorro.</td></tr>
+      <tr><td><strong>Especialización</strong></td><td>Expertos aprenden patrones distintos, no profesiones humanas limpias.</td><td>No asumas “experto de Python” o “experto de español” salvo evidencia.</td></tr>
+      <tr><td><strong>Inferencia local</strong></td><td>Quantización y runtime importan mucho.</td><td>Ollama/LM Studio suelen necesitar variantes cuantizadas y soporte específico.</td></tr>
+    </tbody>
+  </table>
+
   <div class="callout">
-    <p class="callout-title"><i data-lucide="zap"></i> ¿Por qué es brillante?</p>
-    <p>Puedes cargar un modelo con cientos de miles de millones de parámetros, pero calcular solo una parte en cada token. Eso reduce coste de inferencia sin renunciar a capacidad total. La trampa: necesitas memoria para los expertos, buen routing y hardware que mueva datos rápido.</p>
+    <p class="callout-title"><i data-lucide="zap"></i> Skin in the game</p>
+    <p>MoE es brillante cuando quieres mucha capacidad con coste activo menor. La trampa: <strong>no abarata mágicamente todo</strong>. Necesitas memoria para expertos, routing estable, balanceo, buen runtime y hardware con comunicación rápida. Si comparas modelos, mira siempre <strong>parámetros totales, activos, contexto, precisión, runtime y coste por token</strong>.</p>
   </div>
+
   <div class="refs">
     <p class="refs-title">Para profundizar</p>
-    <a href="https://www.louisbouchard.ai/moe/" target="_blank">Louis Bouchard - MoE Explained Simply (explicación visual)</a>
+    <a href="https://arxiv.org/abs/1701.06538" target="_blank">Shazeer et al. - Outrageously Large Neural Networks (MoE)</a>
+    <a href="https://arxiv.org/abs/2101.03961" target="_blank">Fedus et al. - Switch Transformers</a>
     <a href="https://arxiv.org/abs/2401.04088" target="_blank">Mixtral of Experts</a>
+    <a href="https://arxiv.org/abs/2401.06066" target="_blank">DeepSeekMoE</a>
   </div>
 </Slide>
 
-<!-- SLIDE 27 -->
-<Slide id="parametros" number={27} title="Parámetros de configuración de un modelo">
+<!-- SLIDE 89 -->
+<Slide id="parametros" number={89} title="Parámetros de configuración de un modelo">
   <h3><i data-lucide="sliders-horizontal"></i> Parámetros principales</h3>
   <table>
     <thead>
@@ -222,317 +271,557 @@ import Slide from './Slide.astro';
   </div>
 </Slide>
 
-<!-- SLIDE 28 -->
-<Slide id="razonamiento" number={28} title="Modelos de razonamiento (thinking models)">
-  <p><i data-lucide="brain"></i> <strong>Regla practica:</strong> empieza por el modelo mas barato que supere tu evaluacion. Sube a razonamiento medio/alto cuando haya planificacion, herramientas, ambiguedad o coste alto de equivocarse; para lo demas, un modelo rapido suele ser mas eficiente.</p>
-  <div class="two-cols">
-    <div>
-      <h3><i data-lucide="list-checks"></i> Terminos clave</h3>
-      <table class="compact-table">
-        <thead>
-          <tr><th>Concepto</th><th>Lectura correcta</th></tr>
-        </thead>
-        <tbody>
-          <tr><td>Claude</td><td>Opus 4.7 usa adaptive thinking; Sonnet 4.6 y Haiku 4.5 mantienen thinking.</td></tr>
-          <tr><td>OpenAI</td><td>GPT-5.5 / GPT-5.4 exponen <code>reasoning.effort</code>: <code>none</code> a <code>xhigh</code>.</td></tr>
-          <tr><td>Thinking tokens</td><td>No siempre son visibles; se facturan y ocupan contexto.</td></tr>
-          <tr><td>Trade-off</td><td>Mas razonamiento = mas calidad potencial, pero mas coste y latencia.</td></tr>
-        </tbody>
-      </table>
+<!-- SLIDE 90 -->
+<Slide id="razonamiento" number={90} title="Modelos de razonamiento (thinking models)">
+  <p><i data-lucide="brain"></i> Los modelos de razonamiento reservan presupuesto para deliberar antes de responder. No son “más inteligentes siempre”: son mejores cuando la tarea necesita plan, búsqueda, verificación interna o coordinación de pasos.</p>
+
+  <div class="big-idea">
+    <p>Regla práctica: empieza por el modelo más barato que supere tu eval. Escala razonamiento solo cuando reduzca errores que realmente cuestan.</p>
+  </div>
+
+  <div class="metric-strip">
+    <div class="metric-card">
+      <strong>Reasoning effort</strong>
+      <span>cuánto presupuesto interno asignas</span>
     </div>
-    <div>
-      <h3><i data-lucide="route"></i> Cuando escalar</h3>
-      <table class="compact-table">
-        <thead>
-          <tr><th>Tarea</th><th>Recomendacion</th></tr>
-        </thead>
-        <tbody>
-          <tr><td>Clasificar, extraer, resumir</td><td>Rapido / bajo</td></tr>
-          <tr><td>Chat sensible a latencia</td><td>Sonnet 4.6, Haiku 4.5, <code>gpt-5.4-mini</code> o local</td></tr>
-          <tr><td>Matematicas, debugging, codigo dificil</td><td>Medio/alto</td></tr>
-          <tr><td>Agente con herramientas</td><td>Planner fuerte; ejecutores baratos</td></tr>
-          <tr><td>Riesgo legal, financiero o seguridad</td><td>Alto + verificacion</td></tr>
-          <tr><td>Investigacion larga asincrona</td><td><code>xhigh</code> solo con evals</td></tr>
-        </tbody>
-      </table>
+    <div class="metric-card">
+      <strong>Thinking tokens</strong>
+      <span>tokens de deliberación, visibles o no según proveedor</span>
+    </div>
+    <div class="metric-card">
+      <strong>Latencia</strong>
+      <span>más pensamiento suele tardar más</span>
+    </div>
+    <div class="metric-card">
+      <strong>Verificación</strong>
+      <span>razonar no sustituye tests, reglas ni citas</span>
     </div>
   </div>
+
+  <h3><i data-lucide="list-checks"></i> Qué ocurre realmente</h3>
+  <table class="compact-table resource-table">
+    <thead>
+      <tr><th>Concepto</th><th>Lectura correcta</th><th>Implicación práctica</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>Razonamiento interno</strong></td><td>El modelo dedica tokens a explorar pasos, hipótesis o planes antes de la respuesta visible.</td><td>Puede mejorar tareas difíciles, pero aumenta coste y tiempo.</td></tr>
+      <tr><td><strong>OpenAI</strong></td><td>Los modelos de razonamiento se controlan con parámetros como <code>reasoning.effort</code> en la Responses API.</td><td>Ajusta esfuerzo por tarea; no pongas alto por defecto.</td></tr>
+      <tr><td><strong>Claude</strong></td><td>Extended thinking usa un objeto <code>thinking</code> con <code>budget_tokens</code>.</td><td>El presupuesto de thinking debe planificarse como parte de <code>max_tokens</code>, coste y latencia.</td></tr>
+      <tr><td><strong>Contexto</strong></td><td>Los tokens de razonamiento pueden ocupar presupuesto de salida/contexto y se facturan según proveedor.</td><td>Deja margen para razonar y para responder; si no, tendrás respuestas incompletas.</td></tr>
+      <tr><td><strong>Verdad</strong></td><td>Más reasoning no garantiza factualidad ni permisos correctos.</td><td>Para alto riesgo: retrieval, tests, validadores, citas y revisión humana.</td></tr>
+    </tbody>
+  </table>
+
+  <h3><i data-lucide="route"></i> Cuándo escalar razonamiento</h3>
+  <table class="compact-table resource-table">
+    <thead>
+      <tr><th>Señal de la tarea</th><th>Modelo rápido</th><th>Razonamiento medio/alto</th><th>Por qué</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Clasificar, extraer, transformar formato</td><td>Normalmente suficiente</td><td>Solo si hay ambigüedad o coste alto</td><td>La tarea es local y verificable.</td></tr>
+      <tr><td>Matemáticas, algoritmos, debugging profundo</td><td>Puede fallar por atajos</td><td>Recomendado</td><td>Necesita mantener hipótesis y comprobar pasos.</td></tr>
+      <tr><td>Agente con herramientas</td><td>Útil como ejecutor barato</td><td>Útil como planner/router</td><td>Debe decidir orden, tool, parada y recuperación.</td></tr>
+      <tr><td>Legal, finanzas, seguridad</td><td>No basta por sí solo</td><td>Alto + verificación externa</td><td>El coste de error exige evidencia y controles.</td></tr>
+      <tr><td>Investigación larga o diseño complejo</td><td>Bueno para borradores</td><td>Alto o asincrónico con eval</td><td>Hay múltiples fuentes, trade-offs y síntesis.</td></tr>
+    </tbody>
+  </table>
+
+  <h3><i data-lucide="calculator"></i> Decisión económica</h3>
+  <table class="compact-table resource-table">
+    <thead>
+      <tr><th>Pregunta</th><th>Criterio</th><th>Ejemplo</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>¿Cuánto cuesta pensar?</td><td><code>coste ≈ input + output visible + reasoning/thinking + tool calls + reintentos</code></td><td>Un modelo lento que evita tres reintentos puede salir más barato.</td></tr>
+      <tr><td>¿Mejora algo medible?</td><td>Compara contra baseline rápido en una eval real.</td><td>Debugging: tests pasados, bugs resueltos, menos regresiones.</td></tr>
+      <tr><td>¿Dónde usarlo?</td><td>Planner fuerte + ejecutores baratos suele ser eficiente.</td><td>Agente: razonamiento alto para plan; modelo rápido para editar o clasificar pasos simples.</td></tr>
+      <tr><td>¿Cuándo no usarlo?</td><td>Si la tarea es simple, latencia crítica o fácilmente validable.</td><td>Normalizar JSON, resumir un ticket corto, clasificar idioma.</td></tr>
+    </tbody>
+  </table>
+
+  <div class="callout">
+    <p class="callout-title"><i data-lucide="shield-check"></i> Skin in the game</p>
+    <p>No compres “razonamiento” como magia. Úsalo cuando una eval demuestre que reduce fallos relevantes. Y si la respuesta mueve dinero, permisos, código o decisiones sensibles, el razonamiento debe terminar en <strong>evidencia verificable</strong>: tests, citas, constraints, tool logs o aprobación humana.</p>
+  </div>
+
   <div class="refs">
     <p class="refs-title">Para profundizar</p>
-    <a href="https://platform.claude.com/docs/en/build-with-claude/extended-thinking" target="_blank">Anthropic - Extended Thinking docs</a>
-    <a href="https://platform.claude.com/docs/en/about-claude/models/overview" target="_blank">Anthropic - Models overview</a>
-    <a href="https://developers.openai.com/api/docs/guides/reasoning" target="_blank">OpenAI - Reasoning models docs</a>
-    <a href="https://developers.openai.com/api/docs/models" target="_blank">OpenAI - Models</a>
+    <a href="https://platform.openai.com/docs/guides/reasoning" target="_blank">OpenAI - Reasoning models</a>
+    <a href="https://platform.openai.com/docs/guides/reasoning-best-practices" target="_blank">OpenAI - Reasoning best practices</a>
+    <a href="https://docs.anthropic.com/en/docs/build-with-claude/extended-thinking" target="_blank">Anthropic - Extended thinking</a>
+    <a href="https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/extended-thinking-tips" target="_blank">Anthropic - Extended thinking tips</a>
   </div>
 </Slide>
 
-<!-- SLIDE 29 -->
-<Slide id="multimodales-nativos" number={29} title="Modelos multimodales nativos">
-  <p><i data-lucide="layers"></i> En 2026, los modelos frontier mezclan cada vez más modalidades, pero no todos cubren texto, imagen, audio y vídeo en el mismo endpoint. La pregunta correcta es: <strong>qué modalidades acepta, qué genera y con qué latencia</strong>.</p>
+<!-- SLIDE 91 -->
+<Slide id="multimodales-nativos" number={91} title="Modelos multimodales nativos">
+  <p><i data-lucide="layers"></i> En 2026, “multimodal” no significa automáticamente “todo a todo”. Un modelo puede aceptar imágenes pero no generar imágenes, entender audio pero responder solo texto, o usar un endpoint distinto para voz en tiempo real.</p>
+
+  <div class="big-idea">
+    <p>La pregunta correcta no es “¿es multimodal?”, sino “qué acepta, qué genera, si es batch o realtime, y qué garantía necesito”.</p>
+  </div>
+
+  <div class="metric-strip">
+    <div class="metric-card">
+      <strong>Input</strong>
+      <span>texto, imagen, PDF, audio, vídeo</span>
+    </div>
+    <div class="metric-card">
+      <strong>Output</strong>
+      <span>texto, imagen, audio, vídeo</span>
+    </div>
+    <div class="metric-card">
+      <strong>Realtime</strong>
+      <span>streaming de voz/vídeo con baja latencia</span>
+    </div>
+    <div class="metric-card">
+      <strong>Tooling</strong>
+      <span>OCR, ASR, TTS, video gen, vision, grounding</span>
+    </div>
+  </div>
+
   <h3><i data-lucide="scale"></i> Pipeline vs nativo</h3>
   <div class="two-cols">
     <div class="compare-card">
       <p class="compare-card-title"><i data-lucide="link"></i> Pipeline (2022-2023)</p>
-      <p class="compare-card-desc">Modelo de texto + modelo de visión + modelo de audio pegados con código. Cada uno entrenado por separado. Pierden contexto entre modalidades.</p>
+      <p class="compare-card-desc">Modelo de texto + OCR + ASR + visión + TTS pegados con código. Funciona, pero cada paso puede perder contexto, introducir errores y complicar evaluación.</p>
       <span class="tag">Componentes separados</span>
       <span class="tag">Pérdida de contexto</span>
     </div>
     <div class="compare-card">
       <p class="compare-card-title"><i data-lucide="sparkles"></i> Nativo / integrado (2025-2026)</p>
-      <p class="compare-card-desc">Un modelo o familia de modelos comparte representación y herramientas entre texto, imagen, audio o vídeo. El producto puede razonar cruzando modalidades sin perder todo el contexto.</p>
+      <p class="compare-card-desc">Un modelo o familia de endpoints comparte representación entre texto, imagen, audio o vídeo. Permite razonar cruzando modalidades, aunque generación y realtime suelen vivir en endpoints especializados.</p>
       <span class="tag">Modelo unificado</span>
       <span class="tag">Contexto cruzado</span>
     </div>
   </div>
-  <h3><i data-lucide="database"></i> Estado del arte (mayo 2026)</h3>
-  <table>
+
+  <h3><i data-lucide="database"></i> Matriz práctica de capacidades (mayo 2026)</h3>
+  <table class="compact-table resource-table">
     <thead>
-      <tr><th>Modelo / endpoint</th><th>Texto</th><th>Imagen input</th><th>Audio input</th><th>Vídeo input</th><th>Generación</th></tr>
+      <tr><th>Familia / endpoint</th><th>Input</th><th>Output</th><th>Lectura correcta</th></tr>
     </thead>
     <tbody>
-      <tr><td><strong>Gemini 3.1 Pro Preview</strong></td><td>Sí</td><td>Sí</td><td>Sí</td><td>Sí</td><td>Texto; no Live API en este endpoint</td></tr>
-      <tr><td><strong>GPT-5.5</strong></td><td>Sí</td><td>Sí</td><td>No en el modelo base; vía gpt-realtime-2/audio</td><td>Modelos/herramientas especializadas</td><td>Texto + tools</td></tr>
-      <tr><td><strong>Claude Opus 4.7 / Sonnet 4.6</strong></td><td>Sí</td><td>Sí</td><td>No nativo en Messages</td><td>No</td><td>Texto</td></tr>
-      <tr><td><strong>Gemini Live / Flash Live</strong></td><td>Sí</td><td>Sí</td><td>Sí</td><td>Sí</td><td>Audio en tiempo real</td></tr>
+      <tr><td><strong>Gemini 2.5 / Gemini API</strong></td><td>texto, imagen, audio, vídeo, PDF</td><td>texto en modelos estándar</td><td>Muy fuerte para comprensión multimodal larga; generación y voz dependen del endpoint.</td></tr>
+      <tr><td><strong>Gemini Live API</strong></td><td>texto, audio y vídeo en streaming</td><td>texto y audio</td><td>Diseñado para interacción realtime, no para análisis batch pesado.</td></tr>
+      <tr><td><strong>OpenAI GPT / Responses</strong></td><td>texto e imagen según modelo</td><td>texto + tools</td><td>Para visión, análisis y agentes; audio/vídeo suelen ir por endpoints especializados.</td></tr>
+      <tr><td><strong>OpenAI Realtime</strong></td><td>texto, audio e imagen</td><td>texto y audio</td><td>Voz/agentes de baja latencia; evalúa turn-taking, interrupciones y coste de audio.</td></tr>
+      <tr><td><strong>OpenAI Sora</strong></td><td>texto e imagen</td><td>vídeo con audio</td><td>Generación de media, no sustituto de un modelo conversacional general.</td></tr>
+      <tr><td><strong>Claude 4 / Messages</strong></td><td>texto e imagen</td><td>texto</td><td>Excelente para análisis visual/documental; audio/vídeo requieren pipeline externo.</td></tr>
+      <tr><td><strong>Qwen Omni</strong></td><td>texto, imagen, audio y vídeo</td><td>texto y voz</td><td>Ejemplo open/abierto de enfoque omni; despliegue y runtime importan mucho.</td></tr>
     </tbody>
   </table>
+
   <h3><i data-lucide="target"></i> ¿Qué cambia en la práctica?</h3>
-  <ul>
-    <li><i data-lucide="code"></i> <strong>Menos pegamento:</strong> puedes enviar texto, imágenes, PDFs, audio o vídeo según el proveedor sin montar pipelines frágiles para cada modalidad</li>
-    <li><i data-lucide="brain"></i> <strong>Razonamiento cruzado:</strong> "¿Este diagrama de arquitectura coincide con la documentación?" El modelo entiende ambos formatos</li>
-    <li><i data-lucide="sparkles"></i> <strong>Generación multimodal:</strong> el producto puede orquestar texto, imagen y audio, aunque a menudo use modelos especializados por modalidad</li>
-  </ul>
-  <div class="callout">
-    <p class="callout-title"><i data-lucide="lightbulb"></i> Tendencia 2026</p>
-    <p>La distinción entre "modelo de texto" y "modelo de visión" está desapareciendo, pero input y output no son lo mismo. Las modalidades exactas dependen del endpoint, región y modelo. Diseña tus apps para recibir múltiples modalidades y verifica la matriz oficial antes de integrar.</p>
-  </div>
-  <div class="refs">
-    <p class="refs-title">Para profundizar</p>
-    <a href="https://docs.cloud.google.com/vertex-ai/generative-ai/docs/models/gemini/3-1-pro" target="_blank">Google - Gemini 3.1 Pro Preview</a>
-    <a href="https://developers.openai.com/api/docs/models" target="_blank">OpenAI - Models</a>
-    <a href="https://platform.claude.com/docs/en/build-with-claude/vision" target="_blank">Anthropic - Vision</a>
-  </div>
-</Slide>
-
-<!-- SLIDE 30 -->
-<Slide id="open-vs-closed" number={30} title="Open weights vs propietario: ¿cuál elegir?">
-  <p><i data-lucide="scale"></i> No todos los modelos son iguales ni se licencian igual. En LLMs, muchas veces lo correcto es decir <strong>open weights</strong>: puedes descargar pesos, pero no necesariamente tienes datos, entrenamiento, infraestructura ni una licencia libre clásica.</p>
-  <h3><i data-lucide="database"></i> Modelos principales</h3>
-  <table>
+  <table class="compact-table resource-table">
     <thead>
-      <tr><th>Modelo</th><th>Empresa</th><th>Tipo</th><th>Licencia</th><th>Punto fuerte</th></tr>
+      <tr><th>Caso</th><th>Qué aporta multimodal</th><th>Qué debes medir</th></tr>
     </thead>
     <tbody>
-      <tr><td><strong>Claude Opus 4.7 / Sonnet 4.6</strong></td><td>Anthropic</td><td>Propietario</td><td>Comercial</td><td>Agentes, código y contexto largo</td></tr>
-      <tr><td><strong>GPT-5.5 / GPT-5.4</strong></td><td>OpenAI</td><td>Propietario</td><td>Comercial</td><td>Reasoning, computer use y ecosistema API</td></tr>
-      <tr><td><strong>gpt-oss-120b / 20b</strong></td><td>OpenAI</td><td>Open weights</td><td>Apache 2.0</td><td>Reasoning auto-hospedado, tool use y fine-tuning</td></tr>
-      <tr><td><strong>Gemini 3.1 Pro Preview</strong></td><td>Google</td><td>Propietario</td><td>Comercial</td><td>Contexto 1M, multimodalidad y herramientas Google</td></tr>
-      <tr><td><strong>Llama 4 Scout/Maverick</strong></td><td>Meta</td><td>Open weights</td><td>Llama 4 License</td><td>MoE multimodal, contextos muy largos</td></tr>
-      <tr><td><strong>Mistral Large 3 / Medium 3.5</strong></td><td>Mistral AI</td><td>Open weights</td><td>Apache 2.0 / Modified MIT</td><td>Large 3 MoE abierto; Medium 3.5 agentic coding y 256k</td></tr>
-      <tr><td><strong>Qwen3.6</strong></td><td>Alibaba</td><td>Open weights</td><td>Apache 2.0</td><td>MoE multimodal, agentic coding y contexto largo</td></tr>
-      <tr><td><strong>DeepSeek-V4 Pro/Flash</strong></td><td>DeepSeek</td><td>Open weights</td><td>MIT</td><td>MoE 1M context con modos de razonamiento</td></tr>
-      <tr><td><strong>Gemma / Phi</strong></td><td>Google / Microsoft</td><td>Open weights</td><td>Licencias propias / MIT</td><td>Modelos pequeños para edge y fine-tuning</td></tr>
+      <tr><td><strong>Soporte con capturas</strong></td><td>El usuario sube screenshot + texto; el modelo localiza error visual y pasos.</td><td>resolución, falsos diagnósticos, privacidad de pantalla</td></tr>
+      <tr><td><strong>QA de vídeo</strong></td><td>Analiza frames, audio y transcripción para detectar eventos.</td><td>cobertura temporal, coste por minuto, eventos perdidos</td></tr>
+      <tr><td><strong>Voz realtime</strong></td><td>Conversación natural con interrupciones y latencia baja.</td><td>latencia, barge-in, errores ASR, coste de audio, seguridad</td></tr>
+      <tr><td><strong>Documentos complejos</strong></td><td>Combina texto, tablas, sellos, firmas, imágenes y layout.</td><td>extracción estructurada, citas, errores OCR/layout</td></tr>
+      <tr><td><strong>Generación de media</strong></td><td>Texto/imagen de referencia -> imagen, audio o vídeo.</td><td>derechos, consistencia, safety, coste y revisión humana</td></tr>
     </tbody>
   </table>
-  <h3><i data-lucide="columns"></i> Propietario vs open weights</h3>
-  <div class="two-cols">
-    <div class="compare-card">
-      <p class="compare-title"><i data-lucide="building"></i> Propietario</p>
-      <ul>
-        <li>Mejor rendimiento general</li>
-        <li>Más fácil de empezar (API)</li>
-        <li>Soporte empresarial y SLAs</li>
-        <li>No puedes ver ni modificar los pesos</li>
-        <li>Dependencia del proveedor</li>
-      </ul>
-    </div>
-    <div class="compare-card">
-      <p class="compare-title"><i data-lucide="github"></i> Open weights</p>
-      <ul>
-        <li>Ejecutar en tu infraestructura</li>
-        <li>Privacidad alta si lo ejecutas en tu infraestructura</li>
-        <li>Personalizar: fine-tuning, quantizar, modificar</li>
-        <li>Sin coste de licencia (pagas compute)</li>
-        <li>Más control, más responsabilidad</li>
-      </ul>
-    </div>
-  </div>
+
+  <h3><i data-lucide="alert-triangle"></i> Trampas frecuentes</h3>
+  <table class="compact-table resource-table">
+    <thead>
+      <tr><th>Confusión</th><th>Lectura correcta</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>“Acepta vídeo”</td><td>Puede significar frames muestreados, vídeo completo, streaming o solo archivo corto. Mira límites.</td></tr>
+      <tr><td>“Acepta audio”</td><td>No implica voz realtime ni salida de audio. Puede ser transcripción + razonamiento textual.</td></tr>
+      <tr><td>“Nativo”</td><td>No siempre significa mismo endpoint para entender, generar y conversar.</td></tr>
+      <tr><td>“Ve PDFs”</td><td>PDF puede procesarse como texto extraído, imágenes de páginas o mezcla. Evalúa tablas y layout.</td></tr>
+      <tr><td>“Genera vídeo”</td><td>Generar media es otro problema: consistencia temporal, derechos, safety y revisión pesan mucho.</td></tr>
+    </tbody>
+  </table>
+
   <div class="callout">
-    <p class="callout-title"><i data-lucide="compass"></i> ¿Cómo elegir?</p>
-    <p>Si necesitas máximo rendimiento y no te importa la dependencia: propietario (Claude, GPT, Gemini). Si necesitas privacidad, coste controlado o personalización: open weights (gpt-oss, Llama, Qwen, DeepSeek, Mistral). En la práctica, muchos equipos combinan ambos.</p>
+    <p class="callout-title"><i data-lucide="lightbulb"></i> Skin in the game</p>
+    <p>Diseña multimodalidad como matriz de producto: <strong>modalidad de entrada, modalidad de salida, latencia, coste, privacidad, límites de archivo y evaluación</strong>. El error caro no es elegir “un modelo peor”; es asumir que una demo con una imagen equivale a un sistema fiable con vídeo, voz, documentos y usuarios reales.</p>
   </div>
+
   <div class="refs">
     <p class="refs-title">Para profundizar</p>
-    <a href="https://help.openai.com/en/articles/11870455-openai-open-weight-models-gpt-oss" target="_blank">OpenAI - gpt-oss open weights</a>
-    <a href="https://mistral.ai/news/mistral-3" target="_blank">Mistral 3</a>
-    <a href="https://docs.mistral.ai/models/model-cards/mistral-medium-3-5-26-04" target="_blank">Mistral Medium 3.5</a>
-    <a href="https://huggingface.co/meta-llama/Llama-4-Scout-17B-16E-Instruct" target="_blank">Meta Llama 4</a>
-    <a href="https://huggingface.co/spaces/HuggingFaceH4/open_llm_leaderboard" target="_blank">Hugging Face Open LLM Leaderboard</a>
-    <a href="https://artificialanalysis.ai/" target="_blank">Artificial Analysis - model comparison</a>
+    <a href="https://ai.google.dev/gemini-api/docs/models" target="_blank">Google - Gemini API models</a>
+    <a href="https://ai.google.dev/gemini-api/docs/live" target="_blank">Google - Gemini Live API</a>
+    <a href="https://platform.openai.com/docs/models" target="_blank">OpenAI - Models</a>
+    <a href="https://platform.openai.com/docs/api-reference/realtime" target="_blank">OpenAI - Realtime API</a>
+    <a href="https://platform.openai.com/docs/guides/video-generation" target="_blank">OpenAI - Video generation with Sora</a>
+    <a href="https://docs.anthropic.com/en/docs/build-with-claude/vision" target="_blank">Anthropic - Vision</a>
+    <a href="https://huggingface.co/Qwen/Qwen2.5-Omni-3B" target="_blank">Qwen2.5-Omni model card</a>
   </div>
 </Slide>
 
-<!-- SLIDE 31 -->
-<Slide id="distilacion" number={31} title="Destilación de modelos">
+<!-- SLIDE 92 -->
+<Slide id="open-vs-closed" number={92} title="Open weights vs propietario: ¿cuál elegir?">
+  <p><i data-lucide="scale"></i> Esta decisión no es ideológica: es una decisión de producto, riesgo y operación. Un modelo propietario suele comprarse como <strong>servicio</strong>; un modelo open weights se adopta como <strong>capacidad que tú operas</strong>.</p>
+
+  <div class="big-idea">
+    <p>La pregunta correcta no es “¿cuál es mejor?”, sino “¿qué necesito controlar y qué estoy dispuesto a operar?”.</p>
+  </div>
+
+  <h3><i data-lucide="book-open"></i> Vocabulario que no conviene mezclar</h3>
+  <table class="compact-table resource-table">
+    <thead>
+      <tr><th>Término</th><th>Qué tienes</th><th>Qué no garantiza</th><th>Ejemplo</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>Propietario/API</strong></td><td>Acceso al modelo como servicio, normalmente con SLA, escalado y actualizaciones.</td><td>Acceso a pesos, entrenamiento, datos o reproducibilidad completa.</td><td>Claude, GPT, Gemini.</td></tr>
+      <tr><td><strong>Open weights</strong></td><td>Pesos descargables para inferencia, fine-tuning, cuantización o auto-hosting según licencia.</td><td>Que sea “open source AI”: pueden faltar datos, código de entrenamiento o detalles suficientes para reproducirlo.</td><td>gpt-oss, Llama, Mistral, Qwen, DeepSeek.</td></tr>
+      <tr><td><strong>Open source AI</strong></td><td>Según OSI, debe incluir forma preferida de modificación: código, información de datos y parámetros.</td><td>Que todo modelo con pesos públicos cumpla esa definición.</td><td>Hay que revisar cada ficha y licencia.</td></tr>
+      <tr><td><strong>Research / community license</strong></td><td>Uso permitido bajo condiciones concretas.</td><td>Uso comercial ilimitado, redistribución libre o ausencia de restricciones de escala.</td><td>Licencias tipo Llama Community License.</td></tr>
+    </tbody>
+  </table>
+
+  <h3><i data-lucide="database"></i> Ejemplos representativos (mayo 2026)</h3>
+  <table class="compact-table resource-table">
+    <thead>
+      <tr><th>Familia</th><th>Tipo real</th><th>Lectura correcta</th><th>Preguntas antes de usar</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>Claude Opus 4.7 / Sonnet 4.6</strong></td><td>Propietario/API</td><td>Muy fuertes para agentes, código, contexto largo y producto gestionado.</td><td>¿Dónde viajan los datos? ¿Qué SLA, región, logs y política de retención aplican?</td></tr>
+      <tr><td><strong>GPT-5.5 / GPT-5.4</strong></td><td>Propietario/API + familia open weights separada</td><td>El API frontier y gpt-oss no son lo mismo: uno es servicio cerrado, otro son pesos descargables.</td><td>¿Necesitas el frontier API o basta un open-weight especializado?</td></tr>
+      <tr><td><strong>Gemini 3.1 / Gemini API</strong></td><td>Propietario/API</td><td>Potente para multimodalidad, contexto largo e integración con nube Google.</td><td>¿La ventaja viene del modelo o del ecosistema donde ya viven tus datos?</td></tr>
+      <tr><td><strong>gpt-oss-120b / 20b</strong></td><td>Open weights, Apache 2.0</td><td>Razonamiento auto-hospedado; útil si quieres control de despliegue y fine-tuning.</td><td>¿Tienes GPU, serving, seguridad y evals para operarlo bien?</td></tr>
+      <tr><td><strong>Mistral Large 3</strong></td><td>Open weights, Apache 2.0</td><td>MoE grande con pesos abiertos; buen ejemplo de modelo frontier-like desplegable por terceros.</td><td>¿El coste de nodo y latencia compensa frente a API?</td></tr>
+      <tr><td><strong>Qwen3.6</strong></td><td>Open weights, Apache 2.0</td><td>Modelo chino fuerte en coding agente, visión y contexto largo; runtime recomendado importa mucho.</td><td>¿Puedes servirlo con vLLM/SGLang/KTransformers y medirlo en tus tareas?</td></tr>
+      <tr><td><strong>DeepSeek-V4 Pro/Flash</strong></td><td>Open weights, MIT</td><td>MoE de gran escala, contexto largo y modos de razonamiento; comparar total vs activo es obligatorio.</td><td>¿Qué versión, cuantización y modo de reasoning estás evaluando?</td></tr>
+      <tr><td><strong>Llama 4 Scout/Maverick</strong></td><td>Open weights con licencia propia</td><td>Pesos disponibles, multimodalidad y MoE; no lo trates como Apache/MIT sin leer la licencia.</td><td>¿Tu caso encaja con la Community License y la política de uso?</td></tr>
+    </tbody>
+  </table>
+
+  <h3><i data-lucide="route"></i> Matriz de decisión</h3>
+  <table class="compact-table resource-table">
+    <thead>
+      <tr><th>Criterio</th><th>Propietario suele ganar si...</th><th>Open weights suele ganar si...</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>Calidad máxima</strong></td><td>Necesitas el mejor resultado general, multimodalidad madura o tool use muy robusto desde hoy.</td><td>La tarea es acotada y un modelo ajustado/quantizado supera suficiente la eval interna.</td></tr>
+      <tr><td><strong>Privacidad y residencia</strong></td><td>El proveedor ofrece región, contratos, retención cero o controles enterprise aceptables.</td><td>Los datos no pueden salir de tu red, cliente, dispositivo o jurisdicción.</td></tr>
+      <tr><td><strong>Coste</strong></td><td>Volumen bajo/medio, picos impredecibles o equipo pequeño: pagas por uso y evitas operación.</td><td>Volumen alto y estable: amortizas GPUs, batch, caché y modelos pequeños por tarea.</td></tr>
+      <tr><td><strong>Latencia</strong></td><td>La API está cerca del usuario y el proveedor optimiza streaming/realtime.</td><td>Necesitas edge, offline, on-prem o latencia muy baja dentro de tu propia red.</td></tr>
+      <tr><td><strong>Personalización</strong></td><td>Basta prompting, RAG, tools, fine-tuning gestionado o guardrails del proveedor.</td><td>Necesitas LoRA, distilación, cuantización, tokenizer propio o inspección de pesos/versiones.</td></tr>
+      <tr><td><strong>Responsabilidad</strong></td><td>Quieres delegar serving, parches, seguridad operacional y escalado.</td><td>Aceptas operar monitorización, evaluación, abuso, red teaming, upgrades y rollback.</td></tr>
+    </tbody>
+  </table>
+
+  <h3><i data-lucide="calculator"></i> Fórmula útil: coste total, no solo precio por token</h3>
+  <div class="code-block">
+    <code>TCO self-host ≈ GPU/hora / utilización + ingeniería + observabilidad + seguridad + energía + fallos
+TCO API       ≈ tokens entrada + tokens salida + tools + reintentos + latencia + dependencia proveedor</code>
+  </div>
+  <p>Un modelo open weights “gratis” puede ser caro si la GPU está al 8%, si nadie sabe depurar vLLM, o si cada incidente consume al equipo. Un API caro puede ser barato si evita meses de infraestructura y mejora conversión, soporte o calidad.</p>
+
+  <h3><i data-lucide="git-branch"></i> Patrón realista: arquitectura híbrida</h3>
+  <table class="compact-table resource-table">
+    <thead>
+      <tr><th>Capa</th><th>Modelo típico</th><th>Por qué</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>Clasificación, extracción simple, PII</strong></td><td>Open weights pequeño/local</td><td>Barato, privado, rápido y fácil de validar.</td></tr>
+      <tr><td><strong>RAG interno sensible</strong></td><td>Open weights o API con contrato enterprise</td><td>La política de datos manda más que el benchmark.</td></tr>
+      <tr><td><strong>Planificación difícil, código, casos raros</strong></td><td>Propietario frontier o modelo open grande</td><td>Escalas inteligencia solo cuando la tarea lo justifica.</td></tr>
+      <tr><td><strong>Fallback</strong></td><td>Segundo proveedor o modelo local</td><td>Reduce dependencia, caídas, límites de rate y sorpresas de versión.</td></tr>
+    </tbody>
+  </table>
+
+  <div class="callout">
+    <p class="callout-title"><i data-lucide="compass"></i> Skin in the game</p>
+    <p>No elijas por identidad de marca. Haz una eval con tus datos y calcula <strong>calidad, latencia, coste total, riesgo legal, operación y salida</strong>. La mejor decisión suele ser híbrida: modelo propietario para tareas difíciles, open weights para privacidad/coste/control, y un router que decide con métricas.</p>
+  </div>
+
+  <div class="refs">
+    <p class="refs-title">Para profundizar</p>
+    <a href="https://opensource.org/ai/open-weights" target="_blank">OSI - Open Weights</a>
+    <a href="https://opensource.org/ai/open-source-ai-definition" target="_blank">OSI - Open Source AI Definition</a>
+    <a href="https://platform.openai.com/docs/models" target="_blank">OpenAI - Models</a>
+    <a href="https://openai.com/index/gpt-oss-model-card/" target="_blank">OpenAI - gpt-oss model card</a>
+    <a href="https://platform.claude.com/docs/en/about-claude/models/overview" target="_blank">Anthropic - Claude models overview</a>
+    <a href="https://ai.google.dev/gemini-api/docs/models" target="_blank">Google - Gemini API models</a>
+    <a href="https://mistral.ai/news/mistral-3" target="_blank">Mistral AI - Mistral 3</a>
+    <a href="https://huggingface.co/Qwen/Qwen3.6-35B-A3B" target="_blank">Qwen3.6 model card</a>
+    <a href="https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro" target="_blank">DeepSeek-V4 Pro model card</a>
+    <a href="https://huggingface.co/meta-llama/Llama-4-Scout-17B-16E-Instruct-Original" target="_blank">Meta Llama 4 model card</a>
+  </div>
+</Slide>
+
+<!-- SLIDE 93 -->
+<Slide id="distilacion" number={93} title="Destilación de modelos">
   <div class="analogy">
     <p class="analogy-label"><i data-lucide="graduation-cap"></i> Analogía</p>
-    <p>Un profesor experto (modelo grande) enseña a un alumno (modelo pequeño). El alumno no estudia los libros originales: aprende de las <strong>respuestas y razonamientos del profesor</strong>. No será tan bueno en todo, pero en su especialidad puede acercarse mucho.</p>
+    <p>Un profesor experto no solo dice la respuesta correcta: también muestra qué alternativas eran casi plausibles y cuáles eran absurdas. En destilación, el modelo pequeño aprende esa “forma de decidir” del modelo grande.</p>
   </div>
-  <h3><i data-lucide="arrow-down-circle"></i> ¿Qué es la destilación?</h3>
-  <p>Entrenar un modelo pequeño para que <strong>replique el comportamiento</strong> de uno grande (teacher &rarr; student). El modelo grande genera datos de entrenamiento (respuestas, razonamientos) y el pequeño aprende a imitarlo.</p>
-  <table>
+
+  <p><i data-lucide="arrow-down-circle"></i> Destilar no es entrenar desde cero ni “meter conocimiento nuevo” en tiempo real. Es entrenar un <strong>student</strong> para imitar el comportamiento de un <strong>teacher</strong> más caro, grande o lento.</p>
+
+  <div class="big-idea">
+    <p>La destilación es compresión de comportamiento: cambias capacidad general por coste, latencia, privacidad o despliegue local.</p>
+  </div>
+
+  <h3><i data-lucide="sigma"></i> La idea matemática</h3>
+  <table class="compact-table resource-table">
     <thead>
-      <tr><th>Aspecto</th><th>Modelo teacher</th><th>Modelo student</th></tr>
+      <tr><th>Elemento</th><th>Lectura sencilla</th><th>Por qué importa</th></tr>
     </thead>
     <tbody>
-      <tr><td>Tamaño</td><td>70B - 700B+ parámetros</td><td>1B - 14B parámetros</td></tr>
-      <tr><td>Coste inferencia</td><td>Alto (GPU potente)</td><td>Bajo (puede correr en CPU)</td></tr>
-      <tr><td>Capacidad general</td><td>Amplia</td><td>Reducida, pero especializada</td></tr>
-      <tr><td>Latencia</td><td>Alta</td><td>Baja</td></tr>
+      <tr><td><strong>Soft targets</strong></td><td>El teacher no devuelve solo “clase correcta”; devuelve una distribución de probabilidades.</td><td>El student aprende relaciones entre opciones: “gato” puede estar más cerca de “lince” que de “camión”.</td></tr>
+      <tr><td><strong>Temperatura</strong></td><td><code>p_i = softmax(z_i / T)</code>. Si <code>T</code> sube, la distribución se suaviza.</td><td>Revela “dark knowledge”: señales débiles que una etiqueta dura ocultaría.</td></tr>
+      <tr><td><strong>Pérdida</strong></td><td><code>L = α CE(y, s) + (1-α) T² KL(p_teacher^T || p_student^T)</code></td><td>Combina verdad etiquetada con imitación del teacher; no todo debe depender de respuestas sintéticas.</td></tr>
+      <tr><td><strong>Eval</strong></td><td>Student vs teacher vs baseline pequeño.</td><td>Si no mides, solo has entrenado un imitador más barato, no necesariamente útil.</td></tr>
     </tbody>
   </table>
-  <h3><i data-lucide="flask-conical"></i> Caso real histórico: DeepSeek-R1</h3>
-  <p>DeepSeek-R1 (671B) fue un caso clave de destilación en 2025: se publicó junto a variantes de 1.5B, 7B, 8B, 14B, 32B y 70B. Los modelos destilados mantienen gran parte de la capacidad de razonamiento del original, pero corren en hardware mucho más modesto.</p>
+
+  <h3><i data-lucide="workflow"></i> Qué se puede destilar</h3>
+  <table class="compact-table resource-table">
+    <thead>
+      <tr><th>Tipo</th><th>Qué imita el student</th><th>Ejemplo práctico</th><th>Riesgo</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>Logits</strong></td><td>Distribución de probabilidades del teacher.</td><td>Clasificador pequeño para soporte o moderación.</td><td>Necesitas acceso a logits; muchas APIs no lo dan.</td></tr>
+      <tr><td><strong>Respuestas</strong></td><td>Outputs generados por el teacher.</td><td>Dataset sintético de preguntas/respuestas para un modelo local.</td><td>El student aprende estilo y errores del teacher.</td></tr>
+      <tr><td><strong>Razonamiento</strong></td><td>Trazas, pasos o soluciones largas.</td><td>Modelos de razonamiento tipo R1 distill.</td><td>Puede aprender a “sonar razonable” sin verificar.</td></tr>
+      <tr><td><strong>Preferencias</strong></td><td>Qué respuesta es mejor entre varias.</td><td>Reducir rechazos falsos, mejorar tono o formato.</td><td>Puede sobreajustarse a gustos del juez.</td></tr>
+    </tbody>
+  </table>
+
+  <h3><i data-lucide="flask-conical"></i> Caso moderno: DeepSeek-R1 distill</h3>
+  <p>DeepSeek-R1 mostró muy bien el patrón: un teacher grande de razonamiento genera ejemplos que se usan para ajustar modelos mucho más pequeños. Las variantes destiladas de 1.5B, 7B, 8B, 14B, 32B y 70B acercaron razonamiento paso a paso a hardware más accesible, pero no convirtieron esos modelos en el teacher completo.</p>
+
+  <table class="compact-table resource-table">
+    <thead>
+      <tr><th>Decisión</th><th>Sí tiene sentido</th><th>Mejor no</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>Latencia</strong></td><td>Respuesta en móvil, navegador, call center o asistente interno con mucho volumen.</td><td>Casos raros donde el coste del error supera el ahorro por token.</td></tr>
+      <tr><td><strong>Dominio estrecho</strong></td><td>Extracción de facturas, clasificación de tickets, comandos internos, estilo de soporte.</td><td>Preguntas abiertas donde necesitas conocimiento amplio y actualizado.</td></tr>
+      <tr><td><strong>Privacidad</strong></td><td>Quieres inferencia local/on-prem con datos sensibles.</td><td>Usas datos sintéticos con licencias dudosas o sin trazabilidad.</td></tr>
+      <tr><td><strong>Equipo</strong></td><td>Tienes evals, dataset, MLOps y capacidad de servir el student.</td><td>No tienes métrica de éxito ni ejemplos negativos.</td></tr>
+    </tbody>
+  </table>
+
   <div class="callout">
-    <p class="callout-title"><i data-lucide="lightbulb"></i> ¿Cuándo destilar?</p>
-    <p>Cuando necesitas rendimiento de modelo grande en un escenario con restricciones de latencia, coste o privacidad (inferencia local). No es la primera opción: primero prueba prompt engineering y RAG. Destila cuando ya sabes <strong>exactamente</strong> qué tarea necesitas resolver y tienes datos de evaluación.</p>
+    <p class="callout-title"><i data-lucide="lightbulb"></i> Skin in the game</p>
+    <p>No destiles “para mejorar un modelo”; destila para ganar una restricción concreta: <strong>menos latencia, menos coste, más privacidad o despliegue offline</strong>. Si el problema es acceder a datos cambiantes, usa RAG. Si el problema es formato o estilo, prueba primero prompting/fine-tuning. Si el problema es coste a escala y ya tienes una eval estable, entonces destilar empieza a tener sentido.</p>
   </div>
+
   <div class="refs">
     <p class="refs-title">Para profundizar</p>
+    <a href="https://arxiv.org/abs/1503.02531" target="_blank">Hinton et al. - Distilling the Knowledge</a>
     <a href="https://arxiv.org/abs/2501.12948" target="_blank">DeepSeek-R1 - Paper técnico</a>
+    <a href="https://huggingface.co/deepseek-ai/DeepSeek-R1-Distill-Qwen-7B" target="_blank">DeepSeek-R1-Distill model card</a>
     <a href="https://huggingface.co/blog/distillation-with-trl" target="_blank">Hugging Face - Distillation with TRL</a>
   </div>
 </Slide>
 
-<!-- SLIDE 32 -->
-<Slide id="inferencia-optimizada" number={32} title="Inferencia optimizada">
-  <p><i data-lucide="gauge"></i> Servir un modelo en producción no es solo cargarlo y llamar <code>generate()</code>. La diferencia entre un prototipo y producción real está en estas técnicas:</p>
-  <h3><i data-lucide="layers"></i> Técnicas clave</h3>
-  <div class="icon-grid">
-    <div class="icon-card">
-      <i data-lucide="database"></i>
-      <div class="icon-card-content">
-        <strong>KV Cache</strong>
-        <p>Almacena los cálculos de atención de tokens previos para no recalcularlos. Sin KV cache, cada nuevo token recalcularía toda la secuencia. Coste: memoria GPU proporcional a la longitud del contexto.</p>
-      </div>
+<!-- SLIDE 94 -->
+<Slide id="inferencia-optimizada" number={94} title="Inferencia optimizada">
+  <p><i data-lucide="gauge"></i> Servir un LLM en producción no es “cargar pesos y llamar a <code>generate()</code>”. Es gestionar memoria, colas, latencia, concurrencia y coste por token sin romper calidad.</p>
+
+  <div class="big-idea">
+    <p>Optimizar inferencia significa decidir qué cuello de botella tienes: memoria de pesos, KV cache, decodificación secuencial, batching, red o calidad.</p>
+  </div>
+
+  <div class="metric-strip">
+    <div class="metric-card">
+      <strong>TTFT</strong>
+      <span>tiempo hasta el primer token</span>
     </div>
-    <div class="icon-card">
-      <i data-lucide="fast-forward"></i>
-      <div class="icon-card-content">
-        <strong>Speculative decoding</strong>
-        <p>Un modelo pequeño (draft) genera candidatos rápido, y el modelo grande los verifica en paralelo. Si acierta, se aceptan todos de golpe. Resultado: misma calidad, 2-3x más rápido.</p>
-      </div>
+    <div class="metric-card">
+      <strong>TPOT</strong>
+      <span>tiempo por token generado</span>
     </div>
-    <div class="icon-card">
-      <i data-lucide="rows-3"></i>
-      <div class="icon-card-content">
-        <strong>Continuous batching</strong>
-        <p>En vez de esperar a que todas las peticiones terminen para procesar el siguiente lote, las nuevas peticiones entran en cuanto hay hueco. Maximiza el uso de la GPU.</p>
-      </div>
+    <div class="metric-card">
+      <strong>Throughput</strong>
+      <span>tokens/segundo agregados</span>
     </div>
-    <div class="icon-card">
-      <i data-lucide="split"></i>
-      <div class="icon-card-content">
-        <strong>Tensor parallelism</strong>
-        <p>Divide el modelo entre múltiples GPUs. Cada GPU calcula una parte de cada capa. Necesario para modelos que no caben en una sola GPU.</p>
-      </div>
+    <div class="metric-card">
+      <strong>Utilización</strong>
+      <span>GPU ocupada sin colas absurdas</span>
     </div>
   </div>
-  <h3><i data-lucide="wrench"></i> Herramientas de serving</h3>
-  <table>
+
+  <h3><i data-lucide="split"></i> Prefill vs decode</h3>
+  <table class="compact-table resource-table">
     <thead>
-      <tr><th>Herramienta</th><th>Tipo</th><th>Punto fuerte</th></tr>
+      <tr><th>Fase</th><th>Qué ocurre</th><th>Cuello de botella</th><th>Optimización típica</th></tr>
     </thead>
     <tbody>
-      <tr><td><strong>vLLM</strong></td><td>Servidor de inferencia</td><td>PagedAttention, continuous batching, alto throughput. El estándar de facto</td></tr>
-      <tr><td><strong>llama.cpp</strong></td><td>Inferencia local (CPU/GPU)</td><td>Modelos GGUF, funciona en laptops, bajo consumo</td></tr>
-      <tr><td><strong>TensorRT-LLM</strong></td><td>Optimización NVIDIA</td><td>Máximo rendimiento en GPUs NVIDIA, requiere compilación</td></tr>
-      <tr><td><strong>Ollama</strong></td><td>Wrapper amigable</td><td>Descarga y ejecuta modelos con un comando. Usa llama.cpp internamente</td></tr>
+      <tr><td><strong>Prefill</strong></td><td>El modelo procesa todo el prompt/contexto inicial.</td><td>Compute y memoria para una secuencia larga.</td><td>prompt caching, chunked prefill, RAG selectivo, no meter documentos enteros sin criterio.</td></tr>
+      <tr><td><strong>Decode</strong></td><td>Genera tokens uno a uno de forma autoregresiva.</td><td>Secuencialidad: cada token depende del anterior.</td><td>KV cache, speculative decoding, batching continuo, modelos más pequeños.</td></tr>
+      <tr><td><strong>Serving</strong></td><td>Muchas peticiones compiten por la misma GPU.</td><td>Fragmentación de memoria, colas, picos y tamaños variables.</td><td>PagedAttention, continuous batching, límites de contexto, backpressure.</td></tr>
     </tbody>
   </table>
+
+  <h3><i data-lucide="database"></i> KV cache: la memoria invisible</h3>
+  <p>En un decoder-only Transformer, cada token nuevo reutiliza claves y valores de tokens anteriores. La KV cache evita recalcular contexto, pero consume memoria proporcional a capas, batch y longitud.</p>
+  <table class="compact-table resource-table">
+    <thead>
+      <tr><th>Fórmula mental</th><th>Lectura práctica</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><code>KV ≈ 2 × capas × batch × seq_len × kv_heads × head_dim × bytes</code></td><td>El “2” son K y V. Si duplicas contexto o concurrencia, sube memoria casi linealmente.</td></tr>
+      <tr><td><code>memoria total ≈ pesos + KV cache + activaciones + overhead runtime</code></td><td>Que los pesos quepan en VRAM no significa que puedas servir 100 usuarios con 128k tokens.</td></tr>
+    </tbody>
+  </table>
+
+  <h3><i data-lucide="layers"></i> Técnicas clave</h3>
+  <table class="compact-table resource-table">
+    <thead>
+      <tr><th>Técnica</th><th>Qué resuelve</th><th>Trade-off</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>PagedAttention</strong></td><td>Gestiona KV cache en bloques, reduciendo fragmentación y desperdicio de memoria.</td><td>Complejidad del runtime; dependes de servidor especializado como vLLM.</td></tr>
+      <tr><td><strong>Continuous batching</strong></td><td>Agrupa peticiones que entran/salen en momentos distintos para mantener GPU ocupada.</td><td>Puede empeorar latencia individual si no configuras colas y prioridades.</td></tr>
+      <tr><td><strong>Speculative decoding</strong></td><td>Un modelo draft propone tokens y el modelo grande verifica varios de golpe.</td><td>Acelera si el draft acierta; añade complejidad y memoria extra.</td></tr>
+      <tr><td><strong>Quantización</strong></td><td>Reduce memoria y ancho de banda de pesos.</td><td>Puede perder calidad, especialmente en razonamiento fino o modelos pequeños.</td></tr>
+      <tr><td><strong>Tensor parallelism</strong></td><td>Parte capas/matrices entre varias GPUs para modelos que no caben en una.</td><td>La comunicación entre GPUs puede comerse la mejora.</td></tr>
+      <tr><td><strong>Prefix/prompt caching</strong></td><td>Reutiliza prefijos repetidos: system prompts, instrucciones, documentos comunes.</td><td>Sirve cuando hay repetición real; no arregla prompts caóticos.</td></tr>
+    </tbody>
+  </table>
+
+  <h3><i data-lucide="wrench"></i> Herramientas de serving</h3>
+  <table class="compact-table resource-table">
+    <thead>
+      <tr><th>Herramienta</th><th>Uso típico</th><th>Punto fuerte</th><th>Cuidado con...</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>vLLM</strong></td><td>APIs OpenAI-compatible con alto throughput.</td><td>PagedAttention, continuous batching, serving multiusuario.</td><td>Configurar memoria, contexto y paralelismo según modelo.</td></tr>
+      <tr><td><strong>SGLang</strong></td><td>Agentes, structured generation y serving eficiente.</td><td>Buen soporte para routing, tool use y modelos frontier open weights.</td><td>Versiones de parser/tool calling y compatibilidad de modelos.</td></tr>
+      <tr><td><strong>TensorRT-LLM</strong></td><td>Rendimiento máximo en NVIDIA.</td><td>Kernels optimizados, FP8/INT8, despliegue de alto rendimiento.</td><td>Mayor complejidad de build, hardware y mantenimiento.</td></tr>
+      <tr><td><strong>llama.cpp / GGUF</strong></td><td>Local, edge, CPU/GPU ligera.</td><td>Portabilidad, cuantizaciones, laptops y edge servers.</td><td>No es la misma experiencia que servir cientos de usuarios concurrentes.</td></tr>
+      <tr><td><strong>Ollama / LM Studio</strong></td><td>Desarrollo local y demos.</td><td>Ergonomía excelente para probar modelos.</td><td>No confundas comodidad de demo con serving productivo.</td></tr>
+    </tbody>
+  </table>
+
   <div class="callout">
-    <p class="callout-title"><i data-lucide="target"></i> ¿Cuándo importa esto?</p>
-    <p>Si usas una API (Claude, OpenAI, Gemini), el proveedor ya hace todo esto por ti. Importa cuando <strong>sirves tus propios modelos</strong>: on-premise, modelos destilados, fine-tuned, o por requisitos de privacidad.</p>
+    <p class="callout-title"><i data-lucide="target"></i> Skin in the game</p>
+    <p>Antes de tocar knobs, mide <strong>TTFT, TPOT, tokens/s, coste por 1.000 requests, tasa de errores y calidad</strong>. Optimizar sin eval puede convertir un sistema correcto en uno rápido que se equivoca. Si usas OpenAI, Claude o Gemini como API, gran parte de esto lo opera el proveedor; si auto-hospedas, pasa a ser tu problema.</p>
   </div>
+
   <div class="refs">
     <p class="refs-title">Para profundizar</p>
-    <a href="https://docs.vllm.ai/" target="_blank">vLLM - Documentación</a>
+    <a href="https://arxiv.org/abs/2309.06180" target="_blank">PagedAttention / vLLM paper</a>
+    <a href="https://docs.vllm.ai/" target="_blank">vLLM - Documentation</a>
+    <a href="https://proceedings.mlr.press/v202/leviathan23a.html" target="_blank">Speculative decoding - ICML 2023</a>
+    <a href="https://nvidia.github.io/TensorRT-LLM/" target="_blank">NVIDIA TensorRT-LLM</a>
     <a href="https://github.com/ggml-org/llama.cpp" target="_blank">llama.cpp - GitHub</a>
   </div>
 </Slide>
 
-<!-- SLIDE 33 -->
-<Slide id="edge-ai" number={33} title="Edge AI: modelos en el dispositivo">
-  <p><i data-lucide="smartphone"></i> Ejecutar modelos de IA <strong>directamente en el dispositivo del usuario</strong> (móvil, navegador, IoT) sin depender de un servidor. La quantización (slide 16) es lo que lo hace posible.</p>
-  <h3><i data-lucide="layers"></i> Opciones por plataforma</h3>
-  <table>
+<!-- SLIDE 95 -->
+<Slide id="edge-ai" number={95} title="Edge AI: modelos en el dispositivo">
+  <p><i data-lucide="smartphone"></i> Edge AI significa ejecutar inferencia cerca del usuario: móvil, portátil, navegador, coche, fábrica o servidor local. No es “menos serio” que cloud; es otra arquitectura con restricciones distintas.</p>
+
+  <div class="big-idea">
+    <p>El edge gana cuando privacidad, latencia, coste variable u offline importan más que usar siempre el modelo más grande.</p>
+  </div>
+
+  <h3><i data-lucide="calculator"></i> ¿Cabe en el dispositivo?</h3>
+  <table class="compact-table resource-table">
     <thead>
-      <tr><th>Plataforma</th><th>Runtime</th><th>Modelos típicos</th></tr>
+      <tr><th>Cálculo mental</th><th>Ejemplo</th><th>Qué falta sumar</th></tr>
     </thead>
     <tbody>
-      <tr><td><strong>Navegador</strong></td><td>WebLLM, Transformers.js, chrome.ai</td><td>Phi-4-mini, Gemma 2B, Llama 3.2 1B</td></tr>
-      <tr><td><strong>iOS</strong></td><td>CoreML, MLX</td><td>Modelos Apple Intelligence, Whisper, LoRA</td></tr>
-      <tr><td><strong>Android</strong></td><td>MediaPipe, ONNX Runtime, Gemini Nano</td><td>Gemma 2B, Whisper tiny, modelos propios</td></tr>
-      <tr><td><strong>Edge servers</strong></td><td>TensorRT-LLM, llama.cpp, Ollama</td><td>Modelos de 7B-14B quantizados</td></tr>
+      <tr><td><code>memoria pesos ≈ parámetros × bits / 8</code></td><td>3B en INT4 ≈ 1.5 GB solo pesos. 7B en INT4 ≈ 3.5 GB solo pesos.</td><td>KV cache, runtime, tokenizer, buffers, sistema operativo y margen térmico.</td></tr>
+      <tr><td><code>KV cache ∝ contexto × capas × batch</code></td><td>Un contexto largo puede romper un modelo que “cabía” con un prompt corto.</td><td>Límites de tokens, streaming, truncado y UX de documentos.</td></tr>
+      <tr><td><code>energía ≠ gratis</code></td><td>Sin coste por token en API, pero hay batería, calor y experiencia de usuario.</td><td>Thermal throttling, consumo, tiempos de descarga y tamaño de app.</td></tr>
     </tbody>
   </table>
-  <div class="two-cols">
-    <div class="compare-card">
-      <p class="compare-card-title"><i data-lucide="cloud"></i> Cloud</p>
-      <p class="compare-card-desc">Modelos grandes (70B+), tareas complejas, cuando necesitas la máxima calidad y tienes conexión estable.</p>
-      <span class="tag">Máxima calidad</span>
-      <span class="tag">Requiere conexión</span>
-    </div>
-    <div class="compare-card">
-      <p class="compare-card-title"><i data-lucide="smartphone"></i> Edge / on-device</p>
-      <p class="compare-card-desc">Sin latencia de red, datos dentro del dispositivo si no hay telemetría ni llamadas externas, funciona offline y no tiene coste variable por token.</p>
-      <span class="tag">Sin red externa</span>
-      <span class="tag">Control de datos</span>
-    </div>
-  </div>
+
+  <h3><i data-lucide="layers"></i> Opciones por plataforma</h3>
+  <table class="compact-table resource-table">
+    <thead>
+      <tr><th>Plataforma</th><th>Runtime / API</th><th>Uso razonable</th><th>Riesgo</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>Navegador</strong></td><td>WebGPU, WebLLM, Transformers.js, ONNX Runtime Web, Prompt API.</td><td>Clasificación, embeddings, resumen corto, chat pequeño, demos privadas.</td><td>Compatibilidad de navegador, descarga inicial, memoria y rendimiento desigual.</td></tr>
+      <tr><td><strong>iOS/macOS</strong></td><td>Core ML, MLX, Foundation Models framework.</td><td>Autocompletado, extracción, asistentes privados, adapters/LoRA, modelos Apple Silicon.</td><td>Versiones de sistema, tamaño de modelo, ANE/GPU/CPU y políticas de distribución.</td></tr>
+      <tr><td><strong>Android</strong></td><td>Google AI Edge / MediaPipe LLM Inference, LiteRT, ONNX Runtime.</td><td>Texto local, resumen, comandos, modelos Gemma/Gemini Nano cuando aplique.</td><td>Fragmentación de hardware y memoria; probar en gama media real.</td></tr>
+      <tr><td><strong>Edge server</strong></td><td>llama.cpp, vLLM, SGLang, TensorRT-LLM, Ollama.</td><td>On-prem, fábrica, hospital, call center, baja latencia LAN.</td><td>Operación, seguridad, actualizaciones y observabilidad siguen siendo tuyas.</td></tr>
+    </tbody>
+  </table>
+
+  <h3><i data-lucide="scale"></i> Cloud vs edge: decisión aplicada</h3>
+  <table class="compact-table resource-table">
+    <thead>
+      <tr><th>Caso</th><th>Cloud</th><th>Edge / on-device</th><th>Arquitectura habitual</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>Asistente legal complejo</strong></td><td>Mejor razonamiento, contexto y citas con modelos grandes.</td><td>Útil para PII redaction previa o búsqueda local.</td><td>Edge limpia/filtra; cloud razona; logs auditados.</td></tr>
+      <tr><td><strong>Teclado predictivo</strong></td><td>Demasiada latencia y privacidad sensible.</td><td>Ideal: texto no sale del dispositivo.</td><td>Modelo pequeño local + aprendizaje privado.</td></tr>
+      <tr><td><strong>Fábrica sin conexión estable</strong></td><td>Falla si la red cae.</td><td>Funciona offline y cerca de sensores.</td><td>Edge server local + sincronización diferida.</td></tr>
+      <tr><td><strong>Soporte con casos raros</strong></td><td>Modelo frontier para problemas difíciles.</td><td>Modelo local clasifica, resume y enruta.</td><td>Router: local por defecto, cloud para escalado.</td></tr>
+      <tr><td><strong>Educación / laboratorio</strong></td><td>Bueno para comparar SOTA.</td><td>Bueno para aprender tokens, memoria y límites reales.</td><td>Colab/cloud para entrenar; local para inferencia ligera.</td></tr>
+    </tbody>
+  </table>
+
+  <h3><i data-lucide="alert-triangle"></i> Trampas frecuentes</h3>
+  <table class="compact-table resource-table">
+    <thead>
+      <tr><th>Confusión</th><th>Lectura correcta</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>“On-device es privado”</td><td>Solo si no envías telemetría, prompts, embeddings o errores a servicios externos.</td></tr>
+      <tr><td>“No pago tokens”</td><td>Pagas en batería, almacenamiento, soporte, rendimiento y abandono si la UX es mala.</td></tr>
+      <tr><td>“Corre en mi portátil”</td><td>No significa que corra en móviles de gama media ni en navegador con memoria limitada.</td></tr>
+      <tr><td>“El modelo pequeño basta”</td><td>Basta para tareas estrechas; para razonamiento abierto suele necesitar router o fallback.</td></tr>
+    </tbody>
+  </table>
+
   <div class="callout">
-    <p class="callout-title"><i data-lucide="lightbulb"></i> Tendencia 2026</p>
-    <p>Los modelos pequeños (1B-4B) quantizados ya son suficientemente buenos para autocompletado, clasificación, resumen y traducción. No todo necesita un modelo de 200B en la nube.</p>
+    <p class="callout-title"><i data-lucide="lightbulb"></i> Skin in the game</p>
+    <p>Diseña edge con una eval en dispositivos reales: <strong>tiempo de descarga, memoria pico, tokens/s, temperatura, batería, calidad y fallback</strong>. La arquitectura robusta no es “todo local” ni “todo cloud”: es decidir qué debe quedarse cerca del usuario y qué merece escalar a un modelo grande.</p>
   </div>
+
   <div class="refs">
     <p class="refs-title">Para profundizar</p>
-    <a href="https://webllm.mlc.ai/" target="_blank">WebLLM - Modelos en el navegador</a>
-    <a href="https://huggingface.co/docs/transformers.js" target="_blank">Transformers.js - Hugging Face</a>
+    <a href="https://webllm.mlc.ai/" target="_blank">WebLLM - Browser LLMs</a>
+    <a href="https://huggingface.co/docs/transformers.js/guides/webgpu" target="_blank">Transformers.js - WebGPU</a>
+    <a href="https://onnxruntime.ai/docs/tutorials/web/ep-webgpu.html" target="_blank">ONNX Runtime WebGPU</a>
+    <a href="https://ai.google.dev/edge/mediapipe/solutions/genai/llm_inference" target="_blank">Google AI Edge - LLM Inference</a>
+    <a href="https://developer.apple.com/machine-learning/core-ml/" target="_blank">Apple Core ML</a>
+    <a href="https://mlx-framework.org/" target="_blank">Apple MLX</a>
+    <a href="https://developer.chrome.com/docs/ai/prompt-api" target="_blank">Chrome Prompt API</a>
   </div>
 </Slide>
 
-<!-- SLIDE 34 -->
-<Slide id="recap-arquitecturas" number={34} title="Lo que deberías saber: arquitecturas y modelos">
+<!-- SLIDE 96 -->
+<Slide id="recap-arquitecturas" number={96} title="Lo que deberías saber: arquitecturas y modelos">
   <table>
     <thead>
       <tr><th>Concepto</th><th>Slide</th></tr>
     </thead>
     <tbody>
-      <tr><td>LLM = modelo de lenguaje a gran escala; estado del arte mayo 2026 y dimensiones públicas</td><td>19</td></tr>
-      <tr><td>De RNN a Transformer: la evolución de las arquitecturas</td><td>20</td></tr>
-      <tr><td>Transformer: atención paralela sobre toda la secuencia</td><td>21</td></tr>
-      <tr><td>Q, K, V: las matemáticas de la atención, multi-head, positional encoding</td><td>23</td></tr>
-      <tr><td>Tokenización: BPE (Byte Pair Encoding), impacto en coste y soporte multilingüe</td><td>24</td></tr>
-      <tr><td>Transfer learning: pre-entrenar una vez, adaptar a cualquier tarea</td><td>25</td></tr>
-      <tr><td>MoE: activar solo una fracción de los parámetros por inferencia</td><td>22 y 26</td></tr>
-      <tr><td>Temperature y top_p controlan la aleatoriedad de la salida</td><td>27</td></tr>
-      <tr><td>Modelos de razonamiento: thinking tokens para tareas complejas</td><td>28</td></tr>
-      <tr><td>Multimodalidad: texto, imagen, audio y vídeo con modelos nativos o especializados</td><td>29</td></tr>
-      <tr><td>Open weights vs propietario: privacidad vs rendimiento</td><td>30</td></tr>
-      <tr><td>Destilación: modelo grande enseña a modelo pequeño</td><td>31</td></tr>
-      <tr><td>Inferencia optimizada: KV cache, vLLM, speculative decoding</td><td>32</td></tr>
-      <tr><td>Edge AI: modelos en navegador, móvil e IoT</td><td>33</td></tr>
+      <tr><td>LLM = modelo de lenguaje a gran escala; estado del arte mayo 2026 y dimensiones públicas</td><td>81</td></tr>
+      <tr><td>Arquitecturas modernas: Transformer, MoE, SSM/Mamba, híbridos y multimodalidad</td><td>82</td></tr>
+      <tr><td>Transformer: atención paralela sobre toda la secuencia</td><td>83</td></tr>
+      <tr><td>MoE: activar solo una fracción de los parámetros por token</td><td>84 y 88</td></tr>
+      <tr><td>Q, K, V: matemáticas de la atención, multi-head y positional encoding</td><td>85</td></tr>
+      <tr><td>Tokenización: BPE, impacto en coste, idioma y límites de contexto</td><td>86</td></tr>
+      <tr><td>Transfer learning: pre-entrenar una vez, adaptar a tareas concretas</td><td>87</td></tr>
+      <tr><td>Temperature, top_p, max_tokens y otros parámetros de generación</td><td>89</td></tr>
+      <tr><td>Modelos de razonamiento: thinking tokens, coste, latencia y verificación</td><td>90</td></tr>
+      <tr><td>Multimodalidad: input/output, batch vs realtime y endpoints especializados</td><td>91</td></tr>
+      <tr><td>Open weights vs propietario: licencia, TCO, privacidad y operación</td><td>92</td></tr>
+      <tr><td>Destilación: teacher/student, soft targets, casos adecuados y riesgos</td><td>93</td></tr>
+      <tr><td>Inferencia optimizada: KV cache, vLLM, batching y speculative decoding</td><td>94</td></tr>
+      <tr><td>Edge AI: memoria, batería, privacidad, navegador, móvil y edge servers</td><td>95</td></tr>
     </tbody>
   </table>
 </Slide>
 
-<!-- SLIDE 35: SECCION -->
-<Slide id="sec-uso-practico" number={35} section
+<!-- SLIDE 97: SECCION -->
+<Slide id="sec-uso-practico" number={97} section
   title="Uso práctico"
   subtitle="Prompt engineering, alucinaciones, modelos frontier, Hugging Face, Colab, experimentos reproducibles, RAG, bases de datos vectoriales y arquitectura de apps LLM." />
 
-<!-- SLIDE 36 -->
-<Slide id="prompt-engineering" number={36} title="Prompt engineering: cómo hablarle bien al modelo">
+<!-- SLIDE 98 -->
+<Slide id="prompt-engineering" number={98} title="Prompt engineering: cómo hablarle bien al modelo">
   <p><i data-lucide="message-square"></i> No es "preguntarle cosas": es <strong>diseñar la entrada</strong> para obtener la salida que necesitas. La calidad del prompt determina la calidad de la respuesta.</p>
   <h3><i data-lucide="wand-sparkles"></i> Técnicas principales</h3>
   <table>
@@ -579,8 +868,8 @@ import Slide from './Slide.astro';
   </div>
 </Slide>
 
-<!-- SLIDE 37 -->
-<Slide id="context-engineering" number={37} title="Context engineering: más allá del prompt">
+<!-- SLIDE 99 -->
+<Slide id="context-engineering" number={99} title="Context engineering: más allá del prompt">
   <p><i data-lucide="layers"></i> En 2026 el término clave ya no es <strong>prompt engineering</strong> sino <strong>context engineering</strong>: la disciplina de gestionar <strong>toda la información</strong> que recibe el modelo, no solo el prompt del usuario.</p>
   <h3><i data-lucide="list-tree"></i> ¿Qué compone el contexto?</h3>
   <table>
@@ -613,8 +902,8 @@ import Slide from './Slide.astro';
   </div>
 </Slide>
 
-<!-- SLIDE 38 -->
-<Slide id="formatos-datos-llm" number={38} title="Formatos de datos para LLMs: JSON, YAML, Markdown y más">
+<!-- SLIDE 100 -->
+<Slide id="formatos-datos-llm" number={100} title="Formatos de datos para LLMs: JSON, YAML, Markdown y más">
   <p><i data-lucide="file-json"></i> Los LLMs no leen datos como un parser: los interpretan como <strong>secuencia de tokens</strong>. El formato que elijas afecta directamente a la calidad de la respuesta, el coste y la velocidad.</p>
   <h3><i data-lucide="scale"></i> Comparativa de formatos</h3>
   <table>
@@ -674,14 +963,32 @@ import Slide from './Slide.astro';
     <li><i data-lucide="settings"></i> <strong>¿Configuras herramientas de IA?</strong> → YAML (skills, agentes, frontmatter)</li>
     <li><i data-lucide="layout"></i> <strong>¿Separas bloques en un prompt largo?</strong> → XML tags (<code>&lt;context&gt;</code>, <code>&lt;instructions&gt;</code>)</li>
   </ul>
+  <h3><i data-lucide="shield-check"></i> Formato como contrato</h3>
+  <table class="compact-table resource-table">
+    <thead>
+      <tr><th>Situación</th><th>Formato recomendado</th><th>Por qué</th><th>Validación</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>Salida que ejecuta código</strong></td><td>JSON Schema / tool call</td><td>El backend necesita tipos, campos obligatorios y errores controlados</td><td>Validador + retry + logs</td></tr>
+      <tr><td><strong>Contexto largo para leer</strong></td><td>Markdown con títulos estables</td><td>El modelo aprovecha jerarquía, listas y fragmentos documentales</td><td>Citas por sección</td></tr>
+      <tr><td><strong>Bloques de prompt</strong></td><td>XML/tags</td><td>Evita mezclar instrucciones, datos y ejemplos</td><td>Separar <code>instructions</code>, <code>context</code>, <code>examples</code></td></tr>
+      <tr><td><strong>Muchos ejemplos tabulares</strong></td><td>CSV/TSV compacto</td><td>Menos tokens y lectura regular cuando las columnas son claras</td><td>Cabeceras y tipos explícitos</td></tr>
+    </tbody>
+  </table>
   <div class="callout">
     <p class="callout-title"><i data-lucide="lightbulb"></i> Consejo clave</p>
     <p>Markdown suele funcionar bien con LLMs porque aparece mucho en documentación, issues, repositorios y datos de entrenamiento. Úsalo para estructurar contexto legible (CLAUDE.md, system prompts, documentación). Reserva JSON para cuando necesites que <strong>tu código</strong> parsee la salida.</p>
   </div>
+  <div class="refs">
+    <p class="refs-title">Para profundizar</p>
+    <a href="https://json-schema.org/learn/getting-started-step-by-step" target="_blank">JSON Schema - Getting started</a>
+    <a href="https://platform.openai.com/docs/guides/structured-outputs" target="_blank">OpenAI - Structured Outputs</a>
+    <a href="https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/use-xml-tags" target="_blank">Anthropic - Use XML tags</a>
+  </div>
 </Slide>
 
-<!-- SLIDE 39 -->
-<Slide id="alucinaciones" number={39} title="Alucinaciones: cuando la IA inventa con total confianza">
+<!-- SLIDE 101 -->
+<Slide id="alucinaciones" number={101} title="Alucinaciones: cuando la IA inventa con total confianza">
   <p><i data-lucide="alert-triangle"></i> Una alucinación ocurre cuando el modelo genera información <strong>falsa, inventada o sin base suficiente</strong>, pero la presenta con apariencia de dato real. No es un simple bug de implementación: es un riesgo propio de generar lenguaje por probabilidad sin verificación externa.</p>
   <h3><i data-lucide="code"></i> Ejemplo real: código alucinado</h3>
   <div class="two-cols">
@@ -715,6 +1022,19 @@ import Slide from './Slide.astro';
     <li><i data-lucide="eye"></i> <strong>No verifica por defecto:</strong> puede mezclar datos reales, inferencias y elementos inventados con el mismo tono de confianza</li>
     <li><i data-lucide="target"></i> <strong>Cuanto más específico, más riesgo:</strong> preguntas generales ("¿qué es REST?") suelen ser más seguras. Preguntas específicas ("¿qué método de la API de Stripe v4.2 maneja reembolsos parciales?") requieren verificación</li>
   </ul>
+  <h3><i data-lucide="list-tree"></i> Tipos de alucinación</h3>
+  <table class="compact-table resource-table">
+    <thead>
+      <tr><th>Tipo</th><th>Ejemplo</th><th>Mitigación real</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>Factual</strong></td><td>Fecha, precio, benchmark o API inventada</td><td>Buscar fuente primaria, usar RAG, citar documento concreto</td></tr>
+      <tr><td><strong>Bibliográfica</strong></td><td>Paper, URL o autor inexistente</td><td>Verificar enlaces y DOI; no aceptar citas sin abrir</td></tr>
+      <tr><td><strong>Código/API</strong></td><td>Método, flag o paquete que no existe</td><td>Compilar, ejecutar tests, consultar docs oficiales</td></tr>
+      <tr><td><strong>Razonamiento</strong></td><td>Conclusión coherente con premisas falsas</td><td>Separar hechos, supuestos, cálculo y verificación</td></tr>
+      <tr><td><strong>Grounding</strong></td><td>Respuesta no soportada por los documentos recuperados</td><td>Obligar a citar chunks y permitir “no hay evidencia”</td></tr>
+    </tbody>
+  </table>
   <h3><i data-lucide="shield"></i> Cómo protegerte</h3>
   <table>
     <thead>
@@ -739,8 +1059,8 @@ import Slide from './Slide.astro';
   </div>
 </Slide>
 
-<!-- SLIDE 40 -->
-<Slide id="structured-output" number={40} title="Structured output: que el modelo devuelva datos parseables">
+<!-- SLIDE 102 -->
+<Slide id="structured-output" number={102} title="Structured output: que el modelo devuelva datos parseables">
   <p><i data-lucide="code"></i> En producción no quieres texto libre: quieres <strong>JSON válido</strong>, con campos tipados, que tu código pueda parsear sin romper. Los modelos modernos ofrecen modos para aumentar mucho la fiabilidad del formato.</p>
   <h3><i data-lucide="layers"></i> Tres niveles de control</h3>
   <table>
@@ -784,6 +1104,19 @@ import Slide from './Slide.astro';
     <li><i data-lucide="code"></i> <strong>JSON mode:</strong> cuando necesitas JSON pero el schema es flexible o variable</li>
     <li><i data-lucide="shield"></i> <strong>Strict mode:</strong> producción, pipelines automatizados, integraciones API donde un campo que falta rompe el flujo</li>
   </ul>
+  <h3><i data-lucide="shield-check"></i> Diseño de schema</h3>
+  <table class="compact-table resource-table">
+    <thead>
+      <tr><th>Decisión</th><th>Buena práctica</th><th>Por qué</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>Campos requeridos</strong></td><td>Solo los imprescindibles; usa nullable si falta información</td><td>Evita inventar datos para completar el objeto</td></tr>
+      <tr><td><strong>Enums</strong></td><td>Limita categorías cerradas: <code>billing</code>, <code>support</code>, <code>sales</code></td><td>Reduce variaciones difíciles de procesar</td></tr>
+      <tr><td><strong>Unidades</strong></td><td>Incluye moneda, zona horaria, idioma o escala</td><td>Un número sin unidad es una fuente de bugs</td></tr>
+      <tr><td><strong>Confianza</strong></td><td>Añade <code>confidence</code> y <code>evidence</code> cuando haya incertidumbre</td><td>Permite revisión humana o reintento selectivo</td></tr>
+      <tr><td><strong>Validación backend</strong></td><td>Rechaza, corrige o reintenta salidas inválidas</td><td>El schema del proveedor no sustituye tus reglas de negocio</td></tr>
+    </tbody>
+  </table>
   <div class="callout">
     <p class="callout-title"><i data-lucide="lightbulb"></i> Clave práctica</p>
     <p>Structured output reduce mucho la necesidad de parsear texto con regex. Defines el schema una vez, fuerzas la forma de la salida y después validas en código. Aun con schema, rechaza, reintenta y registra fallos: la garantía final la da tu backend.</p>
@@ -795,8 +1128,8 @@ import Slide from './Slide.astro';
   </div>
 </Slide>
 
-<!-- SLIDE 41 -->
-<Slide id="vision-multimodal" number={41} title="Visión y multimodalidad: más allá del texto">
+<!-- SLIDE 103 -->
+<Slide id="vision-multimodal" number={103} title="Visión y multimodalidad: más allá del texto">
   <p><i data-lucide="image"></i> Los modelos actuales no solo leen texto: pueden <strong>ver imágenes, leer PDFs y procesar audio</strong>. Esto abre casos de uso que antes requerían herramientas especializadas.</p>
   <h3><i data-lucide="eye"></i> ¿Qué puedes enviar al modelo?</h3>
   <div class="icon-grid">
@@ -855,6 +1188,18 @@ import Slide from './Slide.astro';
       <tr><td><strong>Video</strong></td><td>No</td><td>Herramientas especializadas</td><td>Sí</td></tr>
     </tbody>
   </table>
+  <h3><i data-lucide="ruler"></i> Qué debes medir</h3>
+  <table class="compact-table resource-table">
+    <thead>
+      <tr><th>Caso</th><th>Lo que suele fallar</th><th>Métrica útil</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>Capturas de UI</strong></td><td>Confundir texto pequeño, estados deshabilitados o jerarquía visual</td><td>diagnóstico correcto, pasos reproducibles, falso positivo</td></tr>
+      <tr><td><strong>PDFs</strong></td><td>Tablas, pies de página, firmas, columnas y anexos</td><td>extracción campo a campo + cita de página</td></tr>
+      <tr><td><strong>Diagramas</strong></td><td>Inferir relaciones no dibujadas o leer flechas mal</td><td>comparar nodos/aristas contra solución esperada</td></tr>
+      <tr><td><strong>Imágenes con texto</strong></td><td>OCR parcial y errores en números/códigos</td><td>exact match de campos críticos</td></tr>
+    </tbody>
+  </table>
   <div class="callout">
     <p class="callout-title"><i data-lucide="zap"></i> Caso de uso inmediato</p>
     <p>En vez de describir un bug con texto, envía la captura de pantalla. En vez de copiar una tabla de un PDF, envía el PDF. En vez de transcribir un diagrama, envía la foto. El modelo hace el trabajo de interpretación por ti.</p>
@@ -863,11 +1208,13 @@ import Slide from './Slide.astro';
     <p class="refs-title">Para profundizar</p>
     <a href="https://platform.claude.com/docs/en/build-with-claude/vision" target="_blank">Anthropic - Vision</a>
     <a href="https://platform.claude.com/docs/en/build-with-claude/pdf-support" target="_blank">Anthropic - PDF Support</a>
+    <a href="https://ai.google.dev/gemini-api/docs/models" target="_blank">Google - Gemini multimodal models</a>
+    <a href="https://platform.openai.com/docs/models" target="_blank">OpenAI - Models and modalities</a>
   </div>
 </Slide>
 
-<!-- SLIDE 42 -->
-<Slide id="voice-realtime" number={42} title="Voz y APIs en tiempo real">
+<!-- SLIDE 104 -->
+<Slide id="voice-realtime" number={104} title="Voz y APIs en tiempo real">
   <p><i data-lucide="mic"></i> En 2026, los agentes ya no solo leen y escriben texto: <strong>hablan</strong>. Las APIs de voz en tiempo real permiten construir agentes conversacionales con baja latencia.</p>
   <h3><i data-lucide="route"></i> Pipeline clásico vs nativo</h3>
   <div class="two-cols">
@@ -902,6 +1249,19 @@ import Slide from './Slide.astro';
     <li><i data-lucide="mic"></i> <strong>Pair programming por voz:</strong> hablar con el agente mientras programas, sin cambiar de contexto</li>
     <li><i data-lucide="globe"></i> <strong>Traducción simultánea:</strong> interpretar reuniones en tiempo real entre idiomas</li>
   </ul>
+  <h3><i data-lucide="activity"></i> Métricas de una experiencia de voz</h3>
+  <table class="compact-table resource-table">
+    <thead>
+      <tr><th>Métrica</th><th>Qué mide</th><th>Por qué importa</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>End-to-end latency</strong></td><td>Desde que el usuario termina/pausa hasta que oye respuesta</td><td>Por encima de cierto umbral la conversación se siente torpe</td></tr>
+      <tr><td><strong>Barge-in</strong></td><td>Capacidad de interrumpir al agente mientras habla</td><td>Sin interrupción, la voz se parece a un IVR moderno</td></tr>
+      <tr><td><strong>Turn detection / VAD</strong></td><td>Detectar cuándo el usuario terminó de hablar</td><td>Evita cortes prematuros y silencios incómodos</td></tr>
+      <tr><td><strong>Tool latency</strong></td><td>Tiempo de consultar CRM, pedidos, calendario o base interna</td><td>La voz magnifica cualquier espera de backend</td></tr>
+      <tr><td><strong>Safety audit</strong></td><td>Qué dijo, qué tool llamó y con qué permiso</td><td>Necesario en soporte, ventas, salud, finanzas o compliance</td></tr>
+    </tbody>
+  </table>
   <div class="callout">
     <p class="callout-title"><i data-lucide="lightbulb"></i> Tendencia 2026</p>
     <p>La voz es la interfaz más natural para humanos. Los agentes de voz están pasando de "demo impresionante" a "producto en producción". El reto ya no es la tecnología, sino diseñar buenas experiencias conversacionales.</p>
@@ -910,11 +1270,13 @@ import Slide from './Slide.astro';
     <p class="refs-title">Para profundizar</p>
     <a href="https://platform.openai.com/docs/guides/realtime" target="_blank">OpenAI - Realtime API</a>
     <a href="https://elevenlabs.io/docs" target="_blank">ElevenLabs - Docs</a>
+    <a href="https://ai.google.dev/gemini-api/docs/live" target="_blank">Google - Gemini Live API</a>
+    <a href="https://developers.deepgram.com/docs" target="_blank">Deepgram - Docs</a>
   </div>
 </Slide>
 
-<!-- SLIDE 43 -->
-<Slide id="gen-imagenes-video" number={43} title="Generación de imágenes y vídeo con IA">
+<!-- SLIDE 105 -->
+<Slide id="gen-imagenes-video" number={105} title="Generación de imágenes y vídeo con IA">
   <p><i data-lucide="image"></i> Los modelos generativos no solo producen texto: generan <strong>imágenes, vídeo, audio y 3D</strong> a partir de descripciones en lenguaje natural.</p>
   <h3><i data-lucide="image"></i> Modelos de imagen (snapshot mayo 2026)</h3>
   <table>
@@ -945,6 +1307,18 @@ import Slide from './Slide.astro';
     <li><i data-lucide="image"></i> <strong>Assets y placeholders:</strong> iconos, fondos, avatares para tests y demos</li>
     <li><i data-lucide="file-text"></i> <strong>Documentación visual:</strong> diagramas explicativos para docs técnicas</li>
   </ul>
+  <h3><i data-lucide="clipboard-check"></i> Evaluar media generativa</h3>
+  <table class="compact-table resource-table">
+    <thead>
+      <tr><th>Criterio</th><th>Imagen</th><th>Vídeo</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>Fidelidad al prompt</strong></td><td>Objetos, estilo, composición y texto legible</td><td>Acciones, cámara, continuidad y audio coherente</td></tr>
+      <tr><td><strong>Consistencia</strong></td><td>Mismo personaje/producto entre variantes</td><td>Identidad, ropa, manos, física y escena entre frames</td></tr>
+      <tr><td><strong>Derechos</strong></td><td>Marcas, personajes, datasets y licencia de uso</td><td>Voz, música, likeness y derechos audiovisuales</td></tr>
+      <tr><td><strong>Revisión humana</strong></td><td>Necesaria si se publica o representa una marca</td><td>Crítica por coste reputacional y deepfakes</td></tr>
+    </tbody>
+  </table>
   <div class="callout">
     <p class="callout-title"><i data-lucide="alert-triangle"></i> Limitaciones actuales</p>
     <p>Imágenes: aún fallan con texto exacto y consistencia entre imágenes del mismo personaje. Vídeo: física inconsistente, artefactos en movimientos complejos, duración limitada. Catálogo, nombres de modelo, límites y regiones cambian según proveedor y plan.</p>
@@ -952,13 +1326,14 @@ import Slide from './Slide.astro';
   <div class="refs">
     <p class="refs-title">Para profundizar</p>
     <a href="https://developers.openai.com/api/docs/models" target="_blank">OpenAI - modelos de imagen y vídeo</a>
+    <a href="https://platform.openai.com/docs/guides/video-generation" target="_blank">OpenAI - Video generation</a>
     <a href="https://ai.google.dev/gemini-api/docs/models" target="_blank">Google Gemini API - modelos generativos</a>
     <a href="https://blackforestlabs.ai/" target="_blank">Black Forest Labs (Flux)</a>
   </div>
 </Slide>
 
-<!-- SLIDE 44 -->
-<Slide id="modelos-difusion" number={44} title="Cómo funcionan los modelos de difusión">
+<!-- SLIDE 106 -->
+<Slide id="modelos-difusion" number={106} title="Cómo funcionan los modelos de difusión">
   <p><i data-lucide="wand-sparkles"></i> Los modelos de difusión generan imágenes <strong>eliminando ruido progresivamente</strong>. Empiezan con ruido puro y, paso a paso, lo convierten en una imagen coherente guiada por tu prompt.</p>
   <h3><i data-lucide="route"></i> Proceso de generación</h3>
   <div class="flow">
@@ -1003,6 +1378,18 @@ import Slide from './Slide.astro';
       </div>
     </div>
   </div>
+  <h3><i data-lucide="sigma"></i> Fórmula mental de difusión</h3>
+  <table class="compact-table resource-table">
+    <thead>
+      <tr><th>Fase</th><th>Lectura</th><th>Implicación práctica</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>Forward process</strong></td><td><code>x_t = ruido(x_0, t)</code>: durante entrenamiento se añade ruido a una imagen real</td><td>El modelo aprende a invertir el proceso</td></tr>
+      <tr><td><strong>Reverse process</strong></td><td><code>ε_θ(x_t, t, prompt)</code> predice el ruido que hay que quitar</td><td>Más pasos suelen mejorar control hasta cierto punto, pero aumentan latencia</td></tr>
+      <tr><td><strong>Seed</strong></td><td>Inicializa el ruido aleatorio</td><td>Misma seed + mismo modelo + mismos parámetros ≈ imagen reproducible</td></tr>
+      <tr><td><strong>CFG</strong></td><td>Mezcla predicción condicionada por prompt y sin prompt</td><td>Valores altos fuerzan texto pero pueden crear artefactos</td></tr>
+    </tbody>
+  </table>
   <h3><i data-lucide="scale"></i> Difusión vs GANs</h3>
   <table>
     <thead>
@@ -1026,8 +1413,8 @@ import Slide from './Slide.astro';
   </div>
 </Slide>
 
-<!-- SLIDE 45 -->
-<Slide id="entrenamiento-imagen" number={45} title="Tipos de entrenamiento para modelos de imagen">
+<!-- SLIDE 107 -->
+<Slide id="entrenamiento-imagen" number={107} title="Tipos de entrenamiento para modelos de imagen">
   <p><i data-lucide="graduation-cap"></i> No necesitas entrenar un modelo desde cero. Existen técnicas para <strong>adaptar modelos existentes</strong> a tu estilo, personaje o dominio con pocos datos y hardware modesto.</p>
   <table>
     <thead>
@@ -1064,6 +1451,18 @@ import Slide from './Slide.astro';
       </div>
     </div>
   </div>
+  <h3><i data-lucide="database"></i> Dataset y captions mandan</h3>
+  <table class="compact-table resource-table">
+    <thead>
+      <tr><th>Pieza</th><th>Buena práctica</th><th>Fallo típico</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>Imágenes</strong></td><td>Variedad de pose, luz, fondo, distancia y expresión</td><td>20 fotos casi iguales: el LoRA memoriza</td></tr>
+      <tr><td><strong>Captions</strong></td><td>Describir lo que debe aprender y lo que no debe fijar</td><td>Captions pobres que atan estilo, fondo e identidad sin querer</td></tr>
+      <tr><td><strong>Regularización</strong></td><td>Comparar outputs con y sin adapter, varias seeds y prompts negativos</td><td>Sobreentrenar hasta perder flexibilidad</td></tr>
+      <tr><td><strong>Eval visual</strong></td><td>Grid fijo: prompts, seeds y criterios antes/después</td><td>Elegir solo la mejor imagen de veinte</td></tr>
+    </tbody>
+  </table>
   <h3><i data-lucide="code"></i> Ejemplo: entrenar un LoRA con Kohya</h3>
   <div class="code-block">
     <span class="comment"># 1. Preparar dataset: 50-100 imágenes + captions</span><br/>
@@ -1087,8 +1486,8 @@ import Slide from './Slide.astro';
   </div>
 </Slide>
 
-<!-- SLIDE 46 -->
-<Slide id="herramientas-imagen-oss" number={46} title="Herramientas OSS y plataformas para imagen">
+<!-- SLIDE 108 -->
+<Slide id="herramientas-imagen-oss" number={108} title="Herramientas OSS y plataformas para imagen">
   <p><i data-lucide="wrench"></i> El ecosistema open source de generación de imágenes es enorme. Estas son las herramientas que conviene conocer.</p>
   <h3><i data-lucide="monitor"></i> Interfaces locales</h3>
   <table>
@@ -1130,6 +1529,18 @@ import Slide from './Slide.astro';
       </div>
     </div>
   </div>
+  <h3><i data-lucide="box"></i> De workflow a producto</h3>
+  <table class="compact-table resource-table">
+    <thead>
+      <tr><th>Paso</th><th>Qué guardar</th><th>Por qué</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>Prompt y negativos</strong></td><td>Texto, seed, sampler, steps, CFG, resolución</td><td>Reproducibilidad y debugging visual</td></tr>
+      <tr><td><strong>Workflow</strong></td><td>JSON de ComfyUI o pipeline versionado</td><td>Permite pasar de demo a backend</td></tr>
+      <tr><td><strong>Modelos/adapters</strong></td><td>Base, VAE, LoRAs, ControlNet, hashes</td><td>Evita “funciona en mi máquina”</td></tr>
+      <tr><td><strong>Política de revisión</strong></td><td>Safety, derechos, marca, aprobación humana</td><td>La generación visual tiene riesgo reputacional alto</td></tr>
+    </tbody>
+  </table>
   <div class="callout">
     <p class="callout-title"><i data-lucide="route"></i> Flujo típico</p>
     <p><strong>Explorar</strong> en Civitai/HF → <strong>Descargar</strong> modelo + LoRAs → <strong>Cargar</strong> en ComfyUI → <strong>Crear workflow</strong> (text → img, con ControlNet si necesitas control) → <strong>Automatizar</strong> vía API de ComfyUI o Replicate para integrar en tu app.</p>
@@ -1142,8 +1553,8 @@ import Slide from './Slide.astro';
   </div>
 </Slide>
 
-<!-- SLIDE 47 -->
-<Slide id="control-imagen" number={47} title="Técnicas de control: ControlNet, IP-Adapter y más">
+<!-- SLIDE 109 -->
+<Slide id="control-imagen" number={109} title="Técnicas de control: ControlNet, IP-Adapter y más">
   <p><i data-lucide="sliders-horizontal"></i> Generar imágenes "a ver qué sale" es divertido. En producción, necesitas <strong>control preciso</strong> sobre la composición, la pose, el estilo y los detalles.</p>
   <h3><i data-lucide="layers"></i> Técnicas principales</h3>
   <div class="icon-grid">
@@ -1189,6 +1600,18 @@ import Slide from './Slide.astro';
       <tr><td><strong>Tile</strong></td><td>Imagen a baja resolución</td><td>Upscaling con añadido de detalle inteligente</td></tr>
     </tbody>
   </table>
+  <h3><i data-lucide="alert-triangle"></i> Cómo se rompe el control</h3>
+  <table class="compact-table resource-table">
+    <thead>
+      <tr><th>Técnica</th><th>Riesgo</th><th>Control práctico</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>ControlNet</strong></td><td>Fuerza demasiada estructura y mata estilo o naturalidad</td><td>Ajustar weight/start/end y probar varias seeds</td></tr>
+      <tr><td><strong>IP-Adapter</strong></td><td>Copia más identidad de la deseada</td><td>Revisar derechos y bajar fuerza de referencia</td></tr>
+      <tr><td><strong>Inpainting</strong></td><td>Costuras visibles o sombras inconsistentes</td><td>Máscara con margen, denoise adecuado y revisión a resolución final</td></tr>
+      <tr><td><strong>Upscaling</strong></td><td>Inventa textura o detalles falsos</td><td>Comparar antes/después y no usarlo para evidencia documental</td></tr>
+    </tbody>
+  </table>
   <div class="callout">
     <p class="callout-title"><i data-lucide="target"></i> Para integrar en apps</p>
     <p>ComfyUI expone una <strong>API REST</strong>. Puedes crear un workflow complejo (ControlNet + LoRA + upscaling), guardarlo como JSON, y llamarlo desde tu backend. Replicate y fal.ai ya tienen modelos con ControlNet preconfigurados como endpoints API.</p>
@@ -1197,11 +1620,12 @@ import Slide from './Slide.astro';
     <p class="refs-title">Para profundizar</p>
     <a href="https://github.com/lllyasviel/ControlNet" target="_blank">ControlNet - GitHub</a>
     <a href="https://huggingface.co/h94/IP-Adapter" target="_blank">IP-Adapter - Hugging Face</a>
+    <a href="https://docs.comfy.org/" target="_blank">ComfyUI - Documentation</a>
   </div>
 </Slide>
 
-<!-- SLIDE 48 -->
-<Slide id="frontier" number={48} title="¿Cómo se crea un modelo frontier?">
+<!-- SLIDE 110 -->
+<Slide id="frontier" number={110} title="¿Cómo se crea un modelo frontier?">
   <ol class="steps">
     <li><i data-lucide="database"></i> <strong>Datos, tokenizer y filtrado:</strong> deduplicar, limpiar, clasificar licencias, quitar PII/secrets y decidir cómo partir texto en tokens. Esta fase define buena parte de lo que el modelo podrá aprender.</li>
     <li><i data-lucide="cpu"></i> <strong>Pre-training:</strong> billones de tokens, semanas de entrenamiento en miles de GPUs. El modelo aprende patrones prediciendo tokens en texto, código e inputs multimodales. Suele consumir la mayor parte del compute.</li>
@@ -1233,15 +1657,28 @@ import Slide from './Slide.astro';
     <span class="flow-arrow">&rarr;</span>
     <span class="flow-step">Deploy + monitorización</span>
   </div>
+  <h3><i data-lucide="scale"></i> Qué se optimiza en cada fase</h3>
+  <table class="compact-table resource-table">
+    <thead>
+      <tr><th>Fase</th><th>Métrica dominante</th><th>Error caro</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>Pre-training</strong></td><td>Loss, calidad de datos, cobertura de dominios, eficiencia de compute</td><td>Entrenar semanas con datos duplicados, contaminados o mal filtrados</td></tr>
+      <tr><td><strong>Post-training</strong></td><td>Seguimiento de instrucciones, safety, tool use, preferencias humanas</td><td>Un modelo capaz que responde de forma inútil o insegura</td></tr>
+      <tr><td><strong>Razonamiento/RLVR</strong></td><td>Pasar tests, graders verificables, benchmarks de código/matemáticas</td><td>Optimizar estilo de razonamiento sin mejorar la solución</td></tr>
+      <tr><td><strong>Serving</strong></td><td>Coste/token, latencia, disponibilidad, regresiones</td><td>Un modelo excelente que no cabe en el producto</td></tr>
+    </tbody>
+  </table>
   <div class="refs">
     <p class="refs-title">Para profundizar</p>
     <a href="https://arxiv.org/abs/2203.02155" target="_blank">Paper RLHF - InstructGPT (OpenAI, 2022)</a>
     <a href="https://arxiv.org/abs/2307.09288" target="_blank">Llama 2 Paper - Detalla todo el proceso (Meta, 2023)</a>
+    <a href="https://arxiv.org/abs/2203.15556" target="_blank">Chinchilla - Training Compute-Optimal LLMs</a>
   </div>
 </Slide>
 
-<!-- SLIDE 49 -->
-<Slide id="huggingface-lmstudio" number={49} title="Hugging Face: leer una model card">
+<!-- SLIDE 111 -->
+<Slide id="huggingface-lmstudio" number={111} title="Hugging Face: leer una model card">
   <p><i data-lucide="globe"></i> Hugging Face es el registro de referencia para modelos abiertos. Una <strong>model card</strong> bien leída evita tres errores clásicos: descargar un modelo que no puedes ejecutar, incumplir una licencia o comparar benchmarks que no significan lo mismo.</p>
   <h3><i data-lucide="file-text"></i> Anatomía de una ficha de modelo</h3>
   <table class="compact-table">
@@ -1257,10 +1694,22 @@ import Slide from './Slide.astro';
       <tr><td><strong>Files</strong></td><td>safetensors, GGUF, GPTQ (GPT Quantization), AWQ (Activation-aware Weight Quantization), FP8</td><td>¿Qué runtime necesito?</td></tr>
     </tbody>
   </table>
+  <h3><i data-lucide="triangle-alert"></i> Red flags al leer una model card</h3>
+  <table class="compact-table resource-table">
+    <thead>
+      <tr><th>Señal</th><th>Por qué preocupa</th><th>Qué hacer</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>No hay licencia clara</strong></td><td>Riesgo legal y de redistribución</td><td>No usar en producto hasta revisar LICENSE y términos</td></tr>
+      <tr><td><strong>Benchmarks sin setup</strong></td><td>No sabes prompt, tools, temperatura ni scaffold</td><td>Reproducir con tu eval pequeña</td></tr>
+      <tr><td><strong>Solo ejemplos bonitos</strong></td><td>Marketing, no evidencia</td><td>Buscar limitaciones, issues y evals externas</td></tr>
+      <tr><td><strong>Quantización sin base</strong></td><td>Puede venir de un tercero con pérdida o errores</td><td>Verificar procedencia, hash, runtime y calidad</td></tr>
+    </tbody>
+  </table>
 </Slide>
 
-<!-- SLIDE 50 -->
-<Slide id="memoria-vram-local" number={50} title="¿Cabe en RAM/VRAM? ejemplo de cálculo">
+<!-- SLIDE 112 -->
+<Slide id="memoria-vram-local" number={112} title="¿Cabe en RAM/VRAM? ejemplo de cálculo">
   <p><i data-lucide="memory-stick"></i> Para inferencia local no basta con mirar "7B" o "70B": el formato de pesos, el tamaño de contexto y la KV cache pueden cambiar completamente la memoria necesaria.</p>
   <div class="two-cols">
     <div>
@@ -1293,10 +1742,27 @@ import Slide from './Slide.astro';
       </table>
     </div>
   </div>
+  <h3><i data-lucide="activity"></i> Sensibilidad del contexto</h3>
+  <table class="compact-table resource-table">
+    <thead>
+      <tr><th>Variable</th><th>Impacto</th><th>Control</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>Context length</strong></td><td>La KV cache crece casi linealmente con tokens y batch</td><td>No activar 128k/1M si no hace falta</td></tr>
+      <tr><td><strong>Batch/concurrencia</strong></td><td>Más usuarios multiplican KV y buffers</td><td>Reservar margen y limitar máximo por request</td></tr>
+      <tr><td><strong>MoE</strong></td><td>Total manda en memoria; activos mandan en FLOPs por token</td><td>Leer total/active params y formato real</td></tr>
+      <tr><td><strong>Quantización</strong></td><td>Baja pesos, no siempre baja KV cache</td><td>Medir calidad y memoria real con el runtime elegido</td></tr>
+    </tbody>
+  </table>
+  <div class="refs">
+    <p class="refs-title">Para profundizar</p>
+    <a href="https://docs.vllm.ai/en/latest/serving/engine_args.html" target="_blank">vLLM - Engine arguments</a>
+    <a href="https://huggingface.co/docs/transformers/main/en/kv_cache" target="_blank">Hugging Face - KV cache</a>
+  </div>
 </Slide>
 
-<!-- SLIDE 51 -->
-<Slide id="formatos-modelos-local" number={51} title="Elegir fichero: safetensors, GGUF, GPTQ/AWQ">
+<!-- SLIDE 113 -->
+<Slide id="formatos-modelos-local" number={113} title="Elegir fichero: safetensors, GGUF, GPTQ/AWQ">
   <p><i data-lucide="package"></i> La model card puede tener varios ficheros para el mismo modelo. Elegir mal el formato es una de las causas más comunes de "lo he descargado pero no arranca".</p>
   <h3><i data-lucide="package"></i> Elegir fichero: safetensors vs GGUF vs GPTQ/AWQ</h3>
   <p>GPTQ = GPT Quantization. AWQ = Activation-aware Weight Quantization. Ambos son formatos de quantización post-training pensados para reducir memoria y acelerar inferencia, con distinta compatibilidad por runtime.</p>
@@ -1321,10 +1787,17 @@ import Slide from './Slide.astro';
     <p>1) licencia; 2) contexto; 3) idioma/dominio; 4) total y activo si es MoE; 5) formato compatible; 6) quantización; 7) benchmarks con metodología comparable; 8) riesgos declarados en la model card. Si falta alguno, trátalo como incertidumbre, no como verdad.</p>
   </div>
   <p>LM Studio y Ollama son la vía rápida para probar localmente. Hugging Face es la fuente para verificar procedencia, licencia, arquitectura y variantes quantizadas.</p>
+  <div class="refs">
+    <p class="refs-title">Para profundizar</p>
+    <a href="https://huggingface.co/docs/safetensors/en/index" target="_blank">Safetensors</a>
+    <a href="https://huggingface.co/docs/hub/gguf" target="_blank">Hugging Face - GGUF</a>
+    <a href="https://github.com/casper-hansen/AutoAWQ" target="_blank">AutoAWQ</a>
+    <a href="https://github.com/AutoGPTQ/AutoGPTQ" target="_blank">AutoGPTQ</a>
+  </div>
 </Slide>
 
-<!-- SLIDE 52 -->
-<Slide id="huggingface-deepseek-v4" number={52} title="Caso real: leer DeepSeek-V4 en Hugging Face">
+<!-- SLIDE 114 -->
+<Slide id="huggingface-deepseek-v4" number={114} title="Caso real: leer DeepSeek-V4 en Hugging Face">
   <p><i data-lucide="microscope"></i> Una ficha real condensa arquitectura, licencia, formatos, contexto, modos de razonamiento y benchmarks. DeepSeek-V4-Pro y DeepSeek-V4-Flash sirven como ejemplo porque muestran casi todos los términos que vas a encontrar en modelos frontier open weights.</p>
   <h3><i data-lucide="scan-text"></i> Qué dice la ficha</h3>
   <table>
@@ -1344,6 +1817,19 @@ import Slide from './Slide.astro';
     <p class="callout-title"><i data-lucide="alert-triangle"></i> Trampa común</p>
     <p>El panel lateral puede mostrar "model size" distinto al número arquitectónico anunciado, porque cuenta tensores disponibles en ese repo, tipos de tensor y empaquetado. Para MoE, lee siempre <strong>total params</strong> y <strong>activated params</strong> en la card.</p>
   </div>
+  <h3><i data-lucide="clipboard-check"></i> Lectura en 5 preguntas</h3>
+  <table class="compact-table resource-table">
+    <thead>
+      <tr><th>Pregunta</th><th>Por qué importa</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>¿Qué repo exacto estoy leyendo?</td><td>Pro, Flash, base, instruct y quantized pueden tener capacidades distintas.</td></tr>
+      <tr><td>¿Qué licencia y términos aplican?</td><td>MIT, Apache, Llama o comercial cambian uso, redistribución y producto.</td></tr>
+      <tr><td>¿Qué runtime recomienda la ficha?</td><td>Un modelo puede existir en HF y aun así no funcionar bien en tu stack local.</td></tr>
+      <tr><td>¿Qué evals son comparables?</td><td>Modo de razonamiento, tools y presupuesto pueden mover mucho el resultado.</td></tr>
+      <tr><td>¿Qué coste operativo implica?</td><td>Total params, activos, precisión y contexto deciden memoria y latencia.</td></tr>
+    </tbody>
+  </table>
   <div class="refs">
     <p class="refs-title">Para profundizar</p>
     <a href="https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro" target="_blank">DeepSeek-V4-Pro - Model card</a>
@@ -1352,8 +1838,8 @@ import Slide from './Slide.astro';
   </div>
 </Slide>
 
-<!-- SLIDE 53 -->
-<Slide id="deepseek-v4-terminos" number={53} title="DeepSeek-V4: etiquetas, licencia y runtime">
+<!-- SLIDE 115 -->
+<Slide id="deepseek-v4-terminos" number={115} title="DeepSeek-V4: etiquetas, licencia y runtime">
   <p><i data-lucide="languages"></i> Una model card está escrita para gente técnica. El objetivo es traducir cada campo a una decisión: <strong>qué puedo hacer, con qué herramienta y qué debo comprobar</strong>.</p>
   <table class="compact-table">
     <thead>
@@ -1368,10 +1854,14 @@ import Slide from './Slide.astro';
       <tr><td><strong>Runtime</strong></td><td>Software que carga y sirve el modelo: Transformers, vLLM, SGLang, Docker Model Runner...</td><td>La card indica el camino de despliegue; LM Studio/Ollama suelen requerir GGUF u otra quantización.</td></tr>
     </tbody>
   </table>
+  <div class="callout compact-callout">
+    <p class="callout-title"><i data-lucide="shield-check"></i> Lectura segura</p>
+    <p>Trata cada tag como una pista, no como una garantía. La garantía práctica sale de ejecutar el modelo con el runtime indicado, una muestra de tus datos y una eval pequeña con coste y latencia.</p>
+  </div>
 </Slide>
 
-<!-- SLIDE 54 -->
-<Slide id="deepseek-v4-arquitectura-memoria" number={54} title="DeepSeek-V4: arquitectura, contexto y precisión">
+<!-- SLIDE 116 -->
+<Slide id="deepseek-v4-arquitectura-memoria" number={116} title="DeepSeek-V4: arquitectura, contexto y precisión">
   <p><i data-lucide="cpu"></i> Estos términos explican por qué un modelo puede ser enorme en capacidad, razonable por token y aun así imposible de ejecutar en un portátil.</p>
   <table class="compact-table">
     <thead>
@@ -1385,10 +1875,22 @@ import Slide from './Slide.astro';
       <tr><td><strong>FP4 + FP8 mixed</strong></td><td>Pesos en 4/8 bits de coma flotante; mixed = distintos tensores usan distinta precisión.</td><td>Menos memoria y FLOPs que BF16/FP16; verifica calidad, hardware y runtime.</td></tr>
     </tbody>
   </table>
+  <h3><i data-lucide="calculator"></i> Fórmula de lectura MoE</h3>
+  <table class="compact-table resource-table">
+    <thead>
+      <tr><th>Valor</th><th>Úsalo para estimar...</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>Parámetros totales × bits</strong></td><td>Memoria para pesos si cargas el modelo completo.</td></tr>
+      <tr><td><strong>Parámetros activos</strong></td><td>Compute aproximado por token y latencia relativa.</td></tr>
+      <tr><td><strong>Context length</strong></td><td>KV cache, coste de input y necesidad de retrieval/segmentación.</td></tr>
+      <tr><td><strong>Precisión</strong></td><td>Compatibilidad de hardware y posible degradación de calidad.</td></tr>
+    </tbody>
+  </table>
 </Slide>
 
-<!-- SLIDE 55 -->
-<Slide id="huggingface-glosario" number={55} title="Glosario Hugging Face: términos que aparecen en una model card">
+<!-- SLIDE 117 -->
+<Slide id="huggingface-glosario" number={117} title="Glosario Hugging Face: términos que aparecen en una model card">
   <p><i data-lucide="book-open"></i> Antes de descargar un modelo, hay que traducir la ficha a decisiones de ingeniería. Este glosario convierte términos frecuentes en preguntas concretas.</p>
   <table>
     <thead>
@@ -1413,10 +1915,14 @@ import Slide from './Slide.astro';
     <a href="https://huggingface.co/docs/safetensors/en/index" target="_blank">Safetensors</a>
     <a href="https://huggingface.co/docs/hub/gguf" target="_blank">HF - GGUF</a>
   </div>
+  <div class="callout compact-callout">
+    <p class="callout-title"><i data-lucide="target"></i> Pregunta de examen</p>
+    <p>Si una ficha dice “Instruct, GGUF, Q4_K_M, gated, chat template”, el alumno debe poder explicar qué cambia en uso, memoria, licencia, runtime y formato de prompt.</p>
+  </div>
 </Slide>
 
-<!-- SLIDE 56 -->
-<Slide id="huggingface-evals" number={56} title="Benchmarks en Hugging Face: cómo leer métricas">
+<!-- SLIDE 118 -->
+<Slide id="huggingface-evals" number={118} title="Benchmarks en Hugging Face: cómo leer métricas">
   <p><i data-lucide="bar-chart-3"></i> Las fichas modernas ya no solo dicen "somos buenos": publican resultados estructurados. Hugging Face muestra evals en la card y puede enlazarlas con leaderboards de datasets benchmark.</p>
   <h3><i data-lucide="ruler"></i> Métricas frecuentes</h3>
   <table>
@@ -1446,6 +1952,18 @@ import Slide from './Slide.astro';
   </table>
   <h3><i data-lucide="list-checks"></i> Campos de un resultado HF</h3>
   <p><strong>dataset/task_id</strong> identifica el benchmark exacto; <strong>split/revision</strong> fija la versión evaluada; <strong>verified/community/source</strong> indica procedencia; <strong>notes</strong> debería explicar setup: tools/no-tools, thinking mode, temperatura, presupuesto y scaffold.</p>
+  <h3><i data-lucide="microscope"></i> Lectura profesional de un benchmark</h3>
+  <table class="compact-table resource-table">
+    <thead>
+      <tr><th>Pregunta</th><th>Por qué importa</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>¿El resultado es del modelo o de un agente con herramientas?</td><td>SWE-bench mide sistema completo: modelo, scaffold, editor, terminal, tests y presupuesto.</td></tr>
+      <tr><td>¿Hay contaminación de datos?</td><td>Si el benchmark apareció en training data, el resultado puede sobreestimar generalización.</td></tr>
+      <tr><td>¿Se reporta coste?</td><td>Un score alto con 100 intentos o mucho reasoning puede no ser viable en producción.</td></tr>
+      <tr><td>¿Tu tarea se parece?</td><td>Un modelo excelente en matemáticas puede ser mediocre en soporte, legal o español técnico.</td></tr>
+    </tbody>
+  </table>
   <div class="callout">
     <p class="callout-title"><i data-lucide="scale"></i> Regla de lectura</p>
     <p>Un benchmark sin setup no es una conclusión: es una pista. En DeepSeek-V4-Pro, por ejemplo, "SWE Verified 80.6 resolved" solo es interpretable si sabes modo de razonamiento, agente, herramientas, coste y versión del benchmark.</p>
@@ -1458,8 +1976,8 @@ import Slide from './Slide.astro';
   </div>
 </Slide>
 
-<!-- SLIDE 57 -->
-<Slide id="actualizarse-estado-arte" number={57} title="Cómo mantenerse actualizado sin comprar humo">
+<!-- SLIDE 119 -->
+<Slide id="actualizarse-estado-arte" number={119} title="Cómo mantenerse actualizado sin comprar humo">
   <p><i data-lucide="compass"></i> El estado del arte cambia cada pocas semanas. La habilidad profesional no es memorizar nombres: es tener un método para decidir qué merece confianza.</p>
   <h3><i data-lucide="list-checks"></i> Orden de confianza</h3>
   <table>
@@ -1478,6 +1996,18 @@ import Slide from './Slide.astro';
     <p class="callout-title"><i data-lucide="alert-triangle"></i> Regla práctica</p>
     <p>Si una afirmación no tiene versión, fecha, setup y fuente, no la pongas en producción. Apúntala como hipótesis y pruébala.</p>
   </div>
+  <h3><i data-lucide="clipboard-list"></i> Plantilla mínima de experimento</h3>
+  <table class="compact-table resource-table">
+    <thead>
+      <tr><th>Campo</th><th>Ejemplo</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>Hipótesis</strong></td><td>“RAG híbrido sube recall@5 del 70% al 85% sin duplicar coste”.</td></tr>
+      <tr><td><strong>Baseline</strong></td><td>Prompt actual + modelo actual + dataset fijo.</td></tr>
+      <tr><td><strong>Cambio único</strong></td><td>Solo cambiar reranker, chunking o modelo; no todo a la vez.</td></tr>
+      <tr><td><strong>Criterio de parada</strong></td><td>Adoptar, iterar o descartar con umbral definido antes.</td></tr>
+    </tbody>
+  </table>
   <div class="refs">
     <p class="refs-title">Para profundizar</p>
     <a href="https://developers.openai.com/api/docs/models" target="_blank">OpenAI - Models</a>
@@ -1487,8 +2017,8 @@ import Slide from './Slide.astro';
   </div>
 </Slide>
 
-<!-- SLIDE 58 -->
-<Slide id="matriz-eleccion-modelo" number={58} title="Matriz rápida: qué modelo usar">
+<!-- SLIDE 120 -->
+<Slide id="matriz-eleccion-modelo" number={120} title="Matriz rápida: qué modelo usar">
   <p><i data-lucide="route"></i> No hay un modelo correcto para todo. La decisión combina calidad, latencia, coste, privacidad, tools, contexto y riesgo.</p>
   <table>
     <thead>
@@ -1507,10 +2037,22 @@ import Slide from './Slide.astro';
     <p class="callout-title"><i data-lucide="scale"></i> Decisión adulta</p>
     <p>Elige por <strong>coste por tarea resuelta</strong>, no por ranking global. Un modelo peor en leaderboard puede ganar si resuelve tu caso con menos tokens, menos latencia y menos fallos operativos.</p>
   </div>
+  <h3><i data-lucide="calculator"></i> Fórmula de compra</h3>
+  <table class="compact-table resource-table">
+    <thead>
+      <tr><th>Factor</th><th>Incluye</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>Calidad aceptada</strong></td><td>% de casos que pasan eval + revisión humana necesaria.</td></tr>
+      <tr><td><strong>Coste real</strong></td><td>Input, output, reasoning, herramientas, reintentos y caching.</td></tr>
+      <tr><td><strong>Riesgo</strong></td><td>Privacidad, vendor lock-in, cambios de modelo y compliance.</td></tr>
+      <tr><td><strong>Operación</strong></td><td>Timeouts, rate limits, observabilidad, fallback y soporte.</td></tr>
+    </tbody>
+  </table>
 </Slide>
 
-<!-- SLIDE 59 -->
-<Slide id="minilab-huggingface" number={59} title="Mini-lab: decidir si una model card sirve">
+<!-- SLIDE 121 -->
+<Slide id="minilab-huggingface" number={121} title="Mini-lab: decidir si una model card sirve">
   <p><i data-lucide="clipboard-check"></i> Ejercicio para clase: abrir una ficha de Hugging Face y tomar una decisión de ingeniería en 10 minutos.</p>
   <h3><i data-lucide="timer"></i> Protocolo de 10 minutos</h3>
   <table>
@@ -1529,6 +2071,17 @@ import Slide from './Slide.astro';
     <p class="callout-title"><i data-lucide="file-question"></i> Entregable</p>
     <p>Una ficha de decisión: <strong>usar / no usar / probar</strong>, con 3 razones y un experimento reproducible. Si no puedes escribir eso, aún no entiendes la model card.</p>
   </div>
+  <h3><i data-lucide="clipboard-list"></i> Rúbrica rápida</h3>
+  <table class="compact-table resource-table">
+    <thead>
+      <tr><th>Nota</th><th>Criterio</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>Verde</strong></td><td>Licencia clara, formato compatible, cabe en memoria y eval parecida al caso.</td></tr>
+      <tr><td><strong>Amarillo</strong></td><td>Promete mucho pero faltan setup, runtime o pruebas con tus datos.</td></tr>
+      <tr><td><strong>Rojo</strong></td><td>No hay licencia, no hay model card, benchmarks opacos o requiere hardware inviable.</td></tr>
+    </tbody>
+  </table>
   <div class="refs">
     <p class="refs-title">Para profundizar</p>
     <a href="https://huggingface.co/docs/hub/model-cards" target="_blank">Hugging Face - Model Cards</a>
@@ -1537,8 +2090,8 @@ import Slide from './Slide.astro';
   </div>
 </Slide>
 
-<!-- SLIDE 60 -->
-<Slide id="google-colab-experimentos" number={60} title="Google Colab: probar experimentos sin instalar nada">
+<!-- SLIDE 122 -->
+<Slide id="google-colab-experimentos" number={122} title="Google Colab: probar experimentos sin instalar nada">
   <p><i data-lucide="flask-conical"></i> Colab es ideal para clase y prototipos: notebooks Jupyter en la nube, sin setup local, con acceso a GPU/TPU sujeto a disponibilidad. Perfecto para probar ideas antes de convertirlas en código de producción.</p>
   <h3><i data-lucide="check-circle"></i> Qué probar en Colab</h3>
   <table class="compact-table">
@@ -1553,10 +2106,14 @@ import Slide from './Slide.astro';
       <tr><td><strong>Eval propia</strong></td><td>CSV/JSONL con input, expected, rúbrica y judge</td><td>Pasas de demo subjetiva a medición: acierto, coste, latencia y decisión.</td></tr>
     </tbody>
   </table>
+  <div class="callout compact-callout">
+    <p class="callout-title"><i data-lucide="play-circle"></i> Primeras celdas obligatorias</p>
+    <p>Siempre empieza registrando GPU/CPU, memoria, versiones, modelo exacto, seed y ruta del dataset. Si no puedes reproducir el entorno, no puedes comparar resultados.</p>
+  </div>
 </Slide>
 
-<!-- SLIDE 61 -->
-<Slide id="google-colab-limites" number={61} title="Google Colab: límites y disciplina de laboratorio">
+<!-- SLIDE 123 -->
+<Slide id="google-colab-limites" number={123} title="Google Colab: límites y disciplina de laboratorio">
   <p><i data-lucide="flask-conical"></i> Colab no es producción: es un laboratorio reproducible. El objetivo no es que "funcione una vez", sino que otra persona pueda ejecutar, medir y decidir. El alumno debe controlar estos límites:</p>
   <table class="compact-table">
     <thead>
@@ -1567,6 +2124,7 @@ import Slide from './Slide.astro';
       <tr><td><strong>GPU/TPU variable</strong></td><td>Tipo de GPU, VRAM y disponibilidad cambian por plan y demanda.</td><td>Anotar hardware, <code>dtype</code>, batch, resolución y tiempo por caso.</td></tr>
       <tr><td><strong>Secretos y datos</strong></td><td>Un notebook compartido puede filtrar tokens o datos sensibles.</td><td>Usar variables/secretos, anonimizar ejemplos y no publicar credenciales.</td></tr>
       <tr><td><strong>Reproducibilidad</strong></td><td>Celdas ejecutadas fuera de orden dan resultados imposibles de repetir.</td><td>Probar <em>Run all</em>, fijar seeds, versiones, modelo y snapshot del dataset.</td></tr>
+      <tr><td><strong>Dependencias vivas</strong></td><td>Un <code>pip install</code> sin versión puede cambiar el resultado mañana.</td><td>Fijar versiones críticas y guardar <code>requirements.txt</code> o lockfile.</td></tr>
     </tbody>
   </table>
   <div class="callout compact-callout">
@@ -1581,8 +2139,8 @@ import Slide from './Slide.astro';
   </div>
 </Slide>
 
-<!-- SLIDE 62 -->
-<Slide id="experimentos-buenos" number={62} title="Qué hace bueno a un experimento con IA">
+<!-- SLIDE 124 -->
+<Slide id="experimentos-buenos" number={124} title="Qué hace bueno a un experimento con IA">
   <p><i data-lucide="beaker"></i> Un buen experimento no es una demo bonita. Es una prueba pequeña, reproducible y falsable que te ayuda a decidir el siguiente paso.</p>
   <h3><i data-lucide="list-checks"></i> Checklist de experimento bueno</h3>
   <table>
@@ -1609,8 +2167,8 @@ import Slide from './Slide.astro';
   </div>
 </Slide>
 
-<!-- SLIDE 63 -->
-<Slide id="repos-colab-practicar" number={63} title="Repos Colab para practicar sin partir de cero">
+<!-- SLIDE 125 -->
+<Slide id="repos-colab-practicar" number={125} title="Repos Colab para practicar sin partir de cero">
   <p><i data-lucide="folder-git-2"></i> Para aprender, empieza por notebooks mantenidos por proyectos de referencia. Antes de ejecutarlos, mira fecha, licencia, dependencias, GPU requerida y si el notebook pide tokens.</p>
   <table class="compact-table">
     <thead>
@@ -1628,10 +2186,16 @@ import Slide from './Slide.astro';
     <p class="callout-title"><i data-lucide="shield-check"></i> Regla de seguridad</p>
     <p>No ejecutes notebooks aleatorios con tus tokens. Lee el README, instala dependencias explícitas, guarda una copia propia y copia a producción solo el código que entiendes.</p>
   </div>
+  <div class="refs compact-refs">
+    <p class="refs-title">Para profundizar</p>
+    <a href="https://github.com/langchain-ai/rag-from-scratch" target="_blank">LangChain - RAG From Scratch</a>
+    <a href="https://github.com/huggingface/notebooks" target="_blank">Hugging Face Notebooks</a>
+    <a href="https://github.com/openai/openai-cookbook/tree/main/examples/evaluation" target="_blank">OpenAI Cookbook - Evals</a>
+  </div>
 </Slide>
 
-<!-- SLIDE 64 -->
-<Slide id="eval-interna-paso-a-paso" number={64} title="Evals internas: de notebook a criterio de compra">
+<!-- SLIDE 126 -->
+<Slide id="eval-interna-paso-a-paso" number={126} title="Evals internas: de notebook a criterio de compra">
   <p><i data-lucide="clipboard-list"></i> Un benchmark público te orienta; una eval interna decide. La eval debe parecerse al trabajo real que quieres automatizar.</p>
   <h3><i data-lucide="route"></i> Flujo mínimo</h3>
   <div class="flow">
@@ -1661,6 +2225,18 @@ import Slide from './Slide.astro';
     <p class="callout-title"><i data-lucide="scale"></i> Métrica de verdad</p>
     <p>Mide <strong>coste por tarea aceptada</strong>: tokens + latencia + herramientas + revisión humana + retrabajo. Ese número suele cambiar decisiones que un leaderboard no ve.</p>
   </div>
+  <h3><i data-lucide="bot"></i> Si usas LLM-as-judge</h3>
+  <table class="compact-table resource-table">
+    <thead>
+      <tr><th>Control</th><th>Motivo</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>Ejemplos ancla</strong></td><td>Calibran qué es bueno, malo y dudoso.</td></tr>
+      <tr><td><strong>Blind judging</strong></td><td>Oculta el nombre del modelo para reducir sesgo.</td></tr>
+      <tr><td><strong>Auditoría humana</strong></td><td>Muestrea decisiones del juez y mide acuerdo.</td></tr>
+      <tr><td><strong>Tests deterministas</strong></td><td>Siempre que puedas, una prueba ejecutable vale más que opinión textual.</td></tr>
+    </tbody>
+  </table>
   <div class="refs">
     <p class="refs-title">Para profundizar</p>
     <a href="https://developers.openai.com/api/docs/evaluation" target="_blank">OpenAI - Evaluation</a>
@@ -1669,8 +2245,8 @@ import Slide from './Slide.astro';
   </div>
 </Slide>
 
-<!-- SLIDE 65 -->
-<Slide id="errores-comunes-experimentos" number={65} title="Errores comunes al probar modelos">
+<!-- SLIDE 127 -->
+<Slide id="errores-comunes-experimentos" number={127} title="Errores comunes al probar modelos">
   <p><i data-lucide="triangle-alert"></i> La mayoría de malas decisiones no vienen de usar un modelo flojo, sino de probarlo mal.</p>
   <table>
     <thead>
@@ -1689,10 +2265,22 @@ import Slide from './Slide.astro';
     <p class="callout-title"><i data-lucide="check-check"></i> Señal de madurez</p>
     <p>Un experimento bueno puede demostrar que una idea <strong>no</strong> merece seguir. Eso ahorra más dinero que una demo espectacular.</p>
   </div>
+  <h3><i data-lucide="file-warning"></i> Post-mortem de experimento</h3>
+  <table class="compact-table resource-table">
+    <thead>
+      <tr><th>Pregunta</th><th>Respuesta que debe quedar escrita</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>¿Qué hipótesis probamos?</td><td>Una frase medible, no “probar IA”.</td></tr>
+      <tr><td>¿Qué aprendimos?</td><td>Mejora, empeora o incertidumbre con datos.</td></tr>
+      <tr><td>¿Qué haríamos distinto?</td><td>Próximo cambio único o decisión de parar.</td></tr>
+      <tr><td>¿Qué coste tuvo?</td><td>Tiempo humano, tokens, GPU, revisión y retrabajo.</td></tr>
+    </tbody>
+  </table>
 </Slide>
 
-<!-- SLIDE 66 -->
-<Slide id="rag" number={66} title="RAG (Retrieval Augmented Generation)">
+<!-- SLIDE 128 -->
+<Slide id="rag" number={128} title="RAG (Retrieval Augmented Generation)">
   <p><i data-lucide="search"></i> <strong>Problema:</strong> el modelo no accede por sí solo a tus datos internos (documentación, BD, wikis). Su conocimiento viene del entrenamiento y del contexto que le das en la petición.</p>
   <p><i data-lucide="lightbulb"></i> <strong>Solución:</strong> en vez de reentrenar el modelo, le pasas contexto relevante en cada consulta.</p>
   <div class="flow">
@@ -1737,6 +2325,18 @@ import Slide from './Slide.astro';
       </div>
     </div>
   </div>
+  <h3><i data-lucide="ruler"></i> Métricas de retrieval</h3>
+  <table class="compact-table resource-table">
+    <thead>
+      <tr><th>Métrica</th><th>Fórmula mental</th><th>Qué te dice</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>Recall@k</strong></td><td>¿El chunk correcto aparece entre los top-k?</td><td>Si el retrieval encuentra evidencia suficiente</td></tr>
+      <tr><td><strong>MRR</strong></td><td>Media de <code>1 / posición_del_primer_relevante</code></td><td>Si lo relevante aparece pronto o enterrado</td></tr>
+      <tr><td><strong>Groundedness</strong></td><td>Respuesta soportada por citas recuperadas</td><td>Si el generador respeta la evidencia</td></tr>
+      <tr><td><strong>No-answer accuracy</strong></td><td>Acertar cuando no hay evidencia</td><td>Reduce respuestas inventadas</td></tr>
+    </tbody>
+  </table>
   <div class="callout">
     <p class="callout-title"><i data-lucide="quote"></i> Calidad mínima</p>
     <p>Un RAG serio muestra citas, conserva metadatos, sabe decir "no hay evidencia suficiente" y mide retrieval por separado de la generación. Si solo pega chunks al prompt, es una demo, no una base fiable.</p>
@@ -1766,11 +2366,12 @@ import Slide from './Slide.astro';
     <p class="refs-title">Para profundizar</p>
     <a href="https://arxiv.org/abs/2005.11401" target="_blank">Paper original RAG (Lewis et al., 2020)</a>
     <a href="https://www.pinecone.io/learn/retrieval-augmented-generation/" target="_blank">Pinecone - RAG Guide</a>
+    <a href="https://huggingface.co/spaces/mteb/leaderboard" target="_blank">MTEB - Embedding leaderboard</a>
   </div>
 </Slide>
 
-<!-- SLIDE 67 -->
-<Slide id="agentic-rag" number={67} title="Agentic RAG: la evolución del retrieval">
+<!-- SLIDE 129 -->
+<Slide id="agentic-rag" number={129} title="Agentic RAG: la evolución del retrieval">
   <p><i data-lucide="search"></i> El RAG básico (slide anterior) busca, inyecta y genera. <strong>Agentic RAG</strong> añade razonamiento: el agente decide <strong>qué buscar, cómo buscarlo, y si el resultado es suficiente</strong>.</p>
   <h3><i data-lucide="git-branch"></i> RAG básico vs agentic RAG</h3>
   <div class="two-cols">
@@ -1818,6 +2419,18 @@ import Slide from './Slide.astro';
       </div>
     </div>
   </div>
+  <h3><i data-lucide="gauge"></i> Coste de hacer RAG “agente”</h3>
+  <table class="compact-table resource-table">
+    <thead>
+      <tr><th>Beneficio</th><th>Coste añadido</th><th>Control</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Mejor cobertura en preguntas multi-hop</td><td>Más llamadas, más tokens y más latencia</td><td>Presupuesto máximo de búsquedas y pasos</td></tr>
+      <tr><td>Puede reformular queries</td><td>Riesgo de desviarse de la pregunta original</td><td>Guardar plan, queries y evidencias</td></tr>
+      <tr><td>Valida suficiencia del contexto</td><td>Un judge LLM puede equivocarse</td><td>Rúbrica + ejemplos ancla + no-answer</td></tr>
+      <tr><td>Busca en varias fuentes</td><td>Permisos y freshness más difíciles</td><td>ACLs por fuente y timestamps en metadata</td></tr>
+    </tbody>
+  </table>
   <div class="callout">
     <p class="callout-title"><i data-lucide="target"></i> Cuándo pasar de RAG básico a agentic</p>
     <p>RAG básico basta para preguntas simples sobre un corpus homogéneo. Agentic RAG merece la pena cuando: las preguntas son complejas (multi-hop), los datos están en múltiples fuentes, o la calidad del retrieval básico no es suficiente.</p>
@@ -1829,8 +2442,8 @@ import Slide from './Slide.astro';
   </div>
 </Slide>
 
-<!-- SLIDE 68 -->
-<Slide id="graphrag" number={68} title="GraphRAG y estrategias avanzadas de retrieval">
+<!-- SLIDE 130 -->
+<Slide id="graphrag" number={130} title="GraphRAG y estrategias avanzadas de retrieval">
   <p><i data-lucide="network"></i> Más allá de buscar fragmentos similares: estrategias que combinan <strong>grafos de conocimiento, búsqueda híbrida y contexto enriquecido</strong>.</p>
   <h3><i data-lucide="layers"></i> Estrategias de retrieval (de simple a avanzado)</h3>
   <table>
@@ -1856,6 +2469,18 @@ import Slide from './Slide.astro';
     <span class="flow-arrow">&rarr;</span>
     <span class="flow-step">Respuesta con contexto rico</span>
   </div>
+  <h3><i data-lucide="git-compare"></i> RAG, KG y GraphRAG no son lo mismo</h3>
+  <table class="compact-table resource-table">
+    <thead>
+      <tr><th>Técnica</th><th>Unidad principal</th><th>Pregunta que resuelve mejor</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>RAG vectorial</strong></td><td>Chunk textual</td><td>“¿Qué documentos se parecen a esta pregunta?”</td></tr>
+      <tr><td><strong>Knowledge graph</strong></td><td>Entidad y relación explícita</td><td>“¿Qué relación exacta existe entre A y B?”</td></tr>
+      <tr><td><strong>GraphRAG</strong></td><td>Entidades, comunidades y evidencias textuales</td><td>“¿Qué explicación emerge al conectar varios documentos?”</td></tr>
+      <tr><td><strong>Ontología</strong></td><td>Clases, propiedades y restricciones</td><td>“¿Qué está permitido o inferido por el modelo del dominio?”</td></tr>
+    </tbody>
+  </table>
   <div class="callout">
     <p class="callout-title"><i data-lucide="compass"></i> ¿Cuál elegir?</p>
     <p><strong>Empieza con vector search.</strong> Si no basta, añade hybrid search (trivial en Pinecone, Weaviate). Si los chunks pierden contexto, usa contextual retrieval. GraphRAG solo si necesitas respuestas que cruzan múltiples documentos y relaciones.</p>
@@ -1867,8 +2492,10 @@ import Slide from './Slide.astro';
   </div>
 </Slide>
 
-<!-- SLIDE 69 -->
-<Slide id="cuando-que-tecnica" number={69} title="¿Cuándo usar prompt, RAG o fine-tuning?">
+<SlidesRAGSemantico />
+
+<!-- SLIDE 141 -->
+<Slide id="cuando-que-tecnica" number={141} title="¿Cuándo usar prompt, RAG o fine-tuning?">
   <p><i data-lucide="compass"></i> Las tres técnicas resuelven problemas diferentes. Elegir mal cuesta tiempo y dinero.</p>
   <table>
     <thead>
@@ -1900,6 +2527,19 @@ import Slide from './Slide.astro';
     <span class="flow-arrow">&rarr;</span>
     <span class="flow-step">Sí &rarr; Fine-tuning</span>
   </div>
+  <h3><i data-lucide="stethoscope"></i> Diagnóstico por síntoma</h3>
+  <table class="compact-table resource-table">
+    <thead>
+      <tr><th>Síntoma</th><th>Primera intervención</th><th>No confundas con...</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>El modelo no sabe una política interna</strong></td><td>RAG o herramienta que consulte la fuente viva</td><td>Fine-tuning para memorizar documentos cambiantes</td></tr>
+      <tr><td><strong>Devuelve formato irregular</strong></td><td>Structured output + schema + ejemplos</td><td>RAG, porque el problema no es conocimiento</td></tr>
+      <tr><td><strong>El tono no encaja aunque sabe responder</strong></td><td>Prompt/few-shot; fine-tuning si escala</td><td>Meter más documentos irrelevantes</td></tr>
+      <tr><td><strong>Falla en tareas muy repetidas y caras</strong></td><td>Eval + fine-tuning/destilación de modelo pequeño</td><td>Usar siempre frontier por inercia</td></tr>
+      <tr><td><strong>Necesitas trazabilidad</strong></td><td>RAG con citas y no-answer</td><td>Fine-tuning, que no conserva fuentes</td></tr>
+    </tbody>
+  </table>
   <div class="callout">
     <p class="callout-title"><i data-lucide="lightbulb"></i> Regla práctica</p>
     <p>Empieza <strong>siempre</strong> por prompt engineering. Solo pasa a RAG cuando el contexto no cabe en el prompt o cambia frecuentemente. Solo haz fine-tuning si necesitas cambiar el comportamiento base del modelo (tono, formato, dominio muy específico).</p>
@@ -1911,9 +2551,24 @@ import Slide from './Slide.astro';
   </div>
 </Slide>
 
-<!-- SLIDE 70 -->
-<Slide id="fine-tuning-cuando" number={70} title="Fine-tuning: cuándo sí y cuándo no">
-  <p><i data-lucide="settings"></i> Fine-tuning es <strong>ajustar un modelo existente</strong> con tus propios datos, a menudo mediante entrenamiento parcial o adaptadores. Es mucho más barato que entrenar desde cero, pero sigue siendo un proyecto de datos: cambia comportamiento, estilo y patrones de salida; no convierte el modelo en una base de conocimiento viva.</p>
+<!-- SLIDE 142 -->
+<Slide id="fine-tuning-cuando" number={142} title="Fine-tuning: cuándo sí y cuándo no">
+  <p><i data-lucide="settings"></i> <strong>Fine-tuning</strong> significa reentrenar parcialmente un modelo existente con ejemplos propios. No empiezas desde cero: partes de un modelo que ya sabe lenguaje, código y patrones generales, y lo ajustas para una tarea, formato, estilo o dominio concreto.</p>
+  <p>Es mucho más barato que entrenar un modelo base, pero sigue siendo un proyecto de datos: necesitas ejemplos buenos, validación, métricas y una razón clara para tocar el comportamiento del modelo. Fine-tuning puede cambiar cómo responde; no le da acceso automático a información nueva en tiempo real.</p>
+  <h3><i data-lucide="git-compare"></i> Qué cambia y qué no cambia</h3>
+  <table class="compact-table resource-table">
+    <thead>
+      <tr><th>Elemento</th><th>Lectura correcta</th><th>Implicación práctica</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>Modelo base</strong></td><td>Ya viene preentrenado con conocimiento y capacidades generales</td><td>No enseñas lenguaje desde cero; especializas un comportamiento existente</td></tr>
+      <tr><td><strong>Datos de fine-tuning</strong></td><td>Ejemplos input/output, conversaciones, clasificaciones o trazas de tarea</td><td>El modelo aprende patrones de respuesta, formato, tono y decisión</td></tr>
+      <tr><td><strong>Pesos/adaptadores</strong></td><td>Se modifican pesos del modelo o se entrenan adaptadores pequeños como LoRA</td><td>El cambio queda “horneado” hasta que vuelvas a entrenar o cambies adaptador</td></tr>
+      <tr><td><strong>Conocimiento vivo</strong></td><td>No consulta tu base documental por sí solo</td><td>Para precios, políticas, inventario, documentación o datos cambiantes: mejor RAG</td></tr>
+      <tr><td><strong>Trazabilidad</strong></td><td>No guarda citas ni fuentes verificables</td><td>Si necesitas justificar con documentos, combina con RAG o reglas</td></tr>
+      <tr><td><strong>Calidad</strong></td><td>Depende muchísimo de datos limpios y evals</td><td>Sin evaluación interna puedes empeorar el modelo sin darte cuenta</td></tr>
+    </tbody>
+  </table>
   <div class="two-cols">
     <div>
       <h3><i data-lucide="check-circle"></i> Sí tiene sentido</h3>
@@ -1938,8 +2593,20 @@ import Slide from './Slide.astro';
   </div>
   <div class="callout">
     <p class="callout-title"><i data-lucide="alert-triangle"></i> Regla práctica</p>
-    <p>Fine-tuning <strong>no enseña datos nuevos en tiempo real</strong>. Para acceder a conocimiento propio que cambia, usa RAG. Para cambiar cómo responde el modelo ante tareas repetibles y medibles, fine-tuning puede ser una buena inversión.</p>
+    <p>Fine-tuning <strong>no enseña datos nuevos en tiempo real</strong>. Para acceder a conocimiento propio que cambia, usa RAG. Para cambiar cómo responde el modelo ante tareas repetibles, estables y medibles, fine-tuning puede ser una buena inversión.</p>
   </div>
+  <h3><i data-lucide="ruler"></i> Eval mínima antes de entrenar</h3>
+  <table class="compact-table resource-table">
+    <thead>
+      <tr><th>Métrica</th><th>Por qué decide</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>Baseline con prompt bueno</strong></td><td>Evita entrenar para arreglar una instrucción mala.</td></tr>
+      <tr><td><strong>Formato válido</strong></td><td>Muchas mejoras de fine-tuning son de consistencia, no de “conocimiento”.</td></tr>
+      <tr><td><strong>Generalización</strong></td><td>Test oculto con casos nuevos, no ejemplos vistos.</td></tr>
+      <tr><td><strong>Coste por caso aceptado</strong></td><td>Un modelo ajustado puede ganar aunque tenga menor score global.</td></tr>
+    </tbody>
+  </table>
   <div class="refs">
     <p class="refs-title">Para profundizar</p>
     <a href="https://developers.openai.com/api/docs/guides/model-optimization" target="_blank">OpenAI - Model optimization + fine-tuning</a>
@@ -1949,9 +2616,35 @@ import Slide from './Slide.astro';
   </div>
 </Slide>
 
-<!-- SLIDE 71 -->
-<Slide id="fine-tuning-practico" number={71} title="Fine-tuning en la práctica">
-  <p><i data-lucide="settings"></i> Fine-tuning ajusta un modelo con tus propios datos para que se especialice en tu tarea. En LoRA/QLoRA no cambias el modelo entero: entrenas adaptadores pequeños.</p>
+<!-- SLIDE 143 -->
+<Slide id="fine-tuning-practico" number={143} title="Fine-tuning en la práctica">
+  <p><i data-lucide="settings"></i> En la práctica, fine-tuning no empieza con “vamos a entrenar”. Empieza con una tarea repetible, ejemplos representativos y una eval que diga si el cambio mejora de verdad. Si no puedes medirlo, todavía estás en fase de prompt/RAG/prototipo.</p>
+  <h3><i data-lucide="workflow"></i> Flujo mínimo sano</h3>
+  <div class="flow">
+    <span class="flow-step">Caso de uso</span>
+    <span class="flow-arrow">&rarr;</span>
+    <span class="flow-step">Dataset curado</span>
+    <span class="flow-arrow">&rarr;</span>
+    <span class="flow-step">Train / validación</span>
+    <span class="flow-arrow">&rarr;</span>
+    <span class="flow-step">Entrenar adapter</span>
+    <span class="flow-arrow">&rarr;</span>
+    <span class="flow-step">Eval interna</span>
+    <span class="flow-arrow">&rarr;</span>
+    <span class="flow-step">Servir o descartar</span>
+  </div>
+  <table class="compact-table resource-table">
+    <thead>
+      <tr><th>Pieza</th><th>Qué debes tener</th><th>Señal de peligro</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>Dataset</strong></td><td>Ejemplos parecidos a producción, limpios, revisados y balanceados</td><td>Copiar logs sin limpiar, duplicados, respuestas malas o etiquetas ambiguas</td></tr>
+      <tr><td><strong>Split</strong></td><td>Train, validación y test oculto separados antes de iterar</td><td>Medir con los mismos ejemplos usados para entrenar</td></tr>
+      <tr><td><strong>Métrica</strong></td><td>Formato válido, exactitud, coste, latencia, safety o preferencia humana</td><td>“Me gusta más” sin rúbrica ni casos negativos</td></tr>
+      <tr><td><strong>Baseline</strong></td><td>Prompt bueno, RAG si aplica y modelo frontier como comparación</td><td>Entrenar para arreglar un prompt mal diseñado</td></tr>
+      <tr><td><strong>Rollback</strong></td><td>Versión de modelo/adaptador, dataset y configuración reproducibles</td><td>No poder volver al comportamiento anterior</td></tr>
+    </tbody>
+  </table>
   <h3><i data-lucide="puzzle"></i> LoRA y QLoRA</h3>
   <p>En vez de reentrenar los miles de millones de parámetros del modelo, <strong>LoRA</strong> (Low-Rank Adaptation) añade pequeñas matrices entrenables en capas clave. Resultado: entrenas <strong>0.1-1% de los parámetros</strong> con una fracción de la memoria.</p>
   <table>
@@ -1988,6 +2681,18 @@ import Slide from './Slide.astro';
       </div>
     </div>
   </div>
+  <h3><i data-lucide="chart-no-axes-combined"></i> Señales durante entrenamiento</h3>
+  <table class="compact-table resource-table">
+    <thead>
+      <tr><th>Señal</th><th>Lectura</th><th>Acción</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>Train loss baja, validación empeora</strong></td><td>Overfitting</td><td>Menos epochs, más datos, regularización o early stopping</td></tr>
+      <tr><td><strong>Formato mejora, contenido empeora</strong></td><td>El dataset enseña plantilla, no criterio</td><td>Añadir ejemplos difíciles y revisión de etiquetas</td></tr>
+      <tr><td><strong>Modelo olvida capacidades generales</strong></td><td>Catastrophic forgetting / sobreespecialización</td><td>Mezclar datos generales o usar adapters más pequeños</td></tr>
+      <tr><td><strong>Eval no cambia</strong></td><td>El problema quizá era retrieval, prompt o modelo base</td><td>Parar y volver al diagnóstico</td></tr>
+    </tbody>
+  </table>
   <div class="callout">
     <p class="callout-title"><i data-lucide="alert-triangle"></i> Antes de hacer fine-tuning</p>
     <p>En la mayoría de proyectos, un buen prompt o RAG resuelve el problema sin fine-tuning. Fine-tuning tiene sentido cuando necesitas: (1) comportamiento o formato estable que el prompt no consigue, (2) adaptar un modelo pequeño a una tarea repetible, o (3) reducir latencia/coste eliminando instrucciones largas del prompt.</p>
@@ -2000,8 +2705,8 @@ import Slide from './Slide.astro';
   </div>
 </Slide>
 
-<!-- SLIDE 72 -->
-<Slide id="datos-sinteticos" number={72} title="Datos sintéticos">
+<!-- SLIDE 144 -->
+<Slide id="datos-sinteticos" number={144} title="Datos sintéticos">
   <p><i data-lucide="factory"></i> Usar un LLM grande para <strong>generar datos de entrenamiento</strong> para otros modelos o sistemas. Cada vez más común como alternativa a la recolección manual de datos.</p>
   <h3><i data-lucide="list-tree"></i> Patrones comunes</h3>
   <div class="icon-grid">
@@ -2044,15 +2749,29 @@ import Slide from './Slide.astro';
     <p class="callout-title"><i data-lucide="lightbulb"></i> Buenas prácticas</p>
     <p>No hay un ratio universal. Empieza mezclando datos sintéticos con datos reales, filtra por calidad (otro LLM como juez o métricas automáticas) y valida siempre con un subset de datos reales etiquetados por humanos.</p>
   </div>
+  <h3><i data-lucide="filter"></i> Pipeline sano de datos sintéticos</h3>
+  <table class="compact-table resource-table">
+    <thead>
+      <tr><th>Paso</th><th>Qué haces</th><th>Control de calidad</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>Semillas reales</strong></td><td>Partes de casos reales anonimizados o taxonomías de dominio</td><td>Evita inventar una distribución que no existe</td></tr>
+      <tr><td><strong>Generación</strong></td><td>Teacher genera variantes, edge cases y respuestas esperadas</td><td>Prompt versionado y temperatura controlada</td></tr>
+      <tr><td><strong>Filtrado</strong></td><td>Deduplicas, verificas formato y descartas incoherencias</td><td>Reglas + juez + muestreo humano</td></tr>
+      <tr><td><strong>Mezcla</strong></td><td>Combinas real y sintético sin perder el test real</td><td>Test final solo con datos reales o auditados</td></tr>
+      <tr><td><strong>Auditoría</strong></td><td>Guardas prompt, modelo, fecha, licencia y criterios</td><td>Trazabilidad si el dataset se usa para entrenar</td></tr>
+    </tbody>
+  </table>
   <div class="refs">
     <p class="refs-title">Para profundizar</p>
     <a href="https://huggingface.co/blog/synthetic-data-save-costs" target="_blank">Hugging Face - Synthetic Data</a>
     <a href="https://github.com/argilla-io/distilabel" target="_blank">Distilabel - Framework para datos sintéticos</a>
+    <a href="https://arxiv.org/abs/2305.17493" target="_blank">The Curse of Recursion - model collapse</a>
   </div>
 </Slide>
 
-<!-- SLIDE 73 -->
-<Slide id="vectordb" number={73} title="Bases de datos vectoriales: ¿qué son y en qué se diferencian?">
+<!-- SLIDE 145 -->
+<Slide id="vectordb" number={145} title="Bases de datos vectoriales: ¿qué son y en qué se diferencian?">
   <p><i data-lucide="database"></i> Bases de datos optimizadas para almacenar y buscar <strong>vectores (embeddings)</strong> por similitud. En vez de buscar por coincidencia exacta (<code>WHERE nombre = 'X'</code>), buscan por distancia entre vectores: "¿qué vectores se parecen más a este?"</p>
   <h3><i data-lucide="compass"></i> SQL vs NoSQL vs Vectorial</h3>
   <table>
@@ -2079,6 +2798,18 @@ import Slide from './Slide.astro';
       <tr><td><strong>Milvus</strong></td><td>Open source</td><td>Billones de vectores. GPU-accelerated</td></tr>
     </tbody>
   </table>
+  <h3><i data-lucide="sigma"></i> Distancia y búsqueda aproximada</h3>
+  <table class="compact-table resource-table">
+    <thead>
+      <tr><th>Concepto</th><th>Lectura práctica</th><th>Riesgo</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>Cosine similarity</strong></td><td>Compara dirección del vector; muy usada en embeddings normalizados</td><td>No entiende permisos ni fechas si no filtras metadata</td></tr>
+      <tr><td><strong>Dot product</strong></td><td>Combina dirección y magnitud; depende de cómo se entrenó el embedding</td><td>No mezclar métricas sin saber lo que espera el modelo</td></tr>
+      <tr><td><strong>ANN / HNSW / IVF</strong></td><td>Índices aproximados para no comparar contra todos los vectores</td><td>Más velocidad puede bajar recall si se configura mal</td></tr>
+      <tr><td><strong>Hybrid search</strong></td><td>Combina vector + BM25 + filtros</td><td>Necesita fusión/rerank para no mezclar rankings a ciegas</td></tr>
+    </tbody>
+  </table>
   <div class="callout">
     <p class="callout-title"><i data-lucide="compass"></i> ¿Cómo elegir?</p>
     <p><strong>Prototipo rápido:</strong> Chroma (embebido, sin servidor). <strong>Ya usas Postgres:</strong> pgvector. <strong>Producción sin preocuparte de infra:</strong> Pinecone. <strong>Necesitas control total + rendimiento:</strong> Qdrant o Milvus. <strong>Búsqueda híbrida:</strong> Weaviate.</p>
@@ -2093,8 +2824,8 @@ import Slide from './Slide.astro';
   </div>
 </Slide>
 
-<!-- SLIDE 74 -->
-<Slide id="text-to-sql" number={74} title="Text-to-SQL: consultas en lenguaje natural">
+<!-- SLIDE 146 -->
+<Slide id="text-to-sql" number={146} title="Text-to-SQL: consultas en lenguaje natural">
   <p><i data-lucide="database"></i> Convertir preguntas en español a <strong>queries SQL ejecutables</strong>. El caso de uso más inmediato de IA para backend engineers.</p>
   <h3><i data-lucide="route"></i> Flujo</h3>
   <div class="flow">
@@ -2126,14 +2857,28 @@ import Slide from './Slide.astro';
     <p class="callout-title"><i data-lucide="lightbulb"></i> En la práctica</p>
     <p>No expongas text-to-SQL directamente a usuarios finales sin guardrails. Funciona bien como herramienta interna para analistas y producto que necesitan consultar datos sin depender del equipo técnico.</p>
   </div>
+  <h3><i data-lucide="lock-keyhole"></i> Guardrails mínimos</h3>
+  <table class="compact-table resource-table">
+    <thead>
+      <tr><th>Control</th><th>Cómo se aplica</th><th>Qué evita</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>Usuario read-only</strong></td><td>Credenciales sin permisos de escritura</td><td><code>DROP</code>, <code>DELETE</code>, mutaciones accidentales</td></tr>
+      <tr><td><strong>AST parser</strong></td><td>Parsear SQL y permitir solo <code>SELECT</code> y tablas autorizadas</td><td>Prompt injection y queries peligrosas</td></tr>
+      <tr><td><strong>EXPLAIN + limit</strong></td><td>Revisar plan y añadir límites máximos</td><td>Queries caras o bloqueantes</td></tr>
+      <tr><td><strong>Semantic layer</strong></td><td>Exponer métricas aprobadas, no toda la BD cruda</td><td>Interpretaciones distintas de “ingresos”, “activo”, “churn”</td></tr>
+      <tr><td><strong>Auditoría</strong></td><td>Guardar pregunta, SQL, usuario y resultado resumido</td><td>Falta de trazabilidad ante errores</td></tr>
+    </tbody>
+  </table>
   <div class="refs">
     <p class="refs-title">Para profundizar</p>
     <a href="https://www.vanna.ai/" target="_blank">Vanna AI - Text-to-SQL open source</a>
+    <a href="https://github.com/tobymao/sqlglot" target="_blank">SQLGlot - SQL parser</a>
   </div>
 </Slide>
 
-<!-- SLIDE 75 -->
-<Slide id="prompt-caching" number={75} title="Prompt caching: reutilizar prefijos repetidos">
+<!-- SLIDE 147 -->
+<Slide id="prompt-caching" number={147} title="Prompt caching: reutilizar prefijos repetidos">
   <p><i data-lucide="database"></i> Cuando usas system prompts largos o contexto RAG fijo, puedes pagar repetidamente los mismos tokens. El prompt caching permite reutilizar prefijos estáticos y cobrar menos por tokens cacheados, según proveedor y ventana de caché.</p>
   <div class="flow">
     <span class="flow-step">Primera llamada</span>
@@ -2169,6 +2914,18 @@ import Slide from './Slide.astro';
     <span class="comment">// Primera llamada: precio normal</span><br/>
     <span class="comment">// Siguientes dentro de la ventana: descuento en tokens cacheados</span>
   </div>
+  <h3><i data-lucide="trash-2"></i> Invalidation: lo que se olvida</h3>
+  <table class="compact-table resource-table">
+    <thead>
+      <tr><th>Problema</th><th>Ejemplo</th><th>Control</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>Prefijo cambia</strong></td><td>Añades una línea al system prompt y ya no coincide</td><td>Separar instrucciones estables de contexto variable</td></tr>
+      <tr><td><strong>Datos caducan</strong></td><td>Política interna, precio o documentación cambia</td><td>TTL, versión de documento y cache busting explícito</td></tr>
+      <tr><td><strong>Privacidad</strong></td><td>Cachear contexto de un cliente y reutilizarlo mal</td><td>Cache key por tenant/usuario/permisos</td></tr>
+      <tr><td><strong>Medición incompleta</strong></td><td>Solo miras descuento, no latencia ni aciertos</td><td>Registrar cache hit rate, coste y calidad</td></tr>
+    </tbody>
+  </table>
   <div class="callout">
     <p class="callout-title"><i data-lucide="lightbulb"></i> ¿Cuándo usarlo?</p>
     <p><strong>Ideal para:</strong> system prompts largos (&gt;1000 tokens), contexto RAG fijo que se repite, conversaciones donde el historial crece. <strong>No útil para:</strong> prompts cortos que cambian cada vez.</p>
@@ -2177,11 +2934,12 @@ import Slide from './Slide.astro';
     <p class="refs-title">Para profundizar</p>
     <a href="https://platform.claude.com/docs/en/build-with-claude/prompt-caching" target="_blank">Anthropic - Prompt Caching docs</a>
     <a href="https://platform.openai.com/docs/guides/caching" target="_blank">OpenAI - Caching docs</a>
+    <a href="https://ai.google.dev/gemini-api/docs/caching" target="_blank">Google Gemini - Context caching</a>
   </div>
 </Slide>
 
-<!-- SLIDE 76 -->
-<Slide id="context-window-practica" number={76} title="Context window en la práctica: no todo es lo que parece">
+<!-- SLIDE 148 -->
+<Slide id="context-window-practica" number={148} title="Context window en la práctica: no todo es lo que parece">
   <p><i data-lucide="layers"></i> Un modelo con 1M tokens de context window no significa que puedas meter 1M tokens y funcione igual de bien. Hay límites prácticos que conviene conocer.</p>
   <h3><i data-lucide="alert-triangle"></i> "Lost in the middle"</h3>
   <p>Los modelos prestan más atención al inicio y al final del contexto, y tienden a "olvidar" información que está en el medio. Si metes un dato importante en la página 50 de 100, el modelo puede ignorarlo. (<a href="https://arxiv.org/abs/2307.03172" target="_blank">Lost in the Middle paper</a>)</p>
@@ -2206,6 +2964,18 @@ import Slide from './Slide.astro';
     <li><i data-lucide="compress"></i> <strong>Resumen progresivo</strong> para conversaciones largas</li>
     <li><i data-lucide="git-branch"></i> <strong>Map-reduce</strong> para documentos enormes</li>
   </ul>
+  <h3><i data-lucide="calculator"></i> Presupuesto de contexto</h3>
+  <table class="compact-table resource-table">
+    <thead>
+      <tr><th>Parte</th><th>Debe reservarse para...</th><th>Regla práctica</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>System/developer</strong></td><td>Reglas estables, formato, permisos</td><td>Compacto y cacheable</td></tr>
+      <tr><td><strong>Contexto recuperado</strong></td><td>Evidencia mínima necesaria</td><td>Top-k con rerank, no “todo el documento”</td></tr>
+      <tr><td><strong>Historial</strong></td><td>Decisiones relevantes, no charla completa</td><td>Resumen con estado y cambios</td></tr>
+      <tr><td><strong>Respuesta</strong></td><td>Tokens de salida y, si aplica, razonamiento/tool calls</td><td>Dejar margen: <code>input + output <= window</code></td></tr>
+    </tbody>
+  </table>
   <div class="callout">
     <p class="callout-title"><i data-lucide="target"></i> Regla práctica</p>
     <p>No llenes el context window "porque puedes". Más contexto = más caro, más lento y potencialmente peor calidad. Usa solo el contexto que necesitas para la tarea.</p>
@@ -2217,8 +2987,8 @@ import Slide from './Slide.astro';
   </div>
 </Slide>
 
-<!-- SLIDE 77 -->
-<Slide id="api-hello-world" number={77} title="API Hello World: tu primera llamada a un LLM">
+<!-- SLIDE 149 -->
+<Slide id="api-hello-world" number={149} title="API Hello World: tu primera llamada a un LLM">
   <p><i data-lucide="terminal"></i> Antes de hablar de agentes, veamos lo más básico: hacer una llamada a la API de un modelo. Es sorprendentemente simple.</p>
   <h3><i data-lucide="terminal"></i> Con curl</h3>
   <div class="code-block">
@@ -2254,6 +3024,19 @@ import Slide from './Slide.astro';
     <li><i data-lucide="check-circle"></i> <strong>stop_reason:</strong> por qué paró (<code>"end_turn"</code> = respuesta completa)</li>
     <li><i data-lucide="coins"></i> <strong>usage:</strong> <code>input_tokens</code> y <code>output_tokens</code> consumidos (lo que pagas)</li>
   </ul>
+  <h3><i data-lucide="shield-check"></i> Checklist de primera integración</h3>
+  <table class="compact-table resource-table">
+    <thead>
+      <tr><th>Pieza</th><th>Qué configurar desde el día 1</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>Secrets</strong></td><td>API keys en variables de entorno, nunca en notebooks ni frontend</td></tr>
+      <tr><td><strong>Timeouts</strong></td><td>Tiempo máximo por llamada y cancelación del request</td></tr>
+      <tr><td><strong>Usage</strong></td><td>Log de input/output tokens, modelo, coste estimado y usuario</td></tr>
+      <tr><td><strong>Errores</strong></td><td>Rate limit, 5xx, invalid request, content filtering y reintentos</td></tr>
+      <tr><td><strong>Versionado</strong></td><td>Modelo, prompt, schema y parámetros guardados con la respuesta</td></tr>
+    </tbody>
+  </table>
   <div class="callout">
     <p class="callout-title"><i data-lucide="rocket"></i> De aquí a un agente</p>
     <p>Esta llamada simple es la base de todo. Un agente es esto mismo dentro de un bucle que añade tool calls. La complejidad se construye sobre esta base.</p>
@@ -2265,8 +3048,8 @@ import Slide from './Slide.astro';
   </div>
 </Slide>
 
-<!-- SLIDE 78 -->
-<Slide id="streaming" number={78} title="Streaming de respuestas">
+<!-- SLIDE 150 -->
+<Slide id="streaming" number={150} title="Streaming de respuestas">
   <p><i data-lucide="radio"></i> En vez de esperar a que el modelo genere toda la respuesta, recibes <strong>fragmentos</strong> en tiempo real. Es el patrón habitual en interfaces conversacionales como ChatGPT, Claude o Gemini.</p>
   <h3><i data-lucide="arrow-right"></i> ¿Cómo funciona?</h3>
   <div class="icon-grid">
@@ -2313,6 +3096,18 @@ import Slide from './Slide.astro';
       <tr><td><code>message_stop</code></td><td>Fin del mensaje</td><td>Cerrar la UI de escritura</td></tr>
     </tbody>
   </table>
+  <h3><i data-lucide="monitor"></i> UX y backend</h3>
+  <table class="compact-table resource-table">
+    <thead>
+      <tr><th>Decisión</th><th>Buena práctica</th><th>Motivo</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>Render incremental</strong></td><td>Mostrar tokens/chunks sin bloquear input</td><td>Mejora percepción de velocidad</td></tr>
+      <tr><td><strong>Cancelación</strong></td><td>Botón stop que corta stream y backend</td><td>Evita coste inútil</td></tr>
+      <tr><td><strong>Tool calls</strong></td><td>Mostrar estados: buscando, ejecutando, verificando</td><td>El usuario entiende esperas no textuales</td></tr>
+      <tr><td><strong>Moderación parcial</strong></td><td>No publicar directamente contenido sensible sin checks</td><td>Streaming puede enseñar texto antes de validar todo</td></tr>
+    </tbody>
+  </table>
   <div class="callout">
     <p class="callout-title"><i data-lucide="lightbulb"></i> En la práctica</p>
     <p>Streaming no cambia el precio por token ni la lógica de generación. Cambia <strong>cuándo recibes</strong> la respuesta. La percepción de velocidad mejora aunque el tiempo total pueda ser parecido.</p>
@@ -2324,8 +3119,8 @@ import Slide from './Slide.astro';
   </div>
 </Slide>
 
-<!-- SLIDE 79 -->
-<Slide id="arquitectura-apps-llm" number={79} title="Arquitectura de aplicaciones con LLM">
+<!-- SLIDE 151 -->
+<Slide id="arquitectura-apps-llm" number={151} title="Arquitectura de aplicaciones con LLM">
   <p><i data-lucide="building"></i> Saber llamar a la API es el primer paso. Construir un <strong>producto en producción</strong> requiere patrones de ingeniería que la documentación del modelo no enseña.</p>
   <h3><i data-lucide="layers"></i> Capas de una app LLM en producción</h3>
   <div class="flow">
@@ -2374,6 +3169,19 @@ import Slide from './Slide.astro';
     <li><i data-lucide="activity"></i> <strong>Observabilidad:</strong> loguear cada llamada (modelo, tokens, latencia, coste)</li>
     <li><i data-lucide="git-branch"></i> <strong>Versionado de prompts:</strong> tratar prompts como código: en git, con rollback</li>
   </ul>
+  <h3><i data-lucide="activity"></i> Observabilidad específica de LLM</h3>
+  <table class="compact-table resource-table">
+    <thead>
+      <tr><th>Señal</th><th>Por qué importa</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>Prompt/model/schema version</strong></td><td>Permite reproducir una respuesta y hacer rollback</td></tr>
+      <tr><td><strong>Tokens, coste y latencia</strong></td><td>Detecta prompts inflados, loops de agente y modelos mal ruteados</td></tr>
+      <tr><td><strong>Tool traces</strong></td><td>Explica qué leyó o ejecutó el agente antes de responder</td></tr>
+      <tr><td><strong>Quality signals</strong></td><td>Feedback humano, evals en sombra, groundedness y resolución real</td></tr>
+      <tr><td><strong>Safety events</strong></td><td>Jailbreaks, PII, refusals, abuso y acciones bloqueadas</td></tr>
+    </tbody>
+  </table>
   <div class="callout">
     <p class="callout-title"><i data-lucide="target"></i> Regla de oro</p>
     <p>Trata al LLM como un <strong>servicio externo no fiable</strong>: puede fallar, puede ser lento, puede dar respuestas incorrectas. Diseña tu arquitectura como lo harías con cualquier dependencia externa crítica.</p>
@@ -2385,30 +3193,31 @@ import Slide from './Slide.astro';
   </div>
 </Slide>
 
-<!-- SLIDE 80 -->
-<Slide id="recap-uso-practico" number={80} title="Lo que deberías saber: uso práctico">
+<!-- SLIDE 152 -->
+<Slide id="recap-uso-practico" number={152} title="Lo que deberías saber: uso práctico">
   <table>
     <thead>
       <tr><th>Concepto</th><th>Slide</th></tr>
     </thead>
     <tbody>
-      <tr><td>Prompt engineering: contexto claro + restricciones precisas</td><td>36</td></tr>
-      <tr><td>Context engineering: gestionar las 6 capas del contexto</td><td>37</td></tr>
-      <tr><td>Formatos de datos: JSON, YAML, Markdown, XML y cuándo usar cada uno</td><td>38</td></tr>
-      <tr><td>Alucinaciones: generar sin verificar puede inventar datos plausibles</td><td>39</td></tr>
-      <tr><td>Structured output: schema + validación para salidas parseables</td><td>40</td></tr>
-      <tr><td>Multimodal: enviar imágenes, PDFs y audio al modelo</td><td>41</td></tr>
-      <tr><td>Voz en tiempo real: speech-to-speech con baja latencia</td><td>42</td></tr>
-      <tr><td>Generación de imágenes: difusión, LoRA, ControlNet, ComfyUI</td><td>43-47</td></tr>
-      <tr><td>Hugging Face: model cards, memoria, formatos y eval results</td><td>49-56</td></tr>
-      <tr><td>Mantenerse actualizado, elegir modelo y diseñar mini-labs</td><td>57-59</td></tr>
-      <tr><td>Google Colab, repos de práctica, experimentos reproducibles y eval interna</td><td>60-65</td></tr>
-      <tr><td>RAG: inyectar contexto desde tus documentos</td><td>66</td></tr>
-      <tr><td>Agentic RAG y GraphRAG: retrieval inteligente y multi-fuente</td><td>67-68</td></tr>
-      <tr><td>Prompt, RAG o fine-tuning: elegir la técnica correcta</td><td>69-71</td></tr>
-      <tr><td>Prompt caching: descuentos en prefijos repetidos según proveedor</td><td>75</td></tr>
-      <tr><td>Streaming: fragmentos incrementales para mejor UX</td><td>78</td></tr>
-      <tr><td>Arquitectura de apps LLM: retry, fallback, circuit breaker</td><td>79</td></tr>
+      <tr><td>Prompt engineering: contexto claro + restricciones precisas</td><td>98</td></tr>
+      <tr><td>Context engineering: gestionar capas de contexto, memoria, tools y RAG</td><td>99</td></tr>
+      <tr><td>Formatos de datos: JSON, YAML, Markdown, XML y formato como contrato</td><td>100</td></tr>
+      <tr><td>Alucinaciones: tipos de error, verificación y grounding</td><td>101</td></tr>
+      <tr><td>Structured output: schema, tool use, validación backend y retries</td><td>102</td></tr>
+      <tr><td>Multimodal: imágenes, PDFs, audio, vídeo y métricas de calidad</td><td>103-104</td></tr>
+      <tr><td>Generación visual: imagen/vídeo, difusión, LoRA, ControlNet, ComfyUI</td><td>105-109</td></tr>
+      <tr><td>Modelos frontier: datos, pre-training, SFT, RL, safety y serving</td><td>110</td></tr>
+      <tr><td>Hugging Face: model cards, memoria, formatos, DeepSeek y eval results</td><td>111-118</td></tr>
+      <tr><td>Mantenerse actualizado, elegir modelo y diseñar mini-labs</td><td>119-121</td></tr>
+      <tr><td>Google Colab, repos de práctica, experimentos reproducibles y eval interna</td><td>122-127</td></tr>
+      <tr><td>RAG: chunking, embeddings, rerank, citas, recall@k y no-answer</td><td>128</td></tr>
+      <tr><td>Agentic RAG, GraphRAG, knowledge graphs, RDF/OWL/SPARQL y retrieval híbrido</td><td>129-140</td></tr>
+      <tr><td>Prompt, RAG o fine-tuning: diagnosticar el problema correcto</td><td>141-143</td></tr>
+      <tr><td>Datos sintéticos: generación, filtrado, mezcla, riesgos y auditoría</td><td>144</td></tr>
+      <tr><td>Vector DB y Text-to-SQL: búsqueda semántica, guardrails y consultas seguras</td><td>145-146</td></tr>
+      <tr><td>Prompt caching y context window: coste, invalidación, lost in the middle</td><td>147-148</td></tr>
+      <tr><td>API, streaming y arquitectura de apps LLM con observabilidad y fallback</td><td>149-151</td></tr>
     </tbody>
   </table>
 </Slide>

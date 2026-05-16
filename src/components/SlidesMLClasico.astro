@@ -1,0 +1,351 @@
+---
+import StructuredSlide from './StructuredSlide.astro';
+
+const commonRefs = [
+  { label: 'scikit-learn - Model evaluation', href: 'https://scikit-learn.org/stable/modules/model_evaluation.html' },
+  { label: 'scikit-learn - Clustering', href: 'https://scikit-learn.org/stable/modules/clustering.html' },
+  { label: 'Sutton & Barto - Reinforcement Learning', href: 'https://incompleteideas.net/book/the-book-2nd.html' },
+];
+
+const slides = [
+  {
+    id: 'ml-clasico-mapa',
+    number: 17,
+    title: 'ML clásico: el mapa antes de los LLMs',
+    icon: 'map',
+    lead: 'Antes de hablar de modelos gigantes conviene separar tareas: aprender una etiqueta, predecir un número, descubrir estructura o actuar para maximizar recompensa. Esa separación evita elegir una arquitectura por moda cuando todavía no está claro qué señal de aprendizaje existe.',
+    bigIdea: 'La pregunta no es “qué modelo uso”, sino “qué salida necesito, qué feedback tengo y cómo sabré que generaliza”.',
+    metrics: [
+      { value: 'x', label: 'entrada: features, texto, imagen, estado o señales' },
+      { value: 'y', label: 'respuesta esperada, si existe' },
+      { value: 'ŷ', label: 'predicción o decisión del modelo' },
+      { value: 'L(y, ŷ)', label: 'pérdida: cuánto duele equivocarse' },
+    ],
+    cards: [
+      { icon: 'tag', title: 'Supervisado', text: 'Entrenas con ejemplos etiquetados: entrada -> respuesta esperada. Sirve cuando puedes auditar una verdad de referencia, aunque sea imperfecta.', tag: 'clasificación / regresión' },
+      { icon: 'scan-search', title: 'No supervisado', text: 'No hay etiqueta. Buscas estructura, anomalías o compresión, pero la interpretación necesita validación externa.', tag: 'clustering / reducción' },
+      { icon: 'gamepad-2', title: 'Refuerzo', text: 'Un agente elige acciones, observa recompensa y aprende una política. El reto es diseñar una recompensa que no pueda explotarse mal.', tag: 'secuencia de decisiones' },
+      { icon: 'clipboard-check', title: 'Evaluación', text: 'No basta con “parece funcionar”: separa datos, define baseline, métrica y coste de error antes de iterar.', tag: 'train / test' },
+    ],
+    table: {
+      headers: ['Pregunta práctica', 'Familia', 'Métrica típica', 'Riesgo si lo formulas mal'],
+      rows: [
+        ['¿Qué categoría corresponde?', 'Supervisado: clasificación', 'precision, recall, F1, matriz de confusión', 'optimizar accuracy y fallar justo en la clase minoritaria'],
+        ['¿Cuánto vale o cuánto tardará?', 'Supervisado: regresión', 'MAE, RMSE, R², error por segmento', 'convertir un número útil en una etiqueta pobre'],
+        ['¿Qué estructura aparece?', 'No supervisado', 'silhouette, estabilidad, validación de dominio', 'confundir cluster con verdad causal'],
+        ['¿Qué acción conviene ahora?', 'Refuerzo / decisión secuencial', 'retorno acumulado, regret, tasa de éxito', 'premiar una conducta que maximiza métrica y rompe producto'],
+      ],
+    },
+    refs: commonRefs,
+  },
+  {
+    id: 'dataset-features-labels',
+    number: 18,
+    title: 'Dataset, features, label y target',
+    icon: 'table-properties',
+    lead: 'Un modelo no aprende “el mundo” directamente: aprende la representación que le damos en forma de filas, columnas, textos, imágenes o señales. Por eso la calidad de las features, la etiqueta y el split de datos suele importar más que cambiar de algoritmo.',
+    bigIdea: 'Garbage in, garbage out sigue vigente: una etiqueta mal definida produce un modelo obediente al problema equivocado.',
+    table: {
+      headers: ['Término', 'Lectura sencilla', 'Ejemplo', 'Cuidado práctico'],
+      rows: [
+        ['Instancia', 'Un caso individual del dataset', 'Un coche, una factura, una conversación', 'Define la unidad: fila por usuario, evento, sesión o documento cambia el problema.'],
+        ['Feature', 'Variable de entrada que describe el caso', 'precio, edad, categoría, longitud del texto', 'Debe existir en el momento de predecir y no introducir leakage.'],
+        ['Label / target', 'Respuesta esperada durante entrenamiento', 'spam/no spam, precio final, clase de riesgo', 'Puede tener ruido humano, sesgo de proceso o definiciones inconsistentes.'],
+        ['Train set', 'Datos usados para ajustar el modelo', '70-80% si el dataset lo permite', 'No debe mezclarse con decisiones de evaluación final.'],
+        ['Validación', 'Datos para elegir features, modelo, umbral e hiperparámetros', 'fold o periodo de validación', 'Tocarla muchas veces también sobreajusta decisiones.'],
+        ['Test set', 'Datos reservados para medir generalización', 'Datos que el modelo no debe ver al entrenar', 'Debe parecerse al futuro real, no solo a una muestra cómoda.'],
+      ],
+    },
+    secondaryTables: [
+      {
+        headers: ['Ejemplo: ticket de soporte', 'Qué sería', 'Por qué importa'],
+        rows: [
+          ['Texto del ticket, canal, producto, país, plan', 'features disponibles antes de responder', 'sirven para clasificar intención o prioridad'],
+          ['Equipo correcto o prioridad real final', 'label supervisada', 'necesita historial fiable y criterios consistentes'],
+          ['Tiempo hasta resolución', 'target de regresión', 'no se mide igual que una clase'],
+          ['Satisfacción posterior del usuario', 'señal retrasada', 'puede entrar en ranking, RL o evaluación de calidad'],
+        ],
+      },
+    ],
+    callout: { title: 'Regla práctica', text: 'Si no puedes explicar qué es una fila, qué son las columnas, cuándo existen y qué decisión habilita la predicción, todavía no tienes un problema de machine learning: tienes datos sueltos.', icon: 'target' },
+    refs: [{ label: 'scikit-learn - Supervised learning', href: 'https://scikit-learn.org/stable/supervised_learning.html' }],
+  },
+  {
+    id: 'supervisado-no-supervisado-refuerzo',
+    number: 19,
+    title: 'Supervisado, no supervisado y refuerzo',
+    icon: 'git-branch',
+    lead: 'Estas tres familias no se separan por usar árboles, redes neuronales o Transformers, sino por el tipo de feedback disponible durante el aprendizaje. La pregunta clave es: ¿quién corrige al modelo y cuándo?',
+    bigIdea: 'Supervisado = respuestas correctas. No supervisado = estructura. Refuerzo = acciones + recompensa.',
+    metrics: [
+      { value: 'D={(xᵢ,yᵢ)}', label: 'supervisado: ejemplos con respuesta' },
+      { value: 'D={xᵢ}', label: 'no supervisado: solo observaciones' },
+      { value: 's,a,r,s′', label: 'refuerzo: estado, acción, recompensa, nuevo estado' },
+      { value: 'baseline', label: 'comparador simple para saber si mejoras algo' },
+    ],
+    table: {
+      headers: ['Familia', 'Señal de aprendizaje', 'Qué aprende', 'Ejemplo y cuidado'],
+      rows: [
+        ['Supervisado', 'Cada ejemplo trae una respuesta esperada: label o target', 'Una función que mapea entrada -> salida', 'Clasificar spam/no spam, predecir precio o churn. Cuidado: si las etiquetas son malas, el modelo aprende ese error.'],
+        ['No supervisado', 'Solo hay datos de entrada, sin respuesta correcta por fila', 'Estructura: grupos, dimensiones, anomalías o representaciones latentes', 'Agrupar clientes, detectar facturas raras o reducir variables. Cuidado: un cluster no es una categoría real hasta validarlo.'],
+        ['Refuerzo', 'El sistema actúa y recibe recompensa, a veces mucho después', 'Una política: qué acción tomar en cada estado para maximizar retorno', 'Juegos, robots, recomendaciones, bandits o RLHF/RLAIF. Cuidado: puede aprender a explotar mal la recompensa.'],
+      ],
+    },
+    callout: {
+      title: 'Lectura rápida',
+      text: 'Si tienes ejemplos con respuesta, empieza pensando en supervisado. Si no tienes etiquetas y quieres explorar datos, piensa en no supervisado. Si hay decisiones secuenciales con consecuencias, piensa en refuerzo.',
+      icon: 'compass',
+    },
+    refs: [
+      { label: 'scikit-learn - User guide', href: 'https://scikit-learn.org/stable/user_guide.html' },
+      { label: 'Sutton & Barto - Reinforcement Learning', href: 'https://incompleteideas.net/book/the-book-2nd.html' },
+    ],
+  },
+  {
+    id: 'clasificacion-vs-regresion',
+    number: 20,
+    title: 'Clasificación vs regresión',
+    icon: 'split',
+    lead: 'Ambas son aprendizaje supervisado: entrenas con ejemplos donde ya conoces la respuesta. La diferencia está en el tipo de variable que quieres predecir: una categoría discreta o una cantidad continua.',
+    bigIdea: 'Clasificación estima “qué clase es”; regresión estima “cuánto vale”. Esa diferencia cambia pérdidas, métricas, umbrales y decisiones de producto.',
+    metrics: [
+      { value: 'Clasificación', label: 'y pertenece a un conjunto de clases: spam/no spam, A/B/C' },
+      { value: 'Regresión', label: 'y es un número real: precio, demanda, latencia, riesgo' },
+      { value: 'p(y = c | x)', label: 'probabilidad de clase dado un ejemplo x' },
+      { value: 'ŷ = f(x)', label: 'valor predicho por una función aprendida' },
+    ],
+    twoCols: [
+      { icon: 'list-checks', title: 'Clasificación', text: 'Predice una categoría. Puede devolver una clase final o una distribución de probabilidades por clase. Ejemplo: fraude = 0.92, no fraude = 0.08; después decides un umbral para bloquear, revisar o dejar pasar.', tag: 'clases discretas' },
+      { icon: 'line-chart', title: 'Regresión', text: 'Predice una magnitud. La salida no es “correcto/incorrecto” de forma natural: importa cuánto te alejas del valor real. Ejemplo: precio real 310000, predicción 302000, error absoluto 8000.', tag: 'valor continuo' },
+    ],
+    table: {
+      headers: ['Tipo', 'Ejemplos', 'Pérdida típica', 'Métricas'],
+      rows: [
+        ['Clasificación binaria', 'spam/no spam, fraude/no fraude, aprobado/rechazado', 'Log loss / binary cross-entropy: penaliza probabilidades mal calibradas', 'accuracy, precision, recall, F1, ROC-AUC, matriz de confusión'],
+        ['Clasificación multiclase', 'idioma, tipo de ticket, categoría de producto', 'Cross-entropy con softmax: compara distribución real vs predicha', 'accuracy por clase, macro/micro F1, top-k accuracy'],
+        ['Regresión', 'precio, demanda, tiempo de entrega, temperatura, latencia', 'MSE = media de (y - ŷ)^2; MAE = media de |y - ŷ|', 'MAE, RMSE, R², error porcentual, tolerancia de negocio'],
+        ['Ranking / scoring', 'ordenar leads, priorizar tickets, recomendar productos', 'Pairwise/listwise loss o modelos de score', 'nDCG, MRR, recall@k, tasa de conversión'],
+      ],
+    },
+    callout: { title: 'Error común', text: 'Convertir todo en clasificación porque es cómodo. Si el valor continuo importa para decidir, usa regresión; si solo importa el orden, quizá necesitas ranking; si una probabilidad dispara una acción, necesitas calibración y umbrales.', icon: 'alert-triangle' },
+    refs: [{ label: 'scikit-learn - Supervised learning', href: 'https://scikit-learn.org/stable/supervised_learning.html' }],
+  },
+  {
+    id: 'validacion-generalizacion',
+    number: 21,
+    title: 'Validación: medir generalización',
+    icon: 'shield-check',
+    lead: 'Generalizar significa acertar en casos nuevos, con ruido nuevo y usuarios nuevos. Un modelo que solo funciona en los ejemplos con los que lo has ajustado no ha aprendido una regla útil: ha memorizado una foto del pasado.',
+    bigIdea: 'Validar es una simulación honesta de producción: separas datos, congelas un test y aceptas que la métrica mande más que la intuición.',
+    flow: ['Datos crudos', 'Train', 'Validación', 'Test oculto', 'Decisión'],
+    metrics: [
+      { value: 'Train', label: 'datos para aprender parámetros o ajustar prompts' },
+      { value: 'Validación', label: 'datos para elegir modelo, features, umbral e hiperparámetros' },
+      { value: 'Test oculto', label: 'datos que solo miras al final para estimar rendimiento real' },
+      { value: 'Producción', label: 'donde aparecen drift, cambios de usuario y errores caros' },
+    ],
+    cards: [
+      { icon: 'scissors', title: 'Split', text: 'Separa datos antes de iterar. En fraude, ventas o series temporales, no mezcles futuro con pasado: usa split temporal.' },
+      { icon: 'repeat', title: 'Cross-validation', text: 'k-fold entrena varias veces cambiando el fold de validación. Útil con pocos datos para ver variabilidad, no solo una métrica con suerte.' },
+      { icon: 'activity', title: 'Drift', text: 'Si cambian usuarios, precios, campañas, regulación o producto, el rendimiento cambia aunque el código sea idéntico.' },
+      { icon: 'file-lock-2', title: 'Leakage', text: 'Fuga de información: una columna, fecha, duplicado o etiqueta derivada deja ver una señal que no existirá al predecir.' },
+    ],
+    table: {
+      headers: ['Riesgo real', 'Ejemplo', 'Cómo lo detectas o previenes'],
+      rows: [
+        ['Leakage por columna', 'predecir impago usando una columna generada después del impago', 'revisar cuándo existe cada feature y hacer feature audit'],
+        ['Duplicados entre train/test', 'mismo cliente, ticket o texto casi igual en ambos splits', 'deduplicar y separar por entidad, no solo por fila aleatoria'],
+        ['Split temporal mal hecho', 'entrenar con datos de mayo para predecir abril', 'ordenar por fecha y validar en periodos posteriores'],
+        ['Overfitting de decisiones', 'probar 40 modelos hasta que uno gana en validación', 'mantener test oculto, registrar experimentos y usar nested validation si hace falta'],
+        ['Drift en producción', 'cambia el producto y la distribución de tickets ya no se parece al train', 'monitorizar métricas, distribución de features y errores por segmento'],
+      ],
+    },
+    callout: {
+      title: 'Skin in the game',
+      text: 'Antes de enseñar una métrica, escribe qué decisión tomarás si baja: no lanzar, pedir revisión humana, recopilar más datos, cambiar umbral o volver a baseline. Sin esa decisión, la validación es decoración.',
+      icon: 'clipboard-check',
+    },
+    refs: [{ label: 'scikit-learn - Cross-validation', href: 'https://scikit-learn.org/stable/modules/cross_validation.html' }],
+  },
+  {
+    id: 'overfitting-underfitting',
+    number: 22,
+    title: 'Overfitting y underfitting',
+    icon: 'gauge',
+    lead: 'El objetivo no es acertar el train set: es capturar una señal que siga funcionando fuera de los ejemplos vistos. La pregunta práctica no es “cuánto acierta entrenando”, sino “cuánto aguanta cuando cambia el caso”.',
+    bigIdea: 'Underfitting = no aprende suficiente señal. Overfitting = aprende demasiado detalle accidental. Generalización = equilibrio entre ambos.',
+    metrics: [
+      { value: 'Bias', label: 'error por modelo demasiado simple o supuestos pobres' },
+      { value: 'Variance', label: 'sensibilidad excesiva a los datos concretos de entrenamiento' },
+      { value: 'Train error', label: 'error en datos usados para ajustar el modelo' },
+      { value: 'Validation error', label: 'error en datos no usados para aprender parámetros' },
+    ],
+    table: {
+      headers: ['Problema', 'Síntoma', 'Causa típica', 'Control'],
+      rows: [
+        ['Underfitting', 'Malo en train y validación. Ni siquiera aprende los ejemplos fáciles.', 'Modelo demasiado simple, features pobres, poca señal, entrenamiento insuficiente.', 'Mejor representación, más features útiles, modelo algo más expresivo, entrenar más o revisar labels.'],
+        ['Overfitting', 'Muy bueno en train, peor en validación/test. La brecha train-validación crece.', 'Memorización, dataset pequeño, modelo demasiado flexible, leakage, demasiadas pruebas contra validación.', 'Regularización, más datos, data augmentation, early stopping, simplificar modelo, test oculto.'],
+        ['Métrica equivocada', 'Parece bueno pero falla donde importa al negocio.', 'Accuracy con clases desbalanceadas, métrica promedio que oculta segmentos críticos.', 'Precision/recall/F1, coste de error, matriz de confusión, métricas por segmento y umbrales.'],
+        ['Dataset no representativo', 'Funciona en laboratorio y cae en producción.', 'Train no se parece al tráfico real: otra época, canal, país, producto o tipo de usuario.', 'Split temporal, muestreo por segmentos, eval privada reciente y monitorización de drift.'],
+      ],
+    },
+    callout: {
+      title: 'Diagnóstico rápido',
+      text: 'Train malo + validación mala suele pedir más señal o más capacidad. Train bueno + validación mala pide regularizar, limpiar leakage o conseguir datos más representativos. Train y validación buenos pero producción mala apunta a drift o mala definición de eval.',
+      icon: 'stethoscope',
+    },
+    refs: [{ label: 'scikit-learn - Model evaluation', href: 'https://scikit-learn.org/stable/modules/model_evaluation.html' }],
+  },
+  {
+    id: 'matriz-confusion',
+    number: 23,
+    title: 'Matriz de confusión',
+    icon: 'grid-3x3',
+    lead: 'Para clasificación, la matriz de confusión enseña qué aciertos y errores comete el modelo por clase. Es la forma más directa de pasar de “accuracy” a consecuencias reales.',
+    bigIdea: 'La matriz no pregunta solo cuánto aciertas; pregunta qué tipo de error cometes y cuánto cuesta.',
+    metrics: [
+      { value: 'TP', label: 'verdadero positivo: detectas correctamente el caso positivo' },
+      { value: 'FP', label: 'falso positivo: acusas o bloqueas algo que era negativo' },
+      { value: 'FN', label: 'falso negativo: dejas pasar algo que era positivo' },
+      { value: 'TN', label: 'verdadero negativo: descartas correctamente el caso negativo' },
+    ],
+    table: {
+      headers: ['Real \\ Predicho', 'Positivo', 'Negativo'],
+      rows: [
+        ['Positivo', '<strong>TP</strong><br/>El modelo detecta correctamente un caso positivo.', '<strong>FN</strong><br/>El modelo deja escapar un positivo real.'],
+        ['Negativo', '<strong>FP</strong><br/>El modelo marca como positivo algo que no lo era.', '<strong>TN</strong><br/>El modelo descarta correctamente un negativo.'],
+      ],
+    },
+    cards: [
+      { icon: 'shield-alert', title: 'Fraude', text: 'FN: dejas pasar una operación fraudulenta. FP: bloqueas una compra legítima y enfadas al cliente.', tag: 'coste asimétrico' },
+      { icon: 'message-square-warning', title: 'Moderación', text: 'FN: dejas contenido dañino. FP: censuras contenido legítimo. El umbral depende de política y riesgo.', tag: 'umbral' },
+      { icon: 'stethoscope', title: 'Diagnóstico', text: 'FN: no detectas una enfermedad. FP: alarmas y pruebas innecesarias. La sensibilidad suele pesar mucho.', tag: 'riesgo humano' },
+      { icon: 'mail-check', title: 'Spam', text: 'FN: entra spam. FP: pierdes un email importante. Por eso no basta mirar accuracy global.', tag: 'producto' },
+    ],
+    secondaryTables: [
+      {
+        headers: ['Métrica', 'Fórmula desde la matriz', 'Lectura'],
+        rows: [
+          ['Accuracy', '(TP + TN) / (TP + FP + FN + TN)', 'Porcentaje total de aciertos. Engaña si una clase domina.'],
+          ['Precision', 'TP / (TP + FP)', 'De lo que marco como positivo, cuánto era positivo. Controla falsas alarmas.'],
+          ['Recall / sensibilidad', 'TP / (TP + FN)', 'De todos los positivos reales, cuántos encuentro. Controla positivos perdidos.'],
+          ['Specificity', 'TN / (TN + FP)', 'De todos los negativos reales, cuántos descarto bien. Controla bloqueos injustos.'],
+          ['F1', '2 · precision · recall / (precision + recall)', 'Resumen cuando necesitas balancear precision y recall.'],
+        ],
+      },
+    ],
+    callout: { title: 'Skin in the game', text: 'Antes de elegir métrica, escribe el coste de FP y FN. Si un FN cuesta 100 veces más que un FP, no optimices accuracy: ajusta umbral, recall, revisión humana o coste ponderado.', icon: 'scale' },
+    refs: [{ label: 'scikit-learn - Confusion matrix', href: 'https://scikit-learn.org/stable/modules/generated/sklearn.metrics.confusion_matrix.html' }],
+  },
+  {
+    id: 'precision-recall-f1',
+    number: 24,
+    title: 'Precision, recall y F1',
+    icon: 'calculator',
+    lead: 'Accuracy suele engañar cuando las clases están desbalanceadas. Si el 99% de emails no son spam, un modelo que diga “no spam” siempre tiene 99% de accuracy y aun así no sirve para detectar spam.',
+    bigIdea: 'Precision responde “¿cuánto ruido genero?”; recall responde “¿cuánto se me escapa?”; F1 resume ambos cuando necesitas una cifra, pero nunca sustituye entender el coste del error.',
+    metrics: [
+      { value: 'Precision', label: 'de lo que marco como positivo, cuánto era positivo' },
+      { value: 'Recall', label: 'de todos los positivos reales, cuántos encuentro' },
+      { value: 'F1', label: 'media armónica entre precision y recall' },
+      { value: 'Accuracy', label: 'aciertos totales, útil solo si el balance acompaña' },
+    ],
+    table: {
+      headers: ['Métrica', 'Fórmula', 'Cuándo importa', 'Ejemplo de decisión'],
+      rows: [
+        ['Precision', 'TP / (TP + FP)', 'Evitar falsas alarmas', 'Revisión manual cara: solo mandas casos con alta confianza'],
+        ['Recall', 'TP / (TP + FN)', 'No perder positivos relevantes', 'Fraude, salud o seguridad: prefieres revisar de más antes que dejar pasar'],
+        ['F1', '2PR / (P + R)', 'Balance entre precision y recall', 'Comparar modelos cuando FP y FN pesan parecido'],
+        ['Fβ', '(1 + β²) · P · R / (β² · P + R)', 'Dar más peso a recall si β > 1 o a precision si β < 1', 'F2 para no perder positivos; F0.5 para reducir falsas alarmas'],
+      ],
+    },
+    secondaryTables: [
+      {
+        headers: ['Ejemplo con 1000 casos', 'Valor'],
+        rows: [
+          ['Positivos reales', '50'],
+          ['El modelo marca positivos', '80'],
+          ['Verdaderos positivos (TP)', '40'],
+          ['Falsos positivos (FP)', '40'],
+          ['Falsos negativos (FN)', '10'],
+          ['Precision', '40 / (40 + 40) = 0.50'],
+          ['Recall', '40 / (40 + 10) = 0.80'],
+          ['F1', '2 · 0.50 · 0.80 / (0.50 + 0.80) = 0.62'],
+        ],
+      },
+    ],
+    callout: {
+      title: 'Umbral y producto',
+      text: 'Si subes el umbral, normalmente sube precision y baja recall: molestas menos, pero se escapan más casos. Si bajas el umbral, sube recall y baja precision: detectas más, pero generas más revisión o falsos bloqueos. La métrica correcta depende del coste real de actuar.',
+      icon: 'sliders-horizontal',
+    },
+    refs: [{ label: 'scikit-learn - Classification metrics', href: 'https://scikit-learn.org/stable/modules/model_evaluation.html#classification-metrics' }],
+  },
+  {
+    id: 'clustering-kmeans',
+    number: 25,
+    title: 'Clustering y k-means',
+    icon: 'scatter-chart',
+    lead: 'Clustering agrupa datos sin etiqueta. k-means busca k centroides y asigna cada punto al centro más cercano. La parte peligrosa no es ejecutar el algoritmo, sino interpretar los grupos como si fueran categorías naturales.',
+    bigIdea: 'k-means optimiza geometría, no significado. Si cambias escala, variables o k, puede cambiar la historia.',
+    flow: ['Elegir k', 'Inicializar centroides', 'Asignar puntos', 'Recalcular centroides', 'Repetir'],
+    metrics: [
+      { value: 'k', label: 'número de clusters elegido antes de entrenar' },
+      { value: 'μⱼ', label: 'centroide del cluster j' },
+      { value: 'inertia', label: 'suma de distancias cuadradas al centroide' },
+      { value: 'silhouette', label: 'separación y cohesión aproximadas' },
+    ],
+    cards: [
+      { icon: 'circle-dot', title: 'Centroide', text: 'Punto medio representativo de un cluster. No tiene por qué ser un caso real ni una persona “tipo”.' },
+      { icon: 'move-diagonal', title: 'Distancia', text: 'Normalmente euclídea; una feature con escala grande puede dominar toda la agrupación.' },
+      { icon: 'refresh-cw', title: 'Iteración', text: 'Alterna asignación y actualización hasta estabilizar. Distintas semillas pueden dar soluciones distintas.' },
+      { icon: 'help-circle', title: 'k', text: 'Número de grupos. No siempre viene dado por el dominio; elbow y silhouette ayudan, pero no sustituyen criterio.' },
+    ],
+    table: {
+      headers: ['Decisión', 'Pregunta que haces', 'Qué mirar'],
+      rows: [
+        ['Escalar features', '¿todas las variables tienen peso comparable?', 'standardization, robust scaling, unidades'],
+        ['Elegir k', '¿cuántos grupos son útiles y estables?', 'elbow, silhouette, estabilidad por semilla'],
+        ['Interpretar cluster', '¿qué lo diferencia realmente?', 'perfil de centroides, ejemplos cercanos, revisión de dominio'],
+        ['Usarlo en producto', '¿qué acción cambia por pertenecer al cluster?', 'lift, coste de error, fairness y monitorización'],
+      ],
+    },
+    refs: [{ label: 'scikit-learn - KMeans', href: 'https://scikit-learn.org/stable/modules/generated/sklearn.cluster.KMeans.html' }],
+  },
+  {
+    id: 'cuando-no-confiar-clusters',
+    number: 26,
+    title: 'Cuándo no confiar en clusters',
+    icon: 'alert-triangle',
+    lead: 'Un cluster no es una verdad del mundo. Es una partición inducida por features, escala, métrica y algoritmo. Puede ser una hipótesis útil, pero también una forma elegante de amplificar sesgos o artefactos.',
+    bigIdea: 'No confíes en un cluster hasta que sea estable, interpretable y útil para una decisión concreta.',
+    table: {
+      headers: ['Señal de alarma', 'Qué pasa', 'Qué hacer'],
+      rows: [
+        ['Features mal escaladas', 'Una variable domina la distancia', 'Normalizar, revisar unidades y justificar variables'],
+        ['k elegido por estética', 'Los grupos parecen bonitos pero no explican nada', 'Validar con dominio, estabilidad y métricas'],
+        ['Clusters no esféricos', 'k-means corta mal formas alargadas o densidades distintas', 'Probar DBSCAN, jerárquico o UMAP solo como exploración'],
+        ['Alta dimensión', 'Las distancias se vuelven menos informativas', 'Reducir dimensión con cuidado y revisar vecinos reales'],
+        ['Sesgo de muestreo', 'El cluster refleja cómo recogiste datos, no cómo es el mundo', 'Comparar contra población real y segmentos críticos'],
+        ['Interpretación causal', 'Se confunde grupo con causa', 'Usar clustering como hipótesis, no como sentencia'],
+      ],
+    },
+    secondaryTables: [
+      {
+        headers: ['Validación mínima', 'Pregunta'],
+        rows: [
+          ['Estabilidad', '¿aparece parecido si cambio seed, muestra o periodo?'],
+          ['Separación', '¿silhouette o métricas internas sugieren grupos distinguibles?'],
+          ['Interpretabilidad', '¿puedo describir el cluster con variables comprensibles?'],
+          ['Utilidad', '¿tomar una acción por cluster mejora una métrica real?'],
+          ['Riesgo', '¿el cluster introduce discriminación, exclusión o decisiones no explicables?'],
+        ],
+      },
+    ],
+    callout: { title: 'Qué debe saber', text: 'ML clásico te da vocabulario para medir. LLMs y agentes no eliminan validación, la hacen más necesaria.', icon: 'graduation-cap' },
+    refs: commonRefs,
+  },
+];
+---
+
+{slides.map((slide) => <StructuredSlide {...slide} />)}

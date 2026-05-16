@@ -1,0 +1,1131 @@
+---
+import Slide from './Slide.astro';
+
+interface Card {
+  icon?: string;
+  title: string;
+  text: string;
+  tag?: string;
+}
+
+interface TableData {
+  headers: string[];
+  rows: string[][];
+}
+
+interface RefLink {
+  label: string;
+  href: string;
+}
+
+interface AppliedLens {
+  theory: string;
+  formula: string;
+  example: string;
+  decision: string;
+}
+
+interface Props {
+  id: string;
+  number: number;
+  title: string;
+  icon?: string;
+  lead?: string;
+  teachingNotes?: string[];
+  bigIdea?: string;
+  flow?: string[];
+  cards?: Card[];
+  table?: TableData;
+  secondaryTables?: TableData[];
+  steps?: string[];
+  code?: string;
+  twoCols?: Card[];
+  metrics?: { value: string; label: string }[];
+  callout?: { title: string; text: string; icon?: string };
+  refs?: RefLink[];
+}
+
+const {
+  id,
+  number,
+  title,
+  icon = 'brain',
+  lead,
+  teachingNotes,
+  bigIdea,
+  flow,
+  cards,
+  table,
+  secondaryTables,
+  steps,
+  code,
+  twoCols,
+  metrics,
+  callout,
+  refs,
+} = Astro.props;
+
+const teachingNotesById: Record<string, string[]> = {
+  'ml-clasico-mapa': [
+    `Este mapa evita una confusión frecuente: machine learning no es una técnica única, sino una familia de problemas. Antes de elegir algoritmo hay que identificar qué señal tienes, qué salida esperas y cómo vas a medir si el sistema aprende algo útil fuera de los ejemplos vistos.`,
+  ],
+  'dataset-features-labels': [
+    `El dataset es la forma concreta en la que conviertes el mundo en datos. Si una fila, una columna o una etiqueta están mal definidas, el modelo optimiza una representación equivocada y puede dar métricas bonitas sin resolver el problema real.`,
+  ],
+  'supervisado-no-supervisado-refuerzo': [
+    `La señal de aprendizaje determina la estrategia. En supervisado comparas contra una respuesta esperada, en no supervisado buscas patrones sin una verdad etiquetada, y en refuerzo aprendes por consecuencias acumuladas de acciones.`,
+  ],
+  'clasificacion-vs-regresion': [
+    `La diferencia parece sencilla, pero cambia toda la evaluación. Una clase discreta se revisa con errores por categoría; un valor continuo se revisa por distancia, tolerancia y coste del error según el dominio.`,
+  ],
+  'validacion-generalizacion': [
+    `Validar es simular el futuro con honestidad. El modelo debe demostrar que funciona en datos que no ha usado para ajustar sus parámetros ni para que nosotros tomemos decisiones de diseño durante el entrenamiento.`,
+  ],
+  'overfitting-underfitting': [
+    `Un modelo demasiado simple no captura la señal; uno demasiado flexible puede memorizar ruido. El trabajo práctico consiste en encontrar el punto donde el error baja en datos nuevos, no solo en los datos que ya conoce.`,
+  ],
+  'matriz-confusion': [
+    `La matriz de confusión obliga a mirar errores concretos, no solo una nota final. Dos modelos con la misma accuracy pueden ser radicalmente distintos si uno falla en falsos positivos y otro en falsos negativos.`,
+  ],
+  'precision-recall-f1': [
+    `Estas métricas existen porque casi nunca todos los errores cuestan lo mismo. Precision castiga alarmas falsas, recall castiga casos perdidos y F1 resume el equilibrio cuando necesitas una sola cifra de lectura rápida.`,
+  ],
+  'clustering-kmeans': [
+    `Clustering no descubre categorías naturales por arte de magia. Construye grupos según la geometría que le des: variables, escala, distancia y número de clusters condicionan totalmente el resultado.`,
+  ],
+  'cuando-no-confiar-clusters': [
+    `Un cluster debe leerse como una hipótesis exploratoria. Sirve para preguntar mejor, segmentar provisionalmente o detectar anomalías, pero necesita validación de dominio antes de convertirse en regla de negocio.`,
+  ],
+
+  'busqueda-problema-estado': [
+    `Formular un problema como estados y acciones es una forma de quitar ambigüedad. En vez de pedir una respuesta genérica, defines dónde estás, qué movimientos son legales, cuánto cuestan y cómo sabes que has llegado a una solución.`,
+  ],
+  'busqueda-arbol-grafo': [
+    `El árbol de búsqueda puede tener muchos caminos que llegan al mismo estado. Por eso los algoritmos prácticos suelen recordar estados visitados: evita repetir trabajo y evita bucles que consumen memoria, tiempo o tokens sin avanzar.`,
+  ],
+  'busqueda-bfs': [
+    `BFS es fácil de razonar porque explora por capas. Su virtud es la garantía con costes uniformes; su problema es que la frontera crece rápido y puede hacerse inviable aunque conceptualmente sea muy ordenado.`,
+  ],
+  'busqueda-dfs': [
+    `DFS representa una estrategia opuesta: comprometerse con una rama y retroceder si falla. Es útil cuando la memoria manda, pero requiere límites o control de ciclos para no profundizar indefinidamente.`,
+  ],
+  'busqueda-coste-uniforme': [
+    `Contar pasos no siempre equivale a optimizar. Si una acción barata y una cara cuentan igual, BFS puede elegir mal; coste uniforme corrige esto priorizando el coste acumulado real del camino.`,
+  ],
+  'busqueda-greedy': [
+    `Greedy enseña una lección muy útil para agentes: lo que parece más cercano puede no ser lo mejor. Una heurística rápida acelera, pero si ignora obstáculos o restricciones puede llevar a soluciones convincentes y malas.`,
+  ],
+  'busqueda-a-star': [
+    `A* combina prudencia y orientación. No se limita a seguir la intuición de la heurística; también recuerda cuánto ha costado llegar hasta cada punto, por eso es un puente excelente entre teoría y planificación práctica.`,
+  ],
+  'busqueda-heuristicas': [
+    `Una heurística es conocimiento del dominio comprimido en una función. Puede hacer un problema resoluble o sesgarlo por completo; por eso se evalúa no solo por acierto, sino por coste, consistencia y alineación con el objetivo.`,
+  ],
+  'busqueda-agentes-llm': [
+    `Los agentes modernos también exploran un espacio de posibilidades, aunque ese espacio esté escrito en lenguaje natural. Cada tool call, lectura de archivo o intento de solución tiene coste y debería tratarse como parte de una búsqueda controlada.`,
+  ],
+  'busqueda-que-saber': [
+    `La utilidad de este bloque es práctica: cuando una tarea se atasca, pregúntate si faltan estado, acciones, coste o criterio de parada. Esa pregunta mejora tanto un algoritmo clásico como un workflow con LLM.`,
+  ],
+
+  'csp-sat-mapa': [
+    `SAT y CSP cambian el foco: no buscamos el texto más probable, buscamos una asignación válida. Son fundamentales para entender por qué muchos sistemas fiables combinan generación flexible con verificación determinista.`,
+  ],
+  'sat-booleana': [
+    `SAT trabaja con verdadero y falso, pero su importancia es enorme porque muchos problemas se pueden codificar en lógica booleana. Si existe una asignación que satisface todas las cláusulas, el solver la puede encontrar o demostrar que no existe.`,
+  ],
+  'csp-formalizacion': [
+    `Un CSP es una forma ordenada de describir decisiones compatibles entre sí. La clave pedagógica es separar variable, dominio y restricción; mezclarlas en lenguaje natural suele ocultar errores que luego aparecen en producción.`,
+  ],
+  'csp-ejemplos': [
+    `Estos problemas parecen administrativos, pero son IA clásica pura. Cuando hay recursos limitados, reglas de compatibilidad y muchas combinaciones, un solver o validador puede aportar garantías que un LLM no debería prometer solo con un prompt.`,
+  ],
+  'csp-propagacion': [
+    `Propagar restricciones significa deducir consecuencias antes de probar combinaciones. Es una idea potente: cuanto antes eliminas opciones imposibles, menos espacio exploras y más claro queda por qué una solución falla.`,
+  ],
+  'csp-backtracking': [
+    `Backtracking es ensayo y error disciplinado. No prueba al azar: elige una variable, comprueba consistencia y deshace decisiones cuando detecta contradicción, exactamente la clase de control que queremos en automatizaciones críticas.`,
+  ],
+  'csp-heuristicas': [
+    `Las heurísticas en CSP son estrategias para fallar pronto o preservar opciones. En problemas combinatorios, elegir bien el orden puede cambiar una ejecución imposible por una respuesta en segundos.`,
+  ],
+  'csp-llm-guardrails': [
+    `El prompt puede expresar intención, pero no debe ser la única frontera de seguridad. Las restricciones ejecutables convierten reglas de negocio, permisos y formatos en controles que se comprueban fuera del modelo.`,
+  ],
+  'csp-cuando-usar': [
+    `Cuando una salida debe cumplir reglas exactas, conviene separar generación y verificación. El LLM puede traducir preferencias, explicar decisiones o proponer candidatos; el solver o validador decide si algo es válido.`,
+  ],
+  'csp-que-saber': [
+    `El mensaje central es que precisión y creatividad viven en capas distintas. Un buen sistema usa el modelo para manejar ambigüedad y usa restricciones para impedir que esa ambigüedad rompa reglas duras.`,
+  ],
+
+  'planning-mapa': [
+    `La planificación formaliza algo que hacemos intuitivamente: pasar de un objetivo a una secuencia de acciones. La diferencia es que obliga a declarar qué debe ser cierto antes de actuar y qué cambia después.`,
+  ],
+  'planning-vocabulario': [
+    `Este vocabulario es la base para diseñar tools seguras. Si no sabes decir qué precondición necesita una acción y qué efecto produce, el agente puede ejecutar pasos plausibles pero inválidos.`,
+  ],
+  'planning-pddl': [
+    `PDDL es importante aunque no lo uses a diario porque muestra una separación mental muy sana: reglas generales del mundo por un lado, caso concreto por otro. Esa misma separación aparece en prompts, workflows y agentes robustos.`,
+  ],
+  'planning-domain-problem': [
+    `Separar dominio y problema evita rehacer conocimiento. Si el dominio describe cómo funcionan las acciones, puedes cambiar objetos, estado inicial u objetivo sin rediseñar toda la lógica.`,
+  ],
+  'planning-busqueda-heuristica': [
+    `Un planner puede verse como un buscador especializado. La dificultad no es solo encontrar una secuencia, sino no perderse entre miles de acciones posibles y estados intermedios irrelevantes.`,
+  ],
+  'planning-sat': [
+    `La planificación con SAT enseña que un mismo problema puede reformularse. En vez de caminar por estados, preguntas si existe un conjunto de acciones en un horizonte temporal que haga coherente toda la historia.`,
+  ],
+  'planning-agentes': [
+    `Los agentes LLM ganan flexibilidad porque entienden instrucciones abiertas, pero pierden garantías si no se valida su plan. Por eso los planes generados deben pasar por permisos, estado actualizado y checks antes de ejecutar.`,
+  ],
+  'planning-fallos': [
+    `Un fallo de planificación no siempre parece fallo: a veces suena razonable. La pedagogía aquí es entrenar el ojo para detectar recursos inexistentes, dependencias omitidas, acciones fuera de orden y bucles sin información nueva.`,
+  ],
+  'planning-mini-ejemplo': [
+    `Las tareas cotidianas son perfectas para practicar porque conocemos sus reglas implícitas. Al convertirlas en estado, acciones y guardrails se ve qué parte puede automatizarse y qué parte requiere confirmación humana.`,
+  ],
+  'planning-que-saber': [
+    `Saber planificación no significa escribir PDDL de memoria. Significa leer cualquier automatización y preguntar: cuál es el estado, qué acción es legal, qué efecto se espera y cómo se recupera si algo falla.`,
+  ],
+
+  'juegos-decision': [
+    `Los juegos introducen un elemento que no aparece en una ruta estática: otros actores responden. Esta idea se traslada a seguridad, fraude, mercados y cualquier producto donde los usuarios adapten su conducta al sistema.`,
+  ],
+  'juegos-minimax': [
+    `Minimax enseña a decidir suponiendo que el otro jugador también busca su mejor resultado. No es una receta para todo, pero sí un modelo mental para pensar en adversarios, trade-offs y consecuencias futuras.`,
+  ],
+  'juegos-alfa-beta': [
+    `La poda alfa-beta muestra que optimizar no siempre significa cambiar la respuesta; a veces significa llegar a la misma respuesta evitando trabajo inútil. Esa idea reaparece en caching, pruning y routing moderno.`,
+  ],
+  'juegos-evaluacion': [
+    `Cuando no puedes mirar hasta el final, necesitas evaluar estados intermedios. Esa función de evaluación concentra conocimiento del dominio, y sus sesgos se convierten directamente en malas decisiones.`,
+  ],
+  'juegos-monte-carlo': [
+    `Monte Carlo cambia exactitud por estimación controlada. En vez de recorrer todo el árbol, simula muchas trayectorias y usa la frecuencia de resultados para decidir con incertidumbre explícita.`,
+  ],
+  'juegos-mcts': [
+    `MCTS es útil porque no reparte el presupuesto de simulación por igual. Invierte más en ramas prometedoras sin dejar de explorar alternativas, equilibrando explotación y descubrimiento.`,
+  ],
+  'juegos-llm-simulacion': [
+    `Un LLM puede generar escenarios plausibles, pero plausibilidad no es muestreo estadístico. Para usarlo como simulador necesitas controlar prompts, temperatura, casos, jueces y contraste con datos reales.`,
+  ],
+  'juegos-adversarial': [
+    `Pensar adversarialmente evita diseñar solo para usuarios ideales. En IA aplicada siempre hay incentivos: alguien puede intentar manipular instrucciones, explotar herramientas o encontrar el borde de tus permisos.`,
+  ],
+  'juegos-rl-puente': [
+    `El puente con refuerzo está en valorar acciones por consecuencias futuras. Esta mirada ayuda a entender desde juegos hasta RLHF: no se optimiza solo una respuesta, se optimiza comportamiento bajo una señal de recompensa.`,
+  ],
+  'juegos-que-saber': [
+    `El bloque de juegos aporta intuiciones sobre decisión bajo oposición e incertidumbre. No es necesario dominar teoría de juegos, pero sí reconocer cuándo una solución debe considerar reacción, simulación y coste futuro.`,
+  ],
+
+  'conocimiento-simbolico-mapa': [
+    `El conocimiento simbólico intenta que el significado sea explícito y manipulable. En lugar de confiar en parecido estadístico, declara entidades, relaciones y reglas que pueden consultarse, validarse y explicar conclusiones.`,
+  ],
+  'rdf-tripletas': [
+    `RDF parece minimalista porque todo se reduce a sujeto, predicado y objeto. Esa simplicidad es precisamente su fuerza: permite combinar muchas fuentes en un grafo común si se cuidan identificadores y vocabularios.`,
+  ],
+  'rdfs-owl': [
+    `RDFS y OWL añaden semántica al grafo. No solo dicen que dos nodos están conectados; permiten declarar clases, jerarquías y restricciones para que un reasoner derive consecuencias que no estaban escritas literalmente.`,
+  ],
+  'sparql-consulta': [
+    `SPARQL no intenta adivinar intención por similitud, sino encontrar patrones estructurados. Es potente cuando la pregunta depende de relaciones exactas y quieres una respuesta trazable, no solo fragmentos relevantes.`,
+  ],
+  'ontologia': [
+    `Una ontología es un contrato conceptual del dominio. Reduce ambigüedad entre equipos, permite validaciones y facilita que los sistemas distingan entre términos parecidos que en negocio significan cosas distintas.`,
+  ],
+  'linked-data': [
+    `Linked Data lleva esa idea a la web: recursos identificables, enlazables y reutilizables. Su valor aparece cuando distintas fuentes pueden hablar de la misma entidad sin depender de copias sueltas o nombres ambiguos.`,
+  ],
+  'sistemas-expertos': [
+    `Los sistemas expertos recuerdan que antes de los LLMs ya existía IA explicable basada en reglas. Su límite era capturar y mantener conocimiento; su lección moderna es que las reglas siguen siendo valiosas cuando necesitas trazabilidad.`,
+  ],
+  'simbolico-vs-neuronal': [
+    `La comparación no busca declarar un ganador. Los sistemas fiables suelen combinar lo neuronal para interpretar y generar, y lo simbólico para restringir, consultar, auditar y explicar.`,
+  ],
+  'kg-vs-vector-store-preview': [
+    `Un vector store responde por proximidad; un knowledge graph responde por relación. Entender esa diferencia evita vender RAG como si fuera una base de conocimiento formal y evita usar grafos cuando basta recuperar texto.`,
+  ],
+  'conocimiento-que-saber': [
+    `Este bloque prepara el terreno para GraphRAG y RAG híbrido. Si entiendes tripletas, ontologías y consultas exactas, puedes decidir cuándo un embedding se queda corto y cuándo merece modelar relaciones.`,
+  ],
+  'recap-ia-clasica-aplicada': [
+    `La IA clásica aporta lenguaje de ingeniería: estado, coste, restricción, plan, adversario, regla e inferencia. Ese lenguaje hace que los sistemas con LLM sean menos místicos y más diseñables.`,
+  ],
+
+  'rag-no-es-ontologia': [
+    `RAG y ontologías resuelven problemas diferentes. RAG mejora la respuesta de un modelo aportando documentos relevantes; una ontología define qué conceptos existen, cómo se relacionan y qué reglas del dominio son válidas.`,
+  ],
+  'vector-store-lectura-correcta': [
+    `Una base vectorial es una pieza de recuperación, no una fuente de verdad completa. Su calidad depende del chunking, del modelo de embeddings, de los filtros, del reranking y de si los fragmentos contienen evidencia suficiente.`,
+  ],
+  'knowledge-graph-lectura-correcta': [
+    `Un knowledge graph da identidad y relación estable a las entidades. Es especialmente útil cuando necesitas seguir cadenas de dependencia, permisos, propiedad, causalidad declarada o auditoría de por qué algo se conecta con otra cosa.`,
+  ],
+  'rdf-owl-sparql-vs-embeddings': [
+    `Los embeddings toleran lenguaje ambiguo y paráfrasis; RDF, OWL y SPARQL exigen estructura. El diseño correcto empieza preguntando si el usuario necesita parecido textual o una relación exacta verificable.`,
+  ],
+  'graphrag-como-puente': [
+    `GraphRAG intenta combinar ambos mundos: extrae estructura de documentos y la usa para recuperar contexto más global. Pero esa estructura hereda errores de extracción, por lo que necesita evaluación y mantenimiento.`,
+  ],
+  'cuando-vectorial': [
+    `El retrieval vectorial suele ser la primera opción para documentación, tickets o correos porque el lenguaje real es desordenado. Funciona bien cuando la pregunta puede formularse de muchas formas y la evidencia vive en texto largo.`,
+  ],
+  'cuando-grafo-semantico': [
+    `El grafo semántico merece la pena cuando las relaciones son parte del producto. Si preguntas por dependencias, cumplimiento, trazabilidad o reglas, la estructura explícita ofrece garantías que un ranking vectorial no da por sí solo.`,
+  ],
+  'cuando-hibrido': [
+    `Lo híbrido no significa complicar por gusto. Significa usar cada señal donde aporta: keywords para términos exactos, embeddings para significado, grafos para relaciones y reglas para validar.`,
+  ],
+  'errores-rag-kg': [
+    `Mezclar técnicas aumenta superficie de fallo. Puedes recuperar la entidad correcta pero el chunk equivocado, tener relaciones antiguas o dejar que el LLM rellene huecos con inferencias no soportadas.`,
+  ],
+  'rag-kg-que-saber': [
+    `La pregunta práctica es qué garantía necesitas. Si basta encontrar texto parecido, vectorial; si necesitas relación exacta, grafo; si necesitas explicación con evidencia, RAG evaluado; si necesitas reglas, validación simbólica.`,
+  ],
+
+  'agente-clasico-vs-moderno': [
+    `La comparación permite separar moda de arquitectura. Un agente moderno no es solo un chat largo: necesita percepción, estado, acciones, restricciones y evaluación, aunque esas piezas se implementen con LLMs y tools.`,
+  ],
+  'agente-percepcion-accion': [
+    `El bucle percepción-acción sigue siendo la unidad mínima. Cada observación cambia lo que el agente sabe, y cada acción debe producir una nueva evidencia que permita decidir si avanzar, corregir o detenerse.`,
+  ],
+  'agente-reactivo-deliberativo': [
+    `No todas las tareas justifican autonomía compleja. Un clasificador reactivo puede ser mejor para decisiones simples; un agente deliberativo tiene sentido cuando hay dependencias, incertidumbre y pasos que se validan durante la marcha.`,
+  ],
+  'estado-vs-contexto': [
+    `El contexto textual es cómodo, pero no sustituye a estado controlado. Cuando algo importa para permisos, progreso o auditoría, conviene guardarlo en una estructura verificable y no confiar en que el modelo lo recuerde.`,
+  ],
+  'acciones-tools': [
+    `Una tool mal definida convierte al agente en operador de una caja negra. El contrato de la tool debe decir qué recibe, qué permite, qué cambia y cómo se recupera de errores.`,
+  ],
+  'precondiciones-efectos-schemas': [
+    `Schemas y precondiciones son la traducción moderna de planificación clásica. Antes de ejecutar, comprueban si la acción tiene sentido; después, registran efectos para que el siguiente paso parta de estado real.`,
+  ],
+  'planner-vs-llm-razonador': [
+    `El LLM es excelente proponiendo pasos en lenguaje natural, pero no demuestra por sí solo que el plan sea factible. La robustez aparece al combinar propuesta flexible con comprobaciones explícitas.`,
+  ],
+  'heuristica-routing-evals': [
+    `Las heurísticas modernas son decisiones de ingeniería: modelo barato o caro, tool local o remota, parada automática o aprobación humana. Sin evals, esas decisiones se toman por intuición y se degradan sin que nadie lo vea.`,
+  ],
+  'motor-inferencia-llm-rag-reglas': [
+    `En producción, razonar es coordinar capas. El LLM interpreta, el retrieval aporta evidencia, las reglas fijan límites, las tools cambian el mundo y las trazas permiten revisar qué ocurrió.`,
+  ],
+  'agente-clasico-moderno-que-saber': [
+    `La idea final es diseñar agentes con vocabulario clásico y herramientas modernas. Eso reduce humo: menos promesas de autonomía y más contratos, permisos, validadores, memoria explícita y medición.`,
+  ],
+
+  'lab-principios': [
+    `Un laboratorio debe terminar con algo que otra persona pueda ejecutar y criticar. La práctica no está completa hasta que deja claro qué se probó, con qué datos, qué métrica salió y qué decisión permite tomar.`,
+  ],
+  'lab-a-star': [
+    `Este lab enseña a pasar de una historia a una formulación. El valor no está solo en obtener el camino final, sino en justificar estado, acciones, costes y heurística para que la solución sea revisable.`,
+  ],
+  'lab-mini-planner': [
+    `El mini planner entrena la habilidad más útil para agentes: convertir instrucciones vagas en pasos ejecutables. Si no puedes escribir precondiciones y efectos, probablemente tampoco puedes automatizar la tarea con seguridad.`,
+  ],
+  'lab-planner-vs-llm': [
+    `La comparación muestra dónde brilla el LLM y dónde necesita barandillas. Un plan textual puede ser creativo y útil, pero el modelo formal revela omisiones, dependencias y permisos que el texto puede saltarse.`,
+  ],
+  'lab-clasificador-sklearn': [
+    `Este ejercicio baja el machine learning a tierra. El objetivo no es usar el modelo más potente, sino recorrer el ciclo mínimo: separar datos, entrenar, predecir, medir y explicar errores.`,
+  ],
+  'lab-matriz-confusion': [
+    `Interpretar errores es más importante que celebrar una métrica. La matriz obliga a decidir qué fallo duele más y qué cambio harías después: datos, features, umbral, modelo o definición del problema.`,
+  ],
+  'lab-kmeans-visual': [
+    `La visualización ayuda a ver que los clusters dependen de decisiones previas. Cambiar escala, k o variables puede cambiar la historia que cuentas, así que el lab debe incluir sensibilidad y no solo una imagen bonita.`,
+  ],
+  'lab-ontologia-sparql': [
+    `Crear una ontología pequeña obliga a nombrar conceptos y relaciones con precisión. SPARQL después comprueba si ese modelo responde preguntas exactas, algo que una búsqueda vectorial no garantiza.`,
+  ],
+  'lab-vector-vs-sparql': [
+    `Resolver la misma pregunta con dos enfoques hace visible la diferencia entre parecido y estructura. Esa comparación es clave para elegir arquitecturas RAG, GraphRAG o híbridas con criterio.`,
+  ],
+  'lab-reglas-rag-agente': [
+    `Este lab evita la trampa del martillo único. La misma tarea puede resolverse con reglas, RAG o agente, pero cada enfoque cambia cobertura, coste, riesgo, mantenibilidad y forma de evaluar.`,
+  ],
+  'lab-entregable-notebook-produccion': [
+    `El salto a producción consiste en quitar manualidad y azar. Un notebook valioso debe convertirse en script reproducible, dependencias fijadas, prompts versionados, tests y una eval que bloquee regresiones.`,
+  ],
+  'lab-rubrica': [
+    `La rúbrica convierte el aprendizaje en evidencia. Si alguien puede reproducir tus resultados, ver tus errores y entender por qué decides seguir o parar, el laboratorio ya enseña ingeniería y no solo uso de herramientas.`,
+  ],
+};
+
+const appliedLensById: Record<string, AppliedLens> = {
+  'ml-clasico-mapa': {
+    theory: 'Primero se decide la señal de aprendizaje: etiqueta, estructura o recompensa. El algoritmo viene después.',
+    formula: 'Problema supervisado: aprende f(x) -> y minimizando una pérdida L(y, f(x)).',
+    example: 'Un ticket puede ser clase, prioridad, tiempo estimado o acción recomendada: son problemas distintos aunque usen el mismo texto.',
+    decision: 'Antes de entrenar, escribe salida esperada, métrica, baseline y coste de equivocarte.',
+  },
+  'dataset-features-labels': {
+    theory: 'La representación define lo que el modelo puede aprender. Una feature ausente no se compensa con un algoritmo elegante.',
+    formula: 'Dataset típico: X matriz de features, y vector de targets; predicción: y_hat = f(X).',
+    example: 'Para fraude, importe y país ayudan; una columna creada después de revisar el fraude sería leakage.',
+    decision: 'Audita cada feature preguntando: existe en el momento de predecir, es estable y es legal usarla.',
+  },
+  'supervisado-no-supervisado-refuerzo': {
+    theory: 'La diferencia real es quién da feedback: label inmediato, ninguna label, o recompensa retrasada.',
+    formula: 'Supervisado: min L(y, y_hat). RL: maximizar retorno G_t = suma gamma^k r_{t+k+1}.',
+    example: 'Clasificar tickets usa labels; segmentar tickets usa estructura; decidir el siguiente paso de soporte usa recompensa o política.',
+    decision: 'Si no puedes nombrar la señal de aprendizaje, todavía no elijas arquitectura.',
+  },
+  'clasificacion-vs-regresion': {
+    theory: 'Cambiar el tipo de salida cambia la pérdida, las métricas y el umbral de actuación.',
+    formula: 'Clasificación: p(y=c|x). Regresión: error = y - y_hat, MAE = mean(|error|).',
+    example: 'Riesgo de churn como probabilidad sirve para priorizar; días hasta baja requiere regresión o supervivencia.',
+    decision: 'Elige la formulación que preserve la decisión real, no la que produzca la demo más cómoda.',
+  },
+  'validacion-generalizacion': {
+    theory: 'La validación estima futuro con datos que no han guiado el entrenamiento ni las decisiones de diseño.',
+    formula: 'Gap de generalización = error_test - error_train; si crece, algo no traslada bien.',
+    example: 'Un modelo de demanda entrenado con Black Friday puede fallar si validas aleatoriamente y mezclas fechas.',
+    decision: 'Define el split como se usará en producción: por tiempo, usuario, cliente o entidad cuando toque.',
+  },
+  'overfitting-underfitting': {
+    theory: 'Bias y variance explican si fallas por modelo pobre o por sensibilidad excesiva al dataset.',
+    formula: 'Riesgo esperado = ruido irreducible + bias^2 + variance.',
+    example: 'Un árbol profundo memoriza excepciones; una regla lineal puede no capturar una frontera claramente curva.',
+    decision: 'Mira train y validación juntos: una sola métrica no diagnostica el fallo.',
+  },
+  'matriz-confusion': {
+    theory: 'La matriz traduce errores estadísticos en consecuencias: bloquear, dejar pasar, revisar o escalar.',
+    formula: 'Accuracy=(TP+TN)/N; recall=TP/(TP+FN); specificity=TN/(TN+FP).',
+    example: 'En fraude, bajar FN puede subir FP: detectas más fraude, pero bloqueas más compras buenas.',
+    decision: 'Asigna coste a FP y FN antes de elegir umbral o declarar ganador.',
+  },
+  'precision-recall-f1': {
+    theory: 'Precision mide contaminación de positivos; recall mide cobertura de positivos reales.',
+    formula: 'F1 = 2PR/(P+R); F_beta pondera recall si beta > 1 y precision si beta < 1.',
+    example: 'Un detector médico suele aceptar menos precision para no perder casos; un sistema de bloqueo puede exigir alta precision.',
+    decision: 'Mueve el umbral con una curva precision-recall y elige según coste operativo.',
+  },
+  'clustering-kmeans': {
+    theory: 'k-means no descubre verdades: minimiza distancia a centroides bajo una geometría concreta.',
+    formula: 'Objetivo: minimizar suma ||x_i - mu_{c_i}||^2 dentro de cada cluster.',
+    example: 'Si ingresos está en miles y edad en decenas, ingresos dominará la distancia salvo que escales.',
+    decision: 'Normaliza, prueba varios k, varias semillas y valida si los grupos son útiles fuera del gráfico.',
+  },
+  'csp-sat-mapa': {
+    theory: 'SAT y CSP tratan la IA como búsqueda de una configuración válida bajo reglas explícitas, no como generación probable.',
+    formula: 'SAT: existe una asignación que satisface una fórmula booleana. CSP = (X,D,C): variables, dominios y restricciones.',
+    example: 'Un horario válido asigna aula, profesor y hora sin solapes, disponibilidad rota ni reglas incumplidas.',
+    decision: 'Usa LLM para traducir preferencias ambiguas; usa solver o validador para decidir si la solución es aceptable.',
+  },
+  'sat-booleana': {
+    theory: 'SAT reduce un problema a variables verdadero/falso y cláusulas. La salida no es una opinión: es SAT con modelo o UNSAT bajo la codificación.',
+    formula: 'CNF = conjunción de cláusulas; cláusula = disyunción de literales. Ejemplo: (A OR B) AND (NOT A OR C).',
+    example: 'Si A=true, B=false, C=true, la fórmula anterior se satisface; A AND NOT A es imposible.',
+    decision: 'Cuando una regla debe cumplirse siempre, codifícala y verifícala en vez de pedir al modelo que “tenga cuidado”.',
+  },
+  'csp-formalizacion': {
+    theory: 'Un CSP modela decisiones finitas. Resolverlo consiste en asignar valores a variables manteniendo consistencia con todas las restricciones.',
+    formula: 'X={X1..Xn}; Di dominio de Xi; Cj restringe combinaciones. Solución: asignación completa a tal que cumple todo Cj.',
+    example: 'Turnos: variable=turno de Ana; dominio={mañana,tarde,noche}; restricción=Ana no puede hacer noche dos días seguidos.',
+    decision: 'Antes de resolver, revisa si cada regla es dura, blanda, local, global, comprobable y actualizable.',
+  },
+  'csp-heuristicas': {
+    theory: 'Las heurísticas no cambian las soluciones válidas; cambian el orden de búsqueda para detectar contradicciones antes.',
+    formula: 'Backtracking sin guía puede explorar producto |D_i|; MRV elige argmin |D_i restante| y LCV minimiza poda futura.',
+    example: 'En turnos, asignar primero a quien solo puede trabajar un día evita construir calendarios que fallarán al final.',
+    decision: 'Ordena variables por riesgo de bloqueo y valores por flexibilidad restante antes de probar fuerza bruta.',
+  },
+  'csp-llm-guardrails': {
+    theory: 'Un guardrail robusto separa intención lingüística de control ejecutable: el modelo propone, otra capa verifica.',
+    formula: 'Ejecutar solo si schema(args) AND permiso(user,action) AND politica(state,args) AND invariantes(output).',
+    example: 'El LLM puede sugerir “reembolsa al cliente”; el sistema debe comprobar importe, rol, estado del pedido y límites antes de llamar a la tool.',
+    decision: 'Todo lo irreversible, caro, sensible o regulado debe pasar por controles fuera del prompt.',
+  },
+  'csp-cuando-usar': {
+    theory: 'La elección no es LLM contra solver: es lenguaje para ambigüedad, validador para reglas y solver para encontrar soluciones factibles.',
+    formula: 'Patrón robusto: candidato = LLM(input); aceptar solo si V(candidato, estado)=true. Optimización: min coste(x) sujeto a C(x).',
+    example: 'Un configurador puede usar LLM para explicar planes, pero un validador debe impedir descuentos incompatibles o add-ons prohibidos.',
+    decision: 'Si una salida inválida cuesta dinero, riesgo legal, seguridad o pérdida de confianza, no la dejes solo en manos del prompt.',
+  },
+  'csp-que-saber': {
+    theory: 'El bloque de restricciones enseña a separar generación, búsqueda y verificación. Esa separación es una base de sistemas fiables con LLMs.',
+    formula: 'SAT: SAT/UNSAT. CSP: (X,D,C). Guardrail: aceptar salida solo si cumple schema, permisos, políticas e invariantes.',
+    example: 'Un agente puede proponer un calendario, una configuración o un reembolso; las restricciones deciden si eso puede ejecutarse.',
+    decision: 'Cuando una regla sea dura, conviértela en código, solver, política o test; no la dejes solo como frase en el prompt.',
+  },
+  'planning-mapa': {
+    theory: 'Planificar es buscar una secuencia de acciones que cambia el mundo desde un estado inicial hasta un objetivo.',
+    formula: 'Plan pi=[a1..ak]; aplicar result(...result(s0,a1),ak) debe satisfacer goal.',
+    example: 'Preparar una release: tests verdes, changelog, tag, build, despliegue y verificación posterior.',
+    decision: 'Antes de ejecutar, declara estado inicial, objetivo, acciones legales, precondiciones, efectos y criterio de parada.',
+  },
+  'planning-vocabulario': {
+    theory: 'El vocabulario de planning convierte intención en condiciones verificables: hechos, acciones, precondiciones y efectos.',
+    formula: 'Acción a es aplicable si pre(a) se cumple; después se aplican add(a) y delete(a).',
+    example: 'No puedes “enviar factura” si faltan datos fiscales; validar la factura cambia el estado y habilita enviar.',
+    decision: 'Si una tool no tiene precondiciones y efectos claros, todavía no está lista para un agente fiable.',
+  },
+  'planning-pddl': {
+    theory: 'PDDL obliga a separar reglas generales del mundo y caso concreto. Esa separación evita prompts monolíticos imposibles de auditar.',
+    formula: 'Dominio = tipos + predicados + acciones. Problema = objetos + init + goal.',
+    example: 'La acción pick-up sirve para muchos objetos; el problema decide qué robot, sala y objeto existen hoy.',
+    decision: 'Usa PDDL como modelo mental aunque no uses PDDL en producción: separa contrato de acción y estado del caso.',
+  },
+  'planning-domain-problem': {
+    theory: 'Dominio y problema separan conocimiento reutilizable de instancia concreta.',
+    formula: 'domain describe operadores; problem instancia objetos, estado inicial y objetivo.',
+    example: 'El dominio “logística” sabe mover paquetes; el problema dice qué paquetes, ciudades y camiones hay ahora.',
+    decision: 'No dupliques reglas en cada workflow: modela acciones comunes y cambia solo el estado y objetivo.',
+  },
+  'planning-busqueda-heuristica': {
+    theory: 'Planificar puede verse como búsqueda en estados, pero las heurísticas deciden qué caminos merecen presupuesto.',
+    formula: 'Nodo = conjunto de hechos; sucesor = aplicar acción válida; h(s) estima distancia al goal.',
+    example: 'Un planner de despliegue prioriza acciones que desbloquean dependencias en vez de pasos decorativos.',
+    decision: 'Si el espacio de acciones crece, necesitas heurística, límites y trazas; no basta “razonar más”.',
+  },
+  'planning-sat': {
+    theory: 'Planning con SAT codifica acciones, estados y transiciones por pasos temporales y pregunta si existe un plan de longitud k.',
+    formula: 'Variables: accion(a,t), hecho(p,t). Restricciones: precondiciones, efectos, exclusión y goal en t=k.',
+    example: 'Si no hay plan con k=3, pruebas k=4; si aparece modelo SAT, sus acciones forman el plan.',
+    decision: 'Úsalo cuando necesites una prueba clara de factibilidad bajo un horizonte y reglas exactas.',
+  },
+  'planning-agentes': {
+    theory: 'Un agente LLM planifica en lenguaje natural, pero el plan solo es ejecutable si sus pasos pasan estado, permisos y validación.',
+    formula: 'Propuesta LLM -> validar precondiciones -> ejecutar tool -> observar efecto -> actualizar estado.',
+    example: 'Un agente de código no debe “asumir tests verdes”: debe ejecutarlos y registrar el resultado.',
+    decision: 'Combina flexibilidad del LLM con checks formales antes de cada acción que cambie el mundo.',
+  },
+  'planning-fallos': {
+    theory: 'Los fallos de planning suelen sonar razonables: recurso inexistente, orden incorrecto, estado oculto o bucle sin información.',
+    formula: 'Fallo típico: pre(a)=false, efecto no observado, goal ambiguo o loop sin nueva evidencia.',
+    example: 'Enviar email antes de confirmar destinatario puede parecer un paso natural y ser un incidente.',
+    decision: 'Añade validación antes/después, límites de reintento y rollback o escalado humano.',
+  },
+  'planning-mini-ejemplo': {
+    theory: 'Un ejemplo pequeño muestra que automatizar no es listar pasos: es modelar estado, permisos y efectos.',
+    formula: 'Estado inicial + acciones aplicables + goal + guardrails = workflow ejecutable.',
+    example: 'Factura: completar datos, validar importe, pedir aprobación si supera umbral y enviar al email confirmado.',
+    decision: 'Convierte tareas cotidianas en planning antes de darles autonomía a tools o agentes.',
+  },
+  'planning-que-saber': {
+    theory: 'Saber planificación significa reconocer acciones ejecutables y no confundir un plan textual con un plan válido.',
+    formula: 'Plan válido = secuencia de acciones aplicables que transforma s0 en un estado que satisface goal.',
+    example: 'Un plan de migración debe declarar dependencias, checks, efectos y rollback, no solo pasos bonitos.',
+    decision: 'Evalúa agentes por planes ejecutables y verificados, no por razonamientos que suenan completos.',
+  },
+  'juegos-decision': {
+    theory: 'Los juegos modelan decisiones donde otros actores reaccionan. Esto introduce estrategia, incentivos y comportamiento adversarial.',
+    formula: 'Juego = estados, acciones, jugadores, transición, utilidad e información disponible.',
+    example: 'Un sistema antifraude cambia el comportamiento del atacante cuando empieza a bloquear patrones.',
+    decision: 'Si alguien puede adaptarse a tu sistema, evalúa reacción y abuso, no solo el caso cooperativo.',
+  },
+  'juegos-minimax': {
+    theory: 'Minimax decide suponiendo que el rival elegirá la respuesta que peor deja a MAX.',
+    formula: 'V(s)=max_a min_b V(result(s,a,b)) en juegos de suma cero y turnos alternos.',
+    example: 'En ajedrez, una jugada brillante no sirve si permite una respuesta forzada ganadora del rival.',
+    decision: 'Úsalo como modelo mental para riesgo adversarial: pregunta siempre qué haría el otro si ve tu jugada.',
+  },
+  'juegos-alfa-beta': {
+    theory: 'La poda alfa-beta conserva la decisión de minimax, pero evita explorar ramas que ya no pueden cambiar el resultado.',
+    formula: 'Alpha = mejor opción de MAX; beta = mejor opción de MIN; si alpha >= beta, poda.',
+    example: 'Si ya tienes una alternativa segura, no gastes tiempo evaluando una rama que el rival nunca permitiría.',
+    decision: 'Ordenar bien candidatos puede ahorrar enorme coste sin cambiar la respuesta final.',
+  },
+  'juegos-evaluacion': {
+    theory: 'Cuando no puedes explorar hasta terminales, una función de evaluación aproxima el valor de estados intermedios.',
+    formula: 'Eval(s)=w1*f1(s)+...+wn*fn(s), o una red/modelo que estima valor.',
+    example: 'En ajedrez: material, seguridad del rey, movilidad y estructura de peones aproximan ventaja.',
+    decision: 'Audita qué premia tu función: una heurística mal diseñada optimiza comportamientos equivocados.',
+  },
+  'juegos-monte-carlo': {
+    theory: 'Monte Carlo estima valor simulando trayectorias. Cambia búsqueda exacta por muestreo controlado.',
+    formula: 'Valor estimado = media de retornos simulados; el error baja aproximadamente con 1/sqrt(n).',
+    example: 'Simular muchas partidas aleatorias da una señal de qué movimiento tiende a terminar mejor.',
+    decision: 'Úsalo cuando el espacio sea grande y puedas aceptar estimación con incertidumbre explícita.',
+  },
+  'juegos-mcts': {
+    theory: 'MCTS reparte simulaciones entre explorar opciones nuevas y explotar las que parecen prometedoras.',
+    formula: 'UCT suele combinar valor medio + c*sqrt(ln(N)/n) para balancear exploración.',
+    example: 'AlphaGo popularizó esta idea: no mirar todo, sino invertir presupuesto donde más aprende.',
+    decision: 'Diseña presupuestos, criterio de parada y métrica de valor antes de confiar en simulaciones.',
+  },
+  'juegos-llm-simulacion': {
+    theory: 'Un LLM puede producir escenarios plausibles, pero plausibilidad lingüística no equivale a muestra estadística.',
+    formula: 'Simulación fiable requiere distribución definida, control de aleatoriedad, n suficiente y validación externa.',
+    example: 'Pedir “simula usuarios” puede revelar ideas, pero no estima conversión real sin datos y eval.',
+    decision: 'Usa LLMs para generar hipótesis; usa datos, experimentos o simuladores formales para evidencia.',
+  },
+  'juegos-adversarial': {
+    theory: 'La decisión adversarial asume que alguien optimiza contra tus reglas, filtros o incentivos.',
+    formula: 'Riesgo = capacidad del atacante * incentivo * superficie de acción * falta de controles.',
+    example: 'Prompt injection, fraude y spam mejoran justo cuando el sistema defensivo se vuelve predecible.',
+    decision: 'Incluye red teaming, límites, permisos y monitorización; no diseñes solo para usuarios ideales.',
+  },
+  'juegos-rl-puente': {
+    theory: 'El puente con RL está en valorar acciones por consecuencias futuras, no solo por recompensa inmediata.',
+    formula: 'Retorno G_t = r_{t+1}+gamma*r_{t+2}+...; política pi(a|s) elige acciones.',
+    example: 'Un agente de soporte puede evitar una acción rápida si empeora satisfacción o coste futuro.',
+    decision: 'Define bien recompensa, horizonte y efectos secundarios antes de optimizar comportamiento.',
+  },
+  'juegos-que-saber': {
+    theory: 'Juegos y simulación enseñan a pensar en adversarios, incertidumbre, presupuesto de búsqueda y valor futuro.',
+    formula: 'Minimax para rival racional; Monte Carlo/MCTS para estimación; eval(s) cuando no puedes mirar todo.',
+    example: 'Seguridad, pricing, fraude y agentes con tools son productos donde otros actores reaccionan.',
+    decision: 'Pregunta siempre: quién puede reaccionar, qué incentivo tiene y cómo medirás daño o mejora.',
+  },
+  'conocimiento-simbolico-mapa': {
+    theory: 'El conocimiento simbólico representa explícitamente entidades, relaciones, clases y reglas para consultar y razonar.',
+    formula: 'Hechos + reglas + motor de inferencia -> conclusiones trazables.',
+    example: 'cliente compra producto, producto requiere permiso, permiso caduca en fecha: todo queda consultable.',
+    decision: 'Haz explícito lo que necesites auditar, explicar o validar; no todo debe vivir como embedding.',
+  },
+  'rdf-tripletas': {
+    theory: 'RDF reduce conocimiento a tripletas enlazables. Su fuerza está en identidad estable y composición.',
+    formula: '<sujeto> <predicado> <objeto>; muchas tripletas forman un grafo dirigido etiquetado.',
+    example: 'paciente:123 tieneSintoma sintoma:Tos es una relación consultable, no texto parecido.',
+    decision: 'Cuida URIs y vocabulario: sin identidad estable, el grafo se llena de duplicados ambiguos.',
+  },
+  'rdfs-owl': {
+    theory: 'RDFS y OWL añaden significado formal: clases, subclases, dominios, rangos, equivalencias y restricciones.',
+    formula: 'Si A subClassOf B y x type A, un reasoner puede inferir x type B.',
+    example: 'Si Factura es DocumentoFiscal, las reglas sobre documentos fiscales aplican también a facturas.',
+    decision: 'Añade semántica cuando la inferencia y validación valgan el coste de modelado.',
+  },
+  'sparql-consulta': {
+    theory: 'SPARQL consulta patrones exactos en el grafo; no ordena por parecido semántico.',
+    formula: 'SELECT ?x WHERE { ?x :relacion ?y . FILTER(...) }',
+    example: '“Medicamentos que alivian síntoma X” se expresa como relación, no como búsqueda difusa.',
+    decision: 'Usa SPARQL cuando necesites respuestas trazables sobre relaciones explícitas.',
+  },
+  'ontologia': {
+    theory: 'Una ontología es un contrato conceptual del dominio: qué cosas existen, cómo se nombran y qué relaciones son válidas.',
+    formula: 'Ontología = clases + propiedades + restricciones + axiomas + ejemplos de individuos.',
+    example: '“Usuario”, “cliente” y “cuenta” pueden ser entidades distintas aunque en conversación se mezclen.',
+    decision: 'Construye ontología cuando la ambigüedad cause errores de negocio, integración o cumplimiento.',
+  },
+  'linked-data': {
+    theory: 'Linked Data busca que datos de distintas fuentes se enlacen mediante identificadores web y estándares comunes.',
+    formula: 'URI estable + HTTP + RDF + enlaces externos = grafo interoperable.',
+    example: 'Un proveedor puede enlazarse con contratos internos, catálogos y registros públicos.',
+    decision: 'Invierte en identificadores estables antes de intentar integrar conocimiento entre sistemas.',
+  },
+  'sistemas-expertos': {
+    theory: 'Los sistemas expertos separan conocimiento del motor que lo aplica, y producen explicaciones basadas en reglas.',
+    formula: 'IF condiciones THEN conclusión; el motor encadena reglas sobre hechos.',
+    example: 'Si fiebre alta y marcador X, recomendar prueba Y bajo una regla revisada por experto.',
+    decision: 'Usa reglas cuando necesites trazabilidad, consistencia y responsabilidad de dominio.',
+  },
+  'simbolico-vs-neuronal': {
+    theory: 'Lo simbólico aporta estructura y garantías; lo neuronal aporta flexibilidad y generalización estadística.',
+    formula: 'Sistema robusto = LLM para interpretar/generar + simbólico para validar/consultar/auditar.',
+    example: 'Un asistente legal puede resumir lenguaje natural, pero reglas y citas limitan lo que puede afirmar.',
+    decision: 'Pon cada garantía en la capa adecuada: no pidas trazabilidad formal a un embedding.',
+  },
+  'kg-vs-vector-store-preview': {
+    theory: 'Un vector store recupera por proximidad; un knowledge graph recupera por identidad y relación.',
+    formula: 'Vector: top-k por similitud. KG: caminos y patrones sobre nodos/aristas tipadas.',
+    example: '“Docs parecidos a esta incidencia” es vectorial; “servicios que dependen de X” es grafo.',
+    decision: 'Elige vector, grafo o híbrido según si necesitas parecido, relación exacta o ambas cosas.',
+  },
+  'conocimiento-que-saber': {
+    theory: 'El bloque simbólico enseña cuándo necesitas significado explícito además de recuperación semántica.',
+    formula: 'RDF para hechos; RDFS/OWL para semántica; SPARQL para consulta; reglas para inferencia.',
+    example: 'GraphRAG mejora cuando entidades y relaciones se modelan y evalúan, no solo se extraen una vez.',
+    decision: 'Cuando una respuesta deba explicar relación, fuente y regla, combina RAG con estructura.',
+  },
+  'recap-ia-clasica-aplicada': {
+    theory: 'La IA clásica aporta el vocabulario de sistemas fiables: estado, coste, restricción, plan, adversario y regla.',
+    formula: 'LLM útil en producción = generación + recuperación + validación + evaluación + trazas.',
+    example: 'Un agente serio usa búsqueda para explorar, constraints para validar, planning para actuar y KG/RAG para evidenciar.',
+    decision: 'Usa estos conceptos como checklist de arquitectura antes de vender autonomía.',
+  },
+  'cuando-no-confiar-clusters': {
+    theory: 'Un cluster es una hipótesis exploratoria, no una etiqueta causal ni un segmento de negocio automáticamente válido.',
+    formula: 'Comprueba estabilidad, silhouette, lift de negocio y auditoría manual por muestra.',
+    example: 'Un cluster de clientes “premium” puede ser solo efecto de una feature de facturación mal escalada.',
+    decision: 'No automatices decisiones sensibles solo porque un algoritmo separó puntos en colores bonitos.',
+  },
+  'rag-no-es-ontologia': {
+    theory: 'RAG recupera evidencia textual; una ontología define significado formal, tipos, relaciones y restricciones.',
+    formula: 'RAG: query -> top-k chunks -> respuesta. Ontología: tripletas + axiomas -> consulta/inferencia.',
+    example: 'Buscar políticas parecidas es RAG; comprobar si una factura viola una regla de dominio necesita estructura o validador.',
+    decision: 'Si necesitas garantía relacional, no vendas vector search como conocimiento formal.',
+  },
+  'vector-store-lectura-correcta': {
+    theory: 'El vector store ordena por proximidad matemática, no por verdad, actualidad o permiso salvo que lo modeles.',
+    formula: 'cos(a,b)=a·b/(||a|| ||b||); top-k recupera vecinos cercanos en embedding space.',
+    example: 'Dos textos parecidos pueden contradecirse; metadata y fecha deciden cuál es válido.',
+    decision: 'Evalúa retrieval con recall@k, precision@k, MRR y ejemplos con citas esperadas.',
+  },
+  'knowledge-graph-lectura-correcta': {
+    theory: 'El grafo conserva identidad y relaciones; por eso responde preguntas que no son solo “texto parecido”.',
+    formula: 'Tripleta RDF: sujeto - predicado - objeto; una consulta busca patrones de tripletas.',
+    example: 'cliente -> tieneContrato -> contrato -> caducaEn -> fecha permite trazabilidad exacta.',
+    decision: 'Usa KG cuando la relación sea parte del producto, la auditoría o la regla.',
+  },
+  'rdf-owl-sparql-vs-embeddings': {
+    theory: 'Embeddings toleran ambigüedad; RDF/OWL/SPARQL exigen estructura y devuelven relaciones verificables.',
+    formula: 'Embedding: similitud(q,d). SPARQL: patrón { ?s ?p ?o } satisfecho o no satisfecho.',
+    example: '“Documentos sobre cancelación” es vectorial; “contratos que vencen antes de 30 días” es estructurado.',
+    decision: 'Elige aproximación para descubrir texto y estructura para compromisos verificables.',
+  },
+  'graphrag-como-puente': {
+    theory: 'GraphRAG añade estructura al retrieval, pero la estructura extraída de texto también puede tener errores.',
+    formula: 'Documentos -> entidades -> relaciones -> comunidades -> contexto global/local.',
+    example: 'Una pregunta sobre una organización puede necesitar comunidad, entidades clave y fragmentos fuente.',
+    decision: 'Mide extracción, relación, groundedness y actualización del grafo, no solo calidad de respuesta.',
+  },
+  'cuando-vectorial': {
+    theory: 'Lo vectorial brilla cuando la pregunta y el documento dicen lo mismo de formas distintas.',
+    formula: 'top-k + rerank + filtros = recuperación práctica más robusta que solo similitud.',
+    example: '“No puedo entrar” puede recuperar documentos sobre autenticación aunque no usen esa frase literal.',
+    decision: 'Empieza vectorial si el corpus es texto largo y la pregunta es abierta; añade estructura si falla por relaciones.',
+  },
+  'cuando-grafo-semantico': {
+    theory: 'El grafo semántico aporta identidad, relaciones tipadas y razonamiento sobre reglas del dominio.',
+    formula: 'Consulta relacional: entidad A --relacion--> entidad B con filtros exactos.',
+    example: 'Dependencias de un servicio, permisos heredados o linaje de datos no deberían depender de parecido textual.',
+    decision: 'Invierte en grafo cuando la trazabilidad reduzca riesgo operativo o regulatorio.',
+  },
+  'cuando-hibrido': {
+    theory: 'Híbrido significa separar señales: texto para evidencia, grafo para relación, reglas para garantías.',
+    formula: 'score final = retrieval semántico + filtros + rerank + validación determinista.',
+    example: 'Soporte técnico: vector encuentra el manual, KG localiza producto/version, reglas filtran permisos.',
+    decision: 'Añade complejidad solo si una eval muestra que una señal sola no basta.',
+  },
+  'errores-rag-kg': {
+    theory: 'Cada capa añade potencia y superficie de fallo: chunking, entidad, relación, permiso, generación.',
+    formula: 'Error total ~= error_retrieval + error_extraccion + error_actualizacion + error_generacion.',
+    example: 'El grafo recupera la entidad correcta pero el chunk citado pertenece a una versión antigua.',
+    decision: 'Diseña tests de fallo, no solo demos felices: entidad ambigua, dato viejo, permiso y contradicción.',
+  },
+  'rag-kg-que-saber': {
+    theory: 'La arquitectura se elige por garantía requerida, no por moda.',
+    formula: 'Parecido -> vector; relación -> KG; reglas -> validador; explicación -> citas + trazas.',
+    example: 'Un asistente legal puede usar RAG para citar, KG para entidades y reglas para límites de jurisdicción.',
+    decision: 'Pide siempre evidencia observable: chunk, tripleta, regla o tool log.',
+  },
+  'agente-clasico-vs-moderno': {
+    theory: 'Un agente es un bucle de percepción, estado, decisión y acción; el LLM solo ocupa algunas piezas.',
+    formula: 'policy: pi(a|s) elige acción a dado estado s; en LLM, s incluye contexto, memoria y tools.',
+    example: 'Un coding agent lee tests, modifica archivos, ejecuta build y decide siguiente paso con observaciones.',
+    decision: 'Diseña el agente como sistema, no como prompt largo.',
+  },
+  'agente-percepcion-accion': {
+    theory: 'Cada acción debe producir una observación que reduzca incertidumbre o acerque al objetivo.',
+    formula: 'loop: observe(s) -> choose(a) -> act(a) -> observe(s\') -> update.',
+    example: 'Tras llamar a una API, el agente no debe asumir éxito: debe leer status, payload y efecto persistido.',
+    decision: 'Bloquea loops que repiten acciones sin nueva evidencia.',
+  },
+  'agente-reactivo-deliberativo': {
+    theory: 'Reactivo minimiza latencia; deliberativo mejora tareas con dependencias; híbrido combina ambos.',
+    formula: 'Complejidad útil ~= riesgo x número de pasos x incertidumbre.',
+    example: 'Enrutar un ticket puede ser reactivo; migrar una base de datos exige plan, checks y rollback.',
+    decision: 'No conviertas una regla simple en agente autónomo sin necesidad.',
+  },
+  'estado-vs-contexto': {
+    theory: 'El contexto textual es memoria blanda; el estado explícito es contrato verificable.',
+    formula: 'Estado crítico = hechos + permisos + progreso + locks + efectos confirmados.',
+    example: '“Ya pagado” debe vivir en base de datos, no solo en conversación previa.',
+    decision: 'Todo lo que implique dinero, permisos o auditoría va fuera del prompt.',
+  },
+  'acciones-tools': {
+    theory: 'Una tool es una acción con contrato: entradas, permisos, efectos, errores y límites.',
+    formula: 'tool = schema(input) + preconditions + side effects + error model.',
+    example: 'create_invoice no debe aceptar cualquier texto: importe, moneda, cliente y concepto deben validarse.',
+    decision: 'Diseña tools pequeñas, reversibles cuando sea posible y con logs de efecto.',
+  },
+  'precondiciones-efectos-schemas': {
+    theory: 'Schemas reducen forma inválida; precondiciones reducen acción inválida; efectos permiten auditar.',
+    formula: 'can_execute(action,state) debe ser true antes de ejecutar.',
+    example: 'Enviar email requiere destinatario confirmado, plantilla aprobada y documento final.',
+    decision: 'Valida antes y después: la tool debe demostrar qué cambió.',
+  },
+  'planner-vs-llm-razonador': {
+    theory: 'El LLM propone planes plausibles; el planner formal busca factibilidad bajo un modelo explícito.',
+    formula: 'Plan válido: aplicar acciones desde s0 produce estado s que satisface goal.',
+    example: 'Un LLM puede olvidar una dependencia; un validador detecta que faltaba credencial, archivo o permiso.',
+    decision: 'Usa el LLM para generar candidatos y validadores para aceptar ejecución.',
+  },
+  'heuristica-routing-evals': {
+    theory: 'Routing y evals son heurísticas modernas: asignan presupuesto según dificultad y riesgo.',
+    formula: 'coste esperado = tokens + tool calls + latencia + revisión humana + riesgo residual.',
+    example: 'Un FAQ va a modelo barato; una acción irreversible pide modelo fuerte y aprobación.',
+    decision: 'Sin eval por tarea, el routing acaba siendo intuición vestida de arquitectura.',
+  },
+  'motor-inferencia-llm-rag-reglas': {
+    theory: 'La inferencia moderna es composición: modelo, evidencia, reglas, tools, trazas y humano.',
+    formula: 'respuesta aceptable = groundedness + validez + permiso + trazabilidad.',
+    example: 'El LLM redacta, RAG cita, reglas bloquean, tool ejecuta y trace permite revisar.',
+    decision: 'Pon cada garantía en la capa que mejor puede cumplirla.',
+  },
+  'agente-clasico-moderno-que-saber': {
+    theory: 'El vocabulario clásico sirve para quitar magia a los agentes modernos.',
+    formula: 'Agente robusto = estado + acción + restricción + eval + recuperación.',
+    example: 'Un agente de soporte fiable no solo responde: consulta, valida permiso, cita y escala.',
+    decision: 'Evalúa agentes por tareas completadas con seguridad, no por razonamientos bonitos.',
+  },
+  'lab-principios': {
+    theory: 'Un lab enseña ingeniería cuando produce evidencia reproducible, no una captura bonita.',
+    formula: 'Lab bueno = baseline + hipótesis + métrica + resultado + decisión.',
+    example: 'Comparar reglas vs modelo pequeño enseña más que enseñar solo el modelo ganador.',
+    decision: 'Cada ejercicio debe terminar en seguir, parar, simplificar o medir de nuevo.',
+  },
+  'lab-a-star': {
+    theory: 'El valor del lab es formular estado, acción, coste y heurística, no solo obtener una ruta.',
+    formula: 'A*: f(n)=g(n)+h(n); h admisible no sobreestima el coste restante.',
+    example: 'En rutas, distancia en línea recta puede ser admisible; tiempo con tráfico inventado no necesariamente.',
+    decision: 'Entrega traza de frontera y visitados para que el resultado sea auditable.',
+  },
+  'lab-mini-planner': {
+    theory: 'Modelar tareas fuerza a separar intención de ejecución verificable.',
+    formula: 'Acción = precondiciones + efectos; plan = secuencia que satisface objetivo.',
+    example: 'Publicar release requiere tests verdes antes de etiquetar versión y anunciar.',
+    decision: 'Si una precondición no se puede comprobar, esa acción requiere humano o rediseño.',
+  },
+  'lab-planner-vs-llm': {
+    theory: 'La comparación enseña qué aporta lenguaje natural y qué aporta modelo formal.',
+    formula: 'Tasa de plan válido = planes sin precondiciones violadas / planes generados.',
+    example: 'El LLM sugiere enviar factura antes de validarla; el modelo formal lo marca inválido.',
+    decision: 'Mide omisiones, orden incorrecto, permisos y pasos no ejecutables.',
+  },
+  'lab-clasificador-sklearn': {
+    theory: 'El lab mínimo de ML debe cubrir datos, split, entrenamiento, predicción y error.',
+    formula: 'train_test_split separa aprendizaje de evaluación; reporta precision, recall y F1.',
+    example: 'Un árbol puede acertar mucho train y fallar test si memoriza reglas accidentales.',
+    decision: 'No aceptes accuracy sin matriz de confusión y explicación de errores.',
+  },
+  'lab-matriz-confusion': {
+    theory: 'Interpretar errores convierte métrica en decisión operativa.',
+    formula: 'Coste = c_FP*FP + c_FN*FN; el mejor umbral minimiza coste esperado.',
+    example: 'En soporte, un FP puede enviar un ticket al equipo equivocado; un FN deja un urgente sin tratar.',
+    decision: 'Propón el siguiente cambio: datos, feature, umbral, modelo o redefinición del objetivo.',
+  },
+  'lab-kmeans-visual': {
+    theory: 'La visualización muestra sensibilidad a escala, k e inicialización.',
+    formula: 'Inertia baja al subir k; por sí sola no demuestra clusters útiles.',
+    example: 'Con dos variables en escalas distintas, el gráfico cambia al normalizar.',
+    decision: 'Incluye análisis de sensibilidad: k, seed, escala y variables usadas.',
+  },
+  'lab-ontologia-sparql': {
+    theory: 'Una ontología pequeña enseña precisión conceptual: clases, propiedades, individuos y consultas.',
+    formula: 'SPARQL busca patrones; ejemplo: ?x :perteneceA ?y con filtros.',
+    example: 'Un dominio de cursos: Alumno, Curso, Profesor, matriculadoEn, imparte.',
+    decision: 'La ontología vale si responde preguntas exactas que el equipo reconoce como importantes.',
+  },
+  'lab-vector-vs-sparql': {
+    theory: 'El mismo problema resuelto de dos formas revela diferencia entre parecido y estructura.',
+    formula: 'Vector: ranking por similitud. SPARQL: satisfacción de patrón.',
+    example: '“Casos parecidos” favorece vector; “quién supervisa a X” favorece grafo.',
+    decision: 'Documenta una pregunta donde cada enfoque falle para aprender el límite real.',
+  },
+  'lab-reglas-rag-agente': {
+    theory: 'Comparar enfoques evita usar el martillo de moda para todo.',
+    formula: 'Eval común: éxito, coste, latencia, cobertura, trazabilidad y riesgo.',
+    example: 'Una política simple puede resolverse con reglas; un caso abierto necesita RAG o agente.',
+    decision: 'Elige el sistema más simple que cumpla la eval y el riesgo aceptable.',
+  },
+  'lab-entregable-notebook-produccion': {
+    theory: 'Producción exige quitar azar: dependencias, datos, prompts, seeds y tests fijados.',
+    formula: 'Experimento reproducible = código + datos + versión + seed + métrica + artefacto.',
+    example: 'Un notebook que depende de “último modelo” no permite comparar regresiones en junio.',
+    decision: 'Convierte cada celda manual importante en script, test o pipeline.',
+  },
+  'lab-rubrica': {
+    theory: 'La rúbrica transforma aprendizaje en evidencia evaluable por otra persona.',
+    formula: 'Nota del lab = reproducibilidad + medición + análisis de error + decisión.',
+    example: 'Un resultado mediocre con buen análisis enseña más que una demo brillante sin trazas.',
+    decision: 'Pide siempre README, comandos, resultados y límites conocidos.',
+  },
+};
+
+const appliedLensByPrefix: Array<{ prefix: string; lens: AppliedLens }> = [
+  {
+    prefix: 'busqueda-',
+    lens: {
+      theory: 'Búsqueda formaliza resolver como explorar estados con coste. Lo importante es qué guardas como estado y qué frontera expandes.',
+      formula: 'Complejidad típica: O(b^d), con b factor de ramificación y d profundidad de solución.',
+      example: 'En un agente, cada tool call es un paso: tiene coste, riesgo y puede abrir nuevas ramas.',
+      decision: 'Define estado, acciones, coste, criterio de parada y política contra loops antes de automatizar.',
+    },
+  },
+  {
+    prefix: 'csp-',
+    lens: {
+      theory: 'CSP separa decisiones, valores posibles y restricciones. Es útil cuando una respuesta debe ser válida, no solo plausible.',
+      formula: 'CSP = (X, D, C): variables X, dominios D y restricciones C que filtran asignaciones.',
+      example: 'Un calendario puede sonar bien en texto y aun así violar disponibilidad, descansos o permisos.',
+      decision: 'Usa modelo generativo para entender preferencias; usa solver o validador para aceptar soluciones.',
+    },
+  },
+  {
+    prefix: 'sat-',
+    lens: {
+      theory: 'SAT convierte una pregunta en lógica booleana: existe o no una asignación que satisface todas las cláusulas.',
+      formula: 'CNF: (A or not B) and (B or C) and ...; el solver busca un modelo verdadero.',
+      example: 'Configuraciones, verificación y planning pueden codificarse como restricciones booleanas.',
+      decision: 'Cuando la garantía es binaria, prefiere verificación formal a confianza textual.',
+    },
+  },
+  {
+    prefix: 'planning-',
+    lens: {
+      theory: 'Planificar es probar si una secuencia de acciones convierte el estado inicial en objetivo sin violar precondiciones.',
+      formula: 'Si pre(a) se cumple en s, entonces result(s,a) aplica efectos add/delete.',
+      example: 'Un agente que despliega software debe comprobar tests, permisos, versión y rollback antes de ejecutar.',
+      decision: 'Toda acción que cambia el mundo necesita precondición verificable y efecto registrado.',
+    },
+  },
+  {
+    prefix: 'juegos-',
+    lens: {
+      theory: 'Los juegos enseñan decisión cuando otros actores reaccionan, cooperan o intentan explotarte.',
+      formula: 'Minimax: V(s)=max_a min_b V(result(s,a,b)); MCTS usa valor + exploración.',
+      example: 'Fraude, spam y prompt injection cambian cuando el adversario aprende tus defensas.',
+      decision: 'Evalúa también el comportamiento bajo abuso, no solo el caso feliz.',
+    },
+  },
+  {
+    prefix: 'conocimiento-',
+    lens: {
+      theory: 'El conocimiento simbólico hace explícitos conceptos y relaciones para consultar, validar e inferir.',
+      formula: 'Hecho típico: sujeto - predicado - objeto; regla: si condiciones, entonces conclusión.',
+      example: 'Contrato perteneceA Cliente y caducaEn Fecha permite consultas trazables que un embedding no garantiza.',
+      decision: 'Modela explícitamente lo que deba auditarse, explicarse o validarse.',
+    },
+  },
+  {
+    prefix: 'rdf-',
+    lens: {
+      theory: 'RDF reduce conocimiento a tripletas enlazables; la fuerza está en identidad y composición.',
+      formula: 'Triple: <sujeto> <predicado> <objeto>; muchas tripletas forman un grafo.',
+      example: 'producto:123 tieneProveedor empresa:ACME no es texto parecido: es una relación consultable.',
+      decision: 'Usa URIs estables y vocabulario compartido o el grafo se vuelve ambiguo.',
+    },
+  },
+  {
+    prefix: 'rdfs-',
+    lens: {
+      theory: 'RDFS/OWL añaden semántica: clases, jerarquías, dominios, rangos y restricciones.',
+      formula: 'Si A subClassOf B y x type A, entonces x type B.',
+      example: 'Si Factura es DocumentoFiscal, una regla sobre DocumentoFiscal aplica a Factura.',
+      decision: 'Añade OWL cuando la inferencia reduzca errores, no solo para tener un grafo más elegante.',
+    },
+  },
+  {
+    prefix: 'sparql-',
+    lens: {
+      theory: 'SPARQL consulta patrones estructurados, no proximidad semántica.',
+      formula: 'SELECT ?x WHERE { ?x :relacion ?y . FILTER(...) }',
+      example: '“Contratos activos de cliente X” debe ser consulta exacta, no búsqueda aproximada.',
+      decision: 'Si la pregunta depende de una relación exacta, estructura antes que embedding.',
+    },
+  },
+  {
+    prefix: 'ontologia',
+    lens: {
+      theory: 'Una ontología es un contrato conceptual: nombres, clases, relaciones y restricciones compartidas.',
+      formula: 'Ontología = vocabulario + axiomas + restricciones + ejemplos de individuos.',
+      example: '“Cliente”, “cuenta” y “usuario” pueden significar cosas distintas según el equipo.',
+      decision: 'Invierte en ontología cuando la ambigüedad cause errores de negocio o cumplimiento.',
+    },
+  },
+  {
+    prefix: 'linked-data',
+    lens: {
+      theory: 'Linked Data permite que entidades de distintas fuentes se enlacen mediante identificadores estables.',
+      formula: 'URI + RDF + enlaces externos = datos reutilizables y federables.',
+      example: 'Una entidad de proveedor puede enlazar con catálogos, contratos y bases públicas.',
+      decision: 'Sin identidad estable, integrar fuentes acaba siendo reconciliación manual permanente.',
+    },
+  },
+  {
+    prefix: 'sistemas-expertos',
+    lens: {
+      theory: 'Un sistema experto separa conocimiento, inferencia y explicación; esa separación sigue viva en IA moderna.',
+      formula: 'Regla: IF condiciones THEN conclusión; motor aplica reglas sobre hechos.',
+      example: 'Un LLM puede redactar, pero una regla puede bloquear una conclusión prohibida por política.',
+      decision: 'Usa reglas cuando necesites explicación determinista o cumplimiento estricto.',
+    },
+  },
+  {
+    prefix: 'simbolico-',
+    lens: {
+      theory: 'Simbólico y neuronal resuelven partes distintas: estructura verificable frente a patrones difusos.',
+      formula: 'Sistema híbrido = generación estadística + validación simbólica + evidencia recuperada.',
+      example: 'Un asistente médico puede resumir texto, pero contraindicaciones críticas deben validarse con reglas.',
+      decision: 'No pidas garantías formales a una capa estadística si puedes verificarlas fuera.',
+    },
+  },
+  {
+    prefix: 'kg-vs-',
+    lens: {
+      theory: 'Vector store y KG son memorias distintas: una por proximidad, otra por relación.',
+      formula: 'Vector: nearest neighbors. KG: path/query sobre nodos y aristas tipadas.',
+      example: 'Buscar “documentos similares” no es lo mismo que seguir “cliente -> contrato -> obligación”.',
+      decision: 'Elige según la pregunta: parecido textual, camino relacional o ambas.',
+    },
+  },
+  {
+    prefix: 'recap-ia-',
+    lens: {
+      theory: 'La IA clásica aporta los invariantes: estado, coste, restricción, plan, adversario y regla.',
+      formula: 'Sistema fiable = generación + búsqueda/control + restricciones + evaluación.',
+      example: 'Un agente moderno sin estos conceptos parece potente, pero falla justo al tocar producción.',
+      decision: 'Usa este vocabulario para revisar cualquier arquitectura LLM antes de lanzarla.',
+    },
+  },
+];
+
+const appliedLens = appliedLensById[id] ?? appliedLensByPrefix.find((item) => id.startsWith(item.prefix))?.lens;
+const resolvedTeachingNotes = teachingNotes ?? teachingNotesById[id] ?? [];
+---
+
+<Slide id={id} number={number} title={title}>
+  {lead && <p><i data-lucide={icon}></i> {lead}</p>}
+
+  {resolvedTeachingNotes.length > 0 && (
+    <div class="teaching-notes">
+      {resolvedTeachingNotes.map((note) => <p>{note}</p>)}
+    </div>
+  )}
+
+  {bigIdea && (
+    <div class="big-idea">
+      <p>{bigIdea}</p>
+    </div>
+  )}
+
+  {appliedLens && (
+    <div class="applied-lens">
+      <div>
+        <strong>Teoría aplicada</strong>
+        <p>{appliedLens.theory}</p>
+      </div>
+      <div>
+        <strong>Fórmula / criterio</strong>
+        <p>{appliedLens.formula}</p>
+      </div>
+      <div>
+        <strong>Ejemplo</strong>
+        <p>{appliedLens.example}</p>
+      </div>
+      <div>
+        <strong>Decisión</strong>
+        <p>{appliedLens.decision}</p>
+      </div>
+    </div>
+  )}
+
+  {flow && (
+    <div class="flow">
+      {flow.map((step, index) => (
+        <>
+          <span class="flow-step">{step}</span>
+          {index < flow.length - 1 && <span class="flow-arrow">&rarr;</span>}
+        </>
+      ))}
+    </div>
+  )}
+
+  {metrics && (
+    <div class="metric-strip">
+      {metrics.map((metric) => (
+        <div class="metric-card">
+          <strong>{metric.value}</strong>
+          <span>{metric.label}</span>
+        </div>
+      ))}
+    </div>
+  )}
+
+  {cards && (
+    <div class="icon-grid">
+      {cards.map((card) => (
+        <div class="icon-card">
+          <i data-lucide={card.icon ?? 'circle-dot'}></i>
+          <div class="icon-card-content">
+            <strong>{card.title}</strong>
+            <p>{card.text}</p>
+            {card.tag && <span class="tag">{card.tag}</span>}
+          </div>
+        </div>
+      ))}
+    </div>
+  )}
+
+  {twoCols && (
+    <div class="two-cols">
+      {twoCols.map((card) => (
+        <div class="compare-card">
+          <p class="compare-card-title"><i data-lucide={card.icon ?? 'columns-2'}></i> {card.title}</p>
+          <p class="compare-card-desc">{card.text}</p>
+          {card.tag && <span class="tag">{card.tag}</span>}
+        </div>
+      ))}
+    </div>
+  )}
+
+  {table && (
+    <table class="compact-table resource-table">
+      <thead>
+        <tr>
+          {table.headers.map((header) => <th>{header}</th>)}
+        </tr>
+      </thead>
+      <tbody>
+        {table.rows.map((row) => (
+          <tr>
+            {row.map((cell) => <td set:html={cell} />)}
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  )}
+
+  {secondaryTables && (
+    <>
+      {secondaryTables.map((secondaryTable) => (
+        <table class="compact-table resource-table">
+          <thead>
+            <tr>
+              {secondaryTable.headers.map((header) => <th>{header}</th>)}
+            </tr>
+          </thead>
+          <tbody>
+            {secondaryTable.rows.map((row) => (
+              <tr>
+                {row.map((cell) => <td set:html={cell} />)}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      ))}
+    </>
+  )}
+
+  {steps && (
+    <ol class="steps">
+      {steps.map((step) => <li>{step}</li>)}
+    </ol>
+  )}
+
+  {code && (
+    <pre class="code-block"><code>{code}</code></pre>
+  )}
+
+  {callout && (
+    <div class="callout">
+      <p class="callout-title"><i data-lucide={callout.icon ?? 'lightbulb'}></i> {callout.title}</p>
+      <p>{callout.text}</p>
+    </div>
+  )}
+
+  {refs && (
+    <div class="refs compact-refs">
+      <p class="refs-title">Referencias</p>
+      {refs.map((ref) => (
+        <a href={ref.href} target="_blank" rel="noopener noreferrer">{ref.label}</a>
+      ))}
+    </div>
+  )}
+</Slide>

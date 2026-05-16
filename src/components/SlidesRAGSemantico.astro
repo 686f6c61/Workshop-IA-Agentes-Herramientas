@@ -1,0 +1,254 @@
+---
+import StructuredSlide from './StructuredSlide.astro';
+
+const refs = [
+  { label: 'W3C RDF', href: 'https://www.w3.org/RDF/' },
+  { label: 'W3C OWL 2', href: 'https://www.w3.org/TR/owl2-overview/' },
+  { label: 'SPARQL 1.2 Query Language', href: 'https://w3c.github.io/sparql-query/spec/' },
+  { label: 'Microsoft GraphRAG', href: 'https://microsoft.github.io/graphrag/' },
+];
+
+const slides = [
+  {
+    id: 'rag-no-es-ontologia',
+    number: 131,
+    title: 'RAG no es una ontología',
+    icon: 'git-compare',
+    lead: 'RAG conecta generación con recuperación de contexto. Una ontología modela conocimiento formal del dominio. Pueden convivir, pero no son lo mismo.',
+    bigIdea: 'RAG recupera evidencia textual; una ontología define qué existe, cómo se relaciona y qué reglas del dominio son válidas.',
+    table: {
+      headers: ['Capa', 'Qué guarda', 'Cómo responde'],
+      rows: [
+        ['RAG vectorial', 'chunks + embeddings + metadata', 'similitud semántica y reranking'],
+        ['Ontología', 'clases, relaciones, restricciones', 'consulta estructurada e inferencia'],
+        ['GraphRAG', 'entidades, relaciones y comunidades derivadas de texto', 'recuperación por grafo + resumen'],
+      ],
+    },
+    secondaryTables: [
+      {
+        headers: ['Confusión', 'Lectura correcta'],
+        rows: [
+          ['“Tengo embeddings, tengo conocimiento”', 'Tienes una representación útil para buscar parecido, no una teoría formal del dominio.'],
+          ['“GraphRAG valida verdad”', 'GraphRAG estructura recuperación; la verdad depende de fuentes, extracción y validación.'],
+          ['“Una ontología responde en lenguaje natural”', 'La ontología consulta y valida; el LLM puede explicar el resultado.'],
+        ],
+      },
+    ],
+    refs,
+  },
+  {
+    id: 'vector-store-lectura-correcta',
+    number: 132,
+    title: 'Vector store: qué hace realmente',
+    icon: 'database',
+    lead: 'Una base vectorial no entiende el documento. Guarda vectores y devuelve fragmentos cercanos según una métrica.',
+    bigIdea: 'La base vectorial es una estructura de búsqueda aproximada: su calidad depende de embeddings, chunking, metadata y evaluación.',
+    flow: ['Documento', 'Chunks', 'Embeddings', 'Índice vectorial', 'Top-k fragmentos'],
+    cards: [
+      { icon: 'scissors', title: 'Chunking', text: 'Decide qué unidades recuperas. Un mal corte rompe contexto.' },
+      { icon: 'ruler', title: 'Métrica', text: 'Coseno, dot product o distancia L2 cambian ranking.' },
+      { icon: 'tag', title: 'Metadata', text: 'Filtros por fecha, fuente, usuario, permisos o tipo documental.' },
+      { icon: 'search-check', title: 'Rerank', text: 'Segundo paso para ordenar por relevancia más fina.' },
+    ],
+    secondaryTables: [
+      {
+        headers: ['Parámetro', 'Efecto', 'Señal de ajuste'],
+        rows: [
+          ['chunk_size', 'Fragmentos grandes dan contexto; pequeños dan precisión', 'Sube/baja recall@k y groundedness'],
+          ['overlap', 'Evita cortar ideas entre chunks', 'Demasiado overlap duplica coste y resultados'],
+          ['top_k', 'Más candidatos suben recall y coste', 'Si top_k alto no ayuda, el embedding o chunking falla'],
+          ['filtros', 'Permisos, fecha, idioma, cliente', 'Sin filtros puedes citar datos incorrectos'],
+        ],
+      },
+    ],
+    refs: [{ label: 'Pinecone - Vector embeddings', href: 'https://www.pinecone.io/learn/vector-embeddings/' }],
+  },
+  {
+    id: 'knowledge-graph-lectura-correcta',
+    number: 133,
+    title: 'Knowledge graph: entidades y relaciones',
+    icon: 'network',
+    lead: 'Un knowledge graph representa cosas del mundo y cómo se conectan. Es útil cuando la relación importa tanto como el texto.',
+    bigIdea: 'El grafo no guarda “párrafos parecidos”; guarda identidad y relaciones consultables.',
+    table: {
+      headers: ['Elemento', 'Ejemplo', 'Valor práctico'],
+      rows: [
+        ['Entidad', 'Cliente, contrato, producto', 'identidad estable'],
+        ['Relación', 'compra, pertenece_a, caduca_en', 'navegación y trazabilidad'],
+        ['Propiedad', 'fecha, importe, región', 'filtros exactos'],
+        ['Tipo/clase', 'Factura, Persona, Riesgo', 'validación e inferencia'],
+      ],
+    },
+    callout: { title: 'Ejemplo', text: 'En soporte B2B, un vector store encuentra tickets parecidos. Un knowledge graph puede responder qué cliente pertenece a qué contrato, qué producto tiene activo y qué SLA aplica.', icon: 'lightbulb' },
+    refs,
+  },
+  {
+    id: 'rdf-owl-sparql-vs-embeddings',
+    number: 134,
+    title: 'RDF/OWL/SPARQL vs embeddings',
+    icon: 'braces',
+    lead: 'Embeddings aproximan significado; RDF/OWL/SPARQL formalizan relaciones. El primero recupera parecido, el segundo consulta estructura.',
+    bigIdea: 'Embeddings son probabilísticos y útiles para lenguaje; RDF/OWL/SPARQL son simbólicos y útiles para exactitud.',
+    table: {
+      headers: ['Pregunta', 'Mejor herramienta', 'Por qué'],
+      rows: [
+        ['“Dame textos parecidos a este caso”', 'Embeddings', 'similitud semántica difusa'],
+        ['“Qué medicamentos alivian fatiga”', 'SPARQL / KG', 'relación exacta sujeto-predicado-objeto'],
+        ['“Resume todo lo relevante”', 'RAG + LLM', 'generación con contexto recuperado'],
+        ['“Comprueba si esta relación viola una regla”', 'OWL/SHACL/reglas', 'restricción verificable'],
+      ],
+    },
+    secondaryTables: [
+      {
+        headers: ['Tecnología', 'Unidad', 'Garantía'],
+        rows: [
+          ['Embeddings', 'vector denso', 'parecido semántico aproximado'],
+          ['RDF', 'triple sujeto-predicado-objeto', 'representación explícita'],
+          ['OWL', 'clases, propiedades, axiomas', 'inferencias y consistencia formal'],
+          ['SPARQL', 'patrones de consulta', 'respuesta exacta sobre un grafo'],
+        ],
+      },
+    ],
+    refs,
+  },
+  {
+    id: 'graphrag-como-puente',
+    number: 135,
+    title: 'GraphRAG como puente',
+    icon: 'share-2',
+    lead: 'GraphRAG usa estructura de grafo para recuperar contexto a nivel de entidades, relaciones o comunidades, no solo por chunks cercanos.',
+    bigIdea: 'GraphRAG intenta mejorar preguntas globales y multi-documento, pero añade una fase crítica: extracción de entidades y relaciones.',
+    flow: ['Documentos', 'Extracción de entidades', 'Relaciones', 'Comunidades', 'Retrieval + resumen'],
+    secondaryTables: [
+      {
+        headers: ['Paso', 'Riesgo', 'Control'],
+        rows: [
+          ['Extracción de entidades', 'duplicados y ambigüedad', 'entity resolution y revisión de muestras'],
+          ['Relaciones', 'aristas plausibles no evidenciadas', 'guardar cita/origen por relación'],
+          ['Comunidades', 'resúmenes demasiado generales', 'eval con preguntas globales reales'],
+          ['Respuesta final', 'mezclar evidencia débil', 'citas y nivel de confianza'],
+        ],
+      },
+    ],
+    callout: { title: 'Lectura correcta', text: 'GraphRAG no convierte automáticamente texto en verdad formal. Extrae estructura útil, que debe evaluarse y mantenerse.', icon: 'alert-triangle' },
+    refs: [{ label: 'Microsoft GraphRAG documentation', href: 'https://microsoft.github.io/graphrag/' }],
+  },
+  {
+    id: 'cuando-vectorial',
+    number: 136,
+    title: 'Cuándo usar retrieval vectorial',
+    icon: 'scan-search',
+    lead: 'Vectorial es buen punto de partida cuando trabajas con documentos largos, lenguaje natural y preguntas abiertas.',
+    bigIdea: 'Empieza vectorial cuando el usuario no conoce las palabras exactas o el corpus está escrito en lenguaje natural.',
+    cards: [
+      { icon: 'file-text', title: 'Texto no estructurado', text: 'PDFs, emails, tickets, documentación y notas.' },
+      { icon: 'message-square', title: 'Preguntas abiertas', text: 'El usuario no sabe exactamente cómo se llama lo que busca.' },
+      { icon: 'languages', title: 'Paráfrasis', text: 'La consulta y el documento usan palabras distintas.' },
+      { icon: 'clock', title: 'Time-to-value', text: 'Se prototipa rápido y permite medir utilidad pronto.' },
+    ],
+    table: {
+      headers: ['Señal de que funciona', 'Señal de que no basta'],
+      rows: [
+        ['El chunk correcto aparece en top-5/top-10', 'Recupera textos parecidos pero no evidencias'],
+        ['Las citas soportan la respuesta', 'Falla con IDs, fechas, nombres exactos o permisos'],
+        ['El usuario reformula y encuentra lo mismo', 'Preguntas multi-hop requieren combinar documentos'],
+      ],
+    },
+    refs: [{ label: 'Hugging Face - Embeddings', href: 'https://huggingface.co/blog/getting-started-with-embeddings' }],
+  },
+  {
+    id: 'cuando-grafo-semantico',
+    number: 137,
+    title: 'Cuándo usar grafo semántico',
+    icon: 'waypoints',
+    lead: 'Grafo semántico compensa cuando necesitas relaciones explícitas, trazabilidad, consultas exactas o reglas de dominio.',
+    bigIdea: 'Usa grafo cuando el coste de confundir entidades o relaciones es mayor que el coste de modelarlas.',
+    table: {
+      headers: ['Necesidad', 'Por qué grafo ayuda'],
+      rows: [
+        ['Trazar dependencias', 'navegas relaciones explícitas'],
+        ['Permisos y dominios', 'filtras por entidad, clase o propiedad'],
+        ['Consultas exactas', 'SPARQL responde patrones concretos'],
+        ['Auditoría', 'puedes enseñar la cadena de relaciones'],
+        ['Reglas de dominio', 'puedes validar restricciones fuera del LLM'],
+      ],
+    },
+    callout: { title: 'Criterio práctico', text: 'Si la pregunta contiene “quién depende de quién”, “qué permiso aplica”, “qué contrato cubre esto” o “qué regla se viola”, probablemente necesitas estructura, no solo similitud.', icon: 'compass' },
+    refs,
+  },
+  {
+    id: 'cuando-hibrido',
+    number: 138,
+    title: 'Cuándo usar híbrido',
+    icon: 'blend',
+    lead: 'En producción, la respuesta madura rara vez es “solo vector” o “solo grafo”. Lo habitual es combinar señales.',
+    bigIdea: 'Híbrido significa usar cada índice para lo que sabe hacer: exactitud lexical, parecido semántico, relaciones y reglas.',
+    table: {
+      headers: ['Patrón híbrido', 'Cómo funciona', 'Caso'],
+      rows: [
+        ['Vector + metadata', 'similitud con filtros exactos', 'docs por cliente, fecha o permiso'],
+        ['BM25 + embeddings', 'keyword + semántica', 'términos técnicos y paráfrasis'],
+        ['KG + vector', 'entidades filtran, chunks explican', 'GraphRAG y soporte complejo'],
+        ['Rules + RAG', 'validación determinista tras generación', 'compliance, legal, finanzas'],
+      ],
+    },
+    secondaryTables: [
+      {
+        headers: ['Fusión', 'Qué decide'],
+        rows: [
+          ['RRF (Reciprocal Rank Fusion)', 'Combina rankings lexicales y vectoriales sin calibrar scores directamente'],
+          ['Reranker cross-encoder', 'Reordena candidatos mirando query y documento juntos'],
+          ['Filtros por permisos', 'Elimina documentos antes de que el LLM pueda verlos'],
+          ['Reglas finales', 'Comprueban que la respuesta no viole invariantes'],
+        ],
+      },
+    ],
+    refs: [{ label: 'Microsoft GraphRAG', href: 'https://microsoft.github.io/graphrag/' }],
+  },
+  {
+    id: 'errores-rag-kg',
+    number: 139,
+    title: 'Errores al mezclar RAG y grafos',
+    icon: 'alert-triangle',
+    lead: 'La arquitectura híbrida no arregla malos datos. Añade potencia, pero también puntos de fallo.',
+    bigIdea: 'Cada capa nueva debe aportar una garantía nueva; si solo añade complejidad, empeora el sistema.',
+    cards: [
+      { icon: 'scissors', title: 'Chunking roto', text: 'El grafo recupera entidad, pero el chunk no tiene evidencia suficiente.' },
+      { icon: 'link-2-off', title: 'Entidades mal resueltas', text: '“Apple” empresa y fruta acaban mezcladas.' },
+      { icon: 'refresh-ccw', title: 'Grafo desactualizado', text: 'La relación existe en el grafo pero ya no en el mundo.' },
+      { icon: 'brain-circuit', title: 'Inferencia sin validación', text: 'El LLM une relaciones plausibles que no están soportadas.' },
+    ],
+    table: {
+      headers: ['Error operativo', 'Síntoma en producción', 'Prevención'],
+      rows: [
+        ['ACLs después del retrieval', 'El LLM ve datos que el usuario no debería ver', 'filtrar antes de recuperar o inyectar contexto'],
+        ['No versionar índice', 'Resultados distintos sin cambios de código', 'versionar embeddings, corpus y pipeline'],
+        ['Grafo sin freshness', 'Responde con relaciones caducadas', 'timestamps, TTL y reindexación'],
+        ['No medir retrieval', 'Culpas al LLM de un fallo de búsqueda', 'recall@k, MRR y ejemplos negativos'],
+      ],
+    },
+    refs,
+  },
+  {
+    id: 'rag-kg-que-saber',
+    number: 140,
+    title: 'Qué debe saber: RAG, KG y ontologías',
+    icon: 'graduation-cap',
+    lead: 'La decisión no es estética: depende de si buscas parecido textual, relación exacta, explicación trazable o restricción verificable.',
+    bigIdea: 'Un buen sistema de conocimiento separa recuperación, estructura, reglas y generación.',
+    table: {
+      headers: ['Si necesitas...', 'Usa primero...', 'Añade si...'],
+      rows: [
+        ['buscar texto parecido', 'vector store', 'rerank y filtros'],
+        ['consultar relaciones exactas', 'knowledge graph / SPARQL', 'ontología si hay reglas'],
+        ['responder con citas', 'RAG', 'eval de groundedness'],
+        ['razonar sobre entidades', 'GraphRAG', 'validación humana y datos frescos'],
+      ],
+    },
+    callout: { title: 'Pregunta final', text: 'Antes de diseñar: ¿quiero encontrar evidencia, consultar una relación, validar una regla o redactar una explicación? La respuesta decide la arquitectura.', icon: 'target' },
+    refs,
+  },
+];
+---
+
+{slides.map((slide) => <StructuredSlide {...slide} />)}

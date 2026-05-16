@@ -1,5 +1,7 @@
 ---
 import Slide from './Slide.astro';
+import SlidesIAClasica from './SlidesIAClasica.astro';
+import SlidesMLClasico from './SlidesMLClasico.astro';
 ---
 
 <!-- PORTADA -->
@@ -7,12 +9,22 @@ import Slide from './Slide.astro';
   <h1 class="cover-title">Workshop de IA para gente curiosa</h1>
   <p class="cover-subtitle">Agentes, modelos y herramientas - by 686f6c61</p>
   <p class="cover-meta">Mayo 2026 (Update: 05/26)</p>
-  <p class="cover-repo">
-    <a href="https://github.com/686f6c61/Workshop-IA-Agentes-Herramientas" target="_blank" rel="noopener noreferrer">
-      <i data-lucide="github"></i> github.com/686f6c61/Workshop-IA-Agentes-Herramientas
-    </a>
+  <div class="cover-update-card">
+    <span class="cover-update-label">Actualización del día · 16 mayo 2026</span>
+    <p>Nuevos bloques: IA clásica, ML, agentes, evals, operación, seguridad, laboratorios y UX de IA.</p>
+    <div class="cover-update-actions">
+      <button class="cover-update-btn" id="open-update-btn" type="button">
+        Ver novedades
+      </button>
+    </div>
+  </div>
+  <p class="cover-nav-hint">
+    Usa las flechas
+    <span class="cover-nav-keys" aria-label="flecha izquierda y flecha derecha">
+      <kbd>←</kbd><kbd>→</kbd>
+    </span>
+    del teclado o los botones para navegar.
   </p>
-  <p class="cover-nav-hint">Usa las flechas del teclado o los botones para navegar</p>
 </Slide>
 
 <!-- SLIDE 1: SECCION -->
@@ -727,8 +739,11 @@ import Slide from './Slide.astro';
   </div>
 </Slide>
 
-<!-- SLIDE 17 -->
-<Slide id="recap-fundamentos" number={17} title="Lo que deberías saber: fundamentos">
+<!-- SLIDES 17-26: ML CLASICO -->
+<SlidesMLClasico />
+
+<!-- SLIDE 27 -->
+<Slide id="recap-fundamentos" number={27} title="Lo que deberías saber: fundamentos">
   <table>
     <thead>
       <tr><th>Concepto</th><th>Slide</th></tr>
@@ -750,13 +765,16 @@ import Slide from './Slide.astro';
   </table>
 </Slide>
 
-<!-- SLIDE 18: SECCION -->
-<Slide id="sec-arquitecturas" number={18} section
+<!-- SLIDES 28-79: IA CLASICA APLICADA -->
+<SlidesIAClasica />
+
+<!-- SLIDE 80: SECCION -->
+<Slide id="sec-arquitecturas" number={80} section
   title="Arquitecturas y modelos"
   subtitle="Transformers, Mixture of Experts, LLMs y los parámetros que controlan su comportamiento." />
 
-<!-- SLIDE 19 -->
-<Slide id="llm" number={19} title="¿Qué es un modelo LLM?">
+<!-- SLIDE 81 -->
+<Slide id="llm" number={81} title="¿Qué es un modelo LLM?">
   <p><i data-lucide="brain"></i> <strong>Large Language Model</strong>: un modelo de lenguaje a gran escala. Entrenado con cantidades masivas de texto (internet, libros, código...) para predecir el siguiente token dada una secuencia.</p>
   <div class="icon-grid">
     <div class="icon-card">
@@ -845,8 +863,8 @@ import Slide from './Slide.astro';
   </div>
 </Slide>
 
-<!-- SLIDE 20 -->
-<Slide id="arquitecturas" number={20} title="Arquitecturas">
+<!-- SLIDE 82 -->
+<Slide id="arquitecturas" number={82} title="Arquitecturas">
   <h3><i data-lucide="network"></i> Evolución de las arquitecturas</h3>
   <p>La historia no acaba en Transformer. En 2026 la base dominante sigue siendo la familia Transformer, pero los modelos punteros combinan bloques: decoder-only, MoE, atención eficiente, memoria larga, SSM (State Space Model) / Mamba e incluso procesamiento por bytes o latentes.</p>
   <div class="flow">
@@ -906,8 +924,8 @@ import Slide from './Slide.astro';
   </div>
 </Slide>
 
-<!-- SLIDE 21 -->
-<Slide id="transformer-ninos" number={21} title="¿Cómo funciona un Transformer?">
+<!-- SLIDE 83 -->
+<Slide id="transformer-ninos" number={83} title="¿Cómo funciona un Transformer?">
   <div class="analogy">
     <p class="analogy-label"><i data-lucide="users"></i> Analogía</p>
     <p>Imagina que estás leyendo una frase y tienes que adivinar el siguiente token. El Transformer puede procesar muchos tokens de la ventana en paralelo durante el cálculo interno, a diferencia de las RNN clásicas.</p>
@@ -951,8 +969,8 @@ import Slide from './Slide.astro';
   </div>
 </Slide>
 
-<!-- SLIDE 22 -->
-<Slide id="moe" number={22} title="Arquitectura MoE (Mixture of Experts)">
+<!-- SLIDE 84 -->
+<Slide id="moe" number={84} title="Arquitectura MoE (Mixture of Experts)">
   <p><i data-lucide="route"></i> En vez de un modelo denso donde todos los parámetros participan en cada paso, MoE divide parte del modelo en múltiples <strong>expertos</strong> seleccionados por un router.</p>
   <h3><i data-lucide="zap"></i> Flujo de una petición MoE</h3>
   <div class="flow">

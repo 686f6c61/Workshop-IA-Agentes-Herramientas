@@ -1,0 +1,325 @@
+---
+import StructuredSlide from './StructuredSlide.astro';
+
+const refs = [
+  { label: 'AIMA - Intelligent Agents', href: 'https://aima.cs.berkeley.edu/' },
+  { label: 'Yao et al. - ReAct', href: 'https://arxiv.org/abs/2210.03629' },
+  { label: 'OpenAI - Agents guide', href: 'https://platform.openai.com/docs/guides/agents' },
+  { label: 'Anthropic - Building effective agents', href: 'https://www.anthropic.com/engineering/building-effective-agents' },
+];
+
+const slides = [
+  {
+    id: 'agente-clasico-vs-moderno',
+    number: 156,
+    title: 'Agente moderno vs agente clásico',
+    icon: 'git-compare',
+    lead: 'La palabra agente no empezó con los LLMs. Lo nuevo es que el modelo puede interpretar lenguaje, decidir tools y mantener una conversación operativa.',
+    bigIdea: 'La continuidad es más importante que la moda: un agente clásico ya tenía percepción, estado, decisión y acción. El LLM aporta lenguaje natural y flexibilidad, pero no elimina la necesidad de estado, contratos, restricciones y evaluación.',
+    table: {
+      headers: ['Clásico', 'Moderno'],
+      rows: [
+        ['estado explícito', 'contexto + memoria'],
+        ['acciones modeladas', 'tools / function calling'],
+        ['precondiciones y efectos', 'validadores, schemas, permisos'],
+        ['planner', 'LLM razonador / orquestador'],
+        ['heurística', 'modelo, eval, routing'],
+        ['motor de inferencia', 'LLM + RAG + reglas'],
+      ],
+    },
+    secondaryTables: [
+      {
+        headers: ['Pregunta de diseño', 'Lectura práctica'],
+        rows: [
+          ['¿Qué observa?', 'inputs de usuario, documentos, tool results, logs, eventos'],
+          ['¿Qué recuerda?', 'estado explícito, memoria persistente, trazas y decisiones'],
+          ['¿Qué puede hacer?', 'tools con permisos, contratos y efectos auditables'],
+          ['¿Cómo sabes que funciona?', 'evals por tarea, tests, métricas y revisión humana'],
+        ],
+      },
+    ],
+    callout: {
+      title: 'No es “más autonomía” por defecto',
+      text: 'Un agente moderno solo merece autonomía cuando puede observar resultados, corregir errores, respetar límites y dejar evidencia. Si no, es un prompt largo con permisos peligrosos.',
+      icon: 'shield-alert',
+    },
+    refs,
+  },
+  {
+    id: 'agente-percepcion-accion',
+    number: 157,
+    title: 'Agente clásico: percibir y actuar',
+    icon: 'eye',
+    lead: 'Un agente clásico recibe perceptos, actualiza estado y elige una acción. Esa estructura sigue estando debajo de muchos agentes LLM.',
+    bigIdea: 'El aprendizaje importante es operacional: una acción no termina cuando se invoca una tool, termina cuando el sistema observa su efecto. Sin esa observación, el agente no sabe si avanzó, falló o dañó algo.',
+    flow: ['Percepción', 'Estado interno', 'Decisión', 'Acción', 'Nuevo percepto'],
+    cards: [
+      { icon: 'eye', title: 'Percepto', text: 'Lo que el sistema observa: input, respuesta de tool, logs.' },
+      { icon: 'memory-stick', title: 'Estado', text: 'Representación mantenida de la situación.' },
+      { icon: 'mouse-pointer-click', title: 'Acción', text: 'Cambio en el entorno: API, archivo, navegador, email.' },
+      { icon: 'activity', title: 'Feedback', text: 'La acción modifica el mundo y produce nueva observación.' },
+    ],
+    secondaryTables: [
+      {
+        headers: ['En IA clásica', 'En agente LLM', 'Riesgo si falta'],
+        rows: [
+          ['Percepto', 'resultado de tool, error de build, respuesta HTTP', 'actúa con información vieja'],
+          ['Estado', 'plan, progreso, permisos, archivos tocados', 'repite pasos o contradice decisiones'],
+          ['Acción', 'llamada a API, edición, navegación, comando', 'efectos laterales no controlados'],
+          ['Feedback', 'test, diff, log, métrica, aprobación', 'confunde plausibilidad con éxito'],
+        ],
+      },
+    ],
+    callout: {
+      title: 'Criterio de parada',
+      text: 'Todo loop de agente necesita una condición de éxito, una condición de fallo y un límite de pasos/coste. Si no puedes escribirlos, todavía no tienes una automatización controlada.',
+      icon: 'timer',
+    },
+    refs,
+  },
+  {
+    id: 'agente-reactivo-deliberativo',
+    number: 158,
+    title: 'Reactivo, deliberativo e híbrido',
+    icon: 'split',
+    lead: 'No todo agente necesita plan largo. A veces basta reacción; otras veces necesitas deliberar, comprobar y ejecutar por fases.',
+    bigIdea: 'La arquitectura correcta depende de incertidumbre y coste de error. Cuanto más irreversible sea la acción, más conviene pasar de respuesta reactiva a planificación, validación y checkpoints.',
+    table: {
+      headers: ['Tipo', 'Cómo decide', 'Ejemplo moderno'],
+      rows: [
+        ['Reactivo', 'reglas directas sobre perceptos', 'clasificar ticket y enrutar'],
+        ['Deliberativo', 'construye un plan antes de actuar', 'migrar un módulo con tests'],
+        ['Híbrido', 'planifica alto nivel y reacciona a observaciones', 'coding agent con loop de build/test'],
+      ],
+    },
+    secondaryTables: [
+      {
+        headers: ['Tipo', 'Fallo típico', 'Control útil'],
+        rows: [
+          ['Reactivo', 'confunde intención o aplica regla demasiado simple', 'clasificador calibrado, fallback y revisión de casos frontera'],
+          ['Deliberativo', 'plan bonito pero no ejecutable', 'validar precondiciones antes de cada acción'],
+          ['Híbrido', 'deriva entre pasos o cambia de objetivo', 'estado explícito, trazas y checkpoints'],
+        ],
+      },
+    ],
+    callout: {
+      title: 'Ejemplo',
+      text: 'Clasificar un ticket como facturación puede ser reactivo. Reembolsar dinero al cliente exige plan, permiso, consulta de estado, tool segura y confirmación.',
+      icon: 'receipt',
+    },
+    refs,
+  },
+  {
+    id: 'estado-vs-contexto',
+    number: 159,
+    title: 'Estado explícito vs contexto',
+    icon: 'panel-top',
+    lead: 'En un agente LLM, el estado muchas veces vive repartido entre prompt, memoria, filesystem, trazas y resultados de tools.',
+    bigIdea: 'El contexto sirve para razonar; el estado sirve para operar. La diferencia importa porque el texto puede ser ambiguo, viejo o demasiado largo, mientras que el estado estructurado puede validarse y auditarse.',
+    twoCols: [
+      { icon: 'database', title: 'Estado explícito', text: 'Estructura definida: variables, hechos, flags, permisos, plan, progreso.', tag: 'verificable' },
+      { icon: 'message-square-text', title: 'Contexto', text: 'Texto que el modelo interpreta. Flexible, pero puede ser incompleto, largo o ambiguo.', tag: 'flexible' },
+    ],
+    secondaryTables: [
+      {
+        headers: ['Debe ir a estado explícito', 'Puede ir en contexto'],
+        rows: [
+          ['saldo, permisos, usuario autenticado, IDs, locks', 'preferencias de estilo, objetivos, explicación del dominio'],
+          ['pasos completados, tool calls, outputs confirmados', 'resúmenes de lectura y notas de razonamiento operativo'],
+          ['decisiones auditables y aprobaciones humanas', 'hipótesis temporales que se pueden revalidar'],
+        ],
+      },
+    ],
+    callout: { title: 'Regla práctica', text: 'Lo crítico debería estar en estado verificable, no escondido en conversación.', icon: 'shield-check' },
+    refs,
+  },
+  {
+    id: 'acciones-tools',
+    number: 160,
+    title: 'Acciones modeladas vs tools',
+    icon: 'wrench',
+    lead: 'Una tool es una acción con interfaz. Si no defines contrato, permisos y efectos, el agente opera a ciegas.',
+    bigIdea: 'Una tool no es “una función que el modelo puede llamar”; es una frontera de seguridad. El schema reduce errores de forma, las precondiciones reducen errores de decisión y los logs permiten depurar el comportamiento.',
+    table: {
+      headers: ['Pieza', 'Diseño correcto'],
+      rows: [
+        ['Nombre', 'verbo claro: search_docs, create_invoice, run_tests'],
+        ['Schema', 'parámetros tipados, enums y campos obligatorios'],
+        ['Precondiciones', 'permisos, datos mínimos, límites de coste'],
+        ['Efectos', 'qué cambia y cómo se registra'],
+        ['Errores', 'mensajes estructurados y recuperables'],
+      ],
+    },
+    secondaryTables: [
+      {
+        headers: ['Tipo de tool', 'Ejemplo', 'Nivel de control'],
+        rows: [
+          ['Solo lectura', 'search_docs, get_invoice, list_files', 'permisos y límites de datos'],
+          ['Reversible', 'create_draft, open_ticket, write_temp_file', 'confirmación ligera y rollback'],
+          ['Irreversible', 'send_email, refund_payment, delete_record', 'aprobación humana, doble validación y auditoría'],
+        ],
+      },
+    ],
+    callout: {
+      title: 'Diseño mínimo',
+      text: 'Una buena tool tiene nombre inequívoco, descripción corta, schema estricto, errores recuperables, límites de coste, permisos y registro de efecto.',
+      icon: 'check-check',
+    },
+    refs: [{ label: 'OpenAI - Function calling', href: 'https://platform.openai.com/docs/guides/function-calling' }],
+  },
+  {
+    id: 'precondiciones-efectos-schemas',
+    number: 161,
+    title: 'Precondiciones, efectos y schemas',
+    icon: 'braces',
+    lead: 'El prompt puede pedir cuidado; el schema puede impedir una llamada inválida. Son capas complementarias.',
+    bigIdea: 'Esta slide conecta planning clásico con agentes modernos: antes de una acción preguntas “¿se puede ejecutar ahora?”; después preguntas “¿qué cambió realmente?”. Esa disciplina evita que el modelo convierta intención en efecto no verificado.',
+    flow: ['Intento del modelo', 'Validar schema', 'Comprobar permisos', 'Ejecutar tool', 'Registrar efecto'],
+    table: {
+      headers: ['Concepto', 'Pregunta', 'Ejemplo'],
+      rows: [
+        ['Schema', '¿La forma de los datos es válida?', 'email con formato correcto, enum de moneda, importe numérico'],
+        ['Precondición', '¿Tiene sentido ejecutar ahora?', 'usuario autenticado, factura existe, estado permite reembolso'],
+        ['Efecto', '¿Qué cambia tras ejecutar?', 'ticket creado, saldo actualizado, fichero escrito'],
+        ['Postcondición', '¿El efecto esperado ocurrió?', 'leer de nuevo BD, comprobar status, verificar diff'],
+      ],
+    },
+    callout: { title: 'Producción', text: 'Toda tool peligrosa debería tener contrato, límites, autorización y log de efecto.', icon: 'lock' },
+    refs,
+  },
+  {
+    id: 'planner-vs-llm-razonador',
+    number: 162,
+    title: 'Planner vs LLM razonador',
+    icon: 'brain-circuit',
+    lead: 'Un planner formal busca planes en un modelo del mundo. Un LLM razonador propone pasos plausibles a partir de contexto.',
+    bigIdea: 'No compiten; se complementan. El LLM entiende objetivos mal especificados y lenguaje humano; el planner o validador comprueba si las acciones encajan con estado, recursos y restricciones.',
+    table: {
+      headers: ['Dimensión', 'Planner formal', 'LLM razonador'],
+      rows: [
+        ['Mundo', 'modelo explícito', 'contexto textual y herramientas'],
+        ['Garantía', 'factibilidad/optimalidad bajo supuestos', 'plausibilidad y adaptación'],
+        ['Fortaleza', 'restricciones duras', 'lenguaje natural y casos abiertos'],
+        ['Riesgo', 'modelado caro', 'plan imposible si no se valida'],
+      ],
+    },
+    secondaryTables: [
+      {
+        headers: ['Usa planner/solver cuando', 'Usa LLM cuando', 'Usa híbrido cuando'],
+        rows: [
+          ['hay reglas exactas, recursos y restricciones', 'la entrada viene ambigua en lenguaje natural', 'necesitas traducir preferencias a acciones verificables'],
+          ['el coste de un plan inválido es alto', 'importa explicar, resumir o negociar opciones', 'el agente propone y el sistema valida antes de ejecutar'],
+        ],
+      },
+    ],
+    callout: {
+      title: 'Prueba de realidad',
+      text: 'Un plan textual no es un plan operativo hasta que cada paso tiene precondiciones, tool concreta, efecto esperado y criterio de verificación.',
+      icon: 'clipboard-check',
+    },
+    refs,
+  },
+  {
+    id: 'heuristica-routing-evals',
+    number: 163,
+    title: 'Heurística, routing y evals',
+    icon: 'route',
+    lead: 'El agente moderno también necesita heurísticas: qué modelo usar, qué tool llamar, cuándo parar y cuándo escalar a humano.',
+    bigIdea: 'Routing es una heurística con presupuesto. No intenta encontrar la verdad absoluta; decide dónde gastar tokens, latencia y atención humana para maximizar éxito esperado con coste razonable.',
+    cards: [
+      { icon: 'gauge', title: 'Routing', text: 'Modelo barato para tareas simples, modelo caro para alto riesgo.' },
+      { icon: 'clipboard-check', title: 'Eval', text: 'Mide éxito por tarea, no solo calidad de texto.' },
+      { icon: 'circle-dollar-sign', title: 'Budget', text: 'Tokens, tool calls, latencia y coste humano.' },
+      { icon: 'hand', title: 'Escalado', text: 'Cuando incertidumbre o riesgo superan umbral, pide aprobación.' },
+    ],
+    table: {
+      headers: ['Señal observable', 'Decisión de routing', 'Métrica'],
+      rows: [
+        ['tarea simple y repetitiva', 'modelo rápido o regla', 'latencia y coste por caso'],
+        ['baja confianza o contradicción', 'modelo fuerte o búsqueda adicional', 'tasa de resolución y groundedness'],
+        ['acción irreversible', 'aprobación humana', 'errores evitados y tiempo de revisión'],
+        ['fallo tras N intentos', 'parar, resumir y escalar', 'loops cortados y coste ahorrado'],
+      ],
+    },
+    callout: {
+      title: 'Evals antes de arquitectura',
+      text: 'Sin una eval por tarea, “usar varios modelos” suele ser intuición cara. Mide primero baseline, coste, latencia, errores y casos en los que un modelo pequeño no basta.',
+      icon: 'bar-chart-3',
+    },
+    refs,
+  },
+  {
+    id: 'motor-inferencia-llm-rag-reglas',
+    number: 164,
+    title: 'Motor de inferencia moderno',
+    icon: 'cpu',
+    lead: 'En un sistema real, el “razonamiento” no vive solo en el LLM. Se reparte entre modelo, RAG, reglas, validadores y trazas.',
+    bigIdea: 'La arquitectura fiable reparte responsabilidades. El LLM maneja ambigüedad; el retrieval trae evidencia; las reglas bloquean lo inválido; las tools producen efectos; las trazas convierten la ejecución en algo auditable.',
+    flow: ['Input', 'RAG / KG', 'LLM', 'Reglas / schemas', 'Tool', 'Trace'],
+    table: {
+      headers: ['Capa', 'Responsabilidad'],
+      rows: [
+        ['LLM', 'interpretar, generar, decidir candidatos'],
+        ['RAG/KG', 'aportar evidencia y contexto'],
+        ['Reglas', 'garantizar restricciones duras'],
+        ['Tool logs', 'hacer auditable cada acción'],
+      ],
+    },
+    secondaryTables: [
+      {
+        headers: ['Fallo', 'Dónde se controla mejor'],
+        rows: [
+          ['dato inventado', 'RAG con citas + verificación de fuente'],
+          ['formato inválido', 'structured output + schema parser'],
+          ['acción no permitida', 'permisos fuera del modelo'],
+          ['bucle caro', 'presupuesto de pasos, tokens y tool calls'],
+          ['decisión sensible', 'checkpoint humano y trace'],
+        ],
+      },
+    ],
+    callout: {
+      title: 'Arquitectura mental',
+      text: 'Piensa en el LLM como una capa de decisión probabilística dentro de un sistema determinista alrededor. Cuanto más crítico el dominio, más fuerte debe ser el sistema alrededor.',
+      icon: 'layers',
+    },
+    refs,
+  },
+  {
+    id: 'agente-clasico-moderno-que-saber',
+    number: 165,
+    title: 'Qué debe saber: agentes clásicos y modernos',
+    icon: 'graduation-cap',
+    lead: 'La parte clásica ayuda a diseñar agentes LLM con menos humo: estado claro, acciones seguras, restricciones y evaluación.',
+    bigIdea: 'Al terminar este subbloque, el alumno debe poder mirar cualquier demo de agente y hacer preguntas incómodas: qué observa, qué estado conserva, qué permisos tiene, cómo valida, cuándo para y cómo se audita.',
+    table: {
+      headers: ['Debes poder explicar', 'Aplicación moderna'],
+      rows: [
+        ['Percepción-estado-acción', 'loop de agente con tools'],
+        ['Reactivo vs deliberativo', 'prompt simple vs workflow/agente'],
+        ['Precondiciones y efectos', 'schemas, permisos y logs'],
+        ['Planner vs LLM', 'validar planes antes de ejecutar'],
+        ['Motor de inferencia híbrido', 'LLM + RAG + reglas + humano'],
+      ],
+    },
+    secondaryTables: [
+      {
+        headers: ['Pregunta de examen útil', 'Respuesta esperada'],
+        rows: [
+          ['¿Por qué un agente no es solo un chatbot?', 'porque actúa sobre herramientas y observa efectos'],
+          ['¿Por qué no todo debe vivir en el prompt?', 'porque permisos, estado y validación necesitan garantías externas'],
+          ['¿Cuándo aumentar autonomía?', 'cuando hay eval, trazas, límites, recuperación y coste de error asumible'],
+          ['¿Qué se revisa en una tool peligrosa?', 'schema, precondiciones, permisos, idempotencia, logs y aprobación'],
+        ],
+      },
+    ],
+    callout: {
+      title: 'Mensaje del bloque',
+      text: 'La parte clásica no es nostalgia: es el vocabulario que impide confundir una demo impresionante con un sistema operativo fiable.',
+      icon: 'graduation-cap',
+    },
+    refs,
+  },
+];
+---
+
+{slides.map((slide) => <StructuredSlide {...slide} />)}

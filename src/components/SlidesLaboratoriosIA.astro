@@ -1,0 +1,214 @@
+---
+import Slide from './Slide.astro';
+import StructuredSlide from './StructuredSlide.astro';
+
+const refs = [
+  { label: 'AIMA Python code', href: 'https://github.com/aimacode/aima-python' },
+  { label: 'scikit-learn examples', href: 'https://scikit-learn.org/stable/auto_examples/index.html' },
+  { label: 'UCI Machine Learning Repository', href: 'https://archive.ics.uci.edu/' },
+  { label: 'Protégé', href: 'https://protege.stanford.edu/' },
+  { label: 'Microsoft GraphRAG', href: 'https://microsoft.github.io/graphrag/' },
+];
+
+const slides = [
+  {
+    id: 'lab-principios',
+    number: 247,
+    title: 'Labs: qué hace bueno a un ejercicio',
+    icon: 'flask-conical',
+    lead: 'Un laboratorio bueno no es una demo que impresiona. Es una práctica que deja un artefacto medible, repetible y discutible.',
+    cards: [
+      { icon: 'target', title: 'Objetivo explícito', text: 'Qué concepto se aprende y qué decisión permite tomar.' },
+      { icon: 'repeat', title: 'Reproducible', text: 'Datos, versiones, seed, instrucciones y salida esperada.' },
+      { icon: 'clipboard-check', title: 'Evaluable', text: 'Métrica, rúbrica o checklist de aceptación.' },
+      { icon: 'git-branch', title: 'Comparativo', text: 'Baseline simple frente a alternativa más sofisticada.' },
+    ],
+    refs,
+  },
+  {
+    id: 'lab-a-star',
+    number: 248,
+    title: 'Lab 1: A* en un problema pequeño',
+    icon: 'route',
+    lead: 'Modela un problema de rutas o cruce de río como espacio de estados y resuélvelo con A*.',
+    table: {
+      headers: ['Entregable', 'Qué debe incluir'],
+      rows: [
+        ['Modelo', 'estado inicial, acciones, objetivo y coste'],
+        ['Heurística', 'definición y justificación de admisibilidad o trade-off'],
+        ['Traza', 'frontera, visitados y camino elegido'],
+        ['Reflexión', 'qué cambia con BFS, DFS o coste uniforme'],
+      ],
+    },
+    refs: [{ label: 'AIMA Python - search', href: 'https://github.com/aimacode/aima-python/blob/master/search.py' }],
+  },
+  {
+    id: 'lab-mini-planner',
+    number: 249,
+    title: 'Lab 2: mini planner de una tarea real',
+    icon: 'list-tree',
+    lead: 'Convierte una tarea cotidiana en acciones con precondiciones y efectos. El objetivo es pensar como diseñador de agentes.',
+    flow: ['Elegir tarea', 'Definir estado', 'Acciones', 'Precondiciones', 'Efectos', 'Plan'],
+    callout: { title: 'Ejemplos', text: 'Enviar factura, preparar release, revisar PR, publicar post, responder ticket con aprobación humana.', icon: 'lightbulb' },
+    refs: [{ label: 'Planning Wiki - PDDL', href: 'https://planning.wiki/guide/whatis/pddl' }],
+  },
+  {
+    id: 'lab-planner-vs-llm',
+    number: 250,
+    title: 'Lab 3: planner vs LLM',
+    icon: 'git-compare',
+    lead: 'Pide a un LLM que proponga un plan y compáralo con tu modelo de precondiciones/efectos.',
+    table: {
+      headers: ['Paso', 'Qué medir'],
+      rows: [
+        ['Plan LLM sin modelo', 'pasos plausibles, omisiones y orden'],
+        ['Plan con restricciones explícitas', 'precondiciones violadas y dependencias'],
+        ['Validación', 'qué pasos necesitan tool, datos o aprobación'],
+        ['Conclusión', 'dónde ayuda el LLM y dónde necesitas reglas'],
+      ],
+    },
+    refs,
+  },
+  {
+    id: 'lab-clasificador-sklearn',
+    number: 251,
+    title: 'Lab 4: clasificador simple con scikit-learn',
+    icon: 'split',
+    lead: 'Entrena un clasificador con un dataset pequeño, separa train/test y reporta matriz de confusión.',
+    code: `from sklearn.model_selection import train_test_split\nfrom sklearn.metrics import classification_report, confusion_matrix\nfrom sklearn.tree import DecisionTreeClassifier\n\nX_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)\nmodel = DecisionTreeClassifier(random_state=42).fit(X_train, y_train)\ny_pred = model.predict(X_test)\nprint(confusion_matrix(y_test, y_pred))\nprint(classification_report(y_test, y_pred))`,
+    refs: [{ label: 'scikit-learn - Decision Trees', href: 'https://scikit-learn.org/stable/modules/tree.html' }],
+  },
+  {
+    id: 'lab-matriz-confusion',
+    number: 252,
+    title: 'Lab 5: interpretar la matriz de confusión',
+    icon: 'grid-3x3',
+    lead: 'El objetivo no es sacar accuracy alta: es entender qué errores comete el modelo y qué coste tienen.',
+    table: {
+      headers: ['Pregunta', 'Respuesta esperada'],
+      rows: [
+        ['Qué clase falla más', 'mirar filas reales y columnas predichas'],
+        ['Qué error duele más', 'relacionar FP/FN con impacto de negocio'],
+        ['Qué métrica elegir', 'precision, recall, F1 o coste ponderado'],
+        ['Qué harías después', 'más datos, features, threshold, otro modelo'],
+      ],
+    },
+    refs: [{ label: 'scikit-learn - Classification report', href: 'https://scikit-learn.org/stable/modules/generated/sklearn.metrics.classification_report.html' }],
+  },
+  {
+    id: 'lab-kmeans-visual',
+    number: 253,
+    title: 'Lab 6: k-means visual',
+    icon: 'scatter-chart',
+    lead: 'Aplica k-means sobre datos sencillos, visualiza centroides y prueba qué ocurre al cambiar k o escalar variables.',
+    steps: [
+      'Carga un dataset numérico pequeño.',
+      'Normaliza features.',
+      'Ejecuta k-means con distintos k.',
+      'Visualiza asignaciones y centroides.',
+      'Explica qué clusters son estables y cuáles parecen artefactos.',
+    ],
+    refs: [{ label: 'scikit-learn - KMeans example', href: 'https://scikit-learn.org/stable/auto_examples/cluster/plot_kmeans_digits.html' }],
+  },
+  {
+    id: 'lab-ontologia-sparql',
+    number: 254,
+    title: 'Lab 7: ontología pequeña + SPARQL',
+    icon: 'network',
+    lead: 'Crea una ontología mínima de un dominio conocido y consulta relaciones con SPARQL.',
+    table: {
+      headers: ['Artefacto', 'Mínimo aceptable'],
+      rows: [
+        ['Clases', '3-5 conceptos principales'],
+        ['Propiedades', 'relaciones entre conceptos y atributos'],
+        ['Individuos', 'ejemplos concretos del dominio'],
+        ['Consultas', '3 preguntas SPARQL con respuesta verificable'],
+        ['Export', 'RDF/Turtle u OWL/XML'],
+      ],
+    },
+    refs: [
+      { label: 'Protégé', href: 'https://protege.stanford.edu/' },
+      { label: 'SPARQL 1.2', href: 'https://w3c.github.io/sparql-query/spec/' },
+    ],
+  },
+  {
+    id: 'lab-vector-vs-sparql',
+    number: 255,
+    title: 'Lab 8: vector search vs SPARQL',
+    icon: 'git-compare',
+    lead: 'Resuelve la misma pregunta con búsqueda vectorial y con consulta estructurada. Observa qué falla en cada una.',
+    table: {
+      headers: ['Pregunta', 'Vectorial', 'SPARQL/KG'],
+      rows: [
+        ['“Busca casos parecidos”', 'fuerte', 'débil si no hay relaciones suficientes'],
+        ['“Qué entidad cumple relación exacta”', 'puede fallar', 'fuerte'],
+        ['“Resume evidencia textual”', 'fuerte con citas', 'necesita documentos asociados'],
+        ['“Valida una regla”', 'no garantiza', 'fuerte con restricciones'],
+      ],
+    },
+    refs,
+  },
+  {
+    id: 'lab-reglas-rag-agente',
+    number: 256,
+    title: 'Lab 9: reglas vs RAG vs agente',
+    icon: 'workflow',
+    lead: 'Toma una tarea pequeña y resuélvela de tres formas: reglas, RAG y agente con tool. No busques ganador universal: busca límites.',
+    flow: ['Reglas', 'RAG', 'Agente con tool', 'Eval común', 'Decisión'],
+    table: {
+      headers: ['Sistema', 'Mide'],
+      rows: [
+        ['Reglas', 'precisión, mantenimiento, cobertura'],
+        ['RAG', 'groundedness, citas, abstención'],
+        ['Agente', 'éxito, coste, tool calls, errores recuperables'],
+      ],
+    },
+    refs: [
+      { label: 'OpenAI Evals', href: 'https://platform.openai.com/docs/guides/evals' },
+      { label: 'Anthropic - Agent evals', href: 'https://www.anthropic.com/engineering/demystifying-evals-for-ai-agents' },
+    ],
+  },
+  {
+    id: 'lab-entregable-notebook-produccion',
+    number: 257,
+    title: 'Lab 10: del notebook a producción',
+    icon: 'rocket',
+    lead: 'El notebook es laboratorio. Producción requiere convertir intuiciones en scripts, tests, versionado y release gates.',
+    table: {
+      headers: ['Notebook', 'Producción'],
+      rows: [
+        ['células manuales', 'script o pipeline reproducible'],
+        ['dependencias implícitas', 'lockfile / container'],
+        ['observación visual', 'tests y métricas'],
+        ['prompt suelto', 'prompt versionado y eval'],
+        ['modelo “actual”', 'ID de modelo y fecha fijados'],
+      ],
+    },
+    refs: [{ label: 'Google Colab', href: 'https://colab.research.google.com/' }],
+  },
+  {
+    id: 'lab-rubrica',
+    number: 258,
+    title: 'Qué debe saber: laboratorios',
+    icon: 'graduation-cap',
+    lead: 'Un lab bueno termina con evidencia, no con sensación. Si no puedes repetirlo y medirlo, todavía es una demo.',
+    table: {
+      headers: ['Entregable final', 'Debe contener'],
+      rows: [
+        ['README', 'objetivo, datos, pasos, decisión'],
+        ['Código/notebook', 'versiones, seed, dependencias'],
+        ['Resultados', 'métricas, errores y ejemplos concretos'],
+        ['Comparación', 'baseline y alternativa'],
+        ['Conclusión', 'seguir, parar o simplificar'],
+      ],
+    },
+    refs,
+  },
+];
+---
+
+<Slide id="sec-laboratorios-ia" number={246} section
+  title="Laboratorios IA aplicada"
+  subtitle="Ejercicios cortos para convertir teoría clásica y sistemas LLM en artefactos medibles: búsqueda, planning, ML clásico, grafos y agentes." />
+
+{slides.map((slide) => <StructuredSlide {...slide} />)}
