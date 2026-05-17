@@ -11,7 +11,7 @@ import SlidesMLClasico from './SlidesMLClasico.astro';
   <p class="cover-meta">Mayo 2026 (Update: 05/26)</p>
   <div class="cover-update-card">
     <span class="cover-update-label">Actualización del día · 17 mayo 2026</span>
-    <p>Nuevos bloques: IA clásica, ML, agentes, Harness Engineering, evals, operación, seguridad, laboratorios y UX de IA.</p>
+    <p>Nuevos bloques: backpropagation con símbolos y derivadas, IA clásica, ML, agentes, Harness Engineering, evals, operación, seguridad, laboratorios y UX de IA.</p>
     <div class="cover-update-actions">
       <button class="cover-update-btn" id="open-update-btn" type="button">
         Ver novedades
@@ -349,7 +349,186 @@ import SlidesMLClasico from './SlidesMLClasico.astro';
 </Slide>
 
 <!-- SLIDE 9 -->
-<Slide id="funciones-perdida" number={9} title="Funciones de pérdida y optimizadores">
+<Slide id="backpropagation-derivadas" number={9} title="Backpropagation: el error viaja hacia atrás">
+  <p><i data-lucide="git-branch"></i> Backpropagation no es una caja negra: aplica la <strong>regla de la cadena</strong> para repartir la culpa del error entre activaciones, pesos y sesgos. Primero calcula una predicción; después pregunta cuánto cambió la pérdida por cada pieza de la red.</p>
+
+  <div class="diagram-scroll backprop-scroll">
+    <svg class="backprop-svg" viewBox="0 0 1180 430" role="img" aria-label="Retropropagación en una red neuronal simple con forward pass, pérdida y backward pass">
+      <defs>
+        <marker id="bp-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+          <path d="M 0 0 L 10 5 L 0 10 z" class="bp-arrow-head"></path>
+        </marker>
+        <marker id="bp-back-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+          <path d="M 0 0 L 10 5 L 0 10 z" class="bp-back-arrow-head"></path>
+        </marker>
+      </defs>
+
+      <rect x="18" y="28" width="1144" height="374" rx="12" class="bp-panel"></rect>
+      <text x="590" y="62" class="bp-title">Una neurona con activación sigmoide</text>
+      <text x="590" y="86" class="bp-subtitle">Forward: x → z → a → E · Backward: E reparte gradientes hacia z, w y b</text>
+
+      <rect x="70" y="145" width="120" height="64" rx="8" class="bp-node"></rect>
+      <text x="130" y="172" class="bp-node-title">x</text>
+      <text x="130" y="194" class="bp-node-small">entrada</text>
+
+      <rect x="265" y="128" width="190" height="98" rx="8" class="bp-node"></rect>
+      <text x="360" y="158" class="bp-node-title">z = wx + b</text>
+      <text x="360" y="184" class="bp-node-small">suma ponderada</text>
+      <text x="360" y="207" class="bp-node-small">parámetros: w, b</text>
+
+      <rect x="535" y="128" width="190" height="98" rx="8" class="bp-node"></rect>
+      <text x="630" y="158" class="bp-node-title">a = σ(z)</text>
+      <text x="630" y="184" class="bp-node-small">activación</text>
+      <text x="630" y="207" class="bp-node-small">σ'(z)=a(1-a)</text>
+
+      <rect x="805" y="128" width="230" height="98" rx="8" class="bp-node loss"></rect>
+      <text x="920" y="158" class="bp-node-title">E = 1/2(a-y)²</text>
+      <text x="920" y="184" class="bp-node-small">pérdida MSE</text>
+      <text x="920" y="207" class="bp-node-small">error medible</text>
+
+      <line x1="190" y1="177" x2="255" y2="177" class="bp-forward" marker-end="url(#bp-arrow)"></line>
+      <line x1="455" y1="177" x2="525" y2="177" class="bp-forward" marker-end="url(#bp-arrow)"></line>
+      <line x1="725" y1="177" x2="795" y2="177" class="bp-forward" marker-end="url(#bp-arrow)"></line>
+      <text x="492" y="150" class="bp-label">forward</text>
+
+      <path d="M920 238 C920 315 708 315 660 238" class="bp-backward" marker-end="url(#bp-back-arrow)"></path>
+      <path d="M630 238 C620 337 402 337 382 238" class="bp-backward" marker-end="url(#bp-back-arrow)"></path>
+      <text x="626" y="304" class="bp-back-label">backward</text>
+
+      <rect x="70" y="286" width="250" height="74" rx="8" class="bp-formula"></rect>
+      <text x="195" y="314" class="bp-formula-title">1. Error en salida</text>
+      <text x="195" y="340" class="bp-formula-text">∂E/∂a = a - y</text>
+
+      <rect x="350" y="286" width="250" height="74" rx="8" class="bp-formula"></rect>
+      <text x="475" y="314" class="bp-formula-title">2. Error antes de σ</text>
+      <text x="475" y="340" class="bp-formula-text">∂E/∂z = ∂E/∂a · σ'(z)</text>
+
+      <rect x="630" y="286" width="250" height="74" rx="8" class="bp-formula"></rect>
+      <text x="755" y="314" class="bp-formula-title">3. Culpa del peso</text>
+      <text x="755" y="340" class="bp-formula-text">∂E/∂w = ∂E/∂z · x</text>
+
+      <rect x="910" y="286" width="190" height="74" rx="8" class="bp-formula"></rect>
+      <text x="1005" y="314" class="bp-formula-title">4. Culpa del sesgo</text>
+      <text x="1005" y="340" class="bp-formula-text">∂E/∂b = ∂E/∂z</text>
+    </svg>
+  </div>
+
+  <div class="two-cols backprop-explain">
+    <div class="callout compact-callout">
+      <p class="callout-title"><i data-lucide="calculator"></i> Actualización</p>
+      <p><code>w ← w - η · ∂E/∂w</code> y <code>b ← b - η · ∂E/∂b</code>. El signo menos importa: nos movemos en la dirección que reduce la pérdida. <code>η</code> es el learning rate.</p>
+    </div>
+    <div class="callout compact-callout">
+      <p class="callout-title"><i data-lucide="link"></i> Lectura correcta</p>
+      <p>El gradiente dice sensibilidad: “si cambio un poco este peso, ¿cuánto cambia el error?”. En redes profundas, la misma idea se repite capa a capa desde la salida hacia la entrada.</p>
+    </div>
+  </div>
+
+  <div class="refs compact-refs">
+    <p class="refs-title">Para profundizar</p>
+    <a href="https://www.3blue1brown.com/lessons/backpropagation" target="_blank">3Blue1Brown - Backpropagation</a>
+    <a href="http://neuralnetworksanddeeplearning.com/chap2.html" target="_blank">Michael Nielsen - How the backpropagation algorithm works</a>
+    <a href="https://cs231n.github.io/optimization-2/" target="_blank">Stanford CS231n - Backpropagation</a>
+  </div>
+</Slide>
+
+<!-- SLIDE 10 -->
+<Slide id="backpropagation-simbolos" number={10} title="Backpropagation: qué significa cada símbolo">
+  <p><i data-lucide="book-open"></i> Vamos a mirar una neurona mínima, con una sola entrada. No es para entrenar un LLM, es para entender la mecánica: el modelo recibe un dato, lo mezcla con un peso y un sesgo, produce una salida y mide cuánto se ha equivocado.</p>
+
+  <div class="callout compact-callout">
+    <p class="callout-title"><i data-lucide="route"></i> Cadena completa</p>
+    <p><code>x</code> entra en la neurona. <code>w</code> decide cuánto pesa esa entrada y <code>b</code> ajusta el punto de partida. Con eso calculamos <code>z = wx + b</code>. Luego aplicamos una activación <code>σ</code> para obtener <code>a = σ(z)</code>. Finalmente comparamos <code>a</code> con la respuesta real <code>y</code> y obtenemos el error <code>E</code>.</p>
+  </div>
+
+  <div class="table-scroll">
+    <table class="compact-table symbol-table">
+      <thead>
+        <tr><th>Símbolo</th><th>Nombre</th><th>Qué significa</th><th>Ejemplo pequeño</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><code>x</code></td><td>Entrada / feature</td><td>El dato que llega a la neurona. Puede ser una variable del dataset o la salida de una capa anterior.</td><td><code>x = 2</code>: horas de estudio normalizadas</td></tr>
+        <tr><td><code>w</code></td><td>Peso</td><td>Número aprendido que indica cuánto influye esa entrada. Si cambia, cambia la predicción.</td><td><code>w = 0.40</code>: la entrada importa bastante</td></tr>
+        <tr><td><code>b</code></td><td>Bias / sesgo</td><td>Ajuste aprendido que desplaza la neurona aunque la entrada sea cero. Evita que todo dependa solo de <code>x</code>.</td><td><code>b = -0.10</code>: punto de partida algo más bajo</td></tr>
+        <tr><td><code>z</code></td><td>Preactivación</td><td>La suma lineal antes de la activación. Es la puntuación cruda de la neurona.</td><td><code>z = 0.40 · 2 - 0.10 = 0.70</code></td></tr>
+        <tr><td><code>σ</code></td><td>Sigmoid</td><td>Función que convierte <code>z</code> en un valor entre 0 y 1. Sirve como salida tipo probabilidad en este ejemplo.</td><td><code>σ(0.70) ≈ 0.668</code></td></tr>
+        <tr><td><code>a</code></td><td>Activación / salida</td><td>Predicción que sale de la neurona después de aplicar la activación.</td><td><code>a ≈ 0.668</code>: predice 66.8%</td></tr>
+        <tr><td><code>y</code></td><td>Etiqueta real</td><td>La respuesta correcta del ejemplo de entrenamiento. Contra esto comparamos la predicción.</td><td><code>y = 1</code>: el caso era positivo</td></tr>
+        <tr><td><code>E</code></td><td>Error / pérdida</td><td>Una nota numérica del fallo. Si <code>E</code> baja, el modelo está aprendiendo para ese ejemplo.</td><td><code>E = 1/2(a-y)^2 ≈ 0.055</code></td></tr>
+        <tr><td><code>η</code></td><td>Learning rate</td><td>Tamaño del paso al actualizar. No dice dirección; la dirección la marca el gradiente.</td><td><code>η = 0.1</code>: paso moderado</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="two-cols backprop-explain">
+    <div class="callout compact-callout">
+      <p class="callout-title"><i data-lucide="split"></i> No confundas z y a</p>
+      <p><code>z</code> es la puntuación cruda, puede ser negativa, grande o pequeña. <code>a</code> es la salida ya transformada por la activación. En este ejemplo, <code>z=0.70</code> se convierte en <code>a≈0.668</code>.</p>
+    </div>
+    <div class="callout compact-callout">
+      <p class="callout-title"><i data-lucide="target"></i> No entrenamos contra z</p>
+      <p>La pérdida se calcula con la salida que ve la tarea. Aquí comparamos <code>a</code> con <code>y</code>. Después backpropagation traduce ese error hacia atrás para saber cómo tocar <code>w</code> y <code>b</code>.</p>
+    </div>
+  </div>
+</Slide>
+
+<!-- SLIDE 11 -->
+<Slide id="backpropagation-gradientes-ejemplo" number={11} title="Backpropagation: gradientes con un ejemplo">
+  <p><i data-lucide="calculator"></i> Una derivada aquí no es “matemática decorativa”: es una sensibilidad. <code>∂E/∂w</code> se lee: si muevo un poco <code>w</code>, ¿cuánto cambia el error <code>E</code>? Backpropagation calcula esas sensibilidades de derecha a izquierda.</p>
+
+  <div class="two-cols">
+    <div>
+      <h3><i data-lucide="play"></i> 1. Forward con números</h3>
+      <div class="code-block formula-chain">
+        x = 2, w = 0.40, b = -0.10, y = 1<br/>
+        z = wx + b = 0.40 · 2 - 0.10 = 0.70<br/>
+        a = σ(z) = σ(0.70) ≈ 0.668<br/>
+        E = 1/2(a - y)² = 1/2(0.668 - 1)² ≈ 0.055
+      </div>
+      <p>La neurona predice <code>0.668</code>, pero la respuesta correcta es <code>1</code>. La predicción se queda corta: queremos empujar la salida hacia arriba.</p>
+    </div>
+    <div>
+      <h3><i data-lucide="rewind"></i> 2. Backward con la regla de la cadena</h3>
+      <div class="code-block formula-chain">
+        ∂E/∂a = a - y = -0.332<br/>
+        σ'(z) = a(1-a) = 0.668 · 0.332 ≈ 0.222<br/>
+        ∂E/∂z = ∂E/∂a · σ'(z) ≈ -0.074<br/>
+        ∂E/∂w = ∂E/∂z · x ≈ -0.148<br/>
+        ∂E/∂b = ∂E/∂z ≈ -0.074
+      </div>
+      <p>El signo negativo significa: subir <code>w</code> o <code>b</code> reduce el error. Justo lo que esperábamos, porque la salida era demasiado baja.</p>
+    </div>
+  </div>
+
+  <div class="table-scroll">
+    <table class="compact-table gradient-table">
+      <thead>
+        <tr><th>Gradiente</th><th>Lectura humana</th><th>Por qué sale así</th><th>Decisión práctica</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><code>∂E/∂a</code></td><td>Error respecto a la salida final</td><td>Con MSE: <code>a - y</code></td><td>Si es negativo, conviene subir <code>a</code></td></tr>
+        <tr><td><code>∂E/∂z</code></td><td>Error antes de la activación</td><td>Multiplica por <code>σ'(z)</code>: lo que deja pasar la sigmoid</td><td>El error ya está traducido al punto donde viven <code>w</code> y <code>b</code></td></tr>
+        <tr><td><code>∂E/∂w</code></td><td>Culpa asignada al peso</td><td><code>z = wx + b</code>, por eso depende de <code>x</code></td><td>Actualiza cuánto importa la entrada</td></tr>
+        <tr><td><code>∂E/∂b</code></td><td>Culpa asignada al sesgo</td><td><code>b</code> suma directamente a <code>z</code></td><td>Actualiza el punto base de la neurona</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout compact-callout">
+    <p class="callout-title"><i data-lucide="refresh-cw"></i> Update final</p>
+    <p>Con <code>η = 0.1</code>: <code>w_nuevo = 0.40 - 0.1 · (-0.148) ≈ 0.415</code> y <code>b_nuevo = -0.10 - 0.1 · (-0.074) ≈ -0.093</code>. La próxima vez, con la misma entrada, <code>z</code> será un poco mayor, <code>a</code> subirá y el error bajará.</p>
+  </div>
+
+  <div class="refs compact-refs">
+    <p class="refs-title">Para profundizar</p>
+    <a href="http://neuralnetworksanddeeplearning.com/chap2.html" target="_blank">Michael Nielsen - How the backpropagation algorithm works</a>
+    <a href="https://cs231n.github.io/optimization-2/" target="_blank">Stanford CS231n - Backpropagation</a>
+    <a href="https://www.3blue1brown.com/lessons/backpropagation" target="_blank">3Blue1Brown - Backpropagation</a>
+  </div>
+</Slide>
+
+<!-- SLIDE 12 -->
+<Slide id="funciones-perdida" number={12} title="Funciones de pérdida y optimizadores">
   <p><i data-lucide="target"></i> La <strong>función de pérdida</strong> mide cuánto se equivoca el modelo. El <strong>optimizador</strong> decide cómo ajustar los pesos para reducir ese error.</p>
   <h3><i data-lucide="calculator"></i> Funciones de pérdida principales</h3>
   <table>
@@ -396,8 +575,8 @@ import SlidesMLClasico from './SlidesMLClasico.astro';
   </div>
 </Slide>
 
-<!-- SLIDE 10 -->
-<Slide id="cnns" number={10} title="CNNs: redes convolucionales para visión">
+<!-- SLIDE 13 -->
+<Slide id="cnns" number={13} title="CNNs: redes convolucionales para visión">
   <p><i data-lucide="image"></i> Las <strong>Convolutional Neural Networks</strong> revolucionaron la visión por computador. En vez de mirar cada píxel por separado, aplican <strong>filtros</strong> que detectan patrones locales.</p>
   <h3><i data-lucide="route"></i> Flujo de una CNN</h3>
   <div class="flow">
@@ -453,8 +632,8 @@ import SlidesMLClasico from './SlidesMLClasico.astro';
   </div>
 </Slide>
 
-<!-- SLIDE 11 -->
-<Slide id="rnns-lstms" number={11} title="RNNs y LSTMs: redes para secuencias">
+<!-- SLIDE 14 -->
+<Slide id="rnns-lstms" number={14} title="RNNs y LSTMs: redes para secuencias">
   <p><i data-lucide="list-ordered"></i> Antes de los Transformers, las <strong>Recurrent Neural Networks</strong> eran la forma de procesar secuencias (texto, audio, series temporales). Entenderlas explica por qué el Transformer fue revolucionario.</p>
   <h3><i data-lucide="route"></i> Cómo funciona una RNN</h3>
   <div class="flow">
@@ -492,8 +671,8 @@ import SlidesMLClasico from './SlidesMLClasico.astro';
   </div>
 </Slide>
 
-<!-- SLIDE 12 -->
-<Slide id="tokens" number={12} title="¿Qué es un token?">
+<!-- SLIDE 15 -->
+<Slide id="tokens" number={15} title="¿Qué es un token?">
   <p><i data-lucide="scissors"></i> Un token es la <strong>unidad discreta</strong> que procesa el modelo. Puede ser una palabra, parte de una palabra, un carácter o incluso bytes, según el tokenizador y el vocabulario.</p>
   <h3><i data-lucide="code"></i> Ejemplos de tokenización</h3>
   <div class="code-block">
@@ -529,8 +708,8 @@ import SlidesMLClasico from './SlidesMLClasico.astro';
   </div>
 </Slide>
 
-<!-- SLIDE 13 -->
-<Slide id="embeddings" number={13} title="¿Qué es un embedding?">
+<!-- SLIDE 16 -->
+<Slide id="embeddings" number={16} title="¿Qué es un embedding?">
   <p><i data-lucide="scatter-chart"></i> Un embedding es una <strong>representación numérica</strong> de una palabra, frase, imagen, código o documento. Convierte el contenido en un vector de cientos o miles de números para poder comparar cercanía semántica.</p>
   <h3><i data-lucide="move"></i> ¿Qué es una dimensión?</h3>
   <p>Un vector de embedding tiene cientos o miles de componentes. Las dimensiones no suelen tener una etiqueta humana limpia; lo importante es la posición global del vector y sus distancias respecto a otros vectores.</p>
@@ -562,8 +741,8 @@ import SlidesMLClasico from './SlidesMLClasico.astro';
   </div>
 </Slide>
 
-<!-- SLIDE 14 -->
-<Slide id="embeddings-practica" number={14} title="Embeddings en la práctica">
+<!-- SLIDE 17 -->
+<Slide id="embeddings-practica" number={17} title="Embeddings en la práctica">
   <h3><i data-lucide="sparkles"></i> Aritmética de significado</h3>
   <p>Los embeddings pueden capturar relaciones semánticas que a veces aparecen como operaciones vectoriales aproximadas:</p>
   <div class="code-block">
@@ -629,8 +808,8 @@ import SlidesMLClasico from './SlidesMLClasico.astro';
   </div>
 </Slide>
 
-<!-- SLIDE 15 -->
-<Slide id="entrenamiento-inferencia" number={15} title="Entrenamiento vs inferencia">
+<!-- SLIDE 18 -->
+<Slide id="entrenamiento-inferencia" number={18} title="Entrenamiento vs inferencia">
   <div class="two-cols">
     <div>
       <h3><i data-lucide="graduation-cap"></i> Entrenamiento</h3>
@@ -691,8 +870,8 @@ import SlidesMLClasico from './SlidesMLClasico.astro';
   </div>
 </Slide>
 
-<!-- SLIDE 16 -->
-<Slide id="quantizacion" number={16} title="Quantización: modelos que caben en tu portátil">
+<!-- SLIDE 19 -->
+<Slide id="quantizacion" number={19} title="Quantización: modelos que caben en tu portátil">
   <p>Comprimir el modelo reduciendo la precisión numérica de cada <strong>peso</strong>. Un peso es un número aprendido durante el entrenamiento; al quantizar no cambias la arquitectura, cambias cómo se guarda ese número.</p>
   <div class="callout">
     <p class="callout-title"><i data-lucide="book-open"></i> Cómo leer la tabla</p>
@@ -739,11 +918,11 @@ import SlidesMLClasico from './SlidesMLClasico.astro';
   </div>
 </Slide>
 
-<!-- SLIDES 17-26: ML CLASICO -->
+<!-- SLIDES 20-29: ML CLASICO -->
 <SlidesMLClasico />
 
-<!-- SLIDE 27 -->
-<Slide id="recap-fundamentos" number={27} title="Lo que deberías saber: fundamentos">
+<!-- SLIDE 30 -->
+<Slide id="recap-fundamentos" number={30} title="Lo que deberías saber: fundamentos">
   <table>
     <thead>
       <tr><th>Concepto</th><th>Slide</th></tr>
@@ -754,27 +933,27 @@ import SlidesMLClasico from './SlidesMLClasico.astro';
       <tr><td>Aprendizaje supervisado, no supervisado y post-training con preferencias/refuerzo</td><td>5</td></tr>
       <tr><td>Neurona artificial = función con pesos, bias y activación</td><td>6</td></tr>
       <tr><td>Redes neuronales: capas que aprenden abstracciones</td><td>7</td></tr>
-      <tr><td>Backpropagation: forward, loss, backward, update</td><td>8</td></tr>
-      <tr><td>Overfitting, vanishing gradients, optimizadores (Adam)</td><td>9</td></tr>
-      <tr><td>CNNs para imágenes, RNNs/LSTMs para secuencias</td><td>10-11</td></tr>
-      <tr><td>Token = unidad discreta que procesa el modelo</td><td>12</td></tr>
-      <tr><td>Embedding = vector numérico que codifica significado</td><td>13-14</td></tr>
-      <tr><td>Entrenamiento (crear el modelo) vs inferencia (usarlo)</td><td>15</td></tr>
-      <tr><td>Quantización: comprimir modelos para hardware modesto</td><td>16</td></tr>
+      <tr><td>Backpropagation: forward, loss, símbolos, derivadas, ejemplo numérico y update</td><td>8-11</td></tr>
+      <tr><td>Overfitting, vanishing gradients, optimizadores (Adam)</td><td>12</td></tr>
+      <tr><td>CNNs para imágenes, RNNs/LSTMs para secuencias</td><td>13-14</td></tr>
+      <tr><td>Token = unidad discreta que procesa el modelo</td><td>15</td></tr>
+      <tr><td>Embedding = vector numérico que codifica significado</td><td>16-17</td></tr>
+      <tr><td>Entrenamiento (crear el modelo) vs inferencia (usarlo)</td><td>18</td></tr>
+      <tr><td>Quantización: comprimir modelos para hardware modesto</td><td>19</td></tr>
     </tbody>
   </table>
 </Slide>
 
-<!-- SLIDES 28-79: IA CLASICA APLICADA -->
+<!-- SLIDES 31-82: IA CLASICA APLICADA -->
 <SlidesIAClasica />
 
-<!-- SLIDE 80: SECCION -->
-<Slide id="sec-arquitecturas" number={80} section
+<!-- SLIDE 83: SECCION -->
+<Slide id="sec-arquitecturas" number={83} section
   title="Arquitecturas y modelos"
   subtitle="Transformers, Mixture of Experts, LLMs y los parámetros que controlan su comportamiento." />
 
-<!-- SLIDE 81 -->
-<Slide id="llm" number={81} title="¿Qué es un modelo LLM?">
+<!-- SLIDE 84 -->
+<Slide id="llm" number={84} title="¿Qué es un modelo LLM?">
   <p><i data-lucide="brain"></i> <strong>Large Language Model</strong>: un modelo de lenguaje a gran escala. Entrenado con cantidades masivas de texto (internet, libros, código...) para predecir el siguiente token dada una secuencia.</p>
   <div class="icon-grid">
     <div class="icon-card">
@@ -863,8 +1042,8 @@ import SlidesMLClasico from './SlidesMLClasico.astro';
   </div>
 </Slide>
 
-<!-- SLIDE 82 -->
-<Slide id="arquitecturas" number={82} title="Arquitecturas">
+<!-- SLIDE 85 -->
+<Slide id="arquitecturas" number={85} title="Arquitecturas">
   <h3><i data-lucide="network"></i> Evolución de las arquitecturas</h3>
   <p>La historia no acaba en Transformer. En 2026 la base dominante sigue siendo la familia Transformer, pero los modelos punteros combinan bloques: decoder-only, MoE, atención eficiente, memoria larga, SSM (State Space Model) / Mamba e incluso procesamiento por bytes o latentes.</p>
   <div class="flow">
@@ -924,8 +1103,8 @@ import SlidesMLClasico from './SlidesMLClasico.astro';
   </div>
 </Slide>
 
-<!-- SLIDE 83 -->
-<Slide id="transformer-ninos" number={83} title="¿Cómo funciona un Transformer?">
+<!-- SLIDE 86 -->
+<Slide id="transformer-ninos" number={86} title="¿Cómo funciona un Transformer?">
   <div class="analogy">
     <p class="analogy-label"><i data-lucide="users"></i> Analogía</p>
     <p>Imagina que estás leyendo una frase y tienes que adivinar el siguiente token. El Transformer puede procesar muchos tokens de la ventana en paralelo durante el cálculo interno, a diferencia de las RNN clásicas.</p>
@@ -969,8 +1148,8 @@ import SlidesMLClasico from './SlidesMLClasico.astro';
   </div>
 </Slide>
 
-<!-- SLIDE 84 -->
-<Slide id="moe" number={84} title="Arquitectura MoE (Mixture of Experts)">
+<!-- SLIDE 87 -->
+<Slide id="moe" number={87} title="Arquitectura MoE (Mixture of Experts)">
   <p><i data-lucide="route"></i> En vez de un modelo denso donde todos los parámetros participan en cada paso, MoE divide parte del modelo en múltiples <strong>expertos</strong> seleccionados por un router.</p>
   <h3><i data-lucide="zap"></i> Flujo de una petición MoE</h3>
   <div class="flow">

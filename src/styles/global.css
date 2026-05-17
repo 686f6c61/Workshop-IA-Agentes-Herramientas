@@ -972,6 +972,174 @@ code {
 
 /* ---- DIAGRAMAS SVG ---- */
 
+.backprop-svg {
+  width: 100%;
+  height: auto;
+  display: block;
+  margin: 0.45rem 0 0.35rem;
+}
+
+.backprop-scroll {
+  overflow-x: auto;
+  overflow-y: hidden;
+  max-width: 100%;
+  padding-bottom: 0.2rem;
+}
+
+.table-scroll {
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+.table-scroll table {
+  min-width: 760px;
+}
+
+.backprop-scroll .backprop-svg {
+  min-width: 720px;
+}
+
+.backprop-svg text {
+  font-family: var(--font-sans);
+  fill: var(--fg);
+  letter-spacing: 0;
+}
+
+.backprop-svg .bp-panel {
+  fill: #fff;
+  stroke: var(--border);
+  stroke-width: 1.4;
+}
+
+.backprop-svg .bp-title {
+  font-size: 24px;
+  font-weight: 800;
+  text-anchor: middle;
+}
+
+.backprop-svg .bp-subtitle {
+  font-size: 14px;
+  fill: var(--fg-muted);
+  text-anchor: middle;
+}
+
+.backprop-svg .bp-node,
+.backprop-svg .bp-formula {
+  fill: var(--accent-light);
+  stroke: var(--border-strong);
+  stroke-width: 1.4;
+}
+
+.backprop-svg .loss {
+  fill: #fff;
+}
+
+.backprop-svg .bp-node-title,
+.backprop-svg .bp-formula-title {
+  font-size: 17px;
+  font-weight: 800;
+  text-anchor: middle;
+}
+
+.backprop-svg .bp-node-small {
+  font-size: 13px;
+  fill: var(--fg-secondary);
+  text-anchor: middle;
+}
+
+.backprop-svg .bp-formula-text {
+  font-family: var(--font-mono);
+  font-size: 15px;
+  font-weight: 700;
+  text-anchor: middle;
+}
+
+.backprop-svg .bp-forward,
+.backprop-svg .bp-backward {
+  fill: none;
+  stroke: var(--fg);
+  stroke-width: 2;
+}
+
+.backprop-svg .bp-backward {
+  stroke-dasharray: 8 6;
+}
+
+.backprop-svg .bp-arrow-head,
+.backprop-svg .bp-back-arrow-head {
+  fill: var(--fg);
+}
+
+.backprop-svg .bp-label,
+.backprop-svg .bp-back-label {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  fill: var(--fg-muted);
+  text-anchor: middle;
+  text-transform: uppercase;
+}
+
+#backpropagation-derivadas > .slide-inner > p {
+  font-size: 0.95rem;
+  line-height: 1.45;
+  margin-bottom: 0.55rem;
+}
+
+#backpropagation-derivadas .backprop-explain {
+  gap: 0.8rem;
+  margin: 0.45rem 0;
+}
+
+#backpropagation-derivadas .compact-callout {
+  margin: 0;
+}
+
+#backpropagation-derivadas .refs.compact-refs {
+  margin-top: 0.45rem;
+  padding-top: 0.35rem;
+}
+
+#backpropagation-simbolos > .slide-inner > p,
+#backpropagation-gradientes-ejemplo > .slide-inner > p {
+  font-size: 0.95rem;
+  line-height: 1.45;
+  margin-bottom: 0.55rem;
+}
+
+#backpropagation-simbolos .symbol-table th,
+#backpropagation-simbolos .symbol-table td,
+#backpropagation-gradientes-ejemplo .gradient-table th,
+#backpropagation-gradientes-ejemplo .gradient-table td {
+  font-size: 0.74rem;
+  line-height: 1.28;
+  padding: 0.42rem 0.5rem;
+}
+
+#backpropagation-simbolos .symbol-table code,
+#backpropagation-gradientes-ejemplo .gradient-table code,
+#backpropagation-gradientes-ejemplo .formula-chain {
+  font-size: 0.78rem;
+}
+
+#backpropagation-gradientes-ejemplo .formula-chain {
+  line-height: 1.65;
+  margin-bottom: 0.55rem;
+}
+
+#backpropagation-gradientes-ejemplo .two-cols {
+  gap: 1rem;
+}
+
+#backpropagation-gradientes-ejemplo .two-cols p {
+  font-size: 0.86rem;
+  line-height: 1.45;
+}
+
+#backpropagation-simbolos .backprop-explain {
+  gap: 0.8rem;
+  margin-top: 0.55rem;
+}
+
 .agent-architecture-svg {
   width: 100%;
   height: auto;

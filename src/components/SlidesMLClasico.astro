@@ -10,7 +10,7 @@ const commonRefs = [
 const slides = [
   {
     id: 'ml-clasico-mapa',
-    number: 17,
+    number: 20,
     title: 'ML clásico: el mapa antes de los LLMs',
     icon: 'map',
     lead: 'Antes de hablar de modelos gigantes conviene separar tareas: aprender una etiqueta, predecir un número, descubrir estructura o actuar para maximizar recompensa. Esa separación evita elegir una arquitectura por moda cuando todavía no está claro qué señal de aprendizaje existe.',
@@ -40,7 +40,7 @@ const slides = [
   },
   {
     id: 'dataset-features-labels',
-    number: 18,
+    number: 21,
     title: 'Dataset, features, label y target',
     icon: 'table-properties',
     lead: 'Un modelo no aprende “el mundo” directamente: aprende la representación que le damos en forma de filas, columnas, textos, imágenes o señales. Por eso la calidad de las features, la etiqueta y el split de datos suele importar más que cambiar de algoritmo.',
@@ -72,7 +72,7 @@ const slides = [
   },
   {
     id: 'supervisado-no-supervisado-refuerzo',
-    number: 19,
+    number: 22,
     title: 'Supervisado, no supervisado y refuerzo',
     icon: 'git-branch',
     lead: 'Estas tres familias no se separan por usar árboles, redes neuronales o Transformers, sino por el tipo de feedback disponible durante el aprendizaje. La pregunta clave es: ¿quién corrige al modelo y cuándo?',
@@ -103,7 +103,7 @@ const slides = [
   },
   {
     id: 'clasificacion-vs-regresion',
-    number: 20,
+    number: 23,
     title: 'Clasificación vs regresión',
     icon: 'split',
     lead: 'Ambas son aprendizaje supervisado: entrenas con ejemplos donde ya conoces la respuesta. La diferencia está en el tipo de variable que quieres predecir: una categoría discreta o una cantidad continua.',
@@ -132,7 +132,7 @@ const slides = [
   },
   {
     id: 'validacion-generalizacion',
-    number: 21,
+    number: 24,
     title: 'Validación: medir generalización',
     icon: 'shield-check',
     lead: 'Generalizar significa acertar en casos nuevos, con ruido nuevo y usuarios nuevos. Un modelo que solo funciona en los ejemplos con los que lo has ajustado no ha aprendido una regla útil: ha memorizado una foto del pasado.',
@@ -169,7 +169,7 @@ const slides = [
   },
   {
     id: 'overfitting-underfitting',
-    number: 22,
+    number: 25,
     title: 'Overfitting y underfitting',
     icon: 'gauge',
     lead: 'El objetivo no es acertar el train set: es capturar una señal que siga funcionando fuera de los ejemplos vistos. La pregunta práctica no es “cuánto acierta entrenando”, sino “cuánto aguanta cuando cambia el caso”.',
@@ -198,7 +198,7 @@ const slides = [
   },
   {
     id: 'matriz-confusion',
-    number: 23,
+    number: 26,
     title: 'Matriz de confusión',
     icon: 'grid-3x3',
     lead: 'Para clasificación, la matriz de confusión enseña qué aciertos y errores comete el modelo por clase. Es la forma más directa de pasar de “accuracy” a consecuencias reales.',
@@ -239,7 +239,7 @@ const slides = [
   },
   {
     id: 'precision-recall-f1',
-    number: 24,
+    number: 27,
     title: 'Precision, recall y F1',
     icon: 'calculator',
     lead: 'Accuracy suele engañar cuando las clases están desbalanceadas. Si el 99% de emails no son spam, un modelo que diga “no spam” siempre tiene 99% de accuracy y aun así no sirve para detectar spam.',
@@ -283,7 +283,7 @@ const slides = [
   },
   {
     id: 'clustering-kmeans',
-    number: 25,
+    number: 28,
     title: 'Clustering y k-means',
     icon: 'scatter-chart',
     lead: 'Clustering agrupa datos sin etiqueta. k-means busca k centroides y asigna cada punto al centro más cercano. La parte peligrosa no es ejecutar el algoritmo, sino interpretar los grupos como si fueran categorías naturales.',
@@ -314,7 +314,7 @@ const slides = [
   },
   {
     id: 'cuando-no-confiar-clusters',
-    number: 26,
+    number: 29,
     title: 'Cuándo no confiar en clusters',
     icon: 'alert-triangle',
     lead: 'Un cluster no es una verdad del mundo. Es una partición inducida por features, escala, métrica y algoritmo. Puede ser una hipótesis útil, pero también una forma elegante de amplificar sesgos o artefactos.',

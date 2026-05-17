@@ -3,13 +3,13 @@ import Slide from './Slide.astro';
 import SlidesAgentesClasicos from './SlidesAgentesClasicos.astro';
 ---
 
-<!-- SLIDE 153: SECCION -->
-<Slide id="sec-agentes" number={153} section
+<!-- SLIDE 156: SECCION -->
+<Slide id="sec-agentes" number={156} section
   title="Agentes y orquestación"
   subtitle="Qué es un agente, cuándo usarlo, function calling, arquitecturas, patrones, orquestadores, MCP, computer use, A2A y human-in-the-loop." />
 
-<!-- SLIDE 154 -->
-<Slide id="agente-vs-prompt" number={154} title="¿Cuándo usar un agente y no un prompt?">
+<!-- SLIDE 157 -->
+<Slide id="agente-vs-prompt" number={157} title="¿Cuándo usar un agente y no un prompt?">
   <p>La pregunta no es si un agente “parece más avanzado”, sino si la tarea necesita <strong>estado, herramientas, iteración y verificación</strong>. Un agente añade potencia, pero también coste, latencia, superficie de fallo y necesidad de observabilidad.</p>
   <div class="two-cols">
     <div>
@@ -59,8 +59,8 @@ import SlidesAgentesClasicos from './SlidesAgentesClasicos.astro';
   </div>
 </Slide>
 
-<!-- SLIDE 155 -->
-<Slide id="agentes" number={155} title="¿Qué es un agente?">
+<!-- SLIDE 158 -->
+<Slide id="agentes" number={158} title="¿Qué es un agente?">
   <p><i data-lucide="bot"></i> Un LLM con capacidad de <strong>actuar a través de herramientas</strong>: no solo responde, sino que decide llamadas a tools que ejecuta el sistema anfitrión. Puede completar tareas complejas con distintos niveles de autonomía.</p>
   <div class="flow">
     <span class="flow-step"><i data-lucide="eye"></i> Percibir</span>
@@ -140,8 +140,8 @@ import SlidesAgentesClasicos from './SlidesAgentesClasicos.astro';
 
 <SlidesAgentesClasicos />
 
-<!-- SLIDE 166 -->
-<Slide id="contexto-memoria" number={166} title="Contexto y memoria en agentes: por qué importa empezar limpio">
+<!-- SLIDE 169 -->
+<Slide id="contexto-memoria" number={169} title="Contexto y memoria en agentes: por qué importa empezar limpio">
   <p><i data-lucide="brain"></i> El <strong>context window</strong> es la memoria de trabajo del agente: lo que "ve" en cada momento. Cuanto más larga la conversación, más tokens consume &rarr; más caro, más lento y con más riesgo de perder información relevante.</p>
   <p>El contexto no es una base de datos: es una mochila limitada que el modelo relee en cada turno. Meter todo “por si acaso” suele empeorar el rendimiento porque diluye la señal importante y aumenta el coste de cada decisión.</p>
   <h3><i data-lucide="zap"></i> ¿Por qué usar contextos nuevos para tareas nuevas?</h3>
@@ -184,8 +184,8 @@ import SlidesAgentesClasicos from './SlidesAgentesClasicos.astro';
   </div>
 </Slide>
 
-<!-- SLIDE 167 -->
-<Slide id="memoria-persistente" number={167} title="Memoria persistente para agentes">
+<!-- SLIDE 170 -->
+<Slide id="memoria-persistente" number={170} title="Memoria persistente para agentes">
   <p><i data-lucide="hard-drive"></i> Un agente sin memoria entre sesiones empieza de cero cada vez. La <strong>memoria persistente</strong> permite que recuerde decisiones, preferencias y contexto de conversaciones anteriores.</p>
   <p>La memoria persistente debe tratarse como producto, no como magia. Hay que decidir qué se guarda, por qué, durante cuánto tiempo, cómo se corrige y qué datos no deben persistirse nunca por privacidad o seguridad.</p>
   <h3><i data-lucide="layers"></i> Tipos de memoria persistente</h3>
@@ -250,8 +250,8 @@ import SlidesAgentesClasicos from './SlidesAgentesClasicos.astro';
   </div>
 </Slide>
 
-<!-- SLIDE 168 -->
-<Slide id="function-calling" number={168} title="Function calling (tool use): cómo el modelo ejecuta acciones">
+<!-- SLIDE 171 -->
+<Slide id="function-calling" number={171} title="Function calling (tool use): cómo el modelo ejecuta acciones">
   <p><i data-lucide="wrench"></i> El modelo no puede ejecutar código directamente. Lo que puede hacer es <strong>decidir qué herramienta llamar</strong> y con qué parámetros. El sistema anfitrión ejecuta la herramienta y le devuelve el resultado.</p>
   <h3><i data-lucide="route"></i> Flujo de una tool call</h3>
   <div class="flow">
@@ -327,8 +327,8 @@ import SlidesAgentesClasicos from './SlidesAgentesClasicos.astro';
   </div>
 </Slide>
 
-<!-- SLIDE 169 -->
-<Slide id="arquitecturas-agentes" number={169} title="Arquitecturas de agentes: el bucle fundamental">
+<!-- SLIDE 172 -->
+<Slide id="arquitecturas-agentes" number={172} title="Arquitecturas de agentes: el bucle fundamental">
   <p>Un agente no es solo un modelo que responde. Es un <strong>sistema que planifica, actúa y aprende del resultado</strong> en un bucle continuo.</p>
   <p>La teoría aplicada es simple: cada vuelta del bucle debe reducir incertidumbre. Si el agente llama tools pero no aprende nada nuevo, solo está consumiendo tokens y ampliando superficie de error.</p>
   <h3><i data-lucide="repeat"></i> El bucle ReAct (Reason + Act)</h3>
@@ -399,8 +399,8 @@ import SlidesAgentesClasicos from './SlidesAgentesClasicos.astro';
   </div>
 </Slide>
 
-<!-- SLIDE 170 -->
-<Slide id="arquitecturas-single-agent-svg" number={170} title="Arquitecturas documentadas: agente único">
+<!-- SLIDE 173 -->
+<Slide id="arquitecturas-single-agent-svg" number={173} title="Arquitecturas documentadas: agente único">
   <p><i data-lucide="git-branch"></i> Estas arquitecturas aparecen en papers o documentación técnica y sirven para reconocer el patrón real que hay debajo de muchos agentes actuales: intercalar acción y observación, separar planificación de ejecución o añadir una memoria de errores.</p>
   <svg class="agent-architecture-svg" viewBox="0 0 1120 450" role="img" aria-label="Diagramas SVG de ReAct, ReWOO y Reflexion">
     <defs>
@@ -468,8 +468,8 @@ import SlidesAgentesClasicos from './SlidesAgentesClasicos.astro';
   </div>
 </Slide>
 
-<!-- SLIDE 171 -->
-<Slide id="arquitecturas-multiagente-svg" number={171} title="Arquitecturas documentadas: multiagente">
+<!-- SLIDE 174 -->
+<Slide id="arquitecturas-multiagente-svg" number={174} title="Arquitecturas documentadas: multiagente">
   <p><i data-lucide="network"></i> Cuando un agente único se queda corto, aparecen tres familias prácticas: un manager central, handoffs entre especialistas o un workflow explícito con revisión. La decisión depende de acoplamiento: si las subtareas son independientes, paraleliza; si dependen entre sí, controla estado y checkpoints.</p>
   <svg class="agent-architecture-svg" viewBox="0 0 1120 450" role="img" aria-label="Diagramas SVG de arquitecturas multiagente: manager, handoffs y generator critic">
     <defs>
@@ -540,8 +540,8 @@ import SlidesAgentesClasicos from './SlidesAgentesClasicos.astro';
   </div>
 </Slide>
 
-<!-- SLIDE 172 -->
-<Slide id="patrones-agentes" number={172} title="Patrones de diseño de sistemas de agentes">
+<!-- SLIDE 175 -->
+<Slide id="patrones-agentes" number={175} title="Patrones de diseño de sistemas de agentes">
   <p>Los bloques fundamentales para construir sistemas de agentes, según la guía de <strong>Anthropic "Building Effective Agents"</strong>. Son patrones de ingeniería, no nombres bonitos: cada uno reduce una clase de problema y añade una clase de coste.</p>
   <div class="icon-grid">
     <div class="icon-card">
@@ -606,8 +606,8 @@ import SlidesAgentesClasicos from './SlidesAgentesClasicos.astro';
   </div>
 </Slide>
 
-<!-- SLIDE 173 -->
-<Slide id="harness-engineering" number={173} title="Harness Engineering: diseñar el entorno del agente">
+<!-- SLIDE 176 -->
+<Slide id="harness-engineering" number={176} title="Harness Engineering: diseñar el entorno del agente">
   <p><i data-lucide="wrench"></i> Harness Engineering es diseñar el <strong>entorno ejecutable</strong> que rodea al agente: especificación, contexto, tools, permisos, estado, memoria, feedback, límites y trazas. El nombre es reciente; la práctica viene de ingeniería de software, testing, observabilidad y control de cambios.</p>
   <p>La idea importante es que el rendimiento de un agente no depende solo del modelo. Depende del sistema completo en el que el modelo trabaja. Un modelo muy capaz dentro de un entorno ambiguo, sin permisos claros ni verificación, puede producir una respuesta convincente y aun así equivocarse de fichero, saltarse una restricción o declarar éxito sin evidencia.</p>
 
@@ -649,8 +649,8 @@ import SlidesAgentesClasicos from './SlidesAgentesClasicos.astro';
   </div>
 </Slide>
 
-<!-- SLIDE 174 -->
-<Slide id="harness-capas-control" number={174} title="Harness: capas de control">
+<!-- SLIDE 177 -->
+<Slide id="harness-capas-control" number={177} title="Harness: capas de control">
   <p><i data-lucide="layers"></i> Pensar en capas ayuda a diseñar agentes sin convertirlo todo en prompt. Cada capa responde una pregunta distinta: qué debe hacer, qué puede ver, qué puede tocar, cómo sabe que avanzó y quién puede intervenir cuando el riesgo sube.</p>
 
   <table class="compact-table">
@@ -680,8 +680,8 @@ import SlidesAgentesClasicos from './SlidesAgentesClasicos.astro';
   </div>
 </Slide>
 
-<!-- SLIDE 175 -->
-<Slide id="harness-guias-sensores" number={175} title="Harness: guías, sensores y ciclo de mejora">
+<!-- SLIDE 178 -->
+<Slide id="harness-guias-sensores" number={178} title="Harness: guías, sensores y ciclo de mejora">
   <p><i data-lucide="repeat"></i> Un buen harness combina <strong>guías</strong> que orientan antes de actuar y <strong>sensores</strong> que corrigen después de actuar. Fowler lo separa en feedforward y feedback: no basta con decirle al agente qué hacer; hay que darle señales para saber si lo hizo bien.</p>
 
   <table class="compact-table">
@@ -712,8 +712,8 @@ import SlidesAgentesClasicos from './SlidesAgentesClasicos.astro';
   </div>
 </Slide>
 
-<!-- SLIDE 176 -->
-<Slide id="harness-metricas-antipatrones" number={176} title="Harness: métricas, safety y anti-patrones">
+<!-- SLIDE 179 -->
+<Slide id="harness-metricas-antipatrones" number={179} title="Harness: métricas, safety y anti-patrones">
   <p><i data-lucide="activity"></i> La forma seria de saber si el harness mejora no es preguntar “¿parece más listo?”, sino medir si aumenta la tasa de tareas aceptadas, baja el coste por tarea útil, reduce reintentos y evita acciones inseguras durante la trayectoria, no solo al final.</p>
 
   <div class="two-cols dense-cols">
@@ -754,8 +754,8 @@ import SlidesAgentesClasicos from './SlidesAgentesClasicos.astro';
   </div>
 </Slide>
 
-<!-- SLIDE 177 -->
-<Slide id="harness-plantilla-operativa" number={177} title="Harness operativo: plantilla de tarea">
+<!-- SLIDE 180 -->
+<Slide id="harness-plantilla-operativa" number={180} title="Harness operativo: plantilla de tarea">
   <p><i data-lucide="clipboard-list"></i> La forma práctica de usar Harness Engineering es convertir cada tarea en un contrato ejecutable. El agente no recibe solo “haz X”; recibe alcance, contexto autorizado, tools permitidas, checks obligatorios, presupuesto y reglas de escalado.</p>
 
   <div class="two-cols harness-template-cols">
@@ -798,8 +798,8 @@ import SlidesAgentesClasicos from './SlidesAgentesClasicos.astro';
   </div>
 </Slide>
 
-<!-- SLIDE 178 -->
-<Slide id="harness-reglas-mercado" number={178} title="Harness: reglas de mercado que sí se repiten">
+<!-- SLIDE 181 -->
+<Slide id="harness-reglas-mercado" number={181} title="Harness: reglas de mercado que sí se repiten">
   <p><i data-lucide="list-checks"></i> Las herramientas cambian, pero las buenas prácticas convergen. Claude Code, GitHub Copilot, Cursor, OpenAI Agents SDK y Fowler apuntan al mismo patrón: instrucciones versionadas, tareas acotadas, permisos mínimos, validación ejecutable, trazas y revisión humana cuando el riesgo sube.</p>
 
   <table class="compact-table market-rules-table">
@@ -828,8 +828,8 @@ import SlidesAgentesClasicos from './SlidesAgentesClasicos.astro';
   </div>
 </Slide>
 
-<!-- SLIDE 179 -->
-<Slide id="multi-modelo" number={179} title="Multi-modelo: usar varios modelos y stack de orquestación">
+<!-- SLIDE 182 -->
+<Slide id="multi-modelo" number={182} title="Multi-modelo: usar varios modelos y stack de orquestación">
   <p>No todos los modelos son iguales ni cuestan lo mismo. La clave es usar el <strong>modelo adecuado para cada tarea</strong>, pero con medición: un router sin eval puede ahorrar en casos fáciles y romper justo los casos valiosos.</p>
   <h3><i data-lucide="route"></i> Patrón de routing</h3>
   <div class="flow">
@@ -874,8 +874,8 @@ import SlidesAgentesClasicos from './SlidesAgentesClasicos.astro';
   </div>
 </Slide>
 
-<!-- SLIDE 180 -->
-<Slide id="patrones-orquestacion" number={180} title="Patrones de orquestación en OpenAI y Claude">
+<!-- SLIDE 183 -->
+<Slide id="patrones-orquestacion" number={183} title="Patrones de orquestación en OpenAI y Claude">
   <p><i data-lucide="book-open"></i> SDK = Software Development Kit: librería para construir sobre una plataforma. ADK = Agent Development Kit: toolkit específico para definir agentes, workflows, tools y estado.</p>
   <div class="two-cols">
     <div>
@@ -926,8 +926,8 @@ import SlidesAgentesClasicos from './SlidesAgentesClasicos.astro';
   </div>
 </Slide>
 
-<!-- SLIDE 181 -->
-<Slide id="ejemplo-codigo-agente" number={181} title="Ejemplo: un agente con tools en código real">
+<!-- SLIDE 184 -->
+<Slide id="ejemplo-codigo-agente" number={184} title="Ejemplo: un agente con tools en código real">
   <p><i data-lucide="code"></i> Un agente mínimo tiene tres partes: un <strong>modelo</strong>, unas <strong>herramientas</strong> y un <strong>bucle</strong> que ejecuta las tool calls hasta que el modelo termina.</p>
   <h3><i data-lucide="terminal"></i> Agente básico con Claude API (TypeScript)</h3>
   <div class="code-block">
@@ -996,8 +996,8 @@ import SlidesAgentesClasicos from './SlidesAgentesClasicos.astro';
   </div>
 </Slide>
 
-<!-- SLIDE 182 -->
-<Slide id="orquestacion" number={182} title="Sistemas de orquestación de agentes">
+<!-- SLIDE 185 -->
+<Slide id="orquestacion" number={185} title="Sistemas de orquestación de agentes">
   <p>Coordinan <strong>múltiples agentes</strong> para resolver problemas complejos. Un agente solo no puede con todo: necesitas especialización, división de tareas y coordinación. Pero cada agente adicional añade comunicación, estado compartido y puntos de fallo.</p>
   <h3><i data-lucide="network"></i> Patrones principales</h3>
   <div class="icon-grid">
@@ -1052,8 +1052,8 @@ import SlidesAgentesClasicos from './SlidesAgentesClasicos.astro';
   </div>
 </Slide>
 
-<!-- SLIDE 183 -->
-<Slide id="orquestadores-adks" number={183} title="¿Cuáles hay? (orquestadores y ADKs)">
+<!-- SLIDE 186 -->
+<Slide id="orquestadores-adks" number={186} title="¿Cuáles hay? (orquestadores y ADKs)">
   <p>Elige framework por <strong>modelo de estado, trazabilidad, ecosistema y despliegue</strong>, no solo por popularidad. En agentes, la diferencia real aparece cuando algo falla y necesitas pausar, reanudar, auditar o cambiar de modelo.</p>
   <div class="compare-card">
     <p class="compare-card-title"><i data-lucide="link"></i> LangChain + LangGraph <span class="tag">v1.0</span> <span class="tag">Python</span> <span class="tag">JS</span></p>
@@ -1098,8 +1098,8 @@ import SlidesAgentesClasicos from './SlidesAgentesClasicos.astro';
   </div>
 </Slide>
 
-<!-- SLIDE 184 -->
-<Slide id="claude-code-estructura" number={184} title="Estructura de un agente sobre Claude Code">
+<!-- SLIDE 187 -->
+<Slide id="claude-code-estructura" number={187} title="Estructura de un agente sobre Claude Code">
   <p>Claude Code ilustra cómo se monta un agente de desarrollo real: reglas persistentes, herramientas nativas, permisos, hooks, MCPs, skills y subagentes. Lo importante no es memorizar nombres, sino entender qué capa controla cada responsabilidad.</p>
   <div class="icon-grid">
     <div class="icon-card">
@@ -1172,8 +1172,8 @@ import SlidesAgentesClasicos from './SlidesAgentesClasicos.astro';
   </div>
 </Slide>
 
-<!-- SLIDE 185 -->
-<Slide id="coding-agents" number={185} title="Coding agents: el estado del arte">
+<!-- SLIDE 188 -->
+<Slide id="coding-agents" number={188} title="Coding agents: el estado del arte">
   <p><i data-lucide="code"></i> Agentes que <strong>programan de forma autónoma</strong>: leen código, planifican cambios, implementan, ejecutan tests y corrigen errores. El salto de "asistente" a "programador autónomo".</p>
   <p>La lectura correcta es menos espectacular y más útil: un coding agent no sustituye el criterio de ingeniería; convierte una intención en una hipótesis de patch, ejecuta comprobaciones y deja un diff que una persona o pipeline debe validar.</p>
   <h3><i data-lucide="database"></i> Comparativa (mayo 2026)</h3>
@@ -1221,8 +1221,8 @@ import SlidesAgentesClasicos from './SlidesAgentesClasicos.astro';
   </div>
 </Slide>
 
-<!-- SLIDE 186 -->
-<Slide id="mcp" number={186} title="MCP (Model Context Protocol): el estándar que conecta modelos con el mundo">
+<!-- SLIDE 189 -->
+<Slide id="mcp" number={189} title="MCP (Model Context Protocol): el estándar que conecta modelos con el mundo">
   <p><i data-lucide="plug"></i> Un protocolo abierto (creado por Anthropic, adoptado por la industria) que estandariza cómo un modelo se conecta con <strong>herramientas externas</strong>.</p>
   <div class="analogy">
     <p class="analogy-label"><i data-lucide="lightbulb"></i> Analogía</p>
@@ -1259,8 +1259,8 @@ import SlidesAgentesClasicos from './SlidesAgentesClasicos.astro';
   </div>
 </Slide>
 
-<!-- SLIDE 187 -->
-<Slide id="mcp-practica" number={187} title="MCP en la práctica: crear un servidor mínimo">
+<!-- SLIDE 190 -->
+<Slide id="mcp-practica" number={190} title="MCP en la práctica: crear un servidor mínimo">
   <p><i data-lucide="code"></i> Crear un MCP server es sorprendentemente simple. Aquí tienes un servidor completo en TypeScript que expone una herramienta.</p>
   <p>Lo importante de este ejemplo no es memorizar el SDK, sino ver la frontera: el servidor define una tool con schema, el cliente la descubre y el agente decide si llamarla. Tu código conserva el control de permisos y efectos.</p>
   <h3><i data-lucide="terminal"></i> Servidor MCP mínimo (TypeScript)</h3>
@@ -1336,8 +1336,8 @@ import SlidesAgentesClasicos from './SlidesAgentesClasicos.astro';
   </div>
 </Slide>
 
-<!-- SLIDE 188 -->
-<Slide id="computer-use" number={188} title="Computer Use y Browser Use">
+<!-- SLIDE 191 -->
+<Slide id="computer-use" number={191} title="Computer Use y Browser Use">
   <p><i data-lucide="monitor"></i> Agentes que <strong>controlan el ordenador como un humano</strong>: mueven el ratón, hacen clic, leen la pantalla, rellenan formularios. El siguiente salto en capacidad de los agentes.</p>
   <p>La potencia viene de poder actuar donde no hay API. El coste es que la interfaz gráfica es frágil: botones cambian, capturas se interpretan mal, ventanas pierden foco y una acción equivocada puede tener efecto real.</p>
   <h3><i data-lucide="layers"></i> Tipos de control</h3>
@@ -1392,8 +1392,8 @@ import SlidesAgentesClasicos from './SlidesAgentesClasicos.astro';
   </div>
 </Slide>
 
-<!-- SLIDE 189 -->
-<Slide id="a2a" number={189} title="A2A (Agent-to-Agent): agentes que hablan entre sí">
+<!-- SLIDE 192 -->
+<Slide id="a2a" number={192} title="A2A (Agent-to-Agent): agentes que hablan entre sí">
   <p><i data-lucide="users"></i> <strong>Agent-to-Agent Protocol</strong> (Google, 2025): un protocolo abierto para que agentes de <strong>distintos proveedores</strong> colaboren entre sí. Si MCP conecta agentes con herramientas, A2A conecta agentes con otros agentes.</p>
   <div class="analogy">
     <p class="analogy-label"><i data-lucide="lightbulb"></i> Analogía</p>
@@ -1455,8 +1455,8 @@ import SlidesAgentesClasicos from './SlidesAgentesClasicos.astro';
   </div>
 </Slide>
 
-<!-- SLIDE 190 -->
-<Slide id="human-in-the-loop" number={190} title="Human-in-the-loop">
+<!-- SLIDE 193 -->
+<Slide id="human-in-the-loop" number={193} title="Human-in-the-loop">
   <p><i data-lucide="user-check"></i> Un agente autónomo sin supervisión es un riesgo. <strong>Human-in-the-loop</strong> (HITL) son patrones para mantener al humano en el bucle de decisión en los momentos críticos.</p>
   <p>HITL no significa revisar todo manualmente. Significa poner al humano donde aporta más: decisiones irreversibles, baja confianza, conflicto entre fuentes, cambio de permisos o coste de error alto.</p>
   <h3><i data-lucide="git-branch"></i> Patrones de intervención</h3>
@@ -1526,37 +1526,37 @@ import SlidesAgentesClasicos from './SlidesAgentesClasicos.astro';
   </div>
 </Slide>
 
-<!-- SLIDE 191 -->
-<Slide id="recap-agentes" number={191} title="Lo que deberías saber: agentes y orquestación">
+<!-- SLIDE 194 -->
+<Slide id="recap-agentes" number={194} title="Lo que deberías saber: agentes y orquestación">
   <table>
     <thead>
       <tr><th>Concepto</th><th>Slide</th></tr>
     </thead>
     <tbody>
-      <tr><td>Cuándo basta un prompt y cuándo hace falta un agente</td><td>154-155</td></tr>
-      <tr><td>Agente clásico vs moderno: percepción, estado, acción y evaluación</td><td>156-165</td></tr>
-      <tr><td>Contexto, memoria y memoria persistente entre sesiones</td><td>166-167</td></tr>
-      <tr><td>Function calling: contratos de tools, schemas, permisos y observaciones</td><td>168</td></tr>
-      <tr><td>Arquitecturas documentadas: ReAct, ReWOO, Reflexion y multiagente</td><td>169-171</td></tr>
-      <tr><td>Patrones de diseño: chaining, routing, parallelization, orchestrator-workers y evaluator-optimizer</td><td>172</td></tr>
-      <tr><td>Harness Engineering: capas, sensores, métricas, plantilla y reglas de mercado</td><td>173-178</td></tr>
-      <tr><td>Multi-modelo y orquestación con SDKs, ADKs, estado y trazas</td><td>179-184</td></tr>
-      <tr><td>Coding agents: capacidades reales, límites y evaluación propia</td><td>185</td></tr>
-      <tr><td>MCP: tools, resources, prompts, transporte y práctica de servidor mínimo</td><td>186-187</td></tr>
-      <tr><td>Computer Use, Browser Use y automatización de interfaces</td><td>188</td></tr>
-      <tr><td>A2A: Agent Card, tasks, streaming, artefactos y confianza entre agentes</td><td>189</td></tr>
-      <tr><td>Human-in-the-loop: niveles de autonomía, checkpoints y matriz de riesgo</td><td>190</td></tr>
+      <tr><td>Cuándo basta un prompt y cuándo hace falta un agente</td><td>157-158</td></tr>
+      <tr><td>Agente clásico vs moderno: percepción, estado, acción y evaluación</td><td>159-168</td></tr>
+      <tr><td>Contexto, memoria y memoria persistente entre sesiones</td><td>169-170</td></tr>
+      <tr><td>Function calling: contratos de tools, schemas, permisos y observaciones</td><td>171</td></tr>
+      <tr><td>Arquitecturas documentadas: ReAct, ReWOO, Reflexion y multiagente</td><td>172-174</td></tr>
+      <tr><td>Patrones de diseño: chaining, routing, parallelization, orchestrator-workers y evaluator-optimizer</td><td>175</td></tr>
+      <tr><td>Harness Engineering: capas, sensores, métricas, plantilla y reglas de mercado</td><td>176-181</td></tr>
+      <tr><td>Multi-modelo y orquestación con SDKs, ADKs, estado y trazas</td><td>182-187</td></tr>
+      <tr><td>Coding agents: capacidades reales, límites y evaluación propia</td><td>188</td></tr>
+      <tr><td>MCP: tools, resources, prompts, transporte y práctica de servidor mínimo</td><td>189-190</td></tr>
+      <tr><td>Computer Use, Browser Use y automatización de interfaces</td><td>191</td></tr>
+      <tr><td>A2A: Agent Card, tasks, streaming, artefactos y confianza entre agentes</td><td>192</td></tr>
+      <tr><td>Human-in-the-loop: niveles de autonomía, checkpoints y matriz de riesgo</td><td>193</td></tr>
     </tbody>
   </table>
 </Slide>
 
-<!-- SLIDE 192: SECCION -->
-<Slide id="sec-realidad" number={192} section
+<!-- SLIDE 195: SECCION -->
+<Slide id="sec-realidad" number={195} section
   title="Realidad de construir con IA"
   subtitle="Herramientas, CI/CD con IA, seguridad, red teaming, regulación, costes, observabilidad y el cambio de paradigma." />
 
-<!-- SLIDE 193 -->
-<Slide id="ide-terminal" number={193} title="IDE web vs terminal: ¿dónde usar la IA?">
+<!-- SLIDE 196 -->
+<Slide id="ide-terminal" number={196} title="IDE web vs terminal: ¿dónde usar la IA?">
   <p>La herramienta correcta depende de <strong>cuánto contexto real necesita la tarea</strong> y de si la IA debe actuar o solo razonar. Una conversación web es excelente para explorar; un agente conectado al repo es mejor cuando hay que leer, editar, ejecutar y verificar.</p>
   <div class="two-cols">
     <div>
@@ -1626,8 +1626,8 @@ import SlidesAgentesClasicos from './SlidesAgentesClasicos.astro';
   </div>
 </Slide>
 
-<!-- SLIDE 194 -->
-<Slide id="comparativa-coding" number={194} title="Comparativa de AI coding assistants (mayo 2026)">
+<!-- SLIDE 197 -->
+<Slide id="comparativa-coding" number={197} title="Comparativa de AI coding assistants (mayo 2026)">
   <p><i data-lucide="code"></i> Todos usan IA, pero cada herramienta tiene un enfoque diferente. La elección depende de <strong>cómo trabajas</strong>, no solo de qué modelo usa.</p>
   <p>La comparación seria separa cuatro capas: UX, modelo, permisos y verificación. Una herramienta puede sentirse mejor en el IDE y otra ser superior para tareas largas en terminal; la decisión debe salir de tu workflow real.</p>
   <table>
@@ -1703,8 +1703,8 @@ import SlidesAgentesClasicos from './SlidesAgentesClasicos.astro';
   </div>
 </Slide>
 
-<!-- SLIDE 195 -->
-<Slide id="ai-benchmarks" number={195} title="Benchmarks: qué miden (y qué no)">
+<!-- SLIDE 198 -->
+<Slide id="ai-benchmarks" number={198} title="Benchmarks: qué miden (y qué no)">
   <p><i data-lucide="bar-chart"></i> Un benchmark no mide "inteligencia" en abstracto. Mide una <strong>tarea operacional concreta</strong>, con un dataset, una métrica y un protocolo. Leerlo bien evita comprar marketing con forma de tabla.</p>
   <p>La frase útil es: <strong>benchmark = dataset + tarea + métrica + protocolo + presupuesto</strong>. Cambia cualquiera de esas piezas y el número deja de ser comparable.</p>
   <h3><i data-lucide="database"></i> Familias de benchmarks</h3>
@@ -1746,8 +1746,8 @@ import SlidesAgentesClasicos from './SlidesAgentesClasicos.astro';
   </div>
 </Slide>
 
-<!-- SLIDE 196 -->
-<Slide id="swe-bench" number={196} title="SWE-bench: qué mide exactamente">
+<!-- SLIDE 199 -->
+<Slide id="swe-bench" number={199} title="SWE-bench: qué mide exactamente">
   <p><i data-lucide="git-pull-request"></i> SWE-bench evalúa modelos y agentes en <strong>issues reales de GitHub</strong>. Dado un repositorio y una descripción de problema, el sistema debe generar un patch que arregle el issue.</p>
   <p>Pedagógicamente es valioso porque obliga a salir del “función aislada” y entrar en ingeniería: leer un repo, entender una issue, modificar código existente y pasar tests dentro de un entorno controlado.</p>
   <h3><i data-lucide="route"></i> Flujo de evaluación</h3>
@@ -1805,8 +1805,8 @@ import SlidesAgentesClasicos from './SlidesAgentesClasicos.astro';
   </div>
 </Slide>
 
-<!-- SLIDE 197 -->
-<Slide id="leer-leaderboards" number={197} title="Cómo leer un leaderboard de benchmarks">
+<!-- SLIDE 200 -->
+<Slide id="leer-leaderboards" number={200} title="Cómo leer un leaderboard de benchmarks">
   <p><i data-lucide="line-chart"></i> Un leaderboard mezcla modelo, agente, prompt, herramientas, presupuesto y protocolo. El número final es útil, pero solo si entiendes qué hay debajo.</p>
   <p>Una fila de leaderboard no es “modelo X gana”. Suele ser “modelo X + scaffold Y + herramientas Z + presupuesto W gana en este protocolo”. Esa lectura cambia muchas decisiones de compra.</p>
   <h3><i data-lucide="list-checks"></i> Checklist de lectura crítica</h3>
@@ -1848,8 +1848,8 @@ import SlidesAgentesClasicos from './SlidesAgentesClasicos.astro';
   </div>
 </Slide>
 
-<!-- SLIDE 198 -->
-<Slide id="ai-cicd" number={198} title="IA en CI/CD">
+<!-- SLIDE 201 -->
+<Slide id="ai-cicd" number={201} title="IA en CI/CD">
   <p><i data-lucide="git-pull-request"></i> Los agentes de IA ya se integran en los pipelines de desarrollo. No solo generan código: lo <strong>revisan, testean y despliegan</strong>.</p>
   <p>La regla de seguridad es separar <strong>comentario</strong>, <strong>verificación</strong> y <strong>acción</strong>. Que una IA comente un PR es barato; que bloquee merges, escriba secretos o despliegue requiere controles mucho más estrictos.</p>
   <h3><i data-lucide="layers"></i> Dónde encaja la IA en el pipeline</h3>
@@ -1906,8 +1906,8 @@ import SlidesAgentesClasicos from './SlidesAgentesClasicos.astro';
   </div>
 </Slide>
 
-<!-- SLIDE 199 -->
-<Slide id="seguridad" number={199} title="Seguridad y riesgos">
+<!-- SLIDE 202 -->
+<Slide id="seguridad" number={202} title="Seguridad y riesgos">
   <p>La seguridad en sistemas con LLM no es solo “evitar respuestas malas”. El riesgo aparece cuando el modelo recibe datos no confiables, accede a herramientas, recupera documentos, escribe código o decide acciones con efectos reales.</p>
   <div class="icon-grid">
     <div class="icon-card">
@@ -2006,8 +2006,8 @@ import SlidesAgentesClasicos from './SlidesAgentesClasicos.astro';
   </div>
 </Slide>
 
-<!-- SLIDE 200 -->
-<Slide id="guardrails" number={200}
+<!-- SLIDE 203 -->
+<Slide id="guardrails" number={203}
   title="Guardrails en la práctica"
   subtitle="Capas de protección para sistemas con LLMs">
   <p>Los guardrails son <strong>mecanismos de control</strong> que limitan y validan el comportamiento de un LLM en producción. No es solo "pon un system prompt": son capas independientes que se aplican antes, durante y después de la generación.</p>
@@ -2116,8 +2116,8 @@ if (!parsed.success) &#123;
   </div>
 </Slide>
 
-<!-- SLIDE 201 -->
-<Slide id="testing-adversarial" number={201} title="Testing adversarial y red teaming">
+<!-- SLIDE 204 -->
+<Slide id="testing-adversarial" number={204} title="Testing adversarial y red teaming">
   <p><i data-lucide="shield-alert"></i> No basta con que tu sistema funcione con inputs normales. Necesitas probar que <strong>resiste ataques deliberados</strong>. El red teaming es testear tu sistema intentando romperlo.</p>
   <p>El objetivo no es demostrar que eres invulnerable, sino descubrir fallos antes de que lo haga un usuario malicioso. Cada ataque exitoso debe convertirse en caso de regresión.</p>
   <h3><i data-lucide="swords"></i> Vectores de ataque comunes</h3>
@@ -2180,8 +2180,8 @@ if (!parsed.success) &#123;
   </div>
 </Slide>
 
-<!-- SLIDE 202 -->
-<Slide id="eu-ai-act" number={202} title="EU AI Act y compliance">
+<!-- SLIDE 205 -->
+<Slide id="eu-ai-act" number={205} title="EU AI Act y compliance">
   <p><i data-lucide="scale"></i> La <strong>Ley de IA de la UE</strong> entró en vigor el <strong>1 de agosto de 2024</strong>. Es la primera regulación integral de IA del mundo y afecta a sistemas de IA que se pongan en el mercado o se usen en la UE, aunque el proveedor esté fuera.</p>
   <h3><i data-lucide="layers"></i> Clasificación por riesgo</h3>
   <table>
@@ -2226,8 +2226,8 @@ if (!parsed.success) &#123;
   </div>
 </Slide>
 
-<!-- SLIDE 203 -->
-<Slide id="costes" number={203} title="Tokens y coste: ¿cuánto cuesta usar IA?">
+<!-- SLIDE 206 -->
+<Slide id="costes" number={206} title="Tokens y coste: ¿cuánto cuesta usar IA?">
   <p><i data-lucide="coins"></i> Se paga por <strong>tokens de entrada + tokens de salida</strong>. La salida suele ser más cara (el modelo trabaja más generando que leyendo).</p>
   <p>La unidad que importa en producto no es “precio por millón de tokens”, sino <strong>coste por tarea aceptada</strong>: cuánto pagas para obtener una respuesta que pasa tus validaciones y no requiere rehacer el trabajo.</p>
   <h3><i data-lucide="trending-up"></i> Precios por millón de tokens (mayo 2026, API estándar)</h3>
@@ -2275,8 +2275,8 @@ if (!parsed.success) &#123;
   </div>
 </Slide>
 
-<!-- SLIDE 204 -->
-<Slide id="observabilidad" number={204} title="Observabilidad de LLMs">
+<!-- SLIDE 207 -->
+<Slide id="observabilidad" number={207} title="Observabilidad de LLMs">
   <p><i data-lucide="activity"></i> En producción, un LLM sin observabilidad es una caja negra. Necesitas saber <strong>qué está pasando</strong> en cada llamada: latencia, coste, calidad, errores, y poder investigar cuando algo falla.</p>
   <p>Una traza no solo sirve para debuggear: convierte una conversación probabilística en una secuencia revisable de prompts, modelos, tool calls, evidencias, costes y decisiones.</p>
   <h3><i data-lucide="search"></i> ¿Qué observar?</h3>
@@ -2346,8 +2346,8 @@ if (!parsed.success) &#123;
   </div>
 </Slide>
 
-<!-- SLIDE 205 -->
-<Slide id="prompt-como-codigo" number={205} title="Gestión de prompts como código">
+<!-- SLIDE 208 -->
+<Slide id="prompt-como-codigo" number={208} title="Gestión de prompts como código">
   <p><i data-lucide="file-code"></i> Un prompt en producción no es un string pegado en el código. Es un <strong>artefacto de ingeniería</strong> que necesita versionado, testing, review y rollback.</p>
   <div class="icon-grid">
     <div class="icon-card">
@@ -2416,8 +2416,8 @@ if (!parsed.success) &#123;
   </div>
 </Slide>
 
-<!-- SLIDE 206 -->
-<Slide id="evals" number={206} title="Evaluaciones (evals): ¿cómo saber si tu IA funciona bien?">
+<!-- SLIDE 209 -->
+<Slide id="evals" number={209} title="Evaluaciones (evals): ¿cómo saber si tu IA funciona bien?">
   <p><i data-lucide="check-circle"></i> Los tests unitarios clásicos no bastan para un LLM: parte de la salida puede variar aunque la respuesta sea válida. Necesitas <strong>evaluaciones (evals)</strong>: métricas y frameworks para medir la calidad de un sistema de IA de forma sistemática.</p>
   <p>Una eval buena no pregunta “¿me gusta esta respuesta?”, sino “¿qué decisión puedo tomar con evidencia?”. Sirve para comparar modelos, prompts, tools, RAG, routing y versiones antes de cambiar producción.</p>
   <h3><i data-lucide="layers"></i> Tipos de evaluación</h3>
@@ -2499,8 +2499,8 @@ if (!parsed.success) &#123;
   </div>
 </Slide>
 
-<!-- SLIDE 207 -->
-<Slide id="testing-codigo-ia" number={207} title="Testing de código generado por IA">
+<!-- SLIDE 210 -->
+<Slide id="testing-codigo-ia" number={210} title="Testing de código generado por IA">
   <p><i data-lucide="test-tubes"></i> El código generado por IA parece correcto y tiene buena pinta. Pero <strong>esconde bugs sutiles</strong> que solo se detectan con testing riguroso.</p>
   <p>La diferencia con copiar código de StackOverflow es la velocidad: un agente puede introducir cambios en muchos ficheros muy rápido. Eso exige pruebas que miren comportamiento, límites, seguridad y regresiones, no solo que compile.</p>
   <h3><i data-lucide="alert-triangle"></i> Errores típicos del código generado</h3>
@@ -2571,8 +2571,8 @@ if (!parsed.success) &#123;
   </div>
 </Slide>
 
-<!-- SLIDE 208 -->
-<Slide id="vibe-coding" number={208} title="Vibe coding: programar por intención">
+<!-- SLIDE 211 -->
+<Slide id="vibe-coding" number={211} title="Vibe coding: programar por intención">
   <p><i data-lucide="sparkles"></i> Término acuñado por <strong>Andrej Karpathy</strong> (febrero 2025): "un nuevo tipo de programación donde te dejas llevar por las vibes, abrazas lo exponencial, y olvidas que el código existe".</p>
   <p>Como concepto es útil para explicar el cambio de interfaz: pasamos de escribir instrucciones para la máquina a escribir intención para un sistema que genera código. Como práctica profesional, solo funciona si añades especificación, tests y review.</p>
   <div class="two-cols">
@@ -2625,8 +2625,8 @@ if (!parsed.success) &#123;
   </div>
 </Slide>
 
-<!-- SLIDE 209 -->
-<Slide id="cambio-paradigma" number={209} title="El cambio de paradigma al trabajar con IA">
+<!-- SLIDE 212 -->
+<Slide id="cambio-paradigma" number={212} title="El cambio de paradigma al trabajar con IA">
   <p>El cambio no elimina ingeniería; desplaza el cuello de botella. Escribes menos boilerplate, pero necesitas más claridad sobre requisitos, arquitectura, seguridad, validación y producto.</p>
   <div class="two-cols">
     <div>
@@ -2689,8 +2689,8 @@ if (!parsed.success) &#123;
   </div>
 </Slide>
 
-<!-- SLIDE 210 -->
-<Slide id="workflow-patterns" number={210} title="Patrones de trabajo con IA en el día a día">
+<!-- SLIDE 213 -->
+<Slide id="workflow-patterns" number={213} title="Patrones de trabajo con IA en el día a día">
   <p><i data-lucide="workflow"></i> Más allá de las herramientas, lo que marca la diferencia es <strong>cómo integras la IA en tu flujo de trabajo</strong>. Estos son los patrones que los equipos más productivos usan en 2026.</p>
   <div class="icon-grid">
     <div class="icon-card">
@@ -2760,8 +2760,8 @@ if (!parsed.success) &#123;
   </div>
 </Slide>
 
-<!-- SLIDE 211 -->
-<Slide id="config-claude-code" number={211} title="Configurar Claude Code como un pro">
+<!-- SLIDE 214 -->
+<Slide id="config-claude-code" number={214} title="Configurar Claude Code como un pro">
   <p><i data-lucide="settings"></i> La diferencia entre un Claude Code que "funciona" y uno que <strong>multiplica tu productividad</strong> está en cómo lo configuras. Estos ficheros definen su comportamiento.</p>
   <p>La configuración convierte preferencias tácitas en contexto explícito. Si el equipo repite siempre la misma corrección al agente, esa corrección debería vivir en rules, hooks, skills o documentación del proyecto.</p>
   <h3><i data-lucide="file-text"></i> Estructura de configuración</h3>
@@ -2830,8 +2830,8 @@ if (!parsed.success) &#123;
   </div>
 </Slide>
 
-<!-- SLIDE 212 -->
-<Slide id="config-opencode-cursor" number={212} title="Configurar OpenCode y Cursor">
+<!-- SLIDE 215 -->
+<Slide id="config-opencode-cursor" number={215} title="Configurar OpenCode y Cursor">
   <p><i data-lucide="settings"></i> Cada herramienta tiene su propio sistema de reglas. La idea es la misma: <strong>darle contexto persistente</strong> para que no tengas que repetirte en cada conversación.</p>
   <p>La estrategia más mantenible es escribir una fuente de verdad neutral, por ejemplo <code>AGENTS.md</code> o <code>docs/ai-rules.md</code>, y generar/adaptar los formatos específicos de cada herramienta desde ahí.</p>
   <h3><i data-lucide="terminal"></i> OpenCode</h3>
@@ -2917,8 +2917,8 @@ if (!parsed.success) &#123;
   </div>
 </Slide>
 
-<!-- SLIDE 213 -->
-<Slide id="rules-efectivas" number={213} title="Escribir rules efectivas: el arte de instruir al modelo">
+<!-- SLIDE 216 -->
+<Slide id="rules-efectivas" number={216} title="Escribir rules efectivas: el arte de instruir al modelo">
   <p><i data-lucide="pen-tool"></i> Las rules son el <strong>ROI (Return on Investment) más alto</strong> que puedes conseguir con una herramienta de IA. 30 minutos bien invertidos te ahorran horas de correcciones. Pero no todas las rules son iguales.</p>
   <p>Una rule buena reduce ambigüedad y se puede comprobar. Una rule mala solo expresa deseo. “Haz buen código” no cambia nada; “no uses <code>any</code> y ejecuta <code>npm run typecheck</code>” sí cambia comportamiento.</p>
   <h3><i data-lucide="x-circle"></i> Rules malas vs buenas</h3>
@@ -2991,8 +2991,8 @@ if (!parsed.success) &#123;
   </div>
 </Slide>
 
-<!-- SLIDE 214 -->
-<Slide id="crear-skill" number={214} title="Crear una skill: extensiones reutilizables para tu agente">
+<!-- SLIDE 217 -->
+<Slide id="crear-skill" number={217} title="Crear una skill: extensiones reutilizables para tu agente">
   <p><i data-lucide="puzzle"></i> Una <strong>skill</strong> es una capacidad empaquetada que el modelo activa automáticamente cuando detecta que aplica, o que invocas manualmente con <code>/nombre</code>. Cada skill vive en su propio directorio con un fichero <strong><code>SKILL.md</code></strong>.</p>
   <p>La idea clave es <strong>progressive disclosure</strong>: el modelo no carga todo el conocimiento siempre. Lee la descripción para decidir si la skill aplica, y solo entonces carga instrucciones, referencias o scripts.</p>
   <h3><i data-lucide="folder-tree"></i> Estructura oficial (directorio + SKILL.md)</h3>
@@ -3066,8 +3066,8 @@ if (!parsed.success) &#123;
   </div>
 </Slide>
 
-<!-- SLIDE 215 -->
-<Slide id="anatomia-plugin" number={215} title="Anatomía de un plugin: skills + agentes + hooks">
+<!-- SLIDE 218 -->
+<Slide id="anatomia-plugin" number={218} title="Anatomía de un plugin: skills + agentes + hooks">
   <p><i data-lucide="package"></i> Un <strong>plugin</strong> empaqueta skills, agentes, hooks y comandos en una unidad instalable y compartible. Es así como se distribuyen las extensiones de Claude Code.</p>
   <p>Un plugin merece la pena cuando una práctica ya se repite en varios proyectos o personas. Antes de empaquetar, valida que una skill suelta resuelve bien el caso.</p>
   <h3><i data-lucide="folder-tree"></i> Estructura de directorios</h3>
@@ -3133,8 +3133,8 @@ if (!parsed.success) &#123;
   </div>
 </Slide>
 
-<!-- SLIDE 216 -->
-<Slide id="agentes-produccion" number={216} title="AI agents en producción: lecciones aprendidas">
+<!-- SLIDE 219 -->
+<Slide id="agentes-produccion" number={219} title="AI agents en producción: lecciones aprendidas">
   <p><i data-lucide="building"></i> Tras un año de agentes en producción real, estas son las <strong>lecciones que no aparecen en los tutoriales</strong>.</p>
   <p>La lección central es sobria: producción premia sistemas pequeños, medibles y recuperables. La demo premia autonomía; el negocio premia errores bajos, coste controlado y trazabilidad.</p>
   <h3><i data-lucide="check-circle"></i> Lo que funciona</h3>
@@ -3203,43 +3203,43 @@ if (!parsed.success) &#123;
   </div>
 </Slide>
 
-<!-- SLIDE 217 -->
-<Slide id="recap-realidad" number={217} title="Lo que deberías saber: construir con IA">
+<!-- SLIDE 220 -->
+<Slide id="recap-realidad" number={220} title="Lo que deberías saber: construir con IA">
   <table>
     <thead>
       <tr><th>Concepto</th><th>Slide</th></tr>
     </thead>
     <tbody>
-      <tr><td>IDE web, Playground, IDE con agente, terminal y CI: cuándo usar cada superficie</td><td>192</td></tr>
-      <tr><td>Comparativa de AI coding assistants: UX, modelo, permisos, coste y gobernanza</td><td>193</td></tr>
-      <tr><td>Benchmarks: familias, métricas, SWE-bench y lectura crítica de leaderboards</td><td>194-196</td></tr>
-      <tr><td>IA en CI/CD: PR review, testing, seguridad automatizada y controles mínimos</td><td>197</td></tr>
-      <tr><td>Prompt injection, data leakage, supply chain poisoning y OWASP LLM Top 10</td><td>198</td></tr>
-      <tr><td>Guardrails: input validation, output validation, sandboxing, policy y evals</td><td>199</td></tr>
-      <tr><td>Red teaming: testear tu sistema intentando romperlo y medir attack success rate</td><td>200</td></tr>
-      <tr><td>EU AI Act: clasificación por riesgo y calendario de aplicación</td><td>201</td></tr>
-      <tr><td>Costes: tokens, cache, agentes y coste por tarea aceptada</td><td>202</td></tr>
-      <tr><td>Observabilidad: traces, costes, calidad, tool calls, prompt versions</td><td>203</td></tr>
-      <tr><td>Prompts como código: versionado, evals, A/B testing, release y rollback</td><td>204</td></tr>
-      <tr><td>Evals: dataset, rubric, baseline, umbral y revisión humana</td><td>205</td></tr>
-      <tr><td>Testing de código generado: build, unit, integration, E2E, security checks</td><td>206</td></tr>
-      <tr><td>Vibe coding y cambio de paradigma: intención, verificación y responsabilidad</td><td>207-208</td></tr>
-      <tr><td>Spec-first + test-first: workflow diario con IA</td><td>209</td></tr>
-      <tr><td>Configurar Claude Code, OpenCode y Cursor sin drift entre herramientas</td><td>210-211</td></tr>
-      <tr><td>Rules efectivas: específicas, verificables, mantenidas y con prioridad clara</td><td>212</td></tr>
-      <tr><td>Skills y plugins: progressive disclosure, allowed-tools, hooks y empaquetado</td><td>213-214</td></tr>
-      <tr><td>Agentes en producción: agent tax, autonomía real, evals, HITL y observabilidad</td><td>215</td></tr>
+      <tr><td>IDE web, Playground, IDE con agente, terminal y CI: cuándo usar cada superficie</td><td>196</td></tr>
+      <tr><td>Comparativa de AI coding assistants: UX, modelo, permisos, coste y gobernanza</td><td>197</td></tr>
+      <tr><td>Benchmarks: familias, métricas, SWE-bench y lectura crítica de leaderboards</td><td>198-200</td></tr>
+      <tr><td>IA en CI/CD: PR review, testing, seguridad automatizada y controles mínimos</td><td>201</td></tr>
+      <tr><td>Prompt injection, data leakage, supply chain poisoning y OWASP LLM Top 10</td><td>202</td></tr>
+      <tr><td>Guardrails: input validation, output validation, sandboxing, policy y evals</td><td>203</td></tr>
+      <tr><td>Red teaming: testear tu sistema intentando romperlo y medir attack success rate</td><td>204</td></tr>
+      <tr><td>EU AI Act: clasificación por riesgo y calendario de aplicación</td><td>205</td></tr>
+      <tr><td>Costes: tokens, cache, agentes y coste por tarea aceptada</td><td>206</td></tr>
+      <tr><td>Observabilidad: traces, costes, calidad, tool calls, prompt versions</td><td>207</td></tr>
+      <tr><td>Prompts como código: versionado, evals, A/B testing, release y rollback</td><td>208</td></tr>
+      <tr><td>Evals: dataset, rubric, baseline, umbral y revisión humana</td><td>209</td></tr>
+      <tr><td>Testing de código generado: build, unit, integration, E2E, security checks</td><td>210</td></tr>
+      <tr><td>Vibe coding y cambio de paradigma: intención, verificación y responsabilidad</td><td>211-212</td></tr>
+      <tr><td>Spec-first + test-first: workflow diario con IA</td><td>213</td></tr>
+      <tr><td>Configurar Claude Code, OpenCode y Cursor sin drift entre herramientas</td><td>214-215</td></tr>
+      <tr><td>Rules efectivas: específicas, verificables, mantenidas y con prioridad clara</td><td>216</td></tr>
+      <tr><td>Skills y plugins: progressive disclosure, allowed-tools, hooks y empaquetado</td><td>217-218</td></tr>
+      <tr><td>Agentes en producción: agent tax, autonomía real, evals, HITL y observabilidad</td><td>219</td></tr>
     </tbody>
   </table>
 </Slide>
 
-<!-- SLIDE 218: SECCION -->
-<Slide id="sec-evals-medicion-avanzada" number={218} section
+<!-- SLIDE 221: SECCION -->
+<Slide id="sec-evals-medicion-avanzada" number={221} section
   title="Evals y medición avanzada"
   subtitle="Cómo medir RAG, agentes, jueces LLM, coste por tarea aceptada y regresiones reales antes de confiar en un sistema de IA." />
 
-<!-- SLIDE 219 -->
-<Slide id="eval-rag-retrieval-groundedness" number={219} title="Eval de RAG: retrieval, groundedness y abstención">
+<!-- SLIDE 222 -->
+<Slide id="eval-rag-retrieval-groundedness" number={222} title="Eval de RAG: retrieval, groundedness y abstención">
   <p><i data-lucide="search-check"></i> Un RAG no se evalúa solo leyendo respuestas bonitas. Se separan dos problemas: <strong>si recupera la evidencia correcta</strong> y <strong>si responde apoyándose en ella</strong>.</p>
   <p>La clave pedagógica es no mezclar causas. Si la respuesta falla, puede ser porque no recuperaste el documento correcto, porque recuperaste ruido, porque el modelo ignoró la evidencia o porque debía abstenerse y respondió igual.</p>
   <div class="flow">
@@ -3304,8 +3304,8 @@ if (!parsed.success) &#123;
   </div>
 </Slide>
 
-<!-- SLIDE 220 -->
-<Slide id="llm-as-judge-rubricas-calibracion" number={220} title="LLM-as-judge: usar jueces sin autoengañarte">
+<!-- SLIDE 223 -->
+<Slide id="llm-as-judge-rubricas-calibracion" number={223} title="LLM-as-judge: usar jueces sin autoengañarte">
   <p><i data-lucide="scale"></i> Un juez LLM puede acelerar evaluación, pero no convierte una rúbrica vaga en verdad objetiva. El juez también tiene sesgos, sensibilidad al prompt y preferencias de estilo.</p>
   <p>Un juez sirve mejor cuando la respuesta no tiene una única cadena exacta: calidad de resumen, groundedness, tono, completitud o seguimiento de instrucciones. Si puedes usar un test determinista, úsalo primero.</p>
   <h3><i data-lucide="gavel"></i> Tipos de grader</h3>
@@ -3354,8 +3354,8 @@ if (!parsed.success) &#123;
   </div>
 </Slide>
 
-<!-- SLIDE 221 -->
-<Slide id="eval-agentes-tools-traces" number={221} title="Eval de agentes: éxito, tools, coste y trazas">
+<!-- SLIDE 224 -->
+<Slide id="eval-agentes-tools-traces" number={224} title="Eval de agentes: éxito, tools, coste y trazas">
   <p><i data-lucide="route"></i> Un agente no es solo una respuesta final. Es un proceso: planifica, llama tools, observa resultados, corrige y decide cuándo parar. La eval debe medir el proceso completo.</p>
   <p>En agentes hay dos niveles: <strong>outcome</strong> (si logró la tarea) y <strong>trajectory</strong> (cómo llegó allí). Una tarea puede terminar bien usando una tool peligrosa, o terminar mal después de gastar demasiado coste.</p>
   <h3><i data-lucide="activity"></i> Señales que importan</h3>
@@ -3408,8 +3408,8 @@ if (!parsed.success) &#123;
   </div>
 </Slide>
 
-<!-- SLIDE 222 -->
-<Slide id="coste-por-tarea-aceptada" number={222} title="Coste por tarea aceptada: la métrica que decide">
+<!-- SLIDE 225 -->
+<Slide id="coste-por-tarea-aceptada" number={225} title="Coste por tarea aceptada: la métrica que decide">
   <p><i data-lucide="coins"></i> El precio por token no decide producción. Decide el <strong>coste por tarea aceptada</strong>: cuánto pagas por una salida que pasa calidad, seguridad y revisión humana.</p>
   <div class="process-lane">
     <div class="process-step"><span class="step-label">1</span><strong>Tokens</strong><p>Input, output, reasoning, cache hit/miss y batch.</p></div>
@@ -3466,8 +3466,8 @@ if (!parsed.success) &#123;
   </div>
 </Slide>
 
-<!-- SLIDE 223 -->
-<Slide id="recap-evals-medicion-avanzada" number={223} title="Lo que deberías saber: evals avanzadas">
+<!-- SLIDE 226 -->
+<Slide id="recap-evals-medicion-avanzada" number={226} title="Lo que deberías saber: evals avanzadas">
   <table>
     <thead>
       <tr><th>Concepto</th><th>Lectura correcta</th></tr>
@@ -3487,13 +3487,13 @@ if (!parsed.success) &#123;
   </div>
 </Slide>
 
-<!-- SLIDE 224: SECCION -->
-<Slide id="sec-producto-ux-ia" number={224} section
+<!-- SLIDE 227: SECCION -->
+<Slide id="sec-producto-ux-ia" number={227} section
   title="Producto y UX de IA"
   subtitle="De medir a diseñar: cómo convertir incertidumbre, citas, abstención, confirmaciones humanas, memoria, límites y recuperación de errores en una experiencia que el usuario pueda controlar." />
 
-<!-- SLIDE 225 -->
-<Slide id="ux-incertidumbre-citas-abstencion" number={225} title="Diseñar para incertidumbre: confianza, citas y abstención">
+<!-- SLIDE 228 -->
+<Slide id="ux-incertidumbre-citas-abstencion" number={228} title="Diseñar para incertidumbre: confianza, citas y abstención">
   <p><i data-lucide="badge-help"></i> La UX de IA debe enseñar al usuario cuándo confiar, cuándo verificar y cuándo el sistema no sabe. Una respuesta segura pero falsa es peor que una abstención honesta.</p>
   <h3><i data-lucide="eye"></i> Patrones de interfaz</h3>
   <div class="tool-grid">
@@ -3510,8 +3510,8 @@ if (!parsed.success) &#123;
   </div>
 </Slide>
 
-<!-- SLIDE 226 -->
-<Slide id="ux-human-approval-rollback" number={226} title="Aprobación humana: confirmar, editar y revertir">
+<!-- SLIDE 229 -->
+<Slide id="ux-human-approval-rollback" number={229} title="Aprobación humana: confirmar, editar y revertir">
   <p><i data-lucide="user-check"></i> Human-in-the-loop no es poner un humano al final de todo. Es diseñar puntos de control donde el usuario pueda entender, corregir y revertir acciones.</p>
   <h3><i data-lucide="shield-check"></i> Matriz de aprobación</h3>
   <table>
@@ -3532,8 +3532,8 @@ if (!parsed.success) &#123;
   </div>
 </Slide>
 
-<!-- SLIDE 227 -->
-<Slide id="ux-conversaciones-memoria-handoff" number={227} title="Conversaciones recuperables: memoria, límites y handoff">
+<!-- SLIDE 230 -->
+<Slide id="ux-conversaciones-memoria-handoff" number={230} title="Conversaciones recuperables: memoria, límites y handoff">
   <p><i data-lucide="messages-square"></i> Un producto con IA falla de formas distintas a un formulario clásico: se desvía, olvida, mezcla contexto o no sabe cuándo parar. La UX debe tener salidas claras.</p>
   <h3><i data-lucide="map"></i> Controles que espera un usuario real</h3>
   <div class="two-cols">
@@ -3562,8 +3562,8 @@ if (!parsed.success) &#123;
   </div>
 </Slide>
 
-<!-- SLIDE 228 -->
-<Slide id="recap-producto-ux-ia" number={228} title="Lo que deberías saber: producto y UX de IA">
+<!-- SLIDE 231 -->
+<Slide id="recap-producto-ux-ia" number={231} title="Lo que deberías saber: producto y UX de IA">
   <table>
     <thead>
       <tr><th>Área</th><th>Regla práctica</th></tr>
@@ -3578,13 +3578,13 @@ if (!parsed.success) &#123;
   </table>
 </Slide>
 
-<!-- SLIDE 229: SECCION -->
-<Slide id="sec-operar-ia-produccion" number={229} section
+<!-- SLIDE 232: SECCION -->
+<Slide id="sec-operar-ia-produccion" number={232} section
   title="Operar IA en producción"
   subtitle="LLMOps, serving de modelos, routing, budgets, EvalOps, DataOps, post-training avanzado y disciplina operativa." />
 
-<!-- SLIDE 230 -->
-<Slide id="llmops-demo-a-servicio" number={230} title="LLMOps: de demo a servicio fiable">
+<!-- SLIDE 233 -->
+<Slide id="llmops-demo-a-servicio" number={233} title="LLMOps: de demo a servicio fiable">
   <div class="big-idea">
     <p>LLMOps empieza cuando una respuesta mala, cara o lenta deja de ser una anécdota y pasa a ser un incidente de producto.</p>
   </div>
@@ -3630,8 +3630,8 @@ if (!parsed.success) &#123;
   </div>
 </Slide>
 
-<!-- SLIDE 231 -->
-<Slide id="serving-open-weights" number={231} title="Serving open weights: vLLM, SGLang, TensorRT-LLM">
+<!-- SLIDE 234 -->
+<Slide id="serving-open-weights" number={234} title="Serving open weights: vLLM, SGLang, TensorRT-LLM">
   <div class="big-idea">
     <p>Servir un modelo no es "hacer un import": es gestionar memoria, colas, latencia y coste por token.</p>
   </div>
@@ -3677,8 +3677,8 @@ if (!parsed.success) &#123;
   </div>
 </Slide>
 
-<!-- SLIDE 232 -->
-<Slide id="inferencia-escalado" number={232} title="Escalar inferencia: batching, KV cache y especulación">
+<!-- SLIDE 235 -->
+<Slide id="inferencia-escalado" number={235} title="Escalar inferencia: batching, KV cache y especulación">
   <div class="big-idea">
     <p>Escalar inferencia es elegir qué sacrificas: latencia individual, throughput total, memoria o coste.</p>
   </div>
@@ -3729,8 +3729,8 @@ if (!parsed.success) &#123;
   </div>
 </Slide>
 
-<!-- SLIDE 233 -->
-<Slide id="routing-fallback-budgets" number={233} title="Routing, fallback y budgets por tarea">
+<!-- SLIDE 236 -->
+<Slide id="routing-fallback-budgets" number={236} title="Routing, fallback y budgets por tarea">
   <div class="big-idea">
     <p>El modelo más caro no siempre gana. Gana la ruta que resuelve la tarea con calidad suficiente, coste controlado y riesgo aceptable.</p>
   </div>
@@ -3759,8 +3759,8 @@ if (!parsed.success) &#123;
   </div>
 </Slide>
 
-<!-- SLIDE 234 -->
-<Slide id="evalops-regresiones-canary" number={234} title="EvalOps: regresiones, canary y release gates">
+<!-- SLIDE 237 -->
+<Slide id="evalops-regresiones-canary" number={237} title="EvalOps: regresiones, canary y release gates">
   <div class="big-idea">
     <p>Una eval no es un informe: es una puerta de despliegue que evita degradar calidad, coste o seguridad sin darte cuenta.</p>
   </div>
@@ -3787,8 +3787,8 @@ if (!parsed.success) &#123;
   </div>
 </Slide>
 
-<!-- SLIDE 235 -->
-<Slide id="dataops-ia" number={235} title="DataOps para IA: linaje, PII, licencias y drift">
+<!-- SLIDE 238 -->
+<Slide id="dataops-ia" number={238} title="DataOps para IA: linaje, PII, licencias y drift">
   <div class="big-idea">
     <p>En IA, los datos no son un input pasivo: son el producto que define qué sabe, qué cita y qué puede romper tu sistema.</p>
   </div>
@@ -3818,8 +3818,8 @@ if (!parsed.success) &#123;
   </div>
 </Slide>
 
-<!-- SLIDE 236 -->
-<Slide id="post-training-avanzado" number={236} title="Post-training avanzado: SFT, preferencias y refuerzo">
+<!-- SLIDE 239 -->
+<Slide id="post-training-avanzado" number={239} title="Post-training avanzado: SFT, preferencias y refuerzo">
   <div class="big-idea">
     <p>Post-training no es una técnica: eliges una señal. El refuerzo "solo" merece sitio cuando la recompensa se puede verificar.</p>
   </div>
@@ -3848,18 +3848,18 @@ if (!parsed.success) &#123;
   </div>
 </Slide>
 
-<!-- SLIDE 237 -->
-<Slide id="recap-operar-ia-produccion" number={237} title="Lo que deberías saber: operar IA en producción">
+<!-- SLIDE 240 -->
+<Slide id="recap-operar-ia-produccion" number={240} title="Lo que deberías saber: operar IA en producción">
   <div class="big-idea">
     <p>Operar IA no es elegir un modelo: es convertir prompts, datos, tools, costes y riesgos en un sistema observable, reversible y medible.</p>
   </div>
   <div class="recap-map">
-    <div class="recap-card"><strong>Operar</strong><p>Control plane, runtime, owners, límites, trazas y rollback probado.</p><span class="tag">229</span></div>
-    <div class="recap-card"><strong>Servir</strong><p>vLLM, SGLang, TensorRT-LLM, llama.cpp u Ollama según hardware, latencia y formato.</p><span class="tag">230</span></div>
-    <div class="recap-card"><strong>Escalar</strong><p>Continuous batching, KV cache, prefix cache, speculative decoding y colas con p95/p99.</p><span class="tag">231</span></div>
-    <div class="recap-card"><strong>Decidir</strong><p>Routing, fallback y budgets por riesgo: modelo barato, caro, humano o abstención.</p><span class="tag">232</span></div>
-    <div class="recap-card"><strong>Medir</strong><p>Offline evals, shadow runs, canary, release gates y regresiones por versión.</p><span class="tag">233</span></div>
-    <div class="recap-card"><strong>Gobernar datos</strong><p>Linaje, PII, licencias, calidad, drift, datasets de eval y post-training.</p><span class="tag">234-235</span></div>
+    <div class="recap-card"><strong>Operar</strong><p>Control plane, runtime, owners, límites, trazas y rollback probado.</p><span class="tag">233</span></div>
+    <div class="recap-card"><strong>Servir</strong><p>vLLM, SGLang, TensorRT-LLM, llama.cpp u Ollama según hardware, latencia y formato.</p><span class="tag">234</span></div>
+    <div class="recap-card"><strong>Escalar</strong><p>Continuous batching, KV cache, prefix cache, speculative decoding y colas con p95/p99.</p><span class="tag">235</span></div>
+    <div class="recap-card"><strong>Decidir</strong><p>Routing, fallback y budgets por riesgo: modelo barato, caro, humano o abstención.</p><span class="tag">236</span></div>
+    <div class="recap-card"><strong>Medir</strong><p>Offline evals, shadow runs, canary, release gates y regresiones por versión.</p><span class="tag">237</span></div>
+    <div class="recap-card"><strong>Gobernar datos</strong><p>Linaje, PII, licencias, calidad, drift, datasets de eval y post-training.</p><span class="tag">238-239</span></div>
   </div>
   <h3><i data-lucide="clipboard-check"></i> Checklist antes de llamarlo producción</h3>
   <table class="compact-table">
@@ -3884,13 +3884,13 @@ if (!parsed.success) &#123;
   </div>
 </Slide>
 
-<!-- SLIDE 238: SECCION -->
-<Slide id="sec-seguridad-gobernanza" number={238} section
+<!-- SLIDE 241: SECCION -->
+<Slide id="sec-seguridad-gobernanza" number={241} section
   title="Seguridad, gobernanza y confianza"
   subtitle="Riesgos específicos de agentes, OWASP LLM Top 10, privacidad, despliegues privados, marcos de gobernanza e interpretabilidad." />
 
-<!-- SLIDE 239 -->
-<Slide id="seguridad-agentic-mcp" number={239} title="Seguridad agentic: tools, MCP y permisos">
+<!-- SLIDE 242 -->
+<Slide id="seguridad-agentic-mcp" number={242} title="Seguridad agentic: tools, MCP y permisos">
   <div class="big-idea">
     <p>El salto de chatbot a agente cambia el daño posible: ya no solo responde, también puede actuar con permisos.</p>
   </div>
@@ -3945,8 +3945,8 @@ if (!parsed.success) &#123;
   </div>
 </Slide>
 
-<!-- SLIDE 240 -->
-<Slide id="owasp-llm-top10-aplicado" number={240} title="OWASP LLM Top 10 aplicado">
+<!-- SLIDE 243 -->
+<Slide id="owasp-llm-top10-aplicado" number={243} title="OWASP LLM Top 10 aplicado">
   <div class="big-idea">
     <p>OWASP LLM Top 10 sirve para convertir riesgos conocidos en controles probables, testeables y operables.</p>
   </div>
@@ -3971,8 +3971,8 @@ if (!parsed.success) &#123;
   </div>
 </Slide>
 
-<!-- SLIDE 241 -->
-<Slide id="privacidad-retencion-private-ai" number={241} title="Privacidad, retención y private AI">
+<!-- SLIDE 244 -->
+<Slide id="privacidad-retencion-private-ai" number={244} title="Privacidad, retención y private AI">
   <div class="big-idea">
     <p>La decisión no es "cloud o local": es qué datos viajan, quién los procesa, cuánto se guardan y con qué garantías.</p>
   </div>
@@ -3998,8 +3998,8 @@ if (!parsed.success) &#123;
   </div>
 </Slide>
 
-<!-- SLIDE 242 -->
-<Slide id="gobernanza-ai-rmf-iso" number={242} title="Gobernanza: EU AI Act, NIST AI RMF e ISO 42001">
+<!-- SLIDE 245 -->
+<Slide id="gobernanza-ai-rmf-iso" number={245} title="Gobernanza: EU AI Act, NIST AI RMF e ISO 42001">
   <div class="big-idea">
     <p>Gobernanza no es frenar IA: es decidir qué se despliega, con qué controles y con qué evidencia.</p>
   </div>
@@ -4025,8 +4025,8 @@ if (!parsed.success) &#123;
   </div>
 </Slide>
 
-<!-- SLIDE 243 -->
-<Slide id="interpretabilidad-confianza" number={243} title="Interpretabilidad: SAEs, features y límites de confianza">
+<!-- SLIDE 246 -->
+<Slide id="interpretabilidad-confianza" number={246} title="Interpretabilidad: SAEs, features y límites de confianza">
   <div class="big-idea">
     <p>Interpretabilidad ayuda a investigar modelos; no sustituye evals, controles ni supervisión en producto.</p>
   </div>
@@ -4055,8 +4055,8 @@ if (!parsed.success) &#123;
   </div>
 </Slide>
 
-<!-- SLIDE 244 -->
-<Slide id="recap-seguridad-gobernanza" number={244} title="Lo que deberías saber: seguridad y gobernanza">
+<!-- SLIDE 247 -->
+<Slide id="recap-seguridad-gobernanza" number={247} title="Lo que deberías saber: seguridad y gobernanza">
   <div class="big-idea">
     <p>La seguridad de IA se diseña por fronteras: qué entra al modelo, qué contexto usa, qué tools puede ejecutar y qué datos pueden salir.</p>
   </div>
