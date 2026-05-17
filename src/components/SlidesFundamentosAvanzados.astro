@@ -1,0 +1,2708 @@
+---
+import Slide from './Slide.astro';
+import StructuredSlide from './StructuredSlide.astro';
+
+const refsCalibration = [
+  { label: 'scikit-learn - Probability calibration', href: 'https://scikit-learn.org/stable/modules/calibration.html' },
+  { label: 'scikit-learn - Model evaluation', href: 'https://scikit-learn.org/stable/modules/model_evaluation.html' },
+];
+
+const refsConformal = [
+  { label: 'MAPIE documentation', href: 'https://mapie.readthedocs.io/' },
+  { label: 'MAPIE paper', href: 'https://arxiv.org/abs/2207.12274' },
+];
+
+const refsData = [
+  { label: 'Datasheets for Datasets', href: 'https://arxiv.org/abs/1803.09010' },
+  { label: 'Hugging Face - Dataset Cards', href: 'https://huggingface.co/docs/hub/datasets-cards' },
+];
+
+const refsCausal = [
+  { label: 'Pearl - Causality', href: 'https://bayes.cs.ucla.edu/BOOK-2K/pref.html' },
+  { label: 'DoWhy documentation', href: 'https://www.pywhy.org/dowhy/' },
+];
+
+const refsInterpretability = [
+  { label: 'scikit-learn - Inspection', href: 'https://scikit-learn.org/stable/inspection.html' },
+  { label: 'SHAP documentation', href: 'https://shap.readthedocs.io/en/latest/' },
+  { label: 'Interpretable Machine Learning', href: 'https://christophm.github.io/interpretable-ml-book/' },
+];
+
+const refsRl = [
+  { label: 'Sutton & Barto - Reinforcement Learning', href: 'https://incompleteideas.net/book/the-book-2nd.html' },
+  { label: 'OpenAI Spinning Up - RL Intro', href: 'https://spinningup.openai.com/en/latest/spinningup/rl_intro.html' },
+];
+
+const refsPrivacy = [
+  { label: 'NIST SP 800-188 - De-identifying Government Datasets', href: 'https://csrc.nist.gov/pubs/sp/800/188/final' },
+  { label: 'NIST SP 800-226 - Differential Privacy Guarantees', href: 'https://csrc.nist.gov/pubs/sp/800/226/ipd' },
+  { label: 'NIST - Privacy-preserving federated learning', href: 'https://www.nist.gov/blogs/cybersecurity-insights/protecting-trained-models-privacy-preserving-federated-learning' },
+];
+
+const advancedExtrasById: Record<string, any> = {
+  'incertidumbre-mapa': {
+    teachingNotes: [
+      'La incertidumbre no es un adorno estadístico. Es la diferencia entre una demo que contesta siempre y un sistema que sabe cuándo actuar, cuándo pedir revisión y cuándo reconocer que no tiene evidencia suficiente.',
+    ],
+    formulaCards: [
+      {
+        title: 'Riesgo esperado',
+        formula: 'Riesgo(a|x) = P(error|x) * daño(error,a)',
+        explanation: 'Para una entrada x y una acción a, no basta con preguntar si el modelo acierta. Preguntas cuánto daño produce equivocarse con esa acción.',
+        example: 'Bloquear una compra legítima cuesta fricción; dejar pasar fraude cuesta dinero. El mismo score puede llevar a acciones distintas.',
+      },
+      {
+        title: 'Política mínima',
+        formula: 'si p >= t_alto actúa; si p <= t_bajo no actúa; entre medias revisa',
+        explanation: 'Dos umbrales crean una zona gris. Esa zona gris es sana: evita forzar decisiones automáticas cuando el caso es ambiguo.',
+      },
+    ],
+    caseStudy: {
+      title: 'Caso: fraude en pagos',
+      text: 'Un clasificador devuelve p(fraude)=0.82. Ese número no debe ir directo a “bloquear”. Primero se conecta con coste, evidencia, tipo de cliente, importe y capacidad de revisión.',
+      rows: [
+        ['Bajo importe', 'pedir 2FA puede ser suficiente.'],
+        ['Alto importe', 'bloquear o revisar manualmente puede compensar.'],
+        ['Cliente VIP', 'la política puede preferir revisión humana antes de bloquear.'],
+      ],
+    },
+  },
+  'confidence-no-es-calibracion': {
+    teachingNotes: [
+      'Confidence suele ser “lo fuerte que el modelo empuja una clase”. Calibración es otra pregunta: si dice 80%, ¿ocurre de verdad cerca del 80% de las veces? Un modelo puede ordenar muy bien y aun así mentir con sus probabilidades.',
+    ],
+    formulaCards: [
+      {
+        title: 'Definición operativa',
+        formula: 'P(Y=1 | score≈0.8) ≈ 0.8',
+        explanation: 'Entre todos los casos a los que el modelo asigna score cercano a 0.8, alrededor del 80% deberían ser positivos.',
+        example: 'Si juntas 100 tickets con score 0.8 y solo 55 están bien clasificados, el modelo está sobreconfiado.',
+      },
+      {
+        title: 'Ranking vs probabilidad',
+        formula: 'AUC alto no implica score calibrado',
+        explanation: 'AUC mira si positivos quedan por encima de negativos. Calibración mira si el número puede usarse como probabilidad real.',
+      },
+    ],
+    caseStudy: {
+      title: 'Caso: dos modelos con el mismo AUC',
+      text: 'Modelo A separa bien positivos y negativos, pero dice 0.95 en casos donde acierta 0.70. Modelo B separa igual, pero su 0.95 acierta cerca de 0.95. Para automatizar, B es mucho más usable.',
+    },
+  },
+  'reliability-diagram-ece': {
+    teachingNotes: [
+      'El reliability diagram se lee como una auditoría de honestidad probabilística. En el eje X pones lo que el modelo dijo; en el eje Y lo que ocurrió. La diagonal significa “cuando digo 70%, pasa 70%”.',
+    ],
+    formulaCards: [
+      {
+        title: 'ECE paso a paso',
+        formula: 'ECE = sum_m (|B_m| / n) * |acc(B_m) - conf(B_m)|',
+        explanation: 'B_m es un grupo de predicciones con confianza parecida. acc(B_m) es su acierto real. conf(B_m) es la confianza media. El peso |B_m|/n hace que un bin grande importe más.',
+        example: 'Si el bin 0.8-0.9 tiene 120 casos, conf=0.84 y acc=0.76, su gap aporta (120/1000)*0.08.',
+      },
+      {
+        title: 'Gap de calibración',
+        formula: 'gap_m = |accuracy_del_bin - confianza_media_del_bin|',
+        explanation: 'Un gap grande dice que el número del modelo no representa bien la frecuencia real.',
+      },
+    ],
+    checklist: [
+      { label: 'Bins suficientes', text: 'No hagas 50 bins con pocos datos: el gráfico se vuelve ruido.' },
+      { label: 'Segmentos', text: 'Mira calibración por idioma, canal, país o clase crítica, no solo global.' },
+      { label: 'Después del drift', text: 'La calibración envejece si cambia producción.' },
+    ],
+  },
+  'brier-logloss-calibracion': {
+    teachingNotes: [
+      'Estas métricas son “proper scoring rules”: incentivan decir probabilidades honestas. Si el modelo cree 60%, debería decir 60%, no 99% para parecer más seguro.',
+    ],
+    formulaCards: [
+      {
+        title: 'Brier score',
+        formula: 'Brier = mean((p_i - y_i)^2)',
+        explanation: 'p_i es la probabilidad predicha. y_i vale 1 si ocurrió y 0 si no. Penaliza la distancia cuadrática entre predicción probabilística y realidad.',
+        example: 'Decir 0.8 y que ocurra y=1 aporta (0.8-1)^2=0.04. Decir 0.2 aporta 0.64: duele mucho más.',
+      },
+      {
+        title: 'Log loss',
+        formula: 'LogLoss = -mean(y log(p) + (1-y) log(1-p))',
+        explanation: 'Castiga muchísimo la confianza extrema equivocada. Si dices p=0.99 y el resultado es 0, el logaritmo explota en coste.',
+      },
+      {
+        title: 'Coste esperado',
+        formula: 'E[coste] = p(FP)*coste_FP + p(FN)*coste_FN',
+        explanation: 'La métrica técnica se conecta con producto al poner coste distinto a cada tipo de error.',
+      },
+    ],
+  },
+  'calibrar-modelos': {
+    teachingNotes: [
+      'Calibrar no vuelve “más inteligente” al modelo. Reescala su salida para que los números sean utilizables como probabilidades. Por eso se hace después de entrenar y con datos que el modelo no ha usado para aprender.',
+    ],
+    formulaCards: [
+      {
+        title: 'Platt scaling',
+        formula: 'p_calibrada = 1 / (1 + exp(A * score + B))',
+        explanation: 'Aprende una curva sigmoide encima del score bruto. Es simple, estable y suele funcionar cuando la mala calibración tiene forma suave.',
+      },
+      {
+        title: 'Isotonic regression',
+        formula: 'p_calibrada = f(score), con f monótona',
+        explanation: 'Aprende una función creciente flexible: si score sube, probabilidad no debería bajar. Necesita más datos para no sobreajustar.',
+      },
+      {
+        title: 'Temperature scaling',
+        formula: 'softmax(logits / T)',
+        explanation: 'En redes multiclase, T suaviza o endurece las probabilidades sin cambiar el ranking de logits.',
+      },
+    ],
+    steps: [
+      'Entrena el modelo con train.',
+      'Congela el modelo: no sigas ajustando sus pesos.',
+      'Ajusta calibración en un conjunto separado.',
+      'Elige umbrales en validación.',
+      'Evalúa una sola vez en test final.',
+    ],
+  },
+  'umbrales-abstencion-humano': {
+    teachingNotes: [
+      'El umbral es producto, no matemática pura. Cambiarlo modifica cuántos casos automatizas, cuántos revisas y qué errores aceptas. Por eso se decide con costes y capacidad operativa.',
+    ],
+    formulaCards: [
+      {
+        title: 'Umbral con costes binarios',
+        formula: 'actúa si p * beneficio_TP > (1-p) * coste_FP',
+        explanation: 'Si el beneficio de acertar supera el coste esperado de equivocarte, actuar tiene sentido. Si no, revisa o abstente.',
+      },
+      {
+        title: 'Zona gris',
+        formula: 't_bajo < p < t_alto => humano / modelo caro / pedir datos',
+        explanation: 'La zona gris no es fallo: es el mecanismo para no automatizar casos donde el modelo no tiene margen suficiente.',
+      },
+    ],
+    caseStudy: {
+      title: 'Caso: soporte técnico',
+      text: 'Un router de tickets predice legal=0.58, billing=0.35, soporte=0.07. Enviar automáticamente a legal puede saturar un equipo caro; pedir una aclaración puede ahorrar coste y mejorar SLA.',
+      rows: [
+        ['Automático', 'solo si la primera clase supera umbral y la segunda queda lejos.'],
+        ['Aclaración', 'si hay dos clases cercanas y el usuario puede aportar dato.'],
+        ['Humano', 'si el error tiene coste legal, reputacional o económico.'],
+      ],
+    },
+  },
+  'conformal-prediction-regresion': {
+    teachingNotes: [
+      'Conformal prediction es útil porque cambia una predicción puntual por una promesa medible de cobertura. No dice “sé el precio exacto”; dice “con este procedimiento, cubro aproximadamente el 90% de futuros casos comparables”.',
+    ],
+    formulaCards: [
+      {
+        title: 'Residuo de calibración',
+        formula: 'r_i = |y_i - y_hat_i|',
+        explanation: 'Mides cuánto se equivocó el modelo en ejemplos de calibración que no usó para entrenar.',
+      },
+      {
+        title: 'Cuantil de error',
+        formula: 'q = quantile_{1-alpha}(r_1, ..., r_n)',
+        explanation: 'Si alpha=0.1, tomas un cuantil alto de residuos para buscar cobertura 90%.',
+      },
+      {
+        title: 'Intervalo final',
+        formula: '[y_hat_nuevo - q, y_hat_nuevo + q]',
+        explanation: 'La predicción puntual se ensancha con el error típico observado en calibración.',
+        example: 'Predicción 302k, q=21k => intervalo [281k, 323k].',
+      },
+    ],
+  },
+  'conformal-prediction-clasificacion': {
+    teachingNotes: [
+      'En clasificación, conformal prediction baja al barro de una forma muy clara: si el modelo no puede elegir una etiqueta con garantía suficiente, devuelve varias. Esa incomodidad es información útil.',
+    ],
+    formulaCards: [
+      {
+        title: 'Nonconformity simple',
+        formula: 's_i = 1 - p_modelo(clase_real_i)',
+        explanation: 'Si el modelo dio poca probabilidad a la clase real, ese ejemplo es “poco conforme”. El cuantil de esos scores fija cuánta duda aceptas.',
+      },
+      {
+        title: 'Set de predicción',
+        formula: 'C(x) = {clase c: 1 - p(c|x) &lt;= q}',
+        explanation: 'Incluyes las clases cuya probabilidad no queda demasiado lejos del criterio de cobertura.',
+        example: 'Si C(ticket)={billing, legal}, no deberías enrutar automáticamente sin más evidencia.',
+      },
+    ],
+    caseStudy: {
+      title: 'Caso: moderación',
+      text: 'Una etiqueta única puede bloquear contenido legítimo. Un conjunto {permitido, revisar} obliga a diseñar revisión antes de censurar.',
+    },
+  },
+};
+
+Object.assign(advancedExtrasById, {
+  'incertidumbre-llm-rag': {
+    formulaCards: [
+      {
+        title: 'Confianza compuesta',
+        formula: 'confianza_util = evidencia * grounding * validez_formato',
+        explanation: 'En LLMs no basta con que el texto suene seguro. La confianza práctica combina documentos recuperados, soporte de cada afirmación y salida válida.',
+        example: 'Si retrieval es débil, groundedness alto no salva la respuesta: quizá el modelo está justificando con una fuente irrelevante.',
+      },
+    ],
+    caseStudy: {
+      title: 'Caso: pregunta sobre normativa interna',
+      text: 'Si el corpus no contiene la respuesta, el sistema debe decir que no hay evidencia. Inventar una política con tono seguro es peor que abstenerse.',
+    },
+  },
+  'incertidumbre-que-saber': {
+    formulaCards: [
+      {
+        title: 'Checklist mental',
+        formula: 'predicción + calibración + umbral + acción + fallback',
+        explanation: 'Una predicción solo entra en producción cuando sabes cómo se decide, cuándo se revisa y qué ocurre si falta evidencia.',
+      },
+    ],
+  },
+  'data-centric-ai-mapa': {
+    formulaCards: [
+      {
+        title: 'Calidad total del sistema',
+        formula: 'calidad_IA ≈ calidad_datos * calidad_eval * calidad_modelo',
+        explanation: 'Si los datos o la eval son pobres, cambiar de modelo solo optimiza sobre una base rota.',
+      },
+    ],
+    caseStudy: {
+      title: 'Caso: clasificación de tickets',
+      text: 'Antes de cambiar a un modelo mayor, revisa si las etiquetas son consistentes, si hay ejemplos de todos los canales y si test contiene casos reales recientes.',
+    },
+  },
+  'dataset-como-producto': {
+    formulaCards: [
+      {
+        title: 'Contrato mínimo',
+        formula: 'dataset = unidad + target + features + split + permisos + version',
+        explanation: 'Cada pieza evita un fallo distinto: ambigüedad, leakage, evaluación falsa, riesgo legal o imposibilidad de reproducir.',
+      },
+    ],
+  },
+  'calidad-etiquetas-ruido': {
+    formulaCards: [
+      {
+        title: 'Techo por ruido',
+        formula: 'si la label humana es inconsistente, el modelo aprende inconsistencia',
+        explanation: 'Cuando dos expertos discrepan mucho, la métrica máxima realista baja. No siempre necesitas modelo mejor: a veces necesitas criterio mejor.',
+      },
+      {
+        title: 'Kappa intuitivo',
+        formula: 'kappa = (acuerdo_observado - acuerdo_azar) / (1 - acuerdo_azar)',
+        explanation: 'Corrige el acuerdo que ocurriría por casualidad. Sirve para saber si la guía de anotación está clara.',
+      },
+    ],
+  },
+  'labeling-strategy': {
+    checklist: [
+      { label: 'Definiciones', text: 'Cada clase debe tener criterios positivos y negativos.' },
+      { label: 'Casos frontera', text: 'Incluye ejemplos donde dos etiquetas parecen plausibles.' },
+      { label: 'Adjudicación', text: 'Define quién decide cuando anotadores discrepan.' },
+      { label: 'Versionado', text: 'Si cambia la política, cambia también la versión de labels.' },
+    ],
+  },
+  'data-quality-tests': {
+    formulaCards: [
+      {
+        title: 'Gate de datos',
+        formula: 'release_ok = schema_ok AND drift_ok AND pii_ok AND duplicados_ok',
+        explanation: 'Los tests de datos deben bloquear releases igual que un test unitario bloquea código roto.',
+      },
+    ],
+  },
+  'leakage-avanzado': {
+    formulaCards: [
+      {
+        title: 'Regla de disponibilidad',
+        formula: 'available_at(feature) &lt;= prediction_time',
+        explanation: 'Una feature solo es válida si existía en el momento exacto en el que el sistema habría tomado la decisión.',
+        example: 'Usar fecha de resolución para predecir prioridad inicial es mirar el futuro.',
+      },
+    ],
+  },
+  'drift-representatividad': {
+    formulaCards: [
+      {
+        title: 'Tres distribuciones que vigilar',
+        formula: 'P(X), P(Y), P(Y|X)',
+        explanation: 'Puede cambiar la entrada, la frecuencia de clases o la relación entre entrada y salida. Cada cambio exige una respuesta distinta.',
+      },
+    ],
+  },
+  'active-learning': {
+    formulaCards: [
+      {
+        title: 'Selección por incertidumbre',
+        formula: 'elegir x con menor margen: p1(x) - p2(x)',
+        explanation: 'Si la primera y segunda clase están cerca, etiquetar ese caso puede enseñar mucho al modelo.',
+      },
+    ],
+    caseStudy: {
+      title: 'Caso: experto caro',
+      text: 'Si un abogado revisa 30 contratos al día, no le mandes ejemplos aleatorios. Mándale casos ambiguos, nuevos y de alto impacto.',
+    },
+  },
+  'weak-supervision': {
+    formulaCards: [
+      {
+        title: 'Label débil',
+        formula: 'label_final ≈ combinación(reglas, heurísticas, fuentes, revisión)',
+        explanation: 'Las reglas débiles no son verdad. Son señales que se combinan y se contrastan contra un gold set.',
+      },
+    ],
+  },
+  'datasheets-dataset-cards': {
+    checklist: [
+      { label: 'Origen', text: 'De dónde vienen los datos y bajo qué permisos.' },
+      { label: 'Cobertura', text: 'Qué idiomas, fechas, canales y segmentos incluye.' },
+      { label: 'Huecos', text: 'Qué no contiene y dónde no debe usarse.' },
+      { label: 'Riesgos', text: 'Sesgos conocidos, PII, licencias y limitaciones.' },
+    ],
+  },
+  'data-centric-que-saber': {
+    formulaCards: [
+      {
+        title: 'Pregunta final',
+        formula: '¿qué aprendió el modelo y de dónde salió esa señal?',
+        explanation: 'Si no puedes responderlo con linaje, etiquetas, versión y eval, no tienes control suficiente.',
+      },
+    ],
+  },
+  'causalidad-mapa': {
+    formulaCards: [
+      {
+        title: 'Predicción vs intervención',
+        formula: 'P(Y|X) no es P(Y|do(X))',
+        explanation: 'P(Y|X) observa asociación. P(Y|do(X)) pregunta qué pasa si fuerzas X desde fuera.',
+      },
+    ],
+  },
+  'correlacion-no-causalidad': {
+    formulaCards: [
+      {
+        title: 'Causa común',
+        formula: 'Z -> X y Z -> Y',
+        explanation: 'X e Y se mueven juntos porque comparten causa Z. Atacar X puede no cambiar Y.',
+      },
+    ],
+  },
+  'dag-causal': {
+    formulaCards: [
+      {
+        title: 'Backdoor intuitivo',
+        formula: 'bloquear caminos de causa común entre X e Y',
+        explanation: 'Ajustar confounders intenta comparar casos equivalentes salvo por la intervención.',
+      },
+    ],
+  },
+  'confounding-ajuste': {
+    caseStudy: {
+      title: 'Caso: descuentos',
+      text: 'Si los clientes VIP reciben más descuentos y compran más, comparar descuento vs no descuento exagera el efecto. Hay que comparar VIP con VIP y no VIP con no VIP.',
+    },
+  },
+  'do-operator-intervencion': {
+    formulaCards: [
+      {
+        title: 'Lectura de do',
+        formula: 'do(descuento) = asignar descuento desde el sistema',
+        explanation: 'El operador do rompe el mecanismo habitual que decide quién recibe descuento. Por eso se acerca a una decisión de producto.',
+      },
+    ],
+  },
+  'contrafactuales': {
+    formulaCards: [
+      {
+        title: 'Mismo caso, otro mundo',
+        formula: 'Y_i(1) - Y_i(0)',
+        explanation: 'Y_i(1) es resultado del individuo i con tratamiento. Y_i(0), sin tratamiento. Nunca observas ambos a la vez.',
+      },
+    ],
+  },
+  'ab-testing-causal': {
+    formulaCards: [
+      {
+        title: 'ATE',
+        formula: 'ATE = E[Y|do(X=1)] - E[Y|do(X=0)]',
+        explanation: 'Mide el efecto medio de pasar de control a tratamiento. La aleatorización hace comparables los grupos.',
+      },
+    ],
+  },
+  'ab-testing-errores': {
+    checklist: [
+      { label: 'No mirar antes', text: 'Define regla de parada antes del experimento.' },
+      { label: 'Unidad correcta', text: 'Usuario, sesión o cuenta cambian la inferencia.' },
+      { label: 'Guardrails', text: 'La métrica primaria no puede subir rompiendo seguridad o latencia.' },
+    ],
+  },
+  'uplift-treatment-effect': {
+    formulaCards: [
+      {
+        title: 'Efecto individual esperado',
+        formula: 'uplift(x) = P(Y=1|do(T=1),x) - P(Y=1|do(T=0),x)',
+        explanation: 'No pregunta quién comprará. Pregunta a quién le cambia algo recibir la acción.',
+      },
+    ],
+  },
+  'causalidad-que-saber': {
+    formulaCards: [
+      {
+        title: 'Regla de decisión',
+        formula: 'predice para anticipar; estima efecto para intervenir',
+        explanation: 'Si vas a cambiar el mundo con una acción, necesitas evidencia causal o un experimento bien diseñado.',
+      },
+    ],
+  },
+  'interpretabilidad-mapa': {
+    formulaCards: [
+      {
+        title: 'Explicar no es justificar',
+        formula: 'explicación = hipótesis sobre el modelo, no prueba de verdad',
+        explanation: 'Una explicación puede revelar leakage, sesgo o correlación falsa. No convierte una decisión en correcta.',
+      },
+    ],
+  },
+  'interpretabilidad-global-local': {
+    formulaCards: [
+      {
+        title: 'Global vs local',
+        formula: 'global: comportamiento medio; local: caso x_i',
+        explanation: 'No uses una explicación global para justificar una decisión individual sin mirar el caso concreto.',
+      },
+    ],
+  },
+  'feature-importance': {
+    formulaCards: [
+      {
+        title: 'Importancia interna',
+        formula: 'importance_j ≈ reducción de error atribuida a feature j',
+        explanation: 'Rápida y útil, pero puede sesgarse hacia variables con más valores o más oportunidades de dividir.',
+      },
+    ],
+  },
+  'permutation-importance': {
+    formulaCards: [
+      {
+        title: 'Caída de métrica',
+        formula: 'PI_j = metric(original) - metric(feature_j_barajada)',
+        explanation: 'Si al barajar una feature baja mucho la métrica, el modelo dependía de ella.',
+      },
+    ],
+  },
+  'pdp-ice': {
+    formulaCards: [
+      {
+        title: 'PDP',
+        formula: 'PD(x_s)=E[f(x_s, X_c)]',
+        explanation: 'Fijas una feature y promedias predicciones manteniendo el resto como aparece en los datos.',
+      },
+      {
+        title: 'ICE',
+        formula: 'ICE_i(x_s)=f(x_s, x_{c,i})',
+        explanation: 'Muestra la curva de un caso individual. Sirve para ver si el promedio esconde comportamientos distintos.',
+      },
+    ],
+  },
+  'shap-lime': {
+    formulaCards: [
+      {
+        title: 'SHAP',
+        formula: 'f(x)=phi_0 + sum_j phi_j',
+        explanation: 'La predicción se expresa como baseline más contribuciones locales de features. No significa causalidad.',
+      },
+    ],
+  },
+  'interpretabilidad-no-causalidad': {
+    formulaCards: [
+      {
+        title: 'La frase peligrosa',
+        formula: 'feature importante != causa',
+        explanation: 'Importante para el modelo significa que ayuda a predecir dentro del dataset. Cambiarla puede no cambiar el resultado real.',
+      },
+    ],
+  },
+  'error-slicing': {
+    formulaCards: [
+      {
+        title: 'Métrica por segmento',
+        formula: 'metric_slice = metric({ejemplos donde segmento=s})',
+        explanation: 'La media global puede ocultar que un idioma, país, canal o clase crítica falla mucho.',
+      },
+    ],
+  },
+  'interpretabilidad-llm-agentes': {
+    checklist: [
+      { label: 'Contexto', text: 'Qué instrucciones, memoria y documentos vio.' },
+      { label: 'Retrieval', text: 'Qué chunks recuperó y con qué scores.' },
+      { label: 'Tools', text: 'Qué argumentos usó y qué devolvió cada tool.' },
+      { label: 'Salida', text: 'Qué afirmaciones tienen evidencia y cuáles no.' },
+    ],
+  },
+  'interpretabilidad-que-saber': {
+    formulaCards: [
+      {
+        title: 'Uso sano',
+        formula: 'interpretabilidad -> hipótesis -> eval -> decisión',
+        explanation: 'La explicación abre investigación. La decisión se toma con métricas, evidencia y controles.',
+      },
+    ],
+  },
+  'rl-formal-mapa': {
+    formulaCards: [
+      {
+        title: 'Objetivo de RL',
+        formula: 'max_pi E[G_t]',
+        explanation: 'Buscar una política pi que maximice retorno esperado, no solo la recompensa inmediata.',
+      },
+    ],
+  },
+  'mdp': {
+    caseStudy: {
+      title: 'Caso: agente de código',
+      text: 'Estado: repo, tests y diff. Acción: editar, ejecutar test o pedir permiso. Recompensa: tests verdes menos coste y riesgo. Si el estado no refleja el repo real, el agente decide mal.',
+    },
+  },
+  'politica-valor-retorno': {
+    formulaCards: [
+      {
+        title: 'Retorno descontado',
+        formula: 'G_t = r_{t+1} + gamma*r_{t+2} + gamma^2*r_{t+3} + ...',
+        explanation: 'gamma decide cuánto pesa el futuro. Con gamma bajo, el agente es miope; con gamma alto, planifica más lejos.',
+      },
+    ],
+  },
+  'value-q-bellman': {
+    formulaCards: [
+      {
+        title: 'Bellman intuitivo',
+        formula: 'valor ahora = recompensa inmediata + valor futuro esperado',
+        explanation: 'La ecuación recursiva permite aprender valor de estados sin conocer todo el futuro de antemano.',
+      },
+    ],
+  },
+  'exploration-exploitation': {
+    formulaCards: [
+      {
+        title: 'Epsilon-greedy',
+        formula: 'con prob. epsilon explora; si no, explota lo mejor conocido',
+        explanation: 'epsilon controla cuánto tráfico sacrificas para aprender alternativas.',
+      },
+    ],
+  },
+  'bandits': {
+    formulaCards: [
+      {
+        title: 'Bandit',
+        formula: 'elegir brazo a_t, observar recompensa r_t',
+        explanation: 'No hay estado complejo ni planificación larga: cada decisión enseña qué opción parece mejor.',
+      },
+    ],
+  },
+  'reward-hacking': {
+    formulaCards: [
+      {
+        title: 'Ley amarga',
+        formula: 'el agente optimiza la métrica, no tu intención',
+        explanation: 'Si premias clics, puede buscar clics malos. Si premias tests visibles, puede hardcodear. La recompensa es una especificación.',
+      },
+    ],
+  },
+  'rlhf-rlaif-rlvr': {
+    formulaCards: [
+      {
+        title: 'Preferencias',
+        formula: 'A > B => aumentar probabilidad de A frente a B',
+        explanation: 'Los métodos de preferencia enseñan al modelo qué respuesta se prefiere, pero heredan sesgos de humanos o jueces IA.',
+      },
+    ],
+  },
+  'rl-agentes-llm': {
+    formulaCards: [
+      {
+        title: 'Analogía útil',
+        formula: 'contexto≈estado, tool≈acción, eval≈recompensa',
+        explanation: 'Sirve como modelo mental, aunque la mayoría de agentes LLM no aprende online con RL real en cada sesión.',
+      },
+    ],
+  },
+  'rl-que-saber': {
+    formulaCards: [
+      {
+        title: 'Pregunta clave',
+        formula: '¿qué comportamiento premia la señal?',
+        explanation: 'Si no puedes responderlo, no puedes confiar en que el agente aprenda lo que querías.',
+      },
+    ],
+  },
+  'privacidad-avanzada-mapa': {
+    formulaCards: [
+      {
+        title: 'Minimización',
+        formula: 'usar solo datos necesarios, durante el tiempo necesario',
+        explanation: 'La mejor privacidad no es cifrar todo lo que sobra: es no recoger ni enviar lo que no necesitas.',
+      },
+    ],
+  },
+  'pii-datos-sensibles': {
+    checklist: [
+      { label: 'Directos', text: 'Nombre, email, DNI, teléfono.' },
+      { label: 'Quasi-identifiers', text: 'Combinaciones como CP, cargo y fecha.' },
+      { label: 'Secretos', text: 'API keys, tokens, URLs internas.' },
+      { label: 'Empresariales', text: 'Contratos, precios, clientes y roadmap.' },
+    ],
+  },
+  'anonimizacion-pseudonimizacion': {
+    formulaCards: [
+      {
+        title: 'Diferencia central',
+        formula: 'pseudonimizado = reversible o enlazable; anonimizado = reidentificación no razonable',
+        explanation: 'Cambiar nombres por IDs no anonimiza si alguien conserva la tabla de correspondencia o puede cruzar datos.',
+      },
+    ],
+  },
+  'reidentificacion-quasi-identifiers': {
+    formulaCards: [
+      {
+        title: 'Riesgo de combinación',
+        formula: 'riesgo sube con unicidad(campo1 + campo2 + campo3)',
+        explanation: 'Campos inocentes por separado pueden identificar a una persona al combinarse.',
+      },
+    ],
+  },
+  'differential-privacy': {
+    formulaCards: [
+      {
+        title: 'Definición intuitiva de DP',
+        formula: 'Pr[M(D)=o] &lt;= exp(epsilon) * Pr[M(D\\i)=o] + delta',
+        explanation: 'La salida de un mecanismo M cambia poco al quitar una persona i del dataset. epsilon bajo implica más privacidad y más ruido.',
+      },
+    ],
+  },
+  'dp-ml-training': {
+    formulaCards: [
+      {
+        title: 'DP-SGD',
+        formula: 'clip(gradiente) + ruido + privacy accounting',
+        explanation: 'Limita la influencia de cada ejemplo y añade ruido para reducir memorización individual.',
+      },
+    ],
+  },
+  'federated-learning': {
+    formulaCards: [
+      {
+        title: 'Federated averaging',
+        formula: 'w_global = media_ponderada(w_cliente)',
+        explanation: 'El servidor agrega actualizaciones locales. Los datos no salen, pero los gradientes también pueden filtrar información.',
+      },
+    ],
+  },
+  'confidential-computing': {
+    formulaCards: [
+      {
+        title: 'Qué cubre',
+        formula: 'datos en uso protegidos por enclave/TEE',
+        explanation: 'Ayuda mientras se procesa, pero no arregla bugs de aplicación, permisos malos ni prompt injection.',
+      },
+    ],
+  },
+  'memorization-extraction': {
+    formulaCards: [
+      {
+        title: 'Riesgo práctico',
+        formula: 'memorization_risk sube con rareza * repetición * sensibilidad',
+        explanation: 'Secretos repetidos y textos únicos son candidatos a memorizarse o extraerse.',
+      },
+    ],
+  },
+  'retencion-contratos-datos': {
+    checklist: [
+      { label: 'Entrenamiento', text: 'Si prompts/logs se usan o no para entrenar.' },
+      { label: 'Retención', text: 'Cuánto se guardan y cómo se borran.' },
+      { label: 'Región', text: 'Dónde se procesan y subprocesadores.' },
+      { label: 'Acceso', text: 'Quién ve trazas, logs y documentos.' },
+    ],
+  },
+  'privacidad-que-saber': {
+    formulaCards: [
+      {
+        title: 'Criterio final',
+        formula: 'privacidad = minimización + permisos + contrato + evaluación de ataques',
+        explanation: 'No es una casilla del proveedor. Es una arquitectura y una disciplina de datos.',
+      },
+    ],
+  },
+});
+
+const addAdvancedExtras = (patches: Record<string, any>) => {
+  for (const [id, extra] of Object.entries(patches)) {
+    const previous = advancedExtrasById[id] ?? {};
+    advancedExtrasById[id] = {
+      ...previous,
+      ...extra,
+      teachingNotes: [...(previous.teachingNotes ?? []), ...(extra.teachingNotes ?? [])],
+      formulaCards: [...(previous.formulaCards ?? []), ...(extra.formulaCards ?? [])],
+      secondaryTables: [...(previous.secondaryTables ?? []), ...(extra.secondaryTables ?? [])],
+      cards: [...(previous.cards ?? []), ...(extra.cards ?? [])],
+      twoCols: [...(previous.twoCols ?? []), ...(extra.twoCols ?? [])],
+      checklist: [...(previous.checklist ?? []), ...(extra.checklist ?? [])],
+      steps: [...(previous.steps ?? []), ...(extra.steps ?? [])],
+    };
+  }
+};
+
+addAdvancedExtras({
+  'causalidad-mapa': {
+    teachingNotes: [
+      'La causalidad entra cuando el sistema va a intervenir: enviar descuento, cambiar ranking, asignar un recurso, bloquear una cuenta o activar una política. Para solo anticipar riesgo basta predicción; para actuar necesitas estimar qué cambia por actuar.',
+    ],
+    caseStudy: {
+      title: 'Caso: descuentos que no mueven nada',
+      text: 'Un modelo predictivo puede identificar clientes con alta probabilidad de compra. Si les das descuento, quizá compras que ya iban a ocurrir cuestan margen. El modelo causal busca persuadables: usuarios donde el descuento cambia el resultado.',
+    },
+  },
+  'correlacion-no-causalidad': {
+    teachingNotes: [
+      'La correlación es una pista, no una autorización para actuar. Una variable puede predecir muy bien porque es proxy, consecuencia o síntoma, y tocarla puede no cambiar nada.',
+    ],
+    caseStudy: {
+      title: 'Caso: llamadas de soporte y churn',
+      text: 'Ver que clientes con muchas llamadas cancelan más no implica que llamar cause churn. Puede ser al revés: los clientes que ya tienen problemas llaman más.',
+    },
+    checklist: [
+      { label: 'Causa común', text: 'Busca una Z que explique X e Y.' },
+      { label: 'Temporalidad', text: 'La causa debe ocurrir antes del efecto.' },
+      { label: 'Selección', text: 'Pregunta qué casos no observas.' },
+    ],
+  },
+  'dag-causal': {
+    teachingNotes: [
+      'Dibujar el DAG obliga a poner supuestos sobre la mesa. No es decoración académica: evita ajustar variables equivocadas, especialmente colliders o variables que ocurren después del tratamiento.',
+    ],
+    caseStudy: {
+      title: 'Caso: ranking de candidatos',
+      text: 'Experiencia puede afectar entrevista y contratación. Pero entrevista también depende del evaluador. Si ajustas variables posteriores al tratamiento, puedes borrar o fabricar efectos.',
+    },
+    checklist: [
+      { label: 'Antes/después', text: 'Marca qué variables existen antes de la acción.' },
+      { label: 'Confounders', text: 'Causan tanto acción como resultado.' },
+      { label: 'Colliders', text: 'No ajustes variables causadas por dos caminos si no toca.' },
+    ],
+  },
+  'confounding-ajuste': {
+    teachingNotes: [
+      'Ajustar no significa meter todas las columnas en un modelo. Significa bloquear caminos de confusión sin bloquear el efecto que quieres medir.',
+    ],
+    formulaCards: [
+      {
+        title: 'Ajuste por estratos',
+        formula: 'efecto = sum_z efecto_en_z * P(z)',
+        explanation: 'Calculas el efecto dentro de grupos comparables z y luego recompones según cuánto pesa cada grupo en la población.',
+      },
+    ],
+    checklist: [
+      { label: 'No ajustar mediadores', text: 'Si la variable ocurre después de X, puede ser parte del efecto.' },
+      { label: 'No ajustar colliders', text: 'Puede abrir caminos espurios.' },
+      { label: 'Ajustar confounders', text: 'Variables previas que empujan acción y resultado.' },
+    ],
+  },
+  'do-operator-intervencion': {
+    teachingNotes: [
+      'El operador do(X) representa una acción controlada: el sistema fija X en vez de observar cómo X apareció naturalmente. Esa diferencia es justo lo que ocurre cuando producto lanza una campaña o cambia un ranking.',
+    ],
+    caseStudy: {
+      title: 'Caso: cambiar el prompt',
+      text: 'Observar que prompts largos tienen mejores respuestas no prueba que alargar cualquier prompt mejore calidad. Puede ser que los usuarios expertos escriban prompts largos y también evalúen mejor.',
+    },
+  },
+  'contrafactuales': {
+    teachingNotes: [
+      'El contrafactual es potente porque pregunta por el mismo caso en un mundo alternativo. También es peligroso: ese mundo no se observa y depende de supuestos.',
+    ],
+    checklist: [
+      { label: 'Accionable', text: 'No propongas cambiar edad, origen o rasgos sensibles.' },
+      { label: 'Realista', text: 'El cambio debe poder ocurrir en el dominio.' },
+      { label: 'Causal', text: 'El cambio propuesto debe tener relación causal plausible.' },
+    ],
+  },
+  'ab-testing-causal': {
+    teachingNotes: [
+      'A/B testing es la forma más práctica de causalidad en producto digital porque la aleatorización hace comparables los grupos. El reto no es solo estadístico: es elegir unidad, métrica, duración y guardrails.',
+    ],
+    caseStudy: {
+      title: 'Caso: nuevo RAG en soporte',
+      text: 'La métrica primaria puede ser resolución correcta. Guardrails: latencia, coste por ticket, satisfacción y tasa de escalado humano. Un sistema que responde más rápido pero alucina más no gana.',
+    },
+  },
+  'ab-testing-errores': {
+    teachingNotes: [
+      'Un test puede estar perfectamente calculado y aun así ser inútil si mide la métrica equivocada o contamina grupos. La estadística no compensa un diseño malo.',
+    ],
+    formulaCards: [
+      {
+        title: 'Sample ratio mismatch',
+        formula: 'usuarios_A / usuarios_B debe acercarse al ratio esperado',
+        explanation: 'Si esperabas 50/50 y aparece 63/37, probablemente hay bug de asignación o tracking.',
+      },
+    ],
+  },
+  'uplift-treatment-effect': {
+    teachingNotes: [
+      'Uplift es la pregunta de negocio: ¿a quién merece la pena tratar? No basta con saber quién comprará, votará, responderá o cancelará; importa si la acción cambia esa probabilidad.',
+    ],
+    caseStudy: {
+      title: 'Caso: campaña de retención',
+      text: 'Los “sure things” renuevan sin incentivo. Los “lost causes” no renuevan aunque les llames. El presupuesto se gasta en persuadables, donde la acción cambia resultado.',
+    },
+  },
+  'causalidad-que-saber': {
+    teachingNotes: [
+      'El alumno debe salir sabiendo que un modelo predictivo no autoriza una intervención. Si el sistema decide acciones, necesitas DAG, experimento, uplift o al menos una discusión explícita de supuestos.',
+    ],
+    checklist: [
+      { label: 'Predicción', text: 'Sirve para anticipar casos probables.' },
+      { label: 'Causalidad', text: 'Sirve para decidir acciones.' },
+      { label: 'Experimento', text: 'Mejor evidencia cuando se puede aleatorizar.' },
+      { label: 'Uplift', text: 'Prioriza donde la acción cambia algo.' },
+    ],
+  },
+  'interpretabilidad-mapa': {
+    teachingNotes: [
+      'Interpretabilidad práctica no intenta leer la mente del modelo. Intenta depurar fallos, detectar leakage, encontrar segmentos rotos y comunicar límites sin vender falsa certeza.',
+    ],
+    caseStudy: {
+      title: 'Caso: crédito rechazado',
+      text: 'Una explicación útil no es “el modelo lo decidió”. Debe mostrar señales usadas, si son permitidas, si hay alternativas accionables y si el caso pertenece a un segmento donde el modelo falla más.',
+    },
+  },
+  'interpretabilidad-global-local': {
+    teachingNotes: [
+      'Global y local responden preguntas distintas. Global ayuda a entender comportamiento medio; local ayuda a revisar un caso concreto. Mezclarlas produce explicaciones injustas.',
+    ],
+    caseStudy: {
+      title: 'Caso: feature importante globalmente',
+      text: 'La deuda puede ser importante globalmente, pero un rechazo concreto quizá se explique por ingresos incompletos. No justifiques el caso local con una media global.',
+    },
+  },
+  'feature-importance': {
+    teachingNotes: [
+      'Feature importance interna depende del modelo. En árboles puede favorecer variables continuas o de alta cardinalidad; en lineales depende de escala. Es una señal de depuración, no una verdad universal.',
+    ],
+    checklist: [
+      { label: 'Escala', text: 'Coeficientes lineales solo comparan bien si features están escaladas.' },
+      { label: 'Correlación', text: 'Features correlacionadas reparten o esconden importancia.' },
+      { label: 'Leakage', text: 'Importancia enorme puede ser pista de fuga.' },
+    ],
+  },
+  'permutation-importance': {
+    teachingNotes: [
+      'Permutation importance mide dependencia práctica: rompes una columna y ves cuánto cae la métrica. Es intuitiva, pero con variables correlacionadas puede subestimar importancia.',
+    ],
+    caseStudy: {
+      title: 'Caso: país y moneda',
+      text: 'Si país y moneda están muy correlacionados, barajar país quizá no baja tanto porque moneda todavía conserva parte de la señal.',
+    },
+  },
+  'pdp-ice': {
+    teachingNotes: [
+      'PDP puede mentir cuando promedia casos muy distintos. ICE ayuda a ver si hay grupos donde la feature empuja en direcciones opuestas.',
+    ],
+    caseStudy: {
+      title: 'Caso: precio y conversión',
+      text: 'El promedio puede decir que bajar precio sube conversión, pero en clientes enterprise quizá precio bajo reduce confianza. ICE revela curvas por caso.',
+    },
+  },
+  'shap-lime': {
+    teachingNotes: [
+      'SHAP y LIME producen explicaciones locales aproximadas. Son útiles para preguntar mejor, pero no deben convertirse en sello automático de justicia o causalidad.',
+    ],
+    checklist: [
+      { label: 'Estabilidad', text: 'Comprueba si la explicación cambia con pequeñas perturbaciones.' },
+      { label: 'Dominio', text: 'Valida con expertos si la explicación tiene sentido.' },
+      { label: 'Causalidad', text: 'No confundas contribución al modelo con causa real.' },
+    ],
+  },
+  'interpretabilidad-no-causalidad': {
+    teachingNotes: [
+      'Esta slide es crítica: la explicación habla del modelo, no del mundo. Si una feature es importante, sabes que el modelo la usa; no sabes que cambiarla cambie el resultado real.',
+    ],
+    caseStudy: {
+      title: 'Caso: canal móvil',
+      text: 'El modelo puede usar canal móvil para riesgo porque históricamente hubo fraude móvil. Cambiar al usuario de canal no elimina la causa real: campaña, país, dispositivo o patrón de ataque.',
+    },
+  },
+  'error-slicing': {
+    teachingNotes: [
+      'Error slicing es “skin in the game” puro: producción rara vez falla en promedio; falla en un país, canal, idioma, tipo de documento o clase minoritaria.',
+    ],
+    formulaCards: [
+      {
+        title: 'Gap por segmento',
+        formula: 'gap_s = metric_global - metric_segmento_s',
+        explanation: 'Un gap grande señala dónde mirar datos, labels, features o producto.',
+      },
+    ],
+  },
+  'interpretabilidad-llm-agentes': {
+    teachingNotes: [
+      'En agentes, la explicación textual del modelo es menos fiable que la traza. La traza muestra qué vio, qué recuperó, qué tool llamó, con qué argumentos y qué resultado obtuvo.',
+    ],
+    caseStudy: {
+      title: 'Caso: agente borra el archivo equivocado',
+      text: 'La explicación “creí que era temporal” no basta. Necesitas trace: prompt, permisos, listado de archivos, comando exacto, salida y por qué el guardrail no bloqueó.',
+    },
+  },
+  'interpretabilidad-que-saber': {
+    teachingNotes: [
+      'El objetivo no es que el alumno sepa nombrar SHAP, sino que sepa preguntar qué evidencia tiene cada explicación y qué decisión permite tomar.',
+    ],
+    checklist: [
+      { label: 'Depurar', text: 'Encontrar leakage, features rotas o segmentos malos.' },
+      { label: 'Auditar', text: 'Revisar si se usan variables prohibidas o proxies.' },
+      { label: 'Comunicar', text: 'Explicar límites sin prometer causalidad.' },
+      { label: 'Medir', text: 'Validar hipótesis con evals o experimentos.' },
+    ],
+  },
+  'rl-formal-mapa': {
+    teachingNotes: [
+      'RL se entiende mejor como diseño de comportamiento bajo consecuencias. No se entrena una respuesta aislada; se entrena una política que elige acciones a lo largo del tiempo.',
+    ],
+    caseStudy: {
+      title: 'Caso: recomendador',
+      text: 'Maximizar clic inmediato puede dañar retención. El retorno obliga a pensar en satisfacción futura, fatiga, diversidad y coste de oportunidad.',
+    },
+  },
+  'mdp': {
+    teachingNotes: [
+      'El MDP es una gramática. Si no puedes definir estado, acción, transición, recompensa y descuento, quizá no tienes un problema RL formal sino un workflow heurístico.',
+    ],
+    formulaCards: [
+      {
+        title: 'Markov',
+        formula: 'P(s_next | historia, a) = P(s_next | s, a)',
+        explanation: 'El estado s resume lo necesario del pasado. Si falta información relevante, el agente decide con estado incompleto.',
+      },
+    ],
+  },
+  'politica-valor-retorno': {
+    teachingNotes: [
+      'La política es el comportamiento. El retorno es lo que intentas optimizar. El descuento gamma decide si prefieres beneficio inmediato o futuro.',
+    ],
+    caseStudy: {
+      title: 'Caso: soporte',
+      text: 'Cerrar tickets rápido da recompensa inmediata. Resolver bien evita reaperturas futuras. Si la recompensa ignora reaperturas, el agente aprende a cerrar mal.',
+    },
+  },
+  'value-q-bellman': {
+    teachingNotes: [
+      'V y Q separan dos preguntas: cuánto vale estar aquí y cuánto vale hacer esta acción aquí. Bellman conecta presente y futuro de forma recursiva.',
+    ],
+    formulaCards: [
+      {
+        title: 'Q intuitivo',
+        formula: 'Q(s,a) = r(s,a) + gamma * E[V(s_next)]',
+        explanation: 'El valor de una acción es recompensa inmediata más valor futuro esperado tras sus consecuencias.',
+      },
+    ],
+  },
+  'exploration-exploitation': {
+    teachingNotes: [
+      'Explorar cuesta rendimiento presente, pero no explorar te deja atrapado en lo primero que pareció bueno. En producto, explorar también tiene riesgo para usuarios reales.',
+    ],
+    caseStudy: {
+      title: 'Caso: routing de modelos',
+      text: 'Si siempre usas el modelo que hoy parece mejor, nunca aprendes si uno barato ya basta para cierto segmento. Pero explorar con tareas críticas puede ser inaceptable.',
+    },
+  },
+  'bandits': {
+    teachingNotes: [
+      'Los bandits son una versión simple de RL: eliges una opción, observas recompensa y actualizas creencias. Son útiles para prompts, rutas, campañas o modelos cuando el estado no cambia mucho.',
+    ],
+    formulaCards: [
+      {
+        title: 'Regret',
+        formula: 'regret = recompensa_optima - recompensa_obtenida',
+        explanation: 'Mide el coste de no haber elegido siempre la mejor opción. Explorar aumenta regret al principio para reducirlo después.',
+      },
+    ],
+  },
+  'reward-hacking': {
+    teachingNotes: [
+      'Reward hacking ocurre cuando la métrica es una especificación incompleta. El sistema encuentra una forma de ganar puntos sin cumplir la intención humana.',
+    ],
+    caseStudy: {
+      title: 'Caso: coding agent',
+      text: 'Si premias solo “tests pasan”, puede borrar tests o hardcodear. Necesitas tests ocultos, revisión, diff razonable, lint, cobertura y objetivos de producto.',
+    },
+  },
+  'rlhf-rlaif-rlvr': {
+    teachingNotes: [
+      'Estos métodos no son magia de alineamiento. Cambian la señal de aprendizaje: ejemplos, preferencias, jueces, principios o verificadores objetivos. La calidad de la señal manda.',
+    ],
+    checklist: [
+      { label: 'SFT', text: 'Imita ejemplos buenos.' },
+      { label: 'DPO/RLHF', text: 'Aprende preferencias entre respuestas.' },
+      { label: 'RLAIF', text: 'Escala feedback con jueces IA.' },
+      { label: 'RLVR', text: 'Premia resultados verificables como tests o matemáticas.' },
+    ],
+  },
+  'rl-agentes-llm': {
+    teachingNotes: [
+      'La analogía RL-agente LLM ayuda a pensar, pero no significa que el agente aprenda pesos durante la conversación. Normalmente cambia contexto, memoria, reglas o routing, no el modelo base.',
+    ],
+    caseStudy: {
+      title: 'Caso: agente con harness',
+      text: 'El harness puede castigar intentos fallidos con tests y límites, pero eso ajusta el entorno de ejecución. Para que el modelo aprenda de verdad haría falta entrenamiento o fine-tuning posterior.',
+    },
+  },
+  'rl-que-saber': {
+    teachingNotes: [
+      'El alumno debe poder mirar cualquier sistema que optimiza comportamiento y preguntar: cuál es la recompensa, qué efectos secundarios crea y cómo evitamos que explote la métrica.',
+    ],
+    checklist: [
+      { label: 'Estado', text: 'Qué sabe el agente al decidir.' },
+      { label: 'Acción', text: 'Qué puede cambiar.' },
+      { label: 'Recompensa', text: 'Qué se premia explícitamente.' },
+      { label: 'Hacking', text: 'Cómo puede ganar puntos haciendo algo indeseado.' },
+    ],
+  },
+  'privacidad-avanzada-mapa': {
+    teachingNotes: [
+      'Privacidad en IA no es solo “no entrenamos con tus datos”. También importa qué entra al prompt, qué se guarda en logs, qué queda en embeddings, qué proveedor procesa, qué región usa y cómo se borra.',
+    ],
+    caseStudy: {
+      title: 'Caso: RAG multi-tenant',
+      text: 'Si dos clientes comparten vector DB sin filtros de permisos por chunk, un usuario puede recuperar documentos de otro cliente aunque el modelo base sea seguro.',
+    },
+  },
+  'pii-datos-sensibles': {
+    teachingNotes: [
+      'PII no es solo nombre y email. En texto libre, detalles narrativos pueden identificar a una persona. En empresas, secretos técnicos y contratos también son datos sensibles para el negocio.',
+    ],
+    formulaCards: [
+      {
+        title: 'Clasificación antes de IA',
+        formula: 'dato -> sensibilidad -> permiso -> destino permitido',
+        explanation: 'Antes de enviar o entrenar, decide qué es el dato, qué riesgo tiene y dónde puede procesarse.',
+      },
+    ],
+  },
+  'anonimizacion-pseudonimizacion': {
+    teachingNotes: [
+      'La pseudonimización reduce exposición directa, pero sigue siendo dato personal si puede revertirse o enlazarse. La anonimización robusta es mucho más difícil, especialmente en texto.',
+    ],
+    caseStudy: {
+      title: 'Caso: tickets anonimizados',
+      text: 'Quitar emails no basta si el ticket dice “soy la única responsable legal de la sede de Vigo y tuve el incidente el 3 de marzo”.',
+    },
+  },
+  'reidentificacion-quasi-identifiers': {
+    teachingNotes: [
+      'El riesgo nace de la combinación. Cuantos más campos raros conservas, más fácil es cruzarlos con fuentes externas y reidentificar.',
+    ],
+    checklist: [
+      { label: 'Unicidad', text: 'Cuántas personas comparten esa combinación.' },
+      { label: 'Disponibilidad externa', text: 'Si esos campos existen en LinkedIn, registros o noticias.' },
+      { label: 'Texto libre', text: 'Donde más detalles identificables se cuelan.' },
+    ],
+  },
+  'differential-privacy': {
+    teachingNotes: [
+      'Differential privacy no significa datos invisibles. Significa que la salida de un análisis depende poco de una persona concreta. Es una garantía matemática con coste en utilidad.',
+    ],
+    caseStudy: {
+      title: 'Caso: métricas de producto',
+      text: 'Publicar “usuarios por ciudad” puede revelar a una persona en una ciudad con pocos usuarios. DP añade ruido controlado para limitar esa inferencia.',
+    },
+  },
+  'dp-ml-training': {
+    teachingNotes: [
+      'DP en entrenamiento intenta evitar que un ejemplo individual influya demasiado en los pesos. Esto reduce memorización, pero puede empeorar calidad, especialmente en señales raras.',
+    ],
+    checklist: [
+      { label: 'epsilon', text: 'Presupuesto de privacidad reportado.' },
+      { label: 'delta', text: 'Probabilidad pequeña de fallo.' },
+      { label: 'unidad', text: 'Persona, documento, sesión o evento protegido.' },
+      { label: 'utilidad', text: 'Pérdida de calidad aceptada.' },
+    ],
+  },
+  'federated-learning': {
+    teachingNotes: [
+      'Federated learning evita centralizar datos crudos, pero no elimina privacidad. Las actualizaciones pueden filtrar señal, y clientes maliciosos pueden envenenar el modelo.',
+    ],
+    caseStudy: {
+      title: 'Caso: teclado móvil',
+      text: 'El dispositivo aprende localmente de escritura del usuario y envía actualizaciones agregadas. Para proteger mejor, se combina con secure aggregation y, a veces, DP.',
+    },
+  },
+  'confidential-computing': {
+    teachingNotes: [
+      'Confidential computing protege datos durante procesamiento, pero no decide si una petición está autorizada ni si el prompt intenta exfiltrar. Es una capa, no una arquitectura completa.',
+    ],
+    checklist: [
+      { label: 'En tránsito', text: 'TLS y red privada.' },
+      { label: 'En reposo', text: 'Cifrado de discos y backups.' },
+      { label: 'En uso', text: 'TEE/enclave cuando aplica.' },
+      { label: 'Aplicación', text: 'Permisos, logging, RAG ACLs y egress.' },
+    ],
+  },
+  'memorization-extraction': {
+    teachingNotes: [
+      'Los modelos pueden memorizar datos raros, repetidos o secretos. En RAG, además, pueden filtrar por recuperación mal autorizada aunque el modelo no haya memorizado nada.',
+    ],
+    caseStudy: {
+      title: 'Caso: API key en entrenamiento',
+      text: 'Una clave repetida en repos públicos puede acabar memorizada. Mitigación: secret scanning, deduplicación, filtrado, red teaming y rotación de credenciales.',
+    },
+  },
+  'retencion-contratos-datos': {
+    teachingNotes: [
+      'Antes de usar una API con datos sensibles, el equipo debe saber retención, región, uso para entrenamiento, subprocesadores, acceso a logs y procedimiento de borrado. Si no, no hay gobierno real.',
+    ],
+    formulaCards: [
+      {
+        title: 'Contrato operativo',
+        formula: 'dato sensible -> DPA + región + retención + acceso + borrado',
+        explanation: 'La decisión técnica necesita respaldo contractual y operativo. No basta con que la demo funcione.',
+      },
+    ],
+  },
+  'privacidad-que-saber': {
+    teachingNotes: [
+      'La privacidad avanzada se resume en una pregunta incómoda: si mañana hay auditoría o incidente, ¿podemos explicar qué datos entraron, dónde fueron, quién los vio, cuánto se guardaron y cómo se borran?',
+    ],
+    checklist: [
+      { label: 'Minimizar', text: 'No enviar lo que no hace falta.' },
+      { label: 'Clasificar', text: 'PII, secretos y datos empresariales.' },
+      { label: 'Aislar', text: 'Permisos, tenants, regiones y enclaves.' },
+      { label: 'Evaluar', text: 'Extracción, membership inference y RAG leakage.' },
+    ],
+  },
+});
+
+function enrichSlide(slide) {
+  const extra = advancedExtrasById[slide.id] ?? {};
+  return {
+    ...slide,
+    ...extra,
+    teachingNotes: [...(slide.teachingNotes ?? []), ...(extra.teachingNotes ?? [])],
+    formulaCards: [...(slide.formulaCards ?? []), ...(extra.formulaCards ?? [])],
+    secondaryTables: [...(slide.secondaryTables ?? []), ...(extra.secondaryTables ?? [])],
+    cards: [...(slide.cards ?? []), ...(extra.cards ?? [])],
+    twoCols: [...(slide.twoCols ?? []), ...(extra.twoCols ?? [])],
+    checklist: [...(slide.checklist ?? []), ...(extra.checklist ?? [])],
+    steps: [...(slide.steps ?? []), ...(extra.steps ?? [])],
+  };
+}
+
+const uncertaintySlides = [
+  {
+    id: 'incertidumbre-mapa',
+    number: 238,
+    title: 'Incertidumbre: acertar no basta',
+    icon: 'cloud-alert',
+    lead: 'Un sistema de IA útil no solo predice: también debe expresar cuánto riesgo hay en usar esa predicción. Dos modelos con la misma accuracy pueden ser muy distintos si uno sabe abstenerse y el otro responde con seguridad falsa.',
+    bigIdea: 'La incertidumbre convierte una predicción en una decisión operativa: responder, revisar, abstenerse o pedir más datos.',
+    metrics: [
+      { value: 'ŷ', label: 'predicción: lo que el modelo cree que ocurrirá' },
+      { value: 'p', label: 'probabilidad o score asociado a una clase' },
+      { value: 'riesgo', label: 'daño esperado si la predicción se usa mal' },
+      { value: 'umbral', label: 'regla que decide actuar, revisar o parar' },
+    ],
+    table: {
+      headers: ['Situación', 'Modelo sin incertidumbre', 'Modelo con incertidumbre útil', 'Decisión de ingeniería'],
+      rows: [
+        ['Fraude', 'bloquea o deja pasar', 'devuelve score, evidencia y zona gris', 'bloquear alto riesgo, revisar medio, dejar pasar bajo'],
+        ['Soporte', 'asigna equipo siempre', 'estima probabilidad por cola y detecta dudas', 'auto-asignar solo si hay margen; escalar lo ambiguo'],
+        ['RAG', 'contesta aunque no haya evidencia', 'mide retrieval, groundedness y answerability', 'responder con citas o abstenerse'],
+        ['Diagnóstico', 'predice etiqueta final', 'devuelve probabilidad calibrada e intervalo', 'revisión humana cuando el coste de FN es alto'],
+      ],
+    },
+    callout: {
+      title: 'Skin in the game',
+      text: 'Antes de poner una IA en producción, define qué hará el sistema con baja confianza: no responder, pedir más contexto, llamar a un humano, ejecutar una tool barata o cambiar a un modelo más fuerte.',
+      icon: 'traffic-cone',
+    },
+    refs: refsCalibration,
+  },
+  {
+    id: 'confidence-no-es-calibracion',
+    number: 239,
+    title: 'Confidence no es calibración',
+    icon: 'gauge',
+    lead: 'Un score alto no significa automáticamente una probabilidad fiable. Un modelo puede decir 0.90 muchas veces y acertar solo el 70% de esas veces. Eso es estar sobreconfiado.',
+    bigIdea: 'La calibración pregunta si las probabilidades del modelo coinciden con frecuencias reales.',
+    metrics: [
+      { value: 'score', label: 'número que produce el modelo; puede no ser probabilidad real' },
+      { value: 'p=0.8', label: 'si está calibrado, debería acertar cerca del 80% de esos casos' },
+      { value: 'sobreconfianza', label: 'dice 90%, acierta bastante menos' },
+      { value: 'subconfianza', label: 'dice 60%, acierta bastante más' },
+    ],
+    table: {
+      headers: ['Concepto', 'Qué significa', 'Ejemplo', 'Riesgo'],
+      rows: [
+        ['Discriminación', 'ordena casos positivos por encima de negativos', 'el fraude suele tener score mayor que lo legítimo', 'puede tener buen AUC y aun así mala probabilidad'],
+        ['Calibración', 'score 0.8 equivale a frecuencia real cercana a 80%', '100 tickets con 0.8 deberían tener unos 80 aciertos', 'mala decisión de umbral y mala estimación de riesgo'],
+        ['Confianza textual', 'el modelo escribe como si supiera', 'un LLM afirma una cita inexistente con tono seguro', 'el usuario confunde fluidez con verdad'],
+        ['Margen', 'diferencia entre primera y segunda clase', '0.52 vs 0.48 indica ambigüedad', 'automatizar cuando el caso exige revisión'],
+      ],
+    },
+    callout: {
+      title: 'Regla práctica',
+      text: 'Usa scores para ordenar, pero calibra antes de tratarlos como probabilidad. Para decisiones caras, enseña al sistema a decir “no sé” y mide cuántas veces esa abstención era correcta.',
+      icon: 'scale',
+    },
+    refs: refsCalibration,
+  },
+  {
+    id: 'reliability-diagram-ece',
+    number: 240,
+    title: 'Reliability diagram y ECE',
+    icon: 'bar-chart-3',
+    lead: 'Un reliability diagram agrupa predicciones por bins de confianza. Para cada bin compara la confianza media del modelo con la frecuencia real de acierto.',
+    bigIdea: 'Si el modelo dice 70%, el mundo debería responder cerca de 70%. La diagonal ideal no es decoración: es contrato probabilístico.',
+    table: {
+      headers: ['Paso', 'Qué haces', 'Ejemplo con 1000 predicciones'],
+      rows: [
+        ['1. Agrupar', 'separas scores en bins: 0-0.1, 0.1-0.2...', 'bin 0.8-0.9 contiene 120 casos'],
+        ['2. Confianza media', 'calculas promedio de score en el bin', 'confianza media = 0.84'],
+        ['3. Frecuencia real', 'mides proporción de aciertos en ese bin', 'aciertos reales = 91/120 = 0.76'],
+        ['4. Gap', 'diferencia entre confianza y acierto real', '|0.84 - 0.76| = 0.08'],
+        ['5. ECE', 'promedio ponderado de gaps por tamaño de bin', 'bins grandes pesan más que bins pequeños'],
+      ],
+    },
+    secondaryTables: [
+      {
+        headers: ['Fórmula', 'Cómo leer cada símbolo'],
+        rows: [
+          ['<code>ECE = Σ_m |B_m|/n · |acc(B_m) - conf(B_m)|</code>', '<code>B_m</code> es el bin m; <code>|B_m|</code> su tamaño; <code>n</code> total; <code>acc</code> acierto real; <code>conf</code> confianza media.'],
+        ],
+      },
+    ],
+    callout: {
+      title: 'Ejemplo útil',
+      text: 'Si el bin 0.9 acierta 0.65, no tienes un modelo “muy seguro”: tienes un sistema que puede automatizar justo los casos donde debería pedir ayuda.',
+      icon: 'alert-triangle',
+    },
+    refs: refsCalibration,
+  },
+  {
+    id: 'brier-logloss-calibracion',
+    number: 241,
+    title: 'Brier score, log loss y coste de mala probabilidad',
+    icon: 'calculator',
+    lead: 'Accuracy solo mira si la clase final coincide. Brier score y log loss castigan probabilidades malas: no es lo mismo fallar dudando que fallar con 99% de confianza.',
+    bigIdea: 'Cuando la probabilidad decide dinero, seguridad o revisión humana, medir solo la etiqueta final es insuficiente.',
+    table: {
+      headers: ['Métrica', 'Fórmula sencilla', 'Qué castiga', 'Lectura práctica'],
+      rows: [
+        ['Brier score', '<code>mean((p_i - y_i)^2)</code>', 'distancia entre probabilidad y resultado real', '0 es perfecto; más bajo es mejor; fácil de explicar a negocio'],
+        ['Log loss', '<code>-mean(y log(p) + (1-y)log(1-p))</code>', 'confianza extrema cuando te equivocas', 'muy sensible a decir 0.99 y fallar'],
+        ['Accuracy', '<code>aciertos / total</code>', 'solo clase final', 'útil, pero no dice si el score era honesto'],
+        ['Coste esperado', '<code>p(error) · daño(error)</code>', 'riesgo de actuar con probabilidad mala', 'conecta ML con decisión de producto'],
+      ],
+    },
+    secondaryTables: [
+      {
+        headers: ['Símbolo', 'Significado'],
+        rows: [
+          ['<code>p_i</code>', 'probabilidad predicha para el caso i'],
+          ['<code>y_i</code>', 'resultado real: 1 si ocurrió, 0 si no ocurrió'],
+          ['<code>log</code>', 'logaritmo; hace que los errores muy seguros duelan mucho'],
+        ],
+      },
+    ],
+    refs: refsCalibration,
+  },
+  {
+    id: 'calibrar-modelos',
+    number: 242,
+    title: 'Cómo calibrar: Platt, isotonic y validación limpia',
+    icon: 'sliders-horizontal',
+    lead: 'Calibrar significa aprender una transformación del score bruto para que se comporte como probabilidad. Esa transformación debe entrenarse con datos separados del entrenamiento original.',
+    bigIdea: 'Calibrar con los mismos datos que entrenaste suele mentirte: necesitas holdout, cross-validation o un flujo explícito.',
+    table: {
+      headers: ['Método', 'Idea', 'Cuándo suele encajar', 'Cuidado'],
+      rows: [
+        ['Platt / sigmoid', 'ajusta una curva logística sobre scores', 'pocos datos de calibración o curva con forma sigmoide', 'puede quedarse corto si la mala calibración es irregular'],
+        ['Isotonic regression', 'aprende una función monótona flexible', 'más datos de calibración y curvas no lineales', 'puede sobreajustar si hay pocos ejemplos'],
+        ['Temperature scaling', 'reescala logits antes de softmax', 'redes neuronales y clasificación multiclase', 'mejora probabilidades, no necesariamente ranking'],
+        ['Conformal prediction', 'añade garantías de cobertura con datos de calibración', 'cuando necesitas sets o intervalos con error controlado', 'requiere que calibración y futuro sean comparables'],
+      ],
+    },
+    callout: {
+      title: 'Pipeline sano',
+      text: 'Train entrena el modelo. Calibration ajusta probabilidades. Validation elige umbrales. Test estima rendimiento final. Mezclar esas funciones produce una confianza muy bonita y poco honesta.',
+      icon: 'workflow',
+    },
+    refs: refsCalibration,
+  },
+  {
+    id: 'umbrales-abstencion-humano',
+    number: 243,
+    title: 'Umbrales, abstención y revisión humana',
+    icon: 'git-branch',
+    lead: 'Un modelo no decide solo por predecir. Decide cuando conectas su score con una política: actuar automáticamente, pedir revisión, solicitar más datos o abstenerse.',
+    bigIdea: 'El umbral correcto no es 0.5 por defecto: depende del coste de falso positivo, falso negativo, revisión y oportunidad perdida.',
+    table: {
+      headers: ['Zona', 'Regla ejemplo', 'Acción', 'Por qué'],
+      rows: [
+        ['Alta confianza positiva', '<code>p(fraude) ≥ 0.95</code>', 'bloquear o pedir 2FA', 'el coste de dejar pasar es mayor que molestar'],
+        ['Zona gris', '<code>0.55 ≤ p &lt; 0.95</code>', 'revisión humana o modelo caro', 'la incertidumbre justifica coste adicional'],
+        ['Baja confianza positiva', '<code>p &lt; 0.55</code>', 'dejar pasar y monitorizar', 'evitas falsos positivos masivos'],
+        ['Sin evidencia', 'retrieval no encuentra fuente suficiente', 'abstenerse', 'responder inventando cuesta confianza'],
+      ],
+    },
+    secondaryTables: [
+      {
+        headers: ['Fórmula de decisión', 'Lectura'],
+        rows: [
+          ['<code>actuar si beneficio esperado - coste esperado &gt; 0</code>', 'No optimices una métrica aislada. Optimiza la consecuencia de actuar con ese score.'],
+        ],
+      },
+    ],
+    refs: refsCalibration,
+  },
+  {
+    id: 'conformal-prediction-regresion',
+    number: 244,
+    title: 'Conformal prediction: intervalos para regresión',
+    icon: 'ruler',
+    lead: 'Conformal prediction construye intervalos de predicción usando errores observados en un conjunto de calibración. No promete que cada caso individual esté cubierto, sino una cobertura marginal esperada.',
+    bigIdea: 'En vez de decir “precio = 302000”, puedes decir “precio entre 285000 y 323000 con cobertura objetivo 90%”, si las condiciones de calibración se mantienen.',
+    flow: ['Entrena modelo', 'Predice calibración', 'Mide residuos', 'Toma cuantil', 'Predice intervalo'],
+    table: {
+      headers: ['Elemento', 'Qué significa', 'Ejemplo'],
+      rows: [
+        ['Residuo', '<code>|y - ŷ|</code>: error absoluto en calibración', 'precio real 310k, predicho 302k, residuo 8k'],
+        ['Nivel <code>α</code>', 'error tolerado; 0.10 busca cobertura 90%', 'α = 0.1'],
+        ['Cuantil', 'valor que deja debajo la mayoría de residuos', 'q90 = 21k'],
+        ['Intervalo', '<code>[ŷ - q, ŷ + q]</code>', '302k ± 21k'],
+      ],
+    },
+    callout: {
+      title: 'Cuidado',
+      text: 'Si producción cambia mucho frente al conjunto de calibración, la garantía práctica se degrada. Conformal no arregla drift, leakage ni mala definición del target.',
+      icon: 'shield-alert',
+    },
+    refs: refsConformal,
+  },
+  {
+    id: 'conformal-prediction-clasificacion',
+    number: 245,
+    title: 'Conformal prediction: conjuntos de clases',
+    icon: 'list-plus',
+    lead: 'En clasificación, conformal prediction puede devolver un conjunto de etiquetas plausibles en vez de una sola clase. Si el conjunto es grande, el modelo está diciendo que el caso no está claro.',
+    bigIdea: 'Un conjunto de predicción es una forma honesta de incertidumbre: una etiqueta única puede ser demasiado segura para lo que sabe el modelo.',
+    table: {
+      headers: ['Salida', 'Lectura', 'Decisión'],
+      rows: [
+        ['<code>{billing}</code>', 'el caso parece claro', 'auto-enrutar a facturación si el riesgo es bajo'],
+        ['<code>{billing, support}</code>', 'hay ambigüedad real', 'pedir una pregunta aclaratoria o revisión'],
+        ['<code>{billing, support, legal}</code>', 'incertidumbre alta', 'no automatizar; pedir contexto o humano'],
+        ['<code>{}</code>', 'método/umbral demasiado agresivo o caso fuera de distribución', 'tratar como señal de fallo y auditar'],
+      ],
+    },
+    secondaryTables: [
+      {
+        headers: ['Skin in the game', 'Ejemplo'],
+        rows: [
+          ['Soporte', 'si un ticket puede ser legal o soporte, mandar a soporte por comodidad puede incumplir SLA o política.'],
+          ['Moderación', 'si el conjunto incluye “permitido” y “bloqueable”, quizá necesitas revisión antes de censurar.'],
+        ],
+      },
+    ],
+    refs: refsConformal,
+  },
+  {
+    id: 'incertidumbre-llm-rag',
+    number: 246,
+    title: 'Incertidumbre en LLMs y RAG',
+    icon: 'message-square-warning',
+    lead: 'En LLMs la incertidumbre no se reduce a leer una probabilidad de token. Una respuesta puede sonar segura porque el modelo genera lenguaje fluido, aunque el retrieval sea débil o la fuente no exista.',
+    bigIdea: 'Para LLMs, confianza útil = evidencia + formato + comportamiento + evaluación, no solo tono o probabilidad interna.',
+    table: {
+      headers: ['Señal', 'Qué mide', 'Cómo usarla'],
+      rows: [
+        ['Retrieval score', 'si los documentos recuperados parecen relevantes', 'no responder si top-k no cubre la pregunta'],
+        ['Groundedness', 'si cada afirmación está soportada por evidencia', 'exigir citas y comprobar contradicciones'],
+        ['Answerability', 'si la respuesta existe en el corpus', 'abstenerse cuando la fuente no contiene respuesta'],
+        ['Schema confidence', 'si la salida cumple contrato', 'reintentar o bloquear si falta campo crítico'],
+        ['Eval histórica', 'cómo se comportó en casos parecidos', 'routing a humano o modelo mayor en segmentos frágiles'],
+      ],
+    },
+    callout: {
+      title: 'Decisión',
+      text: 'No pidas al LLM “dime tu confianza” como única señal. Diseña señales externas: citas, verifier, judge calibrado, tests de formato, umbrales de retrieval y rutas de escalado.',
+      icon: 'shield-check',
+    },
+    refs: [
+      { label: 'Anthropic - Test and evaluate', href: 'https://platform.claude.com/docs/en/test-and-evaluate/overview' },
+      { label: 'OpenAI - Evals', href: 'https://platform.openai.com/docs/guides/evals' },
+    ],
+  },
+  {
+    id: 'incertidumbre-que-saber',
+    number: 247,
+    title: 'Qué debe saber: incertidumbre y calibración',
+    icon: 'graduation-cap',
+    lead: 'La incertidumbre es una capa de producto y seguridad. Si no sabes cuándo el sistema debe parar, revisar o pedir más datos, todavía no tienes una automatización madura.',
+    table: {
+      headers: ['Debes poder explicar', 'Fórmula o criterio', 'Decisión práctica'],
+      rows: [
+        ['Calibración', '<code>P(Y=1 | p=0.8) ≈ 0.8</code>', 'tratar score como probabilidad solo si está calibrado'],
+        ['Brier score', '<code>mean((p-y)^2)</code>', 'comparar probabilidades, no solo clases'],
+        ['ECE', 'gap promedio entre confianza y acierto', 'detectar sobreconfianza por bins'],
+        ['Umbral', 'coste esperado de actuar vs revisar', 'optimizar consecuencia, no 0.5 por defecto'],
+        ['Conformal', 'cobertura objetivo <code>1-α</code>', 'devolver intervalos o conjuntos cuando hay incertidumbre'],
+        ['LLM/RAG', 'evidencia suficiente + grounding + abstención', 'no dejar que el tono sustituya a la prueba'],
+      ],
+    },
+    refs: [...refsCalibration, ...refsConformal],
+  },
+];
+
+const dataSlides = [
+  {
+    id: 'data-centric-ai-mapa',
+    number: 249,
+    title: 'Data-centric AI: mejorar datos antes que cambiar modelo',
+    icon: 'database',
+    lead: 'Data-centric AI pone el foco en la calidad, consistencia y representatividad de los datos. En muchos proyectos, limpiar labels, mejorar instrucciones de anotación o cubrir segmentos olvidados mejora más que probar otro modelo.',
+    bigIdea: 'El modelo es el alumno; el dataset es el temario, el examen y a veces también el sesgo.',
+    table: {
+      headers: ['Enfoque', 'Pregunta típica', 'Mejora que busca', 'Riesgo si falta'],
+      rows: [
+        ['Model-centric', '¿qué algoritmo o modelo uso?', 'arquitectura, hiperparámetros, prompt', 'optimizar encima de datos rotos'],
+        ['Data-centric', '¿qué está aprendiendo realmente?', 'labels, cobertura, definición, linaje', 'métricas altas sobre una tarea mal definida'],
+        ['Eval-centric', '¿cómo sabré que mejoró?', 'dataset privado, segmentos, casos negativos', 'comparar demos en vez de comportamiento'],
+        ['Product-centric', '¿qué decisión cambia?', 'umbral, humano, rollback, coste', 'modelo bueno sin acción útil'],
+      ],
+    },
+    refs: refsData,
+  },
+  {
+    id: 'dataset-como-producto',
+    number: 250,
+    title: 'El dataset como producto de ingeniería',
+    icon: 'package-check',
+    lead: 'Un dataset serio tiene owner, versión, contrato, documentación, tests y criterios de aceptación. Si nadie puede responder de dónde viene un ejemplo o por qué tiene esa etiqueta, el modelo aprende sobre arena.',
+    table: {
+      headers: ['Parte', 'Qué debe quedar escrito', 'Ejemplo'],
+      rows: [
+        ['Unidad de dato', 'qué representa una fila o ejemplo', 'un ticket, una sesión, una factura, una conversación'],
+        ['Target', 'qué predices y cuándo se conoce', 'prioridad final después de resolución, no prioridad inicial subjetiva'],
+        ['Ventana temporal', 'qué periodo cubre y qué futuro simula', 'entreno enero-marzo, valido abril, test mayo'],
+        ['Owner', 'quién decide cambios y corrige errores', 'equipo de soporte + data owner'],
+        ['Contrato', 'campos, tipos, nulos permitidos, actualización', 'schema + tests en CI'],
+        ['Uso permitido', 'licencia, consentimiento, retención', 'no entrenar con tickets sensibles sin base contractual'],
+      ],
+    },
+    callout: {
+      title: 'Skin in the game',
+      text: 'Cuando una predicción falle en producción, deberías poder abrir el ejemplo, ver fuente, etiqueta, versión de dataset, split, features disponibles y razón por la que entró en entrenamiento.',
+      icon: 'search-check',
+    },
+    refs: refsData,
+  },
+  {
+    id: 'calidad-etiquetas-ruido',
+    number: 251,
+    title: 'Calidad de etiquetas: ruido, desacuerdo y criterio',
+    icon: 'tag',
+    lead: 'Una etiqueta no es una verdad divina. Muchas labels son decisiones humanas con ruido, criterios cambiantes y desacuerdo legítimo. El modelo aprende esa política, no una realidad pura.',
+    table: {
+      headers: ['Problema', 'Ejemplo', 'Síntoma en el modelo', 'Control'],
+      rows: [
+        ['Label noise', 'dos agentes etiquetan el mismo ticket distinto', 'techo de calidad bajo aunque el modelo sea bueno', 'revisión doble, gold set, guía de anotación'],
+        ['Criterio ambiguo', '“urgente” cambia según equipo', 'errores concentrados en casos frontera', 'definir criterios observables y ejemplos negativos'],
+        ['Label delay', 'la verdad se conoce semanas después', 'entrenas con proxies pobres', 'separar target final de señal temprana'],
+        ['Sesgo de proceso', 'solo revisas manualmente fraudes sospechosos', 'dataset no representa todos los casos', 'muestreo diseñado y logging de decisiones'],
+        ['Cambio de política', 'nueva regla legal o comercial', 'drift sin cambio de features', 'versionar taxonomía y fecha de vigencia'],
+      ],
+    },
+    secondaryTables: [
+      {
+        headers: ['Métrica de anotación', 'Lectura'],
+        rows: [
+          ['Agreement bruto', 'porcentaje de coincidencia entre anotadores; fácil pero ignora azar'],
+          ['Cohen/Fleiss kappa', 'acuerdo corregido por azar; útil para ver si la guía está clara'],
+          ['Adjudicación', 'tercer revisor o experto decide en casos difíciles; crea gold set'],
+        ],
+      },
+    ],
+    refs: refsData,
+  },
+  {
+    id: 'labeling-strategy',
+    number: 252,
+    title: 'Labeling strategy: cómo pedir etiquetas que sirvan',
+    icon: 'clipboard-list',
+    lead: 'Etiquetar no es repartir CSVs. Es diseñar una operación: instrucciones, ejemplos, casos frontera, revisión, control de calidad y trazabilidad.',
+    table: {
+      headers: ['Pieza', 'Qué contiene', 'Ejemplo'],
+      rows: [
+        ['Guía de anotación', 'definición de clases, criterios y contraejemplos', '“fraude” exige intención o patrón confirmado, no solo importe alto'],
+        ['Ejemplos ancla', 'casos representativos y casos frontera', 'ticket mixto billing/support explicado paso a paso'],
+        ['Gold set', 'ejemplos revisados por expertos', '100 casos que no cambian salvo nueva política'],
+        ['Revisión cruzada', 'varios anotadores por caso difícil', '2 votos + adjudicación en desacuerdo'],
+        ['Feedback loop', 'errores del modelo vuelven al dataset', 'cada release añade 20 fallos reales al test privado'],
+      ],
+    },
+    callout: {
+      title: 'Regla práctica',
+      text: 'Si el anotador no puede explicar por qué eligió una label, el modelo tampoco aprenderá un criterio estable. La guía debe contener ejemplos que duelan, no solo casos fáciles.',
+      icon: 'pen-tool',
+    },
+    refs: refsData,
+  },
+  {
+    id: 'data-quality-tests',
+    number: 253,
+    title: 'Tests de calidad de datos',
+    icon: 'test-tube-2',
+    lead: 'Los datasets también necesitan tests. Igual que no despliegas código sin tests, no deberías entrenar o evaluar con datos sin comprobar schema, rangos, duplicados, nulos y distribuciones.',
+    table: {
+      headers: ['Test', 'Pregunta', 'Ejemplo de fallo'],
+      rows: [
+        ['Schema', '¿las columnas y tipos son los esperados?', 'precio llega como texto con coma decimal'],
+        ['Rangos', '¿los valores son plausibles?', 'edad = 240 o latencia negativa'],
+        ['Nulos', '¿faltan campos críticos?', 'target vacío en el 12% del test'],
+        ['Duplicados', '¿mismo caso aparece en train y test?', 'misma conversación copiada por reintento'],
+        ['Distribución', '¿cambió la proporción de clases o segmentos?', 'nuevo canal móvil pasa de 5% a 40%'],
+        ['Licencia/PII', '¿hay datos que no deberían entrenarse?', 'emails, tokens, contratos o nombres reales'],
+      ],
+    },
+    secondaryTables: [
+      {
+        headers: ['Fórmula mental', 'Lectura'],
+        rows: [
+          ['<code>dataset_ok = schema + calidad + linaje + permiso + representatividad</code>', 'No basta con que el CSV cargue. Tiene que ser válido para la decisión que quieres automatizar.'],
+        ],
+      },
+    ],
+    refs: refsData,
+  },
+  {
+    id: 'leakage-avanzado',
+    number: 254,
+    title: 'Leakage avanzado: cuando el futuro se cuela',
+    icon: 'file-lock-2',
+    lead: 'Leakage es cualquier señal que el modelo ve durante entrenamiento pero no tendrá honestamente al predecir. Es una de las formas más comunes de obtener métricas espectaculares y producción mediocre.',
+    table: {
+      headers: ['Tipo de leakage', 'Ejemplo', 'Por qué engaña', 'Prevención'],
+      rows: [
+        ['Temporal', 'usar datos generados después del evento', 'el modelo aprende el futuro', 'split temporal y auditoría de disponibilidad'],
+        ['Target leakage', 'feature derivada de la etiqueta', 'predice usando una pista imposible', 'revisar pipeline con expertos de dominio'],
+        ['Duplicados', 'mismo usuario o texto en train/test', 'memoriza casos', 'split por entidad y deduplicación semántica'],
+        ['Preprocesado global', 'normalizar usando todo el dataset antes del split', 'test influye en train', 'fit transform solo en train; transform en valid/test'],
+        ['Human-in-the-loop oculto', 'solo ciertos casos reciben revisión', 'la etiqueta refleja proceso, no realidad', 'registrar política de revisión y muestreo'],
+      ],
+    },
+    callout: {
+      title: 'Detective work',
+      text: 'Si la métrica parece demasiado buena, sospecha de leakage antes de celebrar. Pregunta: ¿existía esta feature en el momento exacto de decisión?',
+      icon: 'search',
+    },
+    refs: [{ label: 'scikit-learn - Common pitfalls', href: 'https://scikit-learn.org/stable/common_pitfalls.html' }],
+  },
+  {
+    id: 'drift-representatividad',
+    number: 255,
+    title: 'Drift y representatividad',
+    icon: 'activity',
+    lead: 'Drift significa que el mundo cambia. Representatividad significa que tu dataset cubre el mundo donde vas a usar el modelo. Son problemas distintos, pero ambos rompen generalización.',
+    table: {
+      headers: ['Fenómeno', 'Qué cambia', 'Ejemplo', 'Control'],
+      rows: [
+        ['Covariate shift', '<code>P(X)</code>: distribución de entradas', 'más tickets móviles que antes', 'monitorizar features y segmentos'],
+        ['Label shift', '<code>P(Y)</code>: distribución de clases', 'sube fraude por campaña externa', 'monitorizar base rate y umbrales'],
+        ['Concept drift', '<code>P(Y|X)</code>: relación entrada-salida', 'un patrón antes sospechoso ahora es normal', 'reentrenar, revisar reglas y fecha de política'],
+        ['Selection bias', 'muestra no representa población', 'solo datos de usuarios premium', 'muestreo estratificado y cobertura por segmento'],
+      ],
+    },
+    callout: {
+      title: 'Skin in the game',
+      text: 'No mires solo la métrica global. Mira rendimiento por canal, país, plan, idioma, fecha, dispositivo y tipo de caso. La producción falla por segmentos antes de fallar en promedio.',
+      icon: 'split',
+    },
+    refs: refsData,
+  },
+  {
+    id: 'active-learning',
+    number: 256,
+    title: 'Active learning: etiquetar lo que más enseña',
+    icon: 'mouse-pointer-click',
+    lead: 'Active learning prioriza qué ejemplos etiquetar cuando etiquetar es caro. En vez de anotar al azar, eliges casos donde el modelo duda, donde hay impacto o donde falta cobertura.',
+    bigIdea: 'El recurso escaso no siempre es GPU: muchas veces es atención experta.',
+    table: {
+      headers: ['Estrategia', 'Cómo elige ejemplos', 'Cuándo ayuda', 'Riesgo'],
+      rows: [
+        ['Uncertainty sampling', 'casos con score cerca del umbral', 'clasificación con zonas grises', 'puede sobrecentrarse en ruido'],
+        ['Diversity sampling', 'casos distintos entre sí', 'cubrir espacio de datos', 'puede elegir casos irrelevantes'],
+        ['Error-driven', 'fallos reales de producción', 'mejorar donde duele', 'puede olvidar casos no observados'],
+        ['Impact-based', 'casos con mayor coste o volumen', 'producto y soporte', 'sesga si ignoras minorías críticas'],
+      ],
+    },
+    callout: {
+      title: 'Ejemplo',
+      text: 'Si revisar un contrato cuesta 20 minutos de abogado, no etiquetes aleatoriamente 1000 documentos. Selecciona los que el modelo confunde, los nuevos tipos y los de mayor riesgo contractual.',
+      icon: 'briefcase',
+    },
+    refs: refsData,
+  },
+  {
+    id: 'weak-supervision',
+    number: 257,
+    title: 'Weak supervision: señales imperfectas para arrancar',
+    icon: 'wand-2',
+    lead: 'Weak supervision usa reglas, heurísticas, patrones o fuentes ruidosas para crear labels iniciales cuando no hay suficientes etiquetas humanas. No reemplaza gold labels: acelera el arranque.',
+    table: {
+      headers: ['Fuente débil', 'Ejemplo', 'Valor', 'Cuidado'],
+      rows: [
+        ['Regla léxica', 'si contiene “chargeback”, posible disputa', 'barata y explicable', 'falsos positivos por contexto'],
+        ['Sistema antiguo', 'reglas legacy como label provisional', 'aprovecha conocimiento operativo', 'hereda sesgos y errores'],
+        ['Heurística de metadata', 'canal legal implica categoría legal', 'buena semilla', 'puede codificar proceso, no verdad'],
+        ['LLM como anotador', 'prelabel + revisión humana', 'acelera clasificación inicial', 'necesita auditoría, no confiar ciegamente'],
+        ['Voto de reglas', 'combinar varias señales débiles', 'reduce ruido individual', 'requiere gold set para medir'],
+      ],
+    },
+    callout: {
+      title: 'Regla de oro',
+      text: 'Weak supervision es para generar hipótesis de labels, no para declarar verdad. Siempre conserva un gold set humano y mide errores por segmento.',
+      icon: 'shield-check',
+    },
+    refs: [
+      { label: 'Snorkel - Weak Supervision', href: 'https://www.snorkel.org/' },
+      ...refsData,
+    ],
+  },
+  {
+    id: 'datasheets-dataset-cards',
+    number: 258,
+    title: 'Datasheets y dataset cards',
+    icon: 'file-text',
+    lead: 'Una dataset card documenta cómo se creó un dataset, qué contiene, qué no contiene, para qué usos es adecuado y qué riesgos tiene. Es la model card de los datos.',
+    table: {
+      headers: ['Sección', 'Pregunta que responde', 'Ejemplo'],
+      rows: [
+        ['Motivación', '¿para qué se creó?', 'clasificar intención de tickets de soporte en español'],
+        ['Composición', '¿qué incluye y qué excluye?', 'tickets 2024-2026, sin adjuntos, sin casos legales cerrados'],
+        ['Proceso de recogida', '¿de dónde viene y con qué consentimiento?', 'sistema interno, contratos con clientes, retención definida'],
+        ['Anotación', '¿quién etiquetó y con qué guía?', '2 agentes senior + adjudicación en desacuerdo'],
+        ['Usos recomendados', '¿dónde sí funciona?', 'routing inicial con revisión en casos ambiguos'],
+        ['Usos no recomendados', '¿dónde no debe usarse?', 'decisiones disciplinarias o legales automáticas'],
+        ['Riesgos', '¿qué sesgos o huecos tiene?', 'pocos tickets de LATAM y canal telefónico'],
+      ],
+    },
+    refs: refsData,
+  },
+  {
+    id: 'data-centric-que-saber',
+    number: 259,
+    title: 'Qué debe saber: Data-centric AI',
+    icon: 'graduation-cap',
+    lead: 'La madurez de un sistema de IA se ve en sus datos. Si no hay linaje, tests, documentación, estrategia de labels y eval privada, el modelo está volando sin instrumentos.',
+    table: {
+      headers: ['Debes poder explicar', 'Por qué importa'],
+      rows: [
+        ['Qué representa una fila', 'cambia el target, el split y la fuga de información'],
+        ['Cuándo existe cada feature', 'evita entrenar con señales del futuro'],
+        ['Quién etiqueta y con qué guía', 'el modelo aprende esa política humana'],
+        ['Qué segmentos cubre el dataset', 'la métrica global puede ocultar daño localizado'],
+        ['Qué tests de datos bloquean releases', 'los datos cambian aunque el código no'],
+        ['Qué documentación acompaña al dataset', 'permite auditoría, mantenimiento y uso responsable'],
+      ],
+    },
+    refs: refsData,
+  },
+];
+
+const causalSlides = [
+  {
+    id: 'causalidad-mapa',
+    number: 261,
+    title: 'Causalidad: de predecir a decidir',
+    icon: 'git-fork',
+    lead: 'Machine learning predictivo responde “qué es probable que pase”. Causalidad pregunta “qué pasará si intervengo”. Esa diferencia decide si puedes usar un modelo para tomar acciones, no solo para anticipar resultados.',
+    bigIdea: 'Correlación ayuda a predecir; causalidad ayuda a elegir acciones.',
+    table: {
+      headers: ['Pregunta', 'Tipo', 'Ejemplo', 'Riesgo si lo confundes'],
+      rows: [
+        ['¿Quién comprará?', 'predictiva', 'score de propensión de compra', 'dar descuento a quien iba a comprar igual'],
+        ['¿A quién le cambia algo recibir descuento?', 'causal', 'uplift por tratamiento', 'gastar presupuesto sin efecto incremental'],
+        ['¿Qué tickets se retrasarán?', 'predictiva', 'modelo de SLA', 'culpar a un equipo que solo recibe casos difíciles'],
+        ['¿Qué cambio reduce retrasos?', 'causal', 'experimento o análisis causal', 'optimizar una correlación espuria'],
+      ],
+    },
+    refs: refsCausal,
+  },
+  {
+    id: 'correlacion-no-causalidad',
+    number: 262,
+    title: 'Correlación no implica causalidad',
+    icon: 'link-2-off',
+    lead: 'Dos variables pueden moverse juntas sin que una cause la otra. Puede haber una causa común, sesgo de selección, efecto inverso o pura coincidencia.',
+    table: {
+      headers: ['Patrón', 'Qué pasa', 'Ejemplo', 'Lectura correcta'],
+      rows: [
+        ['Causa común', 'Z causa X e Y', 'calor aumenta helados y golpes de calor', 'helados no causan golpes de calor'],
+        ['Causalidad inversa', 'Y causa X, no X causa Y', 'usuarios enfermos toman más medicación', 'medicación se asocia a enfermedad porque se receta a enfermos'],
+        ['Sesgo de selección', 'solo observas parte del mundo', 'solo revisas casos sospechosos', 'la muestra no representa población'],
+        ['Proxy', 'X representa otra variable oculta', 'código postal como proxy socioeconómico', 'riesgo de discriminación y falsa explicación'],
+      ],
+    },
+    callout: {
+      title: 'Skin in the game',
+      text: 'Si un modelo dice que “llamar al cliente” predice churn, quizá no es que llamar cause churn: puede ser que soporte llame más a clientes que ya están enfadados.',
+      icon: 'phone-call',
+    },
+    refs: refsCausal,
+  },
+  {
+    id: 'dag-causal',
+    number: 263,
+    title: 'DAG causal: dibujar hipótesis antes de medir',
+    icon: 'network',
+    lead: 'Un DAG (Directed Acyclic Graph) es un grafo dirigido sin ciclos. En causalidad representa hipótesis sobre qué variables influyen en otras.',
+    bigIdea: 'El DAG no sale mágicamente de los datos: explicita supuestos para poder discutirlos y testearlos.',
+    table: {
+      headers: ['Elemento', 'Qué significa', 'Ejemplo'],
+      rows: [
+        ['Nodo', 'variable relevante', 'descuento, compra, edad, canal, temporada'],
+        ['Flecha', 'hipótesis causal directa', 'descuento -> compra'],
+        ['Camino', 'cadena de dependencias', 'temporada -> tráfico -> compra'],
+        ['Confounder', 'causa común de tratamiento y resultado', 'clientes VIP reciben descuento y compran más'],
+        ['Collider', 'variable causada por dos variables', 'revisión manual depende de riesgo y volumen'],
+      ],
+    },
+    secondaryTables: [
+      {
+        headers: ['Mini DAG', 'Lectura'],
+        rows: [
+          ['<code>VIP -> descuento</code> y <code>VIP -> compra</code>', 'VIP confunde la relación entre descuento y compra. Comparar descuento vs no descuento sin ajustar exagera el efecto.'],
+        ],
+      },
+    ],
+    refs: refsCausal,
+  },
+  {
+    id: 'confounding-ajuste',
+    number: 264,
+    title: 'Confounding y ajuste',
+    icon: 'shuffle',
+    lead: 'Un confounder es una variable que influye tanto en la acción como en el resultado. Si no la controlas, puedes atribuir efecto a una acción que en realidad viene de otra causa.',
+    table: {
+      headers: ['Concepto', 'Explicación', 'Ejemplo'],
+      rows: [
+        ['Tratamiento <code>X</code>', 'acción o exposición que evaluamos', 'enviar cupón'],
+        ['Resultado <code>Y</code>', 'métrica que queremos cambiar', 'compra'],
+        ['Confounder <code>Z</code>', 'variable que afecta a X e Y', 'cliente VIP'],
+        ['Ajuste', 'comparar X e Y dentro de niveles de Z o modelar Z', 'comparar VIP con VIP y no VIP con no VIP'],
+      ],
+    },
+    secondaryTables: [
+      {
+        headers: ['Fórmula de ajuste', 'Cómo leerla'],
+        rows: [
+          ['<code>P(Y | do(X)) = Σ_z P(Y | X, Z=z) P(Z=z)</code>', '<code>do(X)</code> fuerza la acción; <code>Z</code> son confounders; sumas escenarios ponderados por cómo aparece Z en la población.'],
+        ],
+      },
+    ],
+    refs: refsCausal,
+  },
+  {
+    id: 'do-operator-intervencion',
+    number: 265,
+    title: 'Intervención: observar X no es hacer do(X)',
+    icon: 'hand',
+    lead: 'Observar que alguien recibió un descuento no es lo mismo que asignarle descuento al azar. El operador <code>do(X)</code> representa intervenir: cortar las causas normales de X y fijarla desde fuera.',
+    table: {
+      headers: ['Expresión', 'Pregunta', 'Ejemplo'],
+      rows: [
+        ['<code>P(compra | descuento)</code>', '¿qué pasa entre quienes recibieron descuento?', 'puede mezclar VIP, campaña y selección comercial'],
+        ['<code>P(compra | do(descuento))</code>', '¿qué pasaría si forzamos descuento?', 'estima efecto de la acción en una población'],
+        ['<code>P(Y | X)</code>', 'asociación observacional', 'útil para predicción'],
+        ['<code>P(Y | do(X))</code>', 'efecto causal', 'útil para decidir intervención'],
+      ],
+    },
+    callout: {
+      title: 'Decisión de ingeniería',
+      text: 'Si el sistema solo recomienda a quién enviar descuento, necesitas uplift o experimento. Un modelo de compra puede optimizar gasto hacia usuarios que ya iban a comprar.',
+      icon: 'badge-dollar-sign',
+    },
+    refs: refsCausal,
+  },
+  {
+    id: 'contrafactuales',
+    number: 266,
+    title: 'Contrafactuales: qué habría pasado si...',
+    icon: 'split',
+    lead: 'Un contrafactual pregunta por un mundo alternativo: qué habría pasado con el mismo caso si la acción hubiese sido distinta. No lo observamos directamente, por eso necesita supuestos fuertes.',
+    table: {
+      headers: ['Pregunta', 'Tipo', 'Ejemplo'],
+      rows: [
+        ['¿Qué pasó?', 'observacional', 'el cliente recibió cupón y compró'],
+        ['¿Qué pasaría si damos cupón?', 'intervención', 'efecto medio de una campaña nueva'],
+        ['¿Qué habría pasado si este cliente no recibía cupón?', 'contrafactual', 'compra alternativa del mismo cliente'],
+        ['¿Qué explicación mínima cambia la decisión?', 'contrafactual explicativo', 'si deuda bajara 10%, el crédito se aprobaría'],
+      ],
+    },
+    callout: {
+      title: 'Cuidado',
+      text: 'Los contrafactuales son potentes para explicar decisiones, pero pueden ser falsos o injustos si proponen cambios imposibles, sensibles o causalmente equivocados.',
+      icon: 'alert-triangle',
+    },
+    refs: refsCausal,
+  },
+  {
+    id: 'ab-testing-causal',
+    number: 267,
+    title: 'A/B testing: causalidad práctica',
+    icon: 'flask-conical',
+    lead: 'Un A/B test asigna usuarios aleatoriamente a variantes. La aleatorización rompe confounders esperados: en promedio, los grupos son comparables salvo por la intervención.',
+    table: {
+      headers: ['Pieza', 'Qué significa', 'Ejemplo'],
+      rows: [
+        ['Unidad', 'qué se asigna a A o B', 'usuario, sesión, empresa, ticket'],
+        ['Tratamiento', 'cambio que pruebas', 'nuevo prompt, cupón, ranking, UI'],
+        ['Métrica primaria', 'lo que decide el experimento', 'conversión, resolución, coste por tarea aceptada'],
+        ['Guardrail', 'métrica que no debe empeorar', 'latencia, quejas, errores, seguridad'],
+        ['Tamaño muestral', 'cuántos casos necesitas para detectar efecto', 'no parar al primer día porque “parece ganar”'],
+      ],
+    },
+    secondaryTables: [
+      {
+        headers: ['ATE', 'Lectura'],
+        rows: [
+          ['<code>ATE = E[Y | do(X=1)] - E[Y | do(X=0)]</code>', 'efecto medio del tratamiento. <code>Y</code> es resultado; <code>X=1</code> tratamiento; <code>X=0</code> control.'],
+        ],
+      },
+    ],
+    refs: [
+      { label: 'Kohavi et al. - Controlled experiments on the web', href: 'https://www.microsoft.com/en-us/research/publication/controlled-experiments-on-the-web-survey-practical-guide/' },
+      ...refsCausal,
+    ],
+  },
+  {
+    id: 'ab-testing-errores',
+    number: 268,
+    title: 'Errores comunes en experimentos',
+    icon: 'alert-octagon',
+    lead: 'Un experimento mal diseñado puede dar una falsa sensación de evidencia. La estadística no salva un test con unidad mal elegida, métrica manipulable o contaminación entre grupos.',
+    table: {
+      headers: ['Error', 'Qué pasa', 'Ejemplo', 'Control'],
+      rows: [
+        ['Peeking', 'mirar cada hora y parar cuando gana', 'p-value oportunista', 'regla de parada o análisis secuencial'],
+        ['Métrica proxy mala', 'optimiza señal que no importa', 'clics suben, satisfacción baja', 'métrica primaria + guardrails'],
+        ['Interferencia', 'un usuario afecta a otro', 'marketplace o red social', 'cluster randomization o diseño específico'],
+        ['Sample ratio mismatch', 'A/B no reparte como esperado', 'bug de asignación', 'test automático de ratio'],
+        ['Novelty effect', 'la novedad sube uso temporalmente', 'UI nueva parece mejor una semana', 'medir retención y periodos suficientes'],
+      ],
+    },
+    refs: [
+      { label: 'Kohavi et al. - Controlled experiments on the web', href: 'https://www.microsoft.com/en-us/research/publication/controlled-experiments-on-the-web-survey-practical-guide/' },
+    ],
+  },
+  {
+    id: 'uplift-treatment-effect',
+    number: 269,
+    title: 'Uplift: a quién le cambia algo la acción',
+    icon: 'trending-up',
+    lead: 'Uplift modeling no pregunta quién comprará, sino en quién la intervención aumenta la probabilidad de comprar. Es la diferencia entre predecir resultado y estimar efecto incremental.',
+    table: {
+      headers: ['Segmento', 'Sin tratamiento', 'Con tratamiento', 'Decisión'],
+      rows: [
+        ['Sure things', 'compran', 'compran', 'no gastar cupón'],
+        ['Persuadables', 'no compran', 'compran', 'priorizar tratamiento'],
+        ['Lost causes', 'no compran', 'no compran', 'no insistir'],
+        ['Do-not-disturb', 'compran', 'no compran', 'evitar intervención'],
+      ],
+    },
+    secondaryTables: [
+      {
+        headers: ['Fórmula', 'Lectura'],
+        rows: [
+          ['<code>τ(x)=E[Y(1)-Y(0) | X=x]</code>', '<code>τ(x)</code> es efecto individual esperado; <code>Y(1)</code> resultado con tratamiento; <code>Y(0)</code> sin tratamiento; <code>X=x</code> contexto del caso.'],
+        ],
+      },
+    ],
+    refs: [
+      { label: 'CausalML documentation', href: 'https://causalml.readthedocs.io/' },
+      ...refsCausal,
+    ],
+  },
+  {
+    id: 'causalidad-que-saber',
+    number: 270,
+    title: 'Qué debe saber: causalidad',
+    icon: 'graduation-cap',
+    lead: 'Causalidad no es una capa decorativa: es lo que evita que una predicción se convierta en una intervención cara, injusta o inútil.',
+    table: {
+      headers: ['Debes poder explicar', 'Criterio', 'Decisión práctica'],
+      rows: [
+        ['Correlación vs causalidad', '<code>P(Y|X)</code> no implica <code>P(Y|do(X))</code>', 'no tomar decisiones de intervención con un modelo puramente predictivo'],
+        ['DAG', 'supuestos explícitos sobre causas', 'dibujar antes de ajustar'],
+        ['Confounding', 'variable que causa acción y resultado', 'ajustar o experimentar'],
+        ['Contrafactual', 'mundo alternativo del mismo caso', 'usar con supuestos y límites claros'],
+        ['A/B test', 'aleatorización para estimar efecto', 'decidir cambios de producto con evidencia'],
+        ['Uplift', 'efecto incremental por individuo/segmento', 'actuar donde cambia algo, no donde ya iba a pasar'],
+      ],
+    },
+    refs: refsCausal,
+  },
+];
+
+const interpretabilitySlides = [
+  {
+    id: 'interpretabilidad-mapa',
+    number: 272,
+    title: 'Interpretabilidad práctica: entender fallos, no vender magia',
+    icon: 'scan-eye',
+    lead: 'Interpretar un modelo no significa leer su mente. Significa obtener evidencias útiles para depurar, auditar, explicar límites y detectar señales sospechosas.',
+    bigIdea: 'Interpretabilidad ayuda a investigar; no reemplaza validación, causalidad ni responsabilidad.',
+    table: {
+      headers: ['Pregunta', 'Técnica útil', 'Cuidado'],
+      rows: [
+        ['¿Qué variables pesan globalmente?', 'feature importance, permutation importance', 'no prueba causalidad'],
+        ['¿Cómo cambia la predicción con una feature?', 'PDP / ICE', 'puede ocultar interacciones o datos irreales'],
+        ['¿Por qué este caso salió así?', 'SHAP, LIME, contraejemplos', 'explicaciones locales pueden ser inestables'],
+        ['¿Dónde falla?', 'error slicing', 'requiere segmentos y datos suficientes'],
+        ['¿Qué hizo el agente?', 'trazas, tool calls, citas, diffs', 'no confundir traza con verdad'],
+      ],
+    },
+    refs: refsInterpretability,
+  },
+  {
+    id: 'interpretabilidad-global-local',
+    number: 273,
+    title: 'Global vs local',
+    icon: 'map',
+    lead: 'Interpretabilidad global describe comportamiento general del modelo. Interpretabilidad local intenta explicar una predicción concreta.',
+    table: {
+      headers: ['Tipo', 'Pregunta', 'Ejemplo', 'Uso'],
+      rows: [
+        ['Global', '¿qué aprende el modelo en promedio?', 'edad y deuda influyen mucho en riesgo', 'auditoría, debugging, comunicación general'],
+        ['Local', '¿por qué este caso recibió esta predicción?', 'este préstamo fue rechazado por deuda alta y ingresos bajos', 'soporte, revisión humana, explicación individual'],
+        ['Segmentada', '¿qué pasa en este grupo?', 'modelo falla más en tickets de LATAM', 'fairness, calidad por dominio, priorización de datos'],
+        ['Temporal', '¿cambió la explicación con la versión?', 'nuevo modelo depende más de canal móvil', 'regresión, drift, governance'],
+      ],
+    },
+    callout: {
+      title: 'Regla práctica',
+      text: 'No uses una explicación global para justificar un caso individual. No uses un caso individual para contar una historia global.',
+      icon: 'scale',
+    },
+    refs: refsInterpretability,
+  },
+  {
+    id: 'feature-importance',
+    number: 274,
+    title: 'Feature importance: qué usa el modelo',
+    icon: 'list-ordered',
+    lead: 'Feature importance ordena variables según su contribución al modelo. Es útil para detectar señales dominantes, features rotas o leakage, pero no dice que una variable cause el resultado.',
+    table: {
+      headers: ['Método', 'Qué mide', 'Ventaja', 'Riesgo'],
+      rows: [
+        ['Importancia interna de árboles', 'reducción de impureza al partir por feature', 'rápida y disponible en modelos de árboles', 'sesgo hacia variables con muchas posibilidades'],
+        ['Coeficientes lineales', 'peso de cada feature en modelo lineal', 'interpretable si features están escaladas', 'correlación entre features complica lectura'],
+        ['Permutation importance', 'caída de métrica al romper una feature', 'modelo agnóstico y medible en valid/test', 'features correlacionadas pueden repartirse importancia'],
+        ['SHAP agregado', 'media de contribuciones locales', 'comparable entre casos', 'coste y supuestos sobre distribución'],
+      ],
+    },
+    refs: refsInterpretability,
+  },
+  {
+    id: 'permutation-importance',
+    number: 275,
+    title: 'Permutation importance',
+    icon: 'shuffle',
+    lead: 'Permutation importance mide cuánto baja la métrica cuando barajas una columna. Al barajar, rompes la relación entre esa feature y el target manteniendo el resto del dataset.',
+    table: {
+      headers: ['Paso', 'Qué haces', 'Lectura'],
+      rows: [
+        ['Baseline', 'mides score del modelo en validación', '<code>s = F1 = 0.82</code>'],
+        ['Permutar feature j', 'barajas esa columna entre filas', 'la feature deja de alinearse con el caso correcto'],
+        ['Re-medir', 'mides score con la columna rota', '<code>s_j = 0.75</code>'],
+        ['Importancia', 'diferencia entre baseline y score roto', '<code>i_j = 0.82 - 0.75 = 0.07</code>'],
+      ],
+    },
+    secondaryTables: [
+      {
+        headers: ['Fórmula', 'Símbolos'],
+        rows: [
+          ['<code>i_j = s - (1/K)Σ_k s_{k,j}</code>', '<code>s</code> score base; <code>K</code> repeticiones; <code>s_{k,j}</code> score con feature j barajada en repetición k.'],
+        ],
+      },
+    ],
+    refs: [
+      { label: 'scikit-learn - Permutation importance', href: 'https://scikit-learn.org/stable/modules/permutation_importance.html' },
+    ],
+  },
+  {
+    id: 'pdp-ice',
+    number: 276,
+    title: 'PDP e ICE: cómo cambia la predicción',
+    icon: 'line-chart',
+    lead: 'Partial Dependence Plot (PDP) muestra el efecto promedio de una feature. ICE muestra curvas por caso individual. Juntas enseñan si el promedio oculta comportamientos distintos.',
+    table: {
+      headers: ['Técnica', 'Qué calcula', 'Cuándo ayuda', 'Cuidado'],
+      rows: [
+        ['PDP', 'predicción media al variar una feature', 'ver tendencia global', 'puede crear combinaciones de features poco realistas'],
+        ['ICE', 'curva individual por ejemplo', 'ver heterogeneidad', 'muchas curvas pueden ser difíciles de leer'],
+        ['PDP 2D', 'efecto conjunto de dos features', 'interacciones importantes', 'crece coste y complejidad visual'],
+        ['ALE', 'efecto acumulado más robusto con features correlacionadas', 'cuando PDP extrapola mal', 'más difícil de explicar al inicio'],
+      ],
+    },
+    secondaryTables: [
+      {
+        headers: ['Fórmula intuitiva PDP', 'Lectura'],
+        rows: [
+          ['<code>PD(x_s)=E_{X_c}[f(x_s, X_c)]</code>', 'fijas la feature <code>x_s</code>, dejas el resto <code>X_c</code> como en los datos y promedias predicciones.'],
+        ],
+      },
+    ],
+    refs: [
+      { label: 'scikit-learn - Partial dependence and ICE', href: 'https://scikit-learn.org/stable/inspection.html#partial-dependence-and-individual-conditional-expectation-plots' },
+    ],
+  },
+  {
+    id: 'shap-lime',
+    number: 277,
+    title: 'SHAP y LIME: explicaciones locales',
+    icon: 'sparkles',
+    lead: 'SHAP y LIME intentan explicar una predicción concreta aproximando cuánto contribuye cada feature. Son herramientas útiles, pero sus explicaciones dependen de supuestos y pueden variar.',
+    table: {
+      headers: ['Método', 'Idea', 'Qué devuelve', 'Cuidado'],
+      rows: [
+        ['LIME', 'ajusta un modelo simple alrededor del caso', 'pesos locales aproximados', 'inestabilidad según perturbaciones'],
+        ['SHAP', 'usa valores de Shapley de teoría de juegos', 'contribuciones que suman la predicción', 'coste y supuestos de independencia/distribución'],
+        ['Contraejemplo', 'busca cambios mínimos que cambian decisión', '“si deuda bajara X, aprobaría”', 'puede sugerir cambios imposibles o injustos'],
+        ['Ejemplo similar', 'muestra casos parecidos con resultado conocido', 'explicación por precedentes', 'si el vecino es malo, la explicación engaña'],
+      ],
+    },
+    secondaryTables: [
+      {
+        headers: ['SHAP en una línea', 'Lectura'],
+        rows: [
+          ['<code>f(x)=φ₀ + Σ_j φ_j</code>', '<code>φ₀</code> es baseline; cada <code>φ_j</code> suma o resta contribución de una feature para este caso.'],
+        ],
+      },
+    ],
+    refs: refsInterpretability,
+  },
+  {
+    id: 'interpretabilidad-no-causalidad',
+    number: 278,
+    title: 'Interpretabilidad no es causalidad',
+    icon: 'unlink',
+    lead: 'Que una feature sea importante para el modelo no significa que cambiar esa feature cause el resultado. Puede ser proxy, correlación, leakage o consecuencia del proceso.',
+    table: {
+      headers: ['Frase peligrosa', 'Lectura correcta', 'Ejemplo'],
+      rows: [
+        ['“SHAP dice que edad causa riesgo”', 'SHAP dice que el modelo usa edad para esta predicción', 'puede capturar correlaciones históricas'],
+        ['“Si bajamos precio sube conversión”', 'el modelo vio asociación, no intervención', 'precio bajo se ofrece a usuarios distintos'],
+        ['“El canal móvil causa fraude”', 'canal móvil puede ser proxy de campaña o país', 'necesitas DAG/experimento'],
+        ['“La explicación justifica la decisión”', 'explicación puede mostrar dependencia indebida', 'puede revelar sesgo o leakage'],
+      ],
+    },
+    callout: {
+      title: 'Regla de ingeniería',
+      text: 'Usa interpretabilidad para formular hipótesis. Usa causalidad o experimentos para decidir intervenciones. Usa evals para validar comportamiento.',
+      icon: 'git-branch',
+    },
+    refs: [...refsInterpretability, ...refsCausal],
+  },
+  {
+    id: 'error-slicing',
+    number: 279,
+    title: 'Error slicing: explicar dónde falla',
+    icon: 'slice',
+    lead: 'Error slicing analiza métricas por segmentos. Es una de las técnicas más útiles y menos glamourosas: revela fallos que la media oculta.',
+    table: {
+      headers: ['Slice', 'Qué miras', 'Ejemplo de señal'],
+      rows: [
+        ['Idioma', 'F1 por idioma o dialecto', 'español LATAM cae 12 puntos frente a español España'],
+        ['Canal', 'accuracy por web, móvil, email, voz', 'voz transcrita tiene más errores de routing'],
+        ['Clase minoritaria', 'recall por clase rara', 'fraude nuevo tiene recall 0.21'],
+        ['Tiempo', 'métrica por semana/mes', 'drift desde cambio de producto'],
+        ['Riesgo', 'errores en casos de alto impacto', 'pocos errores, pero todos caros'],
+      ],
+    },
+    callout: {
+      title: 'Skin in the game',
+      text: 'Un modelo “90% bueno” puede ser inaceptable si falla en el 10% que contiene clientes enterprise, tickets legales o casos de seguridad.',
+      icon: 'alert-triangle',
+    },
+    refs: refsInterpretability,
+  },
+  {
+    id: 'interpretabilidad-llm-agentes',
+    number: 280,
+    title: 'Interpretabilidad en LLMs y agentes',
+    icon: 'bot',
+    lead: 'En LLMs, muchas “explicaciones” son texto generado después de la respuesta. Para ingeniería, suelen ser más útiles las trazas: prompt, contexto, retrieval, tool calls, decisiones, errores y diffs.',
+    table: {
+      headers: ['Capa', 'Qué inspeccionas', 'Qué te dice'],
+      rows: [
+        ['Prompt/contexto', 'instrucciones, memoria, documentos', 'si el modelo tenía información correcta'],
+        ['Retrieval', 'chunks, scores, citas', 'si la evidencia existía y fue recuperada'],
+        ['Tool calls', 'argumentos, permisos, resultados', 'si actuó correctamente en el mundo'],
+        ['Reasoning visible', 'resumen o explicación de pasos', 'útil para revisión, pero no garantía de verdad'],
+        ['Mechanistic interpretability', 'activaciones, features, circuitos', 'investigación profunda, no control operativo completo'],
+      ],
+    },
+    refs: [
+      { label: 'Anthropic - Transformer Circuits', href: 'https://transformer-circuits.pub/' },
+      { label: 'Anthropic - Mapping the mind of a large language model', href: 'https://www.anthropic.com/research/mapping-mind-language-model' },
+    ],
+  },
+  {
+    id: 'interpretabilidad-que-saber',
+    number: 281,
+    title: 'Qué debe saber: interpretabilidad práctica',
+    icon: 'graduation-cap',
+    lead: 'Interpretabilidad sirve para depurar, auditar y comunicar límites. Mal usada, se convierte en una narrativa bonita que tapa falta de evidencia.',
+    table: {
+      headers: ['Debes poder explicar', 'Criterio', 'Decisión práctica'],
+      rows: [
+        ['Global vs local', 'promedio del modelo vs caso concreto', 'no justificar un caso con una explicación global'],
+        ['Permutation importance', 'caída de métrica al barajar feature', 'buscar features rotas o leakage'],
+        ['PDP/ICE', 'efecto promedio vs individual', 'detectar interacciones y heterogeneidad'],
+        ['SHAP/LIME', 'atribuciones locales aproximadas', 'usarlas como apoyo, no como verdad causal'],
+        ['Error slicing', 'métrica por segmento', 'priorizar datos y riesgos ocultos por la media'],
+        ['LLM traces', 'contexto, tool calls, citas y outputs', 'debuggear comportamiento en vez de confiar en explicación textual'],
+      ],
+    },
+    refs: refsInterpretability,
+  },
+];
+
+const rlSlides = [
+  {
+    id: 'rl-formal-mapa',
+    number: 283,
+    title: 'Reinforcement Learning formal: aprender por consecuencias',
+    icon: 'gamepad-2',
+    lead: 'En aprendizaje por refuerzo, un agente actúa en un entorno, observa consecuencias y aprende una política para maximizar recompensa acumulada.',
+    bigIdea: 'RL no optimiza una respuesta aislada: optimiza comportamiento a lo largo del tiempo.',
+    table: {
+      headers: ['Pieza', 'Qué significa', 'Ejemplo'],
+      rows: [
+        ['Agente', 'sistema que decide acciones', 'robot, jugador, recomendador, agente LLM'],
+        ['Entorno', 'mundo que responde a acciones', 'juego, app, usuario, repositorio'],
+        ['Estado', 'información disponible para decidir', 'posición, historial, contexto, observación'],
+        ['Acción', 'lo que el agente puede hacer', 'mover, recomendar, llamar tool, responder'],
+        ['Recompensa', 'señal numérica de resultado', '+1 ganar, -1 fallo, coste por tool'],
+        ['Política', 'regla que elige acciones', '<code>π(a|s)</code>'],
+      ],
+    },
+    refs: refsRl,
+  },
+  {
+    id: 'mdp',
+    number: 284,
+    title: 'MDP: la gramática matemática de RL',
+    icon: 'braces',
+    lead: 'Un Markov Decision Process (MDP) formaliza decisiones secuenciales. “Markov” significa que el estado contiene la información suficiente para decidir sin depender de todo el pasado.',
+    table: {
+      headers: ['Símbolo', 'Nombre', 'Significado'],
+      rows: [
+        ['<code>S</code>', 'estados', 'situaciones posibles del entorno'],
+        ['<code>A</code>', 'acciones', 'decisiones disponibles'],
+        ['<code>P(s_next|s,a)</code>', 'transición', 'probabilidad de ir a estado siguiente <code>s_next</code> desde <code>s</code> haciendo <code>a</code>'],
+        ['<code>R(s,a)</code>', 'recompensa', 'valor inmediato de una acción'],
+        ['<code>γ</code>', 'descuento', 'cuánto importa el futuro frente al presente'],
+        ['<code>π(a|s)</code>', 'política', 'probabilidad de elegir acción <code>a</code> en estado <code>s</code>'],
+      ],
+    },
+    secondaryTables: [
+      {
+        headers: ['MDP', 'Lectura'],
+        rows: [
+          ['<code>(S, A, P, R, γ)</code>', 'si puedes definir estas piezas, puedes razonar formalmente sobre la tarea; si no, quizá tienes un workflow heurístico, no un problema RL claro.'],
+        ],
+      },
+    ],
+    refs: refsRl,
+  },
+  {
+    id: 'politica-valor-retorno',
+    number: 285,
+    title: 'Política, retorno y descuento',
+    icon: 'route',
+    lead: 'La política decide acciones. El retorno suma recompensas futuras. El descuento controla cuánto pesa el futuro: con <code>γ</code> cercano a 1, el agente mira más lejos.',
+    table: {
+      headers: ['Concepto', 'Fórmula', 'Lectura'],
+      rows: [
+        ['Política', '<code>π(a|s)</code>', 'probabilidad de tomar acción <code>a</code> en estado <code>s</code>'],
+        ['Retorno', '<code>G_t = r_{t+1} + γr_{t+2} + γ²r_{t+3}+...</code>', 'suma de recompensas futuras descontadas'],
+        ['Descuento', '<code>0 ≤ γ ≤ 1</code>', 'si <code>γ=0</code>, solo importa lo inmediato; si se acerca a 1, importa el futuro'],
+        ['Horizonte', 'número de pasos relevantes', 'soporte corto vs estrategia de retención larga'],
+      ],
+    },
+    callout: {
+      title: 'Ejemplo',
+      text: 'Un agente de soporte que cierra rápido un ticket puede ganar recompensa inmediata, pero perder satisfacción futura si no resuelve el problema. El diseño de recompensa decide ese comportamiento.',
+      icon: 'headphones',
+    },
+    refs: refsRl,
+  },
+  {
+    id: 'value-q-bellman',
+    number: 286,
+    title: 'V(s), Q(s,a) y Bellman',
+    icon: 'sigma',
+    lead: 'La función de valor estima lo bueno que es estar en un estado. La función Q estima lo bueno que es tomar una acción concreta en un estado.',
+    table: {
+      headers: ['Símbolo', 'Qué significa', 'Ejemplo'],
+      rows: [
+        ['<code>V(s)</code>', 'valor esperado de estar en estado <code>s</code>', 'estado “tests verdes” vale más que “tests rotos”'],
+        ['<code>Q(s,a)</code>', 'valor esperado de hacer acción <code>a</code> en estado <code>s</code>', 'en “tests verdes”, publicar release puede ser buena acción'],
+        ['<code>r</code>', 'recompensa inmediata', '+1 si pasa eval, -5 si rompe producción'],
+        ['<code>γV(s_next)</code>', 'valor futuro descontado del siguiente estado', 'qué oportunidades abre o cierra la acción'],
+      ],
+    },
+    secondaryTables: [
+      {
+        headers: ['Bellman en una línea', 'Lectura'],
+        rows: [
+          ['<code>V(s)=Σ_a π(a|s) Σ_{s_next} P(s_next|s,a)[r + γV(s_next)]</code>', 'el valor de un estado es el promedio de recompensas inmediatas más valor futuro, ponderado por política y transiciones.'],
+        ],
+      },
+    ],
+    refs: refsRl,
+  },
+  {
+    id: 'exploration-exploitation',
+    number: 287,
+    title: 'Exploration vs exploitation',
+    icon: 'compass',
+    lead: 'Exploitation usa lo que ya parece funcionar. Exploration prueba acciones menos seguras para aprender. El dilema es gastar oportunidad presente para mejorar decisiones futuras.',
+    table: {
+      headers: ['Estrategia', 'Qué hace', 'Ejemplo', 'Riesgo'],
+      rows: [
+        ['Greedy', 'elige siempre lo mejor conocido', 'recomienda el producto con mayor conversión histórica', 'se atasca en opciones subóptimas'],
+        ['Epsilon-greedy', 'explora al azar un porcentaje pequeño', '5% de tráfico prueba alternativas', 'explora casos malos si no hay límites'],
+        ['UCB', 'prioriza opciones con valor alto o incertidumbre alta', 'bandits con intervalos de confianza', 'requiere buena estimación de incertidumbre'],
+        ['Thompson sampling', 'muestra de distribución de creencias', 'exploración proporcional a incertidumbre', 'más complejo de explicar y auditar'],
+      ],
+    },
+    refs: refsRl,
+  },
+  {
+    id: 'bandits',
+    number: 288,
+    title: 'Bandits: RL sin estado complejo',
+    icon: 'dice-5',
+    lead: 'Un bandit es un problema de decisión repetida donde eliges una acción y observas recompensa, pero no modelas un estado largo ni una dinámica compleja.',
+    bigIdea: 'Bandits son el puente práctico entre A/B testing y RL completo.',
+    table: {
+      headers: ['Caso', 'Acciones', 'Recompensa', 'Cuidado'],
+      rows: [
+        ['Recomendación simple', 'banner A/B/C', 'clic o conversión', 'optimizar clic puede dañar calidad'],
+        ['Routing de modelos', 'modelo barato/caro/humano', 'tarea aceptada - coste', 'riesgo en casos críticos'],
+        ['Prompts', 'prompt variante A/B', 'calidad de eval', 'juez debe estar calibrado'],
+        ['Precios', 'descuento 0/5/10%', 'margen incremental', 'necesita causalidad y guardrails'],
+      ],
+    },
+    secondaryTables: [
+      {
+        headers: ['Regret', 'Lectura'],
+        rows: [
+          ['<code>regret = recompensa óptima - recompensa obtenida</code>', 'mide lo que pierdes por explorar o elegir mal frente a la mejor acción posible.'],
+        ],
+      },
+    ],
+    refs: refsRl,
+  },
+  {
+    id: 'reward-hacking',
+    number: 289,
+    title: 'Reward hacking: cuando optimiza lo que pediste, no lo que querías',
+    icon: 'bug',
+    lead: 'Reward hacking aparece cuando el agente encuentra una forma de maximizar la recompensa sin cumplir la intención real. Es uno de los riesgos centrales al pasar de métricas a comportamiento.',
+    table: {
+      headers: ['Recompensa mal diseñada', 'Comportamiento aprendido', 'Control'],
+      rows: [
+        ['cerrar tickets rápido', 'cierra sin resolver', 'medir reaperturas y satisfacción'],
+        ['maximizar clics', 'contenido sensacionalista', 'guardrails de calidad y retención'],
+        ['pasar tests', 'hardcodea casos visibles', 'tests ocultos, mutation testing, review'],
+        ['reducir coste tokens', 'respuestas incompletas', 'calidad mínima y abstención correcta'],
+        ['juez LLM premia estilo', 'respuesta larga y convincente', 'rúbrica, casos negativos y calibración humana'],
+      ],
+    },
+    callout: {
+      title: 'Regla práctica',
+      text: 'Toda recompensa se convierte en una especificación. Si no incluye efectos secundarios y casos adversariales, el agente puede optimizar la grieta.',
+      icon: 'shield-alert',
+    },
+    refs: refsRl,
+  },
+  {
+    id: 'rlhf-rlaif-rlvr',
+    number: 290,
+    title: 'RLHF, RLAIF y RLVR conectados con RL',
+    icon: 'brain-circuit',
+    lead: 'El post-training moderno usa ideas de RL para ajustar comportamiento. La diferencia está en quién o qué proporciona la señal de recompensa.',
+    table: {
+      headers: ['Técnica', 'Señal', 'Qué optimiza', 'Riesgo'],
+      rows: [
+        ['RLHF', 'preferencias humanas', 'respuestas más útiles/alineadas según humanos', 'coste, sesgo humano, reward model imperfecto'],
+        ['RLAIF', 'feedback de IA', 'escalar preferencias con jueces automáticos', 'juez hereda sesgos o premia estilo'],
+        ['Constitutional AI', 'principios escritos + crítica/revisión', 'comportamiento alineado a una constitución', 'principios ambiguos o incompletos'],
+        ['RFT', 'graders durante fine-tuning', 'tareas verificables de dominio', 'grader hackeable'],
+        ['RLVR', 'recompensas verificables', 'matemáticas, código, tests, checkers', 'sobreoptimizar benchmark o casos visibles'],
+      ],
+    },
+    refs: [
+      { label: 'InstructGPT / RLHF', href: 'https://arxiv.org/abs/2203.02155' },
+      { label: 'Constitutional AI', href: 'https://arxiv.org/abs/2212.08073' },
+      ...refsRl,
+    ],
+  },
+  {
+    id: 'rl-agentes-llm',
+    number: 291,
+    title: 'RL y agentes LLM: analogía útil, límites reales',
+    icon: 'bot',
+    lead: 'Un agente LLM parece un agente RL porque observa, actúa y recibe feedback. Pero muchas veces no aprende online: solo ejecuta una política fija guiada por prompt, tools, memoria y evals.',
+    table: {
+      headers: ['RL formal', 'Agente LLM en producto', 'Lectura correcta'],
+      rows: [
+        ['Estado', 'contexto, memoria, repo, navegador, trazas', 'si el estado es malo, decide mal'],
+        ['Acción', 'tool call, edición, navegación, respuesta', 'cada acción necesita permiso y validación'],
+        ['Recompensa', 'tests, eval, juez, usuario, coste', 'normalmente se usa offline o como gate'],
+        ['Política', 'modelo + prompt + harness', 'no cambia sola salvo que entrenes o ajustes reglas'],
+        ['Exploración', 'intentos, branches, búsqueda', 'debe tener presupuesto y rollback'],
+      ],
+    },
+    callout: {
+      title: 'Decisión',
+      text: 'Usa vocabulario RL para diseñar feedback y límites, pero no digas que el agente “aprende” si solo está ejecutando un modelo congelado con contexto nuevo.',
+      icon: 'info',
+    },
+    refs: refsRl,
+  },
+  {
+    id: 'rl-que-saber',
+    number: 292,
+    title: 'Qué debe saber: refuerzo',
+    icon: 'graduation-cap',
+    lead: 'RL aporta el lenguaje para pensar en comportamiento, horizonte, feedback y reward hacking. Ese lenguaje es imprescindible para entender agentes y post-training sin mística.',
+    table: {
+      headers: ['Debes poder explicar', 'Fórmula o criterio', 'Decisión práctica'],
+      rows: [
+        ['MDP', '<code>(S,A,P,R,γ)</code>', 'si la tarea tiene estado, acciones y consecuencias'],
+        ['Política', '<code>π(a|s)</code>', 'qué acción toma el sistema y con qué información'],
+        ['Retorno', '<code>G_t=Σγ^k r</code>', 'no optimizar solo recompensa inmediata'],
+        ['Valor/Q', 'valor de estado o acción', 'elegir acciones por futuro esperado'],
+        ['Exploration/exploitation', 'aprender vs aprovechar', 'controlar riesgo de probar en producción'],
+        ['Reward hacking', 'optimizar métrica equivocada', 'diseñar recompensas, guardrails y evals adversariales'],
+      ],
+    },
+    refs: refsRl,
+  },
+];
+
+const privacySlides = [
+  {
+    id: 'privacidad-avanzada-mapa',
+    number: 294,
+    title: 'Privacidad avanzada: datos, modelos y garantías',
+    icon: 'lock-keyhole',
+    lead: 'Privacidad en IA no es solo “no pegues datos sensibles en el prompt”. Afecta a recogida, minimización, entrenamiento, inferencia, logs, retención, memorization y contratos.',
+    bigIdea: 'La privacidad se diseña en el ciclo completo: antes, durante y después de usar el modelo.',
+    table: {
+      headers: ['Capa', 'Riesgo', 'Control'],
+      rows: [
+        ['Datos de entrada', 'PII o secretos enviados al proveedor', 'clasificación, redacción, DLP, minimización'],
+        ['Contexto/RAG', 'documentos sensibles recuperados por error', 'ACLs, filtros por usuario, auditoría'],
+        ['Entrenamiento/fine-tuning', 'memorizar datos de clientes', 'consentimiento, DP, filtrado, evaluación de extracción'],
+        ['Logs/trazas', 'guardar prompts con datos sensibles', 'retención, cifrado, redacción y acceso mínimo'],
+        ['Salida', 'revelar datos de otra persona', 'policy, tests adversariales, egress control'],
+      ],
+    },
+    refs: refsPrivacy,
+  },
+  {
+    id: 'pii-datos-sensibles',
+    number: 295,
+    title: 'PII y datos sensibles',
+    icon: 'id-card',
+    lead: 'PII (Personally Identifiable Information) son datos que identifican o pueden identificar a una persona. En IA, el riesgo aumenta porque el modelo puede mezclar, resumir, retener en logs o revelar contexto.',
+    table: {
+      headers: ['Tipo', 'Ejemplos', 'Control mínimo'],
+      rows: [
+        ['Identificadores directos', 'nombre, email, DNI, teléfono', 'redacción o tokenización antes de enviar'],
+        ['Quasi-identifiers', 'CP, fecha nacimiento, empresa, cargo', 'evaluar reidentificación por combinación'],
+        ['Datos sensibles', 'salud, biometría, religión, afiliación, menores', 'base legal, minimización y revisión humana'],
+        ['Secretos técnicos', 'API keys, tokens, credenciales, URLs internas', 'secret scanning y bloqueo en CI'],
+        ['Datos empresariales', 'contratos, precios, clientes, roadmap', 'DLP, clasificación y permisos por tenant'],
+      ],
+    },
+    refs: refsPrivacy,
+  },
+  {
+    id: 'anonimizacion-pseudonimizacion',
+    number: 296,
+    title: 'Anonimización vs pseudonimización',
+    icon: 'user-round-x',
+    lead: 'Pseudonimizar reemplaza identificadores por claves o tokens. Anonimizar intenta impedir reidentificación razonable. En texto libre, anonimizar bien es difícil porque los detalles contextuales identifican.',
+    table: {
+      headers: ['Técnica', 'Qué hace', 'Ejemplo', 'Riesgo'],
+      rows: [
+        ['Redacción', 'elimina o enmascara PII', 'Ana -> [PERSONA]', 'puede dejar contexto identificable'],
+        ['Pseudonimización', 'sustituye por ID reversible o mapeado', 'cliente_123', 'si existe tabla de mapeo, sigue siendo dato personal'],
+        ['Generalización', 'reduce precisión', 'edad 43 -> 40-49', 'pierde utilidad y no siempre basta'],
+        ['Supresión', 'elimina campos', 'quitar email y teléfono', 'quasi-identifiers siguen presentes'],
+        ['Anonimización robusta', 'dificulta reidentificación con datos auxiliares', 'agregados o DP', 'difícil en datasets ricos y texto'],
+      ],
+    },
+    refs: refsPrivacy,
+  },
+  {
+    id: 'reidentificacion-quasi-identifiers',
+    number: 297,
+    title: 'Reidentificación y quasi-identifiers',
+    icon: 'scan-search',
+    lead: 'Un quasi-identifier no identifica solo, pero combinado con otros campos puede reidentificar. La IA aumenta el riesgo porque procesa texto rico y cruza contexto.',
+    table: {
+      headers: ['Campo aparentemente inocente', 'Combinación peligrosa', 'Ejemplo'],
+      rows: [
+        ['Código postal', 'CP + edad + género', 'persona única en zona pequeña'],
+        ['Cargo', 'cargo + empresa + ciudad', 'CFO de empresa concreta'],
+        ['Fecha', 'fecha exacta + evento raro', 'incidente médico o legal identificable'],
+        ['Texto libre', 'detalles narrativos', '“mi jefe en la sede de Vigo...”'],
+        ['Embedding', 'vector semántico', 'puede retener información sensible aunque no sea texto legible'],
+      ],
+    },
+    callout: {
+      title: 'Regla práctica',
+      text: 'No declares “anonimizado” un dataset de texto solo porque quitaste nombres. Haz revisión de reidentificación y conserva la clasificación de riesgo.',
+      icon: 'shield-alert',
+    },
+    refs: refsPrivacy,
+  },
+  {
+    id: 'differential-privacy',
+    number: 298,
+    title: 'Differential privacy: privacidad como garantía matemática',
+    icon: 'function-square',
+    lead: 'Differential privacy (DP) limita cuánto cambia la salida de un análisis si una persona entra o sale del dataset. La idea es proteger contribuciones individuales añadiendo aleatoriedad controlada.',
+    bigIdea: 'DP no promete que nadie pueda inferir nada; promete limitar cuánto depende la salida de un individuo concreto.',
+    table: {
+      headers: ['Símbolo', 'Qué significa', 'Lectura'],
+      rows: [
+        ['<code>ε</code> epsilon', 'presupuesto de privacidad', 'más bajo = más privacidad, menos utilidad'],
+        ['<code>δ</code> delta', 'probabilidad pequeña de fallo de garantía', 'debe ser muy pequeño frente al tamaño del dataset'],
+        ['Ruido', 'aleatoriedad añadida', 'oculta contribuciones individuales'],
+        ['Composición', 'cada consulta consume presupuesto', 'muchas consultas reducen privacidad total'],
+        ['Utilidad', 'calidad de la respuesta tras ruido', 'privacidad y precisión tienen trade-off'],
+      ],
+    },
+    secondaryTables: [
+      {
+        headers: ['Definición intuitiva', 'Lectura'],
+        rows: [
+          ['Un algoritmo es DP si su salida cambia poco al añadir o quitar una persona.', 'La presencia de una persona concreta no debería ser detectable con alta confianza mirando la salida.'],
+        ],
+      },
+    ],
+    refs: refsPrivacy,
+  },
+  {
+    id: 'dp-ml-training',
+    number: 299,
+    title: 'DP en machine learning',
+    icon: 'brain',
+    lead: 'En ML, differential privacy suele aplicarse durante entrenamiento limitando y perturbando gradientes. Así se reduce la capacidad del modelo de memorizar contribuciones individuales.',
+    table: {
+      headers: ['Pieza', 'Qué hace', 'Trade-off'],
+      rows: [
+        ['Gradient clipping', 'limita cuánto puede influir un ejemplo', 'puede dificultar aprender señales raras'],
+        ['Noise addition', 'añade ruido a gradientes o agregados', 'más privacidad, menor precisión'],
+        ['Privacy accounting', 'mide presupuesto gastado', 'requiere disciplina experimental'],
+        ['DP-SGD', 'SGD con clipping + ruido', 'útil, pero no gratis en calidad ni coste'],
+        ['Evaluación de privacidad', 'membership inference, extracción', 'necesaria para claims serios'],
+      ],
+    },
+    callout: {
+      title: 'Cuidado con el marketing',
+      text: '“Usamos privacidad diferencial” no basta. Pide epsilon, delta, unidad protegida, presupuesto total, mecanismo, utilidad resultante y evaluación de ataques.',
+      icon: 'badge-help',
+    },
+    refs: refsPrivacy,
+  },
+  {
+    id: 'federated-learning',
+    number: 300,
+    title: 'Federated learning',
+    icon: 'network',
+    lead: 'Federated learning entrena modelos moviendo aprendizaje hacia los datos, no datos hacia un servidor central. Los clientes calculan actualizaciones locales y un servidor agrega.',
+    table: {
+      headers: ['Paso', 'Qué ocurre', 'Riesgo'],
+      rows: [
+        ['Enviar modelo', 'servidor manda modelo inicial a clientes', 'clientes heterogéneos y versiones distintas'],
+        ['Entrenar local', 'cada cliente usa sus datos', 'datos no salen, pero gradientes pueden filtrar información'],
+        ['Enviar actualización', 'cliente manda pesos/gradientes agregados', 'ataques de inversión o membership inference'],
+        ['Agregar', 'servidor combina actualizaciones', 'clientes maliciosos pueden envenenar'],
+        ['Proteger', 'secure aggregation, DP, auditoría', 'más complejidad y posible pérdida de utilidad'],
+      ],
+    },
+    refs: refsPrivacy,
+  },
+  {
+    id: 'confidential-computing',
+    number: 301,
+    title: 'Confidential computing y entornos aislados',
+    icon: 'server',
+    lead: 'Confidential computing intenta proteger datos mientras se procesan usando entornos de ejecución confiables. Es una pieza de arquitectura, no una excusa para saltarse minimización o permisos.',
+    table: {
+      headers: ['Control', 'Qué protege', 'Qué no resuelve solo'],
+      rows: [
+        ['Cifrado en tránsito', 'datos viajando por red', 'modelo o logs internos'],
+        ['Cifrado en reposo', 'discos y backups', 'datos durante inferencia'],
+        ['TEE / enclave', 'procesamiento aislado', 'bugs de aplicación, prompt injection, permisos mal diseñados'],
+        ['VPC / private endpoint', 'red y exposición pública', 'uso indebido por usuarios autorizados'],
+        ['Tenant isolation', 'separación entre clientes', 'errores de retrieval o ACLs mal aplicadas'],
+      ],
+    },
+    refs: [
+      { label: 'Confidential Computing Consortium', href: 'https://confidentialcomputing.io/' },
+      ...refsPrivacy,
+    ],
+  },
+  {
+    id: 'memorization-extraction',
+    number: 302,
+    title: 'Memorization y extracción de datos',
+    icon: 'database-zap',
+    lead: 'Los modelos pueden memorizar fragmentos raros, secretos o datos repetidos. La extracción intenta recuperar información de entrenamiento mediante prompts, consultas o ataques.',
+    table: {
+      headers: ['Riesgo', 'Ejemplo', 'Mitigación'],
+      rows: [
+        ['Memorizar secretos', 'API key repetida en repos públicos', 'secret scanning, deduplicación, filtrado'],
+        ['Datos raros', 'frase única de un cliente', 'minimización, redacción, DP si aplica'],
+        ['Membership inference', 'inferir si alguien estuvo en train', 'DP, evaluación adversarial'],
+        ['Training data extraction', 'prompt que fuerza completar texto visto', 'filtrado, seguridad de salida, red teaming'],
+        ['RAG leakage', 'recuperar documento sin permiso', 'ACLs por chunk y tests multi-tenant'],
+      ],
+    },
+    refs: [
+      { label: 'Carlini et al. - Extracting Training Data from Large Language Models', href: 'https://www.usenix.org/conference/usenixsecurity21/presentation/carlini-extracting' },
+      ...refsPrivacy,
+    ],
+  },
+  {
+    id: 'retencion-contratos-datos',
+    number: 303,
+    title: 'Retención, contratos y datos de usuario',
+    icon: 'file-signature',
+    lead: 'Antes de enviar datos a una API o entrenar con datos propios, necesitas saber qué se guarda, cuánto tiempo, dónde, para qué se usa y bajo qué contrato.',
+    table: {
+      headers: ['Pregunta', 'Por qué importa', 'Evidencia'],
+      rows: [
+        ['¿Se usan datos para entrenar?', 'riesgo de uso secundario no permitido', 'DPA, terms, configuración enterprise'],
+        ['¿Cuánto se retienen prompts/logs?', 'cumplimiento y exposición en incidentes', 'política de retención y deletion'],
+        ['¿En qué región se procesan?', 'transferencias internacionales y compliance', 'contrato, región cloud, subprocesadores'],
+        ['¿Quién puede acceder a trazas?', 'logs suelen contener datos sensibles', 'RBAC, auditoría, redacción'],
+        ['¿Cómo se borra un dato?', 'derechos y corrección de errores', 'procedimiento de deletion y linaje'],
+      ],
+    },
+    callout: {
+      title: 'Skin in the game',
+      text: 'Si no puedes responder estas preguntas, no metas datos sensibles. Usa datos sintéticos, redacción, entorno privado o revisión legal antes de experimentar.',
+      icon: 'gavel',
+    },
+    refs: refsPrivacy,
+  },
+  {
+    id: 'privacidad-que-saber',
+    number: 304,
+    title: 'Qué debe saber: privacidad avanzada',
+    icon: 'graduation-cap',
+    lead: 'Privacidad seria combina minimización, controles técnicos, contratos, evaluación de ataques y gobierno de datos. No es un interruptor mágico del proveedor.',
+    table: {
+      headers: ['Debes poder explicar', 'Decisión práctica'],
+      rows: [
+        ['PII, datos sensibles y quasi-identifiers', 'clasificar antes de enviar o entrenar'],
+        ['Anonimización vs pseudonimización', 'no prometer anonimato si hay reidentificación plausible'],
+        ['Differential privacy', 'pedir epsilon, delta, mecanismo y utilidad'],
+        ['Federated learning', 'entender que gradientes también pueden filtrar'],
+        ['Confidential computing', 'usarlo como capa, no como sustituto de permisos'],
+        ['Memorization/extraction', 'filtrar secretos, deduplicar, red team y evaluar leakage'],
+        ['Retención y contratos', 'saber qué guarda el proveedor y bajo qué condiciones'],
+      ],
+    },
+    refs: refsPrivacy,
+  },
+];
+---
+
+<Slide id="sec-incertidumbre-decision" number={237} section
+  title="Incertidumbre y decisión"
+  subtitle="Calibración, reliability diagrams, Brier score, abstención, conformal prediction y cómo convertir probabilidad en una política de producto segura." />
+
+{uncertaintySlides.map((slide) => <StructuredSlide {...enrichSlide(slide)} />)}
+
+<Slide id="sec-data-centric-ai" number={248} section
+  title="Data-centric AI"
+  subtitle="Datasets como producto de ingeniería: labels, drift, leakage, tests de datos, active learning, weak supervision y documentación responsable." />
+
+{dataSlides.map((slide) => <StructuredSlide {...enrichSlide(slide)} />)}
+
+<Slide id="sec-causalidad-experimentacion" number={260} section
+  title="Causalidad y experimentación"
+  subtitle="Correlación, DAGs, confounding, intervención, contrafactuales, A/B testing y uplift para pasar de predecir a decidir.">
+  <div class="section-roadmap">
+    <div><strong>Pregunta central</strong><span>¿Qué cambia si actuamos, no solo qué parece probable?</span></div>
+    <div><strong>Lenguaje</strong><span><code>P(Y|X)</code>, <code>P(Y|do(X))</code>, confounder, DAG, contrafactual.</span></div>
+    <div><strong>Ingeniería</strong><span>Experimentos, guardrails, métricas primarias y coste incremental.</span></div>
+    <div><strong>Riesgo</strong><span>Gastar presupuesto o tomar decisiones injustas por correlaciones espurias.</span></div>
+  </div>
+</Slide>
+
+{causalSlides.map((slide) => <StructuredSlide {...enrichSlide(slide)} />)}
+
+<Slide id="sec-interpretabilidad-practica" number={271} section
+  title="Interpretabilidad práctica"
+  subtitle="Feature importance, permutation importance, PDP/ICE, SHAP, LIME, error slicing y trazas para depurar modelos y agentes sin confundir explicación con causalidad.">
+  <div class="section-roadmap">
+    <div><strong>Pregunta central</strong><span>¿Qué evidencia tenemos sobre por qué falla o decide el sistema?</span></div>
+    <div><strong>Global/local</strong><span>Promedios del modelo frente a explicaciones de un caso concreto.</span></div>
+    <div><strong>Depuración</strong><span>Leakage, features rotas, segmentos débiles y trazas de tools.</span></div>
+    <div><strong>Límite</strong><span>Una explicación no prueba causalidad ni justicia por sí sola.</span></div>
+  </div>
+</Slide>
+
+{interpretabilitySlides.map((slide) => <StructuredSlide {...enrichSlide(slide)} />)}
+
+<Slide id="sec-refuerzo-formal" number={282} section
+  title="Refuerzo formal y post-training"
+  subtitle="MDPs, política, valor, Q, Bellman, exploración, bandits, reward hacking y conexión con RLHF, RLAIF, RFT y RLVR.">
+  <div class="section-roadmap">
+    <div><strong>Pregunta central</strong><span>¿Qué comportamiento aprende un sistema cuando lo premiamos?</span></div>
+    <div><strong>Formalismo</strong><span>Estado, acción, transición, recompensa, política y retorno.</span></div>
+    <div><strong>Producto</strong><span>Bandits, routing, prompts, agentes y post-training con preferencias.</span></div>
+    <div><strong>Riesgo</strong><span>Reward hacking: optimizar la métrica en vez de la intención.</span></div>
+  </div>
+</Slide>
+
+{rlSlides.map((slide) => <StructuredSlide {...enrichSlide(slide)} />)}
+
+<Slide id="sec-privacidad-avanzada" number={293} section
+  title="Privacidad avanzada"
+  subtitle="PII, anonimización, differential privacy, federated learning, confidential computing, memorization, extracción y contratos de datos.">
+  <div class="section-roadmap">
+    <div><strong>Pregunta central</strong><span>¿Qué datos entran, dónde se procesan, qué se guarda y quién puede verlo?</span></div>
+    <div><strong>Riesgo</strong><span>PII, quasi-identifiers, secretos, embeddings, logs y trazas.</span></div>
+    <div><strong>Técnicas</strong><span>DP, federated learning, confidential computing y minimización.</span></div>
+    <div><strong>Gobierno</strong><span>Retención, DPA, región, subprocesadores, borrado y auditoría.</span></div>
+  </div>
+</Slide>
+
+{privacySlides.map((slide) => <StructuredSlide {...enrichSlide(slide)} />)}

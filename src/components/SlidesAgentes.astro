@@ -1,6 +1,7 @@
 ---
 import Slide from './Slide.astro';
 import SlidesAgentesClasicos from './SlidesAgentesClasicos.astro';
+import SlidesFundamentosAvanzados from './SlidesFundamentosAvanzados.astro';
 ---
 
 <!-- SLIDE 166: SECCION -->
@@ -3487,13 +3488,15 @@ if (!parsed.success) &#123;
   </div>
 </Slide>
 
-<!-- SLIDE 237: SECCION -->
-<Slide id="sec-producto-ux-ia" number={237} section
+<SlidesFundamentosAvanzados />
+
+<!-- SLIDE 305: SECCION -->
+<Slide id="sec-producto-ux-ia" number={305} section
   title="Producto y UX de IA"
   subtitle="De medir a diseñar: cómo convertir incertidumbre, citas, abstención, confirmaciones humanas, memoria, límites y recuperación de errores en una experiencia que el usuario pueda controlar." />
 
-<!-- SLIDE 238 -->
-<Slide id="ux-incertidumbre-citas-abstencion" number={238} title="Diseñar para incertidumbre: confianza, citas y abstención">
+<!-- SLIDE 306 -->
+<Slide id="ux-incertidumbre-citas-abstencion" number={306} title="Diseñar para incertidumbre: confianza, citas y abstención">
   <p><i data-lucide="badge-help"></i> La UX de IA debe enseñar al usuario cuándo confiar, cuándo verificar y cuándo el sistema no sabe. Una respuesta segura pero falsa es peor que una abstención honesta.</p>
   <h3><i data-lucide="eye"></i> Patrones de interfaz</h3>
   <div class="tool-grid">
@@ -3510,8 +3513,8 @@ if (!parsed.success) &#123;
   </div>
 </Slide>
 
-<!-- SLIDE 239 -->
-<Slide id="ux-human-approval-rollback" number={239} title="Aprobación humana: confirmar, editar y revertir">
+<!-- SLIDE 307 -->
+<Slide id="ux-human-approval-rollback" number={307} title="Aprobación humana: confirmar, editar y revertir">
   <p><i data-lucide="user-check"></i> Human-in-the-loop no es poner un humano al final de todo. Es diseñar puntos de control donde el usuario pueda entender, corregir y revertir acciones.</p>
   <h3><i data-lucide="shield-check"></i> Matriz de aprobación</h3>
   <table>
@@ -3532,8 +3535,8 @@ if (!parsed.success) &#123;
   </div>
 </Slide>
 
-<!-- SLIDE 240 -->
-<Slide id="ux-conversaciones-memoria-handoff" number={240} title="Conversaciones recuperables: memoria, límites y handoff">
+<!-- SLIDE 308 -->
+<Slide id="ux-conversaciones-memoria-handoff" number={308} title="Conversaciones recuperables: memoria, límites y handoff">
   <p><i data-lucide="messages-square"></i> Un producto con IA falla de formas distintas a un formulario clásico: se desvía, olvida, mezcla contexto o no sabe cuándo parar. La UX debe tener salidas claras.</p>
   <h3><i data-lucide="map"></i> Controles que espera un usuario real</h3>
   <div class="two-cols">
@@ -3562,8 +3565,8 @@ if (!parsed.success) &#123;
   </div>
 </Slide>
 
-<!-- SLIDE 241 -->
-<Slide id="recap-producto-ux-ia" number={241} title="Lo que deberías saber: producto y UX de IA">
+<!-- SLIDE 309 -->
+<Slide id="recap-producto-ux-ia" number={309} title="Lo que deberías saber: producto y UX de IA">
   <table>
     <thead>
       <tr><th>Área</th><th>Regla práctica</th></tr>
@@ -3578,13 +3581,13 @@ if (!parsed.success) &#123;
   </table>
 </Slide>
 
-<!-- SLIDE 242: SECCION -->
-<Slide id="sec-operar-ia-produccion" number={242} section
+<!-- SLIDE 310: SECCION -->
+<Slide id="sec-operar-ia-produccion" number={310} section
   title="Operar IA en producción"
   subtitle="LLMOps, serving de modelos, routing, budgets, EvalOps, DataOps, post-training avanzado y disciplina operativa." />
 
-<!-- SLIDE 243 -->
-<Slide id="llmops-demo-a-servicio" number={243} title="LLMOps: de demo a servicio fiable">
+<!-- SLIDE 311 -->
+<Slide id="llmops-demo-a-servicio" number={311} title="LLMOps: de demo a servicio fiable">
   <div class="big-idea">
     <p>LLMOps empieza cuando una respuesta mala, cara o lenta deja de ser una anécdota y pasa a ser un incidente de producto.</p>
   </div>
@@ -3630,8 +3633,8 @@ if (!parsed.success) &#123;
   </div>
 </Slide>
 
-<!-- SLIDE 244 -->
-<Slide id="serving-open-weights" number={244} title="Serving open weights: vLLM, SGLang, TensorRT-LLM">
+<!-- SLIDE 312 -->
+<Slide id="serving-open-weights" number={312} title="Serving open weights: vLLM, SGLang, TensorRT-LLM">
   <div class="big-idea">
     <p>Servir un modelo no es "hacer un import": es gestionar memoria, colas, latencia y coste por token.</p>
   </div>
@@ -3677,8 +3680,8 @@ if (!parsed.success) &#123;
   </div>
 </Slide>
 
-<!-- SLIDE 245 -->
-<Slide id="inferencia-escalado" number={245} title="Escalar inferencia: batching, KV cache y especulación">
+<!-- SLIDE 313 -->
+<Slide id="inferencia-escalado" number={313} title="Escalar inferencia: batching, KV cache y especulación">
   <div class="big-idea">
     <p>Escalar inferencia es elegir qué sacrificas: latencia individual, throughput total, memoria o coste.</p>
   </div>
@@ -3729,8 +3732,8 @@ if (!parsed.success) &#123;
   </div>
 </Slide>
 
-<!-- SLIDE 246 -->
-<Slide id="routing-fallback-budgets" number={246} title="Routing, fallback y budgets por tarea">
+<!-- SLIDE 314 -->
+<Slide id="routing-fallback-budgets" number={314} title="Routing, fallback y budgets por tarea">
   <div class="big-idea">
     <p>El modelo más caro no siempre gana. Gana la ruta que resuelve la tarea con calidad suficiente, coste controlado y riesgo aceptable.</p>
   </div>
@@ -3759,8 +3762,8 @@ if (!parsed.success) &#123;
   </div>
 </Slide>
 
-<!-- SLIDE 247 -->
-<Slide id="evalops-regresiones-canary" number={247} title="EvalOps: regresiones, canary y release gates">
+<!-- SLIDE 315 -->
+<Slide id="evalops-regresiones-canary" number={315} title="EvalOps: regresiones, canary y release gates">
   <div class="big-idea">
     <p>Una eval no es un informe: es una puerta de despliegue que evita degradar calidad, coste o seguridad sin darte cuenta.</p>
   </div>
@@ -3787,8 +3790,8 @@ if (!parsed.success) &#123;
   </div>
 </Slide>
 
-<!-- SLIDE 248 -->
-<Slide id="dataops-ia" number={248} title="DataOps para IA: linaje, PII, licencias y drift">
+<!-- SLIDE 316 -->
+<Slide id="dataops-ia" number={316} title="DataOps para IA: linaje, PII, licencias y drift">
   <div class="big-idea">
     <p>En IA, los datos no son un input pasivo: son el producto que define qué sabe, qué cita y qué puede romper tu sistema.</p>
   </div>
@@ -3818,8 +3821,8 @@ if (!parsed.success) &#123;
   </div>
 </Slide>
 
-<!-- SLIDE 249 -->
-<Slide id="post-training-avanzado" number={249} title="Post-training avanzado: SFT, preferencias y refuerzo">
+<!-- SLIDE 317 -->
+<Slide id="post-training-avanzado" number={317} title="Post-training avanzado: SFT, preferencias y refuerzo">
   <div class="big-idea">
     <p>Post-training no es una técnica: eliges una señal. El refuerzo "solo" merece sitio cuando la recompensa se puede verificar.</p>
   </div>
@@ -3848,18 +3851,18 @@ if (!parsed.success) &#123;
   </div>
 </Slide>
 
-<!-- SLIDE 250 -->
-<Slide id="recap-operar-ia-produccion" number={250} title="Lo que deberías saber: operar IA en producción">
+<!-- SLIDE 318 -->
+<Slide id="recap-operar-ia-produccion" number={318} title="Lo que deberías saber: operar IA en producción">
   <div class="big-idea">
     <p>Operar IA no es elegir un modelo: es convertir prompts, datos, tools, costes y riesgos en un sistema observable, reversible y medible.</p>
   </div>
   <div class="recap-map">
-    <div class="recap-card"><strong>Operar</strong><p>Control plane, runtime, owners, límites, trazas y rollback probado.</p><span class="tag">243</span></div>
-    <div class="recap-card"><strong>Servir</strong><p>vLLM, SGLang, TensorRT-LLM, llama.cpp u Ollama según hardware, latencia y formato.</p><span class="tag">244</span></div>
-    <div class="recap-card"><strong>Escalar</strong><p>Continuous batching, KV cache, prefix cache, speculative decoding y colas con p95/p99.</p><span class="tag">245</span></div>
-    <div class="recap-card"><strong>Decidir</strong><p>Routing, fallback y budgets por riesgo: modelo barato, caro, humano o abstención.</p><span class="tag">246</span></div>
-    <div class="recap-card"><strong>Medir</strong><p>Offline evals, shadow runs, canary, release gates y regresiones por versión.</p><span class="tag">247</span></div>
-    <div class="recap-card"><strong>Gobernar datos</strong><p>Linaje, PII, licencias, calidad, drift, datasets de eval y post-training.</p><span class="tag">248-249</span></div>
+    <div class="recap-card"><strong>Operar</strong><p>Control plane, runtime, owners, límites, trazas y rollback probado.</p><span class="tag">311</span></div>
+    <div class="recap-card"><strong>Servir</strong><p>vLLM, SGLang, TensorRT-LLM, llama.cpp u Ollama según hardware, latencia y formato.</p><span class="tag">312</span></div>
+    <div class="recap-card"><strong>Escalar</strong><p>Continuous batching, KV cache, prefix cache, speculative decoding y colas con p95/p99.</p><span class="tag">313</span></div>
+    <div class="recap-card"><strong>Decidir</strong><p>Routing, fallback y budgets por riesgo: modelo barato, caro, humano o abstención.</p><span class="tag">314</span></div>
+    <div class="recap-card"><strong>Medir</strong><p>Offline evals, shadow runs, canary, release gates y regresiones por versión.</p><span class="tag">315</span></div>
+    <div class="recap-card"><strong>Gobernar datos</strong><p>Linaje, PII, licencias, calidad, drift, datasets de eval y post-training.</p><span class="tag">316-317</span></div>
   </div>
   <h3><i data-lucide="clipboard-check"></i> Checklist antes de llamarlo producción</h3>
   <table class="compact-table">
@@ -3884,13 +3887,13 @@ if (!parsed.success) &#123;
   </div>
 </Slide>
 
-<!-- SLIDE 251: SECCION -->
-<Slide id="sec-seguridad-gobernanza" number={251} section
+<!-- SLIDE 319: SECCION -->
+<Slide id="sec-seguridad-gobernanza" number={319} section
   title="Seguridad, gobernanza y confianza"
   subtitle="Riesgos específicos de agentes, OWASP LLM Top 10, privacidad, despliegues privados, marcos de gobernanza e interpretabilidad." />
 
-<!-- SLIDE 252 -->
-<Slide id="seguridad-agentic-mcp" number={252} title="Seguridad agentic: tools, MCP y permisos">
+<!-- SLIDE 320 -->
+<Slide id="seguridad-agentic-mcp" number={320} title="Seguridad agentic: tools, MCP y permisos">
   <div class="big-idea">
     <p>El salto de chatbot a agente cambia el daño posible: ya no solo responde, también puede actuar con permisos.</p>
   </div>
@@ -3945,8 +3948,8 @@ if (!parsed.success) &#123;
   </div>
 </Slide>
 
-<!-- SLIDE 253 -->
-<Slide id="owasp-llm-top10-aplicado" number={253} title="OWASP LLM Top 10 aplicado">
+<!-- SLIDE 321 -->
+<Slide id="owasp-llm-top10-aplicado" number={321} title="OWASP LLM Top 10 aplicado">
   <div class="big-idea">
     <p>OWASP LLM Top 10 sirve para convertir riesgos conocidos en controles probables, testeables y operables.</p>
   </div>
@@ -3971,8 +3974,8 @@ if (!parsed.success) &#123;
   </div>
 </Slide>
 
-<!-- SLIDE 254 -->
-<Slide id="privacidad-retencion-private-ai" number={254} title="Privacidad, retención y private AI">
+<!-- SLIDE 322 -->
+<Slide id="privacidad-retencion-private-ai" number={322} title="Privacidad, retención y private AI">
   <div class="big-idea">
     <p>La decisión no es "cloud o local": es qué datos viajan, quién los procesa, cuánto se guardan y con qué garantías.</p>
   </div>
@@ -3998,8 +4001,8 @@ if (!parsed.success) &#123;
   </div>
 </Slide>
 
-<!-- SLIDE 255 -->
-<Slide id="gobernanza-ai-rmf-iso" number={255} title="Gobernanza: EU AI Act, NIST AI RMF e ISO 42001">
+<!-- SLIDE 323 -->
+<Slide id="gobernanza-ai-rmf-iso" number={323} title="Gobernanza: EU AI Act, NIST AI RMF e ISO 42001">
   <div class="big-idea">
     <p>Gobernanza no es frenar IA: es decidir qué se despliega, con qué controles y con qué evidencia.</p>
   </div>
@@ -4025,8 +4028,8 @@ if (!parsed.success) &#123;
   </div>
 </Slide>
 
-<!-- SLIDE 256 -->
-<Slide id="interpretabilidad-confianza" number={256} title="Interpretabilidad: SAEs, features y límites de confianza">
+<!-- SLIDE 324 -->
+<Slide id="interpretabilidad-confianza" number={324} title="Interpretabilidad: SAEs, features y límites de confianza">
   <div class="big-idea">
     <p>Interpretabilidad ayuda a investigar modelos; no sustituye evals, controles ni supervisión en producto.</p>
   </div>
@@ -4055,8 +4058,8 @@ if (!parsed.success) &#123;
   </div>
 </Slide>
 
-<!-- SLIDE 257 -->
-<Slide id="recap-seguridad-gobernanza" number={257} title="Lo que deberías saber: seguridad y gobernanza">
+<!-- SLIDE 325 -->
+<Slide id="recap-seguridad-gobernanza" number={325} title="Lo que deberías saber: seguridad y gobernanza">
   <div class="big-idea">
     <p>La seguridad de IA se diseña por fronteras: qué entra al modelo, qué contexto usa, qué tools puede ejecutar y qué datos pueden salir.</p>
   </div>
@@ -4100,11 +4103,11 @@ if (!parsed.success) &#123;
     <text x="672" y="112" class="note">allowlist + HITL</text>
     <text x="892" y="112" class="note">DLP + egress</text>
 
-    <text x="135" y="242" class="note">252: permisos mínimos</text>
+    <text x="135" y="242" class="note">320: permisos mínimos</text>
     <text x="350" y="242" class="note">214: ataques repetibles</text>
-    <text x="565" y="242" class="note">256: límites de confianza</text>
-    <text x="780" y="242" class="note">252: tools auditables</text>
-    <text x="1010" y="242" class="note">254-255: datos y gobierno</text>
+    <text x="565" y="242" class="note">324: límites de confianza</text>
+    <text x="780" y="242" class="note">320: tools auditables</text>
+    <text x="1010" y="242" class="note">322-323: datos y gobierno</text>
   </svg>
   <h3><i data-lucide="shield-check"></i> Lectura operativa</h3>
   <table class="compact-table">

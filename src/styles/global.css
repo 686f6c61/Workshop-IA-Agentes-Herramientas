@@ -229,6 +229,34 @@ body {
   margin: 0;
 }
 
+.section-roadmap {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 0.75rem;
+  width: min(920px, 100%);
+  margin: 2rem 0 0;
+}
+
+.section-roadmap div {
+  border: 1px solid var(--border-strong);
+  border-radius: 8px;
+  padding: 0.85rem;
+  background: #fff;
+}
+
+.section-roadmap strong {
+  display: block;
+  font-size: 0.85rem;
+  margin-bottom: 0.35rem;
+}
+
+.section-roadmap span {
+  display: block;
+  color: var(--fg-secondary);
+  font-size: 0.82rem;
+  line-height: 1.4;
+}
+
 .cover-title {
   font-size: clamp(2.5rem, 6vw, 5rem);
   font-weight: 900;
@@ -712,6 +740,133 @@ code {
 
 .callout.compact-callout p:last-child {
   margin: 0;
+}
+
+.formula-card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 0.85rem;
+  margin: 1rem 0;
+}
+
+.formula-card {
+  border: 1px solid var(--fg);
+  border-radius: 8px;
+  padding: 0.9rem;
+  background: #fff;
+}
+
+.formula-card strong {
+  display: block;
+  font-size: 0.88rem;
+  margin-bottom: 0.55rem;
+}
+
+.formula-card code {
+  display: block;
+  width: 100%;
+  background: #0a0a0a;
+  color: #fff;
+  border-color: #0a0a0a;
+  padding: 0.65rem;
+  margin-bottom: 0.6rem;
+  line-height: 1.45;
+  overflow-wrap: anywhere;
+  white-space: normal;
+}
+
+.formula-card p {
+  font-size: 0.86rem;
+  line-height: 1.45;
+  margin: 0;
+}
+
+.formula-card span {
+  display: block;
+  margin-top: 0.55rem;
+  padding-top: 0.55rem;
+  border-top: 1px solid var(--border);
+  color: var(--fg-secondary);
+  font-size: 0.8rem;
+  line-height: 1.4;
+}
+
+.case-study {
+  border: 1px solid var(--border-strong);
+  border-radius: 8px;
+  background:
+    linear-gradient(90deg, rgba(10, 10, 10, 0.06), rgba(255, 255, 255, 0)),
+    #fff;
+  padding: 1rem;
+  margin: 1rem 0;
+}
+
+.case-study-title {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-weight: 800;
+  margin-bottom: 0.45rem !important;
+}
+
+.case-study > p:not(.case-study-title) {
+  font-size: 0.92rem;
+  margin: 0;
+}
+
+.case-study-rows {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 0.55rem;
+  margin-top: 0.8rem;
+}
+
+.case-study-rows div {
+  border-top: 1px solid var(--border);
+  padding-top: 0.55rem;
+}
+
+.case-study-rows strong,
+.case-study-rows span {
+  display: block;
+}
+
+.case-study-rows strong {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  color: var(--fg-secondary);
+}
+
+.case-study-rows span {
+  font-size: 0.86rem;
+  line-height: 1.35;
+}
+
+.check-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 0.65rem;
+  margin: 1rem 0;
+}
+
+.check-card {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 0.8rem;
+  background: var(--accent-light);
+}
+
+.check-card strong {
+  display: block;
+  font-size: 0.85rem;
+  margin-bottom: 0.35rem;
+}
+
+.check-card p {
+  margin: 0;
+  font-size: 0.82rem;
+  line-height: 1.4;
+  color: var(--fg-secondary);
 }
 
 .analogy {
@@ -1718,6 +1873,22 @@ code {
 
   .nav-toc-btn {
     display: none;
+  }
+
+  .slide table {
+    table-layout: fixed;
+    font-size: 0.76rem;
+  }
+
+  .slide th,
+  .slide td {
+    padding: 0.42rem 0.34rem;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+  }
+
+  .slide code {
+    white-space: normal;
   }
 }
 

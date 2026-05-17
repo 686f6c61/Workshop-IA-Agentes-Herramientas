@@ -1,6 +1,6 @@
 # Workshop de IA para gente curiosa
 
-De la neurona al agente: portada, 286 slides numeradas y cierre para entender la IA moderna y aplicarla con criterio en tu dia a dia. Desde backpropagation, busqueda heuristica, planning, SAT/CSP, ML clasico, complejidad temporal y ontologias hasta desplegar agentes en produccion, pasando por Transformers por dentro, RAG, fine-tuning, MCP, ControlNet, Hugging Face, Google Colab, evals avanzadas, UX de IA, LLMOps, seguridad agentic, gobernanza, modelos open weights y vibe coding.
+De la neurona al agente: portada, 354 slides numeradas y cierre para entender la IA moderna y aplicarla con criterio en tu dia a dia. Desde backpropagation, busqueda heuristica, planning, SAT/CSP, ML clasico, complejidad temporal, incertidumbre, causalidad, interpretabilidad, refuerzo formal, privacidad avanzada y ontologias hasta desplegar agentes en produccion, pasando por Transformers por dentro, RAG, fine-tuning, MCP, ControlNet, Hugging Face, Google Colab, evals avanzadas, UX de IA, LLMOps, seguridad agentic, gobernanza, modelos open weights y vibe coding.
 
 **[Ver presentacion](https://workshop-ia-2026.686f6c61.dev)** | Actualizado a mayo 2026 (update 05/26)
 
@@ -105,12 +105,44 @@ De la neurona al agente: portada, 286 slides numeradas y cierre para entender la
 - [x] Eval de agentes: task success, tool success, coste, robustez, trazas y rollback
 - [x] FinOps de IA: coste por tarea aceptada, routing barato/caro, cache, batch/flex y revision humana
 
-### Producto y UX de IA (slides 237-241)
+### Incertidumbre y decision (slides 237-247)
+- [x] Calibracion: confidence vs probabilidad real, reliability diagrams, Expected Calibration Error (ECE), Brier score y log loss
+- [x] Politicas de decision: umbrales, abstencion, revision humana y coste esperado
+- [x] Conformal prediction en regresion y clasificacion: intervalos, conjuntos de clases y limites practicos
+- [x] Incertidumbre en LLMs y RAG: retrieval score, groundedness, answerability, schemas, eval historica y rutas de escalado
+
+### Data-centric AI (slides 248-259)
+- [x] Dataset como producto: owner, version, contrato, linaje, unidad de dato, target y ventana temporal
+- [x] Calidad de etiquetas: ruido, desacuerdo, label delay, sesgo de proceso, guias de anotacion, gold set y adjudicacion
+- [x] Tests de datos, leakage avanzado, drift, representatividad, active learning y weak supervision
+- [x] Datasheets y dataset cards: composicion, recogida, anotacion, usos recomendados/no recomendados y riesgos
+
+### Causalidad y experimentacion (slides 260-270)
+- [x] Correlacion vs causalidad, DAGs, confounders, colliders, ajuste y operador do(X)
+- [x] Contrafactuales, A/B testing, ATE, guardrails, sample ratio mismatch, peeking, novelty effect e interferencia
+- [x] Uplift modeling y treatment effect para decidir en quien una accion cambia realmente el resultado
+
+### Interpretabilidad practica (slides 271-281)
+- [x] Interpretabilidad global, local y segmentada; feature importance interna y permutation importance
+- [x] PDP, ICE, ALE, SHAP, LIME, contraejemplos y ejemplos similares, explicados con limites
+- [x] Interpretabilidad no causal, error slicing y trazas de LLM/agentes para depurar comportamiento real
+
+### Refuerzo formal (slides 282-292)
+- [x] Reinforcement Learning formal: agente, entorno, estado, accion, recompensa y politica
+- [x] MDP: S, A, P, R, gamma, politica, retorno, descuento, V(s), Q(s,a) y ecuacion de Bellman
+- [x] Exploration vs exploitation, bandits, reward hacking y conexion con RLHF, RLAIF, Constitutional AI, RFT y RLVR
+
+### Privacidad avanzada (slides 293-304)
+- [x] PII, datos sensibles, secretos, quasi-identifiers, anonimizacion, pseudonimizacion y reidentificacion
+- [x] Differential privacy: epsilon, delta, ruido, composicion, DP-SGD y evaluacion de privacidad
+- [x] Federated learning, confidential computing, memorization, extraction attacks, RAG leakage, retencion y contratos
+
+### Producto y UX de IA (slides 305-309)
 - [x] Disenar para incertidumbre: citas visibles, confianza accionable, abstencion y conflictos de fuentes
 - [x] Aprobacion humana: preview, diff, confirmacion, permisos minimos, logs y rollback
 - [x] Conversaciones recuperables: memoria visible/editable, limites, handoff a humano y recuperacion de errores
 
-### Operar IA en produccion (slides 242-250)
+### Operar IA en produccion (slides 310-318)
 - [x] LLMOps: control plane, runtime, observabilidad, evals y gobernanza
 - [x] Serving open weights con vLLM, SGLang, TensorRT-LLM, llama.cpp y Ollama
 - [x] Escalado de inferencia: continuous batching, KV cache, prefix caching, speculative decoding y chunked prefill
@@ -119,19 +151,19 @@ De la neurona al agente: portada, 286 slides numeradas y cierre para entender la
 - [x] DataOps para IA: linaje, PII, licencias, calidad del corpus y drift
 - [x] Post-training avanzado: SFT, DPO, RLHF/RLAIF, Constitutional AI, RFT con graders y RL verificable/RLVR
 
-### Seguridad, gobernanza y confianza (slides 251-257)
+### Seguridad, gobernanza y confianza (slides 319-325)
 - [x] Seguridad agentic: tools, MCP, permisos minimos, threat modeling, confused deputy, tool poisoning y exfiltracion
 - [x] OWASP LLM Top 10 aplicado a controles, CI y datasets adversariales
 - [x] Privacidad y private AI: API publica, VPC (Virtual Private Cloud), on-prem, despliegue hibrido, retencion y region
 - [x] Gobernanza: EU AI Act, NIST AI RMF, NIST GenAI Profile e ISO/IEC 42001
 - [x] Interpretabilidad: mechanistic interpretability, sparse autoencoders, features y limites de confianza
 
-### Modelos open weights con Ollama Cloud (slides 258-264)
+### Modelos open weights con Ollama Cloud (slides 326-332)
 - [x] Ollama Cloud: modelos open weights sin GPU
 - [x] Catalogo, setup, integracion con herramientas
 - [x] Cloud vs local: cuando usar cada uno
 
-### Laboratorios IA aplicada (slides 265-277)
+### Laboratorios IA aplicada (slides 333-345)
 - [x] A* con un problema pequeno y comparacion de coste, heuristica y nodos expandidos
 - [x] Mini planner: tareas como estados, acciones, precondiciones y efectos
 - [x] Clasificador simple con scikit-learn, train/test y matriz de confusion
@@ -139,7 +171,7 @@ De la neurona al agente: portada, 286 slides numeradas y cierre para entender la
 - [x] Ontologia pequena + SPARQL conectada con GraphRAG y RAG hibrido
 - [x] Comparativa de una misma tarea con reglas, RAG y agente LLM
 
-### Recursos y siguiente paso (slides 278-286 + cierre)
+### Recursos y siguiente paso (slides 346-354 + cierre)
 - [x] Recursos finales ampliados: mapa de estudio, papers, benchmarks, laboratorio practico, glosario en dos partes, checklist de exactitud, pipeline de entrega, contaminacion de benchmarks y ruta de 30 dias
 
 Las secciones principales incluyen slides de recapitulacion con referencias cruzadas; el bloque final añade laboratorios, recursos, glosario ampliado, checklist de exactitud y ruta de 30 dias.

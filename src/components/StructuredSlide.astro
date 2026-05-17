@@ -18,6 +18,19 @@ interface RefLink {
   href: string;
 }
 
+interface FormulaCard {
+  title: string;
+  formula: string;
+  explanation: string;
+  example?: string;
+}
+
+interface CaseStudy {
+  title: string;
+  text: string;
+  rows?: string[][];
+}
+
 interface AppliedLens {
   theory: string;
   formula: string;
@@ -41,6 +54,9 @@ interface Props {
   code?: string;
   twoCols?: Card[];
   metrics?: { value: string; label: string }[];
+  formulaCards?: FormulaCard[];
+  caseStudy?: CaseStudy;
+  checklist?: { label: string; text: string }[];
   callout?: { title: string; text: string; icon?: string };
   refs?: RefLink[];
 }
@@ -61,6 +77,9 @@ const {
   code,
   twoCols,
   metrics,
+  formulaCards,
+  caseStudy,
+  checklist,
   callout,
   refs,
 } = Astro.props;
@@ -1038,6 +1057,36 @@ const resolvedTeachingNotes = teachingNotes ?? teachingNotesById[id] ?? [];
     </div>
   )}
 
+  {formulaCards && (
+    <div class="formula-card-grid">
+      {formulaCards.map((item) => (
+        <div class="formula-card">
+          <strong>{item.title}</strong>
+          <code set:html={item.formula} />
+          <p>{item.explanation}</p>
+          {item.example && <span>{item.example}</span>}
+        </div>
+      ))}
+    </div>
+  )}
+
+  {caseStudy && (
+    <div class="case-study">
+      <p class="case-study-title"><i data-lucide="briefcase-business"></i> {caseStudy.title}</p>
+      <p>{caseStudy.text}</p>
+      {caseStudy.rows && (
+        <div class="case-study-rows">
+          {caseStudy.rows.map((row) => (
+            <div>
+              <strong>{row[0]}</strong>
+              <span>{row[1]}</span>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  )}
+
   {cards && (
     <div class="icon-grid">
       {cards.map((card) => (
@@ -1107,6 +1156,17 @@ const resolvedTeachingNotes = teachingNotes ?? teachingNotesById[id] ?? [];
     <ol class="steps">
       {steps.map((step) => <li>{step}</li>)}
     </ol>
+  )}
+
+  {checklist && (
+    <div class="check-grid">
+      {checklist.map((item) => (
+        <div class="check-card">
+          <strong>{item.label}</strong>
+          <p>{item.text}</p>
+        </div>
+      ))}
+    </div>
   )}
 
   {code && (

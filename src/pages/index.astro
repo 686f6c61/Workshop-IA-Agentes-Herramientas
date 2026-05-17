@@ -279,84 +279,182 @@ const tocSections = [
     ],
   },
   {
+    title: 'Incertidumbre y decisión',
+    sectionSlide: 'sec-incertidumbre-decision',
+    items: [
+      { num: 238, label: 'Incertidumbre: acertar no basta', id: 'incertidumbre-mapa' },
+      { num: 239, label: 'Confidence no es calibración', id: 'confidence-no-es-calibracion' },
+      { num: 240, label: 'Reliability diagram y ECE', id: 'reliability-diagram-ece' },
+      { num: 241, label: 'Brier score y log loss', id: 'brier-logloss-calibracion' },
+      { num: 242, label: 'Cómo calibrar modelos', id: 'calibrar-modelos' },
+      { num: 243, label: 'Umbrales y abstención', id: 'umbrales-abstencion-humano' },
+      { num: 244, label: 'Conformal para regresión', id: 'conformal-prediction-regresion' },
+      { num: 245, label: 'Conformal para clasificación', id: 'conformal-prediction-clasificacion' },
+      { num: 246, label: 'Incertidumbre en LLMs/RAG', id: 'incertidumbre-llm-rag' },
+      { num: 247, label: 'Qué saber: incertidumbre', id: 'incertidumbre-que-saber' },
+    ],
+  },
+  {
+    title: 'Data-centric AI',
+    sectionSlide: 'sec-data-centric-ai',
+    items: [
+      { num: 249, label: 'Data-centric AI', id: 'data-centric-ai-mapa' },
+      { num: 250, label: 'Dataset como producto', id: 'dataset-como-producto' },
+      { num: 251, label: 'Calidad de etiquetas', id: 'calidad-etiquetas-ruido' },
+      { num: 252, label: 'Labeling strategy', id: 'labeling-strategy' },
+      { num: 253, label: 'Tests de calidad de datos', id: 'data-quality-tests' },
+      { num: 254, label: 'Leakage avanzado', id: 'leakage-avanzado' },
+      { num: 255, label: 'Drift y representatividad', id: 'drift-representatividad' },
+      { num: 256, label: 'Active learning', id: 'active-learning' },
+      { num: 257, label: 'Weak supervision', id: 'weak-supervision' },
+      { num: 258, label: 'Datasheets y dataset cards', id: 'datasheets-dataset-cards' },
+      { num: 259, label: 'Qué saber: Data-centric AI', id: 'data-centric-que-saber' },
+    ],
+  },
+  {
+    title: 'Causalidad y experimentación',
+    sectionSlide: 'sec-causalidad-experimentacion',
+    items: [
+      { num: 261, label: 'Causalidad: predecir vs decidir', id: 'causalidad-mapa' },
+      { num: 262, label: 'Correlación no implica causalidad', id: 'correlacion-no-causalidad' },
+      { num: 263, label: 'DAG causal', id: 'dag-causal' },
+      { num: 264, label: 'Confounding y ajuste', id: 'confounding-ajuste' },
+      { num: 265, label: 'Intervención y do(X)', id: 'do-operator-intervencion' },
+      { num: 266, label: 'Contrafactuales', id: 'contrafactuales' },
+      { num: 267, label: 'A/B testing causal', id: 'ab-testing-causal' },
+      { num: 268, label: 'Errores en experimentos', id: 'ab-testing-errores' },
+      { num: 269, label: 'Uplift y treatment effect', id: 'uplift-treatment-effect' },
+      { num: 270, label: 'Qué saber: causalidad', id: 'causalidad-que-saber' },
+    ],
+  },
+  {
+    title: 'Interpretabilidad práctica',
+    sectionSlide: 'sec-interpretabilidad-practica',
+    items: [
+      { num: 272, label: 'Mapa de interpretabilidad', id: 'interpretabilidad-mapa' },
+      { num: 273, label: 'Global vs local', id: 'interpretabilidad-global-local' },
+      { num: 274, label: 'Feature importance', id: 'feature-importance' },
+      { num: 275, label: 'Permutation importance', id: 'permutation-importance' },
+      { num: 276, label: 'PDP e ICE', id: 'pdp-ice' },
+      { num: 277, label: 'SHAP y LIME', id: 'shap-lime' },
+      { num: 278, label: 'Interpretabilidad no es causalidad', id: 'interpretabilidad-no-causalidad' },
+      { num: 279, label: 'Error slicing', id: 'error-slicing' },
+      { num: 280, label: 'LLMs y agentes', id: 'interpretabilidad-llm-agentes' },
+      { num: 281, label: 'Qué saber: interpretabilidad', id: 'interpretabilidad-que-saber' },
+    ],
+  },
+  {
+    title: 'Refuerzo formal',
+    sectionSlide: 'sec-refuerzo-formal',
+    items: [
+      { num: 283, label: 'RL formal', id: 'rl-formal-mapa' },
+      { num: 284, label: 'MDP', id: 'mdp' },
+      { num: 285, label: 'Política, retorno y descuento', id: 'politica-valor-retorno' },
+      { num: 286, label: 'V(s), Q(s,a) y Bellman', id: 'value-q-bellman' },
+      { num: 287, label: 'Exploration vs exploitation', id: 'exploration-exploitation' },
+      { num: 288, label: 'Bandits', id: 'bandits' },
+      { num: 289, label: 'Reward hacking', id: 'reward-hacking' },
+      { num: 290, label: 'RLHF, RLAIF y RLVR', id: 'rlhf-rlaif-rlvr' },
+      { num: 291, label: 'RL y agentes LLM', id: 'rl-agentes-llm' },
+      { num: 292, label: 'Qué saber: refuerzo', id: 'rl-que-saber' },
+    ],
+  },
+  {
+    title: 'Privacidad avanzada',
+    sectionSlide: 'sec-privacidad-avanzada',
+    items: [
+      { num: 294, label: 'Privacidad avanzada', id: 'privacidad-avanzada-mapa' },
+      { num: 295, label: 'PII y datos sensibles', id: 'pii-datos-sensibles' },
+      { num: 296, label: 'Anonimización vs pseudonimización', id: 'anonimizacion-pseudonimizacion' },
+      { num: 297, label: 'Reidentificación', id: 'reidentificacion-quasi-identifiers' },
+      { num: 298, label: 'Differential privacy', id: 'differential-privacy' },
+      { num: 299, label: 'DP en machine learning', id: 'dp-ml-training' },
+      { num: 300, label: 'Federated learning', id: 'federated-learning' },
+      { num: 301, label: 'Confidential computing', id: 'confidential-computing' },
+      { num: 302, label: 'Memorization y extracción', id: 'memorization-extraction' },
+      { num: 303, label: 'Retención y contratos', id: 'retencion-contratos-datos' },
+      { num: 304, label: 'Qué saber: privacidad', id: 'privacidad-que-saber' },
+    ],
+  },
+  {
     title: 'Producto y UX de IA',
     sectionSlide: 'sec-producto-ux-ia',
     items: [
-      { num: 238, label: 'Incertidumbre, citas y abstención', id: 'ux-incertidumbre-citas-abstencion' },
-      { num: 239, label: 'Aprobación humana y rollback', id: 'ux-human-approval-rollback' },
-      { num: 240, label: 'Memoria, límites y handoff', id: 'ux-conversaciones-memoria-handoff' },
-      { num: 241, label: 'Recapitulación', id: 'recap-producto-ux-ia' },
+      { num: 306, label: 'Incertidumbre, citas y abstención', id: 'ux-incertidumbre-citas-abstencion' },
+      { num: 307, label: 'Aprobación humana y rollback', id: 'ux-human-approval-rollback' },
+      { num: 308, label: 'Memoria, límites y handoff', id: 'ux-conversaciones-memoria-handoff' },
+      { num: 309, label: 'Recapitulación', id: 'recap-producto-ux-ia' },
     ],
   },
   {
     title: 'Operar IA en producción',
     sectionSlide: 'sec-operar-ia-produccion',
     items: [
-      { num: 243, label: 'LLMOps: de demo a servicio', id: 'llmops-demo-a-servicio' },
-      { num: 244, label: 'Serving open weights', id: 'serving-open-weights' },
-      { num: 245, label: 'Escalar inferencia', id: 'inferencia-escalado' },
-      { num: 246, label: 'Routing, fallback y budgets', id: 'routing-fallback-budgets' },
-      { num: 247, label: 'EvalOps y release gates', id: 'evalops-regresiones-canary' },
-      { num: 248, label: 'DataOps para IA', id: 'dataops-ia' },
-      { num: 249, label: 'Post-training avanzado', id: 'post-training-avanzado' },
-      { num: 250, label: 'Recapitulación', id: 'recap-operar-ia-produccion' },
+      { num: 311, label: 'LLMOps: de demo a servicio', id: 'llmops-demo-a-servicio' },
+      { num: 312, label: 'Serving open weights', id: 'serving-open-weights' },
+      { num: 313, label: 'Escalar inferencia', id: 'inferencia-escalado' },
+      { num: 314, label: 'Routing, fallback y budgets', id: 'routing-fallback-budgets' },
+      { num: 315, label: 'EvalOps y release gates', id: 'evalops-regresiones-canary' },
+      { num: 316, label: 'DataOps para IA', id: 'dataops-ia' },
+      { num: 317, label: 'Post-training avanzado', id: 'post-training-avanzado' },
+      { num: 318, label: 'Recapitulación', id: 'recap-operar-ia-produccion' },
     ],
   },
   {
     title: 'Seguridad, gobernanza y confianza',
     sectionSlide: 'sec-seguridad-gobernanza',
     items: [
-      { num: 252, label: 'Seguridad agentic y MCP', id: 'seguridad-agentic-mcp' },
-      { num: 253, label: 'OWASP LLM Top 10 aplicado', id: 'owasp-llm-top10-aplicado' },
-      { num: 254, label: 'Privacidad y private AI', id: 'privacidad-retencion-private-ai' },
-      { num: 255, label: 'EU AI Act, NIST e ISO 42001', id: 'gobernanza-ai-rmf-iso' },
-      { num: 256, label: 'Interpretabilidad y confianza', id: 'interpretabilidad-confianza' },
-      { num: 257, label: 'Recapitulación', id: 'recap-seguridad-gobernanza' },
+      { num: 320, label: 'Seguridad agentic y MCP', id: 'seguridad-agentic-mcp' },
+      { num: 321, label: 'OWASP LLM Top 10 aplicado', id: 'owasp-llm-top10-aplicado' },
+      { num: 322, label: 'Privacidad y private AI', id: 'privacidad-retencion-private-ai' },
+      { num: 323, label: 'EU AI Act, NIST e ISO 42001', id: 'gobernanza-ai-rmf-iso' },
+      { num: 324, label: 'Interpretabilidad y confianza', id: 'interpretabilidad-confianza' },
+      { num: 325, label: 'Recapitulación', id: 'recap-seguridad-gobernanza' },
     ],
   },
   {
     title: 'Modelos open weights con Ollama Cloud',
     sectionSlide: 'sec-ollama-cloud',
     items: [
-      { num: 259, label: 'Ollama Cloud: modelos open weights sin GPU', id: 'ollama-cloud-intro' },
-      { num: 260, label: 'Catálogo de modelos', id: 'modelos-disponibles' },
-      { num: 261, label: 'Primeros pasos', id: 'ollama-cloud-setup' },
-      { num: 262, label: 'Integración con herramientas', id: 'ollama-cloud-herramientas' },
-      { num: 263, label: 'Cloud vs local', id: 'cloud-vs-local' },
-      { num: 264, label: 'Recapitulación', id: 'recap-ollama-cloud' },
+      { num: 327, label: 'Ollama Cloud: modelos open weights sin GPU', id: 'ollama-cloud-intro' },
+      { num: 328, label: 'Catálogo de modelos', id: 'modelos-disponibles' },
+      { num: 329, label: 'Primeros pasos', id: 'ollama-cloud-setup' },
+      { num: 330, label: 'Integración con herramientas', id: 'ollama-cloud-herramientas' },
+      { num: 331, label: 'Cloud vs local', id: 'cloud-vs-local' },
+      { num: 332, label: 'Recapitulación', id: 'recap-ollama-cloud' },
     ],
   },
   {
     title: 'Laboratorios IA aplicada',
     sectionSlide: 'sec-laboratorios-ia',
     items: [
-      { num: 266, label: 'Labs: principios', id: 'lab-principios' },
-      { num: 267, label: 'Lab A*', id: 'lab-a-star' },
-      { num: 268, label: 'Lab mini planner', id: 'lab-mini-planner' },
-      { num: 269, label: 'Lab planner vs LLM', id: 'lab-planner-vs-llm' },
-      { num: 270, label: 'Lab clasificador', id: 'lab-clasificador-sklearn' },
-      { num: 271, label: 'Lab matriz de confusión', id: 'lab-matriz-confusion' },
-      { num: 272, label: 'Lab k-means', id: 'lab-kmeans-visual' },
-      { num: 273, label: 'Lab ontología + SPARQL', id: 'lab-ontologia-sparql' },
-      { num: 274, label: 'Lab vector vs SPARQL', id: 'lab-vector-vs-sparql' },
-      { num: 275, label: 'Lab reglas/RAG/agente', id: 'lab-reglas-rag-agente' },
-      { num: 276, label: 'Lab notebook a producción', id: 'lab-entregable-notebook-produccion' },
-      { num: 277, label: 'Qué saber: laboratorios', id: 'lab-rubrica' },
+      { num: 334, label: 'Labs: principios', id: 'lab-principios' },
+      { num: 335, label: 'Lab A*', id: 'lab-a-star' },
+      { num: 336, label: 'Lab mini planner', id: 'lab-mini-planner' },
+      { num: 337, label: 'Lab planner vs LLM', id: 'lab-planner-vs-llm' },
+      { num: 338, label: 'Lab clasificador', id: 'lab-clasificador-sklearn' },
+      { num: 339, label: 'Lab matriz de confusión', id: 'lab-matriz-confusion' },
+      { num: 340, label: 'Lab k-means', id: 'lab-kmeans-visual' },
+      { num: 341, label: 'Lab ontología + SPARQL', id: 'lab-ontologia-sparql' },
+      { num: 342, label: 'Lab vector vs SPARQL', id: 'lab-vector-vs-sparql' },
+      { num: 343, label: 'Lab reglas/RAG/agente', id: 'lab-reglas-rag-agente' },
+      { num: 344, label: 'Lab notebook a producción', id: 'lab-entregable-notebook-produccion' },
+      { num: 345, label: 'Qué saber: laboratorios', id: 'lab-rubrica' },
     ],
   },
   {
     title: 'Recursos y siguiente paso',
     sectionSlide: 'recursos-mapa-estudio',
     items: [
-      { num: 278, label: 'Recursos: mapa de estudio', id: 'recursos-mapa-estudio' },
-      { num: 279, label: 'Recursos: papers y benchmarks', id: 'recursos-papers-benchmarks' },
-      { num: 280, label: 'Recursos: laboratorio', id: 'recursos-laboratorio' },
-      { num: 281, label: 'Glosario: modelos y evals', id: 'glosario-siglas' },
-      { num: 282, label: 'Glosario: operación y seguridad', id: 'glosario-siglas-operacion' },
-      { num: 283, label: 'Checklist de exactitud', id: 'checklist-exactitud-ia' },
-      { num: 284, label: 'Pipeline de entrega IA', id: 'pipeline-entrega-ia' },
-      { num: 285, label: 'Benchmarks y eval privada', id: 'benchmarks-contaminacion-eval-privada' },
-      { num: 286, label: 'Siguiente paso: 30 días', id: 'siguiente-paso-30-dias' },
+      { num: 346, label: 'Recursos: mapa de estudio', id: 'recursos-mapa-estudio' },
+      { num: 347, label: 'Recursos: papers y benchmarks', id: 'recursos-papers-benchmarks' },
+      { num: 348, label: 'Recursos: laboratorio', id: 'recursos-laboratorio' },
+      { num: 349, label: 'Glosario: modelos y evals', id: 'glosario-siglas' },
+      { num: 350, label: 'Glosario: operación y seguridad', id: 'glosario-siglas-operacion' },
+      { num: 351, label: 'Checklist de exactitud', id: 'checklist-exactitud-ia' },
+      { num: 352, label: 'Pipeline de entrega IA', id: 'pipeline-entrega-ia' },
+      { num: 353, label: 'Benchmarks y eval privada', id: 'benchmarks-contaminacion-eval-privada' },
+      { num: 354, label: 'Siguiente paso: 30 días', id: 'siguiente-paso-30-dias' },
     ],
   },
 ];
@@ -395,7 +493,7 @@ const tocSections = [
         <button class="update-modal-close" id="update-modal-close" type="button" aria-label="Cerrar novedades">&times;</button>
       </div>
       <div class="update-modal-body">
-        <p class="update-modal-lead">Resumen de la actualización: más fundamentos clásicos, práctica con datos, complejidad de ML, Transformer por dentro, agentes, evaluación, operación y criterio de producto.</p>
+        <p class="update-modal-lead">Resumen de la actualización: más fundamentos clásicos y 68 slides nuevas de fundamentos avanzados para pasar de “el modelo acierta” a “el sistema decide, mide, explica y protege”.</p>
         <div class="update-grid">
           <div class="update-card">
             <strong>IA clásica aplicada</strong>
@@ -412,6 +510,22 @@ const tocSections = [
           <div class="update-card">
             <strong>Agentes y producción</strong>
             <p>Tools, MCP, Harness Engineering, evals, observabilidad, seguridad, despliegue, costes, rate limits y patrones reales de ingeniería.</p>
+          </div>
+          <div class="update-card">
+            <strong>Incertidumbre y calibración</strong>
+            <p>Reliability diagrams, ECE, Brier score, log loss, umbrales, abstención, conformal prediction y señales externas de confianza para LLMs y RAG.</p>
+          </div>
+          <div class="update-card">
+            <strong>Data-centric AI</strong>
+            <p>Dataset como producto, calidad de labels, labeling strategy, tests de datos, leakage, drift, active learning, weak supervision y dataset cards.</p>
+          </div>
+          <div class="update-card">
+            <strong>Causalidad e interpretabilidad</strong>
+            <p>Correlación vs causalidad, DAGs, confounding, do(X), contrafactuales, A/B testing, uplift, feature importance, PDP/ICE, SHAP/LIME y error slicing.</p>
+          </div>
+          <div class="update-card">
+            <strong>Refuerzo y privacidad avanzada</strong>
+            <p>MDPs, política, retorno, Bellman, exploration/exploitation, bandits, reward hacking, RLHF/RLAIF/RLVR, PII, differential privacy, federated learning y extracción de datos.</p>
           </div>
         </div>
         <div class="update-source-note">
@@ -517,6 +631,21 @@ const tocSections = [
         if (index !== -1) showSlide(index);
       }
 
+      function goToHashSlide() {
+        const hash = window.location.hash.slice(1);
+        if (!hash) return false;
+        const index = Array.from(slides).findIndex(s => s.id === hash);
+        if (index === -1) return false;
+        if (index !== current) {
+          slides[current].classList.remove('active');
+          current = index;
+          slides[current].classList.add('active');
+          slides[current].scrollTop = 0;
+          updateUI();
+        }
+        return true;
+      }
+
       function openToc() { tocOverlay.classList.add('active'); }
       function closeToc() { tocOverlay.classList.remove('active'); }
       function openUpdateModal() {
@@ -554,6 +683,8 @@ const tocSections = [
           if (id) goToSlide(id);
         });
       });
+
+      window.addEventListener('hashchange', goToHashSlide);
 
       document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape') {
@@ -601,10 +732,7 @@ const tocSections = [
 
       // Initial slide from hash
       const hash = window.location.hash.slice(1);
-      if (hash) {
-        const index = Array.from(slides).findIndex(s => s.id === hash);
-        if (index !== -1) current = index;
-      }
+      if (hash) goToHashSlide();
       slides[current].classList.add('active');
       updateUI();
       const shouldShowUpdate = !hash || hash === 'cover';
