@@ -918,11 +918,11 @@ import SlidesMLClasico from './SlidesMLClasico.astro';
   </div>
 </Slide>
 
-<!-- SLIDES 20-29: ML CLASICO -->
+<!-- SLIDES 20-31: ML CLASICO -->
 <SlidesMLClasico />
 
-<!-- SLIDE 30 -->
-<Slide id="recap-fundamentos" number={30} title="Lo que deberías saber: fundamentos">
+<!-- SLIDE 32 -->
+<Slide id="recap-fundamentos" number={32} title="Lo que deberías saber: fundamentos">
   <table>
     <thead>
       <tr><th>Concepto</th><th>Slide</th></tr>
@@ -940,20 +940,23 @@ import SlidesMLClasico from './SlidesMLClasico.astro';
       <tr><td>Embedding = vector numérico que codifica significado</td><td>16-17</td></tr>
       <tr><td>Entrenamiento (crear el modelo) vs inferencia (usarlo)</td><td>18</td></tr>
       <tr><td>Quantización: comprimir modelos para hardware modesto</td><td>19</td></tr>
+      <tr><td>ML clásico: dataset, features, labels, supervisado/no supervisado/refuerzo y clasificación/regresión</td><td>20-23</td></tr>
+      <tr><td>Complejidad temporal: Big-O, entrenamiento vs inferencia y coste por algoritmo</td><td>24-25</td></tr>
+      <tr><td>Validación, overfitting, matriz de confusión, precision/recall/F1 y clustering</td><td>26-31</td></tr>
     </tbody>
   </table>
 </Slide>
 
-<!-- SLIDES 31-82: IA CLASICA APLICADA -->
+<!-- SLIDES 33-84: IA CLASICA APLICADA -->
 <SlidesIAClasica />
 
-<!-- SLIDE 83: SECCION -->
-<Slide id="sec-arquitecturas" number={83} section
+<!-- SLIDE 85: SECCION -->
+<Slide id="sec-arquitecturas" number={85} section
   title="Arquitecturas y modelos"
   subtitle="Transformers, Mixture of Experts, LLMs y los parámetros que controlan su comportamiento." />
 
-<!-- SLIDE 84 -->
-<Slide id="llm" number={84} title="¿Qué es un modelo LLM?">
+<!-- SLIDE 86 -->
+<Slide id="llm" number={86} title="¿Qué es un modelo LLM?">
   <p><i data-lucide="brain"></i> <strong>Large Language Model</strong>: un modelo de lenguaje a gran escala. Entrenado con cantidades masivas de texto (internet, libros, código...) para predecir el siguiente token dada una secuencia.</p>
   <div class="icon-grid">
     <div class="icon-card">
@@ -1042,8 +1045,8 @@ import SlidesMLClasico from './SlidesMLClasico.astro';
   </div>
 </Slide>
 
-<!-- SLIDE 85 -->
-<Slide id="arquitecturas" number={85} title="Arquitecturas">
+<!-- SLIDE 87 -->
+<Slide id="arquitecturas" number={87} title="Arquitecturas">
   <h3><i data-lucide="network"></i> Evolución de las arquitecturas</h3>
   <p>La historia no acaba en Transformer. En 2026 la base dominante sigue siendo la familia Transformer, pero los modelos punteros combinan bloques: decoder-only, MoE, atención eficiente, memoria larga, SSM (State Space Model) / Mamba e incluso procesamiento por bytes o latentes.</p>
   <div class="flow">
@@ -1103,8 +1106,8 @@ import SlidesMLClasico from './SlidesMLClasico.astro';
   </div>
 </Slide>
 
-<!-- SLIDE 86 -->
-<Slide id="transformer-ninos" number={86} title="¿Cómo funciona un Transformer?">
+<!-- SLIDE 88 -->
+<Slide id="transformer-ninos" number={88} title="¿Cómo funciona un Transformer?">
   <div class="analogy">
     <p class="analogy-label"><i data-lucide="users"></i> Analogía</p>
     <p>Imagina que estás leyendo una frase y tienes que adivinar el siguiente token. El Transformer puede procesar muchos tokens de la ventana en paralelo durante el cálculo interno, a diferencia de las RNN clásicas.</p>
@@ -1148,8 +1151,8 @@ import SlidesMLClasico from './SlidesMLClasico.astro';
   </div>
 </Slide>
 
-<!-- SLIDE 87 -->
-<Slide id="moe" number={87} title="Arquitectura MoE (Mixture of Experts)">
+<!-- SLIDE 89 -->
+<Slide id="moe" number={89} title="Arquitectura MoE (Mixture of Experts)">
   <p><i data-lucide="route"></i> En vez de un modelo denso donde todos los parámetros participan en cada paso, MoE divide parte del modelo en múltiples <strong>expertos</strong> seleccionados por un router.</p>
   <h3><i data-lucide="zap"></i> Flujo de una petición MoE</h3>
   <div class="flow">

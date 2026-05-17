@@ -999,6 +999,36 @@ code {
   min-width: 720px;
 }
 
+#complejidad-ml-big-o table.resource-table,
+#complejidad-algoritmos-ml table.resource-table {
+  table-layout: fixed;
+  max-width: 100%;
+  overflow-wrap: anywhere;
+}
+
+#complejidad-ml-big-o table.resource-table th,
+#complejidad-ml-big-o table.resource-table td,
+#complejidad-algoritmos-ml table.resource-table th,
+#complejidad-algoritmos-ml table.resource-table td {
+  overflow-wrap: anywhere;
+  word-break: normal;
+}
+
+@media (max-width: 700px) {
+  #complejidad-ml-big-o table.resource-table,
+  #complejidad-algoritmos-ml table.resource-table {
+    font-size: 0.58rem;
+    line-height: 1.18;
+  }
+
+  #complejidad-ml-big-o table.resource-table th,
+  #complejidad-ml-big-o table.resource-table td,
+  #complejidad-algoritmos-ml table.resource-table th,
+  #complejidad-algoritmos-ml table.resource-table td {
+    padding: 0.24rem 0.28rem;
+  }
+}
+
 .backprop-svg text {
   font-family: var(--font-sans);
   fill: var(--fg);

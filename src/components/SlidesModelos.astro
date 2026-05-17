@@ -3,8 +3,8 @@ import Slide from './Slide.astro';
 import SlidesRAGSemantico from './SlidesRAGSemantico.astro';
 ---
 
-<!-- SLIDE 88 -->
-<Slide id="atencion-detalle" number={88} title="El mecanismo de atención en detalle">
+<!-- SLIDE 90 -->
+<Slide id="atencion-detalle" number={90} title="El mecanismo de atención en detalle">
   <p><i data-lucide="search"></i> La atención permite que cada token "mire" a todos los demás para decidir cuáles son relevantes. Aquí están las matemáticas detrás, simplificadas.</p>
   <h3><i data-lucide="code"></i> Las matrices Q, K, V</h3>
   <div class="code-block">
@@ -42,8 +42,8 @@ import SlidesRAGSemantico from './SlidesRAGSemantico.astro';
   </div>
 </Slide>
 
-<!-- SLIDE 89 -->
-<Slide id="tokenizacion-profundidad" number={89} title="Tokenización en profundidad">
+<!-- SLIDE 91 -->
+<Slide id="tokenizacion-profundidad" number={91} title="Tokenización en profundidad">
   <p><i data-lucide="scissors"></i> El tokenizador convierte texto en números antes de que el modelo lo vea. <strong>Cómo se tokeniza</strong> afecta directamente al rendimiento, al coste y al soporte multilingüe.</p>
   <h3><i data-lucide="code"></i> Algoritmos principales</h3>
   <table>
@@ -82,8 +82,383 @@ import SlidesRAGSemantico from './SlidesRAGSemantico.astro';
   </div>
 </Slide>
 
-<!-- SLIDE 90 -->
-<Slide id="transfer-learning" number={90} title="Transfer learning: el paradigma que lo cambió todo">
+<!-- SLIDE 92 -->
+<Slide id="transformer-explainer-lab" number={92} title="Transformer Explainer: abrir la caja negra">
+  <p><i data-lucide="microscope"></i> Un Transformer moderno tiene demasiadas capas, parámetros y optimizaciones para aprenderlo mirando logs. <strong>Transformer Explainer</strong> baja el problema a una versión observable: ejecuta GPT-2 small en el navegador y permite seguir cómo una frase se convierte en probabilidades del siguiente token.</p>
+  <p>La idea pedagógica es importante: no usamos GPT-2 porque sea estado del arte en 2026, sino porque es suficientemente pequeño para verlo entero y suficientemente parecido en arquitectura para enseñar las piezas que siguen apareciendo en Llama, Qwen, DeepSeek, Claude o GPT: tokenización, embeddings, atención, MLP, residual, normalización, logits y sampling.</p>
+
+  <h3><i data-lucide="route"></i> Qué vas a observar</h3>
+  <table class="compact-table resource-table">
+    <thead>
+      <tr><th>Pieza</th><th>Pregunta que responde</th><th>Qué mirar en la herramienta</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>Tokenization</strong></td><td>¿Qué unidades discretas ve el modelo?</td><td>Palabras que se parten, IDs de vocabulario y coste en tokens.</td></tr>
+      <tr><td><strong>Embedding</strong></td><td>¿Cómo pasa texto a vectores?</td><td>Token embedding + positional encoding = vector inicial por token.</td></tr>
+      <tr><td><strong>Attention</strong></td><td>¿Qué token mira a qué token?</td><td>Matriz de pesos: filas como tokens que preguntan, columnas como tokens consultados.</td></tr>
+      <tr><td><strong>MLP</strong></td><td>¿Cómo se transforma cada token después de mezclar contexto?</td><td>Expansión de dimensión, activación no lineal y vuelta al tamaño original.</td></tr>
+      <tr><td><strong>Probabilities</strong></td><td>¿Por qué sale una palabra y no otra?</td><td>Logits, temperature, top-k/top-p y softmax final.</td></tr>
+    </tbody>
+  </table>
+
+  <div class="callout">
+    <p class="callout-title"><i data-lucide="target"></i> Lectura honesta</p>
+    <p>La visualización no demuestra que “el modelo entiende” como una persona. Muestra el mecanismo computacional: vectores que se transforman, pesos que reponderan información y una distribución de probabilidad que se muestrea. Esa diferencia evita muchas confusiones al diseñar prompts, RAG, agentes y evals.</p>
+  </div>
+
+  <div class="refs">
+    <p class="refs-title">Para profundizar</p>
+    <a href="https://poloclub.github.io/transformer-explainer/" target="_blank">Transformer Explainer - demo interactiva</a>
+    <a href="https://arxiv.org/abs/2408.04619" target="_blank">Transformer Explainer - paper (Cho et al., 2024)</a>
+    <a href="https://github.com/poloclub/transformer-explainer" target="_blank">Repositorio oficial</a>
+  </div>
+</Slide>
+
+<!-- SLIDE 93 -->
+<Slide id="transformer-texto-a-tensores" number={93} title="De texto a tensores: qué entra realmente al modelo">
+  <p><i data-lucide="binary"></i> El modelo no recibe letras ni palabras “con significado humano”. Recibe <strong>enteros</strong> que identifican tokens, y esos enteros se convierten en <strong>vectores</strong>. A partir de ahí todo son operaciones de álgebra lineal.</p>
+  <p>Esta slide es el puente entre “he escrito una frase” y “el modelo calcula”. Para un ingeniero, aquí empieza el sistema real: formas de tensores, matrices de pesos, memoria, dimensión oculta y operaciones repetidas capa tras capa.</p>
+
+  <h3><i data-lucide="list-ordered"></i> Pipeline mínimo</h3>
+  <div class="flow">
+    <span class="flow-step">Texto</span>
+    <span class="flow-arrow">&rarr;</span>
+    <span class="flow-step">Tokens</span>
+    <span class="flow-arrow">&rarr;</span>
+    <span class="flow-step">IDs</span>
+    <span class="flow-arrow">&rarr;</span>
+    <span class="flow-step">Token embeddings</span>
+    <span class="flow-arrow">&rarr;</span>
+    <span class="flow-step">Posición</span>
+    <span class="flow-arrow">&rarr;</span>
+    <span class="flow-step">Vector final</span>
+  </div>
+
+  <h3><i data-lucide="ruler"></i> Ejemplo con GPT-2 small</h3>
+  <table class="compact-table resource-table">
+    <thead>
+      <tr><th>Elemento</th><th>Valor ilustrativo</th><th>Qué significa</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>Vocabulario</strong></td><td>50.257 tokens</td><td>El tokenizador solo puede emitir IDs de ese vocabulario. Palabras raras se parten en sub-tokens.</td></tr>
+      <tr><td><strong>Longitud de entrada</strong></td><td><code>n</code> tokens</td><td>Si escribes 6 tokens, el modelo maneja una matriz con 6 filas.</td></tr>
+      <tr><td><strong>Hidden size</strong></td><td>768 dimensiones</td><td>Cada token se representa como un vector de 768 números.</td></tr>
+      <tr><td><strong>Matriz de embeddings</strong></td><td><code>50257 x 768</code></td><td>Una tabla aprendida: cada ID selecciona una fila-vector.</td></tr>
+      <tr><td><strong>Entrada al bloque</strong></td><td><code>n x 768</code></td><td>Una fila por token, una columna por dimensión interna.</td></tr>
+    </tbody>
+  </table>
+
+  <div class="code-block">
+    <span class="comment">// Mental model, no código exacto de producción</span><br/>
+    text = <span class="string">"Data visualization empowers users to"</span><br/>
+    token_ids = tokenizer(text) <span class="comment">// enteros: [6601, 18772, ...]</span><br/>
+    token_vectors = embedding_table[token_ids] <span class="comment">// shape: n x d_model</span><br/>
+    position_vectors = position_table[0:n] <span class="comment">// shape: n x d_model</span><br/>
+    x = token_vectors + position_vectors <span class="comment">// lo que entra al bloque Transformer</span>
+  </div>
+
+  <div class="callout">
+    <p class="callout-title"><i data-lucide="lightbulb"></i> Por qué esto importa</p>
+    <p>Cuando alguien dice “el modelo entiende una palabra”, técnicamente está hablando de cómo un ID selecciona un vector aprendido y cómo ese vector se modifica por contexto. La palabra no tiene una definición fija dentro del modelo: su representación se actualiza capa a capa según los tokens cercanos y la atención causal.</p>
+  </div>
+
+  <div class="refs">
+    <p class="refs-title">Para profundizar</p>
+    <a href="https://poloclub.github.io/transformer-explainer/" target="_blank">Transformer Explainer - Embedding view</a>
+    <a href="https://huggingface.co/openai-community/gpt2" target="_blank">Hugging Face - GPT-2 model card</a>
+    <a href="https://huggingface.co/docs/tokenizers/" target="_blank">Hugging Face Tokenizers</a>
+  </div>
+</Slide>
+
+<!-- SLIDE 94 -->
+<Slide id="transformer-qkv-formas" number={94} title="Q, K, V con formas: la atención como búsqueda interna">
+  <p><i data-lucide="search"></i> Q, K y V no son metáforas sueltas: son tres proyecciones lineales aprendidas. El mismo vector de cada token se transforma en tres papeles distintos: qué busco, cómo me encuentran y qué información entrego si me miran.</p>
+  <p>Para ingenieros: esto es parecido a construir tres vistas de la misma fila de datos. Una vista sirve para consultar, otra para indexar, otra para recuperar contenido. La atención calcula compatibilidad entre consultas e índices, y usa ese resultado para mezclar contenidos.</p>
+
+  <h3><i data-lucide="sigma"></i> Fórmula esencial</h3>
+  <div class="code-block">
+    X shape = n x d_model<br/>
+    Q = X W_Q + b_Q <span class="comment">// n x d_model</span><br/>
+    K = X W_K + b_K <span class="comment">// n x d_model</span><br/>
+    V = X W_V + b_V <span class="comment">// n x d_model</span><br/><br/>
+    scores = Q K^T / sqrt(d_k) <span class="comment">// n x n</span><br/>
+    attention = softmax(scores) <span class="comment">// cada fila suma 1</span><br/>
+    output = attention V <span class="comment">// n x d_model</span>
+  </div>
+
+  <h3><i data-lucide="table-2"></i> Cómo leerlo sin miedo</h3>
+  <table class="compact-table resource-table">
+    <thead>
+      <tr><th>Símbolo</th><th>Lectura sencilla</th><th>Implicación práctica</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong><code>X</code></strong></td><td>Todos los tokens ya convertidos en vectores.</td><td>La atención no mira texto, mira representaciones numéricas.</td></tr>
+      <tr><td><strong><code>Q</code></strong></td><td>Pregunta que hace cada token.</td><td>“Para actualizarme, ¿qué información necesito?”</td></tr>
+      <tr><td><strong><code>K</code></strong></td><td>Etiqueta por la que cada token puede ser encontrado.</td><td>Dos tokens son compatibles si <code>Q · K</code> sale alto.</td></tr>
+      <tr><td><strong><code>V</code></strong></td><td>Contenido que aporta cada token.</td><td>El modelo no copia el Key; mezcla Values ponderados.</td></tr>
+      <tr><td><strong><code>QK^T</code></strong></td><td>Tabla token contra token.</td><td>Si hay 6 tokens, sale una matriz <code>6 x 6</code>.</td></tr>
+      <tr><td><strong><code>sqrt(d_k)</code></strong></td><td>Factor de escala.</td><td>Evita que el softmax se vuelva extremo por dimensiones grandes.</td></tr>
+    </tbody>
+  </table>
+
+  <div class="callout">
+    <p class="callout-title"><i data-lucide="git-branch"></i> Multi-head no es decoración</p>
+    <p>Una sola matriz de atención fuerza una única forma de relacionar tokens. Multi-head divide el espacio en varias cabezas para que unas puedan capturar relaciones locales, otras sintaxis, otras referencias largas o patrones semánticos. Después se concatenan y se proyectan de nuevo.</p>
+  </div>
+
+  <div class="refs">
+    <p class="refs-title">Para profundizar</p>
+    <a href="https://arxiv.org/abs/1706.03762" target="_blank">Attention Is All You Need (Vaswani et al., 2017)</a>
+    <a href="https://poloclub.github.io/transformer-explainer/" target="_blank">Transformer Explainer - QKV view</a>
+    <a href="https://jalammar.github.io/illustrated-transformer/" target="_blank">The Illustrated Transformer</a>
+  </div>
+</Slide>
+
+<!-- SLIDE 95 -->
+<Slide id="transformer-mascara-softmax" number={95} title="Máscara causal, softmax y salida de atención">
+  <p><i data-lucide="shield"></i> Un GPT genera de izquierda a derecha. Para que el entrenamiento sea honesto, cada posición solo puede mirar tokens anteriores o a sí misma. La <strong>máscara causal</strong> impide que el modelo vea el futuro.</p>
+  <p>Sin máscara, el entrenamiento sería hacer trampa: para predecir la siguiente palabra, el modelo podría consultar la propia respuesta. Con máscara, aprende a estimar el siguiente token usando únicamente el prefijo disponible.</p>
+
+  <h3><i data-lucide="grid-3x3"></i> Qué pasa en la matriz de atención</h3>
+  <table class="compact-table resource-table">
+    <thead>
+      <tr><th>Paso</th><th>Operación</th><th>Lectura aplicada</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>Dot product</strong></td><td><code>QK^T</code></td><td>Calcula afinidad entre cada token que pregunta y cada token candidato.</td></tr>
+      <tr><td><strong>Scaling</strong></td><td><code>/ sqrt(d_k)</code></td><td>Mantiene los scores en un rango manejable para softmax.</td></tr>
+      <tr><td><strong>Mask</strong></td><td>Futuros tokens pasan a <code>-infinity</code></td><td>Después de softmax tendrán probabilidad cero.</td></tr>
+      <tr><td><strong>Softmax</strong></td><td><code>exp(score_i) / sum(exp(score_j))</code></td><td>Convierte scores en pesos positivos que suman 1 por fila.</td></tr>
+      <tr><td><strong>Weighted sum</strong></td><td><code>attention V</code></td><td>Cada token recibe una mezcla de información de los tokens permitidos.</td></tr>
+    </tbody>
+  </table>
+
+  <h3><i data-lucide="code"></i> Ejemplo mental con 4 tokens</h3>
+  <div class="code-block">
+    tokens = [<span class="string">"El"</span>, <span class="string">"modelo"</span>, <span class="string">"predice"</span>, <span class="string">"tokens"</span>]<br/><br/>
+    fila 0 solo puede mirar: [0]<br/>
+    fila 1 puede mirar: [0, 1]<br/>
+    fila 2 puede mirar: [0, 1, 2]<br/>
+    fila 3 puede mirar: [0, 1, 2, 3]<br/><br/>
+    <span class="comment">// Lo que queda por encima de la diagonal se enmascara.</span>
+  </div>
+
+  <div class="callout">
+    <p class="callout-title"><i data-lucide="alert-triangle"></i> Error frecuente</p>
+    <p>Una celda de atención alta no prueba causalidad ni “explicación psicológica”. Significa que, en esa cabeza y capa, esa posición asignó mucho peso a otra posición para construir su representación. Es una pista útil, no una explicación completa del comportamiento del modelo.</p>
+  </div>
+
+  <div class="refs">
+    <p class="refs-title">Para profundizar</p>
+    <a href="https://poloclub.github.io/transformer-explainer/" target="_blank">Transformer Explainer - Masked self-attention</a>
+    <a href="https://arxiv.org/abs/1706.03762" target="_blank">Attention Is All You Need</a>
+    <a href="https://transformer-circuits.pub/" target="_blank">Anthropic - Transformer Circuits</a>
+  </div>
+</Slide>
+
+<!-- SLIDE 96 -->
+<Slide id="transformer-mlp-residual-layernorm" number={96} title="MLP, residual y LayerNorm: lo que pasa entre atenciones">
+  <p><i data-lucide="layers"></i> La atención mezcla información entre tokens, pero no lo hace todo. Después de atender, cada token pasa por una red feed-forward o <strong>MLP</strong> que transforma su representación de forma independiente. Residual connections y LayerNorm hacen que muchas capas puedan apilarse sin romper el entrenamiento.</p>
+  <p>La intuición buena: atención decide <em>de quién tomo información</em>; MLP decide <em>cómo reproceso mi vector con esa información</em>. Residual conserva una vía directa para no destruir lo anterior. LayerNorm estabiliza escalas para que el siguiente bloque no reciba números salvajes.</p>
+
+  <h3><i data-lucide="move-horizontal"></i> MLP de un bloque Transformer</h3>
+  <div class="flow">
+    <span class="flow-step">Vector 768</span>
+    <span class="flow-arrow">&rarr;</span>
+    <span class="flow-step">Linear<br/>768 -> 3072</span>
+    <span class="flow-arrow">&rarr;</span>
+    <span class="flow-step">GELU<br/>no linealidad</span>
+    <span class="flow-arrow">&rarr;</span>
+    <span class="flow-step">Linear<br/>3072 -> 768</span>
+    <span class="flow-arrow">&rarr;</span>
+    <span class="flow-step">Vector actualizado</span>
+  </div>
+
+  <table class="compact-table resource-table">
+    <thead>
+      <tr><th>Pieza</th><th>Qué hace</th><th>Por qué importa</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>MLP / FFN</strong></td><td>Transforma cada token por separado con pesos aprendidos.</td><td>Aumenta capacidad expresiva; no todo es atención.</td></tr>
+      <tr><td><strong>GELU</strong></td><td>Función no lineal suave entre dos capas lineales.</td><td>Sin no linealidad, varias capas lineales se colapsan en una sola transformación lineal.</td></tr>
+      <tr><td><strong>Residual</strong></td><td>Suma la entrada original a la salida transformada.</td><td>Preserva información y facilita que el gradiente viaje en redes profundas.</td></tr>
+      <tr><td><strong>LayerNorm</strong></td><td>Normaliza las dimensiones de cada token.</td><td>Reduce inestabilidad numérica y ayuda a entrenar muchas capas.</td></tr>
+      <tr><td><strong>Dropout</strong></td><td>Apaga unidades durante entrenamiento.</td><td>Regulariza; en inferencia suele estar desactivado.</td></tr>
+    </tbody>
+  </table>
+
+  <div class="code-block">
+    <span class="comment">// Esquema típico pre-norm, simplificado</span><br/>
+    x = x + attention(layer_norm(x))<br/>
+    x = x + mlp(layer_norm(x))<br/><br/>
+    <span class="comment">// La suma residual permite aprender "añade una corrección"</span><br/>
+    <span class="comment">// en lugar de reconstruir toda la representación desde cero.</span>
+  </div>
+
+  <div class="callout">
+    <p class="callout-title"><i data-lucide="wrench"></i> Skin in the game</p>
+    <p>Cuando un paper o una model card habla de hidden size, intermediate size, activation function o número de capas, está describiendo exactamente estas piezas. Saber leerlas ayuda a estimar memoria, latencia, capacidad y por qué dos modelos con parámetros parecidos pueden comportarse diferente.</p>
+  </div>
+
+  <div class="refs">
+    <p class="refs-title">Para profundizar</p>
+    <a href="https://poloclub.github.io/transformer-explainer/" target="_blank">Transformer Explainer - MLP, residual y LayerNorm</a>
+    <a href="https://arxiv.org/abs/1607.06450" target="_blank">Layer Normalization (Ba et al., 2016)</a>
+    <a href="https://arxiv.org/abs/1606.08415" target="_blank">GELU (Hendrycks & Gimpel, 2016)</a>
+  </div>
+</Slide>
+
+<!-- SLIDE 97 -->
+<Slide id="transformer-logits-sampling" number={97} title="Logits y sampling: de puntuaciones a texto">
+  <p><i data-lucide="dice-5"></i> Al final del bloque, el modelo no escribe una frase completa. Produce un vector de <strong>logits</strong>: una puntuación por cada token del vocabulario. Después se convierten en probabilidades y se elige el siguiente token. Luego el token elegido se añade al contexto y el proceso se repite.</p>
+  <p>Esta parte explica por qué la IA puede responder distinto con el mismo prompt. La arquitectura calcula una distribución; los parámetros de generación deciden cuánta diversidad permitimos al muestrear esa distribución.</p>
+
+  <h3><i data-lucide="route"></i> Del último vector al siguiente token</h3>
+  <div class="flow">
+    <span class="flow-step">Último vector</span>
+    <span class="flow-arrow">&rarr;</span>
+    <span class="flow-step">Linear a vocabulario</span>
+    <span class="flow-arrow">&rarr;</span>
+    <span class="flow-step">Logits</span>
+    <span class="flow-arrow">&rarr;</span>
+    <span class="flow-step">Temperature</span>
+    <span class="flow-arrow">&rarr;</span>
+    <span class="flow-step">Top-k / top-p</span>
+    <span class="flow-arrow">&rarr;</span>
+    <span class="flow-step">Softmax + sample</span>
+  </div>
+
+  <table class="compact-table resource-table">
+    <thead>
+      <tr><th>Concepto</th><th>Fórmula mental</th><th>Qué cambia en la práctica</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>Logit</strong></td><td>Puntuación no normalizada.</td><td>Más alto = más probable, pero todavía no es probabilidad.</td></tr>
+      <tr><td><strong>Softmax</strong></td><td><code>p_i = exp(z_i) / sum(exp(z_j))</code></td><td>Convierte logits en probabilidades que suman 1.</td></tr>
+      <tr><td><strong>Temperature</strong></td><td><code>p_i = softmax(z_i / T)</code></td><td><code>T &lt; 1</code> concentra; <code>T &gt; 1</code> reparte y aumenta diversidad.</td></tr>
+      <tr><td><strong>Top-k</strong></td><td>Conserva los <code>k</code> tokens con más probabilidad.</td><td>Evita candidatos muy improbables; si <code>k</code> es bajo puede empobrecer estilo.</td></tr>
+      <tr><td><strong>Top-p</strong></td><td>Conserva el conjunto mínimo que suma probabilidad <code>p</code>.</td><td>Se adapta a distribuciones fáciles o ambiguas.</td></tr>
+      <tr><td><strong>Greedy</strong></td><td>Elegir siempre el máximo.</td><td>Más estable, pero puede caer en repeticiones o respuestas rígidas.</td></tr>
+    </tbody>
+  </table>
+
+  <div class="callout">
+    <p class="callout-title"><i data-lucide="gauge"></i> Regla útil</p>
+    <p>Para extracción, clasificación, código o datos estructurados: baja temperatura y salida estructurada. Para brainstorming o escritura creativa: más temperatura o top-p. Para evaluación reproducible: fija modelo, prompt, seed si existe, parámetros y versión de runtime.</p>
+  </div>
+
+  <div class="refs">
+    <p class="refs-title">Para profundizar</p>
+    <a href="https://poloclub.github.io/transformer-explainer/" target="_blank">Transformer Explainer - Output probabilities</a>
+    <a href="https://huggingface.co/blog/how-to-generate" target="_blank">Hugging Face - How to generate text</a>
+    <a href="https://platform.openai.com/docs/guides/text" target="_blank">OpenAI - Text generation guide</a>
+  </div>
+</Slide>
+
+<!-- SLIDE 98 -->
+<Slide id="transformer-explainer-ejercicio" number={98} title="Ejercicio: inspeccionar una predicción token a token">
+  <p><i data-lucide="flask-conical"></i> La mejor forma de entender un Transformer no es memorizar la fórmula: es hacer una predicción pequeña y observar qué cambia. Este ejercicio está diseñado para convertir una demo visual en aprendizaje técnico.</p>
+  <p>Objetivo: que puedas explicar, con tus palabras, cómo una entrada concreta pasa por tokenización, atención, MLP y sampling hasta producir el siguiente token. Si puedes contarlo con un ejemplo, has entendido mucho más que repitiendo “attention is all you need”.</p>
+
+  <h3><i data-lucide="clipboard-list"></i> Protocolo de laboratorio</h3>
+  <table class="compact-table resource-table">
+    <thead>
+      <tr><th>Paso</th><th>Acción</th><th>Qué debes anotar</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>1</strong></td><td>Abre Transformer Explainer y usa un prompt corto.</td><td>Texto exacto, idioma, número de tokens y token que predice.</td></tr>
+      <tr><td><strong>2</strong></td><td>Mira la tokenización.</td><td>Qué palabras se parten, IDs y si el español/token raro consume más tokens.</td></tr>
+      <tr><td><strong>3</strong></td><td>Abre un bloque Transformer.</td><td>Número de capa, cabeza de atención y pares token-token con peso alto.</td></tr>
+      <tr><td><strong>4</strong></td><td>Inspecciona máscara y softmax.</td><td>Qué posiciones futuras están bloqueadas y cómo cambian los pesos.</td></tr>
+      <tr><td><strong>5</strong></td><td>Cambia temperature/top-k/top-p.</td><td>Si cambia el token elegido, si cambian probabilidades y si aumenta variabilidad.</td></tr>
+      <tr><td><strong>6</strong></td><td>Repite con otro idioma o frase ambigua.</td><td>Qué parte del pipeline explica mejor la diferencia.</td></tr>
+    </tbody>
+  </table>
+
+  <h3><i data-lucide="file-check-2"></i> Entregable mínimo</h3>
+  <div class="code-block">
+    Prompt: ...<br/>
+    Tokens observados: ...<br/>
+    Siguiente token más probable: ...<br/>
+    Capa/cabeza inspeccionada: ...<br/>
+    Dos pesos de atención relevantes: ...<br/>
+    Cambio al modificar temperature/top-k/top-p: ...<br/>
+    Conclusión técnica en 3 líneas: ...
+  </div>
+
+  <div class="callout">
+    <p class="callout-title"><i data-lucide="check-circle"></i> Qué cuenta como buena conclusión</p>
+    <p>No basta con “la atención mira palabras importantes”. Una buena conclusión dice qué tokens se partieron, qué posición no podía mirar al futuro, qué candidatos aparecieron en probabilidades, qué parámetro cambió la elección y qué limitación tiene interpretar una cabeza aislada.</p>
+  </div>
+
+  <div class="refs">
+    <p class="refs-title">Para profundizar</p>
+    <a href="https://poloclub.github.io/transformer-explainer/" target="_blank">Transformer Explainer - laboratorio</a>
+    <a href="https://arxiv.org/abs/2408.04619" target="_blank">Transformer Explainer - paper</a>
+  </div>
+</Slide>
+
+<!-- SLIDE 99 -->
+<Slide id="transformer-que-saber-microscopio" number={99} title="Qué debes saber: leer un Transformer por dentro">
+  <p><i data-lucide="graduation-cap"></i> Esta mini-sección no pretende convertirte en investigador de interpretabilidad. Pretende darte criterio de ingeniería: saber qué significa cada pieza, qué puedes observar, qué no debes sobreinterpretar y cómo conectar arquitectura con producto.</p>
+
+  <table class="compact-table resource-table">
+    <thead>
+      <tr><th>Debes poder explicar</th><th>Conexión práctica</th><th>Riesgo si no lo entiendes</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>Token ≠ palabra</strong></td><td>Coste, contexto, idiomas, nombres raros y código.</td><td>Subestimar coste o romper prompts por límite de tokens.</td></tr>
+      <tr><td><strong>Embedding = vector aprendido</strong></td><td>Base de similitud, RAG y representación interna.</td><td>Hablar de “significado” sin entender que es geometría entrenada.</td></tr>
+      <tr><td><strong>QKV = compatibilidad + contenido</strong></td><td>Atención como mecanismo de enrutamiento interno.</td><td>Creer que una cabeza explica todo el razonamiento.</td></tr>
+      <tr><td><strong>Mask causal</strong></td><td>Generación autoregresiva y entrenamiento honesto.</td><td>No entender por qué se repite token a token ni por qué importa KV cache.</td></tr>
+      <tr><td><strong>MLP/residual/LayerNorm</strong></td><td>Capacidad, estabilidad y lectura de arquitecturas.</td><td>Reducir Transformer a “solo atención”.</td></tr>
+      <tr><td><strong>Logits y sampling</strong></td><td>Temperature, top-k/top-p, reproducibilidad y evals.</td><td>Confundir probabilidad alta con verdad o determinismo.</td></tr>
+    </tbody>
+  </table>
+
+  <h3><i data-lucide="link"></i> Conexiones con el resto del curso</h3>
+  <div class="icon-grid">
+    <div class="icon-card">
+      <i data-lucide="coins"></i>
+      <div class="icon-card-content">
+        <strong>Coste</strong>
+        <p>Tokens de entrada y salida son trabajo real: más contexto implica más memoria, latencia y dinero.</p>
+      </div>
+    </div>
+    <div class="icon-card">
+      <i data-lucide="database"></i>
+      <div class="icon-card-content">
+        <strong>RAG</strong>
+        <p>Embeddings y contexto no son “documentos mágicos”: son representaciones y fragmentos que entran al prompt.</p>
+      </div>
+    </div>
+    <div class="icon-card">
+      <i data-lucide="bot"></i>
+      <div class="icon-card-content">
+        <strong>Agentes</strong>
+        <p>Un agente no elimina el sampling: añade herramientas, memoria, permisos y feedback alrededor del modelo.</p>
+      </div>
+    </div>
+    <div class="icon-card">
+      <i data-lucide="clipboard-check"></i>
+      <div class="icon-card-content">
+        <strong>Evals</strong>
+        <p>Como el output es probabilístico, evaluar una demo una vez no basta. Necesitas casos, métricas y regresiones.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="refs">
+    <p class="refs-title">Para profundizar</p>
+    <a href="https://poloclub.github.io/transformer-explainer/" target="_blank">Transformer Explainer</a>
+    <a href="https://arxiv.org/abs/2408.04619" target="_blank">Transformer Explainer paper</a>
+    <a href="https://jalammar.github.io/illustrated-transformer/" target="_blank">The Illustrated Transformer</a>
+    <a href="https://transformer-circuits.pub/" target="_blank">Transformer Circuits</a>
+  </div>
+</Slide>
+
+<!-- SLIDE 100 -->
+<Slide id="transfer-learning" number={100} title="Transfer learning: el paradigma que lo cambió todo">
   <p><i data-lucide="share-2"></i> Antes de transfer learning, cada tarea requería entrenar un modelo desde cero. Hoy, se <strong>pre-entrena una vez</strong> con datos masivos y se <strong>adapta</strong> a cualquier tarea con poco esfuerzo.</p>
   <h3><i data-lucide="route"></i> Flujo de transfer learning</h3>
   <div class="flow">
@@ -124,8 +499,8 @@ import SlidesRAGSemantico from './SlidesRAGSemantico.astro';
   </div>
 </Slide>
 
-<!-- SLIDE 91 -->
-<Slide id="moe-ninos" number={91} title="¿Cómo funciona MoE?">
+<!-- SLIDE 101 -->
+<Slide id="moe-ninos" number={101} title="¿Cómo funciona MoE?">
   <div class="analogy">
     <p class="analogy-label"><i data-lucide="route"></i> Analogía</p>
     <p>Imagina un <strong>hospital con médicos especialistas</strong>. Cuando llegas con dolor de muelas, no te atienden todos los médicos: te mandan al dentista y quizá a radiología. El recepcionista es el <strong>router</strong>: decide qué especialistas trabajan para cada caso.</p>
@@ -196,8 +571,8 @@ import SlidesRAGSemantico from './SlidesRAGSemantico.astro';
   </div>
 </Slide>
 
-<!-- SLIDE 92 -->
-<Slide id="parametros" number={92} title="Parámetros de configuración de un modelo">
+<!-- SLIDE 102 -->
+<Slide id="parametros" number={102} title="Parámetros de configuración de un modelo">
   <h3><i data-lucide="sliders-horizontal"></i> Parámetros principales</h3>
   <table>
     <thead>
@@ -271,8 +646,8 @@ import SlidesRAGSemantico from './SlidesRAGSemantico.astro';
   </div>
 </Slide>
 
-<!-- SLIDE 93 -->
-<Slide id="razonamiento" number={93} title="Modelos de razonamiento (thinking models)">
+<!-- SLIDE 103 -->
+<Slide id="razonamiento" number={103} title="Modelos de razonamiento (thinking models)">
   <p><i data-lucide="brain"></i> Los modelos de razonamiento reservan presupuesto para deliberar antes de responder. No son “más inteligentes siempre”: son mejores cuando la tarea necesita plan, búsqueda, verificación interna o coordinación de pasos.</p>
 
   <div class="big-idea">
@@ -353,8 +728,8 @@ import SlidesRAGSemantico from './SlidesRAGSemantico.astro';
   </div>
 </Slide>
 
-<!-- SLIDE 94 -->
-<Slide id="multimodales-nativos" number={94} title="Modelos multimodales nativos">
+<!-- SLIDE 104 -->
+<Slide id="multimodales-nativos" number={104} title="Modelos multimodales nativos">
   <p><i data-lucide="layers"></i> En 2026, “multimodal” no significa automáticamente “todo a todo”. Un modelo puede aceptar imágenes pero no generar imágenes, entender audio pero responder solo texto, o usar un endpoint distinto para voz en tiempo real.</p>
 
   <div class="big-idea">
@@ -457,8 +832,8 @@ import SlidesRAGSemantico from './SlidesRAGSemantico.astro';
   </div>
 </Slide>
 
-<!-- SLIDE 95 -->
-<Slide id="open-vs-closed" number={95} title="Open weights vs propietario: ¿cuál elegir?">
+<!-- SLIDE 105 -->
+<Slide id="open-vs-closed" number={105} title="Open weights vs propietario: ¿cuál elegir?">
   <p><i data-lucide="scale"></i> Esta decisión no es ideológica: es una decisión de producto, riesgo y operación. Un modelo propietario suele comprarse como <strong>servicio</strong>; un modelo open weights se adopta como <strong>capacidad que tú operas</strong>.</p>
 
   <div class="big-idea">
@@ -550,8 +925,8 @@ TCO API       ≈ tokens entrada + tokens salida + tools + reintentos + latencia
   </div>
 </Slide>
 
-<!-- SLIDE 96 -->
-<Slide id="distilacion" number={96} title="Destilación de modelos">
+<!-- SLIDE 106 -->
+<Slide id="distilacion" number={106} title="Destilación de modelos">
   <div class="analogy">
     <p class="analogy-label"><i data-lucide="graduation-cap"></i> Analogía</p>
     <p>Un profesor experto no solo dice la respuesta correcta: también muestra qué alternativas eran casi plausibles y cuáles eran absurdas. En destilación, el modelo pequeño aprende esa “forma de decidir” del modelo grande.</p>
@@ -618,8 +993,8 @@ TCO API       ≈ tokens entrada + tokens salida + tools + reintentos + latencia
   </div>
 </Slide>
 
-<!-- SLIDE 97 -->
-<Slide id="inferencia-optimizada" number={97} title="Inferencia optimizada">
+<!-- SLIDE 107 -->
+<Slide id="inferencia-optimizada" number={107} title="Inferencia optimizada">
   <p><i data-lucide="gauge"></i> Servir un LLM en producción no es “cargar pesos y llamar a <code>generate()</code>”. Es gestionar memoria, colas, latencia, concurrencia y coste por token sin romper calidad.</p>
 
   <div class="big-idea">
@@ -713,8 +1088,8 @@ TCO API       ≈ tokens entrada + tokens salida + tools + reintentos + latencia
   </div>
 </Slide>
 
-<!-- SLIDE 98 -->
-<Slide id="edge-ai" number={98} title="Edge AI: modelos en el dispositivo">
+<!-- SLIDE 108 -->
+<Slide id="edge-ai" number={108} title="Edge AI: modelos en el dispositivo">
   <p><i data-lucide="smartphone"></i> Edge AI significa ejecutar inferencia cerca del usuario: móvil, portátil, navegador, coche, fábrica o servidor local. No es “menos serio” que cloud; es otra arquitectura con restricciones distintas.</p>
 
   <div class="big-idea">
@@ -790,38 +1165,39 @@ TCO API       ≈ tokens entrada + tokens salida + tools + reintentos + latencia
   </div>
 </Slide>
 
-<!-- SLIDE 99 -->
-<Slide id="recap-arquitecturas" number={99} title="Lo que deberías saber: arquitecturas y modelos">
+<!-- SLIDE 109 -->
+<Slide id="recap-arquitecturas" number={109} title="Lo que deberías saber: arquitecturas y modelos">
   <table>
     <thead>
       <tr><th>Concepto</th><th>Slide</th></tr>
     </thead>
     <tbody>
-      <tr><td>LLM = modelo de lenguaje a gran escala; estado del arte mayo 2026 y dimensiones públicas</td><td>84</td></tr>
-      <tr><td>Arquitecturas modernas: Transformer, MoE, SSM/Mamba, híbridos y multimodalidad</td><td>85</td></tr>
-      <tr><td>Transformer: atención paralela sobre toda la secuencia</td><td>86</td></tr>
-      <tr><td>MoE: activar solo una fracción de los parámetros por token</td><td>87 y 91</td></tr>
-      <tr><td>Q, K, V: matemáticas de la atención, multi-head y positional encoding</td><td>88</td></tr>
-      <tr><td>Tokenización: BPE, impacto en coste, idioma y límites de contexto</td><td>89</td></tr>
-      <tr><td>Transfer learning: pre-entrenar una vez, adaptar a tareas concretas</td><td>90</td></tr>
-      <tr><td>Temperature, top_p, max_tokens y otros parámetros de generación</td><td>92</td></tr>
-      <tr><td>Modelos de razonamiento: thinking tokens, coste, latencia y verificación</td><td>93</td></tr>
-      <tr><td>Multimodalidad: input/output, batch vs realtime y endpoints especializados</td><td>94</td></tr>
-      <tr><td>Open weights vs propietario: licencia, TCO, privacidad y operación</td><td>95</td></tr>
-      <tr><td>Destilación: teacher/student, soft targets, casos adecuados y riesgos</td><td>96</td></tr>
-      <tr><td>Inferencia optimizada: KV cache, vLLM, batching y speculative decoding</td><td>97</td></tr>
-      <tr><td>Edge AI: memoria, batería, privacidad, navegador, móvil y edge servers</td><td>98</td></tr>
+      <tr><td>LLM = modelo de lenguaje a gran escala; estado del arte mayo 2026 y dimensiones públicas</td><td>86</td></tr>
+      <tr><td>Arquitecturas modernas: Transformer, MoE, SSM/Mamba, híbridos y multimodalidad</td><td>87</td></tr>
+      <tr><td>Transformer: atención paralela sobre toda la secuencia</td><td>88</td></tr>
+      <tr><td>MoE: activar solo una fracción de los parámetros por token</td><td>89 y 101</td></tr>
+      <tr><td>Q, K, V: matemáticas de la atención, multi-head y positional encoding</td><td>90</td></tr>
+      <tr><td>Tokenización: BPE, impacto en coste, idioma y límites de contexto</td><td>91</td></tr>
+      <tr><td>Transformer por dentro: embeddings, QKV, máscara causal, MLP, logits y sampling</td><td>92-99</td></tr>
+      <tr><td>Transfer learning: pre-entrenar una vez, adaptar a tareas concretas</td><td>100</td></tr>
+      <tr><td>Temperature, top_p, max_tokens y otros parámetros de generación</td><td>102</td></tr>
+      <tr><td>Modelos de razonamiento: thinking tokens, coste, latencia y verificación</td><td>103</td></tr>
+      <tr><td>Multimodalidad: input/output, batch vs realtime y endpoints especializados</td><td>104</td></tr>
+      <tr><td>Open weights vs propietario: licencia, TCO, privacidad y operación</td><td>105</td></tr>
+      <tr><td>Destilación: teacher/student, soft targets, casos adecuados y riesgos</td><td>106</td></tr>
+      <tr><td>Inferencia optimizada: KV cache, vLLM, batching y speculative decoding</td><td>107</td></tr>
+      <tr><td>Edge AI: memoria, batería, privacidad, navegador, móvil y edge servers</td><td>108</td></tr>
     </tbody>
   </table>
 </Slide>
 
-<!-- SLIDE 100: SECCION -->
-<Slide id="sec-uso-practico" number={100} section
+<!-- SLIDE 110: SECCION -->
+<Slide id="sec-uso-practico" number={110} section
   title="Uso práctico"
   subtitle="Prompt engineering, alucinaciones, modelos frontier, Hugging Face, Colab, experimentos reproducibles, RAG, bases de datos vectoriales y arquitectura de apps LLM." />
 
-<!-- SLIDE 101 -->
-<Slide id="prompt-engineering" number={101} title="Prompt engineering: cómo hablarle bien al modelo">
+<!-- SLIDE 111 -->
+<Slide id="prompt-engineering" number={111} title="Prompt engineering: cómo hablarle bien al modelo">
   <p><i data-lucide="message-square"></i> No es "preguntarle cosas": es <strong>diseñar la entrada</strong> para obtener la salida que necesitas. La calidad del prompt determina la calidad de la respuesta.</p>
   <h3><i data-lucide="wand-sparkles"></i> Técnicas principales</h3>
   <table>
@@ -868,8 +1244,8 @@ TCO API       ≈ tokens entrada + tokens salida + tools + reintentos + latencia
   </div>
 </Slide>
 
-<!-- SLIDE 102 -->
-<Slide id="context-engineering" number={102} title="Context engineering: más allá del prompt">
+<!-- SLIDE 112 -->
+<Slide id="context-engineering" number={112} title="Context engineering: más allá del prompt">
   <p><i data-lucide="layers"></i> En 2026 el término clave ya no es <strong>prompt engineering</strong> sino <strong>context engineering</strong>: la disciplina de gestionar <strong>toda la información</strong> que recibe el modelo, no solo el prompt del usuario.</p>
   <h3><i data-lucide="list-tree"></i> ¿Qué compone el contexto?</h3>
   <table>
@@ -902,8 +1278,8 @@ TCO API       ≈ tokens entrada + tokens salida + tools + reintentos + latencia
   </div>
 </Slide>
 
-<!-- SLIDE 103 -->
-<Slide id="formatos-datos-llm" number={103} title="Formatos de datos para LLMs: JSON, YAML, Markdown y más">
+<!-- SLIDE 113 -->
+<Slide id="formatos-datos-llm" number={113} title="Formatos de datos para LLMs: JSON, YAML, Markdown y más">
   <p><i data-lucide="file-json"></i> Los LLMs no leen datos como un parser: los interpretan como <strong>secuencia de tokens</strong>. El formato que elijas afecta directamente a la calidad de la respuesta, el coste y la velocidad.</p>
   <h3><i data-lucide="scale"></i> Comparativa de formatos</h3>
   <table>
@@ -958,7 +1334,7 @@ TCO API       ≈ tokens entrada + tokens salida + tools + reintentos + latencia
   </div>
   <h3><i data-lucide="target"></i> Regla práctica: ¿cuándo usar cada uno?</h3>
   <ul>
-    <li><i data-lucide="code"></i> <strong>¿Tu código parsea la salida?</strong> → JSON con strict mode (slide 40)</li>
+    <li><i data-lucide="code"></i> <strong>¿Tu código parsea la salida?</strong> → JSON con strict mode (slide 115)</li>
     <li><i data-lucide="file-text"></i> <strong>¿El LLM lee la entrada como contexto?</strong> → Markdown (más natural, menos tokens)</li>
     <li><i data-lucide="settings"></i> <strong>¿Configuras herramientas de IA?</strong> → YAML (skills, agentes, frontmatter)</li>
     <li><i data-lucide="layout"></i> <strong>¿Separas bloques en un prompt largo?</strong> → XML tags (<code>&lt;context&gt;</code>, <code>&lt;instructions&gt;</code>)</li>
@@ -987,8 +1363,8 @@ TCO API       ≈ tokens entrada + tokens salida + tools + reintentos + latencia
   </div>
 </Slide>
 
-<!-- SLIDE 104 -->
-<Slide id="alucinaciones" number={104} title="Alucinaciones: cuando la IA inventa con total confianza">
+<!-- SLIDE 114 -->
+<Slide id="alucinaciones" number={114} title="Alucinaciones: cuando la IA inventa con total confianza">
   <p><i data-lucide="alert-triangle"></i> Una alucinación ocurre cuando el modelo genera información <strong>falsa, inventada o sin base suficiente</strong>, pero la presenta con apariencia de dato real. No es un simple bug de implementación: es un riesgo propio de generar lenguaje por probabilidad sin verificación externa.</p>
   <h3><i data-lucide="code"></i> Ejemplo real: código alucinado</h3>
   <div class="two-cols">
@@ -1059,8 +1435,8 @@ TCO API       ≈ tokens entrada + tokens salida + tools + reintentos + latencia
   </div>
 </Slide>
 
-<!-- SLIDE 105 -->
-<Slide id="structured-output" number={105} title="Structured output: que el modelo devuelva datos parseables">
+<!-- SLIDE 115 -->
+<Slide id="structured-output" number={115} title="Structured output: que el modelo devuelva datos parseables">
   <p><i data-lucide="code"></i> En producción no quieres texto libre: quieres <strong>JSON válido</strong>, con campos tipados, que tu código pueda parsear sin romper. Los modelos modernos ofrecen modos para aumentar mucho la fiabilidad del formato.</p>
   <h3><i data-lucide="layers"></i> Tres niveles de control</h3>
   <table>
@@ -1128,8 +1504,8 @@ TCO API       ≈ tokens entrada + tokens salida + tools + reintentos + latencia
   </div>
 </Slide>
 
-<!-- SLIDE 106 -->
-<Slide id="vision-multimodal" number={106} title="Visión y multimodalidad: más allá del texto">
+<!-- SLIDE 116 -->
+<Slide id="vision-multimodal" number={116} title="Visión y multimodalidad: más allá del texto">
   <p><i data-lucide="image"></i> Los modelos actuales no solo leen texto: pueden <strong>ver imágenes, leer PDFs y procesar audio</strong>. Esto abre casos de uso que antes requerían herramientas especializadas.</p>
   <h3><i data-lucide="eye"></i> ¿Qué puedes enviar al modelo?</h3>
   <div class="icon-grid">
@@ -1213,8 +1589,8 @@ TCO API       ≈ tokens entrada + tokens salida + tools + reintentos + latencia
   </div>
 </Slide>
 
-<!-- SLIDE 107 -->
-<Slide id="voice-realtime" number={107} title="Voz y APIs en tiempo real">
+<!-- SLIDE 117 -->
+<Slide id="voice-realtime" number={117} title="Voz y APIs en tiempo real">
   <p><i data-lucide="mic"></i> En 2026, los agentes ya no solo leen y escriben texto: <strong>hablan</strong>. Las APIs de voz en tiempo real permiten construir agentes conversacionales con baja latencia.</p>
   <h3><i data-lucide="route"></i> Pipeline clásico vs nativo</h3>
   <div class="two-cols">
@@ -1275,8 +1651,8 @@ TCO API       ≈ tokens entrada + tokens salida + tools + reintentos + latencia
   </div>
 </Slide>
 
-<!-- SLIDE 108 -->
-<Slide id="gen-imagenes-video" number={108} title="Generación de imágenes y vídeo con IA">
+<!-- SLIDE 118 -->
+<Slide id="gen-imagenes-video" number={118} title="Generación de imágenes y vídeo con IA">
   <p><i data-lucide="image"></i> Los modelos generativos no solo producen texto: generan <strong>imágenes, vídeo, audio y 3D</strong> a partir de descripciones en lenguaje natural.</p>
   <h3><i data-lucide="image"></i> Modelos de imagen (snapshot mayo 2026)</h3>
   <table>
@@ -1332,8 +1708,8 @@ TCO API       ≈ tokens entrada + tokens salida + tools + reintentos + latencia
   </div>
 </Slide>
 
-<!-- SLIDE 109 -->
-<Slide id="modelos-difusion" number={109} title="Cómo funcionan los modelos de difusión">
+<!-- SLIDE 119 -->
+<Slide id="modelos-difusion" number={119} title="Cómo funcionan los modelos de difusión">
   <p><i data-lucide="wand-sparkles"></i> Los modelos de difusión generan imágenes <strong>eliminando ruido progresivamente</strong>. Empiezan con ruido puro y, paso a paso, lo convierten en una imagen coherente guiada por tu prompt.</p>
   <h3><i data-lucide="route"></i> Proceso de generación</h3>
   <div class="flow">
@@ -1413,8 +1789,8 @@ TCO API       ≈ tokens entrada + tokens salida + tools + reintentos + latencia
   </div>
 </Slide>
 
-<!-- SLIDE 110 -->
-<Slide id="entrenamiento-imagen" number={110} title="Tipos de entrenamiento para modelos de imagen">
+<!-- SLIDE 120 -->
+<Slide id="entrenamiento-imagen" number={120} title="Tipos de entrenamiento para modelos de imagen">
   <p><i data-lucide="graduation-cap"></i> No necesitas entrenar un modelo desde cero. Existen técnicas para <strong>adaptar modelos existentes</strong> a tu estilo, personaje o dominio con pocos datos y hardware modesto.</p>
   <table>
     <thead>
@@ -1486,8 +1862,8 @@ TCO API       ≈ tokens entrada + tokens salida + tools + reintentos + latencia
   </div>
 </Slide>
 
-<!-- SLIDE 111 -->
-<Slide id="herramientas-imagen-oss" number={111} title="Herramientas OSS y plataformas para imagen">
+<!-- SLIDE 121 -->
+<Slide id="herramientas-imagen-oss" number={121} title="Herramientas OSS y plataformas para imagen">
   <p><i data-lucide="wrench"></i> El ecosistema open source de generación de imágenes es enorme. Estas son las herramientas que conviene conocer.</p>
   <h3><i data-lucide="monitor"></i> Interfaces locales</h3>
   <table>
@@ -1553,8 +1929,8 @@ TCO API       ≈ tokens entrada + tokens salida + tools + reintentos + latencia
   </div>
 </Slide>
 
-<!-- SLIDE 112 -->
-<Slide id="control-imagen" number={112} title="Técnicas de control: ControlNet, IP-Adapter y más">
+<!-- SLIDE 122 -->
+<Slide id="control-imagen" number={122} title="Técnicas de control: ControlNet, IP-Adapter y más">
   <p><i data-lucide="sliders-horizontal"></i> Generar imágenes "a ver qué sale" es divertido. En producción, necesitas <strong>control preciso</strong> sobre la composición, la pose, el estilo y los detalles.</p>
   <h3><i data-lucide="layers"></i> Técnicas principales</h3>
   <div class="icon-grid">
@@ -1624,8 +2000,8 @@ TCO API       ≈ tokens entrada + tokens salida + tools + reintentos + latencia
   </div>
 </Slide>
 
-<!-- SLIDE 113 -->
-<Slide id="frontier" number={113} title="¿Cómo se crea un modelo frontier?">
+<!-- SLIDE 123 -->
+<Slide id="frontier" number={123} title="¿Cómo se crea un modelo frontier?">
   <ol class="steps">
     <li><i data-lucide="database"></i> <strong>Datos, tokenizer y filtrado:</strong> deduplicar, limpiar, clasificar licencias, quitar PII/secrets y decidir cómo partir texto en tokens. Esta fase define buena parte de lo que el modelo podrá aprender.</li>
     <li><i data-lucide="cpu"></i> <strong>Pre-training:</strong> billones de tokens, semanas de entrenamiento en miles de GPUs. El modelo aprende patrones prediciendo tokens en texto, código e inputs multimodales. Suele consumir la mayor parte del compute.</li>
@@ -1677,8 +2053,8 @@ TCO API       ≈ tokens entrada + tokens salida + tools + reintentos + latencia
   </div>
 </Slide>
 
-<!-- SLIDE 114 -->
-<Slide id="huggingface-lmstudio" number={114} title="Hugging Face: leer una model card">
+<!-- SLIDE 124 -->
+<Slide id="huggingface-lmstudio" number={124} title="Hugging Face: leer una model card">
   <p><i data-lucide="globe"></i> Hugging Face es el registro de referencia para modelos abiertos. Una <strong>model card</strong> bien leída evita tres errores clásicos: descargar un modelo que no puedes ejecutar, incumplir una licencia o comparar benchmarks que no significan lo mismo.</p>
   <h3><i data-lucide="file-text"></i> Anatomía de una ficha de modelo</h3>
   <table class="compact-table">
@@ -1708,8 +2084,8 @@ TCO API       ≈ tokens entrada + tokens salida + tools + reintentos + latencia
   </table>
 </Slide>
 
-<!-- SLIDE 115 -->
-<Slide id="memoria-vram-local" number={115} title="¿Cabe en RAM/VRAM? ejemplo de cálculo">
+<!-- SLIDE 125 -->
+<Slide id="memoria-vram-local" number={125} title="¿Cabe en RAM/VRAM? ejemplo de cálculo">
   <p><i data-lucide="memory-stick"></i> Para inferencia local no basta con mirar "7B" o "70B": el formato de pesos, el tamaño de contexto y la KV cache pueden cambiar completamente la memoria necesaria.</p>
   <div class="two-cols">
     <div>
@@ -1761,8 +2137,8 @@ TCO API       ≈ tokens entrada + tokens salida + tools + reintentos + latencia
   </div>
 </Slide>
 
-<!-- SLIDE 116 -->
-<Slide id="formatos-modelos-local" number={116} title="Elegir fichero: safetensors, GGUF, GPTQ/AWQ">
+<!-- SLIDE 126 -->
+<Slide id="formatos-modelos-local" number={126} title="Elegir fichero: safetensors, GGUF, GPTQ/AWQ">
   <p><i data-lucide="package"></i> La model card puede tener varios ficheros para el mismo modelo. Elegir mal el formato es una de las causas más comunes de "lo he descargado pero no arranca".</p>
   <h3><i data-lucide="package"></i> Elegir fichero: safetensors vs GGUF vs GPTQ/AWQ</h3>
   <p>GPTQ = GPT Quantization. AWQ = Activation-aware Weight Quantization. Ambos son formatos de quantización post-training pensados para reducir memoria y acelerar inferencia, con distinta compatibilidad por runtime.</p>
@@ -1796,8 +2172,8 @@ TCO API       ≈ tokens entrada + tokens salida + tools + reintentos + latencia
   </div>
 </Slide>
 
-<!-- SLIDE 117 -->
-<Slide id="huggingface-deepseek-v4" number={117} title="Caso real: leer DeepSeek-V4 en Hugging Face">
+<!-- SLIDE 127 -->
+<Slide id="huggingface-deepseek-v4" number={127} title="Caso real: leer DeepSeek-V4 en Hugging Face">
   <p><i data-lucide="microscope"></i> Una ficha real condensa arquitectura, licencia, formatos, contexto, modos de razonamiento y benchmarks. DeepSeek-V4-Pro y DeepSeek-V4-Flash sirven como ejemplo porque muestran casi todos los términos que vas a encontrar en modelos frontier open weights.</p>
   <h3><i data-lucide="scan-text"></i> Qué dice la ficha</h3>
   <table>
@@ -1838,8 +2214,8 @@ TCO API       ≈ tokens entrada + tokens salida + tools + reintentos + latencia
   </div>
 </Slide>
 
-<!-- SLIDE 118 -->
-<Slide id="deepseek-v4-terminos" number={118} title="DeepSeek-V4: etiquetas, licencia y runtime">
+<!-- SLIDE 128 -->
+<Slide id="deepseek-v4-terminos" number={128} title="DeepSeek-V4: etiquetas, licencia y runtime">
   <p><i data-lucide="languages"></i> Una model card está escrita para gente técnica. El objetivo es traducir cada campo a una decisión: <strong>qué puedo hacer, con qué herramienta y qué debo comprobar</strong>.</p>
   <table class="compact-table">
     <thead>
@@ -1860,8 +2236,8 @@ TCO API       ≈ tokens entrada + tokens salida + tools + reintentos + latencia
   </div>
 </Slide>
 
-<!-- SLIDE 119 -->
-<Slide id="deepseek-v4-arquitectura-memoria" number={119} title="DeepSeek-V4: arquitectura, contexto y precisión">
+<!-- SLIDE 129 -->
+<Slide id="deepseek-v4-arquitectura-memoria" number={129} title="DeepSeek-V4: arquitectura, contexto y precisión">
   <p><i data-lucide="cpu"></i> Estos términos explican por qué un modelo puede ser enorme en capacidad, razonable por token y aun así imposible de ejecutar en un portátil.</p>
   <table class="compact-table">
     <thead>
@@ -1889,8 +2265,8 @@ TCO API       ≈ tokens entrada + tokens salida + tools + reintentos + latencia
   </table>
 </Slide>
 
-<!-- SLIDE 120 -->
-<Slide id="huggingface-glosario" number={120} title="Glosario Hugging Face: términos que aparecen en una model card">
+<!-- SLIDE 130 -->
+<Slide id="huggingface-glosario" number={130} title="Glosario Hugging Face: términos que aparecen en una model card">
   <p><i data-lucide="book-open"></i> Antes de descargar un modelo, hay que traducir la ficha a decisiones de ingeniería. Este glosario convierte términos frecuentes en preguntas concretas.</p>
   <table>
     <thead>
@@ -1921,8 +2297,8 @@ TCO API       ≈ tokens entrada + tokens salida + tools + reintentos + latencia
   </div>
 </Slide>
 
-<!-- SLIDE 121 -->
-<Slide id="huggingface-evals" number={121} title="Benchmarks en Hugging Face: cómo leer métricas">
+<!-- SLIDE 131 -->
+<Slide id="huggingface-evals" number={131} title="Benchmarks en Hugging Face: cómo leer métricas">
   <p><i data-lucide="bar-chart-3"></i> Las fichas modernas ya no solo dicen "somos buenos": publican resultados estructurados. Hugging Face muestra evals en la card y puede enlazarlas con leaderboards de datasets benchmark.</p>
   <h3><i data-lucide="ruler"></i> Métricas frecuentes</h3>
   <table>
@@ -1976,8 +2352,8 @@ TCO API       ≈ tokens entrada + tokens salida + tools + reintentos + latencia
   </div>
 </Slide>
 
-<!-- SLIDE 122 -->
-<Slide id="actualizarse-estado-arte" number={122} title="Cómo mantenerse actualizado sin comprar humo">
+<!-- SLIDE 132 -->
+<Slide id="actualizarse-estado-arte" number={132} title="Cómo mantenerse actualizado sin comprar humo">
   <p><i data-lucide="compass"></i> El estado del arte cambia cada pocas semanas. La habilidad profesional no es memorizar nombres: es tener un método para decidir qué merece confianza.</p>
   <h3><i data-lucide="list-checks"></i> Orden de confianza</h3>
   <table>
@@ -2017,8 +2393,8 @@ TCO API       ≈ tokens entrada + tokens salida + tools + reintentos + latencia
   </div>
 </Slide>
 
-<!-- SLIDE 123 -->
-<Slide id="matriz-eleccion-modelo" number={123} title="Matriz rápida: qué modelo usar">
+<!-- SLIDE 133 -->
+<Slide id="matriz-eleccion-modelo" number={133} title="Matriz rápida: qué modelo usar">
   <p><i data-lucide="route"></i> No hay un modelo correcto para todo. La decisión combina calidad, latencia, coste, privacidad, tools, contexto y riesgo.</p>
   <table>
     <thead>
@@ -2051,8 +2427,8 @@ TCO API       ≈ tokens entrada + tokens salida + tools + reintentos + latencia
   </table>
 </Slide>
 
-<!-- SLIDE 124 -->
-<Slide id="minilab-huggingface" number={124} title="Mini-lab: decidir si una model card sirve">
+<!-- SLIDE 134 -->
+<Slide id="minilab-huggingface" number={134} title="Mini-lab: decidir si una model card sirve">
   <p><i data-lucide="clipboard-check"></i> Ejercicio para clase: abrir una ficha de Hugging Face y tomar una decisión de ingeniería en 10 minutos.</p>
   <h3><i data-lucide="timer"></i> Protocolo de 10 minutos</h3>
   <table>
@@ -2090,8 +2466,8 @@ TCO API       ≈ tokens entrada + tokens salida + tools + reintentos + latencia
   </div>
 </Slide>
 
-<!-- SLIDE 125 -->
-<Slide id="google-colab-experimentos" number={125} title="Google Colab: probar experimentos sin instalar nada">
+<!-- SLIDE 135 -->
+<Slide id="google-colab-experimentos" number={135} title="Google Colab: probar experimentos sin instalar nada">
   <p><i data-lucide="flask-conical"></i> Colab es ideal para clase y prototipos: notebooks Jupyter en la nube, sin setup local, con acceso a GPU/TPU sujeto a disponibilidad. Perfecto para probar ideas antes de convertirlas en código de producción.</p>
   <h3><i data-lucide="check-circle"></i> Qué probar en Colab</h3>
   <table class="compact-table">
@@ -2112,8 +2488,8 @@ TCO API       ≈ tokens entrada + tokens salida + tools + reintentos + latencia
   </div>
 </Slide>
 
-<!-- SLIDE 126 -->
-<Slide id="google-colab-limites" number={126} title="Google Colab: límites y disciplina de laboratorio">
+<!-- SLIDE 136 -->
+<Slide id="google-colab-limites" number={136} title="Google Colab: límites y disciplina de laboratorio">
   <p><i data-lucide="flask-conical"></i> Colab no es producción: es un laboratorio reproducible. El objetivo no es que "funcione una vez", sino que otra persona pueda ejecutar, medir y decidir. El alumno debe controlar estos límites:</p>
   <table class="compact-table">
     <thead>
@@ -2139,8 +2515,8 @@ TCO API       ≈ tokens entrada + tokens salida + tools + reintentos + latencia
   </div>
 </Slide>
 
-<!-- SLIDE 127 -->
-<Slide id="experimentos-buenos" number={127} title="Qué hace bueno a un experimento con IA">
+<!-- SLIDE 137 -->
+<Slide id="experimentos-buenos" number={137} title="Qué hace bueno a un experimento con IA">
   <p><i data-lucide="beaker"></i> Un buen experimento no es una demo bonita. Es una prueba pequeña, reproducible y falsable que te ayuda a decidir el siguiente paso.</p>
   <h3><i data-lucide="list-checks"></i> Checklist de experimento bueno</h3>
   <table>
@@ -2167,8 +2543,8 @@ TCO API       ≈ tokens entrada + tokens salida + tools + reintentos + latencia
   </div>
 </Slide>
 
-<!-- SLIDE 128 -->
-<Slide id="repos-colab-practicar" number={128} title="Repos Colab para practicar sin partir de cero">
+<!-- SLIDE 138 -->
+<Slide id="repos-colab-practicar" number={138} title="Repos Colab para practicar sin partir de cero">
   <p><i data-lucide="folder-git-2"></i> Para aprender, empieza por notebooks mantenidos por proyectos de referencia. Antes de ejecutarlos, mira fecha, licencia, dependencias, GPU requerida y si el notebook pide tokens.</p>
   <table class="compact-table">
     <thead>
@@ -2194,8 +2570,8 @@ TCO API       ≈ tokens entrada + tokens salida + tools + reintentos + latencia
   </div>
 </Slide>
 
-<!-- SLIDE 129 -->
-<Slide id="eval-interna-paso-a-paso" number={129} title="Evals internas: de notebook a criterio de compra">
+<!-- SLIDE 139 -->
+<Slide id="eval-interna-paso-a-paso" number={139} title="Evals internas: de notebook a criterio de compra">
   <p><i data-lucide="clipboard-list"></i> Un benchmark público te orienta; una eval interna decide. La eval debe parecerse al trabajo real que quieres automatizar.</p>
   <h3><i data-lucide="route"></i> Flujo mínimo</h3>
   <div class="flow">
@@ -2245,8 +2621,8 @@ TCO API       ≈ tokens entrada + tokens salida + tools + reintentos + latencia
   </div>
 </Slide>
 
-<!-- SLIDE 130 -->
-<Slide id="errores-comunes-experimentos" number={130} title="Errores comunes al probar modelos">
+<!-- SLIDE 140 -->
+<Slide id="errores-comunes-experimentos" number={140} title="Errores comunes al probar modelos">
   <p><i data-lucide="triangle-alert"></i> La mayoría de malas decisiones no vienen de usar un modelo flojo, sino de probarlo mal.</p>
   <table>
     <thead>
@@ -2279,8 +2655,8 @@ TCO API       ≈ tokens entrada + tokens salida + tools + reintentos + latencia
   </table>
 </Slide>
 
-<!-- SLIDE 131 -->
-<Slide id="rag" number={131} title="RAG (Retrieval Augmented Generation)">
+<!-- SLIDE 141 -->
+<Slide id="rag" number={141} title="RAG (Retrieval Augmented Generation)">
   <p><i data-lucide="search"></i> <strong>Problema:</strong> el modelo no accede por sí solo a tus datos internos (documentación, BD, wikis). Su conocimiento viene del entrenamiento y del contexto que le das en la petición.</p>
   <p><i data-lucide="lightbulb"></i> <strong>Solución:</strong> en vez de reentrenar el modelo, le pasas contexto relevante en cada consulta.</p>
   <div class="flow">
@@ -2370,8 +2746,8 @@ TCO API       ≈ tokens entrada + tokens salida + tools + reintentos + latencia
   </div>
 </Slide>
 
-<!-- SLIDE 132 -->
-<Slide id="agentic-rag" number={132} title="Agentic RAG: la evolución del retrieval">
+<!-- SLIDE 142 -->
+<Slide id="agentic-rag" number={142} title="Agentic RAG: la evolución del retrieval">
   <p><i data-lucide="search"></i> El RAG básico (slide anterior) busca, inyecta y genera. <strong>Agentic RAG</strong> añade razonamiento: el agente decide <strong>qué buscar, cómo buscarlo, y si el resultado es suficiente</strong>.</p>
   <h3><i data-lucide="git-branch"></i> RAG básico vs agentic RAG</h3>
   <div class="two-cols">
@@ -2442,8 +2818,8 @@ TCO API       ≈ tokens entrada + tokens salida + tools + reintentos + latencia
   </div>
 </Slide>
 
-<!-- SLIDE 133 -->
-<Slide id="graphrag" number={133} title="GraphRAG y estrategias avanzadas de retrieval">
+<!-- SLIDE 143 -->
+<Slide id="graphrag" number={143} title="GraphRAG y estrategias avanzadas de retrieval">
   <p><i data-lucide="network"></i> Más allá de buscar fragmentos similares: estrategias que combinan <strong>grafos de conocimiento, búsqueda híbrida y contexto enriquecido</strong>.</p>
   <h3><i data-lucide="layers"></i> Estrategias de retrieval (de simple a avanzado)</h3>
   <table>
@@ -2494,8 +2870,8 @@ TCO API       ≈ tokens entrada + tokens salida + tools + reintentos + latencia
 
 <SlidesRAGSemantico />
 
-<!-- SLIDE 144 -->
-<Slide id="cuando-que-tecnica" number={144} title="¿Cuándo usar prompt, RAG o fine-tuning?">
+<!-- SLIDE 154 -->
+<Slide id="cuando-que-tecnica" number={154} title="¿Cuándo usar prompt, RAG o fine-tuning?">
   <p><i data-lucide="compass"></i> Las tres técnicas resuelven problemas diferentes. Elegir mal cuesta tiempo y dinero.</p>
   <table>
     <thead>
@@ -2551,8 +2927,8 @@ TCO API       ≈ tokens entrada + tokens salida + tools + reintentos + latencia
   </div>
 </Slide>
 
-<!-- SLIDE 145 -->
-<Slide id="fine-tuning-cuando" number={145} title="Fine-tuning: cuándo sí y cuándo no">
+<!-- SLIDE 155 -->
+<Slide id="fine-tuning-cuando" number={155} title="Fine-tuning: cuándo sí y cuándo no">
   <p><i data-lucide="settings"></i> <strong>Fine-tuning</strong> significa reentrenar parcialmente un modelo existente con ejemplos propios. No empiezas desde cero: partes de un modelo que ya sabe lenguaje, código y patrones generales, y lo ajustas para una tarea, formato, estilo o dominio concreto.</p>
   <p>Es mucho más barato que entrenar un modelo base, pero sigue siendo un proyecto de datos: necesitas ejemplos buenos, validación, métricas y una razón clara para tocar el comportamiento del modelo. Fine-tuning puede cambiar cómo responde; no le da acceso automático a información nueva en tiempo real.</p>
   <h3><i data-lucide="git-compare"></i> Qué cambia y qué no cambia</h3>
@@ -2616,8 +2992,8 @@ TCO API       ≈ tokens entrada + tokens salida + tools + reintentos + latencia
   </div>
 </Slide>
 
-<!-- SLIDE 146 -->
-<Slide id="fine-tuning-practico" number={146} title="Fine-tuning en la práctica">
+<!-- SLIDE 156 -->
+<Slide id="fine-tuning-practico" number={156} title="Fine-tuning en la práctica">
   <p><i data-lucide="settings"></i> En la práctica, fine-tuning no empieza con “vamos a entrenar”. Empieza con una tarea repetible, ejemplos representativos y una eval que diga si el cambio mejora de verdad. Si no puedes medirlo, todavía estás en fase de prompt/RAG/prototipo.</p>
   <h3><i data-lucide="workflow"></i> Flujo mínimo sano</h3>
   <div class="flow">
@@ -2705,8 +3081,8 @@ TCO API       ≈ tokens entrada + tokens salida + tools + reintentos + latencia
   </div>
 </Slide>
 
-<!-- SLIDE 147 -->
-<Slide id="datos-sinteticos" number={147} title="Datos sintéticos">
+<!-- SLIDE 157 -->
+<Slide id="datos-sinteticos" number={157} title="Datos sintéticos">
   <p><i data-lucide="factory"></i> Usar un LLM grande para <strong>generar datos de entrenamiento</strong> para otros modelos o sistemas. Cada vez más común como alternativa a la recolección manual de datos.</p>
   <h3><i data-lucide="list-tree"></i> Patrones comunes</h3>
   <div class="icon-grid">
@@ -2770,8 +3146,8 @@ TCO API       ≈ tokens entrada + tokens salida + tools + reintentos + latencia
   </div>
 </Slide>
 
-<!-- SLIDE 148 -->
-<Slide id="vectordb" number={148} title="Bases de datos vectoriales: ¿qué son y en qué se diferencian?">
+<!-- SLIDE 158 -->
+<Slide id="vectordb" number={158} title="Bases de datos vectoriales: ¿qué son y en qué se diferencian?">
   <p><i data-lucide="database"></i> Bases de datos optimizadas para almacenar y buscar <strong>vectores (embeddings)</strong> por similitud. En vez de buscar por coincidencia exacta (<code>WHERE nombre = 'X'</code>), buscan por distancia entre vectores: "¿qué vectores se parecen más a este?"</p>
   <h3><i data-lucide="compass"></i> SQL vs NoSQL vs Vectorial</h3>
   <table>
@@ -2824,8 +3200,8 @@ TCO API       ≈ tokens entrada + tokens salida + tools + reintentos + latencia
   </div>
 </Slide>
 
-<!-- SLIDE 149 -->
-<Slide id="text-to-sql" number={149} title="Text-to-SQL: consultas en lenguaje natural">
+<!-- SLIDE 159 -->
+<Slide id="text-to-sql" number={159} title="Text-to-SQL: consultas en lenguaje natural">
   <p><i data-lucide="database"></i> Convertir preguntas en español a <strong>queries SQL ejecutables</strong>. El caso de uso más inmediato de IA para backend engineers.</p>
   <h3><i data-lucide="route"></i> Flujo</h3>
   <div class="flow">
@@ -2877,8 +3253,8 @@ TCO API       ≈ tokens entrada + tokens salida + tools + reintentos + latencia
   </div>
 </Slide>
 
-<!-- SLIDE 150 -->
-<Slide id="prompt-caching" number={150} title="Prompt caching: reutilizar prefijos repetidos">
+<!-- SLIDE 160 -->
+<Slide id="prompt-caching" number={160} title="Prompt caching: reutilizar prefijos repetidos">
   <p><i data-lucide="database"></i> Cuando usas system prompts largos o contexto RAG fijo, puedes pagar repetidamente los mismos tokens. El prompt caching permite reutilizar prefijos estáticos y cobrar menos por tokens cacheados, según proveedor y ventana de caché.</p>
   <div class="flow">
     <span class="flow-step">Primera llamada</span>
@@ -2938,8 +3314,8 @@ TCO API       ≈ tokens entrada + tokens salida + tools + reintentos + latencia
   </div>
 </Slide>
 
-<!-- SLIDE 151 -->
-<Slide id="context-window-practica" number={151} title="Context window en la práctica: no todo es lo que parece">
+<!-- SLIDE 161 -->
+<Slide id="context-window-practica" number={161} title="Context window en la práctica: no todo es lo que parece">
   <p><i data-lucide="layers"></i> Un modelo con 1M tokens de context window no significa que puedas meter 1M tokens y funcione igual de bien. Hay límites prácticos que conviene conocer.</p>
   <h3><i data-lucide="alert-triangle"></i> "Lost in the middle"</h3>
   <p>Los modelos prestan más atención al inicio y al final del contexto, y tienden a "olvidar" información que está en el medio. Si metes un dato importante en la página 50 de 100, el modelo puede ignorarlo. (<a href="https://arxiv.org/abs/2307.03172" target="_blank">Lost in the Middle paper</a>)</p>
@@ -2987,8 +3363,8 @@ TCO API       ≈ tokens entrada + tokens salida + tools + reintentos + latencia
   </div>
 </Slide>
 
-<!-- SLIDE 152 -->
-<Slide id="api-hello-world" number={152} title="API Hello World: tu primera llamada a un LLM">
+<!-- SLIDE 162 -->
+<Slide id="api-hello-world" number={162} title="API Hello World: tu primera llamada a un LLM">
   <p><i data-lucide="terminal"></i> Antes de hablar de agentes, veamos lo más básico: hacer una llamada a la API de un modelo. Es sorprendentemente simple.</p>
   <h3><i data-lucide="terminal"></i> Con curl</h3>
   <div class="code-block">
@@ -3048,8 +3424,8 @@ TCO API       ≈ tokens entrada + tokens salida + tools + reintentos + latencia
   </div>
 </Slide>
 
-<!-- SLIDE 153 -->
-<Slide id="streaming" number={153} title="Streaming de respuestas">
+<!-- SLIDE 163 -->
+<Slide id="streaming" number={163} title="Streaming de respuestas">
   <p><i data-lucide="radio"></i> En vez de esperar a que el modelo genere toda la respuesta, recibes <strong>fragmentos</strong> en tiempo real. Es el patrón habitual en interfaces conversacionales como ChatGPT, Claude o Gemini.</p>
   <h3><i data-lucide="arrow-right"></i> ¿Cómo funciona?</h3>
   <div class="icon-grid">
@@ -3119,8 +3495,8 @@ TCO API       ≈ tokens entrada + tokens salida + tools + reintentos + latencia
   </div>
 </Slide>
 
-<!-- SLIDE 154 -->
-<Slide id="arquitectura-apps-llm" number={154} title="Arquitectura de aplicaciones con LLM">
+<!-- SLIDE 164 -->
+<Slide id="arquitectura-apps-llm" number={164} title="Arquitectura de aplicaciones con LLM">
   <p><i data-lucide="building"></i> Saber llamar a la API es el primer paso. Construir un <strong>producto en producción</strong> requiere patrones de ingeniería que la documentación del modelo no enseña.</p>
   <h3><i data-lucide="layers"></i> Capas de una app LLM en producción</h3>
   <div class="flow">
@@ -3193,31 +3569,31 @@ TCO API       ≈ tokens entrada + tokens salida + tools + reintentos + latencia
   </div>
 </Slide>
 
-<!-- SLIDE 155 -->
-<Slide id="recap-uso-practico" number={155} title="Lo que deberías saber: uso práctico">
+<!-- SLIDE 165 -->
+<Slide id="recap-uso-practico" number={165} title="Lo que deberías saber: uso práctico">
   <table>
     <thead>
       <tr><th>Concepto</th><th>Slide</th></tr>
     </thead>
     <tbody>
-      <tr><td>Prompt engineering: contexto claro + restricciones precisas</td><td>101</td></tr>
-      <tr><td>Context engineering: gestionar capas de contexto, memoria, tools y RAG</td><td>102</td></tr>
-      <tr><td>Formatos de datos: JSON, YAML, Markdown, XML y formato como contrato</td><td>103</td></tr>
-      <tr><td>Alucinaciones: tipos de error, verificación y grounding</td><td>104</td></tr>
-      <tr><td>Structured output: schema, tool use, validación backend y retries</td><td>105</td></tr>
-      <tr><td>Multimodal: imágenes, PDFs, audio, vídeo y métricas de calidad</td><td>106-107</td></tr>
-      <tr><td>Generación visual: imagen/vídeo, difusión, LoRA, ControlNet, ComfyUI</td><td>108-112</td></tr>
-      <tr><td>Modelos frontier: datos, pre-training, SFT, RL, safety y serving</td><td>113</td></tr>
-      <tr><td>Hugging Face: model cards, memoria, formatos, DeepSeek y eval results</td><td>114-121</td></tr>
-      <tr><td>Mantenerse actualizado, elegir modelo y diseñar mini-labs</td><td>122-124</td></tr>
-      <tr><td>Google Colab, repos de práctica, experimentos reproducibles y eval interna</td><td>125-130</td></tr>
-      <tr><td>RAG: chunking, embeddings, rerank, citas, recall@k y no-answer</td><td>131</td></tr>
-      <tr><td>Agentic RAG, GraphRAG, knowledge graphs, RDF/OWL/SPARQL y retrieval híbrido</td><td>132-143</td></tr>
-      <tr><td>Prompt, RAG o fine-tuning: diagnosticar el problema correcto</td><td>144-146</td></tr>
-      <tr><td>Datos sintéticos: generación, filtrado, mezcla, riesgos y auditoría</td><td>147</td></tr>
-      <tr><td>Vector DB y Text-to-SQL: búsqueda semántica, guardrails y consultas seguras</td><td>148-149</td></tr>
-      <tr><td>Prompt caching y context window: coste, invalidación, lost in the middle</td><td>150-151</td></tr>
-      <tr><td>API, streaming y arquitectura de apps LLM con observabilidad y fallback</td><td>152-154</td></tr>
+      <tr><td>Prompt engineering: contexto claro + restricciones precisas</td><td>111</td></tr>
+      <tr><td>Context engineering: gestionar capas de contexto, memoria, tools y RAG</td><td>112</td></tr>
+      <tr><td>Formatos de datos: JSON, YAML, Markdown, XML y formato como contrato</td><td>113</td></tr>
+      <tr><td>Alucinaciones: tipos de error, verificación y grounding</td><td>114</td></tr>
+      <tr><td>Structured output: schema, tool use, validación backend y retries</td><td>115</td></tr>
+      <tr><td>Multimodal: imágenes, PDFs, audio, vídeo y métricas de calidad</td><td>116-117</td></tr>
+      <tr><td>Generación visual: imagen/vídeo, difusión, LoRA, ControlNet, ComfyUI</td><td>118-122</td></tr>
+      <tr><td>Modelos frontier: datos, pre-training, SFT, RL, safety y serving</td><td>123</td></tr>
+      <tr><td>Hugging Face: model cards, memoria, formatos, DeepSeek y eval results</td><td>124-131</td></tr>
+      <tr><td>Mantenerse actualizado, elegir modelo y diseñar mini-labs</td><td>132-134</td></tr>
+      <tr><td>Google Colab, repos de práctica, experimentos reproducibles y eval interna</td><td>135-140</td></tr>
+      <tr><td>RAG: chunking, embeddings, rerank, citas, recall@k y no-answer</td><td>141</td></tr>
+      <tr><td>Agentic RAG, GraphRAG, knowledge graphs, RDF/OWL/SPARQL y retrieval híbrido</td><td>142-153</td></tr>
+      <tr><td>Prompt, RAG o fine-tuning: diagnosticar el problema correcto</td><td>154-156</td></tr>
+      <tr><td>Datos sintéticos: generación, filtrado, mezcla, riesgos y auditoría</td><td>157</td></tr>
+      <tr><td>Vector DB y Text-to-SQL: búsqueda semántica, guardrails y consultas seguras</td><td>158-159</td></tr>
+      <tr><td>Prompt caching y context window: coste, invalidación, lost in the middle</td><td>160-161</td></tr>
+      <tr><td>API, streaming y arquitectura de apps LLM con observabilidad y fallback</td><td>162-164</td></tr>
     </tbody>
   </table>
 </Slide>

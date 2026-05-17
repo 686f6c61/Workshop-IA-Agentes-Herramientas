@@ -131,8 +131,87 @@ const slides = [
     refs: [{ label: 'scikit-learn - Supervised learning', href: 'https://scikit-learn.org/stable/supervised_learning.html' }],
   },
   {
-    id: 'validacion-generalizacion',
+    id: 'complejidad-ml-big-o',
     number: 24,
+    title: 'Complejidad en ML: leer Big-O sin dogma',
+    icon: 'gauge',
+    lead: 'La complejidad temporal sirve para responder una pregunta de ingeniería: ¿qué pasa si duplico muestras, dimensiones, clases o árboles? No predice el tiempo exacto de tu portátil, pero sí te avisa de qué variable puede romper el experimento cuando pasas de demo a producción.',
+    bigIdea: 'Big-O no mide segundos: mide cómo escala el coste cuando crecen los datos o el modelo.',
+    metrics: [
+      { value: 'n', label: 'número de muestras o filas' },
+      { value: 'm', label: 'número de features o dimensiones' },
+      { value: 'c', label: 'número de clases' },
+      { value: 'T / E', label: 'iteraciones, árboles, épocas o pasos de optimización' },
+    ],
+    table: {
+      headers: ['Símbolo', 'Qué significa', 'Por qué cambia el coste', 'Ejemplo práctico'],
+      rows: [
+        ['<strong>n</strong>', 'Muestras de entrenamiento', 'Muchos algoritmos miran cada fila una o muchas veces', 'pasar de 10k a 1M tickets puede hacer inviable un SVM kernel'],
+        ['<strong>m</strong>', 'Dimensiones/features', 'Cada distancia, producto escalar o split suele tocar columnas', 'añadir 20k features sparse cambia memoria y latencia'],
+        ['<strong>c</strong>', 'Clases', 'Multiclase puede entrenar un clasificador por clase o producir c scores', 'clasificar 200 categorías cuesta más que binario'],
+        ['<strong>k</strong>', 'Vecinos o clusters, según algoritmo', 'Más vecinos/clusters implican más comparaciones o centros', 'k-means con 100 clusters calcula más distancias que con 5'],
+        ['<strong>T</strong>', 'Iteraciones, árboles o estimadores', 'Muchos métodos repiten el mismo coste base', '100 árboles suelen costar unas 10x más que 10 árboles'],
+        ['<strong>d_tree</strong>', 'Profundidad de árbol', 'Inferir en árbol es recorrer nodos hasta una hoja', 'árboles profundos bajan training error pero suben latencia y overfitting'],
+        ['<strong>n_sv</strong>', 'Support vectors en SVM', 'Inferencia compara contra vectores de soporte', 'un SVM con muchos support vectors puede ser lento al predecir'],
+      ],
+    },
+    secondaryTables: [
+      {
+        headers: ['Lectura incorrecta', 'Lectura correcta'],
+        rows: [
+          ['“O(n) siempre es rápido”', 'O(n) con n enorme y features caras puede ser lento; mide p95, memoria y throughput.'],
+          ['“Entrenar lento significa inferir lento”', 'No necesariamente: kNN casi no entrena pero puede inferir caro; árboles entrenan más pero predicen rápido.'],
+          ['“La tabla Big-O decide el modelo”', 'Decide candidatos. Después mandan métrica, datos, sparsity, implementación, hardware y coste de error.'],
+          ['“Complejidad ignora producto”', 'En producto importan latencia atómica, batch, memoria, cold start, actualización y explicabilidad.'],
+        ],
+      },
+    ],
+    callout: {
+      title: 'Skin in the game',
+      text: 'Antes de elegir algoritmo, escribe cuatro números: n de entrenamiento, m features, latencia máxima por predicción y frecuencia de reentrenamiento. Con eso ya sabes si necesitas un modelo lineal, un árbol, un índice de vecinos, mini-batches o directamente otro planteamiento.',
+      icon: 'clipboard-check',
+    },
+    refs: [
+      { label: 'scikit-learn - Computational Performance', href: 'https://scikit-learn.org/stable/computing/computational_performance.html' },
+      { label: 'scikit-learn - User guide', href: 'https://scikit-learn.org/stable/user_guide.html' },
+    ],
+  },
+  {
+    id: 'complejidad-algoritmos-ml',
+    number: 25,
+    title: 'Complejidad de algoritmos clásicos: entrenamiento vs inferencia',
+    icon: 'timer',
+    lead: 'La misma familia de algoritmos puede tener costes muy distintos según cuándo pagas: durante entrenamiento, durante inferencia o al actualizar el modelo. Esa separación es clave para producción.',
+    bigIdea: 'Entrenamiento responde “cuánto cuesta aprender”; inferencia responde “cuánto cuesta decidir para un caso nuevo”.',
+    table: {
+      headers: ['Algoritmo', 'Entrenamiento aproximado', 'Inferencia aproximada', 'Lectura práctica'],
+      rows: [
+        ['Regresión lineal OLS', 'O(n·m² + m³)', 'O(m)', 'Entrenar por ecuación normal puede encarecerse con muchas features; predecir es un producto escalar.'],
+        ['Lineal / logística con SGD', 'O(E·n·m)', 'O(m) o O(m·c)', 'Escala bien con datasets grandes; depende de épocas, regularización y calidad de features.'],
+        ['Árbol de decisión', 'O(n·m·log n) típico; O(n²·m) peor caso', 'O(d_tree)', 'Predice rápido y explica reglas, pero árboles profundos sobreajustan y crecen en memoria.'],
+        ['Random Forest', 'O(T·n·m·log n) aprox.', 'O(T·d_tree)', 'Más árboles mejoran estabilidad pero suben entrenamiento, memoria y latencia.'],
+        ['SVM kernel', 'entre O(m·n²) y O(m·n³)', 'O(m·n_sv)', 'Potente en datasets medianos; puede romper con muchas muestras y muchos support vectors.'],
+        ['k-Nearest Neighbors', 'casi O(1) si solo almacenas; crear índice añade coste', 'O(n·m) brute force', 'Barato de “entrenar”, caro al responder. En alta dimensión los índices ayudan menos.'],
+        ['Naive Bayes', 'O(n·m)', 'O(m·c)', 'Muy rápido y buen baseline para texto; presupone independencia condicional muy fuerte.'],
+        ['PCA', 'O(min(n²·m, n·m²)) o covarianza O(n·m² + m³)', 'O(m·r)', 'Reducir a r componentes cuesta al entrenar; transformar luego es una proyección lineal.'],
+        ['k-means', 'O(T·k·n·m)', 'O(k·m)', 'Cada iteración asigna puntos a centros; rápido en práctica, sensible a k, escala e inicialización.'],
+      ],
+    },
+    callout: {
+      title: 'Cómo usar esta tabla',
+      text: 'No memorices fórmulas como si fueran leyes físicas. Úsalas para preguntar: ¿crece más n o m?, ¿predigo uno a uno o en batch?, ¿tengo que reentrenar cada hora?, ¿la latencia de inferencia importa más que el entrenamiento offline?',
+      icon: 'compass',
+    },
+    refs: [
+      { label: 'scikit-learn - Computational Performance', href: 'https://scikit-learn.org/stable/computing/computational_performance.html' },
+      { label: 'scikit-learn - SVM complexity', href: 'https://scikit-learn.org/stable/modules/svm.html#complexity' },
+      { label: 'scikit-learn - KMeans complexity', href: 'https://scikit-learn.org/stable/modules/generated/sklearn.cluster.KMeans.html' },
+      { label: 'scikit-learn - Nearest Neighbors', href: 'https://scikit-learn.org/stable/modules/neighbors.html' },
+    ],
+  },
+  {
+    id: 'validacion-generalizacion',
+    number: 26,
     title: 'Validación: medir generalización',
     icon: 'shield-check',
     lead: 'Generalizar significa acertar en casos nuevos, con ruido nuevo y usuarios nuevos. Un modelo que solo funciona en los ejemplos con los que lo has ajustado no ha aprendido una regla útil: ha memorizado una foto del pasado.',
@@ -169,7 +248,7 @@ const slides = [
   },
   {
     id: 'overfitting-underfitting',
-    number: 25,
+    number: 27,
     title: 'Overfitting y underfitting',
     icon: 'gauge',
     lead: 'El objetivo no es acertar el train set: es capturar una señal que siga funcionando fuera de los ejemplos vistos. La pregunta práctica no es “cuánto acierta entrenando”, sino “cuánto aguanta cuando cambia el caso”.',
@@ -198,7 +277,7 @@ const slides = [
   },
   {
     id: 'matriz-confusion',
-    number: 26,
+    number: 28,
     title: 'Matriz de confusión',
     icon: 'grid-3x3',
     lead: 'Para clasificación, la matriz de confusión enseña qué aciertos y errores comete el modelo por clase. Es la forma más directa de pasar de “accuracy” a consecuencias reales.',
@@ -239,7 +318,7 @@ const slides = [
   },
   {
     id: 'precision-recall-f1',
-    number: 27,
+    number: 29,
     title: 'Precision, recall y F1',
     icon: 'calculator',
     lead: 'Accuracy suele engañar cuando las clases están desbalanceadas. Si el 99% de emails no son spam, un modelo que diga “no spam” siempre tiene 99% de accuracy y aun así no sirve para detectar spam.',
@@ -283,7 +362,7 @@ const slides = [
   },
   {
     id: 'clustering-kmeans',
-    number: 28,
+    number: 30,
     title: 'Clustering y k-means',
     icon: 'scatter-chart',
     lead: 'Clustering agrupa datos sin etiqueta. k-means busca k centroides y asigna cada punto al centro más cercano. La parte peligrosa no es ejecutar el algoritmo, sino interpretar los grupos como si fueran categorías naturales.',
@@ -314,7 +393,7 @@ const slides = [
   },
   {
     id: 'cuando-no-confiar-clusters',
-    number: 29,
+    number: 31,
     title: 'Cuándo no confiar en clusters',
     icon: 'alert-triangle',
     lead: 'Un cluster no es una verdad del mundo. Es una partición inducida por features, escala, métrica y algoritmo. Puede ser una hipótesis útil, pero también una forma elegante de amplificar sesgos o artefactos.',

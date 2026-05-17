@@ -30,7 +30,7 @@ const refsGames = [
 const slides = [
   {
     id: 'busqueda-problema-estado',
-    number: 32,
+    number: 34,
     title: 'Búsqueda: resolver como espacio de estados',
     icon: 'route',
     lead: 'Muchos problemas de IA se pueden formular como navegar desde un estado inicial hasta un estado objetivo aplicando acciones con coste.',
@@ -45,7 +45,7 @@ const slides = [
   },
   {
     id: 'busqueda-arbol-grafo',
-    number: 33,
+    number: 35,
     title: 'Árbol de búsqueda vs grafo de estados',
     icon: 'network',
     lead: 'El árbol representa caminos explorados; el grafo representa estados reales. Confundirlos produce loops y coste innecesario.',
@@ -62,7 +62,7 @@ const slides = [
   },
   {
     id: 'busqueda-bfs',
-    number: 34,
+    number: 36,
     title: 'BFS: búsqueda en anchura',
     icon: 'layers-3',
     lead: 'BFS explora primero todos los estados a distancia 1, luego distancia 2, etc. Si todos los costes son iguales, encuentra el camino más corto en número de pasos.',
@@ -78,7 +78,7 @@ const slides = [
   },
   {
     id: 'busqueda-dfs',
-    number: 35,
+    number: 37,
     title: 'DFS: búsqueda en profundidad',
     icon: 'corner-down-right',
     lead: 'DFS baja por un camino hasta el fondo antes de probar alternativas. Es barata en memoria, pero puede perderse en ramas largas o infinitas.',
@@ -91,7 +91,7 @@ const slides = [
   },
   {
     id: 'busqueda-coste-uniforme',
-    number: 36,
+    number: 38,
     title: 'Coste uniforme: cuando no todos los pasos cuestan igual',
     icon: 'badge-dollar-sign',
     lead: 'Uniform Cost Search expande primero el camino de menor coste acumulado, no el camino con menos pasos.',
@@ -108,7 +108,7 @@ const slides = [
   },
   {
     id: 'busqueda-greedy',
-    number: 37,
+    number: 39,
     title: 'Greedy best-first search',
     icon: 'mouse-pointer-click',
     lead: 'Greedy elige lo que parece más cerca del objetivo según una heurística h(n). Es rápido, pero miope.',
@@ -122,7 +122,7 @@ const slides = [
   },
   {
     id: 'busqueda-a-star',
-    number: 38,
+    number: 40,
     title: 'A*: coste real + intuición',
     icon: 'sparkles',
     lead: 'A* combina lo que ya cuesta el camino, g(n), con una estimación de lo que falta, h(n).',
@@ -139,7 +139,7 @@ const slides = [
   },
   {
     id: 'busqueda-heuristicas',
-    number: 39,
+    number: 41,
     title: 'Heurísticas: buenas intuiciones, malos atajos',
     icon: 'compass',
     lead: 'Una heurística es una estimación. No tiene que ser perfecta, pero sí debe estar alineada con el objetivo.',
@@ -156,7 +156,7 @@ const slides = [
   },
   {
     id: 'busqueda-agentes-llm',
-    number: 40,
+    number: 42,
     title: 'Búsqueda en agentes modernos',
     icon: 'bot',
     lead: 'Un agente LLM también explora: decide pasos, prueba tools, observa resultados y corrige. La diferencia es que el espacio no siempre está formalizado.',
@@ -176,7 +176,7 @@ const slides = [
   },
   {
     id: 'busqueda-que-saber',
-    number: 41,
+    number: 43,
     title: 'Qué debe saber: búsqueda',
     icon: 'graduation-cap',
     lead: 'No necesitas memorizar todos los algoritmos, pero sí reconocer cuándo un problema es de búsqueda y qué coste estás optimizando.',
@@ -194,7 +194,7 @@ const slides = [
   },
   {
     id: 'csp-sat-mapa',
-    number: 42,
+    number: 44,
     title: 'SAT y CSP: IA como restricciones',
     icon: 'braces',
     lead: 'No todos los problemas se resuelven generando texto. Muchos consisten en encontrar una asignación que cumpla restricciones exactas: horarios, configuraciones, permisos, rutas, turnos, dependencias o planes válidos.',
@@ -227,7 +227,7 @@ const slides = [
   },
   {
     id: 'sat-booleana',
-    number: 43,
+    number: 45,
     title: 'SAT: satisfacibilidad booleana',
     icon: 'binary',
     lead: 'SAT pregunta si existe una asignación de verdadero/falso que hace verdadera una fórmula lógica. Parece abstracto, pero es una de las ideas más potentes de la informática: muchos problemas reales pueden traducirse a “estas condiciones se cumplen o no se cumplen”.',
@@ -277,7 +277,7 @@ const slides = [
   },
   {
     id: 'csp-formalizacion',
-    number: 44,
+    number: 46,
     title: 'CSP: variables, dominios y restricciones',
     icon: 'constraint',
     lead: 'Un Constraint Satisfaction Problem se define por variables, dominios posibles y restricciones que deben cumplirse. Es una forma disciplinada de convertir “quiero una solución válida” en piezas comprobables por una máquina.',
@@ -318,7 +318,7 @@ const slides = [
   },
   {
     id: 'csp-ejemplos',
-    number: 45,
+    number: 47,
     title: 'Ejemplos reales de CSP',
     icon: 'calendar-check',
     lead: 'Los CSP aparecen en problemas muy cotidianos: horarios, configuración, rutas con restricciones, asignación de recursos y validación de negocio.',
@@ -332,7 +332,7 @@ const slides = [
   },
   {
     id: 'csp-propagacion',
-    number: 46,
+    number: 48,
     title: 'Propagación de restricciones',
     icon: 'filter',
     lead: 'Propagar significa reducir dominios usando restricciones antes de buscar a ciegas.',
@@ -342,7 +342,7 @@ const slides = [
   },
   {
     id: 'csp-backtracking',
-    number: 47,
+    number: 49,
     title: 'Backtracking: probar, fallar, volver',
     icon: 'undo-2',
     lead: 'Backtracking asigna una variable, comprueba restricciones y vuelve atrás si la elección lleva a contradicción.',
@@ -351,7 +351,7 @@ const slides = [
   },
   {
     id: 'csp-heuristicas',
-    number: 48,
+    number: 50,
     title: 'Heurísticas en CSP',
     icon: 'sliders-horizontal',
     lead: 'La diferencia entre resolver rápido y explotar combinatoriamente suele estar en qué variable eliges primero, qué valor pruebas y cuánto propagas las consecuencias antes de seguir buscando.',
@@ -392,7 +392,7 @@ const slides = [
   },
   {
     id: 'csp-llm-guardrails',
-    number: 49,
+    number: 51,
     title: 'Restricciones como guardrails',
     icon: 'shield',
     lead: 'En apps con LLM, muchas garantías no deben vivir en el prompt. Deben vivir en schemas, validadores, permisos, políticas, límites de coste y reglas ejecutables que se comprueban fuera del modelo.',
@@ -443,7 +443,7 @@ const slides = [
   },
   {
     id: 'csp-cuando-usar',
-    number: 50,
+    number: 52,
     title: 'Cuándo usar CSP/SAT en vez de un LLM',
     icon: 'git-compare',
     lead: 'Si la respuesta debe satisfacer restricciones exactas, el LLM puede ayudar a entender, explicar o proponer candidatos, pero la aceptación debería depender de una comprobación determinista.',
@@ -485,7 +485,7 @@ const slides = [
   },
   {
     id: 'csp-que-saber',
-    number: 51,
+    number: 53,
     title: 'Qué debe saber: restricciones',
     icon: 'graduation-cap',
     lead: 'Las restricciones son una forma de precisión. Donde hay reglas duras, no todo debe quedarse en manos del modelo generativo: hay que separar lo que el modelo interpreta de lo que el sistema acepta.',
@@ -527,7 +527,7 @@ const slides = [
   },
   {
     id: 'planning-mapa',
-    number: 52,
+    number: 54,
     title: 'Planificación automática: de objetivo a plan',
     icon: 'list-tree',
     lead: 'Planificar es encontrar una secuencia de acciones que transforme el estado inicial en un estado objetivo. La diferencia con una lista de tareas es que cada acción solo es válida si sus precondiciones se cumplen y sus efectos actualizan el estado.',
@@ -557,7 +557,7 @@ const slides = [
   },
   {
     id: 'planning-vocabulario',
-    number: 53,
+    number: 55,
     title: 'Vocabulario de planificación',
     icon: 'book-open',
     lead: 'La planificación clásica obliga a explicitar lo que muchos agentes modernos dejan implícito. Este vocabulario es útil aunque nunca escribas PDDL: te da una forma de revisar si una automatización sabe actuar o solo redacta pasos.',
@@ -592,7 +592,7 @@ const slides = [
   },
   {
     id: 'planning-pddl',
-    number: 54,
+    number: 56,
     title: 'PDDL: lenguaje para describir planes',
     icon: 'file-code-2',
     lead: 'PDDL separa dominio y problema: una parte define acciones generales y otra define objetos, estado inicial y objetivo. Su valor pedagógico es enorme porque obliga a escribir exactamente qué necesita y qué cambia cada acción.',
@@ -622,7 +622,7 @@ const slides = [
   },
   {
     id: 'planning-domain-problem',
-    number: 55,
+    number: 57,
     title: 'Dominio vs problema',
     icon: 'files',
     lead: 'Separar dominio y problema permite reutilizar acciones en escenarios distintos. Es la misma idea que separar código de configuración: no cambias la lógica de “mover paquete” cada vez que cambia el paquete.',
@@ -648,7 +648,7 @@ const slides = [
   },
   {
     id: 'planning-busqueda-heuristica',
-    number: 56,
+    number: 58,
     title: 'Planificación como búsqueda heurística',
     icon: 'navigation',
     lead: 'Un planner puede buscar en el espacio de estados, pero necesita heurísticas para no explotar combinatoriamente. En problemas reales, el número de planes posibles crece con cada acción disponible y cada paso del horizonte.',
@@ -682,7 +682,7 @@ const slides = [
   },
   {
     id: 'planning-sat',
-    number: 57,
+    number: 59,
     title: 'Planificación con SAT',
     icon: 'blocks',
     lead: 'También puedes convertir planning en satisfacibilidad: ¿existe un conjunto de acciones por tiempo que cumple transiciones y objetivo? En vez de caminar por estados, preguntas si hay una historia coherente de longitud k.',
@@ -709,7 +709,7 @@ const slides = [
   },
   {
     id: 'planning-agentes',
-    number: 58,
+    number: 60,
     title: 'Planning y agentes LLM',
     icon: 'bot',
     lead: 'Los agentes modernos planifican, pero muchas veces sin modelo formal del mundo. Eso da flexibilidad para tareas abiertas, y también errores cuando el modelo inventa recursos, salta dependencias o confunde observación con éxito.',
@@ -737,7 +737,7 @@ const slides = [
   },
   {
     id: 'planning-fallos',
-    number: 59,
+    number: 61,
     title: 'Fallos típicos al planificar',
     icon: 'alert-octagon',
     lead: 'Un plan puede sonar razonable y ser imposible. La diferencia entre demo y sistema fiable está en comprobar precondiciones, efectos, dependencias y criterio de recuperación.',
@@ -766,7 +766,7 @@ const slides = [
   },
   {
     id: 'planning-mini-ejemplo',
-    number: 60,
+    number: 62,
     title: 'Mini-ejemplo: enviar una factura',
     icon: 'file-check-2',
     lead: 'Modelar una tarea cotidiana como planificación fuerza a separar intención, datos y permisos. “Enviar una factura” parece una acción única, pero en producción es una secuencia con validaciones y efectos auditables.',
@@ -797,7 +797,7 @@ const slides = [
   },
   {
     id: 'planning-que-saber',
-    number: 61,
+    number: 63,
     title: 'Qué debe saber: planificación',
     icon: 'graduation-cap',
     lead: 'Planificar no es “pensar mucho”: es convertir un objetivo en acciones ejecutables bajo restricciones, con estado observable y recuperación cuando el mundo no coincide con el plan.',
@@ -827,7 +827,7 @@ const slides = [
   },
   {
     id: 'juegos-decision',
-    number: 62,
+    number: 64,
     title: 'Juegos: decisión con otros agentes',
     icon: 'swords',
     lead: 'Los juegos enseñan decisión en entornos donde otro actor también elige. Eso introduce estrategia, adversario, incentivos e incertidumbre: justo lo que aparece en fraude, seguridad, mercados, negociación y agentes con herramientas.',
@@ -857,7 +857,7 @@ const slides = [
   },
   {
     id: 'juegos-minimax',
-    number: 63,
+    number: 65,
     title: 'Minimax: elegir contra un rival óptimo',
     icon: 'git-fork',
     lead: 'Minimax asume dos jugadores: MAX intenta maximizar utilidad y MIN intenta minimizarla. No busca la jugada que parece mejor si nadie responde: busca la mejor jugada después de considerar la mejor respuesta del rival.',
@@ -883,7 +883,7 @@ const slides = [
   },
   {
     id: 'juegos-alfa-beta',
-    number: 64,
+    number: 66,
     title: 'Poda alfa-beta',
     icon: 'scissors',
     lead: 'Alfa-beta no cambia la decisión de minimax. Solo evita explorar ramas que ya no pueden mejorar el resultado. Es una lección importante: optimizar no siempre significa cambiar la respuesta; a veces significa llegar a la misma respuesta gastando muchísimo menos.',
@@ -912,7 +912,7 @@ const slides = [
   },
   {
     id: 'juegos-evaluacion',
-    number: 65,
+    number: 67,
     title: 'Funciones de evaluación',
     icon: 'scale',
     lead: 'Cuando no puedes llegar al final del árbol, evalúas estados intermedios con una función heurística. La calidad de esa función determina qué ramas parecen prometedoras y qué errores se vuelven sistemáticos.',
@@ -942,7 +942,7 @@ const slides = [
   },
   {
     id: 'juegos-monte-carlo',
-    number: 66,
+    number: 68,
     title: 'Monte Carlo: decidir simulando',
     icon: 'dices',
     lead: 'Monte Carlo estima resultados probando muchas simulaciones. No necesita evaluar todo el árbol exactamente: acepta incertidumbre medible a cambio de explorar un espacio enorme con presupuesto finito.',
@@ -970,7 +970,7 @@ const slides = [
   },
   {
     id: 'juegos-mcts',
-    number: 67,
+    number: 69,
     title: 'MCTS: exploración vs explotación',
     icon: 'shuffle',
     lead: 'Monte Carlo Tree Search balancea probar ramas prometedoras y explorar opciones menos visitadas. Su valor está en asignar presupuesto de simulación de forma adaptativa: más donde aprende, algo donde todavía no sabe.',
@@ -1007,7 +1007,7 @@ const slides = [
   },
   {
     id: 'juegos-llm-simulacion',
-    number: 68,
+    number: 70,
     title: 'Simulación y LLMs',
     icon: 'flask-conical',
     lead: 'Un LLM puede simular escenarios, pero sus simulaciones no son garantías estadísticas si no controlas datos, aleatoriedad y evaluación. El modelo genera plausibilidad textual, no muestras independientes de un proceso real.',
@@ -1036,7 +1036,7 @@ const slides = [
   },
   {
     id: 'juegos-adversarial',
-    number: 69,
+    number: 71,
     title: 'Decisión adversarial en producto',
     icon: 'shield-alert',
     lead: 'La lógica de juegos aparece cuando usuarios, atacantes o competidores reaccionan a tu sistema. La seguridad de agentes y LLMs exige pensar en incentivos: quién gana si tu sistema se equivoca.',
@@ -1067,7 +1067,7 @@ const slides = [
   },
   {
     id: 'juegos-rl-puente',
-    number: 70,
+    number: 72,
     title: 'Puente hacia aprendizaje por refuerzo',
     icon: 'repeat',
     lead: 'Juegos, MCTS y RL comparten una pregunta: qué acción conviene ahora para mejorar retorno futuro. La dificultad es que una acción buena a corto plazo puede destruir valor después.',
@@ -1097,7 +1097,7 @@ const slides = [
   },
   {
     id: 'juegos-que-saber',
-    number: 71,
+    number: 73,
     title: 'Qué debe saber: juegos y simulación',
     icon: 'graduation-cap',
     lead: 'Los juegos no son un capítulo anecdótico: enseñan búsqueda con adversario, simulación, evaluación de decisiones y diseño de incentivos. Son una vacuna contra sistemas que solo funcionan cuando nadie reacciona.',
@@ -1121,7 +1121,7 @@ const slides = [
   },
   {
     id: 'conocimiento-simbolico-mapa',
-    number: 72,
+    number: 74,
     title: 'Conocimiento simbólico: hechos, reglas y significado',
     icon: 'network',
     lead: 'Antes de embeddings, mucha IA representaba conocimiento de forma explícita: entidades, relaciones, clases, reglas e inferencia. Esa tradición sigue siendo clave cuando necesitas trazabilidad, permisos, cumplimiento o respuestas que dependan de relaciones exactas.',
@@ -1156,7 +1156,7 @@ const slides = [
   },
   {
     id: 'rdf-tripletas',
-    number: 73,
+    number: 75,
     title: 'RDF: sujeto, predicado, objeto',
     icon: 'triangle',
     lead: 'RDF representa conocimiento como tripletas. Es simple, pero permite construir grafos grandes y consultables porque todo se reduce a afirmaciones pequeñas con identidad: sujeto, predicado y objeto.',
@@ -1191,7 +1191,7 @@ const slides = [
   },
   {
     id: 'rdfs-owl',
-    number: 74,
+    number: 76,
     title: 'RDFS y OWL: vocabulario y restricciones',
     icon: 'shapes',
     lead: 'RDFS añade clases y propiedades básicas; OWL permite expresar restricciones y axiomas más ricos. La diferencia con un grafo plano es que ahora el sistema puede inferir y validar parte del significado.',
@@ -1231,7 +1231,7 @@ const slides = [
   },
   {
     id: 'sparql-consulta',
-    number: 75,
+    number: 77,
     title: 'SPARQL: consultar conocimiento estructurado',
     icon: 'database',
     lead: 'SPARQL permite preguntar al grafo con patrones de tripletas, no con similitud aproximada. Si la pregunta depende de una relación exacta, SPARQL da una respuesta trazable: cumple el patrón o no lo cumple.',
@@ -1257,7 +1257,7 @@ const slides = [
   },
   {
     id: 'ontologia',
-    number: 76,
+    number: 78,
     title: 'Ontología: modelo compartido del dominio',
     icon: 'boxes',
     lead: 'Una ontología define conceptos, relaciones y restricciones de un dominio para que personas y máquinas compartan vocabulario. Es especialmente útil cuando distintos equipos usan las mismas palabras con significados diferentes.',
@@ -1286,7 +1286,7 @@ const slides = [
   },
   {
     id: 'linked-data',
-    number: 77,
+    number: 79,
     title: 'Linked Data: datos enlazados',
     icon: 'globe-2',
     lead: 'Linked Data usa URIs y estándares web para que datos de distintas fuentes se puedan enlazar y reutilizar. La idea importante no es “publicar datos”, sino poder referirse a la misma entidad de forma estable entre sistemas.',
@@ -1319,7 +1319,7 @@ const slides = [
   },
   {
     id: 'sistemas-expertos',
-    number: 78,
+    number: 80,
     title: 'Sistemas expertos',
     icon: 'user-check',
     lead: 'Un sistema experto intenta resolver problemas de un dominio con una base de conocimiento y un motor de inferencia. Su límite histórico fue capturar y mantener reglas; su lección moderna es que las reglas siguen siendo útiles cuando necesitas explicación y control.',
@@ -1356,7 +1356,7 @@ const slides = [
   },
   {
     id: 'simbolico-vs-neuronal',
-    number: 79,
+    number: 81,
     title: 'Simbólico vs neuronal',
     icon: 'git-compare',
     lead: 'No es una guerra. Son herramientas distintas: una aporta estructura explícita; la otra, generalización estadística. Los sistemas útiles suelen combinar ambas porque el lenguaje real es ambiguo y las reglas de negocio no deberían serlo.',
@@ -1379,7 +1379,7 @@ const slides = [
   },
   {
     id: 'kg-vs-vector-store-preview',
-    number: 80,
+    number: 82,
     title: 'Knowledge graph vs vector store',
     icon: 'share-2',
     lead: 'Un vector store recupera fragmentos parecidos. Un knowledge graph representa entidades y relaciones consultables. Confundirlos lleva a vender “memoria semántica” como si fuera conocimiento formal.',
@@ -1410,7 +1410,7 @@ const slides = [
   },
   {
     id: 'conocimiento-que-saber',
-    number: 81,
+    number: 83,
     title: 'Qué debe saber: conocimiento simbólico',
     icon: 'graduation-cap',
     lead: 'RAG moderno se entiende mejor cuando sabes qué intentaba resolver la web semántica: significado explícito, relaciones e inferencia. No para sustituir embeddings, sino para saber cuándo un embedding se queda corto.',
@@ -1434,7 +1434,7 @@ const slides = [
   },
   {
     id: 'recap-ia-clasica-aplicada',
-    number: 82,
+    number: 84,
     title: 'Lo que deberías saber: IA clásica aplicada',
     icon: 'graduation-cap',
     lead: 'La IA clásica no compite con los LLMs: te da vocabulario para construir sistemas menos mágicos y más verificables. Si entiendes estado, coste, restricción, plan, adversario y regla, puedes diseñar mejores agentes, RAG y workflows.',
@@ -1475,7 +1475,7 @@ const slides = [
 ];
 ---
 
-<Slide id="sec-ia-clasica-aplicada" number={31} section
+<Slide id="sec-ia-clasica-aplicada" number={33} section
   title="IA clásica aplicada"
   subtitle="Búsqueda, restricciones, planificación, juegos y conocimiento simbólico: las ideas que siguen vivas detrás de agentes, RAG y sistemas fiables." />
 

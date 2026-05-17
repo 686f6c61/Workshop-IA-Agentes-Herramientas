@@ -1,12 +1,12 @@
 # Workshop de IA para gente curiosa
 
-De la neurona al agente: portada, 276 slides numeradas y cierre para entender la IA moderna y aplicarla con criterio en tu dia a dia. Desde backpropagation, busqueda heuristica, planning, SAT/CSP, ML clasico y ontologias hasta desplegar agentes en produccion, pasando por RAG, fine-tuning, MCP, ControlNet, Hugging Face, Google Colab, evals avanzadas, UX de IA, LLMOps, seguridad agentic, gobernanza, modelos open weights y vibe coding.
+De la neurona al agente: portada, 286 slides numeradas y cierre para entender la IA moderna y aplicarla con criterio en tu dia a dia. Desde backpropagation, busqueda heuristica, planning, SAT/CSP, ML clasico, complejidad temporal y ontologias hasta desplegar agentes en produccion, pasando por Transformers por dentro, RAG, fine-tuning, MCP, ControlNet, Hugging Face, Google Colab, evals avanzadas, UX de IA, LLMOps, seguridad agentic, gobernanza, modelos open weights y vibe coding.
 
 **[Ver presentacion](https://workshop-ia-2026.686f6c61.dev)** | Actualizado a mayo 2026 (update 05/26)
 
 ## Contenido
 
-### Fundamentos (slides 1-30)
+### Fundamentos (slides 1-32)
 - [x] Que es (y que no es) la IA
 - [x] Determinismo vs sistemas estocasticos
 - [x] La neurona artificial, redes neuronales, backpropagation, regla de la cadena, símbolos y ejemplo numérico con gradientes
@@ -16,9 +16,10 @@ De la neurona al agente: portada, 276 slides numeradas y cierre para entender la
 - [x] Entrenamiento vs inferencia, quantizacion (GGUF, bitsandbytes, GPTQ = GPT Quantization, AWQ = Activation-aware Weight Quantization, Q4-Q8)
 - [x] ML clasico esencial: dataset, features, labels, train/test, overfitting y validacion
 - [x] Supervisado vs no supervisado vs refuerzo; clasificacion vs regresion
+- [x] Complejidad temporal en ML: Big-O, entrenamiento vs inferencia y coste por algoritmo
 - [x] Matriz de confusion, precision, recall, F1 y clustering/k-means
 
-### IA clasica aplicada (slides 31-82)
+### IA clasica aplicada (slides 33-84)
 - [x] Busqueda en espacios de estados: BFS, DFS, coste uniforme, greedy, A* y heuristicas admisibles
 - [x] SAT y CSP: variables, dominios, restricciones, propagacion, backtracking y heuristicas
 - [x] Planificacion automatica: estados, acciones, precondiciones, efectos, PDDL y planificacion heuristica
@@ -26,12 +27,13 @@ De la neurona al agente: portada, 276 slides numeradas y cierre para entender la
 - [x] Conocimiento simbolico: RDF, RDFS, OWL, SPARQL, Linked Data, ontologias y sistemas expertos
 - [x] Puente practico entre IA clasica, agentes LLM, RAG, GraphRAG y validadores modernos
 
-### Arquitecturas y modelos (slides 83-99)
+### Arquitecturas y modelos (slides 85-109)
 - [x] LLMs, Transformers, Mixture of Experts, SSM (State Space Model)/Mamba, RWKV/RetNet, Hyena, Jamba y arquitecturas byte/latent
 - [x] Dimensiones de modelos: parametros totales/activos, capas, hidden size, heads, context window
 - [x] Estado del arte mayo 2026: GPT-5.5/5.4, Claude Opus 4.7, Gemini 3.1 Pro Preview (`gemini-3.1-pro-preview`), gpt-oss, Qwen3.6, DeepSeek-V4, Llama 4 y Mistral 3
 - [x] Atencion en detalle: matrices Q, K, V, multi-head, RoPE
 - [x] Tokenizacion en profundidad: BPE (Byte Pair Encoding), WordPiece, SentencePiece
+- [x] Transformer Explainer como laboratorio visual: texto a tensores, embeddings, QKV, mascara causal, softmax, MLP, residual, LayerNorm, logits y sampling
 - [x] Transfer learning: de ImageNet a GPT
 - [x] Modelos multimodales nativos (texto + imagen + audio + video)
 - [x] Parametros: temperature, top_p, top_k
@@ -39,7 +41,7 @@ De la neurona al agente: portada, 276 slides numeradas y cierre para entender la
 - [x] Open weights vs propietario, destilacion, inferencia optimizada
 - [x] Edge AI: modelos en navegador, movil e IoT
 
-### Uso practico (slides 100-155)
+### Uso practico (slides 110-165)
 - [x] Prompt engineering y context engineering
 - [x] Alucinaciones y como protegerte
 - [x] Structured output / JSON mode con schema
@@ -66,7 +68,7 @@ De la neurona al agente: portada, 276 slides numeradas y cierre para entender la
 - [x] API hello world, streaming (SSE)
 - [x] Arquitectura de apps con LLM: retry, fallback, circuit breaker, model routing
 
-### Agentes y orquestacion (slides 156-194)
+### Agentes y orquestacion (slides 166-204)
 - [x] Cuando usar un agente y cuando un prompt
 - [x] Bucle ReAct, Plan-and-Execute, Reflexion
 - [x] Agente clasico vs moderno: estado/contexto, acciones/tools, precondiciones/schemas, planner/LLM y motor de inferencia
@@ -82,7 +84,7 @@ De la neurona al agente: portada, 276 slides numeradas y cierre para entender la
 - [x] Computer Use, Browser Use, A2A (Agent-to-Agent)
 - [x] Human-in-the-loop: niveles de autonomia
 
-### Realidad de construir con IA (slides 195-220)
+### Realidad de construir con IA (slides 205-230)
 - [x] IDE web vs terminal, comparativa de coding assistants
 - [x] Benchmarks: que miden, que no miden, SWE-bench, leaderboards y evals internas
 - [x] SWE-bench: Full, Verified, Lite (534), Multilingual, Multimodal (100 dev / 500 test), % Resolved, contaminacion, SWE-bench Pro y coste por resolucion
@@ -97,18 +99,18 @@ De la neurona al agente: portada, 276 slides numeradas y cierre para entender la
 - [x] Configurar Claude Code, OpenCode y Cursor como un pro
 - [x] Agentes en produccion: lecciones aprendidas y el "agent tax"
 
-### Evals y medicion avanzada (slides 221-226)
+### Evals y medicion avanzada (slides 231-236)
 - [x] Eval de RAG: retrieval, recall@k, MRR, nDCG, groundedness, answerability y abstencion
 - [x] LLM-as-judge: rubricas, calibracion con humanos, evaluacion ciega, pares A/B y casos negativos
 - [x] Eval de agentes: task success, tool success, coste, robustez, trazas y rollback
 - [x] FinOps de IA: coste por tarea aceptada, routing barato/caro, cache, batch/flex y revision humana
 
-### Producto y UX de IA (slides 227-231)
+### Producto y UX de IA (slides 237-241)
 - [x] Disenar para incertidumbre: citas visibles, confianza accionable, abstencion y conflictos de fuentes
 - [x] Aprobacion humana: preview, diff, confirmacion, permisos minimos, logs y rollback
 - [x] Conversaciones recuperables: memoria visible/editable, limites, handoff a humano y recuperacion de errores
 
-### Operar IA en produccion (slides 232-240)
+### Operar IA en produccion (slides 242-250)
 - [x] LLMOps: control plane, runtime, observabilidad, evals y gobernanza
 - [x] Serving open weights con vLLM, SGLang, TensorRT-LLM, llama.cpp y Ollama
 - [x] Escalado de inferencia: continuous batching, KV cache, prefix caching, speculative decoding y chunked prefill
@@ -117,19 +119,19 @@ De la neurona al agente: portada, 276 slides numeradas y cierre para entender la
 - [x] DataOps para IA: linaje, PII, licencias, calidad del corpus y drift
 - [x] Post-training avanzado: SFT, DPO, RLHF/RLAIF, Constitutional AI, RFT con graders y RL verificable/RLVR
 
-### Seguridad, gobernanza y confianza (slides 241-247)
+### Seguridad, gobernanza y confianza (slides 251-257)
 - [x] Seguridad agentic: tools, MCP, permisos minimos, threat modeling, confused deputy, tool poisoning y exfiltracion
 - [x] OWASP LLM Top 10 aplicado a controles, CI y datasets adversariales
 - [x] Privacidad y private AI: API publica, VPC (Virtual Private Cloud), on-prem, despliegue hibrido, retencion y region
 - [x] Gobernanza: EU AI Act, NIST AI RMF, NIST GenAI Profile e ISO/IEC 42001
 - [x] Interpretabilidad: mechanistic interpretability, sparse autoencoders, features y limites de confianza
 
-### Modelos open weights con Ollama Cloud (slides 248-254)
+### Modelos open weights con Ollama Cloud (slides 258-264)
 - [x] Ollama Cloud: modelos open weights sin GPU
 - [x] Catalogo, setup, integracion con herramientas
 - [x] Cloud vs local: cuando usar cada uno
 
-### Laboratorios IA aplicada (slides 255-267)
+### Laboratorios IA aplicada (slides 265-277)
 - [x] A* con un problema pequeno y comparacion de coste, heuristica y nodos expandidos
 - [x] Mini planner: tareas como estados, acciones, precondiciones y efectos
 - [x] Clasificador simple con scikit-learn, train/test y matriz de confusion
@@ -137,7 +139,7 @@ De la neurona al agente: portada, 276 slides numeradas y cierre para entender la
 - [x] Ontologia pequena + SPARQL conectada con GraphRAG y RAG hibrido
 - [x] Comparativa de una misma tarea con reglas, RAG y agente LLM
 
-### Recursos y siguiente paso (slides 268-276 + cierre)
+### Recursos y siguiente paso (slides 278-286 + cierre)
 - [x] Recursos finales ampliados: mapa de estudio, papers, benchmarks, laboratorio practico, glosario en dos partes, checklist de exactitud, pipeline de entrega, contaminacion de benchmarks y ruta de 30 dias
 
 Las secciones principales incluyen slides de recapitulacion con referencias cruzadas; el bloque final añade laboratorios, recursos, glosario ampliado, checklist de exactitud y ruta de 30 dias.
