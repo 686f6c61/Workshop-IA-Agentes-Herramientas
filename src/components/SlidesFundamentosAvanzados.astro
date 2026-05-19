@@ -1201,7 +1201,7 @@ function enrichSlide(slide) {
 const uncertaintySlides = [
   {
     id: 'incertidumbre-mapa',
-    number: 238,
+    number: 246,
     title: 'Incertidumbre: acertar no basta',
     icon: 'cloud-alert',
     lead: 'Un sistema de IA útil no solo predice: también debe expresar cuánto riesgo hay en usar esa predicción. Dos modelos con la misma accuracy pueden ser muy distintos si uno sabe abstenerse y el otro responde con seguridad falsa.',
@@ -1230,7 +1230,7 @@ const uncertaintySlides = [
   },
   {
     id: 'confidence-no-es-calibracion',
-    number: 239,
+    number: 247,
     title: 'Confidence no es calibración',
     icon: 'gauge',
     lead: 'Un score alto no significa automáticamente una probabilidad fiable. Un modelo puede decir 0.90 muchas veces y acertar solo el 70% de esas veces. Eso es estar sobreconfiado.',
@@ -1259,7 +1259,7 @@ const uncertaintySlides = [
   },
   {
     id: 'reliability-diagram-ece',
-    number: 240,
+    number: 248,
     title: 'Reliability diagram y ECE',
     icon: 'bar-chart-3',
     lead: 'Un reliability diagram agrupa predicciones por bins de confianza. Para cada bin compara la confianza media del modelo con la frecuencia real de acierto.',
@@ -1291,7 +1291,7 @@ const uncertaintySlides = [
   },
   {
     id: 'brier-logloss-calibracion',
-    number: 241,
+    number: 249,
     title: 'Brier score, log loss y coste de mala probabilidad',
     icon: 'calculator',
     lead: 'Accuracy solo mira si la clase final coincide. Brier score y log loss castigan probabilidades malas: no es lo mismo fallar dudando que fallar con 99% de confianza.',
@@ -1319,7 +1319,7 @@ const uncertaintySlides = [
   },
   {
     id: 'calibrar-modelos',
-    number: 242,
+    number: 250,
     title: 'Cómo calibrar: Platt, isotonic y validación limpia',
     icon: 'sliders-horizontal',
     lead: 'Calibrar significa aprender una transformación del score bruto para que se comporte como probabilidad. Esa transformación debe entrenarse con datos separados del entrenamiento original.',
@@ -1342,7 +1342,7 @@ const uncertaintySlides = [
   },
   {
     id: 'umbrales-abstencion-humano',
-    number: 243,
+    number: 251,
     title: 'Umbrales, abstención y revisión humana',
     icon: 'git-branch',
     lead: 'Un modelo no decide solo por predecir. Decide cuando conectas su score con una política: actuar automáticamente, pedir revisión, solicitar más datos o abstenerse.',
@@ -1368,7 +1368,7 @@ const uncertaintySlides = [
   },
   {
     id: 'conformal-prediction-regresion',
-    number: 244,
+    number: 252,
     title: 'Conformal prediction: intervalos para regresión',
     icon: 'ruler',
     lead: 'Conformal prediction construye intervalos de predicción usando errores observados en un conjunto de calibración. No promete que cada caso individual esté cubierto, sino una cobertura marginal esperada.',
@@ -1392,7 +1392,7 @@ const uncertaintySlides = [
   },
   {
     id: 'conformal-prediction-clasificacion',
-    number: 245,
+    number: 253,
     title: 'Conformal prediction: conjuntos de clases',
     icon: 'list-plus',
     lead: 'En clasificación, conformal prediction puede devolver un conjunto de etiquetas plausibles en vez de una sola clase. Si el conjunto es grande, el modelo está diciendo que el caso no está claro.',
@@ -1419,7 +1419,7 @@ const uncertaintySlides = [
   },
   {
     id: 'incertidumbre-llm-rag',
-    number: 246,
+    number: 254,
     title: 'Incertidumbre en LLMs y RAG',
     icon: 'message-square-warning',
     lead: 'En LLMs la incertidumbre no se reduce a leer una probabilidad de token. Una respuesta puede sonar segura porque el modelo genera lenguaje fluido, aunque el retrieval sea débil o la fuente no exista.',
@@ -1446,7 +1446,7 @@ const uncertaintySlides = [
   },
   {
     id: 'incertidumbre-que-saber',
-    number: 247,
+    number: 255,
     title: 'Qué debe saber: incertidumbre y calibración',
     icon: 'graduation-cap',
     lead: 'La incertidumbre es una capa de producto y seguridad. Si no sabes cuándo el sistema debe parar, revisar o pedir más datos, todavía no tienes una automatización madura.',
@@ -1468,7 +1468,7 @@ const uncertaintySlides = [
 const dataSlides = [
   {
     id: 'data-centric-ai-mapa',
-    number: 249,
+    number: 257,
     title: 'Data-centric AI: mejorar datos antes que cambiar modelo',
     icon: 'database',
     lead: 'Data-centric AI pone el foco en la calidad, consistencia y representatividad de los datos. En muchos proyectos, limpiar labels, mejorar instrucciones de anotación o cubrir segmentos olvidados mejora más que probar otro modelo.',
@@ -1486,7 +1486,7 @@ const dataSlides = [
   },
   {
     id: 'dataset-como-producto',
-    number: 250,
+    number: 258,
     title: 'El dataset como producto de ingeniería',
     icon: 'package-check',
     lead: 'Un dataset serio tiene owner, versión, contrato, documentación, tests y criterios de aceptación. Si nadie puede responder de dónde viene un ejemplo o por qué tiene esa etiqueta, el modelo aprende sobre arena.',
@@ -1510,7 +1510,7 @@ const dataSlides = [
   },
   {
     id: 'calidad-etiquetas-ruido',
-    number: 251,
+    number: 259,
     title: 'Calidad de etiquetas: ruido, desacuerdo y criterio',
     icon: 'tag',
     lead: 'Una etiqueta no es una verdad divina. Muchas labels son decisiones humanas con ruido, criterios cambiantes y desacuerdo legítimo. El modelo aprende esa política, no una realidad pura.',
@@ -1538,7 +1538,7 @@ const dataSlides = [
   },
   {
     id: 'labeling-strategy',
-    number: 252,
+    number: 260,
     title: 'Labeling strategy: cómo pedir etiquetas que sirvan',
     icon: 'clipboard-list',
     lead: 'Etiquetar no es repartir CSVs. Es diseñar una operación: instrucciones, ejemplos, casos frontera, revisión, control de calidad y trazabilidad.',
@@ -1561,7 +1561,7 @@ const dataSlides = [
   },
   {
     id: 'data-quality-tests',
-    number: 253,
+    number: 261,
     title: 'Tests de calidad de datos',
     icon: 'test-tube-2',
     lead: 'Los datasets también necesitan tests. Igual que no despliegas código sin tests, no deberías entrenar o evaluar con datos sin comprobar schema, rangos, duplicados, nulos y distribuciones.',
@@ -1588,7 +1588,7 @@ const dataSlides = [
   },
   {
     id: 'leakage-avanzado',
-    number: 254,
+    number: 262,
     title: 'Leakage avanzado: cuando el futuro se cuela',
     icon: 'file-lock-2',
     lead: 'Leakage es cualquier señal que el modelo ve durante entrenamiento pero no tendrá honestamente al predecir. Es una de las formas más comunes de obtener métricas espectaculares y producción mediocre.',
@@ -1611,7 +1611,7 @@ const dataSlides = [
   },
   {
     id: 'drift-representatividad',
-    number: 255,
+    number: 263,
     title: 'Drift y representatividad',
     icon: 'activity',
     lead: 'Drift significa que el mundo cambia. Representatividad significa que tu dataset cubre el mundo donde vas a usar el modelo. Son problemas distintos, pero ambos rompen generalización.',
@@ -1633,7 +1633,7 @@ const dataSlides = [
   },
   {
     id: 'active-learning',
-    number: 256,
+    number: 264,
     title: 'Active learning: etiquetar lo que más enseña',
     icon: 'mouse-pointer-click',
     lead: 'Active learning prioriza qué ejemplos etiquetar cuando etiquetar es caro. En vez de anotar al azar, eliges casos donde el modelo duda, donde hay impacto o donde falta cobertura.',
@@ -1656,7 +1656,7 @@ const dataSlides = [
   },
   {
     id: 'weak-supervision',
-    number: 257,
+    number: 265,
     title: 'Weak supervision: señales imperfectas para arrancar',
     icon: 'wand-2',
     lead: 'Weak supervision usa reglas, heurísticas, patrones o fuentes ruidosas para crear labels iniciales cuando no hay suficientes etiquetas humanas. No reemplaza gold labels: acelera el arranque.',
@@ -1682,7 +1682,7 @@ const dataSlides = [
   },
   {
     id: 'datasheets-dataset-cards',
-    number: 258,
+    number: 266,
     title: 'Datasheets y dataset cards',
     icon: 'file-text',
     lead: 'Una dataset card documenta cómo se creó un dataset, qué contiene, qué no contiene, para qué usos es adecuado y qué riesgos tiene. Es la model card de los datos.',
@@ -1702,7 +1702,7 @@ const dataSlides = [
   },
   {
     id: 'data-centric-que-saber',
-    number: 259,
+    number: 267,
     title: 'Qué debe saber: Data-centric AI',
     icon: 'graduation-cap',
     lead: 'La madurez de un sistema de IA se ve en sus datos. Si no hay linaje, tests, documentación, estrategia de labels y eval privada, el modelo está volando sin instrumentos.',
@@ -1724,7 +1724,7 @@ const dataSlides = [
 const causalSlides = [
   {
     id: 'causalidad-mapa',
-    number: 261,
+    number: 269,
     title: 'Causalidad: de predecir a decidir',
     icon: 'git-fork',
     lead: 'Machine learning predictivo responde “qué es probable que pase”. Causalidad pregunta “qué pasará si intervengo”. Esa diferencia decide si puedes usar un modelo para tomar acciones, no solo para anticipar resultados.',
@@ -1742,7 +1742,7 @@ const causalSlides = [
   },
   {
     id: 'correlacion-no-causalidad',
-    number: 262,
+    number: 270,
     title: 'Correlación no implica causalidad',
     icon: 'link-2-off',
     lead: 'Dos variables pueden moverse juntas sin que una cause la otra. Puede haber una causa común, sesgo de selección, efecto inverso o pura coincidencia.',
@@ -1764,7 +1764,7 @@ const causalSlides = [
   },
   {
     id: 'dag-causal',
-    number: 263,
+    number: 271,
     title: 'DAG causal: dibujar hipótesis antes de medir',
     icon: 'network',
     lead: 'Un DAG (Directed Acyclic Graph) es un grafo dirigido sin ciclos. En causalidad representa hipótesis sobre qué variables influyen en otras.',
@@ -1791,7 +1791,7 @@ const causalSlides = [
   },
   {
     id: 'confounding-ajuste',
-    number: 264,
+    number: 272,
     title: 'Confounding y ajuste',
     icon: 'shuffle',
     lead: 'Un confounder es una variable que influye tanto en la acción como en el resultado. Si no la controlas, puedes atribuir efecto a una acción que en realidad viene de otra causa.',
@@ -1816,7 +1816,7 @@ const causalSlides = [
   },
   {
     id: 'do-operator-intervencion',
-    number: 265,
+    number: 273,
     title: 'Intervención: observar X no es hacer do(X)',
     icon: 'hand',
     lead: 'Observar que alguien recibió un descuento no es lo mismo que asignarle descuento al azar. El operador <code>do(X)</code> representa intervenir: cortar las causas normales de X y fijarla desde fuera.',
@@ -1838,7 +1838,7 @@ const causalSlides = [
   },
   {
     id: 'contrafactuales',
-    number: 266,
+    number: 274,
     title: 'Contrafactuales: qué habría pasado si...',
     icon: 'split',
     lead: 'Un contrafactual pregunta por un mundo alternativo: qué habría pasado con el mismo caso si la acción hubiese sido distinta. No lo observamos directamente, por eso necesita supuestos fuertes.',
@@ -1860,7 +1860,7 @@ const causalSlides = [
   },
   {
     id: 'ab-testing-causal',
-    number: 267,
+    number: 275,
     title: 'A/B testing: causalidad práctica',
     icon: 'flask-conical',
     lead: 'Un A/B test asigna usuarios aleatoriamente a variantes. La aleatorización rompe confounders esperados: en promedio, los grupos son comparables salvo por la intervención.',
@@ -1889,7 +1889,7 @@ const causalSlides = [
   },
   {
     id: 'ab-testing-errores',
-    number: 268,
+    number: 276,
     title: 'Errores comunes en experimentos',
     icon: 'alert-octagon',
     lead: 'Un experimento mal diseñado puede dar una falsa sensación de evidencia. La estadística no salva un test con unidad mal elegida, métrica manipulable o contaminación entre grupos.',
@@ -1909,7 +1909,7 @@ const causalSlides = [
   },
   {
     id: 'uplift-treatment-effect',
-    number: 269,
+    number: 277,
     title: 'Uplift: a quién le cambia algo la acción',
     icon: 'trending-up',
     lead: 'Uplift modeling no pregunta quién comprará, sino en quién la intervención aumenta la probabilidad de comprar. Es la diferencia entre predecir resultado y estimar efecto incremental.',
@@ -1937,7 +1937,7 @@ const causalSlides = [
   },
   {
     id: 'causalidad-que-saber',
-    number: 270,
+    number: 278,
     title: 'Qué debe saber: causalidad',
     icon: 'graduation-cap',
     lead: 'Causalidad no es una capa decorativa: es lo que evita que una predicción se convierta en una intervención cara, injusta o inútil.',
@@ -1959,7 +1959,7 @@ const causalSlides = [
 const interpretabilitySlides = [
   {
     id: 'interpretabilidad-mapa',
-    number: 272,
+    number: 280,
     title: 'Interpretabilidad práctica: entender fallos, no vender magia',
     icon: 'scan-eye',
     lead: 'Interpretar un modelo no significa leer su mente. Significa obtener evidencias útiles para depurar, auditar, explicar límites y detectar señales sospechosas.',
@@ -1978,7 +1978,7 @@ const interpretabilitySlides = [
   },
   {
     id: 'interpretabilidad-global-local',
-    number: 273,
+    number: 281,
     title: 'Global vs local',
     icon: 'map',
     lead: 'Interpretabilidad global describe comportamiento general del modelo. Interpretabilidad local intenta explicar una predicción concreta.',
@@ -2000,7 +2000,7 @@ const interpretabilitySlides = [
   },
   {
     id: 'feature-importance',
-    number: 274,
+    number: 282,
     title: 'Feature importance: qué usa el modelo',
     icon: 'list-ordered',
     lead: 'Feature importance ordena variables según su contribución al modelo. Es útil para detectar señales dominantes, features rotas o leakage, pero no dice que una variable cause el resultado.',
@@ -2017,7 +2017,7 @@ const interpretabilitySlides = [
   },
   {
     id: 'permutation-importance',
-    number: 275,
+    number: 283,
     title: 'Permutation importance',
     icon: 'shuffle',
     lead: 'Permutation importance mide cuánto baja la métrica cuando barajas una columna. Al barajar, rompes la relación entre esa feature y el target manteniendo el resto del dataset.',
@@ -2044,7 +2044,7 @@ const interpretabilitySlides = [
   },
   {
     id: 'pdp-ice',
-    number: 276,
+    number: 284,
     title: 'PDP e ICE: cómo cambia la predicción',
     icon: 'line-chart',
     lead: 'Partial Dependence Plot (PDP) muestra el efecto promedio de una feature. ICE muestra curvas por caso individual. Juntas enseñan si el promedio oculta comportamientos distintos.',
@@ -2071,7 +2071,7 @@ const interpretabilitySlides = [
   },
   {
     id: 'shap-lime',
-    number: 277,
+    number: 285,
     title: 'SHAP y LIME: explicaciones locales',
     icon: 'sparkles',
     lead: 'SHAP y LIME intentan explicar una predicción concreta aproximando cuánto contribuye cada feature. Son herramientas útiles, pero sus explicaciones dependen de supuestos y pueden variar.',
@@ -2096,7 +2096,7 @@ const interpretabilitySlides = [
   },
   {
     id: 'interpretabilidad-no-causalidad',
-    number: 278,
+    number: 286,
     title: 'Interpretabilidad no es causalidad',
     icon: 'unlink',
     lead: 'Que una feature sea importante para el modelo no significa que cambiar esa feature cause el resultado. Puede ser proxy, correlación, leakage o consecuencia del proceso.',
@@ -2118,7 +2118,7 @@ const interpretabilitySlides = [
   },
   {
     id: 'error-slicing',
-    number: 279,
+    number: 287,
     title: 'Error slicing: explicar dónde falla',
     icon: 'slice',
     lead: 'Error slicing analiza métricas por segmentos. Es una de las técnicas más útiles y menos glamourosas: revela fallos que la media oculta.',
@@ -2141,7 +2141,7 @@ const interpretabilitySlides = [
   },
   {
     id: 'interpretabilidad-llm-agentes',
-    number: 280,
+    number: 288,
     title: 'Interpretabilidad en LLMs y agentes',
     icon: 'bot',
     lead: 'En LLMs, muchas “explicaciones” son texto generado después de la respuesta. Para ingeniería, suelen ser más útiles las trazas: prompt, contexto, retrieval, tool calls, decisiones, errores y diffs.',
@@ -2162,7 +2162,7 @@ const interpretabilitySlides = [
   },
   {
     id: 'interpretabilidad-que-saber',
-    number: 281,
+    number: 289,
     title: 'Qué debe saber: interpretabilidad práctica',
     icon: 'graduation-cap',
     lead: 'Interpretabilidad sirve para depurar, auditar y comunicar límites. Mal usada, se convierte en una narrativa bonita que tapa falta de evidencia.',
@@ -2184,7 +2184,7 @@ const interpretabilitySlides = [
 const rlSlides = [
   {
     id: 'rl-formal-mapa',
-    number: 283,
+    number: 291,
     title: 'Reinforcement Learning formal: aprender por consecuencias',
     icon: 'gamepad-2',
     lead: 'En aprendizaje por refuerzo, un agente actúa en un entorno, observa consecuencias y aprende una política para maximizar recompensa acumulada.',
@@ -2204,7 +2204,7 @@ const rlSlides = [
   },
   {
     id: 'mdp',
-    number: 284,
+    number: 292,
     title: 'MDP: la gramática matemática de RL',
     icon: 'braces',
     lead: 'Un Markov Decision Process (MDP) formaliza decisiones secuenciales. “Markov” significa que el estado contiene la información suficiente para decidir sin depender de todo el pasado.',
@@ -2231,7 +2231,7 @@ const rlSlides = [
   },
   {
     id: 'politica-valor-retorno',
-    number: 285,
+    number: 293,
     title: 'Política, retorno y descuento',
     icon: 'route',
     lead: 'La política decide acciones. El retorno suma recompensas futuras. El descuento controla cuánto pesa el futuro: con <code>γ</code> cercano a 1, el agente mira más lejos.',
@@ -2253,7 +2253,7 @@ const rlSlides = [
   },
   {
     id: 'value-q-bellman',
-    number: 286,
+    number: 294,
     title: 'V(s), Q(s,a) y Bellman',
     icon: 'sigma',
     lead: 'La función de valor estima lo bueno que es estar en un estado. La función Q estima lo bueno que es tomar una acción concreta en un estado.',
@@ -2278,7 +2278,7 @@ const rlSlides = [
   },
   {
     id: 'exploration-exploitation',
-    number: 287,
+    number: 295,
     title: 'Exploration vs exploitation',
     icon: 'compass',
     lead: 'Exploitation usa lo que ya parece funcionar. Exploration prueba acciones menos seguras para aprender. El dilema es gastar oportunidad presente para mejorar decisiones futuras.',
@@ -2295,7 +2295,7 @@ const rlSlides = [
   },
   {
     id: 'bandits',
-    number: 288,
+    number: 296,
     title: 'Bandits: RL sin estado complejo',
     icon: 'dice-5',
     lead: 'Un bandit es un problema de decisión repetida donde eliges una acción y observas recompensa, pero no modelas un estado largo ni una dinámica compleja.',
@@ -2321,7 +2321,7 @@ const rlSlides = [
   },
   {
     id: 'reward-hacking',
-    number: 289,
+    number: 297,
     title: 'Reward hacking: cuando optimiza lo que pediste, no lo que querías',
     icon: 'bug',
     lead: 'Reward hacking aparece cuando el agente encuentra una forma de maximizar la recompensa sin cumplir la intención real. Es uno de los riesgos centrales al pasar de métricas a comportamiento.',
@@ -2344,7 +2344,7 @@ const rlSlides = [
   },
   {
     id: 'rlhf-rlaif-rlvr',
-    number: 290,
+    number: 298,
     title: 'RLHF, RLAIF y RLVR conectados con RL',
     icon: 'brain-circuit',
     lead: 'El post-training moderno usa ideas de RL para ajustar comportamiento. La diferencia está en quién o qué proporciona la señal de recompensa.',
@@ -2366,7 +2366,7 @@ const rlSlides = [
   },
   {
     id: 'rl-agentes-llm',
-    number: 291,
+    number: 299,
     title: 'RL y agentes LLM: analogía útil, límites reales',
     icon: 'bot',
     lead: 'Un agente LLM parece un agente RL porque observa, actúa y recibe feedback. Pero muchas veces no aprende online: solo ejecuta una política fija guiada por prompt, tools, memoria y evals.',
@@ -2389,7 +2389,7 @@ const rlSlides = [
   },
   {
     id: 'rl-que-saber',
-    number: 292,
+    number: 300,
     title: 'Qué debe saber: refuerzo',
     icon: 'graduation-cap',
     lead: 'RL aporta el lenguaje para pensar en comportamiento, horizonte, feedback y reward hacking. Ese lenguaje es imprescindible para entender agentes y post-training sin mística.',
@@ -2411,7 +2411,7 @@ const rlSlides = [
 const privacySlides = [
   {
     id: 'privacidad-avanzada-mapa',
-    number: 294,
+    number: 302,
     title: 'Privacidad avanzada: datos, modelos y garantías',
     icon: 'lock-keyhole',
     lead: 'Privacidad en IA no es solo “no pegues datos sensibles en el prompt”. Afecta a recogida, minimización, entrenamiento, inferencia, logs, retención, memorization y contratos.',
@@ -2430,7 +2430,7 @@ const privacySlides = [
   },
   {
     id: 'pii-datos-sensibles',
-    number: 295,
+    number: 303,
     title: 'PII y datos sensibles',
     icon: 'id-card',
     lead: 'PII (Personally Identifiable Information) son datos que identifican o pueden identificar a una persona. En IA, el riesgo aumenta porque el modelo puede mezclar, resumir, retener en logs o revelar contexto.',
@@ -2448,7 +2448,7 @@ const privacySlides = [
   },
   {
     id: 'anonimizacion-pseudonimizacion',
-    number: 296,
+    number: 304,
     title: 'Anonimización vs pseudonimización',
     icon: 'user-round-x',
     lead: 'Pseudonimizar reemplaza identificadores por claves o tokens. Anonimizar intenta impedir reidentificación razonable. En texto libre, anonimizar bien es difícil porque los detalles contextuales identifican.',
@@ -2466,7 +2466,7 @@ const privacySlides = [
   },
   {
     id: 'reidentificacion-quasi-identifiers',
-    number: 297,
+    number: 305,
     title: 'Reidentificación y quasi-identifiers',
     icon: 'scan-search',
     lead: 'Un quasi-identifier no identifica solo, pero combinado con otros campos puede reidentificar. La IA aumenta el riesgo porque procesa texto rico y cruza contexto.',
@@ -2489,7 +2489,7 @@ const privacySlides = [
   },
   {
     id: 'differential-privacy',
-    number: 298,
+    number: 306,
     title: 'Differential privacy: privacidad como garantía matemática',
     icon: 'function-square',
     lead: 'Differential privacy (DP) limita cuánto cambia la salida de un análisis si una persona entra o sale del dataset. La idea es proteger contribuciones individuales añadiendo aleatoriedad controlada.',
@@ -2516,7 +2516,7 @@ const privacySlides = [
   },
   {
     id: 'dp-ml-training',
-    number: 299,
+    number: 307,
     title: 'DP en machine learning',
     icon: 'brain',
     lead: 'En ML, differential privacy suele aplicarse durante entrenamiento limitando y perturbando gradientes. Así se reduce la capacidad del modelo de memorizar contribuciones individuales.',
@@ -2539,7 +2539,7 @@ const privacySlides = [
   },
   {
     id: 'federated-learning',
-    number: 300,
+    number: 308,
     title: 'Federated learning',
     icon: 'network',
     lead: 'Federated learning entrena modelos moviendo aprendizaje hacia los datos, no datos hacia un servidor central. Los clientes calculan actualizaciones locales y un servidor agrega.',
@@ -2557,7 +2557,7 @@ const privacySlides = [
   },
   {
     id: 'confidential-computing',
-    number: 301,
+    number: 309,
     title: 'Confidential computing y entornos aislados',
     icon: 'server',
     lead: 'Confidential computing intenta proteger datos mientras se procesan usando entornos de ejecución confiables. Es una pieza de arquitectura, no una excusa para saltarse minimización o permisos.',
@@ -2578,7 +2578,7 @@ const privacySlides = [
   },
   {
     id: 'memorization-extraction',
-    number: 302,
+    number: 310,
     title: 'Memorization y extracción de datos',
     icon: 'database-zap',
     lead: 'Los modelos pueden memorizar fragmentos raros, secretos o datos repetidos. La extracción intenta recuperar información de entrenamiento mediante prompts, consultas o ataques.',
@@ -2599,7 +2599,7 @@ const privacySlides = [
   },
   {
     id: 'retencion-contratos-datos',
-    number: 303,
+    number: 311,
     title: 'Retención, contratos y datos de usuario',
     icon: 'file-signature',
     lead: 'Antes de enviar datos a una API o entrenar con datos propios, necesitas saber qué se guarda, cuánto tiempo, dónde, para qué se usa y bajo qué contrato.',
@@ -2622,7 +2622,7 @@ const privacySlides = [
   },
   {
     id: 'privacidad-que-saber',
-    number: 304,
+    number: 312,
     title: 'Qué debe saber: privacidad avanzada',
     icon: 'graduation-cap',
     lead: 'Privacidad seria combina minimización, controles técnicos, contratos, evaluación de ataques y gobierno de datos. No es un interruptor mágico del proveedor.',
@@ -2643,19 +2643,19 @@ const privacySlides = [
 ];
 ---
 
-<Slide id="sec-incertidumbre-decision" number={237} section
+<Slide id="sec-incertidumbre-decision" number={245} section
   title="Incertidumbre y decisión"
   subtitle="Calibración, reliability diagrams, Brier score, abstención, conformal prediction y cómo convertir probabilidad en una política de producto segura." />
 
 {uncertaintySlides.map((slide) => <StructuredSlide {...enrichSlide(slide)} />)}
 
-<Slide id="sec-data-centric-ai" number={248} section
+<Slide id="sec-data-centric-ai" number={256} section
   title="Data-centric AI"
   subtitle="Datasets como producto de ingeniería: labels, drift, leakage, tests de datos, active learning, weak supervision y documentación responsable." />
 
 {dataSlides.map((slide) => <StructuredSlide {...enrichSlide(slide)} />)}
 
-<Slide id="sec-causalidad-experimentacion" number={260} section
+<Slide id="sec-causalidad-experimentacion" number={268} section
   title="Causalidad y experimentación"
   subtitle="Correlación, DAGs, confounding, intervención, contrafactuales, A/B testing y uplift para pasar de predecir a decidir.">
   <div class="section-roadmap">
@@ -2668,7 +2668,7 @@ const privacySlides = [
 
 {causalSlides.map((slide) => <StructuredSlide {...enrichSlide(slide)} />)}
 
-<Slide id="sec-interpretabilidad-practica" number={271} section
+<Slide id="sec-interpretabilidad-practica" number={279} section
   title="Interpretabilidad práctica"
   subtitle="Feature importance, permutation importance, PDP/ICE, SHAP, LIME, error slicing y trazas para depurar modelos y agentes sin confundir explicación con causalidad.">
   <div class="section-roadmap">
@@ -2681,7 +2681,7 @@ const privacySlides = [
 
 {interpretabilitySlides.map((slide) => <StructuredSlide {...enrichSlide(slide)} />)}
 
-<Slide id="sec-refuerzo-formal" number={282} section
+<Slide id="sec-refuerzo-formal" number={290} section
   title="Refuerzo formal y post-training"
   subtitle="MDPs, política, valor, Q, Bellman, exploración, bandits, reward hacking y conexión con RLHF, RLAIF, RFT y RLVR.">
   <div class="section-roadmap">
@@ -2694,7 +2694,7 @@ const privacySlides = [
 
 {rlSlides.map((slide) => <StructuredSlide {...enrichSlide(slide)} />)}
 
-<Slide id="sec-privacidad-avanzada" number={293} section
+<Slide id="sec-privacidad-avanzada" number={301} section
   title="Privacidad avanzada"
   subtitle="PII, anonimización, differential privacy, federated learning, confidential computing, memorization, extracción y contratos de datos.">
   <div class="section-roadmap">

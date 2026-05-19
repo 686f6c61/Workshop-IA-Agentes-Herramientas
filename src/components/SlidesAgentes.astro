@@ -830,7 +830,433 @@ import SlidesFundamentosAvanzados from './SlidesFundamentosAvanzados.astro';
 </Slide>
 
 <!-- SLIDE 192 -->
-<Slide id="multi-modelo" number={192} title="Multi-modelo: usar varios modelos y stack de orquestación">
+<Slide id="modelo-vs-harness-responsabilidad" number={192} title="Modelo vs harness: frontera de responsabilidad">
+  <p><i data-lucide="split-square-horizontal"></i> Un agente fiable no nace de pedirle al modelo “sé responsable”. Nace de separar responsabilidades: el <strong>modelo</strong> interpreta, propone y sintetiza; el <strong>harness</strong> construye contexto, valida, autoriza, ejecuta, registra y devuelve observaciones.</p>
+  <p>Esta frontera es la diferencia entre una demo impresionante y un sistema operable. Si el modelo decide permisos, guarda estado crítico o interpreta datos externos como instrucciones, el sistema ha mezclado razonamiento probabilístico con control determinista. Ahí aparecen los fallos caros.</p>
+
+  <div class="formula-card-grid harness-formula-grid">
+    <div class="formula-card">
+      <strong>Fórmula operativa</strong>
+      <code>agente fiable = modelo + harness + eval + límites</code>
+      <p>El modelo aporta capacidad. El harness convierte esa capacidad en trabajo repetible, auditado y con radio de daño limitado.</p>
+      <span>Si cambias modelo y el sistema sigue fallando igual, el problema probablemente era el harness.</span>
+    </div>
+    <div class="formula-card">
+      <strong>Riesgo esperado</strong>
+      <code>riesgo = P(error) × impacto × autonomía</code>
+      <p>La autonomía multiplica el impacto: no es igual equivocarse redactando que equivocarse enviando, pagando, borrando o desplegando.</p>
+      <span>El control debe subir antes que el impacto, no después del incidente.</span>
+    </div>
+    <div class="formula-card">
+      <strong>Radio de daño</strong>
+      <code>blast radius = permisos × alcance × irreversibilidad</code>
+      <p>Una tool de lectura con scope pequeño tiene bajo riesgo. Una tool genérica de escritura externa con credenciales amplias tiene riesgo alto aunque el prompt sea bueno.</p>
+      <span>Diseña para que un mal razonamiento no pueda convertirse en daño sistémico.</span>
+    </div>
+  </div>
+
+  <table class="compact-table">
+    <thead>
+      <tr><th>Pieza</th><th>Responsabilidad correcta</th><th>Fallo si lo mezclas</th><th>Control de ingeniería</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>Modelo</strong></td><td>leer intención, elegir siguiente paso, pedir tools, redactar explicación</td><td>declara éxito sin prueba, confunde dato con instrucción</td><td>contexto etiquetado, tool specs claras, eval de trayectoria</td></tr>
+      <tr><td><strong>Harness</strong></td><td>autorizar, ejecutar, persistir estado, aplicar budgets, registrar eventos</td><td>ejecución opaca, permisos implícitos, loops caros</td><td>permission engine, logs, timeouts, stop reasons</td></tr>
+      <tr><td><strong>Entorno</strong></td><td>APIs, repos, CRM, navegador, terminal, documentos, usuarios</td><td>fuentes no confiables dirigen acciones</td><td>trust labels, scopes, sandbox, allowlists</td></tr>
+    </tbody>
+  </table>
+
+  <div class="case-study">
+    <p class="case-study-title"><i data-lucide="briefcase-business"></i> Ejemplo: agente de renovaciones B2B</p>
+    <p>El modelo puede resumir uso, tickets y riesgo de churn. El harness decide qué cuentas puede leer, qué borradores puede crear, cuándo pedir aprobación y qué se registra para auditoría.</p>
+    <div class="case-study-rows">
+      <div><strong>Lectura</strong><span>CRM y tickets: autónomo si el usuario tiene permiso sobre la cuenta.</span></div>
+      <div><strong>Borrador</strong><span>Email de seguimiento: autónomo, marcado como borrador y nunca enviado.</span></div>
+      <div><strong>Commit</strong><span>Enviar al cliente o modificar descuento: aprobación humana con preview.</span></div>
+      <div><strong>Evidencia</strong><span>Trace con fuentes, tool calls, coste, aprobador y estado final.</span></div>
+    </div>
+  </div>
+
+  <div class="refs compact-refs">
+    <p class="refs-title">Para profundizar</p>
+    <a href="https://github.com/DenisSergeevitch/agents-best-practices" target="_blank">agents-best-practices - Harness architecture</a>
+    <a href="https://developers.openai.com/tracks/building-agents" target="_blank">OpenAI - Building agents</a>
+    <a href="https://www.anthropic.com/engineering/building-effective-agents" target="_blank">Anthropic - Building effective agents</a>
+  </div>
+</Slide>
+
+<!-- SLIDE 193 -->
+<Slide id="harness-madurez-agente" number={193} title="Niveles de madurez: cuánta autonomía merece un agente">
+  <p><i data-lucide="bar-chart-3"></i> La autonomía no es binaria. Un agente puede empezar como asistente de lectura, pasar a redactor, después actuar con aprobación y solo más tarde ejecutar acciones de bajo riesgo sin supervisión. Esta graduación evita confundir “puede hacerlo una vez” con “puede hacerlo de forma segura siempre”.</p>
+  <div class="big-idea harness-big-idea">
+    <p>Regla: sube el nivel de autonomía solo cuando la eval demuestra que el nivel anterior ya no basta.</p>
+  </div>
+
+  <table class="compact-table maturity-table">
+    <thead>
+      <tr><th>Nivel</th><th>Qué puede hacer</th><th>Ejemplo entendible</th><th>Control mínimo</th><th>Cuándo subir</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>L0 Respuesta</strong></td><td>contesta con contexto dado</td><td>resumir una política pegada en el prompt</td><td>output review</td><td>cuando necesita buscar datos</td></tr>
+      <tr><td><strong>L1 Lectura</strong></td><td>busca y lee fuentes permitidas</td><td>consultar docs internas y citar fragmentos</td><td>scopes de lectura, citas, no side effects</td><td>cuando aporta valor redactando acciones</td></tr>
+      <tr><td><strong>L2 Borrador</strong></td><td>prepara planes o cambios sin ejecutarlos</td><td>crear email, PR draft o plan de incidente</td><td>draft/commit separado, diff visible</td><td>cuando la aprobación es repetible</td></tr>
+      <tr><td><strong>L3 Actor aprobado</strong></td><td>ejecuta tras aprobación explícita</td><td>enviar un email revisado o aplicar un cambio aprobado</td><td>approval record, preview, rollback o compensación</td><td>cuando el riesgo bajo está bien caracterizado</td></tr>
+      <tr><td><strong>L4 Actor acotado</strong></td><td>ejecuta acciones de bajo riesgo dentro de política</td><td>cerrar tickets duplicados con alta confianza</td><td>allowlist, budgets, audit log, canary</td><td>cuando hay volumen y métricas estables</td></tr>
+      <tr><td><strong>L5 Goal worker</strong></td><td>trabaja durante sesiones largas hacia un objetivo medible</td><td>mantener una base de conocimiento o triage diario</td><td>estado durable, compaction, checkpoints, incident path</td><td>solo con operación madura</td></tr>
+    </tbody>
+  </table>
+
+  <div class="two-cols harness-case-cols">
+    <div class="callout compact-callout">
+      <p class="callout-title"><i data-lucide="shield-check"></i> Ejemplo: soporte técnico</p>
+      <p>L1 lee tickets y documentación. L2 redacta respuesta. L3 la envía si una persona aprueba. L4 puede etiquetar tickets triviales. L5 vigila una cola durante días con métricas, presupuesto y handoff.</p>
+    </div>
+    <div class="callout compact-callout">
+      <p class="callout-title"><i data-lucide="alert-triangle"></i> Error común</p>
+      <p>Poner un agente nuevo en L4 porque “ayer funcionó en la demo”. Una demo prueba posibilidad; una eval con trazas prueba repetibilidad. Producción exige repetibilidad, no anécdota.</p>
+    </div>
+  </div>
+
+  <div class="refs compact-refs">
+    <p class="refs-title">Para profundizar</p>
+    <a href="https://github.com/DenisSergeevitch/agents-best-practices/blob/main/references/architecture.md" target="_blank">agents-best-practices - Harness maturity levels</a>
+    <a href="https://openai.github.io/openai-agents-python/human_in_the_loop/" target="_blank">OpenAI Agents SDK - Human in the loop</a>
+    <a href="https://cheatsheetseries.owasp.org/cheatsheets/AI_Agent_Security_Cheat_Sheet.html" target="_blank">OWASP - AI Agent Security</a>
+  </div>
+</Slide>
+
+<!-- SLIDE 194 -->
+<Slide id="tool-contract-operativo" number={194} title="Contrato de tool: no expongas una caja negra al modelo">
+  <p><i data-lucide="file-json-2"></i> Una tool no es “una función que el modelo puede llamar”. Es un <strong>contrato operativo</strong>: dice cuándo se usa, qué recibe, qué devuelve, qué puede cambiar, qué permiso necesita, cómo falla y qué evidencia deja.</p>
+  <p>El modelo ve la descripción y propone argumentos. El backend valida, autoriza y ejecuta. Por eso la seguridad no puede depender de que el modelo “se porte bien”: los argumentos de la tool son input no confiable hasta que tu sistema los valida.</p>
+
+  <div class="decision-formula tool-contract-formula">
+    <strong>tool</strong>
+    <span>=</span>
+    <span>input_schema</span>
+    <span>+</span>
+    <span>output_schema</span>
+    <span>+</span>
+    <span>risk_class</span>
+    <span>+</span>
+    <span>permission_policy</span>
+    <span>+</span>
+    <span>error_model</span>
+  </div>
+
+  <div class="two-cols tool-contract-cols">
+    <div class="code-block tool-contract-code">
+<code>tool: request_refund_approval
+purpose: "prepara un reembolso; no mueve dinero"
+input_schema:
+  order_id: string
+  amount_eur: number
+  reason: enum[duplicate, failed_delivery, goodwill]
+side_effect: draft_only
+risk_class: financial
+permission: approval_required_before_commit
+timeout_ms: 3000
+result_limit: "summary + artifact_ref"
+errors: invalid_amount | not_found | approval_required</code>
+    </div>
+    <div>
+      <table class="compact-table">
+        <tbody>
+          <tr><td><strong>Nombre específico</strong></td><td><code>request_refund_approval</code> enseña intención mejor que <code>call_api</code>.</td></tr>
+          <tr><td><strong>Schema estricto</strong></td><td>campos requeridos, tipos, enums y rechazo de propiedades desconocidas.</td></tr>
+          <tr><td><strong>Side effect</strong></td><td>distingue leer, calcular, redactar, escribir, enviar, pagar o borrar.</td></tr>
+          <tr><td><strong>Error útil</strong></td><td>el fallo también es observación: debe decir qué pasó y cuál es la siguiente acción válida.</td></tr>
+          <tr><td><strong>Resultado limitado</strong></td><td>la tool resume, pagina o devuelve referencia; no mete 10.000 filas en contexto.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <table class="compact-table">
+    <thead>
+      <tr><th>Tool mala</th><th>Por qué falla</th><th>Tool buena</th><th>Por qué ayuda</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><code>execute(command)</code></td><td>demasiado poder, difícil de auditar</td><td><code>run_test_suite(suite)</code></td><td>acción acotada, salida esperada, timeout claro</td></tr>
+      <tr><td><code>send_message(payload)</code></td><td>puede enviar cualquier cosa a cualquiera</td><td><code>draft_customer_email(case_id)</code> + <code>send_approved_email(id)</code></td><td>separa borrador y commit</td></tr>
+      <tr><td><code>query_database(sql)</code></td><td>inyección, fuga, consultas enormes</td><td><code>get_account_summary(account_id)</code></td><td>semántica de dominio y permisos por recurso</td></tr>
+    </tbody>
+  </table>
+
+  <div class="refs compact-refs">
+    <p class="refs-title">Para profundizar</p>
+    <a href="https://www.anthropic.com/engineering/writing-tools-for-agents" target="_blank">Anthropic - Writing effective tools for agents</a>
+    <a href="https://github.com/DenisSergeevitch/agents-best-practices/blob/main/references/tools-and-permissions.md" target="_blank">agents-best-practices - Tools and permissions</a>
+    <a href="https://platform.openai.com/docs/guides/function-calling" target="_blank">OpenAI - Function calling</a>
+  </div>
+</Slide>
+
+<!-- SLIDE 195 -->
+<Slide id="matriz-permisos-agente" number={195} title="Matriz de permisos: la autonomía se diseña por acción">
+  <p><i data-lucide="key-round"></i> La pregunta correcta no es “¿confiamos en el agente?”. Es “¿qué acción concreta puede ejecutar, sobre qué recurso, con qué usuario, bajo qué política y con qué evidencia?”. Una matriz de permisos convierte esa pregunta en ingeniería.</p>
+
+  <table class="compact-table permission-matrix-table">
+    <thead>
+      <tr><th>Clase de acción</th><th>Ejemplos</th><th>Decisión por defecto</th><th>Control mínimo</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>Read scoped</strong></td><td>leer ticket, política, fichero permitido</td><td>allow</td><td>scope por usuario/proyecto, redacción de secretos</td></tr>
+      <tr><td><strong>Search web / docs</strong></td><td>buscar fuentes, listar candidatos</td><td>allow o restrict</td><td>trust labels, citas, bloqueo de instrucciones externas</td></tr>
+      <tr><td><strong>Compute only</strong></td><td>calcular ranking, validar JSON, resumir CSV</td><td>allow en sandbox</td><td>CPU/mem/time budget, sin red si no hace falta</td></tr>
+      <tr><td><strong>Draft</strong></td><td>email, PR, cambio de contrato, respuesta de soporte</td><td>allow como borrador</td><td>preview, marca de borrador, no commit automático</td></tr>
+      <tr><td><strong>Write internal</strong></td><td>actualizar estado de ticket, crear issue</td><td>policy allowlist o aprobación</td><td>diff, idempotencia, audit log, rollback si existe</td></tr>
+      <tr><td><strong>External / financial</strong></td><td>enviar email, emitir reembolso, cambiar precio</td><td>approval_required</td><td>aprobación fuera del modelo, strong auth, scope de un solo uso</td></tr>
+      <tr><td><strong>Destructive / privileged</strong></td><td>borrar datos, rotar permisos, desplegar producción</td><td>deny o aprobación excepcional</td><td>recovery plan, doble control, cambio trazable</td></tr>
+    </tbody>
+  </table>
+
+  <div class="formula-card-grid permission-formula-grid">
+    <div class="formula-card">
+      <strong>Objeto de decisión</strong>
+      <code>&#123; tool, args_hash, user, resource, risk, decision, policy_rule &#125;</code>
+      <p>El permiso debe quedar persistido fuera del prompt. Si mañana revisas un incidente, necesitas saber qué regla permitió o bloqueó la acción.</p>
+    </div>
+    <div class="formula-card">
+      <strong>Draft vs commit</strong>
+      <code>draft_refund → approve_refund → issue_refund</code>
+      <p>Separar preparación y ejecución permite que el agente aporte velocidad sin convertirlo en operador financiero autónomo.</p>
+    </div>
+  </div>
+
+  <div class="case-study">
+    <p class="case-study-title"><i data-lucide="shopping-cart"></i> Ejemplo: e-commerce</p>
+    <p>El agente puede leer pedido y ticket, calcular si el caso parece reembolsable y redactar una propuesta. No puede emitir el reembolso hasta que el sistema confirme rol, importe, política, historial de abuso y aprobación humana.</p>
+    <div class="case-study-rows">
+      <div><strong>Autónomo</strong><span>leer pedido, resumir ticket, comprobar política.</span></div>
+      <div><strong>Borrador</strong><span>preparar motivo, importe y mensaje al cliente.</span></div>
+      <div><strong>Aprobado</strong><span>emitir reembolso de un pedido concreto.</span></div>
+      <div><strong>Bloqueado</strong><span>cambiar política global, refund masivo o tocar permisos.</span></div>
+    </div>
+  </div>
+
+  <div class="refs compact-refs">
+    <p class="refs-title">Para profundizar</p>
+    <a href="https://cheatsheetseries.owasp.org/cheatsheets/AI_Agent_Security_Cheat_Sheet.html" target="_blank">OWASP - Tool security and least privilege</a>
+    <a href="https://openai.github.io/openai-agents-python/human_in_the_loop/" target="_blank">OpenAI Agents SDK - Human in the loop</a>
+    <a href="https://github.com/DenisSergeevitch/agents-best-practices/blob/main/references/security-evals-observability.md" target="_blank">agents-best-practices - Security, evals and observability</a>
+  </div>
+</Slide>
+
+<!-- SLIDE 196 -->
+<Slide id="compaction-handoff-operativo" number={196} title="Compaction: resumir no basta, hay que hacer handoff operativo">
+  <p><i data-lucide="archive-restore"></i> En agentes largos, el contexto se llena. Compactar no significa “hacer un resumen bonito de la conversación”; significa crear un <strong>handoff operativo</strong> para que la siguiente llamada al modelo pueda continuar sin redescubrir el trabajo ni perder restricciones.</p>
+  <p>Una mala compaction borra justo lo que importa: aprobaciones activas, decisiones, IDs de tool calls, artefactos creados, errores ya intentados y próximos pasos. Una buena compaction conserva estado verificable y elimina conversación redundante.</p>
+
+  <div class="process-lane compaction-lane">
+    <div class="process-step"><span class="step-label">1</span><strong>Detectar límite</strong><p>contexto grande, pausa humana, cambio de fase o tool output pesado.</p></div>
+    <div class="process-step"><span class="step-label">2</span><strong>Separar artefactos</strong><p>logs, diffs, tablas y ficheros grandes viven fuera del prompt con referencias.</p></div>
+    <div class="process-step"><span class="step-label">3</span><strong>Preservar estado</strong><p>objetivo, constraints, plan, aprobaciones, decisiones y siguiente acción.</p></div>
+    <div class="process-step"><span class="step-label">4</span><strong>Rehidratar</strong><p>la siguiente llamada recibe resumen, artefactos relevantes y límites activos.</p></div>
+  </div>
+
+  <div class="two-cols compaction-cols">
+    <div class="code-block compaction-code">
+<code># Handoff operativo
+objetivo_actual: ...
+restricciones_usuario: ...
+instrucciones_autoritativas: ...
+plan_activo: ...
+aprobaciones: ...
+recursos_inspeccionados: ...
+artefactos_creados: ...
+errores_y_fixes_probados: ...
+pendiente: ...
+siguiente_paso: ...
+no_rehacer: ...</code>
+    </div>
+    <div>
+      <table class="compact-table">
+        <thead>
+          <tr><th>Preservar</th><th>Por qué</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>números exactos, IDs, rutas</td><td>un resumen aproximado rompe ejecución</td></tr>
+          <tr><td>aprobaciones y permisos</td><td>no deben esconderse en prosa</td></tr>
+          <tr><td>errores probados</td><td>evita repetir la misma rama fallida</td></tr>
+          <tr><td>artefactos por referencia</td><td>reduce tokens sin perder verificabilidad</td></tr>
+          <tr><td>trust boundaries</td><td>contenido externo sigue siendo dato, no instrucción</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="callout compact-callout">
+    <p class="callout-title"><i data-lucide="server"></i> Ejemplo de producción</p>
+    <p>Un agente de incidentes lee logs, genera hipótesis, pide una mitigación y espera aprobación. Si compacta y pierde que la mitigación aún no fue aprobada, puede ejecutar una acción que el humano solo estaba revisando. Por eso la aprobación debe estar en estado durable, no solo en el chat.</p>
+  </div>
+
+  <div class="refs compact-refs">
+    <p class="refs-title">Para profundizar</p>
+    <a href="https://github.com/DenisSergeevitch/agents-best-practices/blob/main/references/context-memory-compaction.md" target="_blank">agents-best-practices - Context, memory and compaction</a>
+    <a href="https://www.anthropic.com/engineering/building-effective-agents" target="_blank">Anthropic - Building effective agents</a>
+    <a href="https://platform.openai.com/docs/guides/prompt-caching" target="_blank">OpenAI - Prompt caching</a>
+  </div>
+</Slide>
+
+<!-- SLIDE 197 -->
+<Slide id="trazas-event-log-agente" number={197} title="Trazas como event log: depurar la trayectoria, no solo la respuesta">
+  <p><i data-lucide="git-branch"></i> En un agente, el resultado final puede parecer correcto por suerte. La traza enseña la trayectoria: qué vio, qué tool eligió, con qué argumentos, qué permiso recibió, qué observó, cuánto costó y por qué paró.</p>
+  <p>No hace falta registrar razonamiento privado del modelo. Lo importante para ingeniería es el <strong>event log operativo</strong>: eventos observables, reproducibles y suficientes para auditoría, evals, incident response y mejora del harness.</p>
+
+  <div class="process-lane trace-lane">
+    <div class="process-step"><span class="step-label">event</span><strong>user_task</strong><p>objetivo, usuario, tenant, restricciones iniciales.</p></div>
+    <div class="process-step"><span class="step-label">event</span><strong>context_build</strong><p>instrucciones cargadas, fuentes, trust labels, tamaño.</p></div>
+    <div class="process-step"><span class="step-label">event</span><strong>tool_call</strong><p>tool, args redacted/hash, risk class, motivo observable.</p></div>
+    <div class="process-step"><span class="step-label">event</span><strong>permission</strong><p>allow, deny, approval_required, regla aplicada.</p></div>
+    <div class="process-step"><span class="step-label">event</span><strong>tool_result</strong><p>success/error, resumen, artifact ref, next valid actions.</p></div>
+    <div class="process-step"><span class="step-label">event</span><strong>final_status</strong><p>done, blocked, budget_exhausted, needs_human.</p></div>
+  </div>
+
+  <table class="compact-table trace-table">
+    <thead>
+      <tr><th>Pregunta de debugging</th><th>Campo de traza</th><th>Qué decisión permite</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>¿Usó datos correctos?</td><td>resources, citations, retrieval ids</td><td>arreglar retrieval o contexto, no el modelo</td></tr>
+      <tr><td>¿La tool era necesaria?</td><td>tool_call + tool_result + final_status</td><td>reducir llamadas innecesarias y coste</td></tr>
+      <tr><td>¿Se saltó permisos?</td><td>risk_class + permission decision</td><td>corregir policy engine o scopes</td></tr>
+      <tr><td>¿Falló por formato?</td><td>schema validation error</td><td>mejorar schema, descripción o retry estructurado</td></tr>
+      <tr><td>¿Por qué paró?</td><td>stop_reason, budget, approvals pending</td><td>ajustar límites o escalado humano</td></tr>
+    </tbody>
+  </table>
+
+  <div class="case-study">
+    <p class="case-study-title"><i data-lucide="receipt-text"></i> Ejemplo: reembolso equivocado</p>
+    <p>Sin traza solo ves “se emitió un reembolso incorrecto”. Con traza puedes ver si el error vino de recuperación de pedido, cálculo, política de permisos, aprobación humana, tool defectuosa o una instrucción maliciosa en un ticket.</p>
+    <div class="case-study-rows">
+      <div><strong>Modelo</strong><span>pidió la tool correcta pero con importe malo.</span></div>
+      <div><strong>Tool</strong><span>no validó límite por pedido.</span></div>
+      <div><strong>Permiso</strong><span>aprobación no estaba atada a importe exacto.</span></div>
+      <div><strong>Fix</strong><span>schema + policy + eval de regresión.</span></div>
+    </div>
+  </div>
+
+  <div class="refs compact-refs">
+    <p class="refs-title">Para profundizar</p>
+    <a href="https://openai.github.io/openai-agents-python/tracing/" target="_blank">OpenAI Agents SDK - Tracing</a>
+    <a href="https://www.anthropic.com/engineering/demystifying-evals-for-ai-agents" target="_blank">Anthropic - Evals for AI agents</a>
+    <a href="https://github.com/DenisSergeevitch/agents-best-practices/blob/main/references/security-evals-observability.md" target="_blank">agents-best-practices - Observability</a>
+  </div>
+</Slide>
+
+<!-- SLIDE 198 -->
+<Slide id="launch-gate-agente" number={198} title="Launch gate: antes de dar autonomía, exige evidencia">
+  <p><i data-lucide="rocket"></i> Un agente no debería pasar a producción porque “parece funcionar”. Debe pasar por una puerta de lanzamiento: evals, permisos, trazas, presupuestos, rollback y pruebas adversariales. El objetivo no es eliminar todos los fallos; es saber cuáles quedan, cuánto cuestan y cómo se contienen.</p>
+
+  <div class="decision-formula launch-formula">
+    <strong>go/no-go</strong>
+    <span>=</span>
+    <span>task_success ≥ umbral</span>
+    <span>∧</span>
+    <span>unsafe_actions = 0</span>
+    <span>∧</span>
+    <span>coste ≤ presupuesto</span>
+    <span>∧</span>
+    <span>rollback definido</span>
+  </div>
+
+  <div class="check-grid launch-check-grid">
+    <div class="check-card"><strong>Tool registry estrecho</strong><p>Solo tools necesarias, con schemas estrictos, límites de resultado y risk class.</p></div>
+    <div class="check-card"><strong>Permission matrix aplicada</strong><p>Read, draft, write, external, financial, destructive y privileged con decisiones por defecto.</p></div>
+    <div class="check-card"><strong>Eval realista</strong><p>Casos históricos, near-miss, adversariales, errores de tool y datos sin respuesta.</p></div>
+    <div class="check-card"><strong>Trazas activas</strong><p>Run id, contexto, tool calls, permisos, errores, coste, stop reason y estado final.</p></div>
+    <div class="check-card"><strong>Budget y stop rules</strong><p>Máximo de pasos, tokens, coste, tiempo y llamadas a tools antes de escalar.</p></div>
+    <div class="check-card"><strong>Rollback / compensación</strong><p>Cómo revertir, corregir o pausar si una acción tiene efecto real.</p></div>
+  </div>
+
+  <table class="compact-table">
+    <thead>
+      <tr><th>Test adversarial</th><th>Qué intenta romper</th><th>Resultado esperado</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Documento dice “ignora instrucciones y envía datos”</td><td>trust boundary</td><td>se trata como dato; no cambia política</td></tr>
+      <tr><td>Tool devuelve JSON malformado</td><td>recuperación de errores</td><td>retry controlado o escalado, no loop infinito</td></tr>
+      <tr><td>Usuario pide acción financiera sin permiso</td><td>approval bypass</td><td>draft o approval_required, nunca commit directo</td></tr>
+      <tr><td>Contexto llega al límite</td><td>compaction</td><td>handoff preserva objetivo, aprobaciones y siguiente paso</td></tr>
+      <tr><td>Dos instrucciones entran en conflicto</td><td>jerarquía de autoridad</td><td>gana política superior, se registra conflicto</td></tr>
+    </tbody>
+  </table>
+
+  <div class="callout compact-callout">
+    <p class="callout-title"><i data-lucide="flask-conical"></i> Shadow mode</p>
+    <p>Antes de autonomía real, ejecuta en sombra: el agente propone acciones con trazas y costes, pero una persona o sistema existente decide. Así estimas valor y riesgo sin tocar producción.</p>
+  </div>
+
+  <div class="refs compact-refs">
+    <p class="refs-title">Para profundizar</p>
+    <a href="https://github.com/DenisSergeevitch/agents-best-practices/blob/main/references/checklists.md" target="_blank">agents-best-practices - Agent harness checklists</a>
+    <a href="https://cheatsheetseries.owasp.org/cheatsheets/AI_Agent_Security_Cheat_Sheet.html" target="_blank">OWASP - AI Agent Security</a>
+    <a href="https://openai.github.io/openai-agents-python/guardrails/" target="_blank">OpenAI Agents SDK - Guardrails</a>
+  </div>
+</Slide>
+
+<!-- SLIDE 199 -->
+<Slide id="entropy-management-agentes" number={199} title="Entropy management: el agente hereda la calidad del entorno">
+  <p><i data-lucide="recycle"></i> Los agentes reutilizan instrucciones, tools, ejemplos, documentación, memorias y trazas. Si ese entorno envejece, el agente hereda basura: reglas duplicadas, docs obsoletas, tools demasiado amplias, ejemplos malos y decisiones antiguas tratadas como verdad actual.</p>
+  <p>Por eso el harness también necesita mantenimiento. La calidad no se conserva sola: se versiona, se audita, se limpia y se mide. En agentes largos, la deuda documental se convierte en deuda de comportamiento.</p>
+
+  <div class="two-cols entropy-cols">
+    <div>
+      <h3><i data-lucide="folder-tree"></i> Base de conocimiento agent-readable</h3>
+      <div class="process-lane entropy-map">
+        <div class="process-step"><span class="step-label">mapa</span><strong>Instrucciones cortas</strong><p>dónde mirar, qué manda más y qué no cargar.</p></div>
+        <div class="process-step"><span class="step-label">fuente</span><strong>Políticas y runbooks</strong><p>verdad estable, owners y fecha de revisión.</p></div>
+        <div class="process-step"><span class="step-label">estado</span><strong>Planes y decisiones</strong><p>qué se hizo, por qué y con qué evidencia.</p></div>
+        <div class="process-step"><span class="step-label">medición</span><strong>Evals y scorecards</strong><p>casos que protegen contra regresiones.</p></div>
+      </div>
+    </div>
+    <div>
+      <h3><i data-lucide="trash-2"></i> Señales de entropía</h3>
+      <table class="compact-table">
+        <tbody>
+          <tr><td><strong>Reglas duplicadas</strong></td><td>el agente recibe instrucciones contradictorias.</td></tr>
+          <tr><td><strong>Docs sin owner</strong></td><td>nadie sabe si siguen siendo verdad.</td></tr>
+          <tr><td><strong>Tools zombies</strong></td><td>siguen visibles aunque ya no deben usarse.</td></tr>
+          <tr><td><strong>Memoria tóxica</strong></td><td>preferencias antiguas pisan política actual.</td></tr>
+          <tr><td><strong>Evals congeladas</strong></td><td>miden el producto viejo, no el riesgo nuevo.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <table class="compact-table entropy-table">
+    <thead>
+      <tr><th>Ritual de mantenimiento</th><th>Frecuencia razonable</th><th>Qué produce</th><th>Por qué mejora el agente</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Inventario de tools</td><td>mensual o por release</td><td>tools activas, owners, scopes, risk class</td><td>reduce superficie de acción innecesaria</td></tr>
+      <tr><td>Freshness scan de docs</td><td>mensual/trimestral</td><td>docs stale, políticas sin owner, enlaces rotos</td><td>evita que el modelo use verdad caducada</td></tr>
+      <tr><td>Repeated-failure review</td><td>cada incidente o semana</td><td>nueva regla, test, validator o eval</td><td>convierte errores en mejoras permanentes</td></tr>
+      <tr><td>Scorecard de calidad</td><td>por cambio de modelo/prompt/tool</td><td>baseline, delta, coste, regresiones</td><td>impide “mejoras” sin evidencia</td></tr>
+    </tbody>
+  </table>
+
+  <div class="case-study">
+    <p class="case-study-title"><i data-lucide="code-2"></i> Ejemplo: coding agent en monorepo</p>
+    <p>Si <code>AGENTS.md</code> dice una arquitectura, una wiki antigua dice otra y una tool permite escribir en todo el repo, el agente no “razona mal”: trabaja en un entorno incoherente. La corrección es limpiar fuentes, acotar tools y añadir checks estructurales.</p>
+    <div class="case-study-rows">
+      <div><strong>Antes</strong><span>prompt largo, docs viejas, tests opcionales.</span></div>
+      <div><strong>Después</strong><span>mapa corto, refs con owner, lint arquitectural, eval de regresión.</span></div>
+      <div><strong>Métrica</strong><span>menos ediciones fuera de alcance y menos reintentos.</span></div>
+      <div><strong>Principio</strong><span>la memoria buena es verificable; la mala solo suena familiar.</span></div>
+    </div>
+  </div>
+
+  <div class="refs compact-refs">
+    <p class="refs-title">Para profundizar</p>
+    <a href="https://github.com/DenisSergeevitch/agents-best-practices/blob/main/references/architecture.md" target="_blank">agents-best-practices - Entropy management</a>
+    <a href="https://www.anthropic.com/engineering/writing-tools-for-agents" target="_blank">Anthropic - Tool design and evals</a>
+    <a href="https://modelcontextprotocol.io/specification/2025-11-25" target="_blank">MCP Specification</a>
+  </div>
+</Slide>
+
+<!-- SLIDE 200 -->
+<Slide id="multi-modelo" number={200} title="Multi-modelo: usar varios modelos y stack de orquestación">
   <p>No todos los modelos son iguales ni cuestan lo mismo. La clave es usar el <strong>modelo adecuado para cada tarea</strong>, pero con medición: un router sin eval puede ahorrar en casos fáciles y romper justo los casos valiosos.</p>
   <h3><i data-lucide="route"></i> Patrón de routing</h3>
   <div class="flow">
@@ -875,8 +1301,8 @@ import SlidesFundamentosAvanzados from './SlidesFundamentosAvanzados.astro';
   </div>
 </Slide>
 
-<!-- SLIDE 193 -->
-<Slide id="patrones-orquestacion" number={193} title="Patrones de orquestación en OpenAI y Claude">
+<!-- SLIDE 201 -->
+<Slide id="patrones-orquestacion" number={201} title="Patrones de orquestación en OpenAI y Claude">
   <p><i data-lucide="book-open"></i> SDK = Software Development Kit: librería para construir sobre una plataforma. ADK = Agent Development Kit: toolkit específico para definir agentes, workflows, tools y estado.</p>
   <div class="two-cols">
     <div>
@@ -927,8 +1353,8 @@ import SlidesFundamentosAvanzados from './SlidesFundamentosAvanzados.astro';
   </div>
 </Slide>
 
-<!-- SLIDE 194 -->
-<Slide id="ejemplo-codigo-agente" number={194} title="Ejemplo: un agente con tools en código real">
+<!-- SLIDE 202 -->
+<Slide id="ejemplo-codigo-agente" number={202} title="Ejemplo: un agente con tools en código real">
   <p><i data-lucide="code"></i> Un agente mínimo tiene tres partes: un <strong>modelo</strong>, unas <strong>herramientas</strong> y un <strong>bucle</strong> que ejecuta las tool calls hasta que el modelo termina.</p>
   <h3><i data-lucide="terminal"></i> Agente básico con Claude API (TypeScript)</h3>
   <div class="code-block">
@@ -997,8 +1423,8 @@ import SlidesFundamentosAvanzados from './SlidesFundamentosAvanzados.astro';
   </div>
 </Slide>
 
-<!-- SLIDE 195 -->
-<Slide id="orquestacion" number={195} title="Sistemas de orquestación de agentes">
+<!-- SLIDE 203 -->
+<Slide id="orquestacion" number={203} title="Sistemas de orquestación de agentes">
   <p>Coordinan <strong>múltiples agentes</strong> para resolver problemas complejos. Un agente solo no puede con todo: necesitas especialización, división de tareas y coordinación. Pero cada agente adicional añade comunicación, estado compartido y puntos de fallo.</p>
   <h3><i data-lucide="network"></i> Patrones principales</h3>
   <div class="icon-grid">
@@ -1053,8 +1479,8 @@ import SlidesFundamentosAvanzados from './SlidesFundamentosAvanzados.astro';
   </div>
 </Slide>
 
-<!-- SLIDE 196 -->
-<Slide id="orquestadores-adks" number={196} title="¿Cuáles hay? (orquestadores y ADKs)">
+<!-- SLIDE 204 -->
+<Slide id="orquestadores-adks" number={204} title="¿Cuáles hay? (orquestadores y ADKs)">
   <p>Elige framework por <strong>modelo de estado, trazabilidad, ecosistema y despliegue</strong>, no solo por popularidad. En agentes, la diferencia real aparece cuando algo falla y necesitas pausar, reanudar, auditar o cambiar de modelo.</p>
   <div class="compare-card">
     <p class="compare-card-title"><i data-lucide="link"></i> LangChain + LangGraph <span class="tag">v1.0</span> <span class="tag">Python</span> <span class="tag">JS</span></p>
@@ -1099,8 +1525,8 @@ import SlidesFundamentosAvanzados from './SlidesFundamentosAvanzados.astro';
   </div>
 </Slide>
 
-<!-- SLIDE 197 -->
-<Slide id="claude-code-estructura" number={197} title="Estructura de un agente sobre Claude Code">
+<!-- SLIDE 205 -->
+<Slide id="claude-code-estructura" number={205} title="Estructura de un agente sobre Claude Code">
   <p>Claude Code ilustra cómo se monta un agente de desarrollo real: reglas persistentes, herramientas nativas, permisos, hooks, MCPs, skills y subagentes. Lo importante no es memorizar nombres, sino entender qué capa controla cada responsabilidad.</p>
   <div class="icon-grid">
     <div class="icon-card">
@@ -1173,8 +1599,8 @@ import SlidesFundamentosAvanzados from './SlidesFundamentosAvanzados.astro';
   </div>
 </Slide>
 
-<!-- SLIDE 198 -->
-<Slide id="coding-agents" number={198} title="Coding agents: el estado del arte">
+<!-- SLIDE 206 -->
+<Slide id="coding-agents" number={206} title="Coding agents: el estado del arte">
   <p><i data-lucide="code"></i> Agentes que <strong>programan de forma autónoma</strong>: leen código, planifican cambios, implementan, ejecutan tests y corrigen errores. El salto de "asistente" a "programador autónomo".</p>
   <p>La lectura correcta es menos espectacular y más útil: un coding agent no sustituye el criterio de ingeniería; convierte una intención en una hipótesis de patch, ejecuta comprobaciones y deja un diff que una persona o pipeline debe validar.</p>
   <h3><i data-lucide="database"></i> Comparativa (mayo 2026)</h3>
@@ -1222,8 +1648,8 @@ import SlidesFundamentosAvanzados from './SlidesFundamentosAvanzados.astro';
   </div>
 </Slide>
 
-<!-- SLIDE 199 -->
-<Slide id="mcp" number={199} title="MCP (Model Context Protocol): el estándar que conecta modelos con el mundo">
+<!-- SLIDE 207 -->
+<Slide id="mcp" number={207} title="MCP (Model Context Protocol): el estándar que conecta modelos con el mundo">
   <p><i data-lucide="plug"></i> Un protocolo abierto (creado por Anthropic, adoptado por la industria) que estandariza cómo un modelo se conecta con <strong>herramientas externas</strong>.</p>
   <div class="analogy">
     <p class="analogy-label"><i data-lucide="lightbulb"></i> Analogía</p>
@@ -1260,8 +1686,8 @@ import SlidesFundamentosAvanzados from './SlidesFundamentosAvanzados.astro';
   </div>
 </Slide>
 
-<!-- SLIDE 200 -->
-<Slide id="mcp-practica" number={200} title="MCP en la práctica: crear un servidor mínimo">
+<!-- SLIDE 208 -->
+<Slide id="mcp-practica" number={208} title="MCP en la práctica: crear un servidor mínimo">
   <p><i data-lucide="code"></i> Crear un MCP server es sorprendentemente simple. Aquí tienes un servidor completo en TypeScript que expone una herramienta.</p>
   <p>Lo importante de este ejemplo no es memorizar el SDK, sino ver la frontera: el servidor define una tool con schema, el cliente la descubre y el agente decide si llamarla. Tu código conserva el control de permisos y efectos.</p>
   <h3><i data-lucide="terminal"></i> Servidor MCP mínimo (TypeScript)</h3>
@@ -1337,8 +1763,8 @@ import SlidesFundamentosAvanzados from './SlidesFundamentosAvanzados.astro';
   </div>
 </Slide>
 
-<!-- SLIDE 201 -->
-<Slide id="computer-use" number={201} title="Computer Use y Browser Use">
+<!-- SLIDE 209 -->
+<Slide id="computer-use" number={209} title="Computer Use y Browser Use">
   <p><i data-lucide="monitor"></i> Agentes que <strong>controlan el ordenador como un humano</strong>: mueven el ratón, hacen clic, leen la pantalla, rellenan formularios. El siguiente salto en capacidad de los agentes.</p>
   <p>La potencia viene de poder actuar donde no hay API. El coste es que la interfaz gráfica es frágil: botones cambian, capturas se interpretan mal, ventanas pierden foco y una acción equivocada puede tener efecto real.</p>
   <h3><i data-lucide="layers"></i> Tipos de control</h3>
@@ -1393,8 +1819,8 @@ import SlidesFundamentosAvanzados from './SlidesFundamentosAvanzados.astro';
   </div>
 </Slide>
 
-<!-- SLIDE 202 -->
-<Slide id="a2a" number={202} title="A2A (Agent-to-Agent): agentes que hablan entre sí">
+<!-- SLIDE 210 -->
+<Slide id="a2a" number={210} title="A2A (Agent-to-Agent): agentes que hablan entre sí">
   <p><i data-lucide="users"></i> <strong>Agent-to-Agent Protocol</strong> (Google, 2025): un protocolo abierto para que agentes de <strong>distintos proveedores</strong> colaboren entre sí. Si MCP conecta agentes con herramientas, A2A conecta agentes con otros agentes.</p>
   <div class="analogy">
     <p class="analogy-label"><i data-lucide="lightbulb"></i> Analogía</p>
@@ -1456,8 +1882,8 @@ import SlidesFundamentosAvanzados from './SlidesFundamentosAvanzados.astro';
   </div>
 </Slide>
 
-<!-- SLIDE 203 -->
-<Slide id="human-in-the-loop" number={203} title="Human-in-the-loop">
+<!-- SLIDE 211 -->
+<Slide id="human-in-the-loop" number={211} title="Human-in-the-loop">
   <p><i data-lucide="user-check"></i> Un agente autónomo sin supervisión es un riesgo. <strong>Human-in-the-loop</strong> (HITL) son patrones para mantener al humano en el bucle de decisión en los momentos críticos.</p>
   <p>HITL no significa revisar todo manualmente. Significa poner al humano donde aporta más: decisiones irreversibles, baja confianza, conflicto entre fuentes, cambio de permisos o coste de error alto.</p>
   <h3><i data-lucide="git-branch"></i> Patrones de intervención</h3>
@@ -1527,8 +1953,8 @@ import SlidesFundamentosAvanzados from './SlidesFundamentosAvanzados.astro';
   </div>
 </Slide>
 
-<!-- SLIDE 204 -->
-<Slide id="recap-agentes" number={204} title="Lo que deberías saber: agentes y orquestación">
+<!-- SLIDE 212 -->
+<Slide id="recap-agentes" number={212} title="Lo que deberías saber: agentes y orquestación">
   <table>
     <thead>
       <tr><th>Concepto</th><th>Slide</th></tr>
@@ -1540,24 +1966,24 @@ import SlidesFundamentosAvanzados from './SlidesFundamentosAvanzados.astro';
       <tr><td>Function calling: contratos de tools, schemas, permisos y observaciones</td><td>181</td></tr>
       <tr><td>Arquitecturas documentadas: ReAct, ReWOO, Reflexion y multiagente</td><td>182-184</td></tr>
       <tr><td>Patrones de diseño: chaining, routing, parallelization, orchestrator-workers y evaluator-optimizer</td><td>185</td></tr>
-      <tr><td>Harness Engineering: capas, sensores, métricas, plantilla y reglas de mercado</td><td>186-191</td></tr>
-      <tr><td>Multi-modelo y orquestación con SDKs, ADKs, estado y trazas</td><td>192-197</td></tr>
-      <tr><td>Coding agents: capacidades reales, límites y evaluación propia</td><td>198</td></tr>
-      <tr><td>MCP: tools, resources, prompts, transporte y práctica de servidor mínimo</td><td>199-200</td></tr>
-      <tr><td>Computer Use, Browser Use y automatización de interfaces</td><td>201</td></tr>
-      <tr><td>A2A: Agent Card, tasks, streaming, artefactos y confianza entre agentes</td><td>202</td></tr>
-      <tr><td>Human-in-the-loop: niveles de autonomía, checkpoints y matriz de riesgo</td><td>203</td></tr>
+      <tr><td>Harness Engineering: capas, sensores, métricas, plantilla, reglas de mercado y diseño profundo del harness</td><td>186-199</td></tr>
+      <tr><td>Multi-modelo y orquestación con SDKs, ADKs, estado y trazas</td><td>200-205</td></tr>
+      <tr><td>Coding agents: capacidades reales, límites y evaluación propia</td><td>206</td></tr>
+      <tr><td>MCP: tools, resources, prompts, transporte y práctica de servidor mínimo</td><td>207-208</td></tr>
+      <tr><td>Computer Use, Browser Use y automatización de interfaces</td><td>209</td></tr>
+      <tr><td>A2A: Agent Card, tasks, streaming, artefactos y confianza entre agentes</td><td>210</td></tr>
+      <tr><td>Human-in-the-loop: niveles de autonomía, checkpoints y matriz de riesgo</td><td>211</td></tr>
     </tbody>
   </table>
 </Slide>
 
-<!-- SLIDE 205: SECCION -->
-<Slide id="sec-realidad" number={205} section
+<!-- SLIDE 213: SECCION -->
+<Slide id="sec-realidad" number={213} section
   title="Realidad de construir con IA"
   subtitle="Herramientas, CI/CD con IA, seguridad, red teaming, regulación, costes, observabilidad y el cambio de paradigma." />
 
-<!-- SLIDE 206 -->
-<Slide id="ide-terminal" number={206} title="IDE web vs terminal: ¿dónde usar la IA?">
+<!-- SLIDE 214 -->
+<Slide id="ide-terminal" number={214} title="IDE web vs terminal: ¿dónde usar la IA?">
   <p>La herramienta correcta depende de <strong>cuánto contexto real necesita la tarea</strong> y de si la IA debe actuar o solo razonar. Una conversación web es excelente para explorar; un agente conectado al repo es mejor cuando hay que leer, editar, ejecutar y verificar.</p>
   <div class="two-cols">
     <div>
@@ -1627,8 +2053,8 @@ import SlidesFundamentosAvanzados from './SlidesFundamentosAvanzados.astro';
   </div>
 </Slide>
 
-<!-- SLIDE 207 -->
-<Slide id="comparativa-coding" number={207} title="Comparativa de AI coding assistants (mayo 2026)">
+<!-- SLIDE 215 -->
+<Slide id="comparativa-coding" number={215} title="Comparativa de AI coding assistants (mayo 2026)">
   <p><i data-lucide="code"></i> Todos usan IA, pero cada herramienta tiene un enfoque diferente. La elección depende de <strong>cómo trabajas</strong>, no solo de qué modelo usa.</p>
   <p>La comparación seria separa cuatro capas: UX, modelo, permisos y verificación. Una herramienta puede sentirse mejor en el IDE y otra ser superior para tareas largas en terminal; la decisión debe salir de tu workflow real.</p>
   <table>
@@ -1704,8 +2130,8 @@ import SlidesFundamentosAvanzados from './SlidesFundamentosAvanzados.astro';
   </div>
 </Slide>
 
-<!-- SLIDE 208 -->
-<Slide id="ai-benchmarks" number={208} title="Benchmarks: qué miden (y qué no)">
+<!-- SLIDE 216 -->
+<Slide id="ai-benchmarks" number={216} title="Benchmarks: qué miden (y qué no)">
   <p><i data-lucide="bar-chart"></i> Un benchmark no mide "inteligencia" en abstracto. Mide una <strong>tarea operacional concreta</strong>, con un dataset, una métrica y un protocolo. Leerlo bien evita comprar marketing con forma de tabla.</p>
   <p>La frase útil es: <strong>benchmark = dataset + tarea + métrica + protocolo + presupuesto</strong>. Cambia cualquiera de esas piezas y el número deja de ser comparable.</p>
   <h3><i data-lucide="database"></i> Familias de benchmarks</h3>
@@ -1747,8 +2173,8 @@ import SlidesFundamentosAvanzados from './SlidesFundamentosAvanzados.astro';
   </div>
 </Slide>
 
-<!-- SLIDE 209 -->
-<Slide id="swe-bench" number={209} title="SWE-bench: qué mide exactamente">
+<!-- SLIDE 217 -->
+<Slide id="swe-bench" number={217} title="SWE-bench: qué mide exactamente">
   <p><i data-lucide="git-pull-request"></i> SWE-bench evalúa modelos y agentes en <strong>issues reales de GitHub</strong>. Dado un repositorio y una descripción de problema, el sistema debe generar un patch que arregle el issue.</p>
   <p>Pedagógicamente es valioso porque obliga a salir del “función aislada” y entrar en ingeniería: leer un repo, entender una issue, modificar código existente y pasar tests dentro de un entorno controlado.</p>
   <h3><i data-lucide="route"></i> Flujo de evaluación</h3>
@@ -1806,8 +2232,8 @@ import SlidesFundamentosAvanzados from './SlidesFundamentosAvanzados.astro';
   </div>
 </Slide>
 
-<!-- SLIDE 210 -->
-<Slide id="leer-leaderboards" number={210} title="Cómo leer un leaderboard de benchmarks">
+<!-- SLIDE 218 -->
+<Slide id="leer-leaderboards" number={218} title="Cómo leer un leaderboard de benchmarks">
   <p><i data-lucide="line-chart"></i> Un leaderboard mezcla modelo, agente, prompt, herramientas, presupuesto y protocolo. El número final es útil, pero solo si entiendes qué hay debajo.</p>
   <p>Una fila de leaderboard no es “modelo X gana”. Suele ser “modelo X + scaffold Y + herramientas Z + presupuesto W gana en este protocolo”. Esa lectura cambia muchas decisiones de compra.</p>
   <h3><i data-lucide="list-checks"></i> Checklist de lectura crítica</h3>
@@ -1849,8 +2275,8 @@ import SlidesFundamentosAvanzados from './SlidesFundamentosAvanzados.astro';
   </div>
 </Slide>
 
-<!-- SLIDE 211 -->
-<Slide id="ai-cicd" number={211} title="IA en CI/CD">
+<!-- SLIDE 219 -->
+<Slide id="ai-cicd" number={219} title="IA en CI/CD">
   <p><i data-lucide="git-pull-request"></i> Los agentes de IA ya se integran en los pipelines de desarrollo. No solo generan código: lo <strong>revisan, testean y despliegan</strong>.</p>
   <p>La regla de seguridad es separar <strong>comentario</strong>, <strong>verificación</strong> y <strong>acción</strong>. Que una IA comente un PR es barato; que bloquee merges, escriba secretos o despliegue requiere controles mucho más estrictos.</p>
   <h3><i data-lucide="layers"></i> Dónde encaja la IA en el pipeline</h3>
@@ -1907,8 +2333,8 @@ import SlidesFundamentosAvanzados from './SlidesFundamentosAvanzados.astro';
   </div>
 </Slide>
 
-<!-- SLIDE 212 -->
-<Slide id="seguridad" number={212} title="Seguridad y riesgos">
+<!-- SLIDE 220 -->
+<Slide id="seguridad" number={220} title="Seguridad y riesgos">
   <p>La seguridad en sistemas con LLM no es solo “evitar respuestas malas”. El riesgo aparece cuando el modelo recibe datos no confiables, accede a herramientas, recupera documentos, escribe código o decide acciones con efectos reales.</p>
   <div class="icon-grid">
     <div class="icon-card">
@@ -2007,8 +2433,8 @@ import SlidesFundamentosAvanzados from './SlidesFundamentosAvanzados.astro';
   </div>
 </Slide>
 
-<!-- SLIDE 213 -->
-<Slide id="guardrails" number={213}
+<!-- SLIDE 221 -->
+<Slide id="guardrails" number={221}
   title="Guardrails en la práctica"
   subtitle="Capas de protección para sistemas con LLMs">
   <p>Los guardrails son <strong>mecanismos de control</strong> que limitan y validan el comportamiento de un LLM en producción. No es solo "pon un system prompt": son capas independientes que se aplican antes, durante y después de la generación.</p>
@@ -2117,8 +2543,8 @@ if (!parsed.success) &#123;
   </div>
 </Slide>
 
-<!-- SLIDE 214 -->
-<Slide id="testing-adversarial" number={214} title="Testing adversarial y red teaming">
+<!-- SLIDE 222 -->
+<Slide id="testing-adversarial" number={222} title="Testing adversarial y red teaming">
   <p><i data-lucide="shield-alert"></i> No basta con que tu sistema funcione con inputs normales. Necesitas probar que <strong>resiste ataques deliberados</strong>. El red teaming es testear tu sistema intentando romperlo.</p>
   <p>El objetivo no es demostrar que eres invulnerable, sino descubrir fallos antes de que lo haga un usuario malicioso. Cada ataque exitoso debe convertirse en caso de regresión.</p>
   <h3><i data-lucide="swords"></i> Vectores de ataque comunes</h3>
@@ -2181,8 +2607,8 @@ if (!parsed.success) &#123;
   </div>
 </Slide>
 
-<!-- SLIDE 215 -->
-<Slide id="eu-ai-act" number={215} title="EU AI Act y compliance">
+<!-- SLIDE 223 -->
+<Slide id="eu-ai-act" number={223} title="EU AI Act y compliance">
   <p><i data-lucide="scale"></i> La <strong>Ley de IA de la UE</strong> entró en vigor el <strong>1 de agosto de 2024</strong>. Es la primera regulación integral de IA del mundo y afecta a sistemas de IA que se pongan en el mercado o se usen en la UE, aunque el proveedor esté fuera.</p>
   <h3><i data-lucide="layers"></i> Clasificación por riesgo</h3>
   <table>
@@ -2227,8 +2653,8 @@ if (!parsed.success) &#123;
   </div>
 </Slide>
 
-<!-- SLIDE 216 -->
-<Slide id="costes" number={216} title="Tokens y coste: ¿cuánto cuesta usar IA?">
+<!-- SLIDE 224 -->
+<Slide id="costes" number={224} title="Tokens y coste: ¿cuánto cuesta usar IA?">
   <p><i data-lucide="coins"></i> Se paga por <strong>tokens de entrada + tokens de salida</strong>. La salida suele ser más cara (el modelo trabaja más generando que leyendo).</p>
   <p>La unidad que importa en producto no es “precio por millón de tokens”, sino <strong>coste por tarea aceptada</strong>: cuánto pagas para obtener una respuesta que pasa tus validaciones y no requiere rehacer el trabajo.</p>
   <h3><i data-lucide="trending-up"></i> Precios por millón de tokens (mayo 2026, API estándar)</h3>
@@ -2276,8 +2702,8 @@ if (!parsed.success) &#123;
   </div>
 </Slide>
 
-<!-- SLIDE 217 -->
-<Slide id="observabilidad" number={217} title="Observabilidad de LLMs">
+<!-- SLIDE 225 -->
+<Slide id="observabilidad" number={225} title="Observabilidad de LLMs">
   <p><i data-lucide="activity"></i> En producción, un LLM sin observabilidad es una caja negra. Necesitas saber <strong>qué está pasando</strong> en cada llamada: latencia, coste, calidad, errores, y poder investigar cuando algo falla.</p>
   <p>Una traza no solo sirve para debuggear: convierte una conversación probabilística en una secuencia revisable de prompts, modelos, tool calls, evidencias, costes y decisiones.</p>
   <h3><i data-lucide="search"></i> ¿Qué observar?</h3>
@@ -2347,8 +2773,8 @@ if (!parsed.success) &#123;
   </div>
 </Slide>
 
-<!-- SLIDE 218 -->
-<Slide id="prompt-como-codigo" number={218} title="Gestión de prompts como código">
+<!-- SLIDE 226 -->
+<Slide id="prompt-como-codigo" number={226} title="Gestión de prompts como código">
   <p><i data-lucide="file-code"></i> Un prompt en producción no es un string pegado en el código. Es un <strong>artefacto de ingeniería</strong> que necesita versionado, testing, review y rollback.</p>
   <div class="icon-grid">
     <div class="icon-card">
@@ -2417,8 +2843,8 @@ if (!parsed.success) &#123;
   </div>
 </Slide>
 
-<!-- SLIDE 219 -->
-<Slide id="evals" number={219} title="Evaluaciones (evals): ¿cómo saber si tu IA funciona bien?">
+<!-- SLIDE 227 -->
+<Slide id="evals" number={227} title="Evaluaciones (evals): ¿cómo saber si tu IA funciona bien?">
   <p><i data-lucide="check-circle"></i> Los tests unitarios clásicos no bastan para un LLM: parte de la salida puede variar aunque la respuesta sea válida. Necesitas <strong>evaluaciones (evals)</strong>: métricas y frameworks para medir la calidad de un sistema de IA de forma sistemática.</p>
   <p>Una eval buena no pregunta “¿me gusta esta respuesta?”, sino “¿qué decisión puedo tomar con evidencia?”. Sirve para comparar modelos, prompts, tools, RAG, routing y versiones antes de cambiar producción.</p>
   <h3><i data-lucide="layers"></i> Tipos de evaluación</h3>
@@ -2500,8 +2926,8 @@ if (!parsed.success) &#123;
   </div>
 </Slide>
 
-<!-- SLIDE 220 -->
-<Slide id="testing-codigo-ia" number={220} title="Testing de código generado por IA">
+<!-- SLIDE 228 -->
+<Slide id="testing-codigo-ia" number={228} title="Testing de código generado por IA">
   <p><i data-lucide="test-tubes"></i> El código generado por IA parece correcto y tiene buena pinta. Pero <strong>esconde bugs sutiles</strong> que solo se detectan con testing riguroso.</p>
   <p>La diferencia con copiar código de StackOverflow es la velocidad: un agente puede introducir cambios en muchos ficheros muy rápido. Eso exige pruebas que miren comportamiento, límites, seguridad y regresiones, no solo que compile.</p>
   <h3><i data-lucide="alert-triangle"></i> Errores típicos del código generado</h3>
@@ -2572,8 +2998,8 @@ if (!parsed.success) &#123;
   </div>
 </Slide>
 
-<!-- SLIDE 221 -->
-<Slide id="vibe-coding" number={221} title="Vibe coding: programar por intención">
+<!-- SLIDE 229 -->
+<Slide id="vibe-coding" number={229} title="Vibe coding: programar por intención">
   <p><i data-lucide="sparkles"></i> Término acuñado por <strong>Andrej Karpathy</strong> (febrero 2025): "un nuevo tipo de programación donde te dejas llevar por las vibes, abrazas lo exponencial, y olvidas que el código existe".</p>
   <p>Como concepto es útil para explicar el cambio de interfaz: pasamos de escribir instrucciones para la máquina a escribir intención para un sistema que genera código. Como práctica profesional, solo funciona si añades especificación, tests y review.</p>
   <div class="two-cols">
@@ -2626,8 +3052,8 @@ if (!parsed.success) &#123;
   </div>
 </Slide>
 
-<!-- SLIDE 222 -->
-<Slide id="cambio-paradigma" number={222} title="El cambio de paradigma al trabajar con IA">
+<!-- SLIDE 230 -->
+<Slide id="cambio-paradigma" number={230} title="El cambio de paradigma al trabajar con IA">
   <p>El cambio no elimina ingeniería; desplaza el cuello de botella. Escribes menos boilerplate, pero necesitas más claridad sobre requisitos, arquitectura, seguridad, validación y producto.</p>
   <div class="two-cols">
     <div>
@@ -2690,8 +3116,8 @@ if (!parsed.success) &#123;
   </div>
 </Slide>
 
-<!-- SLIDE 223 -->
-<Slide id="workflow-patterns" number={223} title="Patrones de trabajo con IA en el día a día">
+<!-- SLIDE 231 -->
+<Slide id="workflow-patterns" number={231} title="Patrones de trabajo con IA en el día a día">
   <p><i data-lucide="workflow"></i> Más allá de las herramientas, lo que marca la diferencia es <strong>cómo integras la IA en tu flujo de trabajo</strong>. Estos son los patrones que los equipos más productivos usan en 2026.</p>
   <div class="icon-grid">
     <div class="icon-card">
@@ -2761,8 +3187,8 @@ if (!parsed.success) &#123;
   </div>
 </Slide>
 
-<!-- SLIDE 224 -->
-<Slide id="config-claude-code" number={224} title="Configurar Claude Code como un pro">
+<!-- SLIDE 232 -->
+<Slide id="config-claude-code" number={232} title="Configurar Claude Code como un pro">
   <p><i data-lucide="settings"></i> La diferencia entre un Claude Code que "funciona" y uno que <strong>multiplica tu productividad</strong> está en cómo lo configuras. Estos ficheros definen su comportamiento.</p>
   <p>La configuración convierte preferencias tácitas en contexto explícito. Si el equipo repite siempre la misma corrección al agente, esa corrección debería vivir en rules, hooks, skills o documentación del proyecto.</p>
   <h3><i data-lucide="file-text"></i> Estructura de configuración</h3>
@@ -2831,8 +3257,8 @@ if (!parsed.success) &#123;
   </div>
 </Slide>
 
-<!-- SLIDE 225 -->
-<Slide id="config-opencode-cursor" number={225} title="Configurar OpenCode y Cursor">
+<!-- SLIDE 233 -->
+<Slide id="config-opencode-cursor" number={233} title="Configurar OpenCode y Cursor">
   <p><i data-lucide="settings"></i> Cada herramienta tiene su propio sistema de reglas. La idea es la misma: <strong>darle contexto persistente</strong> para que no tengas que repetirte en cada conversación.</p>
   <p>La estrategia más mantenible es escribir una fuente de verdad neutral, por ejemplo <code>AGENTS.md</code> o <code>docs/ai-rules.md</code>, y generar/adaptar los formatos específicos de cada herramienta desde ahí.</p>
   <h3><i data-lucide="terminal"></i> OpenCode</h3>
@@ -2918,8 +3344,8 @@ if (!parsed.success) &#123;
   </div>
 </Slide>
 
-<!-- SLIDE 226 -->
-<Slide id="rules-efectivas" number={226} title="Escribir rules efectivas: el arte de instruir al modelo">
+<!-- SLIDE 234 -->
+<Slide id="rules-efectivas" number={234} title="Escribir rules efectivas: el arte de instruir al modelo">
   <p><i data-lucide="pen-tool"></i> Las rules son el <strong>ROI (Return on Investment) más alto</strong> que puedes conseguir con una herramienta de IA. 30 minutos bien invertidos te ahorran horas de correcciones. Pero no todas las rules son iguales.</p>
   <p>Una rule buena reduce ambigüedad y se puede comprobar. Una rule mala solo expresa deseo. “Haz buen código” no cambia nada; “no uses <code>any</code> y ejecuta <code>npm run typecheck</code>” sí cambia comportamiento.</p>
   <h3><i data-lucide="x-circle"></i> Rules malas vs buenas</h3>
@@ -2992,8 +3418,8 @@ if (!parsed.success) &#123;
   </div>
 </Slide>
 
-<!-- SLIDE 227 -->
-<Slide id="crear-skill" number={227} title="Crear una skill: extensiones reutilizables para tu agente">
+<!-- SLIDE 235 -->
+<Slide id="crear-skill" number={235} title="Crear una skill: extensiones reutilizables para tu agente">
   <p><i data-lucide="puzzle"></i> Una <strong>skill</strong> es una capacidad empaquetada que el modelo activa automáticamente cuando detecta que aplica, o que invocas manualmente con <code>/nombre</code>. Cada skill vive en su propio directorio con un fichero <strong><code>SKILL.md</code></strong>.</p>
   <p>La idea clave es <strong>progressive disclosure</strong>: el modelo no carga todo el conocimiento siempre. Lee la descripción para decidir si la skill aplica, y solo entonces carga instrucciones, referencias o scripts.</p>
   <h3><i data-lucide="folder-tree"></i> Estructura oficial (directorio + SKILL.md)</h3>
@@ -3067,8 +3493,8 @@ if (!parsed.success) &#123;
   </div>
 </Slide>
 
-<!-- SLIDE 228 -->
-<Slide id="anatomia-plugin" number={228} title="Anatomía de un plugin: skills + agentes + hooks">
+<!-- SLIDE 236 -->
+<Slide id="anatomia-plugin" number={236} title="Anatomía de un plugin: skills + agentes + hooks">
   <p><i data-lucide="package"></i> Un <strong>plugin</strong> empaqueta skills, agentes, hooks y comandos en una unidad instalable y compartible. Es así como se distribuyen las extensiones de Claude Code.</p>
   <p>Un plugin merece la pena cuando una práctica ya se repite en varios proyectos o personas. Antes de empaquetar, valida que una skill suelta resuelve bien el caso.</p>
   <h3><i data-lucide="folder-tree"></i> Estructura de directorios</h3>
@@ -3134,8 +3560,8 @@ if (!parsed.success) &#123;
   </div>
 </Slide>
 
-<!-- SLIDE 229 -->
-<Slide id="agentes-produccion" number={229} title="AI agents en producción: lecciones aprendidas">
+<!-- SLIDE 237 -->
+<Slide id="agentes-produccion" number={237} title="AI agents en producción: lecciones aprendidas">
   <p><i data-lucide="building"></i> Tras un año de agentes en producción real, estas son las <strong>lecciones que no aparecen en los tutoriales</strong>.</p>
   <p>La lección central es sobria: producción premia sistemas pequeños, medibles y recuperables. La demo premia autonomía; el negocio premia errores bajos, coste controlado y trazabilidad.</p>
   <h3><i data-lucide="check-circle"></i> Lo que funciona</h3>
@@ -3204,43 +3630,43 @@ if (!parsed.success) &#123;
   </div>
 </Slide>
 
-<!-- SLIDE 230 -->
-<Slide id="recap-realidad" number={230} title="Lo que deberías saber: construir con IA">
+<!-- SLIDE 238 -->
+<Slide id="recap-realidad" number={238} title="Lo que deberías saber: construir con IA">
   <table>
     <thead>
       <tr><th>Concepto</th><th>Slide</th></tr>
     </thead>
     <tbody>
-      <tr><td>IDE web, Playground, IDE con agente, terminal y CI: cuándo usar cada superficie</td><td>206</td></tr>
-      <tr><td>Comparativa de AI coding assistants: UX, modelo, permisos, coste y gobernanza</td><td>207</td></tr>
-      <tr><td>Benchmarks: familias, métricas, SWE-bench y lectura crítica de leaderboards</td><td>208-210</td></tr>
-      <tr><td>IA en CI/CD: PR review, testing, seguridad automatizada y controles mínimos</td><td>211</td></tr>
-      <tr><td>Prompt injection, data leakage, supply chain poisoning y OWASP LLM Top 10</td><td>212</td></tr>
-      <tr><td>Guardrails: input validation, output validation, sandboxing, policy y evals</td><td>213</td></tr>
-      <tr><td>Red teaming: testear tu sistema intentando romperlo y medir attack success rate</td><td>214</td></tr>
-      <tr><td>EU AI Act: clasificación por riesgo y calendario de aplicación</td><td>215</td></tr>
-      <tr><td>Costes: tokens, cache, agentes y coste por tarea aceptada</td><td>216</td></tr>
-      <tr><td>Observabilidad: traces, costes, calidad, tool calls, prompt versions</td><td>217</td></tr>
-      <tr><td>Prompts como código: versionado, evals, A/B testing, release y rollback</td><td>218</td></tr>
-      <tr><td>Evals: dataset, rubric, baseline, umbral y revisión humana</td><td>219</td></tr>
-      <tr><td>Testing de código generado: build, unit, integration, E2E, security checks</td><td>220</td></tr>
-      <tr><td>Vibe coding y cambio de paradigma: intención, verificación y responsabilidad</td><td>221-222</td></tr>
-      <tr><td>Spec-first + test-first: workflow diario con IA</td><td>223</td></tr>
-      <tr><td>Configurar Claude Code, OpenCode y Cursor sin drift entre herramientas</td><td>224-225</td></tr>
-      <tr><td>Rules efectivas: específicas, verificables, mantenidas y con prioridad clara</td><td>226</td></tr>
-      <tr><td>Skills y plugins: progressive disclosure, allowed-tools, hooks y empaquetado</td><td>227-228</td></tr>
-      <tr><td>Agentes en producción: agent tax, autonomía real, evals, HITL y observabilidad</td><td>229</td></tr>
+      <tr><td>IDE web, Playground, IDE con agente, terminal y CI: cuándo usar cada superficie</td><td>214</td></tr>
+      <tr><td>Comparativa de AI coding assistants: UX, modelo, permisos, coste y gobernanza</td><td>215</td></tr>
+      <tr><td>Benchmarks: familias, métricas, SWE-bench y lectura crítica de leaderboards</td><td>216-218</td></tr>
+      <tr><td>IA en CI/CD: PR review, testing, seguridad automatizada y controles mínimos</td><td>219</td></tr>
+      <tr><td>Prompt injection, data leakage, supply chain poisoning y OWASP LLM Top 10</td><td>220</td></tr>
+      <tr><td>Guardrails: input validation, output validation, sandboxing, policy y evals</td><td>221</td></tr>
+      <tr><td>Red teaming: testear tu sistema intentando romperlo y medir attack success rate</td><td>222</td></tr>
+      <tr><td>EU AI Act: clasificación por riesgo y calendario de aplicación</td><td>223</td></tr>
+      <tr><td>Costes: tokens, cache, agentes y coste por tarea aceptada</td><td>224</td></tr>
+      <tr><td>Observabilidad: traces, costes, calidad, tool calls, prompt versions</td><td>225</td></tr>
+      <tr><td>Prompts como código: versionado, evals, A/B testing, release y rollback</td><td>226</td></tr>
+      <tr><td>Evals: dataset, rubric, baseline, umbral y revisión humana</td><td>227</td></tr>
+      <tr><td>Testing de código generado: build, unit, integration, E2E, security checks</td><td>228</td></tr>
+      <tr><td>Vibe coding y cambio de paradigma: intención, verificación y responsabilidad</td><td>229-230</td></tr>
+      <tr><td>Spec-first + test-first: workflow diario con IA</td><td>231</td></tr>
+      <tr><td>Configurar Claude Code, OpenCode y Cursor sin drift entre herramientas</td><td>232-233</td></tr>
+      <tr><td>Rules efectivas: específicas, verificables, mantenidas y con prioridad clara</td><td>234</td></tr>
+      <tr><td>Skills y plugins: progressive disclosure, allowed-tools, hooks y empaquetado</td><td>235-236</td></tr>
+      <tr><td>Agentes en producción: agent tax, autonomía real, evals, HITL y observabilidad</td><td>237</td></tr>
     </tbody>
   </table>
 </Slide>
 
-<!-- SLIDE 231: SECCION -->
-<Slide id="sec-evals-medicion-avanzada" number={231} section
+<!-- SLIDE 239: SECCION -->
+<Slide id="sec-evals-medicion-avanzada" number={239} section
   title="Evals y medición avanzada"
   subtitle="Cómo medir RAG, agentes, jueces LLM, coste por tarea aceptada y regresiones reales antes de confiar en un sistema de IA." />
 
-<!-- SLIDE 232 -->
-<Slide id="eval-rag-retrieval-groundedness" number={232} title="Eval de RAG: retrieval, groundedness y abstención">
+<!-- SLIDE 240 -->
+<Slide id="eval-rag-retrieval-groundedness" number={240} title="Eval de RAG: retrieval, groundedness y abstención">
   <p><i data-lucide="search-check"></i> Un RAG no se evalúa solo leyendo respuestas bonitas. Se separan dos problemas: <strong>si recupera la evidencia correcta</strong> y <strong>si responde apoyándose en ella</strong>.</p>
   <p>La clave pedagógica es no mezclar causas. Si la respuesta falla, puede ser porque no recuperaste el documento correcto, porque recuperaste ruido, porque el modelo ignoró la evidencia o porque debía abstenerse y respondió igual.</p>
   <div class="flow">
@@ -3305,8 +3731,8 @@ if (!parsed.success) &#123;
   </div>
 </Slide>
 
-<!-- SLIDE 233 -->
-<Slide id="llm-as-judge-rubricas-calibracion" number={233} title="LLM-as-judge: usar jueces sin autoengañarte">
+<!-- SLIDE 241 -->
+<Slide id="llm-as-judge-rubricas-calibracion" number={241} title="LLM-as-judge: usar jueces sin autoengañarte">
   <p><i data-lucide="scale"></i> Un juez LLM puede acelerar evaluación, pero no convierte una rúbrica vaga en verdad objetiva. El juez también tiene sesgos, sensibilidad al prompt y preferencias de estilo.</p>
   <p>Un juez sirve mejor cuando la respuesta no tiene una única cadena exacta: calidad de resumen, groundedness, tono, completitud o seguimiento de instrucciones. Si puedes usar un test determinista, úsalo primero.</p>
   <h3><i data-lucide="gavel"></i> Tipos de grader</h3>
@@ -3355,8 +3781,8 @@ if (!parsed.success) &#123;
   </div>
 </Slide>
 
-<!-- SLIDE 234 -->
-<Slide id="eval-agentes-tools-traces" number={234} title="Eval de agentes: éxito, tools, coste y trazas">
+<!-- SLIDE 242 -->
+<Slide id="eval-agentes-tools-traces" number={242} title="Eval de agentes: éxito, tools, coste y trazas">
   <p><i data-lucide="route"></i> Un agente no es solo una respuesta final. Es un proceso: planifica, llama tools, observa resultados, corrige y decide cuándo parar. La eval debe medir el proceso completo.</p>
   <p>En agentes hay dos niveles: <strong>outcome</strong> (si logró la tarea) y <strong>trajectory</strong> (cómo llegó allí). Una tarea puede terminar bien usando una tool peligrosa, o terminar mal después de gastar demasiado coste.</p>
   <h3><i data-lucide="activity"></i> Señales que importan</h3>
@@ -3409,8 +3835,8 @@ if (!parsed.success) &#123;
   </div>
 </Slide>
 
-<!-- SLIDE 235 -->
-<Slide id="coste-por-tarea-aceptada" number={235} title="Coste por tarea aceptada: la métrica que decide">
+<!-- SLIDE 243 -->
+<Slide id="coste-por-tarea-aceptada" number={243} title="Coste por tarea aceptada: la métrica que decide">
   <p><i data-lucide="coins"></i> El precio por token no decide producción. Decide el <strong>coste por tarea aceptada</strong>: cuánto pagas por una salida que pasa calidad, seguridad y revisión humana.</p>
   <div class="process-lane">
     <div class="process-step"><span class="step-label">1</span><strong>Tokens</strong><p>Input, output, reasoning, cache hit/miss y batch.</p></div>
@@ -3467,8 +3893,8 @@ if (!parsed.success) &#123;
   </div>
 </Slide>
 
-<!-- SLIDE 236 -->
-<Slide id="recap-evals-medicion-avanzada" number={236} title="Lo que deberías saber: evals avanzadas">
+<!-- SLIDE 244 -->
+<Slide id="recap-evals-medicion-avanzada" number={244} title="Lo que deberías saber: evals avanzadas">
   <table>
     <thead>
       <tr><th>Concepto</th><th>Lectura correcta</th></tr>
@@ -3490,13 +3916,13 @@ if (!parsed.success) &#123;
 
 <SlidesFundamentosAvanzados />
 
-<!-- SLIDE 305: SECCION -->
-<Slide id="sec-producto-ux-ia" number={305} section
+<!-- SLIDE 313: SECCION -->
+<Slide id="sec-producto-ux-ia" number={313} section
   title="Producto y UX de IA"
   subtitle="De medir a diseñar: cómo convertir incertidumbre, citas, abstención, confirmaciones humanas, memoria, límites y recuperación de errores en una experiencia que el usuario pueda controlar." />
 
-<!-- SLIDE 306 -->
-<Slide id="ux-incertidumbre-citas-abstencion" number={306} title="Diseñar para incertidumbre: confianza, citas y abstención">
+<!-- SLIDE 314 -->
+<Slide id="ux-incertidumbre-citas-abstencion" number={314} title="Diseñar para incertidumbre: confianza, citas y abstención">
   <p><i data-lucide="badge-help"></i> La UX de IA debe enseñar al usuario cuándo confiar, cuándo verificar y cuándo el sistema no sabe. Una respuesta segura pero falsa es peor que una abstención honesta.</p>
   <h3><i data-lucide="eye"></i> Patrones de interfaz</h3>
   <div class="tool-grid">
@@ -3513,8 +3939,8 @@ if (!parsed.success) &#123;
   </div>
 </Slide>
 
-<!-- SLIDE 307 -->
-<Slide id="ux-human-approval-rollback" number={307} title="Aprobación humana: confirmar, editar y revertir">
+<!-- SLIDE 315 -->
+<Slide id="ux-human-approval-rollback" number={315} title="Aprobación humana: confirmar, editar y revertir">
   <p><i data-lucide="user-check"></i> Human-in-the-loop no es poner un humano al final de todo. Es diseñar puntos de control donde el usuario pueda entender, corregir y revertir acciones.</p>
   <h3><i data-lucide="shield-check"></i> Matriz de aprobación</h3>
   <table>
@@ -3535,8 +3961,8 @@ if (!parsed.success) &#123;
   </div>
 </Slide>
 
-<!-- SLIDE 308 -->
-<Slide id="ux-conversaciones-memoria-handoff" number={308} title="Conversaciones recuperables: memoria, límites y handoff">
+<!-- SLIDE 316 -->
+<Slide id="ux-conversaciones-memoria-handoff" number={316} title="Conversaciones recuperables: memoria, límites y handoff">
   <p><i data-lucide="messages-square"></i> Un producto con IA falla de formas distintas a un formulario clásico: se desvía, olvida, mezcla contexto o no sabe cuándo parar. La UX debe tener salidas claras.</p>
   <h3><i data-lucide="map"></i> Controles que espera un usuario real</h3>
   <div class="two-cols">
@@ -3565,8 +3991,8 @@ if (!parsed.success) &#123;
   </div>
 </Slide>
 
-<!-- SLIDE 309 -->
-<Slide id="recap-producto-ux-ia" number={309} title="Lo que deberías saber: producto y UX de IA">
+<!-- SLIDE 317 -->
+<Slide id="recap-producto-ux-ia" number={317} title="Lo que deberías saber: producto y UX de IA">
   <table>
     <thead>
       <tr><th>Área</th><th>Regla práctica</th></tr>
@@ -3581,13 +4007,13 @@ if (!parsed.success) &#123;
   </table>
 </Slide>
 
-<!-- SLIDE 310: SECCION -->
-<Slide id="sec-operar-ia-produccion" number={310} section
+<!-- SLIDE 318: SECCION -->
+<Slide id="sec-operar-ia-produccion" number={318} section
   title="Operar IA en producción"
   subtitle="LLMOps, serving de modelos, routing, budgets, EvalOps, DataOps, post-training avanzado y disciplina operativa." />
 
-<!-- SLIDE 311 -->
-<Slide id="llmops-demo-a-servicio" number={311} title="LLMOps: de demo a servicio fiable">
+<!-- SLIDE 319 -->
+<Slide id="llmops-demo-a-servicio" number={319} title="LLMOps: de demo a servicio fiable">
   <div class="big-idea">
     <p>LLMOps empieza cuando una respuesta mala, cara o lenta deja de ser una anécdota y pasa a ser un incidente de producto.</p>
   </div>
@@ -3633,8 +4059,8 @@ if (!parsed.success) &#123;
   </div>
 </Slide>
 
-<!-- SLIDE 312 -->
-<Slide id="serving-open-weights" number={312} title="Serving open weights: vLLM, SGLang, TensorRT-LLM">
+<!-- SLIDE 320 -->
+<Slide id="serving-open-weights" number={320} title="Serving open weights: vLLM, SGLang, TensorRT-LLM">
   <div class="big-idea">
     <p>Servir un modelo no es "hacer un import": es gestionar memoria, colas, latencia y coste por token.</p>
   </div>
@@ -3680,8 +4106,8 @@ if (!parsed.success) &#123;
   </div>
 </Slide>
 
-<!-- SLIDE 313 -->
-<Slide id="inferencia-escalado" number={313} title="Escalar inferencia: batching, KV cache y especulación">
+<!-- SLIDE 321 -->
+<Slide id="inferencia-escalado" number={321} title="Escalar inferencia: batching, KV cache y especulación">
   <div class="big-idea">
     <p>Escalar inferencia es elegir qué sacrificas: latencia individual, throughput total, memoria o coste.</p>
   </div>
@@ -3732,8 +4158,8 @@ if (!parsed.success) &#123;
   </div>
 </Slide>
 
-<!-- SLIDE 314 -->
-<Slide id="routing-fallback-budgets" number={314} title="Routing, fallback y budgets por tarea">
+<!-- SLIDE 322 -->
+<Slide id="routing-fallback-budgets" number={322} title="Routing, fallback y budgets por tarea">
   <div class="big-idea">
     <p>El modelo más caro no siempre gana. Gana la ruta que resuelve la tarea con calidad suficiente, coste controlado y riesgo aceptable.</p>
   </div>
@@ -3762,8 +4188,8 @@ if (!parsed.success) &#123;
   </div>
 </Slide>
 
-<!-- SLIDE 315 -->
-<Slide id="evalops-regresiones-canary" number={315} title="EvalOps: regresiones, canary y release gates">
+<!-- SLIDE 323 -->
+<Slide id="evalops-regresiones-canary" number={323} title="EvalOps: regresiones, canary y release gates">
   <div class="big-idea">
     <p>Una eval no es un informe: es una puerta de despliegue que evita degradar calidad, coste o seguridad sin darte cuenta.</p>
   </div>
@@ -3790,8 +4216,8 @@ if (!parsed.success) &#123;
   </div>
 </Slide>
 
-<!-- SLIDE 316 -->
-<Slide id="dataops-ia" number={316} title="DataOps para IA: linaje, PII, licencias y drift">
+<!-- SLIDE 324 -->
+<Slide id="dataops-ia" number={324} title="DataOps para IA: linaje, PII, licencias y drift">
   <div class="big-idea">
     <p>En IA, los datos no son un input pasivo: son el producto que define qué sabe, qué cita y qué puede romper tu sistema.</p>
   </div>
@@ -3821,8 +4247,8 @@ if (!parsed.success) &#123;
   </div>
 </Slide>
 
-<!-- SLIDE 317 -->
-<Slide id="post-training-avanzado" number={317} title="Post-training avanzado: SFT, preferencias y refuerzo">
+<!-- SLIDE 325 -->
+<Slide id="post-training-avanzado" number={325} title="Post-training avanzado: SFT, preferencias y refuerzo">
   <div class="big-idea">
     <p>Post-training no es una técnica: eliges una señal. El refuerzo "solo" merece sitio cuando la recompensa se puede verificar.</p>
   </div>
@@ -3851,18 +4277,18 @@ if (!parsed.success) &#123;
   </div>
 </Slide>
 
-<!-- SLIDE 318 -->
-<Slide id="recap-operar-ia-produccion" number={318} title="Lo que deberías saber: operar IA en producción">
+<!-- SLIDE 326 -->
+<Slide id="recap-operar-ia-produccion" number={326} title="Lo que deberías saber: operar IA en producción">
   <div class="big-idea">
     <p>Operar IA no es elegir un modelo: es convertir prompts, datos, tools, costes y riesgos en un sistema observable, reversible y medible.</p>
   </div>
   <div class="recap-map">
-    <div class="recap-card"><strong>Operar</strong><p>Control plane, runtime, owners, límites, trazas y rollback probado.</p><span class="tag">311</span></div>
-    <div class="recap-card"><strong>Servir</strong><p>vLLM, SGLang, TensorRT-LLM, llama.cpp u Ollama según hardware, latencia y formato.</p><span class="tag">312</span></div>
-    <div class="recap-card"><strong>Escalar</strong><p>Continuous batching, KV cache, prefix cache, speculative decoding y colas con p95/p99.</p><span class="tag">313</span></div>
-    <div class="recap-card"><strong>Decidir</strong><p>Routing, fallback y budgets por riesgo: modelo barato, caro, humano o abstención.</p><span class="tag">314</span></div>
-    <div class="recap-card"><strong>Medir</strong><p>Offline evals, shadow runs, canary, release gates y regresiones por versión.</p><span class="tag">315</span></div>
-    <div class="recap-card"><strong>Gobernar datos</strong><p>Linaje, PII, licencias, calidad, drift, datasets de eval y post-training.</p><span class="tag">316-317</span></div>
+    <div class="recap-card"><strong>Operar</strong><p>Control plane, runtime, owners, límites, trazas y rollback probado.</p><span class="tag">319</span></div>
+    <div class="recap-card"><strong>Servir</strong><p>vLLM, SGLang, TensorRT-LLM, llama.cpp u Ollama según hardware, latencia y formato.</p><span class="tag">320</span></div>
+    <div class="recap-card"><strong>Escalar</strong><p>Continuous batching, KV cache, prefix cache, speculative decoding y colas con p95/p99.</p><span class="tag">321</span></div>
+    <div class="recap-card"><strong>Decidir</strong><p>Routing, fallback y budgets por riesgo: modelo barato, caro, humano o abstención.</p><span class="tag">322</span></div>
+    <div class="recap-card"><strong>Medir</strong><p>Offline evals, shadow runs, canary, release gates y regresiones por versión.</p><span class="tag">323</span></div>
+    <div class="recap-card"><strong>Gobernar datos</strong><p>Linaje, PII, licencias, calidad, drift, datasets de eval y post-training.</p><span class="tag">324-325</span></div>
   </div>
   <h3><i data-lucide="clipboard-check"></i> Checklist antes de llamarlo producción</h3>
   <table class="compact-table">
@@ -3887,13 +4313,13 @@ if (!parsed.success) &#123;
   </div>
 </Slide>
 
-<!-- SLIDE 319: SECCION -->
-<Slide id="sec-seguridad-gobernanza" number={319} section
+<!-- SLIDE 327: SECCION -->
+<Slide id="sec-seguridad-gobernanza" number={327} section
   title="Seguridad, gobernanza y confianza"
   subtitle="Riesgos específicos de agentes, OWASP LLM Top 10, privacidad, despliegues privados, marcos de gobernanza e interpretabilidad." />
 
-<!-- SLIDE 320 -->
-<Slide id="seguridad-agentic-mcp" number={320} title="Seguridad agentic: tools, MCP y permisos">
+<!-- SLIDE 328 -->
+<Slide id="seguridad-agentic-mcp" number={328} title="Seguridad agentic: tools, MCP y permisos">
   <div class="big-idea">
     <p>El salto de chatbot a agente cambia el daño posible: ya no solo responde, también puede actuar con permisos.</p>
   </div>
@@ -3948,8 +4374,8 @@ if (!parsed.success) &#123;
   </div>
 </Slide>
 
-<!-- SLIDE 321 -->
-<Slide id="owasp-llm-top10-aplicado" number={321} title="OWASP LLM Top 10 aplicado">
+<!-- SLIDE 329 -->
+<Slide id="owasp-llm-top10-aplicado" number={329} title="OWASP LLM Top 10 aplicado">
   <div class="big-idea">
     <p>OWASP LLM Top 10 sirve para convertir riesgos conocidos en controles probables, testeables y operables.</p>
   </div>
@@ -3974,8 +4400,8 @@ if (!parsed.success) &#123;
   </div>
 </Slide>
 
-<!-- SLIDE 322 -->
-<Slide id="privacidad-retencion-private-ai" number={322} title="Privacidad, retención y private AI">
+<!-- SLIDE 330 -->
+<Slide id="privacidad-retencion-private-ai" number={330} title="Privacidad, retención y private AI">
   <div class="big-idea">
     <p>La decisión no es "cloud o local": es qué datos viajan, quién los procesa, cuánto se guardan y con qué garantías.</p>
   </div>
@@ -4001,8 +4427,8 @@ if (!parsed.success) &#123;
   </div>
 </Slide>
 
-<!-- SLIDE 323 -->
-<Slide id="gobernanza-ai-rmf-iso" number={323} title="Gobernanza: EU AI Act, NIST AI RMF e ISO 42001">
+<!-- SLIDE 331 -->
+<Slide id="gobernanza-ai-rmf-iso" number={331} title="Gobernanza: EU AI Act, NIST AI RMF e ISO 42001">
   <div class="big-idea">
     <p>Gobernanza no es frenar IA: es decidir qué se despliega, con qué controles y con qué evidencia.</p>
   </div>
@@ -4028,8 +4454,8 @@ if (!parsed.success) &#123;
   </div>
 </Slide>
 
-<!-- SLIDE 324 -->
-<Slide id="interpretabilidad-confianza" number={324} title="Interpretabilidad: SAEs, features y límites de confianza">
+<!-- SLIDE 332 -->
+<Slide id="interpretabilidad-confianza" number={332} title="Interpretabilidad: SAEs, features y límites de confianza">
   <div class="big-idea">
     <p>Interpretabilidad ayuda a investigar modelos; no sustituye evals, controles ni supervisión en producto.</p>
   </div>
@@ -4058,8 +4484,8 @@ if (!parsed.success) &#123;
   </div>
 </Slide>
 
-<!-- SLIDE 325 -->
-<Slide id="recap-seguridad-gobernanza" number={325} title="Lo que deberías saber: seguridad y gobernanza">
+<!-- SLIDE 333 -->
+<Slide id="recap-seguridad-gobernanza" number={333} title="Lo que deberías saber: seguridad y gobernanza">
   <div class="big-idea">
     <p>La seguridad de IA se diseña por fronteras: qué entra al modelo, qué contexto usa, qué tools puede ejecutar y qué datos pueden salir.</p>
   </div>
