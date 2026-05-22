@@ -10,8 +10,8 @@ import SlidesMLClasico from './SlidesMLClasico.astro';
   <p class="cover-subtitle">Agentes, modelos y herramientas - by 686f6c61</p>
   <p class="cover-meta">Mayo 2026 (Update: 05/26)</p>
   <div class="cover-update-card">
-    <span class="cover-update-label">Actualización del día · 20 mayo 2026</span>
-    <p>Nuevos bloques: backpropagation con símbolos y derivadas, IA clásica, ML, agentes, Agent Harness profundo, evals, operación, seguridad, laboratorios y UX de IA.</p>
+    <span class="cover-update-label">Actualización del día · 22 mayo 2026</span>
+    <p>Nuevos bloques: backpropagation con símbolos y derivadas, IA clásica, ML, pipeline ML, hardware IA, fine-tuning aplicado, agentes, Agent Harness profundo, evals, operación, seguridad, laboratorios y UX de IA.</p>
     <div class="cover-update-actions">
       <button class="cover-update-btn" id="open-update-btn" type="button">
         Ver novedades
@@ -871,7 +871,161 @@ import SlidesMLClasico from './SlidesMLClasico.astro';
 </Slide>
 
 <!-- SLIDE 19 -->
-<Slide id="quantizacion" number={19} title="Quantización: modelos que caben en tu portátil">
+<Slide id="programacion-clasica-vs-ml" number={19} title="Programación clásica vs machine learning">
+  <p><i data-lucide="split"></i> En software clásico, el equipo escribe reglas explícitas. En machine learning, el equipo define datos, objetivo, métrica y entrenamiento; las reglas quedan codificadas como <strong>parámetros aprendidos</strong>.</p>
+
+  <div class="big-idea">
+    <p>ML no sustituye a la ingeniería: cambia dónde escribes la lógica. Pasas de escribir todas las reglas a diseñar el sistema que aprende, mide y corrige reglas a partir de datos.</p>
+  </div>
+
+  <div class="formula-card-grid">
+    <div class="formula-card">
+      <h3><i data-lucide="code-2"></i> Software clásico</h3>
+      <p class="formula"><code>reglas humanas + datos &rarr; salida</code></p>
+      <p>Ejemplo: si el email contiene ciertas palabras, sube una puntuación de spam. La lógica vive en código mantenido por personas.</p>
+    </div>
+    <div class="formula-card">
+      <h3><i data-lucide="brain-circuit"></i> Machine learning</h3>
+      <p class="formula"><code>datos + salidas esperadas &rarr; modelo</code></p>
+      <p>Ejemplo: miles de emails etiquetados como spam/no spam permiten aprender patrones que no escribirías a mano.</p>
+    </div>
+    <div class="formula-card">
+      <h3><i data-lucide="play"></i> Inferencia</h3>
+      <p class="formula"><code>modelo + dato nuevo &rarr; predicción</code></p>
+      <p>Ejemplo: llega un email nuevo y el modelo devuelve una probabilidad de spam. Luego producto decide el umbral.</p>
+    </div>
+  </div>
+
+  <table class="compact-table resource-table">
+    <thead>
+      <tr><th>Aspecto</th><th>Software clásico</th><th>Machine learning</th><th>Riesgo práctico</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>Fuente de la lógica</strong></td><td>Reglas escritas por humanos</td><td>Patrones aprendidos de datos</td><td>El modelo puede aprender atajos espurios: correlaciones útiles en train pero falsas en producción.</td></tr>
+      <tr><td><strong>Cómo se corrige</strong></td><td>Modificar código o reglas</td><td>Mejorar datos, labels, features, objetivo, arquitectura o umbral</td><td>Un bug puede vivir en el dataset aunque el código compile.</td></tr>
+      <tr><td><strong>Testing</strong></td><td>Casos deterministas y asserts</td><td>Evals estadísticas, splits, casos frontera y drift</td><td>Puede pasar tests promedio y fallar en un segmento pequeño pero importante.</td></tr>
+      <tr><td><strong>Explicación</strong></td><td>Se rastrea la rama de código</td><td>Se analizan datos, pesos, features, prompts y trazas</td><td>La explicación requiere instrumentación, no solo mirar una función.</td></tr>
+    </tbody>
+  </table>
+
+  <div class="callout">
+    <p class="callout-title"><i data-lucide="mail-warning"></i> Ejemplo de calle</p>
+    <p>Un filtro anti-spam manual puede bloquear emails con “gratis”. Un modelo puede aprender señales más ricas: dominio, enlaces, estructura, historial, idioma. Pero si el dataset histórico marcaba mal los emails de un país o proveedor, el modelo también aprenderá ese sesgo. La calidad del aprendizaje depende de la calidad del sistema que produce datos.</p>
+  </div>
+
+  <div class="refs">
+    <p class="refs-title">Para profundizar</p>
+    <a href="https://developers.google.com/machine-learning/crash-course" target="_blank">Google Machine Learning Crash Course</a>
+    <a href="https://developers.google.com/machine-learning/problem-framing" target="_blank">Google - Machine Learning Problem Framing</a>
+    <a href="https://www.ai.mil/docs/Understanding%20AI%20Technology.pdf" target="_blank">AI Explained - Machine Learning Explained</a>
+  </div>
+</Slide>
+
+<!-- SLIDE 20 -->
+<Slide id="pipeline-ml-end-to-end" number={20} title="Pipeline ML: de datos a producción">
+  <p><i data-lucide="workflow"></i> Un modelo útil no nace cuando termina el entrenamiento: nace cuando puedes repetir el proceso, comparar versiones, desplegar con control y saber cuándo se está degradando.</p>
+
+  <div class="flow flow-wide">
+    <span class="flow-step">Decisión</span>
+    <span class="flow-arrow">&rarr;</span>
+    <span class="flow-step">Datos</span>
+    <span class="flow-arrow">&rarr;</span>
+    <span class="flow-step">Etiquetas</span>
+    <span class="flow-arrow">&rarr;</span>
+    <span class="flow-step">Train</span>
+    <span class="flow-arrow">&rarr;</span>
+    <span class="flow-step">Evals</span>
+    <span class="flow-arrow">&rarr;</span>
+    <span class="flow-step">Registry</span>
+    <span class="flow-arrow">&rarr;</span>
+    <span class="flow-step">Deploy</span>
+    <span class="flow-arrow">&rarr;</span>
+    <span class="flow-step">Monitor</span>
+  </div>
+
+  <h3><i data-lucide="package-check"></i> Artefactos que deberías versionar</h3>
+  <table class="compact-table resource-table">
+    <thead>
+      <tr><th>Fase</th><th>Artefacto</th><th>Pregunta de ingeniería</th><th>Ejemplo</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>Datos</strong></td><td>Dataset versionado</td><td>¿Con qué datos exactos se entrenó?</td><td>snapshot de tickets hasta 2026-05-01, sin duplicados, con política de PII</td></tr>
+      <tr><td><strong>Features</strong></td><td>Schema y transformaciones</td><td>¿Existen esas columnas cuando predigo?</td><td>canal, producto, idioma y antigüedad del cliente antes de crear el ticket</td></tr>
+      <tr><td><strong>Entrenamiento</strong></td><td>Código, seed, hiperparámetros, checkpoint</td><td>¿Puedo reproducir el modelo?</td><td>modelo `v12`, learning rate, epochs, commit y entorno</td></tr>
+      <tr><td><strong>Evaluación</strong></td><td>Informe con métricas y slices</td><td>¿Dónde mejora y dónde empeora?</td><td>F1 global, recall en prioridad alta, errores por país y producto</td></tr>
+      <tr><td><strong>Serving</strong></td><td>Config de runtime</td><td>¿Qué latencia, coste y fallback tendrá?</td><td>batch, timeout, fallback a baseline, límites por usuario</td></tr>
+      <tr><td><strong>Monitorización</strong></td><td>Métricas y alertas</td><td>¿Cómo sé que producción cambió?</td><td>drift de features, p95, coste, tasa de revisión humana, calidad muestreada</td></tr>
+    </tbody>
+  </table>
+
+  <div class="formula-card">
+    <h3><i data-lucide="shield-check"></i> Criterio de release</h3>
+    <p class="formula"><code>release_ok = data_ok AND eval_ok AND safety_ok AND rollback_ok</code></p>
+    <p><strong>data_ok</strong>: datos trazables y sin leakage. <strong>eval_ok</strong>: mejora en métricas relevantes, no solo promedio. <strong>safety_ok</strong>: límites, privacidad y casos adversariales. <strong>rollback_ok</strong>: volver al baseline si algo falla.</p>
+  </div>
+
+  <div class="callout">
+    <p class="callout-title"><i data-lucide="headphones"></i> Ejemplo aplicado</p>
+    <p>Clasificador de prioridad en soporte: no basta con entrenar “urgente/no urgente”. Necesitas saber quién etiquetó los tickets, si la prioridad histórica estaba sesgada por clientes premium, qué pasa con idiomas minoritarios y qué harás si el modelo baja recall en tickets realmente críticos.</p>
+  </div>
+
+  <div class="refs">
+    <p class="refs-title">Para profundizar</p>
+    <a href="https://developers.google.com/machine-learning/guides/rules-of-ml" target="_blank">Google - Rules of Machine Learning</a>
+    <a href="https://www.tensorflow.org/tfx/guide" target="_blank">TensorFlow Extended - TFX Guide</a>
+    <a href="https://mlflow.org/docs/latest/ml/model-registry/" target="_blank">MLflow Model Registry</a>
+  </div>
+</Slide>
+
+<!-- SLIDE 21 -->
+<Slide id="entrenar-no-es-desplegar" number={21} title="Entrenar no es desplegar">
+  <p><i data-lucide="rocket"></i> Entrenar optimiza parámetros. Desplegar optimiza un sistema: latencia, memoria, coste, seguridad, observabilidad, versionado, rollback y experiencia de usuario.</p>
+
+  <div class="big-idea">
+    <p>El modelo que gana una métrica offline puede ser inviable si tarda demasiado, consume demasiada memoria, no explica fallos o no se puede monitorizar.</p>
+  </div>
+
+  <table class="compact-table resource-table">
+    <thead>
+      <tr><th>Técnica</th><th>Qué hace</th><th>Cuándo ayuda</th><th>Trade-off</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>Pruning</strong></td><td>Elimina pesos, neuronas o conexiones poco útiles</td><td>Reducir tamaño y cómputo cuando hay redundancia</td><td>Puede degradar calidad si podas sin calibrar ni evaluar por segmento</td></tr>
+      <tr><td><strong>Quantización</strong></td><td>Guarda pesos/activaciones con menos bits</td><td>Inferencia local, edge, GPUs con FP8/INT8/INT4</td><td>Puede perder precisión en tareas sensibles o razonamiento largo</td></tr>
+      <tr><td><strong>Distillation</strong></td><td>Un modelo grande enseña a uno pequeño</td><td>Casos repetitivos donde necesitas bajo coste y baja latencia</td><td>El student hereda límites y sesgos del teacher; eval obligatoria</td></tr>
+      <tr><td><strong>Compilación</strong></td><td>Optimiza kernels, grafos y formatos para hardware concreto</td><td>Servir mucho tráfico con GPU/TPU/NPU específicas</td><td>Más dependencia del runtime y más coste operativo</td></tr>
+      <tr><td><strong>Batching / caching</strong></td><td>Agrupa peticiones o reutiliza resultados</td><td>Throughput, RAG repetitivo, embeddings, respuestas comunes</td><td>Puede aumentar latencia individual o cachear resultados obsoletos</td></tr>
+    </tbody>
+  </table>
+
+  <div class="formula-card-grid">
+    <div class="formula-card">
+      <h3><i data-lucide="coins"></i> Coste total</h3>
+      <p class="formula"><code>TCO = entrenamiento + inferencia x N + operación + revisión</code></p>
+      <p>Un modelo barato de entrenar puede salir caro si cada predicción es lenta o necesita mucha revisión humana.</p>
+    </div>
+    <div class="formula-card">
+      <h3><i data-lucide="timer"></i> Latencia visible</h3>
+      <p class="formula"><code>latencia = espera + preproceso + modelo + postproceso + red</code></p>
+      <p>La UX no distingue si el retraso viene del LLM, de recuperar documentos, del validador o de la red.</p>
+    </div>
+  </div>
+
+  <div class="callout">
+    <p class="callout-title"><i data-lucide="server"></i> Ejemplo con piel</p>
+    <p>Un 7B ajustado con LoRA puede responder bien en notebook. En producción necesitas decidir si cabe con contexto real, cuánto ocupa la KV cache, qué ocurre con 20 usuarios concurrentes, qué logs guardas, cómo reviertes una mala versión y cómo detectas que el modelo empezó a fallar en tickets legales.</p>
+  </div>
+
+  <div class="refs">
+    <p class="refs-title">Para profundizar</p>
+    <a href="https://huggingface.co/docs/transformers/main/quantization" target="_blank">Hugging Face - Quantization</a>
+    <a href="https://arxiv.org/abs/1503.02531" target="_blank">Distilling the Knowledge in a Neural Network</a>
+    <a href="https://developers.google.com/machine-learning/guides/rules-of-ml" target="_blank">Google - Rules of Machine Learning</a>
+  </div>
+</Slide>
+
+<!-- SLIDE 22 -->
+<Slide id="quantizacion" number={22} title="Quantización: modelos que caben en tu portátil">
   <p>Comprimir el modelo reduciendo la precisión numérica de cada <strong>peso</strong>. Un peso es un número aprendido durante el entrenamiento; al quantizar no cambias la arquitectura, cambias cómo se guarda ese número.</p>
   <div class="callout">
     <p class="callout-title"><i data-lucide="book-open"></i> Cómo leer la tabla</p>
@@ -918,11 +1072,11 @@ import SlidesMLClasico from './SlidesMLClasico.astro';
   </div>
 </Slide>
 
-<!-- SLIDES 20-31: ML CLASICO -->
+<!-- SLIDES 23-35: ML CLASICO -->
 <SlidesMLClasico />
 
-<!-- SLIDE 32 -->
-<Slide id="recap-fundamentos" number={32} title="Lo que deberías saber: fundamentos">
+<!-- SLIDE 36 -->
+<Slide id="recap-fundamentos" number={36} title="Lo que deberías saber: fundamentos">
   <table>
     <thead>
       <tr><th>Concepto</th><th>Slide</th></tr>
@@ -939,24 +1093,25 @@ import SlidesMLClasico from './SlidesMLClasico.astro';
       <tr><td>Token = unidad discreta que procesa el modelo</td><td>15</td></tr>
       <tr><td>Embedding = vector numérico que codifica significado</td><td>16-17</td></tr>
       <tr><td>Entrenamiento (crear el modelo) vs inferencia (usarlo)</td><td>18</td></tr>
-      <tr><td>Quantización: comprimir modelos para hardware modesto</td><td>19</td></tr>
-      <tr><td>ML clásico: dataset, features, labels, supervisado/no supervisado/refuerzo y clasificación/regresión</td><td>20-23</td></tr>
-      <tr><td>Complejidad temporal: Big-O, entrenamiento vs inferencia y coste por algoritmo</td><td>24-25</td></tr>
-      <tr><td>Validación, overfitting, matriz de confusión, precision/recall/F1 y clustering</td><td>26-31</td></tr>
+      <tr><td>Programación clásica vs ML, pipeline end-to-end y diferencia entre entrenar y desplegar</td><td>19-21</td></tr>
+      <tr><td>Quantización: comprimir modelos para hardware modesto</td><td>22</td></tr>
+      <tr><td>ML clásico: dataset, features, labels, familias de aprendizaje, semi/self-supervised y clasificación/regresión</td><td>23-27</td></tr>
+      <tr><td>Complejidad temporal: Big-O, entrenamiento vs inferencia y coste por algoritmo</td><td>28-29</td></tr>
+      <tr><td>Validación, overfitting, matriz de confusión, precision/recall/F1 y clustering</td><td>30-35</td></tr>
     </tbody>
   </table>
 </Slide>
 
-<!-- SLIDES 33-84: IA CLASICA APLICADA -->
+<!-- SLIDES 38-88: IA CLASICA APLICADA -->
 <SlidesIAClasica />
 
-<!-- SLIDE 85: SECCION -->
-<Slide id="sec-arquitecturas" number={85} section
+<!-- SLIDE 89: SECCION -->
+<Slide id="sec-arquitecturas" number={89} section
   title="Arquitecturas y modelos"
   subtitle="Transformers, Mixture of Experts, LLMs y los parámetros que controlan su comportamiento." />
 
-<!-- SLIDE 86 -->
-<Slide id="llm" number={86} title="¿Qué es un modelo LLM?">
+<!-- SLIDE 90 -->
+<Slide id="llm" number={90} title="¿Qué es un modelo LLM?">
   <p><i data-lucide="brain"></i> <strong>Large Language Model</strong>: un modelo de lenguaje a gran escala. Entrenado con cantidades masivas de texto (internet, libros, código...) para predecir el siguiente token dada una secuencia.</p>
   <div class="icon-grid">
     <div class="icon-card">
@@ -1045,8 +1200,8 @@ import SlidesMLClasico from './SlidesMLClasico.astro';
   </div>
 </Slide>
 
-<!-- SLIDE 87 -->
-<Slide id="arquitecturas" number={87} title="Arquitecturas">
+<!-- SLIDE 91 -->
+<Slide id="arquitecturas" number={91} title="Arquitecturas">
   <h3><i data-lucide="network"></i> Evolución de las arquitecturas</h3>
   <p>La historia no acaba en Transformer. En 2026 la base dominante sigue siendo la familia Transformer, pero los modelos punteros combinan bloques: decoder-only, MoE, atención eficiente, memoria larga, SSM (State Space Model) / Mamba e incluso procesamiento por bytes o latentes.</p>
   <div class="flow">
@@ -1106,8 +1261,8 @@ import SlidesMLClasico from './SlidesMLClasico.astro';
   </div>
 </Slide>
 
-<!-- SLIDE 88 -->
-<Slide id="transformer-ninos" number={88} title="¿Cómo funciona un Transformer?">
+<!-- SLIDE 92 -->
+<Slide id="transformer-ninos" number={92} title="¿Cómo funciona un Transformer?">
   <div class="analogy">
     <p class="analogy-label"><i data-lucide="users"></i> Analogía</p>
     <p>Imagina que estás leyendo una frase y tienes que adivinar el siguiente token. El Transformer puede procesar muchos tokens de la ventana en paralelo durante el cálculo interno, a diferencia de las RNN clásicas.</p>
@@ -1151,8 +1306,8 @@ import SlidesMLClasico from './SlidesMLClasico.astro';
   </div>
 </Slide>
 
-<!-- SLIDE 89 -->
-<Slide id="moe" number={89} title="Arquitectura MoE (Mixture of Experts)">
+<!-- SLIDE 93 -->
+<Slide id="moe" number={93} title="Arquitectura MoE (Mixture of Experts)">
   <p><i data-lucide="route"></i> En vez de un modelo denso donde todos los parámetros participan en cada paso, MoE divide parte del modelo en múltiples <strong>expertos</strong> seleccionados por un router.</p>
   <h3><i data-lucide="zap"></i> Flujo de una petición MoE</h3>
   <div class="flow">

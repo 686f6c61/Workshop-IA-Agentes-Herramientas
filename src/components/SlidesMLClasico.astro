@@ -10,7 +10,7 @@ const commonRefs = [
 const slides = [
   {
     id: 'ml-clasico-mapa',
-    number: 20,
+    number: 23,
     title: 'ML clásico: el mapa antes de los LLMs',
     icon: 'map',
     lead: 'Antes de hablar de modelos gigantes conviene separar tareas: aprender una etiqueta, predecir un número, descubrir estructura o actuar para maximizar recompensa. Esa separación evita elegir una arquitectura por moda cuando todavía no está claro qué señal de aprendizaje existe.',
@@ -40,7 +40,7 @@ const slides = [
   },
   {
     id: 'dataset-features-labels',
-    number: 21,
+    number: 24,
     title: 'Dataset, features, label y target',
     icon: 'table-properties',
     lead: 'Un modelo no aprende “el mundo” directamente: aprende la representación que le damos en forma de filas, columnas, textos, imágenes o señales. Por eso la calidad de las features, la etiqueta y el split de datos suele importar más que cambiar de algoritmo.',
@@ -72,7 +72,7 @@ const slides = [
   },
   {
     id: 'supervisado-no-supervisado-refuerzo',
-    number: 22,
+    number: 25,
     title: 'Supervisado, no supervisado y refuerzo',
     icon: 'git-branch',
     lead: 'Estas tres familias no se separan por usar árboles, redes neuronales o Transformers, sino por el tipo de feedback disponible durante el aprendizaje. La pregunta clave es: ¿quién corrige al modelo y cuándo?',
@@ -102,8 +102,62 @@ const slides = [
     ],
   },
   {
+    id: 'semi-supervisado-self-supervised',
+    number: 26,
+    title: 'Semi-supervisado y self-supervised',
+    icon: 'sparkles',
+    lead: 'Entre “tengo etiquetas perfectas” y “no tengo ninguna verdad” hay dos ideas muy prácticas: aprovechar pocos labels con muchos datos sin etiquetar, y crear una tarea de aprendizaje a partir del propio dato.',
+    bigIdea: 'Los LLMs modernos no empezaron con millones de humanos etiquetando cada respuesta: empezaron aprendiendo estructura del lenguaje con objetivos self-supervised como predecir tokens.',
+    metrics: [
+      { value: 'D_labeled = {(x_i, y_i)}', label: 'pocos ejemplos etiquetados: cada x_i trae una respuesta y_i' },
+      { value: 'D_unlabeled = {x_j}', label: 'muchos ejemplos sin etiqueta: solo observaciones x_j' },
+      { value: 'pseudo-label', label: 'etiqueta provisional producida por un modelo' },
+      { value: 'pretext task', label: 'tarea artificial creada desde el propio dato' },
+    ],
+    table: {
+      headers: ['Familia', 'Qué hace', 'Ejemplo que se entiende', 'Riesgo'],
+      rows: [
+        ['Semi-supervisado', 'Combina pocos datos etiquetados con muchos sin etiquetar. El modelo aprende de las etiquetas reales y usa los datos no etiquetados para estabilizar fronteras o generar pseudo-etiquetas.', 'Tienes 500 facturas revisadas por humanos y 80.000 facturas sin revisar. Entrenas un primer clasificador, etiquetas provisionalmente las más claras y las usas con cuidado para mejorar cobertura.', 'Si el primer modelo se equivoca con confianza, puede amplificar errores. Las pseudo-etiquetas deben filtrarse por confianza y auditarse.'],
+        ['Self-supervised', 'Crea la supervisión desde el propio dato: ocultar una parte, predecir la siguiente, reconstruir, contrastar dos vistas o detectar si dos fragmentos pertenecen juntos.', 'Un LLM recibe “El usuario abrió un ticket porque...” y aprende a predecir el siguiente token. Nadie etiqueta manualmente cada palabra: el texto contiene su propia señal.', 'Aprende regularidades, no objetivos humanos finales. Por eso después suelen hacer SFT, preferencias, RLHF/RLAIF o instrucciones.'],
+        ['No supervisado puro', 'Busca estructura sin etiqueta ni tarea artificial explícita de predicción supervisada.', 'k-means agrupa clientes por comportamiento sin saber si esos grupos son “premium”, “riesgo” o “curiosos”.', 'El cluster parece verdad, pero es una hipótesis. Necesita validación de negocio.'],
+      ],
+    },
+    secondaryTables: [
+      {
+        headers: ['Técnica', 'Idea', 'Cuándo usarla'],
+        rows: [
+          ['Pseudo-labeling', 'Entrenar con etiquetas reales, predecir etiquetas para datos sin etiquetar y reentrenar con las predicciones de alta confianza.', 'Cuando etiquetar es caro, pero tienes muchos datos similares al dominio real.'],
+          ['Consistency training', 'Forzar que pequeñas perturbaciones del mismo ejemplo produzcan predicciones consistentes.', 'Imagen, texto o audio con ruido natural donde quieres robustez.'],
+          ['Masked modeling', 'Ocultar tokens o partes de una señal y pedir al modelo que las reconstruya.', 'BERT y modelos de representación que necesitan comprender contexto bidireccional.'],
+          ['Next-token prediction', 'Predecir el siguiente token de una secuencia.', 'GPT/decoder-only LLMs: generación, código, chat y razonamiento estadístico.'],
+          ['Contrastive learning', 'Acercar representaciones de pares relacionados y alejar las de pares no relacionados.', 'Embeddings, búsqueda semántica, visión-lenguaje y retrieval.'],
+        ],
+      },
+      {
+        headers: ['Acrónimo', 'Significa', 'Lectura sencilla'],
+        rows: [
+          ['SFT', 'Supervised Fine-Tuning', 'ajuste con ejemplos de instrucción-respuesta revisados'],
+          ['RLHF', 'Reinforcement Learning from Human Feedback', 'ajuste con preferencias humanas como señal de recompensa'],
+          ['SSL', 'Self-Supervised Learning', 'aprendizaje donde el propio dato genera la tarea'],
+          ['UDA', 'Unlabeled Data Augmentation', 'uso de datos no etiquetados y aumentos para mejorar robustez'],
+        ],
+      },
+    ],
+    callout: {
+      title: 'Skin in the game',
+      text: 'Si tienes pocos labels, no corras a fine-tuning ciego. Primero pregunta: ¿puedo crear una eval pequeña y buena?, ¿tengo muchos datos sin etiquetar del mismo dominio?, ¿las pseudo-etiquetas se auditan?, ¿el coste de error permite automatizar o exige revisión humana?',
+      icon: 'clipboard-check',
+    },
+    refs: [
+      { label: 'scikit-learn - Semi-supervised learning', href: 'https://scikit-learn.org/stable/modules/semi_supervised.html' },
+      { label: 'BERT paper - Masked Language Modeling', href: 'https://arxiv.org/abs/1810.04805' },
+      { label: 'GPT-3 paper - Language Models are Few-Shot Learners', href: 'https://arxiv.org/abs/2005.14165' },
+      { label: 'SimCLR paper - Contrastive Learning', href: 'https://arxiv.org/abs/2002.05709' },
+    ],
+  },
+  {
     id: 'clasificacion-vs-regresion',
-    number: 23,
+    number: 27,
     title: 'Clasificación vs regresión',
     icon: 'split',
     lead: 'Ambas son aprendizaje supervisado: entrenas con ejemplos donde ya conoces la respuesta. La diferencia está en el tipo de variable que quieres predecir: una categoría discreta o una cantidad continua.',
@@ -132,7 +186,7 @@ const slides = [
   },
   {
     id: 'complejidad-ml-big-o',
-    number: 24,
+    number: 28,
     title: 'Complejidad en ML: leer Big-O sin dogma',
     icon: 'gauge',
     lead: 'La complejidad temporal sirve para responder una pregunta de ingeniería: ¿qué pasa si duplico muestras, dimensiones, clases o árboles? No predice el tiempo exacto de tu portátil, pero sí te avisa de qué variable puede romper el experimento cuando pasas de demo a producción.',
@@ -178,7 +232,7 @@ const slides = [
   },
   {
     id: 'complejidad-algoritmos-ml',
-    number: 25,
+    number: 29,
     title: 'Complejidad de algoritmos clásicos: entrenamiento vs inferencia',
     icon: 'timer',
     lead: 'La misma familia de algoritmos puede tener costes muy distintos según cuándo pagas: durante entrenamiento, durante inferencia o al actualizar el modelo. Esa separación es clave para producción.',
@@ -211,7 +265,7 @@ const slides = [
   },
   {
     id: 'validacion-generalizacion',
-    number: 26,
+    number: 30,
     title: 'Validación: medir generalización',
     icon: 'shield-check',
     lead: 'Generalizar significa acertar en casos nuevos, con ruido nuevo y usuarios nuevos. Un modelo que solo funciona en los ejemplos con los que lo has ajustado no ha aprendido una regla útil: ha memorizado una foto del pasado.',
@@ -248,7 +302,7 @@ const slides = [
   },
   {
     id: 'overfitting-underfitting',
-    number: 27,
+    number: 31,
     title: 'Overfitting y underfitting',
     icon: 'gauge',
     lead: 'El objetivo no es acertar el train set: es capturar una señal que siga funcionando fuera de los ejemplos vistos. La pregunta práctica no es “cuánto acierta entrenando”, sino “cuánto aguanta cuando cambia el caso”.',
@@ -277,7 +331,7 @@ const slides = [
   },
   {
     id: 'matriz-confusion',
-    number: 28,
+    number: 32,
     title: 'Matriz de confusión',
     icon: 'grid-3x3',
     lead: 'Para clasificación, la matriz de confusión enseña qué aciertos y errores comete el modelo por clase. Es la forma más directa de pasar de “accuracy” a consecuencias reales.',
@@ -318,7 +372,7 @@ const slides = [
   },
   {
     id: 'precision-recall-f1',
-    number: 29,
+    number: 33,
     title: 'Precision, recall y F1',
     icon: 'calculator',
     lead: 'Accuracy suele engañar cuando las clases están desbalanceadas. Si el 99% de emails no son spam, un modelo que diga “no spam” siempre tiene 99% de accuracy y aun así no sirve para detectar spam.',
@@ -362,7 +416,7 @@ const slides = [
   },
   {
     id: 'clustering-kmeans',
-    number: 30,
+    number: 34,
     title: 'Clustering y k-means',
     icon: 'scatter-chart',
     lead: 'Clustering agrupa datos sin etiqueta. k-means busca k centroides y asigna cada punto al centro más cercano. La parte peligrosa no es ejecutar el algoritmo, sino interpretar los grupos como si fueran categorías naturales.',
@@ -393,7 +447,7 @@ const slides = [
   },
   {
     id: 'cuando-no-confiar-clusters',
-    number: 31,
+    number: 35,
     title: 'Cuándo no confiar en clusters',
     icon: 'alert-triangle',
     lead: 'Un cluster no es una verdad del mundo. Es una partición inducida por features, escala, métrica y algoritmo. Puede ser una hipótesis útil, pero también una forma elegante de amplificar sesgos o artefactos.',
