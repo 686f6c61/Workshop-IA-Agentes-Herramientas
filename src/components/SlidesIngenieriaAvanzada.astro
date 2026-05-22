@@ -1,0 +1,1460 @@
+---
+import Slide from './Slide.astro';
+---
+
+<!-- SLIDE 372: SECCION -->
+<Slide id="sec-ingenieria-avanzada-ia" number={372} section
+  title="Ingeniería avanzada de IA aplicada"
+  subtitle="Agent Workbench, RAG multimodal, computer-use, pruebas de carga, red teaming y laboratorios Build It / Use It / Ship It." />
+
+<!-- SLIDE 373 -->
+<Slide id="ingenieria-avanzada-mapa" number={373} title="Mapa: de demo brillante a sistema que aguanta producción">
+  <p><i data-lucide="map"></i> Una demo de IA suele enseñar capacidad del modelo. Un sistema de IA en producción necesita además <strong>entorno, datos, herramientas, medición, seguridad y disciplina de entrega</strong>. Este bloque baja al barro: qué piezas hay que diseñar para que la IA no dependa de suerte, paciencia humana o prompts cada vez más largos.</p>
+  <p>La idea central es sencilla: si una capacidad no está rodeada de controles, no es todavía una capacidad de producto. Un modelo puede leer un PDF, navegar una web o llamar una API; el sistema debe decidir qué contexto recibe, qué acciones puede ejecutar, cómo se mide, cómo se revierte y cómo se aprende de los fallos.</p>
+
+  <div class="decision-formula">
+    <strong>sistema IA fiable</strong>
+    <span>=</span>
+    <span>modelo</span>
+    <span>+</span>
+    <span>workbench</span>
+    <span>+</span>
+    <span>retrieval adecuado</span>
+    <span>+</span>
+    <span>evals</span>
+    <span>+</span>
+    <span>operación segura</span>
+  </div>
+
+  <div class="term-grid">
+    <div class="term-card"><strong>Agent Workbench</strong><p>El entorno donde un agente recibe instrucciones, estado, tools, permisos, feedback y handoff.</p></div>
+    <div class="term-card"><strong>RAG multimodal</strong><p>Retrieval que no reduce todo a texto: PDFs visuales, tablas, diagramas, imágenes, audio o vídeo.</p></div>
+    <div class="term-card"><strong>Computer-use</strong><p>Agentes que actúan sobre interfaces: screenshots, DOM, accessibility tree, coordenadas y acciones.</p></div>
+    <div class="term-card"><strong>Load testing LLM</strong><p>Medir latencia y coste con prompts realistas, salidas variables y percentiles, no solo requests por segundo.</p></div>
+    <div class="term-card"><strong>Red-team tooling</strong><p>Campañas repetibles de ataques: jailbreaks, prompt injection, data leakage, abuso de tools y scoring.</p></div>
+    <div class="term-card"><strong>Labs entregables</strong><p>Cada práctica acaba en artefacto: código, eval, checklist, trazas, coste y decisión escrita.</p></div>
+  </div>
+
+  <div class="callout">
+    <p class="callout-title"><i data-lucide="target"></i> Lectura de ingeniería</p>
+    <p>El salto profesional no es “usar más IA”; es saber cuándo un problema necesita retrieval visual, una tool con contrato, un benchmark privado, un gate de lanzamiento, una prueba de carga o un red-team automatizado.</p>
+  </div>
+
+  <div class="refs compact-refs">
+    <p class="refs-title">Para profundizar</p>
+    <a href="https://github.com/rohitg00/ai-engineering-from-scratch" target="_blank">AI Engineering from Scratch</a>
+    <a href="https://www.anthropic.com/engineering/building-effective-agents" target="_blank">Anthropic - Building effective agents</a>
+    <a href="https://openai.github.io/openai-agents-python/" target="_blank">OpenAI Agents SDK</a>
+  </div>
+</Slide>
+
+<!-- SLIDE 374 -->
+<Slide id="agent-workbench-por-que-falla" number={374} title="Agent Workbench: por qué falla un modelo capaz">
+  <p><i data-lucide="briefcase-business"></i> <strong>Agent Workbench</strong> es el puesto de trabajo del agente: instrucciones, contexto, tools, estado, permisos, evaluadores y mecanismos de handoff. No es otro framework. Es la capa que convierte una capacidad general del modelo en trabajo repetible dentro de una organización.</p>
+  <p>Un modelo puede fallar por incapacidad, pero muchas veces falla por entorno: recibió demasiada información irrelevante, no sabía qué fichero tocar, no tenía un criterio de éxito, usó una tool demasiado amplia, no vio el error de test o perdió decisiones anteriores al compactar contexto.</p>
+
+  <table class="compact-table resource-table">
+    <thead>
+      <tr><th>Fallo que ves</th><th>No siempre significa...</th><th>Puede significar...</th><th>Corrección de workbench</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>El agente cambia demasiados ficheros</td><td>“el modelo es malo”</td><td>alcance mal definido</td><td>allowlist de rutas, no-objetivos, diff gate</td></tr>
+      <tr><td>Declara éxito sin probar</td><td>“alucina”</td><td>no hay oracle ejecutable</td><td>test obligatorio, checklist, evidencia mínima</td></tr>
+      <tr><td>Repite el mismo bug</td><td>“no aprende”</td><td>el feedback no queda en el sistema</td><td>nueva regla, eval de regresión, ejemplo negativo</td></tr>
+      <tr><td>Se pierde en tareas largas</td><td>“le falta contexto”</td><td>estado operativo mezclado con conversación</td><td>task board, decisiones versionadas, handoff</td></tr>
+      <tr><td>Usa una tool peligrosa</td><td>“no respeta permisos”</td><td>tool sin scopes ni policy</td><td>capability tokens, dry-run, aprobación humana</td></tr>
+    </tbody>
+  </table>
+
+  <div class="case-study">
+    <p class="case-study-title"><i data-lucide="code-2"></i> Ejemplo realista: agente de código en un monorepo</p>
+    <p>El usuario pide “corrige el login”. Sin workbench, el agente busca por todo el repo, toca auth, frontend, billing y tests globales. Con workbench, recibe rutas permitidas, comandos de test, owner del módulo, convenciones de errores, cambios prohibidos y criterio de aceptación. El mismo modelo trabaja mucho mejor porque el problema está mejor encarrilado.</p>
+    <div class="case-study-rows">
+      <div><strong>Antes</strong><span>prompt genérico, repo entero, éxito subjetivo.</span></div>
+      <div><strong>Después</strong><span>scope, tests, trazas, reviewers y rollback.</span></div>
+      <div><strong>Métrica</strong><span>menos diffs fuera de alcance y menos reintentos.</span></div>
+      <div><strong>Principio</strong><span>capacidad sin entorno no es fiabilidad.</span></div>
+    </div>
+  </div>
+
+  <div class="refs compact-refs">
+    <p class="refs-title">Para profundizar</p>
+    <a href="https://martinfowler.com/articles/harness-engineering.html" target="_blank">Martin Fowler - Harness engineering for coding agent users</a>
+    <a href="https://github.com/openai/agents.md" target="_blank">AGENTS.md - Open format for coding agents</a>
+    <a href="https://openai.github.io/openai-agents-python/tracing/" target="_blank">OpenAI Agents SDK - Tracing</a>
+  </div>
+</Slide>
+
+<!-- SLIDE 375 -->
+<Slide id="agent-workbench-siete-superficies" number={375} title="Agent Workbench: siete superficies que debes diseñar">
+  <p><i data-lucide="layout-dashboard"></i> Un agente no trabaja en el vacío. Cada ejecución cruza superficies donde se puede ganar fiabilidad o introducir caos. Diseñarlas explícitamente evita que todo acabe dentro de un prompt enorme imposible de auditar.</p>
+
+  <table class="compact-table">
+    <thead>
+      <tr><th>Superficie</th><th>Pregunta que responde</th><th>Artefacto concreto</th><th>Fallo si no existe</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>Instrucciones</strong></td><td>¿Cómo se trabaja aquí?</td><td><code>AGENTS.md</code>, reglas de repo, ejemplos buenos/malos</td><td>decisiones inconsistentes por sesión</td></tr>
+      <tr><td><strong>Estado</strong></td><td>¿Qué se ha hecho ya?</td><td>task board, run state, decisiones, bloqueos</td><td>repetición, pérdida de contexto, contradicciones</td></tr>
+      <tr><td><strong>Scope</strong></td><td>¿Qué puede tocar?</td><td>rutas permitidas, no-objetivos, blast radius</td><td>cambios oportunistas fuera de tarea</td></tr>
+      <tr><td><strong>Tools</strong></td><td>¿Qué acciones existen?</td><td>APIs pequeñas, schemas, errores accionables</td><td>tool omnipotente o imposible de usar bien</td></tr>
+      <tr><td><strong>Feedback</strong></td><td>¿Qué señal recibe tras actuar?</td><td>tests, lint, eval, screenshots, logs, métricas</td><td>el agente optimiza impresiones, no evidencia</td></tr>
+      <tr><td><strong>Verificación</strong></td><td>¿Quién decide si vale?</td><td>reviewer, release gate, eval privada, human approval</td><td>el constructor se aprueba a sí mismo</td></tr>
+      <tr><td><strong>Handoff</strong></td><td>¿Cómo continúa otro agente/persona?</td><td>resumen estructurado, pending items, riesgos, pruebas</td><td>cada sesión empieza de cero</td></tr>
+    </tbody>
+  </table>
+
+  <div class="decision-formula">
+    <strong>calidad del agente</strong>
+    <span>=</span>
+    <span>capacidad</span>
+    <span>×</span>
+    <span>claridad</span>
+    <span>×</span>
+    <span>feedback</span>
+    <span>×</span>
+    <span>control de daño</span>
+  </div>
+
+  <p><strong>Cómo leer la fórmula:</strong> no es una ecuación física; es un modelo mental multiplicativo. Si una pieza vale cero, el sistema se cae. Un modelo excelente con feedback cero no sabe si terminó. Un buen feedback con permisos demasiado amplios puede producir daño antes de corregirse.</p>
+
+  <div class="refs compact-refs">
+    <p class="refs-title">Para profundizar</p>
+    <a href="https://github.com/rohitg00/ai-engineering-from-scratch/tree/main/phases/14-agent-engineering" target="_blank">AI Engineering from Scratch - Agent engineering</a>
+    <a href="https://www.anthropic.com/engineering/writing-tools-for-agents" target="_blank">Anthropic - Writing tools for agents</a>
+  </div>
+</Slide>
+
+<!-- SLIDE 376 -->
+<Slide id="workbench-minimo-router-estado-cola" number={376} title="Workbench mínimo: router, estado y cola de trabajo">
+  <p><i data-lucide="folder-tree"></i> Para empezar no necesitas una plataforma enorme. Un workbench mínimo puede ser tres artefactos versionados: instrucciones de repo, estado de ejecución y cola de tareas. Lo importante es separar <strong>criterio estable</strong>, <strong>estado cambiante</strong> y <strong>trabajo pendiente</strong>.</p>
+
+  <div class="process-lane">
+    <div class="process-step"><span class="step-label">1</span><strong>AGENTS.md</strong><p>Router corto: cómo compilar, testear, navegar, qué reglas mandan y qué no tocar.</p></div>
+    <div class="process-step"><span class="step-label">2</span><strong>agent_state.json</strong><p>Estado vivo: objetivo, hipótesis, decisiones, comandos ejecutados, errores y siguiente paso.</p></div>
+    <div class="process-step"><span class="step-label">3</span><strong>task_board.json</strong><p>Cola explícita: tareas, prioridad, bloqueo, owner, criterio de aceptación y evidencia.</p></div>
+    <div class="process-step"><span class="step-label">4</span><strong>trace log</strong><p>Eventos observables: tool calls, permisos, coste, latencia, outputs y stop reason.</p></div>
+  </div>
+
+  <table class="compact-table resource-table">
+    <thead>
+      <tr><th>Artefacto</th><th>Qué NO debe ser</th><th>Qué sí debe contener</th><th>Ejemplo de línea útil</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><code>AGENTS.md</code></td><td>un manual de 80 páginas</td><td>pointers y reglas verificables</td><td><code>Antes de tocar auth, lee docs/auth-boundaries.md</code></td></tr>
+      <tr><td><code>agent_state.json</code></td><td>un transcript completo</td><td>resumen operativo actual</td><td><code>blocked_by: failing test auth/session.spec.ts</code></td></tr>
+      <tr><td><code>task_board.json</code></td><td>una lista vaga de deseos</td><td>tareas con acceptance criteria</td><td><code>done_when: unit tests + screenshot pass</code></td></tr>
+      <tr><td><code>trace</code></td><td>razonamiento privado literal</td><td>eventos reproducibles</td><td><code>tool_call: run_tests, result: failed, exit: 1</code></td></tr>
+    </tbody>
+  </table>
+
+  <div class="callout compact-callout">
+    <p class="callout-title"><i data-lucide="lightbulb"></i> Por qué funciona</p>
+    <p>El chat es buen espacio de razonamiento, pero mal sistema de registro. Cuando el estado importante vive fuera del transcript, otro agente, una persona o una ejecución futura puede retomar sin reconstruir todo de memoria.</p>
+  </div>
+
+  <div class="refs compact-refs">
+    <p class="refs-title">Para profundizar</p>
+    <a href="https://github.com/openai/agents.md" target="_blank">AGENTS.md</a>
+    <a href="https://openai.github.io/openai-agents-python/tracing/" target="_blank">OpenAI Agents SDK - Tracing</a>
+  </div>
+</Slide>
+
+<!-- SLIDE 377 -->
+<Slide id="agents-md-instrucciones-interfaz" number={377} title="AGENTS.md: instrucciones como interfaz, no como novela">
+  <p><i data-lucide="file-text"></i> <code>AGENTS.md</code> debe comportarse como una interfaz para agentes: dónde mirar, qué comandos usar, qué restricciones importan y qué señales demuestran que el trabajo está bien. Si se convierte en una enciclopedia, el modelo la ignora, la resume mal o arrastra reglas obsoletas.</p>
+
+  <div class="two-cols agents-md-layout">
+    <div class="agents-md-card" aria-label="Ejemplo visual de AGENTS.md">
+      <div class="agents-md-header">
+        <span class="agents-md-file">AGENTS.md</span>
+        <span class="agents-md-hint">router del repo</span>
+      </div>
+      <div class="agents-md-section">
+        <h3>Mapa</h3>
+        <ul>
+          <li><span>Frontend</span><code>src/components</code></li>
+          <li><span>Evals</span><code>tests/evals</code></li>
+          <li><span>Arquitectura</span><code>docs/adr</code></li>
+        </ul>
+      </div>
+      <div class="agents-md-section">
+        <h3>Comandos obligatorios</h3>
+        <ul>
+          <li><code>npm run build</code></li>
+          <li><code>npm test -- --runInBand</code></li>
+        </ul>
+      </div>
+      <div class="agents-md-section">
+        <h3>Reglas</h3>
+        <ul>
+          <li>No tocar billing sin approval.</li>
+          <li>No cambiar API pública sin ADR.</li>
+          <li>Si falla un test 2 veces, parar y resumir.</li>
+        </ul>
+      </div>
+      <div class="agents-md-section">
+        <h3>Definition of Done</h3>
+        <ul>
+          <li>diff pequeño</li>
+          <li>tests relevantes</li>
+          <li>riesgo y rollback escritos</li>
+        </ul>
+      </div>
+    </div>
+    <div>
+      <h3><i data-lucide="check-check"></i> Buenas prácticas</h3>
+      <ul>
+        <li><strong>Corto:</strong> guía hacia fuentes, no sustituye la documentación completa.</li>
+        <li><strong>Verificable:</strong> cada regla crítica debe tener test, hook, schema o reviewer.</li>
+        <li><strong>Jerárquico:</strong> reglas de subdirectorio pueden especializar sin contradecir política global.</li>
+        <li><strong>Con owners:</strong> si nadie mantiene una regla, envejece y se vuelve ruido.</li>
+      </ul>
+      <h3><i data-lucide="x-circle"></i> Anti-patrones</h3>
+      <ul>
+        <li>Meter toda la wiki en una sola página.</li>
+        <li>Instrucciones morales sin control ejecutable: “sé cuidadoso”.</li>
+        <li>Reglas contradictorias entre herramientas: Cursor dice una cosa, Claude otra, Copilot otra.</li>
+        <li>No actualizarlo después de incidentes reales.</li>
+      </ul>
+    </div>
+  </div>
+
+  <p><strong>Ejemplo de calle:</strong> no le dices a una persona nueva “trabaja bien”. Le das el mapa del repo, cómo levantarlo, qué zonas son delicadas, cómo pedir aprobación y cómo demostrar que acabó. Con agentes pasa lo mismo, solo que más explícito.</p>
+
+  <div class="refs compact-refs">
+    <p class="refs-title">Para profundizar</p>
+    <a href="https://github.com/openai/agents.md" target="_blank">AGENTS.md - simple open format</a>
+    <a href="https://code.claude.com/docs/en/best-practices" target="_blank">Claude Code - Best practices</a>
+    <a href="https://docs.github.com/en/copilot/customizing-copilot/adding-repository-custom-instructions-for-github-copilot" target="_blank">GitHub Copilot - Repository instructions</a>
+  </div>
+</Slide>
+
+<!-- SLIDE 378 -->
+<Slide id="estado-task-board-handoff" number={378} title="Estado, task board y handoff: el chat no es memoria suficiente">
+  <p><i data-lucide="history"></i> Los agentes largos necesitan memoria operativa separada del chat. El transcript contiene demasiadas cosas: razonamientos descartados, errores ya corregidos, instrucciones temporales y ruido. El estado útil debe quedar resumido, estructurado y verificable.</p>
+  <p>Piensa en un agente como en un proceso distribuido con memoria limitada. Si el estado vive solo en la conversación, cada compactación, cambio de modelo, reinicio o handoff humano puede perder decisiones críticas. Por eso conviene convertir la conversación en <strong>estado operativo</strong>: pequeño, legible, actualizado y ligado a evidencia.</p>
+
+  <div class="decision-formula">
+    <strong>handoff útil</strong>
+    <span>=</span>
+    <span>objetivo</span>
+    <span>+</span>
+    <span>estado actual</span>
+    <span>+</span>
+    <span>evidencia</span>
+    <span>+</span>
+    <span>riesgos</span>
+    <span>+</span>
+    <span>siguiente acción</span>
+  </div>
+
+  <div class="process-lane trace-lane">
+    <div class="process-step"><span class="step-label">state</span><strong>Objetivo</strong><p>resultado esperado, no-objetivos, usuario afectado y criterio de aceptación.</p></div>
+    <div class="process-step"><span class="step-label">state</span><strong>Decisiones</strong><p>qué se eligió, por qué, alternativas descartadas y supuestos pendientes.</p></div>
+    <div class="process-step"><span class="step-label">state</span><strong>Evidencia</strong><p>tests, screenshots, métricas, comandos, citas, PRs y artifacts reproducibles.</p></div>
+    <div class="process-step"><span class="step-label">state</span><strong>Riesgo</strong><p>qué puede romperse, permisos usados, datos sensibles, coste y rollback.</p></div>
+    <div class="process-step"><span class="step-label">handoff</span><strong>Siguiente acción</strong><p>la próxima acción concreta, con owner, bloqueo y condición de parada.</p></div>
+  </div>
+
+  <table class="compact-table resource-table">
+    <thead>
+      <tr><th>Memoria</th><th>Qué contiene</th><th>Para qué sirve</th><th>Qué NO debe contener</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>Transcript</strong></td><td>conversación completa</td><td>auditoría informal y contexto humano</td><td>decisiones críticas sin resumen estructurado</td></tr>
+      <tr><td><strong>Run state</strong></td><td>objetivo, plan, pasos, bloqueos, coste, stop reason</td><td>retomar ejecución sin leerlo todo</td><td>razonamiento privado largo o texto duplicado</td></tr>
+      <tr><td><strong>Task board</strong></td><td>tareas, prioridad, owner, acceptance criteria</td><td>coordinar trabajo entre sesiones/agentes/personas</td><td>items vagos tipo “arreglar cosas”</td></tr>
+      <tr><td><strong>Evidence log</strong></td><td>comandos, tests, trazas, links, screenshots</td><td>demostrar lo que pasó y reproducir fallos</td><td>“parece que funciona” sin artifact</td></tr>
+      <tr><td><strong>Decision log</strong></td><td>ADR corto: decisión, motivo, impacto, fecha</td><td>evitar reabrir la misma discusión</td><td>preferencias temporales como verdad permanente</td></tr>
+    </tbody>
+  </table>
+
+  <table class="compact-table">
+    <thead>
+      <tr><th>Situación</th><th>Handoff pobre</th><th>Handoff bueno</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Falla un test</td><td>“queda un fallo raro”</td><td><code>auth/session.spec.ts: test X falla tras cambiar cookie expiry</code></td></tr>
+      <tr><td>Se agotó presupuesto</td><td>“no me dio tiempo”</td><td><code>quedan 2 opciones: revertir helper o ajustar fixture; no tocar billing</code></td></tr>
+      <tr><td>Hay aprobación pendiente</td><td>“preguntar antes”</td><td><code>approval_required para migración DB; diff en PR #42; rollback: script down</code></td></tr>
+      <tr><td>Contexto compactado</td><td>resumen narrativo largo</td><td>objetivo, restricciones, decisiones, estado de tests y siguiente paso</td></tr>
+      <tr><td>Cambió el modelo</td><td>“el nuevo modelo sabrá seguir”</td><td><code>baseline anterior: 18/25 evals; nuevo modelo debe pasar mismas evals antes de merge</code></td></tr>
+      <tr><td>Hay datos sensibles</td><td>“cuidado con privacidad”</td><td><code>PII detectada en fixtures; usar dataset sintético y borrar logs antes de compartir</code></td></tr>
+    </tbody>
+  </table>
+
+  <div class="two-cols">
+    <div class="compare-card">
+      <p class="compare-card-title"><i data-lucide="file-json-2"></i> Plantilla mínima</p>
+      <p class="compare-card-desc"><code>goal</code>, <code>non_goals</code>, <code>current_state</code>, <code>decisions</code>, <code>evidence</code>, <code>risks</code>, <code>next_action</code>, <code>stop_condition</code>. Si falta uno, alguien tendrá que reconstruirlo.</p>
+      <span class="tag">operable</span><span class="tag">retomable</span>
+    </div>
+    <div class="compare-card">
+      <p class="compare-card-title"><i data-lucide="alert-triangle"></i> Señal de deuda</p>
+      <p class="compare-card-desc">Si el nuevo agente pregunta “¿qué estaba haciendo?”, “¿qué test fallaba?” o “¿puedo tocar esto?”, el handoff falló. No es mala memoria del modelo; es estado mal diseñado.</p>
+      <span class="tag">deuda de contexto</span><span class="tag">riesgo operativo</span>
+    </div>
+  </div>
+
+  <div class="callout">
+    <p class="callout-title"><i data-lucide="clipboard-check"></i> Criterio de calidad</p>
+    <p>Un handoff es bueno si alguien puede continuar sin leer toda la conversación y puede explicar qué se hizo, qué se sabe, qué falta y qué no debe tocarse. Si obliga a reconstruir la historia, no es handoff: es deuda de contexto.</p>
+  </div>
+</Slide>
+
+<!-- SLIDE 379 -->
+<Slide id="verificacion-builder-reviewer-gate" number={379} title="Verificación separada: builder, reviewer y gate">
+  <p><i data-lucide="shield-check"></i> En sistemas agentic, el mismo agente que construye no debería ser el único que decide si algo está bien. Separar roles reduce autoengaño: uno produce, otro revisa, y una puerta ejecutable decide si el cambio puede avanzar.</p>
+  <p>El patrón viene de ingeniería clásica: quien implementa puede tener sesgo de confirmación, quien revisa busca contraejemplos y quien lanza exige evidencias mínimas. En agentes importa todavía más porque una respuesta puede sonar segura aunque la trayectoria haya sido débil.</p>
+
+  <svg class="agent-architecture-svg" viewBox="0 0 1180 330" role="img" aria-label="Flujo builder reviewer gate en agentes">
+    <defs>
+      <marker id="workbench-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+        <path d="M 0 0 L 10 5 L 0 10 z" class="arrow-head"></path>
+      </marker>
+    </defs>
+    <rect x="25" y="24" width="1130" height="280" rx="14" class="panel"></rect>
+    <text x="590" y="58" class="panel-title">Separar construir, revisar y lanzar</text>
+    <text x="590" y="84" class="panel-subtitle">La confianza sale de evidencia y roles, no de una respuesta convincente</text>
+
+    <rect x="70" y="130" width="190" height="90" rx="12" class="node model"></rect>
+    <text x="165" y="160" class="node-title">Builder</text>
+    <text x="165" y="184" class="node-small">propone plan, código, respuesta</text>
+
+    <rect x="335" y="130" width="190" height="90" rx="12" class="node tool"></rect>
+    <text x="430" y="160" class="node-title">Evidence</text>
+    <text x="430" y="184" class="node-small">tests, traces, citations, diff</text>
+
+    <rect x="600" y="130" width="190" height="90" rx="12" class="node memory"></rect>
+    <text x="695" y="160" class="node-title">Reviewer</text>
+    <text x="695" y="184" class="node-small">rubrica, eval, critica</text>
+
+    <rect x="865" y="130" width="200" height="90" rx="12" class="node data"></rect>
+    <text x="965" y="160" class="node-title">Launch gate</text>
+    <text x="965" y="184" class="node-small">go, no-go, rollback</text>
+
+    <path d="M 260 175 H 325" class="arrow" marker-end="url(#workbench-arrow)"></path>
+    <path d="M 525 175 H 590" class="arrow" marker-end="url(#workbench-arrow)"></path>
+    <path d="M 790 175 H 855" class="arrow" marker-end="url(#workbench-arrow)"></path>
+
+    <text x="295" y="120" class="note">artifact</text>
+    <text x="560" y="120" class="note">evidence</text>
+    <text x="825" y="120" class="note">decision</text>
+  </svg>
+
+  <div class="decision-formula">
+    <strong>go</strong>
+    <span>=</span>
+    <span>tests pasan</span>
+    <span>∧</span>
+    <span>eval ≥ umbral</span>
+    <span>∧</span>
+    <span>riesgo permitido</span>
+    <span>∧</span>
+    <span>rollback definido</span>
+  </div>
+
+  <table class="compact-table resource-table">
+    <thead>
+      <tr><th>Rol</th><th>Qué hace</th><th>Qué NO debería hacer</th><th>Ejemplo</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>Builder</strong></td><td>genera solución y evidencia</td><td>aprobarse solo</td><td>crea PR, corre tests, adjunta trazas</td></tr>
+      <tr><td><strong>Reviewer</strong></td><td>busca fallos contra rúbrica</td><td>reescribir todo sin criterio</td><td>detecta caso edge y pide cambio concreto</td></tr>
+      <tr><td><strong>Gate</strong></td><td>decide con reglas ejecutables</td><td>depender solo de opinión</td><td>bloquea si falta test, rollback o approval</td></tr>
+      <tr><td><strong>Humano</strong></td><td>asume responsabilidad en riesgo alto</td><td>hacer microgestión de todo</td><td>aprueba pagos, borrados o despliegue</td></tr>
+    </tbody>
+  </table>
+
+  <table class="compact-table resource-table">
+    <thead>
+      <tr><th>Tipo de salida</th><th>Gate mínimo</th><th>Reviewer mira</th><th>Ejemplo de bloqueo</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>Respuesta informativa</strong></td><td>citas, no-answer, conflicto de fuentes</td><td>si responde lo preguntado y no inventa</td><td>afirma una política sin fuente viva</td></tr>
+      <tr><td><strong>Draft</strong></td><td>schema válido, diff visible, owner</td><td>si el borrador es reversible y comprensible</td><td>email externo sin destinatario revisado</td></tr>
+      <tr><td><strong>Cambio de código</strong></td><td>tests, build, diff acotado, changelog si aplica</td><td>regresiones, alcance, seguridad, estilo local</td><td>modifica API pública sin ADR</td></tr>
+      <tr><td><strong>Acción productiva</strong></td><td>approval, permiso, idempotencia, rollback</td><td>impacto real y coste de error</td><td>borra datos o mueve dinero sin confirmación fuerte</td></tr>
+    </tbody>
+  </table>
+
+  <div class="case-study">
+    <p class="case-study-title"><i data-lucide="git-pull-request"></i> Caso: PR generado por agente</p>
+    <p>El builder arregla una validación y adjunta test. El reviewer detecta que el cambio rompe usuarios con dominios internacionales. El gate bloquea porque falta caso de prueba para IDN y rollback. La mejora no es “usar otro modelo”: es convertir el fallo en test y regla permanente.</p>
+    <div class="case-study-rows">
+      <div><strong>Builder</strong><span>implementa y prueba caso feliz.</span></div>
+      <div><strong>Reviewer</strong><span>busca contraejemplos y riesgo.</span></div>
+      <div><strong>Gate</strong><span>exige evidencia mínima objetiva.</span></div>
+      <div><strong>Aprendizaje</strong><span>nuevo test protege releases futuras.</span></div>
+    </div>
+  </div>
+
+  <div class="refs compact-refs">
+    <p class="refs-title">Para profundizar</p>
+    <a href="https://www.anthropic.com/engineering/building-effective-agents" target="_blank">Anthropic - Evaluator-optimizer workflow</a>
+    <a href="https://openai.github.io/openai-agents-python/guardrails/" target="_blank">OpenAI Agents SDK - Guardrails</a>
+  </div>
+</Slide>
+
+<!-- SLIDE 380 -->
+<Slide id="rag-multimodal-pdf-no-es-texto" number={380} title="RAG multimodal: cuando el PDF no es solo texto">
+  <p><i data-lucide="file-scan"></i> El RAG clásico convierte documentos en texto, trocea, embebe y recupera chunks. Funciona muy bien para documentación textual. Pero muchos documentos reales son <strong>visualmente ricos</strong>: tablas, columnas, sellos, firmas, gráficos, esquemas, capturas, fórmulas, facturas o manuales escaneados.</p>
+  <p>Si el parser pierde layout, el retrieval empieza mal. La respuesta puede sonar correcta porque el texto recuperado existe, pero falta la relación visual que hacía comprensible el documento: qué columna corresponde a qué valor, qué flecha conecta dos bloques, qué nota pertenece a qué sección.</p>
+
+  <div class="decision-formula">
+    <strong>riesgo de text-RAG</strong>
+    <span>≈</span>
+    <span>dependencia de layout</span>
+    <span>×</span>
+    <span>coste del error</span>
+    <span>×</span>
+    <span>frecuencia de consulta</span>
+  </div>
+
+  <p><strong>Cómo leer la fórmula:</strong> no mide una probabilidad exacta; sirve para priorizar. Si el layout apenas importa, text-RAG puede bastar. Si una fila mal asociada puede pagar una factura incorrecta o incumplir una norma, necesitas preservar estructura visual y evaluar con casos reales.</p>
+
+  <table class="compact-table resource-table">
+    <thead>
+      <tr><th>Documento</th><th>Qué pierde text-RAG</th><th>Por qué importa</th><th>Alternativa</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Factura</td><td>alineación de importes, conceptos e impuestos</td><td>un número puede asociarse a la fila incorrecta</td><td>parser de tablas o vision-RAG</td></tr>
+      <tr><td>Paper técnico</td><td>figuras, captions y fórmulas con layout</td><td>la evidencia puede estar en el diagrama, no en el párrafo</td><td>retrieval por página/imagen + citas</td></tr>
+      <tr><td>Manual industrial</td><td>diagramas de piezas y referencias visuales</td><td>“la válvula A” depende de posición en el esquema</td><td>VLM + grounding visual</td></tr>
+      <tr><td>Contrato escaneado</td><td>sellos, tachaduras, firmas, anexos</td><td>OCR puede omitir señales legales relevantes</td><td>OCR + visión + revisión humana</td></tr>
+      <tr><td>Dashboard exportado</td><td>ejes, colores, leyendas y tendencia</td><td>texto suelto no conserva la lectura del gráfico</td><td>captura visual + extracción estructurada</td></tr>
+    </tbody>
+  </table>
+
+  <h3><i data-lucide="search-x"></i> Cuatro pérdidas típicas al “pasar a texto”</h3>
+  <div class="term-grid">
+    <div class="term-card"><strong>Orden</strong><p>El extractor reordena columnas, pies de página o bloques. El texto sigue existiendo, pero la secuencia ya no significa lo mismo.</p></div>
+    <div class="term-card"><strong>Proximidad</strong><p>Dos elementos cercanos en la página quedan lejos en el chunk. Pierdes qué etiqueta pertenece a qué valor.</p></div>
+    <div class="term-card"><strong>Jerarquía</strong><p>Títulos, subtítulos, notas y anexos se mezclan. El modelo no sabe qué regla domina.</p></div>
+    <div class="term-card"><strong>Señal visual</strong><p>Colores, flechas, tachaduras, firmas o iconos desaparecen o se convierten en texto ambiguo.</p></div>
+  </div>
+
+  <div class="callout">
+    <p class="callout-title"><i data-lucide="compass"></i> Decisión práctica</p>
+    <p>Si el significado vive en el orden visual, en la proximidad espacial o en una figura, no trates el PDF como un TXT caro. Usa extracción estructurada, OCR con layout, embeddings visuales o RAG multimodal.</p>
+  </div>
+
+  <div class="refs compact-refs">
+    <p class="refs-title">Para profundizar</p>
+    <a href="https://arxiv.org/abs/2407.01449" target="_blank">ColPali - Efficient Document Retrieval with Vision Language Models</a>
+    <a href="https://arxiv.org/abs/2410.10594" target="_blank">VisRAG - Vision-based Retrieval-Augmented Generation</a>
+    <a href="https://arxiv.org/abs/2411.04952" target="_blank">M3DocRAG - Multi-modal document RAG</a>
+  </div>
+</Slide>
+
+<!-- SLIDE 381 -->
+<Slide id="late-interaction-maxsim" number={381} title="Late interaction: ColBERT, MaxSim y por qué no basta un vector">
+  <p><i data-lucide="sigma"></i> En vector search clásico, una query se resume en un embedding y cada documento en otro embedding. Eso es rápido, pero comprime mucho. <strong>Late interaction</strong> conserva varios vectores por query y por documento, y compara piezas finas antes de sumar evidencia.</p>
+  <p>La intuición: una pregunta rara vez pide una sola cosa. “Proveedor con mayor SLA en la tabla de soporte premium” contiene proveedor, máximo, SLA, tabla, soporte y premium. Con un vector único todo se aplasta; con late interaction cada pieza busca su mejor evidencia.</p>
+
+  <div class="decision-formula">
+    <strong>score(q, d)</strong>
+    <span>=</span>
+    <span>sum_i</span>
+    <span>max_j</span>
+    <span>cos(q_i, d_j)</span>
+  </div>
+
+  <div class="decision-formula">
+    <strong>cos(a, b)</strong>
+    <span>=</span>
+    <span>(a · b)</span>
+    <span>/</span>
+    <span>(||a|| ||b||)</span>
+  </div>
+
+  <p><strong>Explicación:</strong> la similitud coseno compara dirección, no tamaño bruto. Si dos vectores apuntan a conceptos parecidos, el coseno se acerca a 1. <code>max_j</code> pregunta “para esta pieza de la query, ¿cuál es la mejor pieza del documento?”. <code>sum_i</code> suma si todas las piezas importantes encontraron apoyo.</p>
+
+  <table class="compact-table">
+    <thead>
+      <tr><th>Símbolo</th><th>Qué significa</th><th>Ejemplo intuitivo</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><code>q</code></td><td>query completa del usuario</td><td>“¿qué proveedor tiene mayor SLA en la tabla?”</td></tr>
+      <tr><td><code>d</code></td><td>documento, página o chunk candidato</td><td>una página de contrato con tabla de SLAs</td></tr>
+      <tr><td><code>q_i</code></td><td>vector del token o patch i de la query</td><td>la parte “mayor SLA” de la pregunta</td></tr>
+      <tr><td><code>d_j</code></td><td>vector del token o patch j del documento</td><td>la celda visual donde aparece “99.95%”</td></tr>
+      <tr><td><code>cos(q_i, d_j)</code></td><td>similitud coseno entre dos vectores</td><td>cuánto encajan dos piezas semánticas</td></tr>
+      <tr><td><code>max_j</code></td><td>para cada pieza de query, busca su mejor match en el documento</td><td>encuentra dónde se responde cada parte</td></tr>
+      <tr><td><code>sum_i</code></td><td>suma la evidencia de todas las piezas de la query</td><td>un documento puntúa alto si cubre toda la pregunta</td></tr>
+    </tbody>
+  </table>
+
+  <table class="compact-table resource-table">
+    <thead>
+      <tr><th>Query</th><th>Single vector puede traer...</th><th>Late interaction premia...</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>“mayor SLA en soporte premium”</td><td>página que habla mucho de soporte</td><td>página donde SLA, premium y proveedor coinciden en la misma tabla</td></tr>
+      <tr><td>“diagrama con OAuth refresh token”</td><td>texto sobre OAuth sin diagrama</td><td>patch visual donde aparece el flujo y la etiqueta del token</td></tr>
+      <tr><td>“importe total con descuento aplicado”</td><td>factura con muchos importes</td><td>celdas donde descuento y total final están relacionados</td></tr>
+    </tbody>
+  </table>
+
+  <div class="two-cols">
+    <div class="compare-card">
+      <p class="compare-card-title"><i data-lucide="package"></i> Single-vector retrieval</p>
+      <p class="compare-card-desc">Rápido y barato. Cada documento queda resumido en un vector. Puede perder detalles finos de tablas, figuras o queries con varias condiciones.</p>
+      <span class="tag">simple</span><span class="tag">barato</span>
+    </div>
+    <div class="compare-card">
+      <p class="compare-card-title"><i data-lucide="grid-3x3"></i> Multi-vector / late interaction</p>
+      <p class="compare-card-desc">Más caro en almacenamiento y scoring. Conserva matches finos: cada parte de la pregunta encuentra su mejor evidencia dentro del documento.</p>
+      <span class="tag">más preciso</span><span class="tag">más pesado</span>
+    </div>
+  </div>
+
+  <div class="refs compact-refs">
+    <p class="refs-title">Para profundizar</p>
+    <a href="https://arxiv.org/abs/2004.12832" target="_blank">ColBERT - Late interaction</a>
+    <a href="https://arxiv.org/abs/2112.01488" target="_blank">ColBERTv2</a>
+  </div>
+</Slide>
+
+<!-- SLIDE 382 -->
+<Slide id="colpali-paginas-como-imagenes" number={382} title="ColPali: páginas como imágenes, patches como evidencia">
+  <p><i data-lucide="image"></i> ColPali aplica la intuición de late interaction a documentos visuales. En vez de depender solo de OCR y texto extraído, renderiza la página como imagen, usa un modelo visión-lenguaje para producir embeddings multi-vector y recupera páginas por similitud entre query y patches visuales.</p>
+  <p>La palabra clave es <strong>vision-native</strong>: el documento no se fuerza primero a texto. El sistema aprende representaciones de la página como la vería una persona: bloques, tablas, encabezados, gráficos y relaciones espaciales. Después el generador puede usar esa página como evidencia, idealmente con cita o región.</p>
+
+  <svg class="agent-architecture-svg" viewBox="0 0 1180 330" role="img" aria-label="Pipeline ColPali simplificado">
+    <defs>
+      <marker id="colpali-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+        <path d="M 0 0 L 10 5 L 0 10 z" class="arrow-head"></path>
+      </marker>
+    </defs>
+    <rect x="25" y="24" width="1130" height="280" rx="14" class="panel"></rect>
+    <text x="590" y="58" class="panel-title">Vision-native document retrieval</text>
+    <text x="590" y="84" class="panel-subtitle">La unidad recuperada puede ser la página visual, no solo un chunk de texto</text>
+
+    <rect x="55" y="132" width="155" height="84" rx="12" class="node data"></rect>
+    <text x="132" y="162" class="node-title">PDF</text>
+    <text x="132" y="186" class="node-small">páginas</text>
+
+    <rect x="260" y="132" width="155" height="84" rx="12" class="node tool"></rect>
+    <text x="337" y="162" class="node-title">Render</text>
+    <text x="337" y="186" class="node-small">imagen por página</text>
+
+    <rect x="465" y="132" width="155" height="84" rx="12" class="node model"></rect>
+    <text x="542" y="162" class="node-title">VLM</text>
+    <text x="542" y="186" class="node-small">patch embeddings</text>
+
+    <rect x="670" y="132" width="155" height="84" rx="12" class="node memory"></rect>
+    <text x="747" y="162" class="node-title">Index</text>
+    <text x="747" y="186" class="node-small">multi-vector</text>
+
+    <rect x="875" y="132" width="205" height="84" rx="12" class="node user"></rect>
+    <text x="977" y="162" class="node-title">MaxSim</text>
+    <text x="977" y="186" class="node-small">query vs patches</text>
+
+    <path d="M 210 174 H 250" class="arrow" marker-end="url(#colpali-arrow)"></path>
+    <path d="M 415 174 H 455" class="arrow" marker-end="url(#colpali-arrow)"></path>
+    <path d="M 620 174 H 660" class="arrow" marker-end="url(#colpali-arrow)"></path>
+    <path d="M 825 174 H 865" class="arrow" marker-end="url(#colpali-arrow)"></path>
+  </svg>
+
+  <table class="compact-table resource-table">
+    <thead>
+      <tr><th>Paso</th><th>Qué ocurre</th><th>Qué aprende el alumno</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>Render</strong></td><td>cada página se transforma en imagen</td><td>el layout se conserva como señal</td></tr>
+      <tr><td><strong>Embedding visual</strong></td><td>el VLM genera vectores por patches/tokens visuales</td><td>una página no queda comprimida a un único vector</td></tr>
+      <tr><td><strong>Query embedding</strong></td><td>la pregunta se codifica en vectores de texto</td><td>texto y visión se comparan en un espacio compatible</td></tr>
+      <tr><td><strong>Late interaction</strong></td><td>cada parte de la query busca su mejor evidencia visual</td><td>se recuperan páginas que responden, no solo palabras parecidas</td></tr>
+      <tr><td><strong>Grounding</strong></td><td>la respuesta debe apuntar a página/región/cita</td><td>sin evidencia visual, el RAG vuelve a ser una caja negra</td></tr>
+    </tbody>
+  </table>
+
+  <table class="compact-table resource-table">
+    <thead>
+      <tr><th>Decisión de diseño</th><th>Opción conservadora</th><th>Opción potente</th><th>Trade-off</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Unidad recuperada</td><td>página completa</td><td>región/bounding box</td><td>página es simple; región mejora UX pero exige más pipeline</td></tr>
+      <tr><td>Generación</td><td>responder con cita a página</td><td>pasar crop visual al VLM generador</td><td>mejor grounding, más coste y privacidad</td></tr>
+      <tr><td>Índice</td><td>solo visual</td><td>híbrido visual + OCR + metadata</td><td>híbrido suele ganar en producción, pero complica eval</td></tr>
+      <tr><td>Fallback</td><td>si baja confianza, no-answer</td><td>escalar a humano con página resaltada</td><td>reduce errores caros en documentos legales/financieros</td></tr>
+    </tbody>
+  </table>
+
+  <div class="callout compact-callout">
+    <p class="callout-title"><i data-lucide="file-check-2"></i> Producto mínimo serio</p>
+    <p>No basta devolver “página 12”. Para que un usuario confíe, muestra la página, resalta zona candidata, enseña el texto/OCR asociado si existe y permite reportar “evidencia incorrecta” para mejorar la eval.</p>
+  </div>
+
+  <div class="refs compact-refs">
+    <p class="refs-title">Para profundizar</p>
+    <a href="https://arxiv.org/abs/2407.01449" target="_blank">ColPali paper</a>
+    <a href="https://huggingface.co/vidore/colpali" target="_blank">ColPali on Hugging Face</a>
+  </div>
+</Slide>
+
+<!-- SLIDE 383 -->
+<Slide id="colpali-coste-decision" number={383} title="Coste de RAG visual: calidad, memoria y latencia">
+  <p><i data-lucide="calculator"></i> RAG visual no es magia gratis. Al guardar muchos vectores por página, sube almacenamiento y coste de scoring. La decisión correcta depende de cuánto valor aporta conservar layout frente a extraer texto limpio.</p>
+
+  <div class="decision-formula">
+    <strong>memoria aproximada</strong>
+    <span>=</span>
+    <span>páginas</span>
+    <span>×</span>
+    <span>vectores/página</span>
+    <span>×</span>
+    <span>dimensiones</span>
+    <span>×</span>
+    <span>bytes</span>
+  </div>
+
+  <table class="compact-table">
+    <thead>
+      <tr><th>Variable</th><th>Qué significa</th><th>Ejemplo</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>páginas</strong></td><td>número de páginas indexadas</td><td>10.000 páginas de contratos</td></tr>
+      <tr><td><strong>vectores/página</strong></td><td>patches o tokens visuales por página</td><td>centenas por página, según modelo/resolución</td></tr>
+      <tr><td><strong>dimensiones</strong></td><td>longitud de cada vector</td><td>128, 256, 768... depende del sistema</td></tr>
+      <tr><td><strong>bytes</strong></td><td>precisión usada por número</td><td>FP32 = 4 bytes, FP16 = 2, INT8 = 1</td></tr>
+    </tbody>
+  </table>
+
+  <table class="compact-table resource-table">
+    <thead>
+      <tr><th>Opción</th><th>Ventaja</th><th>Coste</th><th>Cuándo elegirla</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>Text-RAG</strong></td><td>barato, maduro, rápido</td><td>pierde layout y figuras</td><td>docs limpios, Markdown, FAQs, código</td></tr>
+      <tr><td><strong>OCR + layout</strong></td><td>conserva tablas y bloques</td><td>pipeline más frágil</td><td>facturas, formularios, documentos semiestructurados</td></tr>
+      <tr><td><strong>Vision-native RAG</strong></td><td>captura señales visuales</td><td>más memoria y latencia</td><td>papers, manuales, escaneos, diagramas</td></tr>
+      <tr><td><strong>Híbrido</strong></td><td>combina texto, tablas y visión</td><td>orquestación y eval más complejas</td><td>corpus mixto con preguntas de alto valor</td></tr>
+    </tbody>
+  </table>
+
+  <div class="case-study">
+    <p class="case-study-title"><i data-lucide="calculator"></i> Ejemplo de cálculo rápido</p>
+    <p>Supón 20.000 páginas, 700 vectores por página, 128 dimensiones y FP16 (2 bytes). Memoria bruta aproximada: <code>20.000 × 700 × 128 × 2 = 3.584.000.000 bytes</code>, unos 3,6 GB antes de índices, metadata, compresión o réplicas. Si subes dimensiones o precisión, el coste sube linealmente.</p>
+    <div class="case-study-rows">
+      <div><strong>Sube páginas</strong><span>coste lineal con corpus.</span></div>
+      <div><strong>Sube resolución</strong><span>más patches, más memoria.</span></div>
+      <div><strong>Baja precisión</strong><span>menos bytes, posible pérdida.</span></div>
+      <div><strong>Usa rerank</strong><span>más calidad, más latencia.</span></div>
+    </div>
+  </div>
+
+  <table class="compact-table">
+    <thead>
+      <tr><th>Pregúntate</th><th>Si la respuesta es sí...</th><th>Si la respuesta es no...</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>¿Text-RAG falla por layout en eval real?</td><td>prueba vision-RAG</td><td>no compliques arquitectura</td></tr>
+      <tr><td>¿El error cuesta dinero, seguridad o cumplimiento?</td><td>paga más por grounding</td><td>optimiza coste/latencia</td></tr>
+      <tr><td>¿El usuario necesita inspeccionar evidencia?</td><td>devuelve página/región</td><td>puede bastar cita textual</td></tr>
+      <tr><td>¿Hay PII en imágenes?</td><td>clasifica, redacta y limita retención</td><td>mantén logs mínimos igualmente</td></tr>
+    </tbody>
+  </table>
+
+  <div class="callout compact-callout">
+    <p class="callout-title"><i data-lucide="target"></i> Regla práctica</p>
+    <p>No empieces por ColPali porque suene avanzado. Empieza por una eval: 50 preguntas reales donde text-RAG falla por layout. Si vision-RAG recupera mejor evidencia y el coste por respuesta aceptada baja, entonces compensa.</p>
+  </div>
+</Slide>
+
+<!-- SLIDE 384 -->
+<Slide id="rag-multimodal-cross-modal" number={384} title="RAG multimodal y cross-modal: buscar texto, imagen, audio y vídeo">
+  <p><i data-lucide="audio-lines"></i> <strong>Cross-modal retrieval</strong> significa que una modalidad consulta otra: texto busca imágenes, audio busca vídeo, una captura busca documentación, una pregunta busca fragmentos de pantalla. El reto no es solo encontrar algo parecido; es devolver evidencia que el usuario pueda inspeccionar.</p>
+  <p>En productos reales, las modalidades rara vez vienen limpias. Un vídeo tiene audio, frames, subtítulos y timestamps. Una pantalla tiene DOM, screenshot y eventos. Una factura tiene OCR, tabla, imagen y metadatos. La arquitectura buena decide qué señal manda, cuál desempata y cuál se muestra como evidencia.</p>
+
+  <table class="compact-table resource-table">
+    <thead>
+      <tr><th>Consulta</th><th>Corpus</th><th>Representación</th><th>Ejemplo de uso</th><th>Riesgo</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>texto</td><td>imágenes</td><td>CLIP / VLM embeddings</td><td>“busca el diagrama donde aparece OAuth refresh token”</td><td>match visual sin contexto textual</td></tr>
+      <tr><td>texto</td><td>vídeo</td><td>frames + transcript + timestamps</td><td>“dónde se explica el error 503 en la demo”</td><td>recuperar frame correcto pero minuto equivocado</td></tr>
+      <tr><td>audio</td><td>documentos</td><td>ASR + embeddings + metadata</td><td>voz del usuario busca política interna</td><td>errores de transcripción</td></tr>
+      <tr><td>imagen</td><td>manuales/PDFs</td><td>image embedding + OCR</td><td>foto de una pieza busca manual de montaje</td><td>confundir piezas parecidas</td></tr>
+      <tr><td>pantalla</td><td>knowledge base</td><td>screenshot + DOM + texto</td><td>soporte contextual dentro de una app</td><td>datos sensibles en captura</td></tr>
+    </tbody>
+  </table>
+
+  <h3><i data-lucide="git-merge"></i> Tres formas de fusionar señales</h3>
+  <div class="term-grid">
+    <div class="term-card"><strong>Score fusion</strong><p>Calculas ranking por modalidad y fusionas puntuaciones. Sencillo, interpretable, pero puede mezclar escalas mal calibradas.</p></div>
+    <div class="term-card"><strong>Attention fusion</strong><p>Un modelo combina tokens de varias modalidades. Más expresivo, menos transparente y más caro.</p></div>
+    <div class="term-card"><strong>MoE fusion</strong><p>Un router decide qué experto/modalidad usar según la query. Útil si cada modalidad tiene fortalezas claras.</p></div>
+  </div>
+
+  <table class="compact-table">
+    <thead>
+      <tr><th>Patrón</th><th>Arquitectura mínima</th><th>Ejemplo de decisión</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>Texto primero</strong></td><td>transcript/OCR → vector → rerank visual si duda</td><td>soporte sobre vídeos con subtítulos buenos</td></tr>
+      <tr><td><strong>Visual primero</strong></td><td>screenshot/página → visual index → OCR para explicar</td><td>manuales, diagramas, escaneos, tablas complejas</td></tr>
+      <tr><td><strong>Metadata primero</strong></td><td>filtros por fecha, producto, tenant, permisos → retrieval</td><td>corpus empresarial con ACLs y freshness</td></tr>
+      <tr><td><strong>Router multimodal</strong></td><td>clasificador de query decide texto/visión/audio/híbrido</td><td>asistente que recibe capturas, voz y PDFs</td></tr>
+    </tbody>
+  </table>
+
+  <div class="callout">
+    <p class="callout-title"><i data-lucide="file-check-2"></i> Evidencia mínima</p>
+    <p>Una respuesta multimodal buena no solo dice “lo encontré”. Debe devolver página, región, timestamp, frame, cita o bounding box. Si el usuario no puede verificar la evidencia, el retrieval no está suficientemente aterrizado.</p>
+  </div>
+
+  <div class="refs compact-refs">
+    <p class="refs-title">Para profundizar</p>
+    <a href="https://arxiv.org/abs/2210.02928" target="_blank">MuRAG - Multimodal Retrieval-Augmented Generation</a>
+    <a href="https://arxiv.org/abs/2411.04952" target="_blank">M3DocRAG</a>
+    <a href="https://arxiv.org/abs/2410.10594" target="_blank">VisRAG</a>
+  </div>
+</Slide>
+
+<!-- SLIDE 385 -->
+<Slide id="evaluar-rag-multimodal" number={385} title="Evaluar RAG multimodal: retrieval, grounding y utilidad">
+  <p><i data-lucide="clipboard-check"></i> Evaluar RAG multimodal exige separar tres preguntas: ¿recuperó la evidencia correcta?, ¿la respuesta está apoyada en esa evidencia?, ¿el usuario puede usarla sin inspección heroica? Si mezclas todo en una nota final, no sabrás qué arreglar.</p>
+  <p>La evaluación debe guardar <strong>evidencia esperada</strong>, no solo respuesta esperada. Para una factura, la golden answer no debería ser únicamente “1.240,30 €”; también debe decir página, tabla, fila, columna y fórmula de cálculo. Así distingues fallo de retrieval, fallo de lectura y fallo de razonamiento.</p>
+
+  <table class="compact-table">
+    <thead>
+      <tr><th>Capa</th><th>Métrica</th><th>Qué mide</th><th>Ejemplo de fallo</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>Retrieval</strong></td><td>Recall@k</td><td>si la página/frame correcto aparece entre los k primeros</td><td>la tabla correcta queda en posición 18</td></tr>
+      <tr><td><strong>Ranking</strong></td><td>MRR / nDCG</td><td>si la evidencia buena aparece arriba</td><td>el sistema encuentra la página pero por debajo de basura</td></tr>
+      <tr><td><strong>Grounding</strong></td><td>cita, región, timestamp</td><td>si la respuesta apunta a evidencia verificable</td><td>dice “según la tabla” pero no indica cuál</td></tr>
+      <tr><td><strong>Respuesta</strong></td><td>exactitud contra golden answer</td><td>si responde correctamente</td><td>recupera bien pero calcula mal el total</td></tr>
+      <tr><td><strong>Usabilidad</strong></td><td>tiempo humano para verificar</td><td>si la evidencia es útil en producto</td><td>devuelve 10 páginas sin resaltar nada</td></tr>
+      <tr><td><strong>Seguridad</strong></td><td>PII leakage / prompt injection</td><td>si la modalidad introduce datos o instrucciones no confiables</td><td>texto oculto en imagen intenta cambiar instrucciones</td></tr>
+    </tbody>
+  </table>
+
+  <div class="decision-formula">
+    <strong>score final</strong>
+    <span>=</span>
+    <span>retrieval</span>
+    <span>×</span>
+    <span>grounding</span>
+    <span>×</span>
+    <span>respuesta</span>
+    <span>×</span>
+    <span>seguridad</span>
+  </div>
+
+  <p><strong>Lectura:</strong> de nuevo, es un modelo mental multiplicativo. Si recuperas la página incorrecta, una respuesta fluida no salva el sistema. Si recuperas bien pero no citas ni resalta evidencia, el usuario no puede auditar. Si responde bien pero filtra PII, el resultado cuenta como fallo.</p>
+
+  <div class="case-study">
+    <p class="case-study-title"><i data-lucide="file-spreadsheet"></i> Eval de 30 preguntas sobre facturas</p>
+    <p>No preguntes solo “¿cuánto hay que pagar?”. Diseña casos con columnas repetidas, descuentos, notas al pie, moneda distinta, páginas escaneadas y facturas sin el dato pedido. El sistema debe recuperar la región correcta, responder con cálculo verificable y abstenerse cuando falte evidencia.</p>
+    <div class="case-study-rows">
+      <div><strong>Positive</strong><span>dato visible y respuesta calculable.</span></div>
+      <div><strong>Hard positive</strong><span>tabla compleja, nota al pie o varias páginas.</span></div>
+      <div><strong>Negative</strong><span>dato no existe; debe decir no-answer.</span></div>
+      <div><strong>Attack</strong><span>texto en imagen intenta inyectar instrucciones.</span></div>
+    </div>
+  </div>
+
+  <table class="compact-table resource-table">
+    <thead>
+      <tr><th>Campo del CSV de eval</th><th>Ejemplo</th><th>Por qué importa</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><code>question</code></td><td>¿Cuál es el total tras descuento?</td><td>entrada que verá el sistema</td></tr>
+      <tr><td><code>expected_evidence</code></td><td>pdf=F12, page=3, table=2, row=Total</td><td>mide retrieval y grounding, no solo respuesta</td></tr>
+      <tr><td><code>expected_answer</code></td><td>1240.30 EUR</td><td>mide extracción/cálculo</td></tr>
+      <tr><td><code>negative_reason</code></td><td>dato no presente / fuente contradictoria / PII</td><td>obliga a evaluar abstención y seguridad</td></tr>
+      <tr><td><code>severity</code></td><td>low, medium, high</td><td>pondera errores según daño real</td></tr>
+    </tbody>
+  </table>
+</Slide>
+
+<!-- SLIDE 386 -->
+<Slide id="computer-use-gui-grounding" number={386} title="Computer-use: GUI grounding, no solo “ver la pantalla”">
+  <p><i data-lucide="mouse-pointer-click"></i> Un agente de computer-use debe traducir intención a acciones sobre una interfaz. Eso requiere <strong>grounding</strong>: saber qué elemento corresponde a una instrucción, dónde está, qué estado tiene y qué acción es válida. Ver una captura no basta si no puede actuar con precisión.</p>
+
+  <table class="compact-table resource-table">
+    <thead>
+      <tr><th>Señal</th><th>Qué aporta</th><th>Qué no resuelve sola</th><th>Ejemplo</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>Screenshot</strong></td><td>layout real, colores, iconos, canvas</td><td>nombres accesibles, estado oculto, DOM</td><td>detectar el botón azul de “Enviar”</td></tr>
+      <tr><td><strong>DOM</strong></td><td>estructura HTML y atributos</td><td>lo que realmente ve el usuario si hay overlays</td><td>encontrar input por <code>name=email</code></td></tr>
+      <tr><td><strong>Accessibility tree</strong></td><td>roles, labels, estado interactivo</td><td>canvas, screenshots y visuales no etiquetados</td><td>botón con aria-label “Cerrar”</td></tr>
+      <tr><td><strong>Coordinates</strong></td><td>acción física precisa</td><td>semántica de por qué hacer click</td><td>click en x=840, y=212</td></tr>
+      <tr><td><strong>History</strong></td><td>qué ya se hizo y qué cambió</td><td>decidir si el objetivo era correcto</td><td>después de click aparece modal</td></tr>
+    </tbody>
+  </table>
+
+  <div class="decision-formula">
+    <strong>acción correcta</strong>
+    <span>=</span>
+    <span>intención</span>
+    <span>+</span>
+    <span>elemento</span>
+    <span>+</span>
+    <span>estado</span>
+    <span>+</span>
+    <span>coordenada</span>
+    <span>+</span>
+    <span>verificación</span>
+  </div>
+
+  <p><strong>Skin in the game:</strong> “pulsa guardar” parece trivial. En producción puede haber dos botones Guardar, un modal encima, un estado disabled, un scroll oculto, una validación pendiente o una acción irreversible. El agente necesita observar, actuar y comprobar efecto.</p>
+
+  <div class="refs compact-refs">
+    <p class="refs-title">Para profundizar</p>
+    <a href="https://arxiv.org/abs/2401.13649" target="_blank">VisualWebArena</a>
+    <a href="https://arxiv.org/abs/2404.07972" target="_blank">OSWorld</a>
+    <a href="https://arxiv.org/abs/2504.07981" target="_blank">ScreenSpot-Pro</a>
+  </div>
+</Slide>
+
+<!-- SLIDE 387 -->
+<Slide id="computer-use-action-schema" number={387} title="Action schema: acciones pequeñas, observables y reversibles">
+  <p><i data-lucide="braces"></i> El corazón operativo de un agente de interfaz es el contrato de acción. Un buen schema no expone “haz lo que quieras”; expone acciones pequeñas, tipadas, con argumentos claros, precondiciones y observación posterior.</p>
+
+  <div class="two-cols harness-template-cols">
+    <div class="code-block harness-template-code">
+<code>&#123;
+  "action": "click",
+  "target": &#123;
+    "role": "button",
+    "label": "Guardar cambios",
+    "bbox": [820, 188, 970, 232]
+  &#125;,
+  "precondition": "form_valid == true",
+  "risk": "write",
+  "after": "observe_changed_toast"
+&#125;</code>
+    </div>
+    <div>
+      <table class="compact-table">
+        <tbody>
+          <tr><td><strong>action</strong></td><td>verbo permitido: click, type, scroll, wait, select, done.</td></tr>
+          <tr><td><strong>target</strong></td><td>elemento identificado por rol, label y coordenada.</td></tr>
+          <tr><td><strong>precondition</strong></td><td>condición que debe cumplirse antes de actuar.</td></tr>
+          <tr><td><strong>risk</strong></td><td>clase de riesgo: read, draft, write, external, destructive.</td></tr>
+          <tr><td><strong>after</strong></td><td>observación esperada tras la acción.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <h3><i data-lucide="shield"></i> Diseño seguro</h3>
+  <table class="compact-table resource-table">
+    <thead>
+      <tr><th>Principio</th><th>Aplicación</th><th>Por qué importa</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Acciones pequeñas</td><td>separar rellenar, revisar y enviar</td><td>permite aprobación antes del efecto externo</td></tr>
+      <tr><td>Observación posterior</td><td>si no aparece confirmación, no asumir éxito</td><td>evita “click fantasma” y estados inconsistentes</td></tr>
+      <tr><td>Idempotencia cuando sea posible</td><td>reintentar no debe duplicar pagos, tickets o emails</td><td>protege contra latencia y errores temporales</td></tr>
+      <tr><td>Dry-run</td><td>previsualizar payload antes de escribir</td><td>humano y policy engine pueden revisar</td></tr>
+      <tr><td>Rollback</td><td>definir compensación antes de acción destructiva</td><td>no todo se puede deshacer después</td></tr>
+    </tbody>
+  </table>
+
+  <div class="refs compact-refs">
+    <p class="refs-title">Para profundizar</p>
+    <a href="https://modelcontextprotocol.io/specification/draft/server/tools" target="_blank">MCP - Tools</a>
+    <a href="https://openai.github.io/openai-agents-python/tools/" target="_blank">OpenAI Agents SDK - Tools</a>
+  </div>
+</Slide>
+
+<!-- SLIDE 388 -->
+<Slide id="computer-use-fallos-benchmarks" number={388} title="Computer-use: fallos típicos y benchmarks que sí enseñan algo">
+  <p><i data-lucide="bug"></i> Los agentes de interfaz fallan de formas muy humanas y muy mecánicas a la vez: pierden el foco, no ven scroll, confunden iconos, hacen doble click, no esperan a que cargue, aceptan instrucciones dentro de la página o no verifican el efecto de una acción.</p>
+
+  <table class="compact-table resource-table">
+    <thead>
+      <tr><th>Fallo</th><th>Causa típica</th><th>Control</th><th>Eval útil</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Click equivocado</td><td>grounding visual pobre</td><td>bbox + accessibility label + screenshot diff</td><td>ScreenSpot-Pro</td></tr>
+      <tr><td>Loop de navegación</td><td>sin memoria de pasos</td><td>history, max steps, stop reason</td><td>WebArena / VisualWebArena</td></tr>
+      <tr><td>No detecta modal</td><td>DOM y screenshot desacoplados</td><td>observación híbrida y wait explícito</td><td>tests con overlays</td></tr>
+      <tr><td>Acción irreversible</td><td>policy demasiado permisiva</td><td>draft mode, approval, rollback</td><td>casos con destructive actions</td></tr>
+      <tr><td>Prompt injection visual</td><td>datos no confiables tratados como instrucciones</td><td>separar página observada de instrucciones del sistema</td><td>páginas adversariales</td></tr>
+      <tr><td>Fallo multi-app</td><td>estado repartido entre apps</td><td>task state y checkpoints</td><td>OSWorld</td></tr>
+    </tbody>
+  </table>
+
+  <div class="callout">
+    <p class="callout-title"><i data-lucide="target"></i> Qué medir</p>
+    <p>No midas solo éxito final. Guarda trayectoria: observaciones, acciones, coordenadas, DOM/accessibility snapshot, latencia entre pasos, permisos y razón de parada. Así sabes si el agente resolvió bien o acertó por accidente.</p>
+  </div>
+</Slide>
+
+<!-- SLIDE 389 -->
+<Slide id="load-testing-llm-metricas" number={389} title="Load testing LLM: las métricas que importan de verdad">
+  <p><i data-lucide="activity"></i> Probar carga en LLMs no es igual que probar un endpoint REST clásico. La latencia depende de tokens de entrada, tokens de salida, batching, cola, KV cache, proveedor, región y forma de streaming. Un promedio global oculta justo lo que romperá la UX.</p>
+  <p>En una API clásica, una request suele tener coste parecido. En LLMs, una request de 200 tokens y otra de 80.000 tokens son casi productos distintos. Por eso la unidad de análisis no debe ser solo “peticiones por segundo”, sino <strong>tokens, percentiles, calidad y coste por tarea aceptada</strong>.</p>
+
+  <table class="compact-table">
+    <thead>
+      <tr><th>Métrica</th><th>Fórmula o lectura</th><th>Qué siente el usuario</th><th>Qué optimizas</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>TTFT</strong></td><td>Time To First Token</td><td>tiempo hasta ver que “empieza a escribir”</td><td>prefill, cola, prompt caching</td></tr>
+      <tr><td><strong>TPOT</strong></td><td>Time Per Output Token</td><td>velocidad de generación</td><td>decode, batch, hardware, modelo</td></tr>
+      <tr><td><strong>ITL</strong></td><td>Inter-Token Latency</td><td>regularidad del streaming</td><td>jitter, saturación, scheduling</td></tr>
+      <tr><td><strong>Throughput</strong></td><td>tokens/s o requests/s</td><td>capacidad bruta del sistema</td><td>batching, replicas, autoscaling</td></tr>
+      <tr><td><strong>Goodput</strong></td><td>requests correctas dentro de SLO / segundo</td><td>trabajo útil, no solo tráfico</td><td>calidad + latencia + errores</td></tr>
+      <tr><td><strong>P95/P99</strong></td><td>percentiles de cola</td><td>peores casos frecuentes</td><td>capacity planning y SLO real</td></tr>
+    </tbody>
+  </table>
+
+  <div class="decision-formula">
+    <strong>latencia total</strong>
+    <span>≈</span>
+    <span>cola</span>
+    <span>+</span>
+    <span>prefill(input tokens)</span>
+    <span>+</span>
+    <span>decode(output tokens)</span>
+  </div>
+
+  <p><strong>Explicación:</strong> <em>prefill</em> procesa el prompt completo para construir el estado inicial; <em>decode</em> genera tokens uno a uno. Por eso una pregunta con 80k tokens de contexto puede tardar mucho en arrancar aunque la respuesta final sea corta.</p>
+
+  <table class="compact-table resource-table">
+    <thead>
+      <tr><th>Síntoma observado</th><th>Métrica que lo revela</th><th>Hipótesis técnica</th><th>Intervención posible</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>tarda en empezar</td><td>TTFT alto</td><td>prompt largo, cola, prefill caro</td><td>caching, resumir contexto, separar retrieval</td></tr>
+      <tr><td>empieza rápido pero escribe lento</td><td>TPOT/ITL alto</td><td>decode saturado, batch grande, modelo pesado</td><td>modelo menor, batch tuning, streaming honesto</td></tr>
+      <tr><td>media buena, usuarios enfadados</td><td>P95/P99 alto</td><td>colas, outliers, tools lentas</td><td>timeouts, circuit breaker, autoscaling</td></tr>
+      <tr><td>mucho tráfico pero poco valor</td><td>goodput bajo</td><td>respuestas rápidas pero malas o inseguras</td><td>eval + calidad como condición de éxito</td></tr>
+      <tr><td>coste sube sin mejorar</td><td>$/tarea aceptada</td><td>reintentos, prompts inflados, routing malo</td><td>budget, cache, router y prompts más cortos</td></tr>
+    </tbody>
+  </table>
+
+  <div class="refs compact-refs">
+    <p class="refs-title">Para profundizar</p>
+    <a href="https://docs.nvidia.com/deeplearning/triton-inference-server/user-guide/docs/perf_benchmark/genai-perf-README.html" target="_blank">NVIDIA GenAI-Perf</a>
+    <a href="https://github.com/ray-project/llmperf" target="_blank">Ray LLMPerf</a>
+    <a href="https://opentelemetry.io/docs/specs/semconv/gen-ai/" target="_blank">OpenTelemetry GenAI semantic conventions</a>
+  </div>
+</Slide>
+
+<!-- SLIDE 390 -->
+<Slide id="load-testing-prompts-realistas" number={390} title="Load testing LLM: el mismo prompt mil veces miente">
+  <p><i data-lucide="bar-chart-3"></i> Un error común es probar con un único prompt repetido. Eso mide cachés, rutas felices y una longitud fija. En producción, los prompts tienen distribución: unos son cortos, otros arrastran historial, otros recuperan documentos y otros disparan tools.</p>
+  <p>Un dataset de carga debe parecerse al tráfico real y a los casos que duelen. Si la prueba solo contiene preguntas fáciles, optimizas para la parte barata del producto y dejas sin medir justo los flujos que requieren más contexto, más tools, más revisión humana o más seguridad.</p>
+
+  <table class="compact-table resource-table">
+    <thead>
+      <tr><th>Tipo de tráfico</th><th>Input</th><th>Output esperado</th><th>Riesgo que revela</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>FAQ corta</td><td>100-500 tokens</td><td>50-200 tokens</td><td>overhead de red y routing</td></tr>
+      <tr><td>RAG medio</td><td>2k-8k tokens</td><td>300-800 tokens</td><td>coste de retrieval + prefill</td></tr>
+      <tr><td>Análisis largo</td><td>30k-120k tokens</td><td>1k-3k tokens</td><td>TTFT alto, memoria, timeouts</td></tr>
+      <tr><td>Agente con tools</td><td>varios turnos + tool results</td><td>variable</td><td>loops, errores de tool, budget</td></tr>
+      <tr><td>No-answer</td><td>contexto insuficiente</td><td>respuesta corta y abstención</td><td>si el sistema inventa para “completar”</td></tr>
+      <tr><td>Adversarial</td><td>prompt injection o datos raros</td><td>bloqueo o respuesta segura</td><td>seguridad bajo carga</td></tr>
+    </tbody>
+  </table>
+
+  <div class="decision-formula">
+    <strong>dataset de carga</strong>
+    <span>=</span>
+    <span>distribución real</span>
+    <span>+</span>
+    <span>casos límite</span>
+    <span>+</span>
+    <span>negativos</span>
+    <span>+</span>
+    <span>ataques</span>
+  </div>
+
+  <div class="case-study">
+    <p class="case-study-title"><i data-lucide="shopping-cart"></i> Ejemplo: asistente de soporte ecommerce</p>
+    <p>El tráfico real no es uniforme: 60% preguntas simples, 25% casos con historial de pedido, 10% incidencias largas con logs y 5% casos raros o conflictivos. Si cargas solo la FAQ simple, dimensionas barato y rápido; en Black Friday se rompen los casos que más dinero cuestan.</p>
+    <div class="case-study-rows">
+      <div><strong>Distribución</strong><span>muestra representativa de prompts.</span></div>
+      <div><strong>Longitud</strong><span>percentiles de input y output.</span></div>
+      <div><strong>Calidad</strong><span>goodput, no solo throughput.</span></div>
+      <div><strong>Coste</strong><span>tokens + reintentos + revisión humana.</span></div>
+    </div>
+  </div>
+
+  <div class="callout compact-callout">
+    <p class="callout-title"><i data-lucide="flask-conical"></i> Diseño de dataset de carga</p>
+    <p>Construye un CSV con categoría, input_tokens estimados, output_tokens esperados, requiere_RAG, requiere_tool, riesgo, golden behavior y SLO. Eso convierte “probar carga” en ingeniería reproducible.</p>
+  </div>
+
+  <table class="compact-table">
+    <thead>
+      <tr><th>Campo CSV</th><th>Ejemplo</th><th>Uso en análisis</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><code>category</code></td><td>rag_long, tool_write, no_answer</td><td>comparar latencia y calidad por flujo</td></tr>
+      <tr><td><code>input_tokens_pctl</code></td><td>p50=800, p95=32000</td><td>dimensionar prefill y contexto</td></tr>
+      <tr><td><code>expected_behavior</code></td><td>answer, abstain, ask_approval</td><td>calcular goodput, no solo 200 OK</td></tr>
+      <tr><td><code>risk_class</code></td><td>read, write, external, sensitive</td><td>medir seguridad bajo carga</td></tr>
+      <tr><td><code>slo</code></td><td>TTFT&lt;2s, final&lt;12s</td><td>separar éxito técnico de UX aceptable</td></tr>
+    </tbody>
+  </table>
+</Slide>
+
+<!-- SLIDE 391 -->
+<Slide id="load-testing-patrones-herramientas" number={391} title="Patrones de carga y herramientas para LLM APIs">
+  <p><i data-lucide="gauge"></i> Un test serio prueba más que el caso estable. Necesitas ver cómo se comporta el sistema al subir tráfico, recibir picos, sostener carga durante horas y fallar dependencias externas como vector DB, proveedor LLM o tools.</p>
+  <p>Lo importante es que cada patrón responda una pregunta de negocio. “¿Cuántos usuarios simultáneos aguanta?” es menos útil que “¿cuántos tickets complejos por minuto resuelve dentro de SLO, sin superar presupuesto y sin saltarse guardrails?”.</p>
+
+  <table class="compact-table resource-table">
+    <thead>
+      <tr><th>Patrón</th><th>Qué simula</th><th>Qué miras</th><th>Decisión que permite</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>Steady</strong></td><td>tráfico normal sostenido</td><td>P50/P95, errores, coste por hora</td><td>capacidad base</td></tr>
+      <tr><td><strong>Ramp</strong></td><td>crecimiento gradual</td><td>punto de saturación</td><td>umbral de autoscaling</td></tr>
+      <tr><td><strong>Spike</strong></td><td>pico brusco</td><td>colas, timeouts, circuit breaker</td><td>protecciones ante campañas o incidentes</td></tr>
+      <tr><td><strong>Soak</strong></td><td>muchas horas de ejecución</td><td>memory leaks, drift de latencia, cuota</td><td>estabilidad operativa</td></tr>
+      <tr><td><strong>Failure injection</strong></td><td>proveedor lento, vector DB caído, tool error</td><td>fallback, retry, degradación</td><td>plan de resiliencia</td></tr>
+    </tbody>
+  </table>
+
+  <h3><i data-lucide="wrench"></i> Herramientas</h3>
+  <div class="term-grid">
+    <div class="term-card"><strong>LLMPerf</strong><p>Benchmarking de endpoints LLM con métricas de latencia y throughput. Útil para comparar proveedores/modelos bajo escenarios controlados.</p></div>
+    <div class="term-card"><strong>GenAI-Perf</strong><p>Herramienta de NVIDIA orientada a medir TTFT, inter-token latency, throughput y plots para serving generativo.</p></div>
+    <div class="term-card"><strong>k6 / Locust</strong><p>Buenos para carga HTTP general, pero hay que adaptarlos para streaming, tokens, output variable y calidad.</p></div>
+    <div class="term-card"><strong>OpenTelemetry</strong><p>No genera carga; estandariza trazas/métricas para entender qué pasó durante el test.</p></div>
+  </div>
+
+  <table class="compact-table">
+    <thead>
+      <tr><th>Error de diseño</th><th>Por qué engaña</th><th>Corrección</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Medir solo HTTP 200</td><td>una respuesta incorrecta también puede ser 200</td><td>goodput con eval/judge/reglas</td></tr>
+      <tr><td>No simular streaming</td><td>oculta TTFT e ITL, que dominan UX conversacional</td><td>capturar primer token y cadencia</td></tr>
+      <tr><td>No incluir tools</td><td>la latencia real viene de DB, browser, APIs y permisos</td><td>test end-to-end y test por componente</td></tr>
+      <tr><td>No modelar cuotas</td><td>la prueba local pasa, producción recibe 429</td><td>rate limits, retry budget y backoff</td></tr>
+      <tr><td>No medir coste</td><td>el sistema escala técnicamente pero no económicamente</td><td>tokens, reintentos, revisión humana y cache hit rate</td></tr>
+    </tbody>
+  </table>
+
+  <div class="callout">
+    <p class="callout-title"><i data-lucide="target"></i> Salida del test</p>
+    <p>Un informe útil no dice “aguanta 100 RPS”. Dice: con esta mezcla de prompts, este modelo, esta región y este SLO, el sistema entrega X tareas aceptadas/minuto, con coste Y, P95 Z y fallos conocidos A/B/C.</p>
+  </div>
+</Slide>
+
+<!-- SLIDE 392 -->
+<Slide id="red-team-campanas" number={392} title="Red-team tooling: de prompts sueltos a campañas repetibles">
+  <p><i data-lucide="shield-alert"></i> Red teaming no es hacerle tres preguntas maliciosas al chatbot. Es diseñar campañas repetibles que cubren amenazas, variantes, scoring, trazas y regresión. Si no se puede repetir en CI o antes de una release, es una anécdota, no una práctica de seguridad.</p>
+  <p>Una campaña tiene hipótesis: “el agente podría obedecer instrucciones dentro de un documento recuperado” o “una tool de email podría exfiltrar datos”. La prueba debe atacar esa frontera concreta y decir qué control falló: retrieval, prompt, policy, tool, logging o revisión humana.</p>
+
+  <div class="process-lane">
+    <div class="process-step"><span class="step-label">1</span><strong>Amenaza</strong><p>prompt injection, exfiltración, jailbreak, tool abuse, PII, fraude.</p></div>
+    <div class="process-step"><span class="step-label">2</span><strong>Probes</strong><p>familias de prompts y variaciones: directas, indirectas, multi-turn, codificadas.</p></div>
+    <div class="process-step"><span class="step-label">3</span><strong>Target</strong><p>modelo, app, agente, RAG, tool o endpoint completo.</p></div>
+    <div class="process-step"><span class="step-label">4</span><strong>Scorer</strong><p>regla, clasificador, LLM judge calibrado o revisión humana.</p></div>
+    <div class="process-step"><span class="step-label">5</span><strong>Trace</strong><p>qué entrada, qué contexto, qué tool, qué salida y qué control falló.</p></div>
+    <div class="process-step"><span class="step-label">6</span><strong>Regression</strong><p>el fallo se convierte en test que protege futuras releases.</p></div>
+  </div>
+
+  <table class="compact-table resource-table">
+    <thead>
+      <tr><th>Tipo de ataque</th><th>Qué intenta</th><th>Ejemplo seguro</th><th>Control esperado</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Prompt injection indirecta</td><td>convertir datos recuperados en instrucciones</td><td>un documento dice “ignora la política”</td><td>separar datos no confiables de instrucciones</td></tr>
+      <tr><td>Data leakage</td><td>sacar secretos, PII o prompts internos</td><td>preguntar por tokens o emails de otro usuario</td><td>ACLs, redacción, DLP, minimización</td></tr>
+      <tr><td>Tool abuse</td><td>usar una acción permitida para fin no permitido</td><td>enviar email externo con datos internos</td><td>scopes, approvals, egress policy</td></tr>
+      <tr><td>Jailbreak</td><td>evadir la política de seguridad</td><td>roleplay, encoding, multi-turn</td><td>moderación, policy, refusal consistente</td></tr>
+      <tr><td>Hallucination exploit</td><td>hacer que invente estado o permisos</td><td>“ya tengo aprobación del CFO”</td><td>verificación contra sistema de registro</td></tr>
+    </tbody>
+  </table>
+
+  <table class="compact-table">
+    <thead>
+      <tr><th>Señal</th><th>Qué significa</th><th>Acción después del red-team</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Bypass reproducible</td><td>el mismo patrón rompe el sistema varias veces</td><td>bloquear release, añadir test y corregir control</td></tr>
+      <tr><td>Falso positivo alto</td><td>bloqueas uso legítimo</td><td>afinar taxonomía, revisar ejemplos y threshold</td></tr>
+      <tr><td>Fallo solo con tool</td><td>el modelo no es el único problema</td><td>mover guardrail cerca de la tool y limitar scopes</td></tr>
+      <tr><td>Fallo solo con RAG</td><td>datos externos cambian instrucciones</td><td>separar datos/instrucciones y etiquetar confianza</td></tr>
+      <tr><td>Sin traza suficiente</td><td>no sabes qué frontera falló</td><td>mejorar logging antes de discutir mitigaciones</td></tr>
+    </tbody>
+  </table>
+
+  <div class="refs compact-refs">
+    <p class="refs-title">Para profundizar</p>
+    <a href="https://github.com/NVIDIA/garak" target="_blank">NVIDIA Garak</a>
+    <a href="https://github.com/microsoft/PyRIT" target="_blank">Microsoft PyRIT</a>
+    <a href="https://cheatsheetseries.owasp.org/cheatsheets/AI_Agent_Security_Cheat_Sheet.html" target="_blank">OWASP AI Agent Security Cheat Sheet</a>
+  </div>
+</Slide>
+
+<!-- SLIDE 393 -->
+<Slide id="llama-guard-taxonomias" number={393} title="Llama Guard y taxonomías: clasificar daño no es lo mismo que eliminarlo">
+  <p><i data-lucide="badge-alert"></i> Modelos como Llama Guard actúan como clasificadores de seguridad: reciben entrada/salida y devuelven categorías de riesgo. Son útiles para moderación, evaluación y defensa en capas, pero no sustituyen permisos, aislamiento de tools ni diseño seguro del producto.</p>
+  <p>Una taxonomía sirve para convertir “esto parece peligroso” en clases medibles. Pero el clasificador no sabe automáticamente tu negocio: una frase inocente en un chat general puede ser sensible en salud, banca o legal. Por eso se calibra con ejemplos del dominio y se conecta a decisiones de producto.</p>
+
+  <table class="compact-table">
+    <thead>
+      <tr><th>Concepto</th><th>Qué significa</th><th>Ejemplo</th><th>Límite</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>Taxonomía</strong></td><td>lista de categorías de daño</td><td>violencia, fraude, datos personales, ciberabuso</td><td>lo que no se define se mide peor</td></tr>
+      <tr><td><strong>Prompt classifier</strong></td><td>clasifica la entrada del usuario</td><td>bloquear petición de exfiltrar credenciales</td><td>puede fallar con contexto indirecto</td></tr>
+      <tr><td><strong>Response classifier</strong></td><td>clasifica la salida del modelo</td><td>detectar si revela PII</td><td>actúa tarde si la tool ya ejecutó</td></tr>
+      <tr><td><strong>Policy decision</strong></td><td>qué hacer con la clasificación</td><td>permitir, rechazar, pedir aprobación, registrar</td><td>clasificar sin acción no reduce riesgo</td></tr>
+      <tr><td><strong>Appeal / review</strong></td><td>manejo de falsos positivos</td><td>contenido legítimo bloqueado</td><td>seguridad también tiene coste de UX</td></tr>
+    </tbody>
+  </table>
+
+  <div class="decision-formula">
+    <strong>policy action</strong>
+    <span>=</span>
+    <span>categoría</span>
+    <span>+</span>
+    <span>confianza</span>
+    <span>+</span>
+    <span>contexto</span>
+    <span>+</span>
+    <span>riesgo de la acción</span>
+  </div>
+
+  <div class="two-cols">
+    <div class="compare-card">
+      <p class="compare-card-title"><i data-lucide="check-circle"></i> Buen uso</p>
+      <p class="compare-card-desc">Como capa adicional de detección en entrada, salida, logs, evals y red-team. Versionado, calibrado y medido con casos propios.</p>
+      <span class="tag">defensa en capas</span>
+    </div>
+    <div class="compare-card">
+      <p class="compare-card-title"><i data-lucide="x-circle"></i> Mal uso</p>
+      <p class="compare-card-desc">Como único muro antes de tools peligrosas o datos sensibles. Si falla el clasificador, todo el sistema queda expuesto.</p>
+      <span class="tag">single point of failure</span>
+    </div>
+  </div>
+
+  <table class="compact-table resource-table">
+    <thead>
+      <tr><th>Clasificación</th><th>Acción razonable</th><th>Ejemplo</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>riesgo bajo + lectura</td><td>permitir y registrar</td><td>pregunta general sobre documentación pública</td></tr>
+      <tr><td>riesgo medio + salida externa</td><td>pedir revisión humana</td><td>email con datos de cliente o resumen legal</td></tr>
+      <tr><td>riesgo alto + tool write</td><td>bloquear o convertir a draft</td><td>borrado, pago, cambio de permisos</td></tr>
+      <tr><td>clasificación incierta</td><td>abstenerse, pedir aclaración o escalar</td><td>contenido ambiguo con PII posible</td></tr>
+    </tbody>
+  </table>
+
+  <div class="refs compact-refs">
+    <p class="refs-title">Para profundizar</p>
+    <a href="https://arxiv.org/abs/2411.17713" target="_blank">Llama Guard 3-1B-INT4 paper</a>
+    <a href="https://arxiv.org/abs/2411.10414" target="_blank">Llama Guard 3 Vision</a>
+    <a href="https://mlcommons.org/ailuminate/" target="_blank">MLCommons AILuminate</a>
+  </div>
+</Slide>
+
+<!-- SLIDE 394 -->
+<Slide id="garak-pyrit-operativo" number={394} title="Garak y PyRIT: scanner, campañas y scoring">
+  <p><i data-lucide="scan-search"></i> Garak y PyRIT resuelven problemas complementarios. Garak se parece a un scanner de vulnerabilidades para LLMs: lanza probes y detectores. PyRIT ayuda a orquestar campañas de red-team más flexibles, multi-turn y con converters/scorers.</p>
+  <p>La diferencia práctica: Garak ayuda a cubrir muchas familias conocidas rápidamente; PyRIT ayuda a construir ataques más parecidos a un adversario persistente, con memoria, transformaciones y scoring personalizado. En producto suelen convivir con una eval privada del dominio.</p>
+
+  <table class="compact-table resource-table">
+    <thead>
+      <tr><th>Herramienta</th><th>Modelo mental</th><th>Qué automatiza</th><th>Ejemplo de uso</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>Garak</strong></td><td>vulnerability scanner</td><td>probes, detectores, reportes</td><td>probar jailbreaks, prompt injection, leakage en varios modelos</td></tr>
+      <tr><td><strong>PyRIT</strong></td><td>framework de campañas</td><td>orquestadores, converters, scorers, memoria</td><td>ataque multi-turn que transforma prompts y evalúa éxito</td></tr>
+      <tr><td><strong>Llama Guard</strong></td><td>clasificador de seguridad</td><td>clasificar inputs/outputs por taxonomía</td><td>scoring automático de respuestas peligrosas</td></tr>
+      <tr><td><strong>Eval privada</strong></td><td>regresión de producto</td><td>casos reales y ataques específicos</td><td>bloquear release si reaparece un bypass</td></tr>
+    </tbody>
+  </table>
+
+  <h3><i data-lucide="workflow"></i> Cómo llevarlo a ingeniería</h3>
+  <div class="process-lane">
+    <div class="process-step"><span class="step-label">A</span><strong>Baseline</strong><p>ejecuta probes estándar contra modelo/app actual.</p></div>
+    <div class="process-step"><span class="step-label">B</span><strong>Custom cases</strong><p>añade ataques propios: datos, tools, permisos, dominio.</p></div>
+    <div class="process-step"><span class="step-label">C</span><strong>Scoring</strong><p>define éxito/fallo con reglas y revisión humana en muestra.</p></div>
+    <div class="process-step"><span class="step-label">D</span><strong>Gate</strong><p>bloquea releases si sube tasa de bypass o leakage.</p></div>
+  </div>
+
+  <table class="compact-table">
+    <thead>
+      <tr><th>Madurez</th><th>Qué haces</th><th>Qué evidencia produce</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Inicial</td><td>probes estándar contra modelo y app</td><td>baseline de vulnerabilidades conocidas</td></tr>
+      <tr><td>Producto</td><td>casos propios: RAG, tools, datos, permisos</td><td>fallos ligados a arquitectura real</td></tr>
+      <tr><td>Release</td><td>suite automática en CI/canary</td><td>regresión de seguridad antes de desplegar</td></tr>
+      <tr><td>Operación</td><td>incidentes alimentan nuevos probes</td><td>aprendizaje continuo del sistema</td></tr>
+    </tbody>
+  </table>
+
+  <div class="callout">
+    <p class="callout-title"><i data-lucide="alert-triangle"></i> Cuidado con el teatro de seguridad</p>
+    <p>Una herramienta no “certifica” que tu IA sea segura. Aporta cobertura empírica sobre ataques conocidos. La seguridad real combina threat model, permisos mínimos, aislamiento de tools, logging, red-team continuo y respuesta a incidentes.</p>
+  </div>
+
+  <div class="refs compact-refs">
+    <p class="refs-title">Para profundizar</p>
+    <a href="https://github.com/NVIDIA/garak" target="_blank">NVIDIA Garak - GitHub</a>
+    <a href="https://github.com/microsoft/PyRIT" target="_blank">Microsoft PyRIT - GitHub</a>
+    <a href="https://mlcommons.org/ailuminate/faq/" target="_blank">MLCommons AILuminate FAQ</a>
+  </div>
+</Slide>
+
+<!-- SLIDE 395 -->
+<Slide id="build-use-ship-labs" number={395} title="Build It / Use It / Ship It: labs que enseñan ingeniería">
+  <p><i data-lucide="graduation-cap"></i> Una práctica buena no termina cuando “sale una demo”. Termina cuando el alumno puede explicar qué construyó, dónde falla, cuánto cuesta, cómo se mide y qué haría para llevarlo a producción. El patrón <strong>Build It / Use It / Ship It</strong> fuerza esa madurez.</p>
+  <p>El objetivo pedagógico es que el alumno no confunda “he conseguido que responda una vez” con “sé diseñar un sistema”. Cada lab debe dejar rastro: comandos, dataset, decisiones, métricas, errores y una recomendación final defendible.</p>
+
+  <table class="compact-table">
+    <thead>
+      <tr><th>Fase</th><th>Pregunta</th><th>Entregable</th><th>Ejemplo</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>Build It</strong></td><td>¿puedes construir una versión mínima?</td><td>script, notebook, demo local, README</td><td>RAG sobre 20 PDFs con 10 preguntas</td></tr>
+      <tr><td><strong>Use It</strong></td><td>¿funciona con casos reales y feos?</td><td>dataset de prueba, errores, métricas</td><td>preguntas con tablas, sin respuesta y documentos ambiguos</td></tr>
+      <tr><td><strong>Ship It</strong></td><td>¿qué falta para producción?</td><td>eval, logging, coste, rollback, riesgos</td><td>release gate con recall@5, no-answer y P95 latencia</td></tr>
+    </tbody>
+  </table>
+
+  <div class="decision-formula">
+    <strong>nota del lab</strong>
+    <span>≠</span>
+    <span>demo bonita</span>
+    <span>;</span>
+    <strong>nota del lab</strong>
+    <span>=</span>
+    <span>artefacto</span>
+    <span>+</span>
+    <span>medición</span>
+    <span>+</span>
+    <span>criterio</span>
+  </div>
+
+  <div class="term-grid">
+    <div class="term-card"><strong>Artefacto</strong><p>Algo que otra persona puede ejecutar: notebook, script, MCP server, eval CSV, prompt versionado.</p></div>
+    <div class="term-card"><strong>Medición</strong><p>No basta “me gusta”. Debe haber métrica, dataset, coste y ejemplos donde falla.</p></div>
+    <div class="term-card"><strong>Criterio</strong><p>Decisión razonada: seguir, parar, simplificar, cambiar arquitectura o pedir datos mejores.</p></div>
+  </div>
+
+  <table class="compact-table resource-table">
+    <thead>
+      <tr><th>Nivel</th><th>Entrega pobre</th><th>Entrega buena</th><th>Entrega excelente</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Build</td><td>notebook que solo funciona en mi máquina</td><td>README + dependencias fijadas + script reproducible</td><td>Makefile/CI mínimo + dataset pequeño versionado</td></tr>
+      <tr><td>Use</td><td>tres ejemplos felices</td><td>30 casos con positivos, negativos y edge cases</td><td>errores clasificados y decisión de arquitectura</td></tr>
+      <tr><td>Ship</td><td>“lo pondría en producción”</td><td>coste, SLO, logging, seguridad y rollback escritos</td><td>release gate automatizable y plan de monitorización</td></tr>
+    </tbody>
+  </table>
+
+  <div class="refs compact-refs">
+    <p class="refs-title">Para profundizar</p>
+    <a href="https://github.com/rohitg00/ai-engineering-from-scratch" target="_blank">AI Engineering from Scratch - Build/Use/Ship structure</a>
+    <a href="https://platform.openai.com/docs/guides/evals" target="_blank">OpenAI - Evals</a>
+    <a href="https://www.anthropic.com/engineering/demystifying-evals-for-ai-agents" target="_blank">Anthropic - Evals for AI agents</a>
+  </div>
+</Slide>
+
+<!-- SLIDE 396 -->
+<Slide id="lab-workbench-minimo" number={396} title="Lab: workbench mínimo para un agente de código">
+  <p><i data-lucide="terminal"></i> Objetivo del lab: crear un workbench pequeño para que un coding agent pueda resolver una issue sin depender de instrucciones habladas. El foco no es que el agente escriba mucho código, sino que trabaje dentro de un sistema observable.</p>
+  <p>Este lab enseña una idea central: mejorar el agente no siempre significa cambiar el modelo. A menudo significa mejorar el entorno donde trabaja: reglas, comandos, estado, permisos, tests y handoff. El alumno debe notar cómo un mismo agente se comporta mejor cuando el trabajo está encuadrado.</p>
+
+  <table class="compact-table resource-table">
+    <thead>
+      <tr><th>Paso</th><th>Qué construyes</th><th>Qué debe demostrar</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>1</td><td><code>AGENTS.md</code> con mapa, comandos, reglas y DoD</td><td>el agente sabe dónde mirar y cómo verificar</td></tr>
+      <tr><td>2</td><td><code>task_board.json</code> con 3 tareas pequeñas</td><td>cada tarea tiene acceptance criteria y riesgo</td></tr>
+      <tr><td>3</td><td><code>agent_state.json</code> actualizado tras cada intento</td><td>se puede retomar sin transcript completo</td></tr>
+      <tr><td>4</td><td>script <code>run_checks.sh</code> o comando equivalente</td><td>la verificación es ejecutable</td></tr>
+      <tr><td>5</td><td>review checklist</td><td>builder y reviewer no comparten el mismo criterio ciego</td></tr>
+      <tr><td>6</td><td>postmortem de un fallo</td><td>un error se convierte en regla/eval/check nuevo</td></tr>
+    </tbody>
+  </table>
+
+  <div class="decision-formula">
+    <strong>éxito del lab</strong>
+    <span>=</span>
+    <span>issue resuelta</span>
+    <span>+</span>
+    <span>diff acotado</span>
+    <span>+</span>
+    <span>checks</span>
+    <span>+</span>
+    <span>handoff</span>
+  </div>
+
+  <div class="case-study">
+    <p class="case-study-title"><i data-lucide="bug"></i> Caso sugerido</p>
+    <p>El repo tiene un bug de validación de email. La tarea permite tocar solo <code>src/auth/**</code> y <code>tests/auth/**</code>. El agente debe reproducir el fallo, hacer un diff pequeño, añadir test, ejecutar checks y escribir handoff. Si intenta tocar billing o cambiar API pública, el workbench debe pararlo.</p>
+    <div class="case-study-rows">
+      <div><strong>Build</strong><span>AGENTS.md + estado + checks.</span></div>
+      <div><strong>Use</strong><span>ejecutar con una issue realista.</span></div>
+      <div><strong>Ship</strong><span>gate: tests, diff, riesgo, rollback.</span></div>
+      <div><strong>Aprendizaje</strong><span>el entorno mejora tras cada fallo.</span></div>
+    </div>
+  </div>
+
+  <div class="callout compact-callout">
+    <p class="callout-title"><i data-lucide="clipboard-check"></i> Rúbrica</p>
+    <p>Aprueba si otro compañero puede ejecutar la tarea siguiendo los artefactos y obtener la misma evidencia. Suspende si todo depende de “yo se lo expliqué al agente en el chat”.</p>
+  </div>
+
+  <table class="compact-table">
+    <thead>
+      <tr><th>Pregunta de revisión</th><th>Respuesta esperada</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>¿Qué podía tocar el agente?</td><td>rutas permitidas y prohibidas explícitas</td></tr>
+      <tr><td>¿Cómo demostró que terminó?</td><td>comandos ejecutados, resultados y artifact</td></tr>
+      <tr><td>¿Qué hizo al fallar?</td><td>registró causa, intentó corrección acotada o escaló</td></tr>
+      <tr><td>¿Qué aprendió el sistema?</td><td>nueva regla, test, checklist o doc actualizada</td></tr>
+    </tbody>
+  </table>
+</Slide>
+
+<!-- SLIDE 397 -->
+<Slide id="lab-rag-multimodal" number={397} title="Lab: RAG multimodal sobre PDFs visuales">
+  <p><i data-lucide="files"></i> Objetivo del lab: comparar text-RAG y vision-native RAG en un corpus pequeño de PDFs con tablas, figuras o escaneos. No hace falta montar un sistema gigante: basta un experimento honesto que muestre cuándo el layout importa.</p>
+  <p>La clave es no vender vision-RAG como religión. El lab debe demostrar si mejora casos concretos y cuánto cuesta. Si text-RAG ya responde bien con citas y menor latencia, la decisión profesional puede ser no añadir visión.</p>
+
+  <table class="compact-table resource-table">
+    <thead>
+      <tr><th>Fase</th><th>Actividad</th><th>Entregable</th><th>Métrica</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Build It</td><td>extraer texto + indexar chunks</td><td>baseline text-RAG</td><td>Recall@5 y respuestas con citas</td></tr>
+      <tr><td>Build It</td><td>renderizar páginas como imágenes</td><td>índice visual o mock evaluable</td><td>página correcta recuperada</td></tr>
+      <tr><td>Use It</td><td>crear 30 preguntas</td><td>CSV con pregunta, evidencia, respuesta esperada</td><td>exactitud y no-answer</td></tr>
+      <tr><td>Use It</td><td>incluir casos feos</td><td>tablas, figuras, escaneos, datos ausentes</td><td>errores clasificados por causa</td></tr>
+      <tr><td>Ship It</td><td>decidir arquitectura</td><td>informe coste/calidad</td><td>coste por respuesta aceptada</td></tr>
+    </tbody>
+  </table>
+
+  <h3><i data-lucide="flask-conical"></i> Preguntas que debe responder el lab</h3>
+  <div class="term-grid">
+    <div class="term-card"><strong>¿Dónde falla text-RAG?</strong><p>Identifica si falla por OCR, chunking, tabla, fórmula, figura, ranking o generación.</p></div>
+    <div class="term-card"><strong>¿Qué evidencia recupera visión?</strong><p>No basta “mejoró”. Debe mostrar página, región o señal visual que antes se perdía.</p></div>
+    <div class="term-card"><strong>¿Compensa el coste?</strong><p>Si la mejora solo aparece en 2 de 30 preguntas baratas, quizá no merece producción.</p></div>
+  </div>
+
+  <table class="compact-table">
+    <thead>
+      <tr><th>Resultado posible</th><th>Lectura correcta</th><th>Decisión</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Text-RAG gana</td><td>el corpus está bien estructurado o el parser basta</td><td>mantener simple, mejorar chunking/rerank</td></tr>
+      <tr><td>Vision-RAG gana en tablas</td><td>layout contiene señal esencial</td><td>usar híbrido para documentos tabulares</td></tr>
+      <tr><td>Ambos fallan</td><td>quizá falta extracción estructurada o datos mejores</td><td>parser especializado, KG o revisión humana</td></tr>
+      <tr><td>Vision gana pero es caro</td><td>hay trade-off coste/calidad</td><td>usar solo en casos high-risk o bajo demanda</td></tr>
+    </tbody>
+  </table>
+
+  <div class="refs compact-refs">
+    <p class="refs-title">Para profundizar</p>
+    <a href="https://arxiv.org/abs/2407.01449" target="_blank">ColPali</a>
+    <a href="https://arxiv.org/abs/2411.04952" target="_blank">M3DocRAG</a>
+    <a href="https://huggingface.co/learn/cookbook/index" target="_blank">Hugging Face Cookbook</a>
+  </div>
+</Slide>
+
+<!-- SLIDE 398 -->
+<Slide id="lab-load-red-team" number={398} title="Lab: prueba de carga y red-team de un endpoint LLM">
+  <p><i data-lucide="shield-half"></i> Objetivo del lab: tomar una API sencilla de IA y medir si aguanta uso realista. No se trata de romperla por deporte, sino de aprender qué ocurre cuando hay prompts largos, salidas variables, ataques básicos, timeouts y coste acumulado.</p>
+  <p>Este lab junta dos realidades que suelen separarse mal: rendimiento y seguridad. Un sistema puede ser seguro en baja carga y fallar bajo presión si los timeouts desactivan checks, los retries duplican acciones o los fallbacks responden sin contexto.</p>
+
+  <table class="compact-table resource-table">
+    <thead>
+      <tr><th>Bloque</th><th>Qué haces</th><th>Qué registras</th><th>Decisión</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Dataset de carga</td><td>50 prompts con categorías y tamaños</td><td>input_tokens, expected_output, riesgo</td><td>mezcla representativa</td></tr>
+      <tr><td>Test steady/ramp</td><td>subir concurrencia progresivamente</td><td>TTFT, TPOT, P95, errores, coste</td><td>capacidad y SLO</td></tr>
+      <tr><td>Spike test</td><td>pico brusco durante pocos minutos</td><td>colas, timeouts, circuit breaker</td><td>degradación aceptable</td></tr>
+      <tr><td>Red-team básico</td><td>prompt injection, PII, tool abuse simulado</td><td>tasa de bypass, falsos positivos</td><td>bloquear release o ajustar guardrails</td></tr>
+      <tr><td>Informe final</td><td>resumen técnico y recomendaciones</td><td>gráficas, ejemplos, costes, riesgos</td><td>go/no-go/simplificar</td></tr>
+    </tbody>
+  </table>
+
+  <div class="decision-formula">
+    <strong>goodput</strong>
+    <span>=</span>
+    <span>respuestas correctas</span>
+    <span>∧</span>
+    <span>dentro de SLO</span>
+    <span>∧</span>
+    <span>sin violar política</span>
+  </div>
+
+  <p><strong>Explicación:</strong> una respuesta que llega rápido pero inventa no cuenta. Una respuesta correcta que tarda 90 segundos quizá tampoco cuenta. Una respuesta útil que revela datos sensibles debe contar como fallo de seguridad, no como éxito parcial.</p>
+
+  <table class="compact-table">
+    <thead>
+      <tr><th>Fallo combinado</th><th>Cómo aparece</th><th>Mitigación</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Retry storm</td><td>timeouts provocan reintentos que saturan proveedor</td><td>retry budget, backoff y circuit breaker</td></tr>
+      <tr><td>Fallback inseguro</td><td>si falla RAG, responde sin citas para ahorrar tiempo</td><td>no-answer o degradación explícita</td></tr>
+      <tr><td>Guardrail bypass por latencia</td><td>se salta clasificador para cumplir SLO</td><td>SLO incluye seguridad, no solo velocidad</td></tr>
+      <tr><td>Tool duplicada</td><td>reintento repite una acción con efecto externo</td><td>idempotency key y approvals</td></tr>
+    </tbody>
+  </table>
+
+  <div class="refs compact-refs">
+    <p class="refs-title">Para profundizar</p>
+    <a href="https://github.com/ray-project/llmperf" target="_blank">LLMPerf</a>
+    <a href="https://docs.nvidia.com/deeplearning/triton-inference-server/user-guide/docs/perf_benchmark/genai-perf-README.html" target="_blank">GenAI-Perf</a>
+    <a href="https://github.com/NVIDIA/garak" target="_blank">Garak</a>
+    <a href="https://github.com/microsoft/PyRIT" target="_blank">PyRIT</a>
+  </div>
+</Slide>
+
+<!-- SLIDE 399 -->
+<Slide id="ingenieria-avanzada-que-saber" number={399} title="Qué debe saber: ingeniería avanzada de IA aplicada">
+  <p><i data-lucide="list-checks"></i> Este bloque no pretende que memorices nombres de herramientas. Pretende que puedas mirar un sistema con IA y preguntar por las piezas que separan una demo de un producto operable: contexto, estado, permisos, evidencia, carga, seguridad y aprendizaje de fallos.</p>
+  <p>El criterio de madurez es incómodo pero útil: si quitas al autor original de la sala, ¿otra persona puede operar, evaluar, depurar y mejorar el sistema? Si la respuesta es no, todavía no tienes ingeniería; tienes conocimiento tribal alrededor de una demo.</p>
+
+  <table class="compact-table">
+    <thead>
+      <tr><th>Debes poder explicar</th><th>En una frase sencilla</th><th>Pregunta de ingeniería</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Agent Workbench</td><td>el entorno de trabajo que hace repetible al agente</td><td>¿dónde viven instrucciones, estado, tools, feedback y handoff?</td></tr>
+      <tr><td>AGENTS.md</td><td>un router corto para agentes, no una wiki infinita</td><td>¿qué debe saber el agente antes de tocar nada?</td></tr>
+      <tr><td>Vision-native RAG</td><td>retrieval que conserva información visual del documento</td><td>¿el significado depende del layout, tablas o figuras?</td></tr>
+      <tr><td>Late interaction</td><td>comparar varias piezas de query y documento antes de puntuar</td><td>¿un vector único está perdiendo detalles importantes?</td></tr>
+      <tr><td>Computer-use grounding</td><td>convertir intención en elemento, coordenada, acción y verificación</td><td>¿cómo sé que hizo click donde debía y que tuvo efecto?</td></tr>
+      <tr><td>Load testing LLM</td><td>medir TTFT, TPOT, goodput y percentiles con prompts reales</td><td>¿cuántas tareas aceptadas por minuto soporta el sistema?</td></tr>
+      <tr><td>Red-team tooling</td><td>ataques repetibles con probes, scoring y regresión</td><td>¿qué bypass conocido vuelve si cambio modelo o prompt?</td></tr>
+      <tr><td>Build/Use/Ship</td><td>labs con artefacto, medición y decisión</td><td>¿qué entrego además de una demo?</td></tr>
+    </tbody>
+  </table>
+
+  <table class="compact-table resource-table">
+    <thead>
+      <tr><th>Cuando veas...</th><th>Pregunta incómoda</th><th>Buen signo</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>“el agente lo hace solo”</td><td>¿qué permisos tiene y qué no puede hacer?</td><td>matriz de permisos y approvals</td></tr>
+      <tr><td>“hemos probado con prompts”</td><td>¿hay dataset de eval y casos negativos?</td><td>suite versionada con regresiones</td></tr>
+      <tr><td>“RAG con PDFs”</td><td>¿evaluaste si el layout importa?</td><td>comparativa text vs visual vs híbrido</td></tr>
+      <tr><td>“aguanta carga”</td><td>¿goodput o solo HTTP 200?</td><td>calidad + SLO + seguridad + coste</td></tr>
+      <tr><td>“tenemos guardrails”</td><td>¿qué ataque reproducible bloquean?</td><td>red-team suite con trazas</td></tr>
+    </tbody>
+  </table>
+
+  <div class="callout">
+    <p class="callout-title"><i data-lucide="compass"></i> Criterio final</p>
+    <p>Cuando alguien diga “tenemos un agente”, pregunta: qué tools puede usar, con qué permisos, qué eval lo mide, qué trazas deja, cómo se prueba bajo carga, qué ataques cubre y cómo se revierte. Si no hay respuestas, todavía es una demo.</p>
+  </div>
+</Slide>

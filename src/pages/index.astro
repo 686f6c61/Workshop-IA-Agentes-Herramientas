@@ -469,18 +469,51 @@ const tocSections = [
     ],
   },
   {
+    title: 'Ingeniería avanzada de IA',
+    sectionSlide: 'sec-ingenieria-avanzada-ia',
+    items: [
+      { num: 373, label: 'Mapa avanzado', id: 'ingenieria-avanzada-mapa' },
+      { num: 374, label: 'Por qué falla un modelo capaz', id: 'agent-workbench-por-que-falla' },
+      { num: 375, label: 'Siete superficies del workbench', id: 'agent-workbench-siete-superficies' },
+      { num: 376, label: 'Workbench mínimo', id: 'workbench-minimo-router-estado-cola' },
+      { num: 377, label: 'AGENTS.md como interfaz', id: 'agents-md-instrucciones-interfaz' },
+      { num: 378, label: 'Estado, task board y handoff', id: 'estado-task-board-handoff' },
+      { num: 379, label: 'Builder, reviewer y gate', id: 'verificacion-builder-reviewer-gate' },
+      { num: 380, label: 'RAG multimodal', id: 'rag-multimodal-pdf-no-es-texto' },
+      { num: 381, label: 'Late interaction y MaxSim', id: 'late-interaction-maxsim' },
+      { num: 382, label: 'ColPali', id: 'colpali-paginas-como-imagenes' },
+      { num: 383, label: 'Coste de RAG visual', id: 'colpali-coste-decision' },
+      { num: 384, label: 'Cross-modal retrieval', id: 'rag-multimodal-cross-modal' },
+      { num: 385, label: 'Evaluar RAG multimodal', id: 'evaluar-rag-multimodal' },
+      { num: 386, label: 'GUI grounding', id: 'computer-use-gui-grounding' },
+      { num: 387, label: 'Action schema', id: 'computer-use-action-schema' },
+      { num: 388, label: 'Computer-use: fallos y benchmarks', id: 'computer-use-fallos-benchmarks' },
+      { num: 389, label: 'Load testing LLM', id: 'load-testing-llm-metricas' },
+      { num: 390, label: 'Prompts realistas', id: 'load-testing-prompts-realistas' },
+      { num: 391, label: 'Patrones de carga', id: 'load-testing-patrones-herramientas' },
+      { num: 392, label: 'Red-team campaigns', id: 'red-team-campanas' },
+      { num: 393, label: 'Llama Guard y taxonomías', id: 'llama-guard-taxonomias' },
+      { num: 394, label: 'Garak y PyRIT', id: 'garak-pyrit-operativo' },
+      { num: 395, label: 'Build It / Use It / Ship It', id: 'build-use-ship-labs' },
+      { num: 396, label: 'Lab workbench mínimo', id: 'lab-workbench-minimo' },
+      { num: 397, label: 'Lab RAG multimodal', id: 'lab-rag-multimodal' },
+      { num: 398, label: 'Lab carga y red-team', id: 'lab-load-red-team' },
+      { num: 399, label: 'Qué saber: ingeniería avanzada', id: 'ingenieria-avanzada-que-saber' },
+    ],
+  },
+  {
     title: 'Recursos y siguiente paso',
     sectionSlide: 'recursos-mapa-estudio',
     items: [
-      { num: 372, label: 'Recursos: mapa de estudio', id: 'recursos-mapa-estudio' },
-      { num: 373, label: 'Recursos: papers y benchmarks', id: 'recursos-papers-benchmarks' },
-      { num: 374, label: 'Recursos: laboratorio', id: 'recursos-laboratorio' },
-      { num: 375, label: 'Glosario: modelos y evals', id: 'glosario-siglas' },
-      { num: 376, label: 'Glosario: operación y seguridad', id: 'glosario-siglas-operacion' },
-      { num: 377, label: 'Checklist de exactitud', id: 'checklist-exactitud-ia' },
-      { num: 378, label: 'Pipeline de entrega IA', id: 'pipeline-entrega-ia' },
-      { num: 379, label: 'Benchmarks y eval privada', id: 'benchmarks-contaminacion-eval-privada' },
-      { num: 380, label: 'Siguiente paso: 30 días', id: 'siguiente-paso-30-dias' },
+      { num: 400, label: 'Recursos: mapa de estudio', id: 'recursos-mapa-estudio' },
+      { num: 401, label: 'Recursos: papers y benchmarks', id: 'recursos-papers-benchmarks' },
+      { num: 402, label: 'Recursos: laboratorio', id: 'recursos-laboratorio' },
+      { num: 403, label: 'Glosario: modelos y evals', id: 'glosario-siglas' },
+      { num: 404, label: 'Glosario: operación y seguridad', id: 'glosario-siglas-operacion' },
+      { num: 405, label: 'Checklist de exactitud', id: 'checklist-exactitud-ia' },
+      { num: 406, label: 'Pipeline de entrega IA', id: 'pipeline-entrega-ia' },
+      { num: 407, label: 'Benchmarks y eval privada', id: 'benchmarks-contaminacion-eval-privada' },
+      { num: 408, label: 'Siguiente paso: 30 días', id: 'siguiente-paso-30-dias' },
     ],
   },
 ];
@@ -519,7 +552,7 @@ const tocSections = [
         <button class="update-modal-close" id="update-modal-close" type="button" aria-label="Cerrar novedades">&times;</button>
       </div>
       <div class="update-modal-body">
-        <p class="update-modal-lead">Resumen de la actualización: más fundamentos clásicos, 68 slides de fundamentos avanzados, 8 slides nuevas de Agent Harness, 8 slides nuevas de fine-tuning aplicado y 10 slides nuevas sobre pipeline ML, self-supervised learning, hardware de IA, MLPerf, teaming humano-máquina y seguridad por capas.</p>
+        <p class="update-modal-lead">Resumen de la actualización: más fundamentos clásicos, 68 slides de fundamentos avanzados, 8 slides nuevas de Agent Harness, 8 slides nuevas de fine-tuning aplicado, 10 slides sobre pipeline ML/hardware/seguridad y 28 slides nuevas de ingeniería avanzada de IA aplicada.</p>
         <div class="update-grid">
           <div class="update-card">
             <strong>IA clásica aplicada</strong>
@@ -565,6 +598,10 @@ const tocSections = [
             <strong>Refuerzo y privacidad avanzada</strong>
             <p>MDPs, política, retorno, Bellman, exploration/exploitation, bandits, reward hacking, RLHF/RLAIF/RLVR, PII, differential privacy, federated learning y extracción de datos.</p>
           </div>
+          <div class="update-card">
+            <strong>Ingeniería avanzada de IA aplicada</strong>
+            <p>Agent Workbench, AGENTS.md, estado y handoff, builder/reviewer/gate, RAG multimodal, ColPali, late interaction/MaxSim, computer-use, action schemas, load testing LLM, red-team tooling con Garak/PyRIT/Llama Guard y labs Build It / Use It / Ship It.</p>
+          </div>
         </div>
         <div class="update-source-note">
           <p><strong>Nota académica:</strong> parte del refuerzo conceptual se ha apoyado en material de la asignatura <em>Inteligencia Artificial e Ingeniería del Conocimiento</em> del Grado de Ingeniería de Software. Se ha usado solo como guía temática parcial y el contenido se ha reescrito y complementado con fuentes técnicas reales.</p>
@@ -589,8 +626,12 @@ const tocSections = [
       <span class="nav-counter" id="nav-counter">0 / 0</span>
       <button class="nav-btn" id="next-btn" aria-label="Slide siguiente">&#8594;</button>
     </div>
-    <div class="nav-progress">
+    <div class="nav-progress" id="nav-progress" role="slider" tabindex="0" aria-label="Navegar por las diapositivas" aria-valuemin="1">
       <div class="nav-progress-bar" id="progress-bar"></div>
+      <div class="nav-progress-preview" id="nav-progress-preview" aria-hidden="true">
+        <span class="nav-progress-preview-num">0</span>
+        <span class="nav-progress-preview-title">Slide</span>
+      </div>
     </div>
     <button class="nav-toc-btn" id="toc-btn">Índice</button>
     <div class="nav-keys">
@@ -602,7 +643,9 @@ const tocSections = [
     document.addEventListener('DOMContentLoaded', () => {
       const slides = /** @type {NodeListOf<HTMLElement>} */ (document.querySelectorAll('.slide'));
       const counter = document.getElementById('nav-counter');
+      const progressTrack = document.getElementById('nav-progress');
       const progressBar = document.getElementById('progress-bar');
+      const progressPreview = document.getElementById('nav-progress-preview');
       const prevBtn = document.getElementById('prev-btn');
       const nextBtn = document.getElementById('next-btn');
       const tocOverlay = document.getElementById('toc');
@@ -612,7 +655,7 @@ const tocSections = [
       const updateModal = document.getElementById('update-modal');
       const openUpdateBtn = document.getElementById('open-update-btn');
       const updateClose = document.getElementById('update-modal-close');
-      const updateSeenKey = 'workshop-update-2026-05-22-ai-explained-seen';
+      const updateSeenKey = 'workshop-update-2026-05-22-advanced-engineering-seen';
 
       let current = 0;
       const total = slides.length;
@@ -623,8 +666,53 @@ const tocSections = [
       const lastSlideNumber = numberedSlideNumbers.length
         ? Math.max(...numberedSlideNumbers)
         : Math.max(total - 1, 0);
+      const numberedSlides = Array.from(slides)
+        .filter((slide) => slide.dataset.slideNumber)
+        .sort((a, b) => Number(a.dataset.slideNumber) - Number(b.dataset.slideNumber));
+      const slideByNumber = new Map(numberedSlides.map((slide) => [Number(slide.dataset.slideNumber), slide]));
       let numberBuffer = '';
       let numberTimer = null;
+
+      function clamp(value, min, max) {
+        return Math.min(Math.max(value, min), max);
+      }
+
+      function getSlideTitle(slide) {
+        const heading = slide.querySelector('h2, .section-heading');
+        return heading?.textContent
+          ?.replace(/^\s*\d+\s+/, '')
+          .replace(/\s+/g, ' ')
+          .trim() || 'Diapositiva';
+      }
+
+      function getSlideFromProgressEvent(e) {
+        if (!progressTrack || numberedSlides.length === 0) return null;
+        const rect = progressTrack.getBoundingClientRect();
+        const ratio = clamp((e.clientX - rect.left) / rect.width, 0, 1);
+        const index = clamp(Math.round(ratio * (numberedSlides.length - 1)), 0, numberedSlides.length - 1);
+        return {
+          slide: numberedSlides[index],
+          number: Number(numberedSlides[index].dataset.slideNumber),
+          ratio,
+        };
+      }
+
+      function updateProgressPreview(e) {
+        if (!progressTrack || !progressPreview) return;
+        const target = getSlideFromProgressEvent(e);
+        if (!target) return;
+        const { slide, number, ratio } = target;
+        progressPreview.querySelector('.nav-progress-preview-num').textContent = String(number);
+        progressPreview.querySelector('.nav-progress-preview-title').textContent = getSlideTitle(slide);
+        progressPreview.style.left = `${ratio * 100}%`;
+        progressPreview.classList.add('visible');
+        progressTrack.dataset.targetNumber = String(number);
+        progressTrack.setAttribute('aria-valuetext', `${number}: ${getSlideTitle(slide)}`);
+      }
+
+      function hideProgressPreview() {
+        progressPreview?.classList.remove('visible');
+      }
 
       function showSlide(index) {
         if (index < 0 || index >= total) return;
@@ -644,6 +732,9 @@ const tocSections = [
           : `${current === 0 ? 'Portada' : 'Cierre'} / ${lastSlideNumber}`;
         const progress = total > 1 ? (current / (total - 1)) * 100 : 0;
         progressBar.style.width = `${progress}%`;
+        progressTrack?.setAttribute('aria-valuemax', String(lastSlideNumber));
+        progressTrack?.setAttribute('aria-valuenow', slideNumber ? String(slideNumber) : current === 0 ? '1' : String(lastSlideNumber));
+        progressTrack?.setAttribute('title', slideNumber ? `Slide ${slideNumber}: ${getSlideTitle(slides[current])}` : counter.textContent);
         prevBtn.disabled = current === 0;
         nextBtn.disabled = current === total - 1;
       }
@@ -707,6 +798,37 @@ const tocSections = [
       const kbdNext = document.getElementById('kbd-next');
       if (kbdPrev) kbdPrev.addEventListener('click', prev);
       if (kbdNext) kbdNext.addEventListener('click', next);
+
+      progressTrack?.addEventListener('pointermove', updateProgressPreview);
+      progressTrack?.addEventListener('pointerenter', updateProgressPreview);
+      progressTrack?.addEventListener('pointerleave', hideProgressPreview);
+      progressTrack?.addEventListener('click', (e) => {
+        const target = getSlideFromProgressEvent(e);
+        const previewNumber = progressPreview?.classList.contains('visible')
+          ? Number(progressTrack.dataset.targetNumber)
+          : NaN;
+        if (Number.isFinite(previewNumber)) goToSlideNumber(previewNumber);
+        else if (target) goToSlideNumber(target.number);
+      });
+      progressTrack?.addEventListener('keydown', (e) => {
+        const currentNumber = Number(slides[current].dataset.slideNumber || 1);
+        if (e.key === 'ArrowRight') {
+          e.preventDefault();
+          goToSlideNumber(clamp(currentNumber + 10, 1, lastSlideNumber));
+        } else if (e.key === 'ArrowLeft') {
+          e.preventDefault();
+          goToSlideNumber(clamp(currentNumber - 10, 1, lastSlideNumber));
+        } else if (e.key === 'Home') {
+          e.preventDefault();
+          goToSlideNumber(1);
+        } else if (e.key === 'End') {
+          e.preventDefault();
+          goToSlideNumber(lastSlideNumber);
+        } else if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          goToSlideNumber(currentNumber);
+        }
+      });
 
       tocOverlay.addEventListener('click', (e) => {
         if (e.target === tocOverlay) closeToc();
