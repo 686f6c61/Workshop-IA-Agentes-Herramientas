@@ -4,7 +4,7 @@ interface Props {
 }
 
 const { title } = Astro.props;
-const description = 'Workshop de IA para gente curiosa: portada, 408 slides numeradas y cierre sobre fundamentos, IA clasica aplicada, ML clasico, pipeline ML, hardware IA, MLPerf, incertidumbre, data-centric AI, causalidad, interpretabilidad, refuerzo, privacidad, modelos, RAG, RAG multimodal, fine-tuning, agentes, Agent Workbench, Agent Harness, computer-use, load testing LLM, red-team tooling, evals, laboratorios, seguridad y produccion. Actualizado a mayo 2026.';
+const description = 'Workshop de IA para gente curiosa: portada, 438 slides numeradas y cierre sobre fundamentos, IA clasica aplicada, ML clasico, pipeline ML, hardware IA, MLPerf, incertidumbre, data-centric AI, causalidad, interpretabilidad, refuerzo, privacidad, algoritmia para la toma de decisiones, MDP, Bellman, bandits, POMDP, modelos, RAG, RAG multimodal, fine-tuning, agentes, Agent Workbench, Agent Harness, computer-use, load testing LLM, red-team tooling, evals, laboratorios, seguridad y produccion. Actualizado a mayo 2026.';
 const siteUrl = 'https://workshop-ia-2026.686f6c61.dev';
 const socialTitle = 'Workshop de IA para gente curiosa';
 const socialImage = `${siteUrl}/social-card.png`;
@@ -22,7 +22,7 @@ const author = '686f6c61';
     <title>{title}</title>
     <meta name="description" content={description} />
     <meta name="author" content={author} />
-    <meta name="keywords" content="inteligencia artificial, IA, agentes, Agent Harness, Agent Workbench, Harness Engineering, LLM, modelos, transformers, RAG, RAG multimodal, ColPali, ColBERT, computer-use, load testing LLM, red-team tooling, Garak, PyRIT, fine-tuning, PEFT, LoRA, QLoRA, SFT, LLMOps, MCP, seguridad IA, gobernanza IA, incertidumbre IA, calibracion, causalidad, interpretabilidad, data-centric AI, differential privacy, MLPerf, CUDA, hardware IA, TPU, GPU, NPU, Claude, GPT, prompt engineering, machine learning, deep learning, workshop, gente curiosa" />
+    <meta name="keywords" content="inteligencia artificial, IA, agentes, Agent Harness, Agent Workbench, Harness Engineering, LLM, modelos, transformers, algoritmia, toma de decisiones, decision making, MDP, Bellman, bandits, POMDP, utilidad esperada, RAG, RAG multimodal, ColPali, ColBERT, computer-use, load testing LLM, red-team tooling, Garak, PyRIT, fine-tuning, PEFT, LoRA, QLoRA, SFT, LLMOps, MCP, seguridad IA, gobernanza IA, incertidumbre IA, calibracion, causalidad, interpretabilidad, data-centric AI, differential privacy, MLPerf, CUDA, hardware IA, TPU, GPU, NPU, Claude, GPT, prompt engineering, machine learning, deep learning, workshop, gente curiosa" />
     <link rel="canonical" href={siteUrl} />
     <meta name="robots" content="index, follow" />
 
@@ -78,7 +78,7 @@ const author = '686f6c61';
         "@type": "Audience",
         "audienceType": "gente curiosa"
       },
-      "numberOfPages": 410,
+      "numberOfPages": 438,
       "license": "https://opensource.org/licenses/MIT"
     })} />
 
@@ -98,8 +98,72 @@ const author = '686f6c61';
     <slot />
     <script is:inline>
       document.addEventListener('DOMContentLoaded', function() {
+        formatMathCode();
         if (window.lucide) lucide.createIcons();
       });
+
+      function formatMathCode() {
+        document.querySelectorAll('code').forEach(function(code) {
+          if (code.dataset.mathFormatted === 'true') return;
+          if (code.closest('.code-block')) return;
+          if (code.querySelector('*')) return;
+
+          var text = code.textContent || '';
+          if (!isFormulaLike(text)) return;
+
+          code.innerHTML = renderFormula(text);
+          code.dataset.mathFormatted = 'true';
+          code.classList.add('math-code');
+        });
+      }
+
+      function isFormulaLike(value) {
+        var text = value.trim();
+        if (text.length < 2 || text.length > 240) return false;
+        if (/^[A-Z0-9_./:-]+$/.test(text)) return false;
+
+        if (/[πγΣμθφτ∂ηΩεαδ√∞≤≥≈≠→←±×]/.test(text)) return true;
+        if (/argmax|argmin|softmax|sigmoid|exp\(|log\(|sqrt\(|mean\(|cos\(|\bC\(|\bKL\(|\bMSE\b|\bMAE\b|\bECE\b|\bCVaR\b|\bEVPI\b|\bUCB\b|\bRegret\b/.test(text)) return true;
+        if (/\b[A-Z]{1,4}\^|\b[A-Z]{1,4}_|\bP\(|\be\^|\bsum_|\bgrad_|\by_hat_?|\btheta\b|\beta\b|\bG_t\b|\bR_t\b|Σ_/.test(text)) return true;
+        if (/^(?:[epqxyadrs]|V|Q|B)_[A-Za-z0-9]+$|^max_j$/.test(text)) return true;
+        if (/^\([^)]*_[^)]*\)$/.test(text)) return true;
+        if (/\bd_(?:in|out)\b/.test(text) && /[()+]/.test(text)) return true;
+        if (/\s+x\s+/.test(text) && /[_/]/.test(text)) return true;
+        if (/[=<>≤≥]/.test(text) && /[_^]|[+\-*/]|AND|OR|\bscore\b|\bcoste\b|\bBrier\b|\bECE\b/.test(text)) return true;
+
+        return false;
+      }
+
+      function renderFormula(value) {
+        var normalized = value
+          .trim()
+          .replace(/\by_hat_/g, 'ŷ_')
+          .replace(/\bmu_hat\b/g, 'μ̂')
+          .replace(/μ_hat/g, 'μ̂')
+          .replace(/\by_hat\b/g, 'ŷ')
+          .replace(/\bx_hat\b/g, 'x̂')
+          .replace(/\bp_hat\b/g, 'p̂')
+          .replace(/\beta\b/g, 'η')
+          .replace(/\bgamma\b/g, 'γ')
+          .replace(/\btheta\b/g, 'θ');
+
+        var html = escapeFormulaHtml(normalized);
+
+        html = html.replace(/([A-Za-z0-9πγθφτμαδεηΩΣ∂√]+|\))_\{([^{}]+)\}/g, '$1<sub>$2</sub>');
+        html = html.replace(/([A-Za-z0-9πγθφτμαδεηΩΣ∂√]+|\))\^\{([^{}]+)\}/g, '$1<sup>$2</sup>');
+        html = html.replace(/([A-Za-z0-9πγθφτμαδεηΩΣ∂√]+|\))\^(-?[A-Za-z0-9πγθφτμαδεηΩ]+(?:[+\-][A-Za-z0-9πγθφτμαδεηΩ]+)*'?\*?)/g, '$1<sup>$2</sup>');
+        html = html.replace(/([A-Za-z0-9πγθφτμαδεηΩΣ∂√]+|\))_(-?[A-Za-z0-9πγθφτμαδεηΩ]+(?:[+\-][A-Za-z0-9πγθφτμαδεηΩ]+)*'?\*?)/g, '$1<sub>$2</sub>');
+
+        return html;
+      }
+
+      function escapeFormulaHtml(value) {
+        return value
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;');
+      }
     </script>
   </body>
 </html>

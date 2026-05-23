@@ -502,18 +502,53 @@ const tocSections = [
     ],
   },
   {
+    title: 'Algoritmia para decisiones',
+    sectionSlide: 'sec-decision-algoritmica',
+    items: [
+      { num: 401, label: 'Mapa: de predecir a decidir', id: 'decision-algoritmica-mapa' },
+      { num: 402, label: 'Qué significa decidir', id: 'decision-que-significa-decidir' },
+      { num: 403, label: 'Puntual vs secuencial', id: 'decision-puntual-vs-secuencial' },
+      { num: 404, label: 'Estado, acción y recompensa', id: 'decision-vocabulario-base' },
+      { num: 405, label: 'Utilidad y preferencias', id: 'decision-utilidad-preferencias' },
+      { num: 406, label: 'Utilidad esperada', id: 'decision-utilidad-esperada' },
+      { num: 407, label: 'Riesgo y coste esperado', id: 'decision-riesgo-coste-esperado' },
+      { num: 408, label: 'Valor de la información', id: 'decision-valor-informacion' },
+      { num: 409, label: 'Tipos de incertidumbre', id: 'decision-incertidumbre-tipos' },
+      { num: 410, label: 'Políticas', id: 'decision-politicas' },
+      { num: 411, label: 'MDP', id: 'decision-mdp' },
+      { num: 412, label: 'Retorno y descuento', id: 'decision-retorno-descuento' },
+      { num: 413, label: 'Función de valor', id: 'decision-funcion-valor' },
+      { num: 414, label: 'Q-value', id: 'decision-q-value' },
+      { num: 415, label: 'Bellman', id: 'decision-bellman' },
+      { num: 416, label: 'Dynamic Programming', id: 'decision-dynamic-programming' },
+      { num: 417, label: 'Value iteration', id: 'decision-value-iteration' },
+      { num: 418, label: 'Policy iteration', id: 'decision-policy-iteration' },
+      { num: 419, label: 'Online planning', id: 'decision-online-planning' },
+      { num: 420, label: 'MCTS y UCT', id: 'decision-mcts-uct' },
+      { num: 421, label: 'Bandits', id: 'decision-bandits' },
+      { num: 422, label: 'Exploration vs exploitation', id: 'decision-exploration-exploitation' },
+      { num: 423, label: 'Model-based vs model-free', id: 'decision-model-based-vs-model-free' },
+      { num: 424, label: 'POMDP', id: 'decision-pomdp' },
+      { num: 425, label: 'Belief state', id: 'decision-belief-update' },
+      { num: 426, label: 'Multiagente', id: 'decision-multiagente' },
+      { num: 427, label: 'Validar políticas', id: 'decision-validar-politicas' },
+      { num: 428, label: 'Agentes LLM como decisiones', id: 'decision-agentes-llm' },
+      { num: 429, label: 'Qué saber: decisión algorítmica', id: 'decision-algoritmica-que-saber' },
+    ],
+  },
+  {
     title: 'Recursos y siguiente paso',
     sectionSlide: 'recursos-mapa-estudio',
     items: [
-      { num: 400, label: 'Recursos: mapa de estudio', id: 'recursos-mapa-estudio' },
-      { num: 401, label: 'Recursos: papers y benchmarks', id: 'recursos-papers-benchmarks' },
-      { num: 402, label: 'Recursos: laboratorio', id: 'recursos-laboratorio' },
-      { num: 403, label: 'Glosario: modelos y evals', id: 'glosario-siglas' },
-      { num: 404, label: 'Glosario: operación y seguridad', id: 'glosario-siglas-operacion' },
-      { num: 405, label: 'Checklist de exactitud', id: 'checklist-exactitud-ia' },
-      { num: 406, label: 'Pipeline de entrega IA', id: 'pipeline-entrega-ia' },
-      { num: 407, label: 'Benchmarks y eval privada', id: 'benchmarks-contaminacion-eval-privada' },
-      { num: 408, label: 'Siguiente paso: 30 días', id: 'siguiente-paso-30-dias' },
+      { num: 430, label: 'Recursos: mapa de estudio', id: 'recursos-mapa-estudio' },
+      { num: 431, label: 'Recursos: papers y benchmarks', id: 'recursos-papers-benchmarks' },
+      { num: 432, label: 'Recursos: laboratorio', id: 'recursos-laboratorio' },
+      { num: 433, label: 'Glosario: modelos y evals', id: 'glosario-siglas' },
+      { num: 434, label: 'Glosario: operación y seguridad', id: 'glosario-siglas-operacion' },
+      { num: 435, label: 'Checklist de exactitud', id: 'checklist-exactitud-ia' },
+      { num: 436, label: 'Pipeline de entrega IA', id: 'pipeline-entrega-ia' },
+      { num: 437, label: 'Benchmarks y eval privada', id: 'benchmarks-contaminacion-eval-privada' },
+      { num: 438, label: 'Siguiente paso: 30 días', id: 'siguiente-paso-30-dias' },
     ],
   },
 ];
@@ -552,7 +587,7 @@ const tocSections = [
         <button class="update-modal-close" id="update-modal-close" type="button" aria-label="Cerrar novedades">&times;</button>
       </div>
       <div class="update-modal-body">
-        <p class="update-modal-lead">Resumen de la actualización: más fundamentos clásicos, 68 slides de fundamentos avanzados, 8 slides nuevas de Agent Harness, 8 slides nuevas de fine-tuning aplicado, 10 slides sobre pipeline ML/hardware/seguridad y 28 slides nuevas de ingeniería avanzada de IA aplicada.</p>
+        <p class="update-modal-lead">Resumen de la actualización: más fundamentos clásicos, 68 slides de fundamentos avanzados, 8 slides nuevas de Agent Harness, 8 slides nuevas de fine-tuning aplicado, 10 slides sobre pipeline ML/hardware/seguridad, 28 slides de ingeniería avanzada y 30 slides nuevas de algoritmia para la toma de decisiones.</p>
         <div class="update-grid">
           <div class="update-card">
             <strong>IA clásica aplicada</strong>
@@ -601,6 +636,10 @@ const tocSections = [
           <div class="update-card">
             <strong>Ingeniería avanzada de IA aplicada</strong>
             <p>Agent Workbench, AGENTS.md, estado y handoff, builder/reviewer/gate, RAG multimodal, ColPali, late interaction/MaxSim, computer-use, action schemas, load testing LLM, red-team tooling con Garak/PyRIT/Llama Guard y labs Build It / Use It / Ship It.</p>
+          </div>
+          <div class="update-card">
+            <strong>Algoritmia para la toma de decisiones</strong>
+            <p>Utilidad esperada, coste esperado, valor de la información, incertidumbre, políticas, MDPs, retorno, descuento, V(s), Q(s,a), Bellman, dynamic programming, value/policy iteration, MCTS, bandits, POMDPs, beliefs, multiagente y validación de políticas.</p>
           </div>
         </div>
         <div class="update-source-note">

@@ -1,6 +1,6 @@
 # Workshop de IA para gente curiosa
 
-De la neurona al agente: portada, 408 slides numeradas y cierre para entender la IA moderna y aplicarla con criterio en tu dia a dia. Desde backpropagation, busqueda heuristica, planning, SAT/CSP, ML clasico, complejidad temporal, incertidumbre, causalidad, interpretabilidad, refuerzo formal, privacidad avanzada y ontologias hasta desplegar agentes en produccion, pasando por Transformers por dentro, RAG, RAG multimodal, fine-tuning, MCP, ControlNet, Hugging Face, Google Colab, evals avanzadas, Agent Workbench, computer-use, load testing LLM, red-team tooling, UX de IA, LLMOps, seguridad agentic, gobernanza, modelos open weights y vibe coding.
+De la neurona al agente: portada, 438 slides numeradas y cierre para entender la IA moderna y aplicarla con criterio en tu dia a dia. Desde backpropagation, busqueda heuristica, planning, SAT/CSP, ML clasico, complejidad temporal, incertidumbre, causalidad, interpretabilidad, refuerzo formal, privacidad avanzada, algoritmia para la toma de decisiones y ontologias hasta desplegar agentes en produccion, pasando por Transformers por dentro, RAG, RAG multimodal, fine-tuning, MCP, ControlNet, Hugging Face, Google Colab, evals avanzadas, Agent Workbench, computer-use, load testing LLM, red-team tooling, UX de IA, LLMOps, seguridad agentic, gobernanza, modelos open weights y vibe coding.
 
 **[Ver presentacion](https://workshop-ia-2026.686f6c61.dev)** | Actualizado a mayo 2026 (update 05/26)
 
@@ -181,10 +181,17 @@ De la neurona al agente: portada, 408 slides numeradas y cierre para entender la
 - [x] Red-team tooling: campanas repetibles, Llama Guard, Garak, PyRIT, scoring y regresion de seguridad
 - [x] Labs Build It / Use It / Ship It: workbench minimo, RAG multimodal y prueba de carga/red-team
 
-### Recursos y siguiente paso (slides 400-408 + cierre)
+### Algoritmia para la toma de decisiones (slides 400-429)
+- [x] Decision puntual vs secuencial: estado, accion, observacion, recompensa, utilidad y coste esperado
+- [x] Utilidad esperada, riesgo esperado, valor de la informacion, incertidumbre aleatoria/epistemica/de estado y politicas
+- [x] MDP: S, A, T, R, gamma, retorno, V(s), Q(s,a), Bellman, dynamic programming, value iteration y policy iteration
+- [x] Online planning, MCTS/UCT, bandits, exploration vs exploitation, model-based vs model-free
+- [x] POMDPs, belief state, actualizacion bayesiana, multiagente, equilibrio, validacion de politicas, rare events y agentes LLM como sistemas de decision
+
+### Recursos y siguiente paso (slides 430-438 + cierre)
 - [x] Recursos finales ampliados: mapa de estudio, papers, benchmarks, laboratorio practico, glosario en dos partes, checklist de exactitud, pipeline de entrega, contaminacion de benchmarks y ruta de 30 dias
 
-Las secciones principales incluyen slides de recapitulacion con referencias cruzadas; el bloque final añade laboratorios, ingenieria avanzada, recursos, glosario ampliado, checklist de exactitud y ruta de 30 dias.
+Las secciones principales incluyen slides de recapitulacion con referencias cruzadas; el bloque final añade laboratorios, ingenieria avanzada, decision algoritmica, recursos, glosario ampliado, checklist de exactitud y ruta de 30 dias.
 
 ## Arrancar en local
 

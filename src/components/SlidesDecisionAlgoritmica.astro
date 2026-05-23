@@ -1,0 +1,1044 @@
+---
+import Slide from './Slide.astro';
+---
+
+<!-- SLIDE 400: SECCION -->
+<Slide id="sec-decision-algoritmica" number={400} section
+  title="Algoritmia para la toma de decisiones"
+  subtitle="Probabilidad, utilidad, optimización, planificación, MDPs, Bellman, bandits, POMDPs, multiagente y validación de políticas para diseñar sistemas que no solo predicen: actúan.">
+  <div class="decision-formula decision-formula-large">
+    <strong>sistema que decide</strong>
+    <span>=</span>
+    <span>estado</span>
+    <span>+</span>
+    <span>acciones</span>
+    <span>+</span>
+    <span>incertidumbre</span>
+    <span>+</span>
+    <span>utilidad</span>
+    <span>+</span>
+    <span>restricciones</span>
+    <span>+</span>
+    <span>evidencia</span>
+  </div>
+
+  <div class="decision-board decision-board-5">
+    <div class="decision-tile"><strong>Predecir</strong><p>Estimar qué puede pasar: etiqueta, probabilidad, demanda, riesgo, siguiente estado.</p></div>
+    <div class="decision-tile"><strong>Valorar</strong><p>Convertir consecuencias en utilidad o coste: dinero, latencia, seguridad, calidad, daño.</p></div>
+    <div class="decision-tile"><strong>Actuar</strong><p>Elegir acción: responder, llamar tool, pedir dato, escalar, esperar o bloquear.</p></div>
+    <div class="decision-tile"><strong>Aprender</strong><p>Usar feedback para ajustar política, umbral, routing, modelo o proceso.</p></div>
+    <div class="decision-tile"><strong>Validar</strong><p>Medir media, colas, casos raros, adversarios y rollback antes de confiar.</p></div>
+  </div>
+
+  <div class="refs compact-refs">
+    <p class="refs-title">Eje académico del bloque</p>
+    <a href="https://mitpress.mit.edu/9780262370233/algorithms-for-decision-making/" target="_blank">MIT Press - Algorithms for Decision Making</a>
+    <a href="https://mitp-content-server.mit.edu/books/content/sectbyfn/books_pres_0/14348/kochenderfer_toc.pdf" target="_blank">Índice oficial del libro</a>
+    <a href="https://aima.cs.berkeley.edu/" target="_blank">AIMA - Artificial Intelligence: A Modern Approach</a>
+  </div>
+</Slide>
+
+<!-- SLIDE 401 -->
+<Slide id="decision-algoritmica-mapa" number={401} title="Mapa: de predecir a decidir">
+  <p><i data-lucide="map"></i> Muchos sistemas con IA no fallan porque el modelo “no sabe”, sino porque nadie diseñó la decisión. Una probabilidad no es una acción. Una respuesta plausible no es una política. Un benchmark no dice cuánto daño causa un falso positivo en tu producto.</p>
+  <p>La disciplina de decisión obliga a separar cinco preguntas: qué sé, qué puedo hacer, qué puede pasar, qué prefiero y cómo compruebo que la política funciona. Ese mapa sirve para ML clásico, RAG, agentes, producto, seguridad y operaciones.</p>
+
+  <div class="decision-flow">
+    <div class="decision-flow-step"><span>1</span><strong>Observación</strong><p>Datos disponibles: prompt, ticket, logs, usuario, permisos, documentos recuperados.</p></div>
+    <div class="decision-flow-step"><span>2</span><strong>Estado</strong><p>Representación compacta de lo relevante para decidir. No es todo el transcript.</p></div>
+    <div class="decision-flow-step"><span>3</span><strong>Acción</strong><p>Alternativa ejecutable: responder, buscar, llamar API, pedir aprobación, abstenerse.</p></div>
+    <div class="decision-flow-step"><span>4</span><strong>Consecuencia</strong><p>Resultado con utilidad, coste, riesgo, latencia y feedback.</p></div>
+  </div>
+
+  <div class="decision-split">
+    <div class="formula-card">
+      <strong>Objeto mental</strong>
+      <code>decidir = elegir a en A usando s, P, U y restricciones</code>
+      <p><code>a</code> es una acción; <code>A</code> el conjunto de acciones disponibles; <code>s</code> el estado; <code>P</code> la incertidumbre; <code>U</code> la utilidad.</p>
+      <span>Si solo tienes una predicción y no sabes qué acción dispara, aún no tienes un sistema de decisión.</span>
+    </div>
+    <div class="case-study decision-case-compact">
+      <p class="case-study-title"><i data-lucide="briefcase-business"></i> Caso: clasificador de fraude</p>
+      <p>El modelo devuelve <code>P(fraude)=0.82</code>. La decisión real no es “fraude”: es bloquear, pedir verificación, dejar pasar, revisar manualmente o aplicar límite temporal.</p>
+      <div class="case-study-rows">
+        <div><strong>Predicción</strong><span>probabilidad estimada</span></div>
+        <div><strong>Decisión</strong><span>acción con coste y riesgo</span></div>
+        <div><strong>Política</strong><span>regla repetible y auditable</span></div>
+      </div>
+    </div>
+  </div>
+
+  <table class="compact-table">
+    <thead><tr><th>Pregunta de ingeniería</th><th>Objeto formal</th><th>Si falta...</th></tr></thead>
+    <tbody>
+      <tr><td>¿Qué está pasando?</td><td>estado o creencia</td><td>el agente actúa sobre contexto incompleto o ruido</td></tr>
+      <tr><td>¿Qué puedo hacer?</td><td>acciones disponibles</td><td>el modelo inventa acciones no ejecutables</td></tr>
+      <tr><td>¿Qué puede salir mal?</td><td>probabilidad, riesgo, incertidumbre</td><td>se automatizan casos que deberían escalar</td></tr>
+      <tr><td>¿Qué prefiero?</td><td>utilidad, coste, recompensa</td><td>se optimiza una métrica cómoda, no el objetivo real</td></tr>
+      <tr><td>¿Cómo lo demuestro?</td><td>validación de política</td><td>la demo sustituye a la evidencia</td></tr>
+    </tbody>
+  </table>
+</Slide>
+
+<!-- SLIDE 402 -->
+<Slide id="decision-que-significa-decidir" number={402} title="Qué significa decidir">
+  <p><i data-lucide="git-branch"></i> Decidir es escoger una acción entre alternativas bajo objetivos, restricciones e incertidumbre. En una aplicación con IA, esa acción puede ser textual, técnica, económica o de seguridad.</p>
+  <p>Un buen diseño convierte la decisión en un objeto trazable. Esto baja el concepto al barro: si mañana alguien pregunta por qué el agente llamó una tool, debe haber una razón, evidencia, coste estimado y condición de rollback.</p>
+
+  <div class="decision-ledger">
+    <div><strong>Entrada</strong><p>Qué información vio el sistema: mensaje, fuentes, usuario, permisos, estado de producto.</p></div>
+    <div><strong>Alternativas</strong><p>Qué acciones eran posibles y cuáles estaban prohibidas por política o permisos.</p></div>
+    <div><strong>Criterio</strong><p>Qué utilidad o coste se optimizó: resolver, reducir riesgo, ahorrar tiempo, cumplir norma.</p></div>
+    <div><strong>Evidencia</strong><p>Qué datos justificaron la acción: citas, logs, tests, score, revisión, eval.</p></div>
+    <div><strong>Responsable</strong><p>Quién asume el riesgo: sistema automático, humano aprobador, equipo propietario.</p></div>
+    <div><strong>Rollback</strong><p>Cómo deshacer o mitigar si la decisión fue mala.</p></div>
+  </div>
+
+  <div class="formula-card-grid">
+    <div class="formula-card">
+      <strong>Regla de decisión</strong>
+      <code>δ(x) = a</code>
+      <p><code>δ</code> es la regla o política de decisión; <code>x</code> es la información disponible; <code>a</code> es la acción elegida.</p>
+      <span>Ejemplo: si falta confirmación para borrar datos, <code>δ(x)</code> debe devolver “pedir confirmación”, no “borrar”.</span>
+    </div>
+    <div class="formula-card">
+      <strong>Decisión auditable</strong>
+      <code>decisión = input + acción + evidencia + coste + owner + rollback</code>
+      <p>No es una fórmula matemática estricta; es una plantilla de ingeniería para que la decisión sobreviva a auditoría, incidentes y handoffs.</p>
+      <span>En agentes, esta traza es tan importante como el prompt.</span>
+    </div>
+  </div>
+
+  <div class="decision-mini-lab">
+    <strong>Mini-ejercicio</strong>
+    <p>Un usuario pide “cambia mi plan y cobra la diferencia”. Lista tres acciones posibles. Marca cuál requiere permiso explícito, cuál requiere tool y cuál debería quedar bloqueada si falta confirmación.</p>
+  </div>
+</Slide>
+
+<!-- SLIDE 403 -->
+<Slide id="decision-puntual-vs-secuencial" number={403} title="Decisión puntual vs decisión secuencial">
+  <p><i data-lucide="split"></i> Una decisión puntual se toma una vez. Una decisión secuencial cambia el estado del mundo y condiciona las siguientes decisiones. Esta diferencia explica por qué muchas demos de IA funcionan y muchos workflows reales se rompen.</p>
+
+  <div class="decision-split decision-split-contrast">
+    <div class="compare-card">
+      <p class="compare-card-title"><i data-lucide="target"></i> Puntual</p>
+      <p class="compare-card-desc">Eliges una acción ahora con la información disponible. Importa el resultado inmediato y el coste de error de esa acción.</p>
+      <div class="decision-note"><code>a* = argmax_a E[U(a,S)]</code><span>Elige la acción con mayor utilidad esperada.</span></div>
+    </div>
+    <div class="compare-card">
+      <p class="compare-card-title"><i data-lucide="route"></i> Secuencial</p>
+      <p class="compare-card-desc">Eliges una política para muchas decisiones encadenadas. Importa la trayectoria completa, no solo el siguiente paso.</p>
+      <div class="decision-note"><code>π* = argmax_π E[Σ_t γ^t R_t]</code><span>Elige la política con mayor retorno acumulado.</span></div>
+    </div>
+  </div>
+
+  <table class="compact-table">
+    <thead><tr><th>Situación</th><th>Tipo</th><th>Qué se rompe si lo confundes</th></tr></thead>
+    <tbody>
+      <tr><td>Clasificar email como spam</td><td>puntual</td><td>puedes sobrediseñar un problema que solo necesita umbral y revisión</td></tr>
+      <tr><td>Resolver ticket con varias preguntas</td><td>secuencial</td><td>responder rápido puede empeorar el estado si falta un dato crítico</td></tr>
+      <tr><td>Agente de código</td><td>secuencial</td><td>editar antes de entender tests puede crear deuda y retrabajo</td></tr>
+      <tr><td>Pricing dinámico</td><td>secuencial/multiagente</td><td>optimizar conversión inmediata puede erosionar confianza futura</td></tr>
+    </tbody>
+  </table>
+
+  <div class="case-study">
+    <p class="case-study-title"><i data-lucide="wrench"></i> Lectura práctica</p>
+    <p>Si una acción cambia permisos, datos, dinero, código o expectativas del usuario, trátala como parte de una secuencia. Necesita estado, trazas y criterio de parada.</p>
+  </div>
+</Slide>
+
+<!-- SLIDE 404 -->
+<Slide id="decision-vocabulario-base" number={404} title="Vocabulario base: estado, acción, observación y recompensa">
+  <p><i data-lucide="boxes"></i> Antes de Bellman, MDP o RL hay que nombrar las piezas. El vocabulario evita mezclar “lo que ocurre”, “lo que veo”, “lo que hago” y “lo que quiero”.</p>
+
+  <div class="decision-state-grid">
+    <div class="decision-state-node"><span>s</span><strong>Estado real</strong><p>Cómo está el mundo aunque no lo veas completo.</p></div>
+    <div class="decision-state-node"><span>o</span><strong>Observación</strong><p>Lo que tu sistema alcanza a medir o recuperar.</p></div>
+    <div class="decision-state-node"><span>a</span><strong>Acción</strong><p>Lo que puede ejecutar o comunicar.</p></div>
+    <div class="decision-state-node"><span>r</span><strong>Recompensa</strong><p>Valor, coste o feedback después de actuar.</p></div>
+  </div>
+
+  <div class="formula-card-grid">
+    <div class="formula-card">
+      <strong>Tupla mínima de experiencia</strong>
+      <code>(s_t, o_t, a_t, r_t, s_t+1)</code>
+      <p>En el tiempo <code>t</code>, hay un estado, una observación, una acción, una recompensa y un estado siguiente.</p>
+      <span>Sirve para pensar logs de agentes: qué vio, qué hizo, qué obtuvo y cómo cambió el mundo.</span>
+    </div>
+    <div class="formula-card">
+      <strong>Observación no es estado</strong>
+      <code>o_t ≠ s_t</code>
+      <p>La observación puede ser parcial, ruidosa o sesgada. El estado real puede incluir permisos, contratos, límites o datos que el agente no vio.</p>
+      <span>Que el RAG no recupere una política no significa que la política no exista.</span>
+    </div>
+  </div>
+
+  <table class="compact-table">
+    <thead><tr><th>Símbolo</th><th>Ejemplo en soporte</th><th>Ejemplo en agente de código</th></tr></thead>
+    <tbody>
+      <tr><td><code>s</code></td><td>cliente enterprise con incidencia crítica</td><td>repo con tests rojos por auth</td></tr>
+      <tr><td><code>o</code></td><td>mensaje, historial parcial, docs recuperados</td><td>diff, salida de tests, estructura de carpetas</td></tr>
+      <tr><td><code>a</code></td><td>responder, buscar, pedir dato, escalar</td><td>editar, ejecutar test, abrir PR, pedir approval</td></tr>
+      <tr><td><code>r</code></td><td>resuelto, coste, riesgo, satisfacción</td><td>build verde, bug resuelto, regresión evitada</td></tr>
+    </tbody>
+  </table>
+</Slide>
+
+<!-- SLIDE 405 -->
+<Slide id="decision-utilidad-preferencias" number={405} title="Utilidad: no todo acierto vale lo mismo">
+  <p><i data-lucide="scale"></i> La utilidad traduce preferencias a números. Es una decisión técnica y de producto: obliga a decir qué vale resolver, qué cuesta molestar, qué daño causa filtrar datos y qué riesgo no aceptas.</p>
+  <p>Sin utilidad explícita, el sistema optimiza lo más fácil de medir: accuracy, coste por llamada o latencia media. Eso puede ser incorrecto si el error raro cuesta mucho.</p>
+
+  <div class="decision-split">
+    <div class="formula-card">
+      <strong>Función de utilidad</strong>
+      <code>U(resultado) en R</code>
+      <p><code>U</code> asigna valor numérico a un resultado. Más alto significa preferido; valores negativos representan daño, coste o riesgo.</p>
+      <span>No es una verdad universal: es una especificación de preferencias que debe poder discutirse.</span>
+    </div>
+    <div class="worked-example">
+      <strong>Ejemplo de utilidad en soporte</strong>
+      <table class="compact-table">
+        <tbody>
+          <tr><td>resolver correctamente</td><td><code>+10</code></td></tr>
+          <tr><td>pedir confirmación innecesaria</td><td><code>-1</code></td></tr>
+          <tr><td>escalar a humano</td><td><code>-3</code></td></tr>
+          <tr><td>filtrar dato sensible</td><td><code>-100</code></td></tr>
+        </tbody>
+      </table>
+      <p>Con esta utilidad, una acción que tiene pequeña probabilidad de filtrar PII puede ser peor que una revisión humana cara.</p>
+    </div>
+  </div>
+
+  <div class="decision-axis">
+    <div class="decision-axis-cell bad"><strong>Accuracy alta</strong><p>Puede ocultar falsos negativos caros.</p></div>
+    <div class="decision-axis-cell"><strong>Utilidad explícita</strong><p>Compara beneficio, coste y daño con la misma escala.</p></div>
+    <div class="decision-axis-cell good"><strong>Política auditable</strong><p>Justifica por qué automatizas, preguntas o escalas.</p></div>
+  </div>
+</Slide>
+
+<!-- SLIDE 406 -->
+<Slide id="decision-utilidad-esperada" number={406} title="Utilidad esperada: decidir cuando no sabes qué pasará">
+  <p><i data-lucide="calculator"></i> Si no sabes con certeza qué ocurrirá, no debes decidir por el mejor caso. La utilidad esperada pondera cada resultado por su probabilidad y permite comparar acciones con riesgos distintos.</p>
+
+  <div class="formula-card-grid">
+    <div class="formula-card">
+      <strong>Utilidad esperada</strong>
+      <code>EU(a) = Σ_s P(s | a) · U(s)</code>
+      <p><code>EU(a)</code> es utilidad esperada de la acción; <code>P(s | a)</code> probabilidad del resultado <code>s</code> si actúas; <code>U(s)</code> utilidad del resultado.</p>
+      <span>Separar probabilidad e impacto evita discutir solo “qué es más probable”.</span>
+    </div>
+    <div class="formula-card">
+      <strong>Regla de elección</strong>
+      <code>a* = argmax_a EU(a)</code>
+      <p><code>argmax</code> devuelve la acción que maximiza el valor. En producción se combina con restricciones duras.</p>
+      <span>Si una acción maximiza utilidad pero viola permisos, se descarta.</span>
+    </div>
+  </div>
+
+  <div class="worked-example">
+    <strong>Cálculo trabajado: responder, preguntar o escalar</strong>
+    <table class="compact-table">
+      <thead><tr><th>Acción</th><th>Supuesto</th><th>Cálculo</th><th>EU</th></tr></thead>
+      <tbody>
+        <tr><td>Responder</td><td>80% resuelve (+10), 20% error sensible (-100)</td><td><code>0.8·10 + 0.2·(-100)</code></td><td><code>-12</code></td></tr>
+        <tr><td>Preguntar</td><td>95% evita error (+6), 5% frustra (-2)</td><td><code>0.95·6 + 0.05·(-2)</code></td><td><code>5.6</code></td></tr>
+        <tr><td>Escalar</td><td>99% seguro (+4), coste humano (-3)</td><td><code>0.99·4 - 3</code></td><td><code>0.96</code></td></tr>
+      </tbody>
+    </table>
+    <p>La respuesta automática parece atractiva, pero el coste de un error sensible domina. La política sensata es preguntar.</p>
+  </div>
+</Slide>
+
+<!-- SLIDE 407 -->
+<Slide id="decision-riesgo-coste-esperado" number={407} title="Riesgo y coste esperado">
+  <p><i data-lucide="shield-alert"></i> Riesgo útil no es “algo malo podría pasar”. Es probabilidad por impacto, más la capacidad de detectar, contener y revertir. Esto permite comparar errores técnicos, legales, económicos y de confianza.</p>
+
+  <div class="decision-split">
+    <div class="formula-card">
+      <strong>Coste esperado</strong>
+      <code>EC(a) = Σ_i P(e_i | a) · C(e_i)</code>
+      <p><code>e_i</code> es un evento de error; <code>C(e_i)</code> su coste; <code>P(e_i | a)</code> la probabilidad al tomar la acción.</p>
+      <span>Automatizar solo compensa si el ahorro supera coste esperado, operación y riesgo de cola.</span>
+    </div>
+    <div class="decision-risk-matrix">
+      <div class="risk-cell low"><strong>Baja P / bajo impacto</strong><span>automatiza con logs</span></div>
+      <div class="risk-cell mid"><strong>Alta P / bajo impacto</strong><span>mejora UX y reduce ruido</span></div>
+      <div class="risk-cell mid"><strong>Baja P / alto impacto</strong><span>gates, pruebas adversarias, rollback</span></div>
+      <div class="risk-cell high"><strong>Alta P / alto impacto</strong><span>no automatizar sin rediseño</span></div>
+    </div>
+  </div>
+
+  <table class="compact-table">
+    <thead><tr><th>Dominio</th><th>Error barato</th><th>Error caro</th><th>Control</th></tr></thead>
+    <tbody>
+      <tr><td>Soporte</td><td>pedir un dato de más</td><td>cerrar incidente crítico mal</td><td>umbrales y escalado</td></tr>
+      <tr><td>Código</td><td>fallar formato</td><td>romper auth, pagos o datos</td><td>tests, review, approvals</td></tr>
+      <tr><td>RAG legal</td><td>abstenerse con fuente parcial</td><td>responder sin evidencia contractual</td><td>citas obligatorias y fallback</td></tr>
+    </tbody>
+  </table>
+</Slide>
+
+<!-- SLIDE 408 -->
+<Slide id="decision-valor-informacion" number={408} title="Valor de la información: cuándo merece la pena preguntar o medir">
+  <p><i data-lucide="search-check"></i> La información cuesta: tokens, latencia, fricción de usuario, llamadas externas y complejidad. Merece la pena buscar más información solo si puede cambiar la acción o reducir un riesgo relevante.</p>
+
+  <div class="formula-card-grid">
+    <div class="formula-card">
+      <strong>Valor esperado de información perfecta</strong>
+      <code>EVPI = E[max_a U(a,S)] - max_a E[U(a,S)]</code>
+      <p>Compara decidir después de conocer el estado real con decidir ahora bajo incertidumbre.</p>
+      <span>Si <code>EVPI</code> es bajo, medir más solo añade coste.</span>
+    </div>
+    <div class="formula-card">
+      <strong>Regla de ingeniería</strong>
+      <code>consultar si EV(info) &gt; coste(info)</code>
+      <p>El valor de la información debe superar su coste total: cómputo, latencia, UX, privacidad y mantenimiento.</p>
+      <span>RAG, tool call y pregunta al usuario son acciones de información.</span>
+    </div>
+  </div>
+
+  <div class="worked-example">
+    <strong>Ejemplo rápido: pedir confirmación antes de borrar</strong>
+    <p>Sin confirmar: 98% ok con utilidad +8, 2% borrado equivocado con utilidad -500. <code>EU = 0.98·8 + 0.02·(-500) = -2.16</code>.</p>
+    <p>Confirmando: coste de fricción -1, riesgo casi cero, utilidad esperada aproximada <code>+7</code>. La pregunta molesta un poco, pero cambia completamente la decisión.</p>
+  </div>
+
+  <table class="compact-table">
+    <thead><tr><th>Acción de información</th><th>Buena si...</th><th>Mala si...</th></tr></thead>
+    <tbody>
+      <tr><td>RAG</td><td>la fuente cambia respuesta o permite citar</td><td>solo rellena contexto irrelevante</td></tr>
+      <tr><td>Tool call</td><td>estado actual externo importa</td><td>la tool repite lo ya sabido</td></tr>
+      <tr><td>Pregunta al usuario</td><td>ambigüedad con impacto</td><td>se pregunta por pereza del sistema</td></tr>
+    </tbody>
+  </table>
+</Slide>
+
+<!-- SLIDE 409 -->
+<Slide id="decision-incertidumbre-tipos" number={409} title="Tipos de incertidumbre: aleatoria, epistémica y de estado">
+  <p><i data-lucide="cloud-fog"></i> No toda incertidumbre se arregla igual. Algunas cosas son ruido natural; otras son falta de datos; otras aparecen porque el sistema no observa el estado real. Usar el mismo control para todas produce mal diseño.</p>
+
+  <div class="decision-board">
+    <div class="decision-tile"><strong>Aleatoria</strong><p>Ruido inherente. Aunque midas más, seguirá habiendo variabilidad.</p><span>Ejemplo: demanda diaria.</span></div>
+    <div class="decision-tile"><strong>Epistémica</strong><p>Falta de conocimiento. Puede bajar con datos, etiquetas, RAG o experimentos.</p><span>Ejemplo: no sabes si el modelo falla en un segmento.</span></div>
+    <div class="decision-tile"><strong>De estado</strong><p>No sabes dónde estás realmente. Necesitas observación, permisos o sensores.</p><span>Ejemplo: no sabes si el usuario puede ejecutar una acción.</span></div>
+  </div>
+
+  <div class="formula-card-grid">
+    <div class="formula-card">
+      <strong>Entropía</strong>
+      <code>H(X) = -Σ_x P(x) log P(x)</code>
+      <p><code>H(X)</code> mide incertidumbre de una variable. Si la probabilidad está repartida entre muchas hipótesis, la entropía sube.</p>
+      <span>Una distribución 50/50 obliga a buscar evidencia más que una 99/1.</span>
+    </div>
+    <div class="formula-card">
+      <strong>Decisión por incertidumbre</strong>
+      <code>si H(X) alta y coste(error) alto → observar antes de actuar</code>
+      <p>No es una ley formal; es una regla operativa: incertidumbre alta más daño alto pide información, no confianza narrativa.</p>
+      <span>En agentes: consultar permisos, leer logs, pedir dato o escalar.</span>
+    </div>
+  </div>
+</Slide>
+
+<!-- SLIDE 410 -->
+<Slide id="decision-politicas" number={410} title="Políticas: una regla de decisión repetible">
+  <p><i data-lucide="route"></i> En teoría de decisión, una política dice qué acción tomar en cada estado. Puede ser una tabla, una función, un modelo, un workflow, un router de modelos o una combinación con guardrails.</p>
+  <p>La palabra clave es repetible. Si dos ejecuciones con el mismo estado toman decisiones distintas sin razón controlada, depurar y auditar el sistema se vuelve muy difícil.</p>
+
+  <div class="decision-split">
+    <div class="code-block decision-pseudocode"><code>policy(ticket):
+  if missing_permissions:
+    return ask_for_approval
+  if risk_score &gt; 0.8:
+    return escalate_to_human
+  if evidence_count &gt;= 2:
+    return answer_with_citations
+  return retrieve_more_context</code></div>
+    <div class="formula-card">
+      <strong>Política determinista</strong>
+      <code>π(s) = a</code>
+      <p>Dado un estado <code>s</code>, devuelve una acción concreta <code>a</code>.</p>
+      <span>Buena para permisos, compliance, workflows críticos y reglas auditables.</span>
+      <strong>Política estocástica</strong>
+      <code>π(a | s) = P(A=a | S=s)</code>
+      <p>Devuelve una distribución sobre acciones. Útil para exploración, A/B testing y bandits.</p>
+    </div>
+  </div>
+
+  <table class="compact-table">
+    <thead><tr><th>Implementación</th><th>Política real</th><th>Cuándo usar</th><th>Riesgo</th></tr></thead>
+    <tbody>
+      <tr><td>if/else</td><td>reglas explícitas</td><td>permisos, límites, acciones peligrosas</td><td>rigidez</td></tr>
+      <tr><td>LLM router</td><td>modelo decide acción</td><td>casos ambiguos de bajo riesgo</td><td>opacidad y drift</td></tr>
+      <tr><td>workflow + gates</td><td>modelo propone, sistema valida</td><td>producción con tools y datos sensibles</td><td>más ingeniería</td></tr>
+    </tbody>
+  </table>
+</Slide>
+
+<!-- SLIDE 411 -->
+<Slide id="decision-mdp" number={411} title="MDP: la gramática matemática de la decisión secuencial">
+  <p><i data-lucide="workflow"></i> Un Markov Decision Process formaliza problemas donde un agente actúa, el estado cambia y recibe recompensas. “Markov” significa que el estado actual contiene lo necesario para predecir el siguiente paso, sin depender de toda la historia.</p>
+
+  <div class="decision-split decision-mdp-layout">
+    <div class="formula-card">
+      <strong>Definición</strong>
+      <code>MDP = (S, A, T, R, γ)</code>
+      <p><code>S</code> estados; <code>A</code> acciones; <code>T(s'|s,a)</code> transición; <code>R(s,a)</code> recompensa; <code>γ</code> descuento del futuro.</p>
+      <span>Un MDP obliga a escribir qué cambia cuando actúas.</span>
+    </div>
+    <svg class="decision-svg" viewBox="0 0 720 260" role="img" aria-label="Diagrama de transición MDP">
+      <defs>
+        <marker id="arrow-mdp" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+          <path d="M0,0 L8,4 L0,8 Z" fill="currentColor"></path>
+        </marker>
+      </defs>
+      <rect x="30" y="70" width="160" height="90" rx="10"></rect>
+      <text x="110" y="110" text-anchor="middle">estado s</text>
+      <text x="110" y="135" text-anchor="middle">ticket ambiguo</text>
+      <line x1="190" y1="115" x2="330" y2="115" marker-end="url(#arrow-mdp)"></line>
+      <text x="260" y="96" text-anchor="middle">acción a</text>
+      <rect x="330" y="70" width="160" height="90" rx="10"></rect>
+      <text x="410" y="110" text-anchor="middle">estado s'</text>
+      <text x="410" y="135" text-anchor="middle">evidencia clara</text>
+      <line x1="490" y1="115" x2="630" y2="115" marker-end="url(#arrow-mdp)"></line>
+      <text x="560" y="96" text-anchor="middle">recompensa r</text>
+      <circle cx="660" cy="115" r="42"></circle>
+      <text x="660" y="111" text-anchor="middle">+ valor</text>
+      <text x="660" y="133" text-anchor="middle">- coste</text>
+    </svg>
+  </div>
+
+  <table class="compact-table">
+    <thead><tr><th>Elemento</th><th>Ejemplo soporte</th><th>Ejemplo agente de código</th></tr></thead>
+    <tbody>
+      <tr><td><code>S</code></td><td>ticket: ambiguo, claro, crítico, resuelto</td><td>tests verdes/rojos, archivos tocados, permisos</td></tr>
+      <tr><td><code>A</code></td><td>responder, buscar, preguntar, escalar</td><td>editar, ejecutar test, revertir, pedir approval</td></tr>
+      <tr><td><code>T</code></td><td>preguntar puede convertir ambigüedad en claridad</td><td>editar puede arreglar o romper tests</td></tr>
+      <tr><td><code>R</code></td><td>resuelto menos coste/riesgo</td><td>bug arreglado menos regresión/riesgo</td></tr>
+    </tbody>
+  </table>
+
+  <div class="refs compact-refs">
+    <p class="refs-title">Base</p>
+    <a href="https://mitp-content-server.mit.edu/books/content/sectbyfn/books_pres_0/14348/kochenderfer_toc.pdf" target="_blank">Algorithms for Decision Making - MDPs</a>
+    <a href="http://incompleteideas.net/book/the-book-2nd.html" target="_blank">Sutton & Barto - Reinforcement Learning</a>
+  </div>
+</Slide>
+
+<!-- SLIDE 412 -->
+<Slide id="decision-retorno-descuento" number={412} title="Recompensa inmediata, retorno y descuento">
+  <p><i data-lucide="clock"></i> Optimizar solo la recompensa inmediata produce sistemas miopes: responden rápido, gastan poco hoy y crean deuda mañana. El retorno acumula recompensas futuras; el descuento controla cuánto valoras ese futuro.</p>
+
+  <div class="formula-card-grid">
+    <div class="formula-card">
+      <strong>Retorno descontado</strong>
+      <code>G_t = R_t+1 + γR_t+2 + γ²R_t+3 + ...</code>
+      <p><code>G_t</code> es el retorno desde el tiempo <code>t</code>; <code>R</code> son recompensas futuras; <code>γ</code> está entre 0 y 1.</p>
+      <span>Si <code>γ</code> es bajo, el sistema vive en el presente; si es alto, mira más lejos.</span>
+    </div>
+    <div class="formula-card">
+      <strong>Forma compacta</strong>
+      <code>G_t = Σ(k=0→∞) γ^k R_t+k+1</code>
+      <p>Cada recompensa futura se multiplica por <code>γ^k</code>. Cuanto más lejos, menos pesa si <code>γ&lt;1</code>.</p>
+      <span>Esta fórmula formaliza “pan para hoy, hambre para mañana”.</span>
+    </div>
+  </div>
+
+  <div class="worked-example">
+    <strong>Ejemplo: respuesta rápida que causa reintentos</strong>
+    <p>Opción A: responde ya, gana <code>+4</code>, pero genera dos reintentos <code>-3</code> y <code>-3</code>. Con <code>γ=0.9</code>: <code>G = 4 + 0.9·(-3) + 0.9²·(-3) = -1.13</code>.</p>
+    <p>Opción B: pregunta primero, coste <code>-1</code>, luego resuelve <code>+8</code>. <code>G = -1 + 0.9·8 = 6.2</code>. Preguntar parece más lento, pero gana la secuencia.</p>
+  </div>
+
+  <table class="compact-table">
+    <thead><tr><th>γ</th><th>Comportamiento</th><th>Lectura práctica</th></tr></thead>
+    <tbody>
+      <tr><td>cerca de 0</td><td>miopía</td><td>optimiza el siguiente paso: rápido, barato, quizá frágil</td></tr>
+      <tr><td>cerca de 1</td><td>visión larga</td><td>considera consecuencias, pero aumenta complejidad y sensibilidad a estimaciones</td></tr>
+    </tbody>
+  </table>
+</Slide>
+
+<!-- SLIDE 413 -->
+<Slide id="decision-funcion-valor" number={413} title="Función de valor V(s): qué tan bueno es un estado">
+  <p><i data-lucide="gauge"></i> La función de valor responde: “si estoy en este estado y sigo una política, ¿qué retorno espero?”. Puntúa situaciones, no acciones concretas.</p>
+
+  <div class="decision-split">
+    <div class="formula-card">
+      <strong>Valor de estado</strong>
+      <code>V^π(s) = E_π[G_t | S_t = s]</code>
+      <p><code>V^π(s)</code> es el retorno esperado al empezar en estado <code>s</code> y seguir la política <code>π</code>.</p>
+      <span>Estado bueno no significa “respuesta bonita”; significa situación con buen futuro esperado.</span>
+    </div>
+    <div class="decision-scoreboard">
+      <div class="decision-score-row good"><strong>V alto</strong><span>fuente recuperada, permisos claros, coste bajo, acción reversible</span></div>
+      <div class="decision-score-row mid"><strong>V medio</strong><span>falta una observación que se puede obtener barato</span></div>
+      <div class="decision-score-row bad"><strong>V bajo</strong><span>dato sensible, evidencia débil, impacto alto, rollback difícil</span></div>
+    </div>
+  </div>
+
+  <table class="compact-table">
+    <thead><tr><th>Estado</th><th>Valor esperado</th><th>Acción probable</th></tr></thead>
+    <tbody>
+      <tr><td>pregunta simple con fuente recuperada</td><td>alto</td><td>responder con cita</td></tr>
+      <tr><td>pregunta sin evidencia en corpus</td><td>bajo si responde</td><td>abstenerse o recuperar más</td></tr>
+      <tr><td>acción externa con permisos dudosos</td><td>alto riesgo</td><td>pedir aprobación humana</td></tr>
+    </tbody>
+  </table>
+</Slide>
+
+<!-- SLIDE 414 -->
+<Slide id="decision-q-value" number={414} title="Q-value Q(s,a): valor de tomar una acción concreta">
+  <p><i data-lucide="mouse-pointer-click"></i> Q-value baja un nivel: puntúa una acción específica en un estado. Es más accionable que <code>V(s)</code> porque compara alternativas.</p>
+
+  <div class="formula-card-grid">
+    <div class="formula-card">
+      <strong>Valor acción-estado</strong>
+      <code>Q^π(s,a) = E_π[G_t | S_t=s, A_t=a]</code>
+      <p>Retorno esperado si en estado <code>s</code> tomas acción <code>a</code> y después sigues la política <code>π</code>.</p>
+      <span>Permite comparar responder, buscar más, llamar tool o escalar.</span>
+    </div>
+    <div class="formula-card">
+      <strong>Política greedy</strong>
+      <code>π(s) = argmax_a Q(s,a)</code>
+      <p>Elige la acción con mayor valor estimado.</p>
+      <span>En producción se añade: constraints, permisos, presupuestos y revisión humana.</span>
+    </div>
+  </div>
+
+  <div class="worked-example">
+    <strong>Tabla Q de un agente de soporte</strong>
+    <table class="compact-table">
+      <thead><tr><th>Estado <code>s</code></th><th>Responder</th><th>Buscar</th><th>Preguntar</th><th>Escalar</th><th>Lectura</th></tr></thead>
+      <tbody>
+        <tr><td>evidencia clara</td><td><code>8.5</code></td><td><code>4.0</code></td><td><code>2.0</code></td><td><code>1.0</code></td><td>responder gana</td></tr>
+        <tr><td>permisos dudosos</td><td><code>-12</code></td><td><code>2.5</code></td><td><code>6.0</code></td><td><code>4.0</code></td><td>preguntar gana</td></tr>
+        <tr><td>incidente crítico</td><td><code>-20</code></td><td><code>1.0</code></td><td><code>3.0</code></td><td><code>7.0</code></td><td>escalar gana</td></tr>
+      </tbody>
+    </table>
+  </div>
+</Slide>
+
+<!-- SLIDE 415 -->
+<Slide id="decision-bellman" number={415} title="Bellman: la ecuación central">
+  <p><i data-lucide="sigma"></i> Bellman expresa una idea profunda de forma compacta: el valor de un estado depende de la recompensa inmediata y del valor esperado del siguiente estado. Es “ahora más futuro”.</p>
+
+  <div class="decision-bellman">
+    <div><strong>Valor actual</strong><code>V*(s)</code></div>
+    <span>=</span>
+    <div><strong>Mejor acción</strong><code>max_a</code></div>
+    <span>[</span>
+    <div><strong>Ahora</strong><code>R(s,a)</code></div>
+    <span>+</span>
+    <div><strong>Futuro</strong><code>γ Σ_s' T(s'|s,a)V*(s')</code></div>
+    <span>]</span>
+  </div>
+
+  <div class="formula-card-grid">
+    <div class="formula-card">
+      <strong>Bellman óptimo</strong>
+      <code>V*(s) = max_a [R(s,a) + γ Σ_s' T(s'|s,a) V*(s')]</code>
+      <p><code>R</code> mira el beneficio inmediato; <code>T</code> pondera estados siguientes; <code>γV*(s')</code> trae el valor futuro al presente.</p>
+      <span>No memorices símbolos: entiende que una acción buena hoy puede ser mala por el estado al que te lleva.</span>
+    </div>
+  </div>
+
+  <table class="compact-table">
+    <thead><tr><th>Parte</th><th>Lectura al barro</th><th>Ejemplo</th></tr></thead>
+    <tbody>
+      <tr><td><code>R(s,a)</code></td><td>qué gano o pierdo ahora</td><td>resolver ticket, gastar tokens, asumir riesgo</td></tr>
+      <tr><td><code>T(s'|s,a)</code></td><td>a dónde puedo acabar</td><td>usuario satisfecho, falta dato, error, escalado</td></tr>
+      <tr><td><code>γV(s')</code></td><td>cuánto valoro el futuro</td><td>deuda operativa, confianza, tiempo humano futuro</td></tr>
+    </tbody>
+  </table>
+
+  <div class="refs compact-refs">
+    <p class="refs-title">Para profundizar</p>
+    <a href="http://incompleteideas.net/book/the-book-2nd.html" target="_blank">Sutton & Barto - Reinforcement Learning</a>
+    <a href="https://mitpress.mit.edu/9780262370233/algorithms-for-decision-making/" target="_blank">Algorithms for Decision Making</a>
+  </div>
+</Slide>
+
+<!-- SLIDE 416 -->
+<Slide id="decision-dynamic-programming" number={416} title="Dynamic Programming: resolver reutilizando subproblemas">
+  <p><i data-lucide="network"></i> Dynamic Programming funciona cuando un problema grande puede romperse en subproblemas cuyo resultado se reutiliza. En decisión secuencial, el subproblema típico es “cuánto vale este estado”.</p>
+
+  <div class="decision-split">
+    <div class="code-block decision-pseudocode"><code>for each state s:
+  initialize V(s) = 0
+
+repeat:
+  for each state s:
+    V(s) = best immediate reward
+           + discounted value of next states
+until values change less than epsilon</code></div>
+    <div class="formula-card">
+      <strong>Principio de optimalidad</strong>
+      <code>óptimo global = decisión local + solución óptima restante</code>
+      <p>Si ya sabes el valor de los estados futuros, puedes decidir bien en el estado actual.</p>
+      <span>Bellman es dynamic programming aplicado a decisiones.</span>
+    </div>
+  </div>
+
+  <table class="compact-table">
+    <thead><tr><th>Idea</th><th>En algoritmia</th><th>En ingeniería IA</th></tr></thead>
+    <tbody>
+      <tr><td>subproblema</td><td>valor de estado</td><td>workflow: falta dato, permiso pendiente, test rojo</td></tr>
+      <tr><td>memoización</td><td>guardar valores</td><td>cachear retrieval, eval, coste y outcome por caso</td></tr>
+      <tr><td>convergencia</td><td>valores estables</td><td>política suficientemente robusta para lanzar</td></tr>
+    </tbody>
+  </table>
+</Slide>
+
+<!-- SLIDE 417 -->
+<Slide id="decision-value-iteration" number={417} title="Value iteration: aproximar valores hasta que la política aparece">
+  <p><i data-lucide="refresh-cw"></i> Value iteration actualiza repetidamente el valor de cada estado usando Bellman. Cuando los valores se estabilizan, eliges la acción que maximiza esos valores.</p>
+
+  <div class="formula-card-grid">
+    <div class="formula-card">
+      <strong>Actualización</strong>
+      <code>V_k+1(s) = max_a [R(s,a) + γ Σ_s' T(s'|s,a) V_k(s')]</code>
+      <p><code>k</code> es la iteración. Empiezas con valores aproximados y los mejoras usando transiciones y recompensas.</p>
+      <span>No necesitas política inicial; la política se deriva de los valores finales.</span>
+    </div>
+    <div class="formula-card">
+      <strong>Criterio de parada</strong>
+      <code>max_s |V_k+1(s) - V_k(s)| &lt; ε</code>
+      <p>Paras cuando el cambio máximo entre iteraciones es menor que una tolerancia <code>ε</code>.</p>
+      <span>La tolerancia controla precisión vs coste de cómputo.</span>
+    </div>
+  </div>
+
+  <div class="decision-stack">
+    <div class="decision-stack-row"><strong>Iteración 0</strong><span>todos los estados valen 0: el sistema no sabe qué estados son buenos.</span></div>
+    <div class="decision-stack-row"><strong>Iteración 1</strong><span>aparece recompensa inmediata: resolver ahora empieza a valer más.</span></div>
+    <div class="decision-stack-row"><strong>Iteraciones siguientes</strong><span>el valor se propaga hacia estados anteriores: preguntar puede valer porque lleva a resolver.</span></div>
+    <div class="decision-stack-row"><strong>Convergencia</strong><span>los cambios son pequeños: ya puedes extraer una política.</span></div>
+  </div>
+
+  <table class="compact-table">
+    <thead><tr><th>Encaja cuando...</th><th>No encaja cuando...</th><th>Intuición</th></tr></thead>
+    <tbody>
+      <tr><td>estado/transición son modelables</td><td>estado enorme o mundo abierto</td><td>calcular mapa de valores</td></tr>
+      <tr><td>problema discreto pequeño/medio</td><td>la interacción real es muy costosa de simular</td><td>más algoritmo que improvisación</td></tr>
+    </tbody>
+  </table>
+</Slide>
+
+<!-- SLIDE 418 -->
+<Slide id="decision-policy-iteration" number={418} title="Policy iteration: evaluar y mejorar una política">
+  <p><i data-lucide="repeat-2"></i> Policy iteration alterna dos pasos: evalúa qué tan buena es la política actual y luego la mejora eligiendo acciones mejores según esa evaluación. Es una forma muy útil de pensar mejoras de agentes.</p>
+
+  <div class="process-lane decision-process-rich">
+    <div class="process-step"><span class="step-label">1</span><strong>Política actual</strong><p>prompt, reglas, router, umbrales, tools, gates.</p></div>
+    <div class="process-step"><span class="step-label">2</span><strong>Evaluar</strong><p>dataset, trazas, costes, errores, humanos y rare cases.</p></div>
+    <div class="process-step"><span class="step-label">3</span><strong>Mejorar</strong><p>cambiar acción, umbral, contexto, tool o restricción.</p></div>
+    <div class="process-step"><span class="step-label">4</span><strong>Regresión</strong><p>verificar que no rompiste casos anteriores.</p></div>
+  </div>
+
+  <div class="formula-card-grid">
+    <div class="formula-card">
+      <strong>Evaluación</strong>
+      <code>V^π(s) = R(s,π(s)) + γ Σ_s' T(s'|s,π(s)) V^π(s')</code>
+      <p>Calcula el valor de seguir la política actual <code>π</code>.</p>
+      <span>Primero mide. Cambiar sin medir es tuning por intuición.</span>
+    </div>
+    <div class="formula-card">
+      <strong>Mejora</strong>
+      <code>π_new(s) = argmax_a [R(s,a) + γ Σ_s' T(s'|s,a) V^π(s')]</code>
+      <p>Elige acciones mejores usando los valores calculados para la política actual.</p>
+      <span>En agentes: si buscar antes de responder mejora casos ambiguos, cambia el routing.</span>
+    </div>
+  </div>
+</Slide>
+
+<!-- SLIDE 419 -->
+<Slide id="decision-online-planning" number={419} title="Online planning: decidir mirando hacia delante">
+  <p><i data-lucide="telescope"></i> No siempre puedes resolver todo el MDP antes de actuar. Online planning decide en el momento, explorando futuros posibles desde el estado actual. Planifica lo suficiente para elegir el siguiente paso, observa y replantea.</p>
+
+  <div class="decision-flow decision-flow-wide">
+    <div class="decision-flow-step"><span>A</span><strong>Estado actual</strong><p>Qué sabe el agente ahora.</p></div>
+    <div class="decision-flow-step"><span>B</span><strong>Simular ramas</strong><p>Qué podría pasar si responde, pregunta, busca o escala.</p></div>
+    <div class="decision-flow-step"><span>C</span><strong>Elegir primer paso</strong><p>No ejecutar todo el plan a ciegas.</p></div>
+    <div class="decision-flow-step"><span>D</span><strong>Observar</strong><p>Resultado de tool, usuario, test o entorno.</p></div>
+    <div class="decision-flow-step"><span>E</span><strong>Replanificar</strong><p>Actualizar estado y repetir.</p></div>
+  </div>
+
+  <div class="formula-card-grid">
+    <div class="formula-card">
+      <strong>Lookahead de horizonte H</strong>
+      <code>a* = argmax_a E[Σ(t=0→H) γ^t R_t | a_0=a]</code>
+      <p>Eliges la acción inicial que produce mejor retorno esperado durante un horizonte finito <code>H</code>.</p>
+      <span>Mayor <code>H</code> mira más futuro, pero aumenta coste y error de simulación.</span>
+    </div>
+    <div class="formula-card">
+      <strong>Receding horizon</strong>
+      <code>planificar H pasos → ejecutar 1 → observar → replantear</code>
+      <p>Patrón sano para agentes con tools y mundo cambiante.</p>
+      <span>Evita ejecutar planes obsoletos tras una observación nueva.</span>
+    </div>
+  </div>
+</Slide>
+
+<!-- SLIDE 420 -->
+<Slide id="decision-mcts-uct" number={420} title="MCTS: simular futuros sin recorrerlo todo">
+  <p><i data-lucide="tree-pine"></i> Monte Carlo Tree Search combina búsqueda en árbol y simulaciones. No expande todos los caminos; dedica más presupuesto a ramas prometedoras sin dejar de probar alternativas.</p>
+
+  <div class="decision-split">
+    <div class="formula-card">
+      <strong>UCT</strong>
+      <code>UCT_i = Q_i / N_i + c √(ln N / N_i)</code>
+      <p><code>Q_i</code> recompensa acumulada del hijo; <code>N_i</code> visitas del hijo; <code>N</code> visitas del padre; <code>c</code> controla exploración.</p>
+      <span>Primer término explota lo que parece bueno; segundo explora lo poco probado.</span>
+    </div>
+    <div class="decision-tree-mini">
+      <div class="tree-root">estado actual</div>
+      <div class="tree-row">
+        <span>responder</span>
+        <span>buscar</span>
+        <span>preguntar</span>
+      </div>
+      <div class="tree-row tree-row-muted">
+        <span>rápido pero arriesgado</span>
+        <span>más evidencia</span>
+        <span>menos error</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="process-lane">
+    <div class="process-step"><span class="step-label">1</span><strong>Selection</strong><p>baja por ramas prometedoras usando UCT.</p></div>
+    <div class="process-step"><span class="step-label">2</span><strong>Expansion</strong><p>añade una acción nueva al árbol.</p></div>
+    <div class="process-step"><span class="step-label">3</span><strong>Simulation</strong><p>estima resultado con rollout o evaluador.</p></div>
+    <div class="process-step"><span class="step-label">4</span><strong>Backprop</strong><p>actualiza valores del camino visitado.</p></div>
+  </div>
+
+  <div class="refs compact-refs">
+    <p class="refs-title">Para profundizar</p>
+    <a href="https://www.cs.utexas.edu/~shivaram/readings/b2hd-KocsisSzepesvari2006.html" target="_blank">Kocsis & Szepesvári - Bandit based Monte-Carlo Planning</a>
+    <a href="https://mitp-content-server.mit.edu/books/content/sectbyfn/books_pres_0/14348/kochenderfer_toc.pdf" target="_blank">Algorithms for Decision Making - Online Planning</a>
+  </div>
+</Slide>
+
+<!-- SLIDE 421 -->
+<Slide id="decision-bandits" number={421} title="Bandits: aprender eligiendo entre opciones">
+  <p><i data-lucide="slot-machine"></i> Un bandit es el caso mínimo de refuerzo: eliges entre opciones, observas recompensa y quieres maximizar retorno acumulado mientras aprendes cuál opción funciona.</p>
+  <p>En producto aparece constantemente: elegir modelo, prompt, ranking, email, precio, recomendación o variante de onboarding. No hay estado largo; hay una decisión repetida con feedback.</p>
+
+  <div class="worked-example">
+    <strong>Ejemplo: routing entre modelos</strong>
+    <table class="compact-table">
+      <thead><tr><th>Brazo</th><th>Uso</th><th>Recompensa posible</th><th>Riesgo</th></tr></thead>
+      <tbody>
+        <tr><td>mini</td><td>barato y rápido</td><td>+ resolución - coste</td><td>fallar casos complejos</td></tr>
+        <tr><td>estándar</td><td>equilibrado</td><td>mejor calidad media</td><td>coste moderado</td></tr>
+        <tr><td>premium</td><td>casos difíciles</td><td>alta calidad</td><td>latencia y coste</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="formula-card-grid">
+    <div class="formula-card">
+      <strong>Regret</strong>
+      <code>Regret(T) = T μ* - Σ(t=1→T) μ_a_t</code>
+      <p><code>μ*</code> recompensa media del mejor brazo; <code>μ_a_t</code> recompensa esperada del brazo elegido en el paso <code>t</code>.</p>
+      <span>Mide cuánto pierdes por no elegir siempre la mejor opción desde el principio.</span>
+    </div>
+    <div class="formula-card">
+      <strong>UCB</strong>
+      <code>UCB_i = μ_hat_i + c √(ln t / n_i)</code>
+      <p><code>μ_hat_i</code> media observada; <code>n_i</code> veces probado; <code>t</code> tiempo total; <code>c</code> exploración.</p>
+      <span>Premia opciones buenas y opciones poco exploradas.</span>
+    </div>
+  </div>
+</Slide>
+
+<!-- SLIDE 422 -->
+<Slide id="decision-exploration-exploitation" number={422} title="Exploration vs exploitation">
+  <p><i data-lucide="compass"></i> Exploitation usa lo que ya parece funcionar. Exploration prueba alternativas para aprender. Si exploras demasiado, pierdes rendimiento; si explotas demasiado pronto, te quedas atrapado en una opción mediocre.</p>
+
+  <div class="decision-axis">
+    <div class="decision-axis-cell"><strong>Explorar</strong><p>Aprendes. Pagas coste de probar opciones peores o inciertas.</p></div>
+    <div class="decision-axis-cell good"><strong>Equilibrar</strong><p>Pruebas donde el riesgo es aceptable y la información puede cambiar la política.</p></div>
+    <div class="decision-axis-cell"><strong>Explotar</strong><p>Aprovechas lo conocido. Riesgo: congelar una política subóptima.</p></div>
+  </div>
+
+  <div class="formula-card-grid">
+    <div class="formula-card">
+      <strong>ε-greedy</strong>
+      <code>a = aleatoria con prob. ε; si no, argmax_a Q(a)</code>
+      <p><code>ε</code> controla exploración. Con probabilidad <code>ε</code> pruebas; con <code>1-ε</code> eliges lo mejor conocido.</p>
+      <span>Simple y pedagógico, pero puede explorar acciones malas sin criterio.</span>
+    </div>
+    <div class="formula-card">
+      <strong>Exploración segura</strong>
+      <code>explorar solo si riesgo(a) ≤ umbral</code>
+      <p>En producción no todas las acciones son explorables. No haces pruebas aleatorias con pagos, borrados o datos sensibles.</p>
+      <span>La exploración debe respetar permisos, sandbox, límites y review humana.</span>
+    </div>
+  </div>
+
+  <table class="compact-table">
+    <thead><tr><th>Contexto</th><th>Explorar puede ser...</th><th>Límite sano</th></tr></thead>
+    <tbody>
+      <tr><td>copy de marketing</td><td>barato</td><td>evitar claims falsos u ofensivos</td></tr>
+      <tr><td>modelo de soporte</td><td>moderado</td><td>canary, fallback y revisión</td></tr>
+      <tr><td>acción financiera</td><td>peligroso</td><td>simulación, sandbox y aprobación</td></tr>
+    </tbody>
+  </table>
+</Slide>
+
+<!-- SLIDE 423 -->
+<Slide id="decision-model-based-vs-model-free" number={423} title="Model-based vs model-free">
+  <p><i data-lucide="boxes"></i> En model-based usas un modelo de cómo cambia el mundo. En model-free aprendes directamente qué acciones funcionan, sin modelar explícitamente las transiciones.</p>
+
+  <div class="decision-split decision-split-contrast">
+    <div class="compare-card">
+      <p class="compare-card-title"><i data-lucide="map"></i> Model-based</p>
+      <p class="compare-card-desc">Planificas con <code>T(s'|s,a)</code> y <code>R(s,a)</code>. Si el modelo del mundo es bueno, puedes simular y razonar antes de actuar.</p>
+      <div class="decision-note"><code>plan = buscar en modelo(T,R)</code><span>Ejemplo: rutas, scheduling, inventario, simulador.</span></div>
+    </div>
+    <div class="compare-card">
+      <p class="compare-card-title"><i data-lucide="activity"></i> Model-free</p>
+      <p class="compare-card-desc">Aprendes <code>Q(s,a)</code> o <code>π(a|s)</code> desde experiencia. No necesitas explicar todo el mundo, pero necesitas feedback suficiente.</p>
+      <div class="decision-note"><code>política = aprender de experiencia</code><span>Ejemplo: bandits, routing, recomendación.</span></div>
+    </div>
+  </div>
+
+  <table class="compact-table">
+    <thead><tr><th>Opción</th><th>Pros</th><th>Contras</th><th>Cuándo elegir</th></tr></thead>
+    <tbody>
+      <tr><td>Model-based</td><td>interpretable, permite simular</td><td>modelo del mundo puede ser falso</td><td>tienes reglas, simulador o proceso estable</td></tr>
+      <tr><td>Model-free</td><td>menos supuestos explícitos</td><td>necesita mucha experiencia, más opaco</td><td>feedback abundante y riesgo controlado</td></tr>
+      <tr><td>Híbrido</td><td>mejor compromiso</td><td>más ingeniería y evals</td><td>partes conocidas + partes aprendidas</td></tr>
+    </tbody>
+  </table>
+</Slide>
+
+<!-- SLIDE 424 -->
+<Slide id="decision-pomdp" number={424} title="POMDP: cuando no sabes el estado real">
+  <p><i data-lucide="eye-off"></i> Un POMDP extiende el MDP cuando el agente no observa directamente el estado. En lugar de ver <code>s</code>, recibe observaciones parciales <code>o</code> y mantiene una creencia sobre qué estado podría ser real.</p>
+
+  <div class="formula-card-grid">
+    <div class="formula-card">
+      <strong>Definición</strong>
+      <code>POMDP = (S, A, T, R, Ω, O, γ)</code>
+      <p><code>Ω</code> son observaciones posibles; <code>O(o|s,a)</code> probabilidad de observar <code>o</code> tras acción <code>a</code> y estado <code>s</code>.</p>
+      <span>La política no actúa sobre certeza; actúa sobre creencias.</span>
+    </div>
+    <div class="formula-card">
+      <strong>Política sobre creencias</strong>
+      <code>π(b) = a</code>
+      <p><code>b</code> es una distribución sobre estados posibles.</p>
+      <span>Ejemplo: 70% permisos, 20% configuración, 10% bug real.</span>
+    </div>
+  </div>
+
+  <div class="case-study">
+    <p class="case-study-title"><i data-lucide="headphones"></i> Caso: “no puedo acceder”</p>
+    <p>La observación es una frase vaga. El estado real puede ser contraseña caducada, rol insuficiente, incidencia global o bug. Un POMDP te recuerda que no debes responder como si vieras el estado real.</p>
+    <div class="case-study-rows">
+      <div><strong>Observación</strong><span>mensaje del usuario y contexto parcial</span></div>
+      <div><strong>Creencia</strong><span>probabilidad sobre hipótesis</span></div>
+      <div><strong>Acción</strong><span>preguntar, comprobar permisos o escalar</span></div>
+    </div>
+  </div>
+
+  <table class="compact-table">
+    <thead><tr><th>Observación parcial</th><th>Estado posible</th><th>Buena acción</th></tr></thead>
+    <tbody>
+      <tr><td>usuario dice “no funciona”</td><td>bug, permisos, uso incorrecto</td><td>preguntar dato diagnóstico</td></tr>
+      <tr><td>RAG trae fuente ambigua</td><td>respuesta existe o corpus incompleto</td><td>buscar más o abstenerse</td></tr>
+      <tr><td>captura de UI</td><td>modal oculto, botón disabled, sesión expirada</td><td>observar DOM/accessibility tree</td></tr>
+    </tbody>
+  </table>
+</Slide>
+
+<!-- SLIDE 425 -->
+<Slide id="decision-belief-update" number={425} title="Belief state: actualizar creencias con evidencia">
+  <p><i data-lucide="radar"></i> Un belief state es una distribución sobre estados posibles. No dice “sé que pasa X”; dice “con esta evidencia, asigno probabilidad a varias hipótesis”.</p>
+
+  <div class="decision-split">
+    <div class="formula-card">
+      <strong>Actualización bayesiana en POMDP</strong>
+      <code>b'(s') = η · O(o | s', a) · Σ_s T(s' | s, a) b(s)</code>
+      <p><code>b(s)</code> creencia previa; <code>T</code> transición; <code>O</code> probabilidad de observación; <code>η</code> normaliza para que todo sume 1.</p>
+      <span>Primero predices cómo puede cambiar el estado; luego corriges con la observación.</span>
+    </div>
+    <div class="worked-example">
+      <strong>Ejemplo: diagnóstico de permisos</strong>
+      <table class="compact-table">
+        <tbody>
+          <tr><td>Antes</td><td>permisos 50%, configuración 30%, bug 20%</td></tr>
+          <tr><td>Acción</td><td>consultar endpoint de roles</td></tr>
+          <tr><td>Observación</td><td><code>role=viewer</code></td></tr>
+          <tr><td>Después</td><td>permisos 85%, configuración 10%, bug 5%</td></tr>
+        </tbody>
+      </table>
+      <p>La acción correcta ya no es “probar cosas”: es explicar permisos o pedir aprobación.</p>
+    </div>
+  </div>
+
+  <div class="decision-mini-lab">
+    <strong>Regla pedagógica</strong>
+    <p>Cuando la creencia está dispersa y el coste de error es alto, un buen agente busca evidencia. Cuando la creencia está concentrada y la acción es reversible, puede actuar con logs.</p>
+  </div>
+</Slide>
+
+<!-- SLIDE 426 -->
+<Slide id="decision-multiagente" number={426} title="Multiagente: cuando otros también deciden">
+  <p><i data-lucide="users"></i> Muchos problemas no dependen solo de tu agente. Otros usuarios, agentes, proveedores, atacantes o sistemas también toman decisiones. Eso cambia el análisis: ya no optimizas contra un entorno pasivo.</p>
+
+  <div class="formula-card-grid">
+    <div class="formula-card">
+      <strong>Juego normal</strong>
+      <code>G = (N, A, u)</code>
+      <p><code>N</code> jugadores; <code>A</code> acciones conjuntas; <code>u_i(a)</code> utilidad del jugador <code>i</code> ante acciones <code>a</code>.</p>
+      <span>La utilidad de tu acción depende de lo que hagan los demás.</span>
+    </div>
+    <div class="formula-card">
+      <strong>Equilibrio de Nash</strong>
+      <code>u_i(a_i*, a_-i*) ≥ u_i(a_i, a_-i*)</code>
+      <p>Nadie mejora cambiando unilateralmente si los demás mantienen su estrategia.</p>
+      <span>No significa “mejor para todos”; significa estable frente a desviaciones individuales.</span>
+    </div>
+  </div>
+
+  <div class="worked-example">
+    <strong>Matriz simple: agente de soporte y usuario oportunista</strong>
+    <table class="compact-table">
+      <thead><tr><th></th><th>Usuario honesto</th><th>Usuario intenta abuso</th></tr></thead>
+      <tbody>
+        <tr><td>Agente concede sin verificar</td><td>rápido y agradable</td><td>fraude, coste, precedente malo</td></tr>
+        <tr><td>Agente verifica</td><td>algo más de fricción</td><td>reduce abuso y deja evidencia</td></tr>
+      </tbody>
+    </table>
+    <p>Si hay actores estratégicos, una política demasiado generosa se convierte en incentivo para explotarla.</p>
+  </div>
+
+  <table class="compact-table">
+    <thead><tr><th>Situación</th><th>Interacción</th><th>Riesgo</th></tr></thead>
+    <tbody>
+      <tr><td>marketplace</td><td>usuarios optimizan ranking</td><td>gaming de métricas</td></tr>
+      <tr><td>seguridad IA</td><td>atacante adapta prompts</td><td>bypass de guardrails</td></tr>
+      <tr><td>multiagente interno</td><td>agentes se delegan tareas</td><td>responsabilidad difusa y loops</td></tr>
+    </tbody>
+  </table>
+</Slide>
+
+<!-- SLIDE 427 -->
+<Slide id="decision-validar-politicas" number={427} title="Validar políticas: media, cola, rare events y adversarios">
+  <p><i data-lucide="shield-check"></i> Una política no se valida solo por rendimiento medio. Debe revisarse en colas, casos raros, cambios de distribución y ataques. Muchas decisiones malas viven en el 1% que no aparece en demos.</p>
+
+  <div class="formula-card-grid">
+    <div class="formula-card">
+      <strong>Rendimiento esperado</strong>
+      <code>J(π) = E[Σ_t γ^t R_t | π]</code>
+      <p><code>J(π)</code> resume el retorno esperado de una política.</p>
+      <span>Útil, pero insuficiente: dos políticas con igual media pueden tener riesgos de cola muy distintos.</span>
+    </div>
+    <div class="formula-card">
+      <strong>Riesgo de cola</strong>
+      <code>CVaR_α = E[L | L ≥ VaR_α]</code>
+      <p><code>L</code> pérdida; <code>VaR_α</code> umbral de pérdida en percentil; <code>CVaR</code> media de las peores pérdidas.</p>
+      <span>Importa cuando el peor 1% puede romper compliance, dinero o confianza.</span>
+    </div>
+  </div>
+
+  <div class="decision-board decision-board-4">
+    <div class="decision-tile"><strong>Media</strong><p>¿Funciona en casos normales?</p><span>tasa de resolución, coste medio</span></div>
+    <div class="decision-tile"><strong>Segmentos</strong><p>¿Dónde falla?</p><span>idioma, cliente, producto, canal</span></div>
+    <div class="decision-tile"><strong>Cola</strong><p>¿Qué pasa en lo peor?</p><span>p95/p99, CVaR, incidentes</span></div>
+    <div class="decision-tile"><strong>Adversarios</strong><p>¿Quién intenta romperlo?</p><span>prompt injection, fraude, abuso de tools</span></div>
+  </div>
+
+  <table class="compact-table">
+    <thead><tr><th>Validación</th><th>Qué detecta</th><th>Ejemplo</th></tr></thead>
+    <tbody>
+      <tr><td>eval media</td><td>rendimiento general</td><td>tasa de resolución</td></tr>
+      <tr><td>stress / rare events</td><td>fallos poco frecuentes</td><td>datos contradictorios, logs enormes, permisos límite</td></tr>
+      <tr><td>adversarial analysis</td><td>fallos provocados</td><td>prompt injection, tool abuse, exfiltración</td></tr>
+      <tr><td>robustness</td><td>sensibilidad a cambios</td><td>modelo nuevo, prompt nuevo, corpus actualizado</td></tr>
+    </tbody>
+  </table>
+</Slide>
+
+<!-- SLIDE 428 -->
+<Slide id="decision-agentes-llm" number={428} title="Agentes LLM como sistemas de decisión">
+  <p><i data-lucide="bot"></i> Un agente LLM moderno puede verse como un sistema de decisión: observa contexto, mantiene estado, elige acciones, recibe feedback y actualiza su siguiente paso. El LLM no debería ser toda la política; suele ser una pieza dentro de una política más amplia.</p>
+
+  <div class="decision-flow decision-flow-wide">
+    <div class="decision-flow-step"><span>obs</span><strong>Contexto</strong><p>prompt, memoria, RAG, pantalla, logs.</p></div>
+    <div class="decision-flow-step"><span>LLM</span><strong>Propuesta</strong><p>razona, genera plan, sugiere tool.</p></div>
+    <div class="decision-flow-step"><span>gate</span><strong>Validación</strong><p>schemas, permisos, budgets, políticas.</p></div>
+    <div class="decision-flow-step"><span>act</span><strong>Acción</strong><p>responder, llamar tool, editar, escalar.</p></div>
+    <div class="decision-flow-step"><span>eval</span><strong>Feedback</strong><p>tests, trazas, usuario, métricas.</p></div>
+  </div>
+
+  <div class="formula-card-grid">
+    <div class="formula-card">
+      <strong>Política compuesta</strong>
+      <code>acción = gate(LLM(contexto), permisos, riesgo, eval, coste)</code>
+      <p>El modelo propone; el harness valida con permisos, schemas, budgets, evals y aprobaciones.</p>
+      <span>Una respuesta persuasiva no debe convertirse automáticamente en acción peligrosa.</span>
+    </div>
+    <div class="formula-card">
+      <strong>Score operativo</strong>
+      <code>score(a)=calidad(a)-coste(a)-riesgo(a)+valor_info(a)</code>
+      <p>Heurística práctica para comparar acciones: no todo es “responder mejor”.</p>
+      <span>Llamar una tool puede subir valor de información, pero también coste y superficie de ataque.</span>
+    </div>
+  </div>
+
+  <table class="compact-table">
+    <thead><tr><th>Acción del agente</th><th>Lectura como decisión</th><th>Control necesario</th></tr></thead>
+    <tbody>
+      <tr><td>responder</td><td>acción comunicativa</td><td>grounding, formato, policy</td></tr>
+      <tr><td>llamar tool</td><td>acción externa</td><td>schema, permisos, idempotencia</td></tr>
+      <tr><td>editar código</td><td>acción sobre artefacto</td><td>diff, tests, reviewer, rollback</td></tr>
+      <tr><td>escalar</td><td>acción de control</td><td>criterios, trazas, responsable</td></tr>
+    </tbody>
+  </table>
+</Slide>
+
+<!-- SLIDE 429 -->
+<Slide id="decision-algoritmica-que-saber" number={429} title="Qué debe saber: algoritmia para decidir">
+  <p><i data-lucide="list-checks"></i> El objetivo no es memorizar todas las variantes de MDP, sino poder mirar un sistema con IA y preguntar: qué estado usa, qué acciones permite, cómo mide utilidad, qué incertidumbre reconoce y cómo valida su política.</p>
+
+  <div class="case-study">
+    <p class="case-study-title"><i data-lucide="graduation-cap"></i> Caso integrador: agente que resuelve incidencias</p>
+    <p>El agente observa un ticket, recupera documentación, decide si responde o pregunta, puede abrir una tarea y debe evitar filtrar datos. Todo el bloque cabe en este ejemplo: estado, acción, utilidad, incertidumbre, política y validación.</p>
+    <div class="case-study-rows">
+      <div><strong>Estado</strong><span>ticket, usuario, permisos, evidencia, riesgo</span></div>
+      <div><strong>Acciones</strong><span>responder, buscar, preguntar, escalar, bloquear</span></div>
+      <div><strong>Utilidad</strong><span>resolver menos coste, latencia, daño y riesgo</span></div>
+      <div><strong>Validación</strong><span>eval media, rare cases, adversarial, rollback</span></div>
+    </div>
+  </div>
+
+  <table class="compact-table">
+    <thead><tr><th>Debes poder explicar</th><th>Fórmula o idea</th><th>Conexión moderna</th></tr></thead>
+    <tbody>
+      <tr><td>Utilidad esperada</td><td><code>EU(a)=ΣP(s|a)U(s)</code></td><td>routing, abstención y revisión humana</td></tr>
+      <tr><td>MDP</td><td><code>(S,A,T,R,γ)</code></td><td>workflows, agentes y decisiones secuenciales</td></tr>
+      <tr><td>Bellman</td><td><code>recompensa ahora + valor futuro</code></td><td>evitar miopía de corto plazo</td></tr>
+      <tr><td>Bandits</td><td><code>explorar vs explotar</code></td><td>A/B, prompts, modelos y recomendaciones</td></tr>
+      <tr><td>POMDP / beliefs</td><td><code>π(b)=a</code></td><td>agentes con contexto parcial y RAG incompleto</td></tr>
+      <tr><td>Validación de política</td><td><code>J(π)</code> + colas + adversarios</td><td>evals, red-team, rare events y gates</td></tr>
+    </tbody>
+  </table>
+
+  <div class="decision-mini-lab">
+    <strong>Pregunta final para ingenieros</strong>
+    <p>Antes de lanzar una automatización, escribe una página: estados relevantes, acciones permitidas, utilidad/costes, incertidumbres principales, política inicial, evals, casos de cola, permisos y rollback. Si no puedes escribirla, el sistema todavía decide demasiado por intuición.</p>
+  </div>
+
+  <div class="refs compact-refs">
+    <p class="refs-title">Fuentes principales</p>
+    <a href="https://mitpress.mit.edu/9780262370233/algorithms-for-decision-making/" target="_blank">Algorithms for Decision Making - MIT Press</a>
+    <a href="https://mitp-content-server.mit.edu/books/content/sectbyfn/books_pres_0/14348/kochenderfer_toc.pdf" target="_blank">Índice oficial</a>
+    <a href="http://incompleteideas.net/book/the-book-2nd.html" target="_blank">Sutton & Barto - Reinforcement Learning</a>
+    <a href="https://aima.cs.berkeley.edu/" target="_blank">AIMA</a>
+  </div>
+</Slide>

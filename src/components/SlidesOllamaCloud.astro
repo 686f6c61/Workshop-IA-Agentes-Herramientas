@@ -2,6 +2,7 @@
 import Slide from './Slide.astro';
 import SlidesLaboratoriosIA from './SlidesLaboratoriosIA.astro';
 import SlidesIngenieriaAvanzada from './SlidesIngenieriaAvanzada.astro';
+import SlidesDecisionAlgoritmica from './SlidesDecisionAlgoritmica.astro';
 ---
 
 <!-- SECTION: OLLAMA CLOUD -->
@@ -223,7 +224,8 @@ import SlidesIngenieriaAvanzada from './SlidesIngenieriaAvanzada.astro';
       <tr><td>Cloud para modelos grandes y prototipos; local para privacidad extrema</td><td>357</td></tr>
       <tr><td>Laboratorios guiados para búsqueda, planning, ML clásico, ontologías, RAG y agentes</td><td>360-371</td></tr>
       <tr><td>Ingeniería avanzada: workbench, RAG multimodal, computer-use, carga, red-team y labs ship-ready</td><td>372-399</td></tr>
-      <tr><td>Recursos, checklist de exactitud, glosario y ruta de estudio</td><td>400-408</td></tr>
+      <tr><td>Algoritmia para decisiones: utilidad, MDP, Bellman, bandits, POMDP y validación de políticas</td><td>400-429</td></tr>
+      <tr><td>Recursos, checklist de exactitud, glosario y ruta de estudio</td><td>430-438</td></tr>
     </tbody>
   </table>
 </Slide>
@@ -232,8 +234,10 @@ import SlidesIngenieriaAvanzada from './SlidesIngenieriaAvanzada.astro';
 
 <SlidesIngenieriaAvanzada />
 
-<!-- SLIDE 400 -->
-<Slide id="recursos-mapa-estudio" number={400} title="Recursos: mapa de estudio">
+<SlidesDecisionAlgoritmica />
+
+<!-- SLIDE 430 -->
+<Slide id="recursos-mapa-estudio" number={430} title="Recursos: mapa de estudio">
   <p><i data-lucide="map"></i> No intentes leerlo todo linealmente. Elige recursos según la habilidad que quieras consolidar esta semana.</p>
   <table class="compact-table resource-table">
     <thead>
@@ -254,8 +258,8 @@ import SlidesIngenieriaAvanzada from './SlidesIngenieriaAvanzada.astro';
   </div>
 </Slide>
 
-<!-- SLIDE 401 -->
-<Slide id="recursos-papers-benchmarks" number={401} title="Recursos: papers y benchmarks que sí merecen tiempo">
+<!-- SLIDE 431 -->
+<Slide id="recursos-papers-benchmarks" number={431} title="Recursos: papers y benchmarks que sí merecen tiempo">
   <p><i data-lucide="file-text"></i> Estos papers no se leen para memorizar fórmulas: se leen para entender por qué existen las piezas que usas cada día.</p>
   <table class="compact-table resource-table">
     <thead>
@@ -279,8 +283,8 @@ import SlidesIngenieriaAvanzada from './SlidesIngenieriaAvanzada.astro';
   </div>
 </Slide>
 
-<!-- SLIDE 402 -->
-<Slide id="recursos-laboratorio" number={402} title="Recursos: laboratorio para probar hoy">
+<!-- SLIDE 432 -->
+<Slide id="recursos-laboratorio" number={432} title="Recursos: laboratorio para probar hoy">
   <p><i data-lucide="flask-conical"></i> El objetivo no es instalar veinte cosas. Es tener un laboratorio mínimo para comprobar hipótesis con modelos, datos, costes y evals.</p>
   <table class="compact-table resource-table">
     <thead>
@@ -302,8 +306,8 @@ import SlidesIngenieriaAvanzada from './SlidesIngenieriaAvanzada.astro';
   </div>
 </Slide>
 
-<!-- SLIDE 403 -->
-<Slide id="glosario-siglas" number={403} title="Glosario I: modelos, datos y evaluación">
+<!-- SLIDE 433 -->
+<Slide id="glosario-siglas" number={433} title="Glosario I: modelos, datos y evaluación">
   <p><i data-lucide="book-open"></i> Si una sigla aparece en la presentación, debe poder leerse sin buscarla fuera. Este primer bloque cubre modelos, entrenamiento, retrieval y evaluación.</p>
   <table class="compact-table resource-table">
     <thead>
@@ -331,8 +335,8 @@ import SlidesIngenieriaAvanzada from './SlidesIngenieriaAvanzada.astro';
   </table>
 </Slide>
 
-<!-- SLIDE 404 -->
-<Slide id="glosario-siglas-operacion" number={404} title="Glosario II: agentes, operación y seguridad">
+<!-- SLIDE 434 -->
+<Slide id="glosario-siglas-operacion" number={434} title="Glosario II: agentes, operación y seguridad">
   <p><i data-lucide="book-open-check"></i> Segundo bloque de siglas prácticas: herramientas, despliegue, latencia, seguridad, gobierno y experiencia de usuario.</p>
   <table class="compact-table resource-table">
     <thead>
@@ -359,8 +363,8 @@ import SlidesIngenieriaAvanzada from './SlidesIngenieriaAvanzada.astro';
   </table>
 </Slide>
 
-<!-- SLIDE 405 -->
-<Slide id="checklist-exactitud-ia" number={405} title="Checklist de exactitud para claims de IA">
+<!-- SLIDE 435 -->
+<Slide id="checklist-exactitud-ia" number={435} title="Checklist de exactitud para claims de IA">
   <p><i data-lucide="clipboard-check"></i> La presentación circula mucho, así que los claims temporales deben leerse como snapshots verificables, no como verdades permanentes.</p>
   <table class="compact-table resource-table">
     <thead>
@@ -387,8 +391,8 @@ import SlidesIngenieriaAvanzada from './SlidesIngenieriaAvanzada.astro';
   </div>
 </Slide>
 
-<!-- SLIDE 406 -->
-<Slide id="pipeline-entrega-ia" number={406} title="Pipeline de entrega IA: de idea a producción">
+<!-- SLIDE 436 -->
+<Slide id="pipeline-entrega-ia" number={436} title="Pipeline de entrega IA: de idea a producción">
   <p><i data-lucide="route"></i> Un proyecto de IA no termina cuando una demo responde bien. Termina cuando puedes decidir con datos si seguir, parar o simplificar.</p>
   <div class="process-lane">
     <div class="process-step"><span class="step-label">1</span><strong>Caso</strong><p>Tarea repetitiva, usuario, riesgo y coste de error.</p></div>
@@ -411,8 +415,8 @@ import SlidesIngenieriaAvanzada from './SlidesIngenieriaAvanzada.astro';
   </table>
 </Slide>
 
-<!-- SLIDE 407 -->
-<Slide id="benchmarks-contaminacion-eval-privada" number={407} title="Benchmarks contaminados y eval privada">
+<!-- SLIDE 437 -->
+<Slide id="benchmarks-contaminacion-eval-privada" number={437} title="Benchmarks contaminados y eval privada">
   <p><i data-lucide="flask-conical"></i> Un benchmark público orienta, pero no sustituye tu eval. Cuanto más famoso es un benchmark, más probable es que parte del dataset, soluciones o estilo hayan entrado en datos de entrenamiento o tuning.</p>
   <div class="two-cols">
     <div class="compare-card">
@@ -441,8 +445,8 @@ import SlidesIngenieriaAvanzada from './SlidesIngenieriaAvanzada.astro';
   </div>
 </Slide>
 
-<!-- SLIDE 408 -->
-<Slide id="siguiente-paso-30-dias" number={408} title="Siguiente paso: ruta de 30 días">
+<!-- SLIDE 438 -->
+<Slide id="siguiente-paso-30-dias" number={438} title="Siguiente paso: ruta de 30 días">
   <p><i data-lucide="calendar-days"></i> La ruta no es "aprender IA" en abstracto. Es escoger una tarea real, medir un baseline, añadir IA solo donde aporte y terminar con una decisión escrita.</p>
   <table class="compact-table resource-table">
     <thead>
