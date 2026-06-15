@@ -73,4 +73,4 @@ Puedes encontrarme en [@686f6c61](https://x.com/686f6c61) si quieres comentarme 
 
 ---
 
-**Licencia**: [MIT](/libro/licencia/). Eres libre de copiar, modificar, distribuir y usar este material para cualquier propósito, siempre que mantengas esta misma licencia y la atribución al autor original. El conocimiento quiere ser libre.
+**Licencias**: [CC BY 4.0 + MIT](/libro/licencia/). El texto, las figuras y el material editorial pueden reutilizarse con atribución; el código, los scripts, las plantillas y los kits prácticos se publican bajo MIT salvo que un archivo indique otra cosa. El conocimiento quiere ser libre, pero también quiere estar bien citado.

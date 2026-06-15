@@ -63,7 +63,7 @@ const isPlannedOnly = normalizedStatus === 'planificado' && fascicle.chapters.le
         </a>
         <a href="/libro/licencia/">
           <i data-lucide="scale"></i>
-          Licencia MIT
+          Licencias
         </a>
       </div>
 
@@ -220,13 +220,6 @@ const isPlannedOnly = normalizedStatus === 'planificado' && fascicle.chapters.le
           <div class="chapter-content" set:html={chapter.html} />
         </article>
       ))}
-
-      <footer class="reader-footer">
-        <p>
-          Inteligencia artificial para gente curiosa · Por <a href="https://x.com/686f6c61">686f6c61</a> ·
-          <a href="/libro/licencia/">Licencia MIT</a>
-        </p>
-      </footer>
     </main>
   </div>
 </BookLayout>

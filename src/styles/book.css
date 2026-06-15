@@ -40,6 +40,54 @@ html {
   color: inherit;
 }
 
+.book-site-footer {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 18px 32px;
+  width: min(1180px, calc(100% - 48px));
+  margin: 0 auto;
+  padding: 30px 0 42px;
+  border-top: 1px solid var(--book-ink);
+  color: var(--book-muted);
+  font-size: 0.92rem;
+}
+
+.book-site-footer strong {
+  display: block;
+  color: var(--book-ink);
+  font-size: 1rem;
+}
+
+.book-site-footer p {
+  margin: 6px 0 0;
+}
+
+.book-site-footer nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: flex-end;
+  align-content: start;
+}
+
+.book-site-footer a {
+  color: var(--book-ink);
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.book-site-footer a:hover {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.book-site-footer-license {
+  grid-column: 1 / -1;
+  padding-top: 14px;
+  border-top: 1px solid var(--book-line);
+  font-size: 0.86rem;
+}
+
 .chapter-content a {
   overflow-wrap: anywhere;
   word-break: break-word;
@@ -295,6 +343,87 @@ html {
 .project-strip .eyebrow,
 .section-heading .eyebrow {
   margin-top: 0;
+}
+
+.making-box {
+  margin-top: 34px;
+  padding: 28px;
+  border: 1px solid var(--book-ink);
+  background: #ffffff;
+}
+
+.making-heading {
+  display: grid;
+  grid-template-columns: 300px minmax(0, 1fr);
+  gap: 28px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid var(--book-line);
+}
+
+.making-heading h2 {
+  margin: 0;
+  font-family: var(--font-serif);
+  font-size: 1.8rem;
+  line-height: 1.12;
+  letter-spacing: 0;
+}
+
+.making-heading .eyebrow {
+  margin-top: 0;
+}
+
+.making-heading p {
+  grid-column: 2;
+  max-width: 780px;
+  margin: 0;
+  color: var(--book-muted);
+}
+
+.making-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0;
+}
+
+.making-grid article {
+  min-width: 0;
+  padding: 24px 22px 4px;
+  border-right: 1px solid var(--book-line);
+}
+
+.making-grid article:last-child {
+  border-right: 0;
+}
+
+.making-index {
+  display: inline-flex;
+  margin-bottom: 16px;
+  color: var(--book-muted);
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+}
+
+.making-grid article > svg {
+  display: block;
+  width: 22px;
+  height: 22px;
+  margin-bottom: 18px;
+  stroke-width: 1.8;
+}
+
+.making-grid h3 {
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.2;
+}
+
+.making-grid p {
+  margin: 10px 0 0;
+  color: var(--book-muted);
+  font-size: 0.92rem;
+  line-height: 1.58;
 }
 
 .truth-note {
@@ -1742,8 +1871,25 @@ html {
   }
 
   .truth-note,
+  .making-heading,
   .home-principles {
     grid-template-columns: 1fr;
+  }
+
+  .making-heading p {
+    grid-column: 1;
+  }
+
+  .making-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .making-grid article:nth-child(2) {
+    border-right: 0;
+  }
+
+  .making-grid article:nth-child(n + 3) {
+    border-top: 1px solid var(--book-line);
   }
 
   .principle-grid,
@@ -1782,6 +1928,17 @@ html {
   .book-hub {
     width: min(100% - 28px, 1180px);
     padding: 26px 0 48px;
+  }
+
+  .book-site-footer {
+    grid-template-columns: 1fr;
+    width: min(100% - 28px, 1180px);
+    gap: 14px;
+    padding-bottom: 34px;
+  }
+
+  .book-site-footer nav {
+    justify-content: flex-start;
   }
 
   .hub-hero {
@@ -1833,6 +1990,32 @@ html {
   .project-strip {
     grid-template-columns: 1fr;
     gap: 12px;
+  }
+
+  .making-box {
+    padding: 20px;
+  }
+
+  .making-heading {
+    gap: 12px;
+  }
+
+  .making-heading h2 {
+    font-size: 1.45rem;
+  }
+
+  .making-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .making-grid article {
+    padding: 20px 0;
+    border-right: 0;
+    border-top: 1px solid var(--book-line);
+  }
+
+  .making-grid article:first-child {
+    border-top: 0;
   }
 
   .truth-note,

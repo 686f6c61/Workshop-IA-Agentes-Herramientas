@@ -19,6 +19,7 @@ const { title, description = 'Facsímil web de Inteligencia artificial para gent
     <meta name="description" content={description} />
     <meta name="author" content="686f6c61" />
     <meta name="robots" content="index, follow" />
+    <link rel="license" href="https://creativecommons.org/licenses/by/4.0/" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="shortcut icon" href="/favicon.svg" type="image/svg+xml" />
     <script is:inline src="https://unpkg.com/lucide@0.460.0/dist/umd/lucide.min.js"></script>
@@ -26,6 +27,22 @@ const { title, description = 'Facsímil web de Inteligencia artificial para gent
   </head>
   <body class="book-body">
     <slot />
+    <footer class="book-site-footer" aria-label="Pie del facsímil">
+      <div class="book-site-footer-brand">
+        <strong>Inteligencia artificial para gente curiosa</strong>
+        <p>Facsímil abierto para entender, construir y defender sistemas de IA con criterio técnico.</p>
+      </div>
+      <nav aria-label="Enlaces de cierre">
+        <a href="/libro/proyecto/">Proyecto</a>
+        <a href="/libro/nota-del-autor/">Nota del autor</a>
+        <a href="/libro/licencia/">Licencias</a>
+        <a href="https://www.workshop-ia-2026.686f6c61.dev/" target="_blank" rel="noopener noreferrer">Workshop</a>
+      </nav>
+      <p class="book-site-footer-license">
+        Texto, figuras y material editorial bajo CC BY 4.0. Código, scripts, plantillas y kits descargables bajo MIT.
+        Autor: <a href="https://x.com/686f6c61" target="_blank" rel="noopener noreferrer">686f6c61</a>.
+      </p>
+    </footer>
     <script is:inline>
       document.addEventListener('DOMContentLoaded', function () {
         if (window.lucide) window.lucide.createIcons();

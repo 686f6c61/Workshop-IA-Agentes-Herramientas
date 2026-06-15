@@ -1,52 +1,82 @@
 ---
-title: "Licencia de uso"
+title: "Licencias de uso"
 fasciculo: 0
 capitulo: 2
 estado: revision
-version: 0.1.0
-fecha: 2026-05-24
+version: 0.2.0
+fecha: 2026-06-15
 autor: 686f6c61
 ---
 
-# Licencia de uso
+# Licencias de uso
 
-## Licencia MIT
+Este facsímil mezcla dos tipos de material y conviene no tratarlos como si fueran lo mismo.
+Hay texto, figuras, diagramas, explicaciones, tablas, mapas y notas editoriales. Y también hay
+código, scripts, plantillas, kits descargables y pequeños proyectos que una persona puede ejecutar
+para practicar.
+
+Por eso la licencia queda separada en dos capas.
+
+## Texto, figuras y material editorial: CC BY 4.0
+
+El contenido educativo de este facsímil se publica bajo **Creative Commons Attribution 4.0 International
+(CC BY 4.0)**.
+
+Puedes copiarlo, compartirlo, adaptarlo, traducirlo, ampliarlo y usarlo incluso en contextos comerciales,
+siempre que mantengas una atribución razonable al autor y a la obra original. Si modificas el material,
+indica que has hecho cambios.
+
+Una atribución sencilla puede ser:
+
+> Basado en *Inteligencia artificial para gente curiosa*, de 686f6c61, publicado bajo CC BY 4.0.
+
+Esta licencia encaja mejor con un facsímil educativo que una licencia puramente de software. MIT es muy
+cómoda para código, pero no describe tan bien cómo reutilizar texto, diagramas, explicaciones docentes
+o figuras.
+
+## Código, scripts, plantillas y kits: MIT
+
+El código fuente, scripts, notebooks, plantillas técnicas, ficheros de ejemplo y kits descargables del
+facsímil se publican bajo **licencia MIT**, salvo que un archivo concreto indique otra cosa.
+
+Eso significa que puedes usar, copiar, modificar, fusionar, publicar, distribuir, sublicenciar y vender
+copias del software, manteniendo el aviso de copyright y la licencia cuando redistribuyas partes
+sustanciales del código.
 
 Copyright (c) 2026 686f6c61
 
-Se concede permiso, de forma gratuita, a cualquier persona que obtenga una copia de este libro y los archivos de documentación asociados (el «Material»), para utilizar el Material sin restricciones, incluyendo sin limitación los derechos de usar, copiar, modificar, fusionar, publicar, distribuir, sublicenciar y/o vender copias del Material, y permitir a las personas a las que se les proporcione el Material hacer lo mismo, sujeto a las siguientes condiciones:
+EL SOFTWARE SE PROPORCIONA «TAL CUAL», SIN GARANTÍA DE NINGÚN TIPO, EXPRESA O IMPLÍCITA, INCLUYENDO
+PERO NO LIMITADO A GARANTÍAS DE COMERCIALIZACIÓN, IDONEIDAD PARA UN PROPÓSITO PARTICULAR Y NO INFRACCIÓN.
+EN NINGÚN CASO LOS AUTORES O TITULARES DEL COPYRIGHT SERÁN RESPONSABLES DE NINGUNA RECLAMACIÓN, DAÑO U
+OTRA RESPONSABILIDAD, YA SEA EN UNA ACCIÓN DE CONTRATO, AGRAVIO O CUALQUIER OTRO MOTIVO, QUE SURJA DE
+O EN CONEXIÓN CON EL SOFTWARE O EL USO U OTRO TIPO DE ACCIONES EN EL SOFTWARE.
 
-1. El aviso de copyright anterior y este aviso de permiso se incluirán en todas las copias o partes sustanciales del Material.
+## Qué no queda cubierto automáticamente
 
-2. Si utilizas este Material en un trabajo —académico, profesional o personal—, debes mencionar al autor (686f6c61) y la obra original («Inteligencia artificial para gente curiosa»).
+Las licencias anteriores cubren el material propio del facsímil. No convierten en libre aquello que ya
+pertenece a otra persona u organización.
 
-3. El contenido de este libro no debe constituir más del 50 % del contenido total del trabajo en el que se utilice. La idea es que te sirva de base, de referencia y de inspiración, no de sustituto del trabajo propio.
+Esto incluye, por ejemplo, artículos científicos citados, documentación enlazada, capturas externas,
+marcas registradas, modelos, datasets, APIs de terceros, nombres de productos, pesos de modelos,
+repositorios externos o fragmentos que conserven su propia licencia.
 
-EL MATERIAL SE PROPORCIONA «TAL CUAL», SIN GARANTÍA DE NINGÚN TIPO, EXPRESA O IMPLÍCITA, INCLUYENDO PERO NO LIMITADO A GARANTÍAS DE COMERCIALIZACIÓN, IDONEIDAD PARA UN PROPÓSITO PARTICULAR Y NO INFRACCIÓN. EN NINGÚN CASO LOS AUTORES O TITULARES DEL COPYRIGHT SERÁN RESPONSABLES DE NINGUNA RECLAMACIÓN, DAÑO U OTRA RESPONSABILIDAD, YA SEA EN UNA ACCIÓN DE CONTRATO, AGRAVIO O CUALQUIER OTRO MOTIVO, QUE SURJA DE O EN CONEXIÓN CON EL MATERIAL O EL USO U OTRO TIPO DE ACCIONES EN EL MATERIAL.
+Si un laboratorio usa un dataset público, una API comercial, un modelo descargable o una herramienta de
+terceros, debes revisar también la licencia y las condiciones de ese recurso. La atribución del facsímil
+no sustituye las condiciones del proveedor original.
 
-## Cómo usar este material
+## Cómo usar este material con buen criterio
 
-Puedes:
+Puedes usar este facsímil para estudiar, enseñar, preparar clases, citar en trabajos, construir apuntes,
+crear materiales derivados, adaptar prácticas o incorporar fragmentos a documentación interna.
 
-- Leerlo, estudiarlo y aprender de él.
-- Usarlo como referencia en tus trabajos académicos (TFG, TFM, tesis, artículos).
-- Citar sus fragmentos, siempre que atribuyas la fuente.
-- Compartirlo con quien quieras.
-- Modificarlo, ampliarlo y mejorarlo.
-- Usarlo como base para tus propias explicaciones, cursos o materiales docentes.
-
-No puedes:
-
-- Atribuirte su autoría.
-- Usarlo para constituir más del 50 % de un trabajo que presentes como propio.
-- Eliminar la atribución al autor original.
+Lo importante es no borrar el origen. Si este material te ayuda, cita la obra, conserva el enlace a la
+licencia correspondiente y deja claro qué parte has reutilizado o modificado. La idea no es encerrar el
+conocimiento: es hacerlo reutilizable sin perder la trazabilidad.
 
 ## Sugerencias y mejoras
 
-Este libro está vivo. Si ves algo que falta, sobra o podría explicarse mejor, escríbeme a [@686f6c61](https://x.com/686f6c61). Las correcciones, ampliaciones y sugerencias son bienvenidas. La idea es que este material mejore con cada persona que lo lee y aporta su mirada.
+Este facsímil está vivo. Si ves algo que falta, sobra, está mal atribuido o podría explicarse mejor,
+puedes escribirme a [@686f6c61](https://x.com/686f6c61). Las correcciones, ampliaciones y sugerencias son
+bienvenidas.
 
-El conocimiento quiere ser libre.
-
----
-
-[← Volver al facsímil de IA](../index.html)
+El conocimiento quiere ser libre, pero también quiere estar bien citado.

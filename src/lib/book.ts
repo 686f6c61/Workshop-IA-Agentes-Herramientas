@@ -231,14 +231,14 @@ export const BOOK_DOCUMENTS: BookDocumentConfig[] = [
     file: 'bloque-00/01-nota-del-autor.md',
     title: 'Nota del autor',
     eyebrow: 'Bloque 00',
-    description: 'Por qué existe este libro, a quién va dirigido y cómo está pensado para leerse.',
+    description: 'Por qué existe este facsímil, a quién va dirigido y cómo está pensado para leerse.',
   },
   {
     slug: 'licencia',
     file: 'bloque-00/02-licencia.md',
-    title: 'Licencia MIT',
-    eyebrow: 'Licencia MIT',
-    description: 'Condiciones de uso, atribución y reutilización del material.',
+    title: 'Licencias de uso',
+    eyebrow: 'CC BY 4.0 + MIT',
+    description: 'Condiciones de uso, atribución y reutilización del contenido, las figuras, el código y los kits.',
   },
 ];
 
