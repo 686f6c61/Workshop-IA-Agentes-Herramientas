@@ -27,12 +27,13 @@ import BookLayout from '../../../layouts/BookLayout.astro';
     <article class="book-document project-document">
       <header class="document-cover">
         <p class="eyebrow">Sobre el proyecto</p>
-        <h1>Un facsímil que usa el taller como punto de partida, no como límite</h1>
+        <h1>Un facsímil abierto para aprender IA con lectura lenta, práctica y criterio</h1>
         <p>
           El <a href="https://www.workshop-ia-2026.686f6c61.dev/" target="_blank" rel="noopener noreferrer">workshop de IA para gente curiosa</a>
-          es una parte del material de partida: material visual, notas docentes y ejemplos. Este facsímil
-          toma esa base, pero no se limita a ella: amplía temas, reordena ideas, añade laboratorios,
-          referencias, fórmulas, mapas y decisiones que no caben en una sesión de taller.
+          es una parte del material de partida: material visual, notas docentes y ejemplos que ayudan a
+          ordenar el recorrido. Este facsímil es otro proyecto: una edición de lectura, estudio y práctica
+          que amplía temas, reordena ideas, añade laboratorios, referencias, fórmulas, mapas y decisiones
+          que no caben en una sesión de taller.
         </p>
       </header>
 
@@ -40,7 +41,7 @@ import BookLayout from '../../../layouts/BookLayout.astro';
         <div>
           <i data-lucide="book-marked"></i>
           <h2>Facsímiles modulares</h2>
-          <p>Once bloques independientes que se pueden publicar, corregir y ampliar sin esperar al facsímil completo.</p>
+          <p>Doce bloques independientes que se pueden publicar, corregir y ampliar sin esperar a cerrar todo el recorrido.</p>
         </div>
         <div>
           <i data-lucide="lightbulb"></i>
@@ -60,6 +61,20 @@ import BookLayout from '../../../layouts/BookLayout.astro';
       </section>
 
       <section class="chapter-content">
+        <h2>Qué es y qué no es</h2>
+        <p>
+          Esto no es una colección de slides pasada a web. Las slides tienen su propia entidad y sirven para
+          acompañar un taller; el facsímil busca otra velocidad. Aquí se puede parar, releer, comprobar una
+          fórmula, seguir una referencia, abrir un kit descargable y volver al mapa mental de un capítulo sin
+          depender de una explicación oral.
+        </p>
+        <p>
+          Tampoco pretende ser una enciclopedia cerrada ni una promesa de estar por delante de todo lo que
+          saldrá mañana. La IA cambia muy rápido. La apuesta de este proyecto es más humilde y más útil:
+          trabajar las bases, conectar las piezas y dejar ejemplos que una persona curiosa, estudiante o
+          profesional pueda tocar con las manos.
+        </p>
+
         <h2>Cómo nace cada capítulo</h2>
         <p>
           El flujo puede empezar en una parte del taller, pero no termina ahí. El material visual sirve como
@@ -68,20 +83,46 @@ import BookLayout from '../../../layouts/BookLayout.astro';
           práctica y qué debe quedar como artefacto útil.
         </p>
         <p>
-          Cada capítulo abre con una escena cotidiana, desmonta malentendidos cuando hace falta, explica el
-          concepto sin fórmulas, abre las tripas técnicas, muestra dónde aparece en proyectos reales, señala
-          errores típicos y termina con mapa de relaciones, vocabulario, autoevaluación y fuentes.
+          Cada capítulo suele abrir con una escena reconocible. Antes de nombrar una técnica, intento que se
+          entienda el problema que la hizo necesaria. Después viene el vocabulario, la explicación desde cero,
+          la parte técnica, las fórmulas cuando ayudan a pensar mejor, los ejemplos de uso real y los diagramas
+          que conectan el tema con otros capítulos del mismo facsímil o de facsímiles anteriores.
         </p>
+        <p>
+          Hay secciones que se repiten porque ayudan a estudiar: “Dónde solía tropezar yo” para señalar
+          confusiones habituales, “Antes de pasar página” para comprobar si la idea ha quedado en pie, mapas
+          Mermaid para ver relaciones, referencias en estilo académico y, cuando toca, una práctica que no se
+          quede en leer una ruta suelta.
+        </p>
+
+        <h2>Prácticas, kits y laboratorios</h2>
+        <p>
+          Una parte importante del proyecto es que el aprendizaje no termine en “lo he entendido más o menos”.
+          Cuando un capítulo propone código, datos, configuración, evaluación o una pequeña pieza de ingeniería,
+          el material debe poder descargarse y revisarse. La idea es que no tengas que preguntarte dónde está
+          el archivo del que habla el texto: si hay algo que ejecutar, auditar o modificar, debe aparecer como
+          kit práctico del capítulo.
+        </p>
+        <p>
+          Al final de cada facsímil aparece un laboratorio con retos. No son preguntas para rellenar huecos:
+          tienen contexto, instrucciones, solución razonada, pasos de verificación y una salida que puedas
+          adaptar a tus estudios, a tu trabajo o a un proyecto propio. Un laboratorio puede pedirte comparar
+          arquitecturas, auditar un RAG, diseñar una evaluación, revisar privacidad o defender una decisión de
+          producto. Lo importante es que sirva para practicar algo que existe fuera de la página.
+        </p>
+
+        <h2>Cómo se mantiene vivo</h2>
         <p>
           Markdown es la fuente editorial. Astro es la superficie de lectura. Esa separación permite cuidar
           el texto, revisar fórmulas, mantener referencias y seguir escribiendo facsímiles sin encerrar el
           facsímil en una herramienta cerrada.
         </p>
-        <h2>Estado actual</h2>
         <p>
-          El facsímil está en revisión editorial continua. Cada facsímil se publica como unidad de lectura,
-          con capítulos, mapas, referencias y laboratorio de cierre. La edición web deja resueltos diseño,
-          navegación, fórmulas, Mermaid, nota del autor y licencia para poder seguir ampliando sin perder coherencia.
+          El facsímil está en revisión editorial continua. Eso significa corregir referencias, actualizar
+          capítulos cuando una herramienta cambia, mejorar prácticas que se queden cortas, revisar los mapas,
+          cuidar las descargas y mantener una estructura común para que cada facsímil se sienta parte del
+          mismo proyecto. No busca congelar la IA; busca darte un suelo firme para seguir aprendiendo cuando
+          todo se mueva.
         </p>
         <div class="author-signoff">
           <p>Gracias por leer y por empujar este material a ser más claro.</p>
