@@ -1,0 +1,9 @@
+case_id,predicted_label,confidence,latency_ms
+s017,answer,0.86,790
+s018,answer,0.82,850
+s019,answer,0.78,910
+s020,ask_more,0.61,1020
+s021,ask_more,0.74,960
+s022,answer,0.88,780
+s023,answer,0.57,1160
+s024,answer,0.83,870

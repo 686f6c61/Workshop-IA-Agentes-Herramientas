@@ -1,0 +1,7 @@
+{
+  "max_estimated_nodes_ok": 100000,
+  "max_estimated_nodes_warning": 5000000,
+  "default_depth_estimate": 6,
+  "require_non_negative_costs": true,
+  "require_goal_reachable_by_candidate": false
+}

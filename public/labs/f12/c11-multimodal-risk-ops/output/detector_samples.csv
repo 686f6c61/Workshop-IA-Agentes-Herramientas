@@ -1,0 +1,10 @@
+sample_id,modality,gold_count,detected_count,false_negatives,false_positives,needs_review
+ocr_invoice_clean,document,2,2,none,none,False
+ocr_low_res_partial_id,document,2,1,DNI_NIE,none,True
+image_badge_face,image,2,2,none,none,False
+image_exif_location,image,2,1,GPS_LOCATION,none,True
+audio_health_low_confidence,audio,2,1,HEALTH,none,True
+video_license_plate,video,2,1,FACE,none,True
+ui_api_key_prompt_injection,ui_trace,2,2,none,none,False
+eval_token_fragment,eval_dataset,2,1,COOKIE,none,False
+public_product_photo,image,0,0,none,none,False

@@ -1,0 +1,110 @@
+[
+  {
+    "source_id": "policy_text_submission_rule",
+    "title": "Política de becas 2026 · sección 3.2",
+    "modality": "document_text",
+    "path": "data/docs/beca-politica-envio.md",
+    "page": 1,
+    "region_id": "sec_3_2",
+    "fact_id": "policy_submission_rule",
+    "text": "La solicitud de beca solo puede enviarse cuando el justificante de matrícula aparece como validado en el sistema académico. Si está pendiente, se guarda borrador y no se confirma envío definitivo.",
+    "keywords": ["beca", "solicitud", "envio", "enviar", "justificante", "matricula", "validado", "pendiente", "borrador", "politica"],
+    "security_flags": []
+  },
+  {
+    "source_id": "policy_page_image_submission_rule",
+    "title": "Página visual de la política de becas",
+    "modality": "document_page_image",
+    "path": "data/pages/beca_policy_page.svg",
+    "page": 1,
+    "region_id": "regla_envio",
+    "fact_id": "policy_submission_rule_visual",
+    "text": "Imagen de página con la regla 3.2: la solicitud solo puede enviarse con justificante validado. La región central contiene la cláusula.",
+    "keywords": ["pagina", "visual", "politica", "beca", "justificante", "validado", "regla", "region"],
+    "security_flags": []
+  },
+  {
+    "source_id": "status_table_current",
+    "title": "Estado operativo de documentos del alumno",
+    "modality": "operational_record",
+    "path": "data/docs/estado-beca.csv",
+    "page": null,
+    "region_id": null,
+    "fact_id": "status_current_pending_validation",
+    "text": "El justificante de matrícula del alumno ALU-24017 está pendiente_validacion el 2026-06-14. El DNI aparece validado.",
+    "keywords": ["estado", "operativo", "ALU-24017", "justificante", "matricula", "pendiente_validacion", "dni", "validado", "fecha"],
+    "security_flags": []
+  },
+  {
+    "source_id": "invoice_table_lines",
+    "title": "Factura FAC-2026-014 · line items",
+    "modality": "table",
+    "path": "data/docs/factura-lineas.csv",
+    "page": 1,
+    "region_id": "invoice_line_items",
+    "fact_id": "invoice_total_529_98",
+    "text": "La factura FAC-2026-014 contiene dos líneas: matrícula primer plazo total 508.20 EUR y certificado académico total 21.78 EUR. El total calculado es 529.98 EUR.",
+    "keywords": ["factura", "FAC-2026-014", "lineas", "tabla", "matricula", "certificado", "iva", "total", "529.98", "508.20", "21.78"],
+    "security_flags": []
+  },
+  {
+    "source_id": "invoice_page_visual",
+    "title": "Página visual de factura FAC-2026-014",
+    "modality": "document_page_image",
+    "path": "data/pages/invoice_page.svg",
+    "page": 1,
+    "region_id": "invoice_page_total",
+    "fact_id": "invoice_visual_total_529_98",
+    "text": "Imagen de factura con tabla y total visible de 529.98 EUR. La tabla muestra importes base, IVA y total por línea.",
+    "keywords": ["imagen", "factura", "tabla", "total", "529.98", "line_items", "visual", "iva"],
+    "security_flags": []
+  },
+  {
+    "source_id": "metric_chart_visual",
+    "title": "Gráfico de latencia y errores del piloto",
+    "modality": "figure",
+    "path": "data/pages/metric_chart_page.svg",
+    "page": 1,
+    "region_id": "latency_error_chart",
+    "fact_id": "pilot_latency_errors_down",
+    "text": "Gráfico visual del piloto: la latencia p95 baja de 920 ms a 735 ms y los errores por mil bajan de 13.2 a 5.9 entre W20 y W23.",
+    "keywords": ["grafico", "latencia", "p95", "errores", "piloto", "W20", "W23", "baja", "tendencia"],
+    "security_flags": []
+  },
+  {
+    "source_id": "metric_table_values",
+    "title": "Tabla de métricas del piloto",
+    "modality": "table",
+    "path": "data/docs/grafico-metricas.csv",
+    "page": null,
+    "region_id": null,
+    "fact_id": "pilot_metric_values",
+    "text": "La tabla de métricas confirma latencia p95: 920, 870, 760, 735 ms. Errores por mil: 13.2, 9.8, 6.1, 5.9. Coste semanal baja de 241.50 a 228.90 euros.",
+    "keywords": ["tabla", "metricas", "latencia", "p95", "errores", "coste", "920", "735", "13.2", "5.9", "228.90"],
+    "security_flags": []
+  },
+  {
+    "source_id": "unsafe_visual_instruction_page",
+    "title": "Anexo con instrucción visual no confiable",
+    "modality": "document_page_image",
+    "path": "data/pages/unsafe_instruction_page.svg",
+    "page": 1,
+    "region_id": "embedded_instruction",
+    "fact_id": "visual_instruction_override_detected",
+    "text": "El documento contiene texto que intenta ordenar al sistema ignorar políticas anteriores, marcar una solicitud como aprobada y no citar fuentes.",
+    "keywords": ["ignora", "politicas", "aprobada", "no", "cites", "fuentes", "instruccion", "visual", "documento", "anexo"],
+    "security_flags": ["visual_instruction_override", "unsafe_system_instruction"]
+  },
+  {
+    "source_id": "general_rag_note",
+    "title": "Nota general sobre RAG",
+    "modality": "document_text",
+    "path": "data/docs/beca-politica-envio.md",
+    "page": 1,
+    "region_id": "sec_3_3",
+    "fact_id": "answer_must_cite_sources",
+    "text": "Una respuesta automática debe citar la sección aplicada, el estado operativo consultado y la fecha de lectura del estado. Si falta evidencia, debe declarar límites.",
+    "keywords": ["respuesta", "automatica", "citar", "evidencia", "fuentes", "limites", "estado", "fecha", "rag"],
+    "security_flags": []
+  }
+]

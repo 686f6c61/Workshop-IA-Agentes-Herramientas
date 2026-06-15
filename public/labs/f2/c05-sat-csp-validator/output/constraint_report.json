@@ -1,0 +1,257 @@
+{
+  "sat": {
+    "assignments_tested": 8,
+    "models": [
+      {
+        "A": false,
+        "B": true,
+        "C": true
+      },
+      {
+        "A": true,
+        "B": false,
+        "C": true
+      },
+      {
+        "A": true,
+        "B": true,
+        "C": true
+      }
+    ]
+  },
+  "csp": {
+    "assignments_tested": 27,
+    "solutions": [
+      {
+        "assignment": {
+          "R1": 9,
+          "R2": 10,
+          "R3": 11
+        },
+        "cost": 0,
+        "preferences": [
+          {
+            "id": "producto_temprano",
+            "satisfied": true,
+            "penalty": 0,
+            "detail": "R1=9, preferido 9",
+            "explain": "Producto prefiere primera hora."
+          },
+          {
+            "id": "revision_tarde",
+            "satisfied": true,
+            "penalty": 0,
+            "detail": "R3=11, preferido 11",
+            "explain": "La revisión técnica prefiere cerrar el bloque."
+          }
+        ]
+      },
+      {
+        "assignment": {
+          "R1": 11,
+          "R2": 10,
+          "R3": 11
+        },
+        "cost": 1,
+        "preferences": [
+          {
+            "id": "producto_temprano",
+            "satisfied": false,
+            "penalty": 1,
+            "detail": "R1=11, preferido 9",
+            "explain": "Producto prefiere primera hora."
+          },
+          {
+            "id": "revision_tarde",
+            "satisfied": true,
+            "penalty": 0,
+            "detail": "R3=11, preferido 11",
+            "explain": "La revisión técnica prefiere cerrar el bloque."
+          }
+        ]
+      },
+      {
+        "assignment": {
+          "R1": 9,
+          "R2": 10,
+          "R3": 9
+        },
+        "cost": 2,
+        "preferences": [
+          {
+            "id": "producto_temprano",
+            "satisfied": true,
+            "penalty": 0,
+            "detail": "R1=9, preferido 9",
+            "explain": "Producto prefiere primera hora."
+          },
+          {
+            "id": "revision_tarde",
+            "satisfied": false,
+            "penalty": 2,
+            "detail": "R3=9, preferido 11",
+            "explain": "La revisión técnica prefiere cerrar el bloque."
+          }
+        ]
+      },
+      {
+        "assignment": {
+          "R1": 11,
+          "R2": 10,
+          "R3": 9
+        },
+        "cost": 3,
+        "preferences": [
+          {
+            "id": "producto_temprano",
+            "satisfied": false,
+            "penalty": 1,
+            "detail": "R1=11, preferido 9",
+            "explain": "Producto prefiere primera hora."
+          },
+          {
+            "id": "revision_tarde",
+            "satisfied": false,
+            "penalty": 2,
+            "detail": "R3=9, preferido 11",
+            "explain": "La revisión técnica prefiere cerrar el bloque."
+          }
+        ]
+      }
+    ],
+    "best": {
+      "assignment": {
+        "R1": 9,
+        "R2": 10,
+        "R3": 11
+      },
+      "cost": 0,
+      "preferences": [
+        {
+          "id": "producto_temprano",
+          "satisfied": true,
+          "penalty": 0,
+          "detail": "R1=9, preferido 9",
+          "explain": "Producto prefiere primera hora."
+        },
+        {
+          "id": "revision_tarde",
+          "satisfied": true,
+          "penalty": 0,
+          "detail": "R3=11, preferido 11",
+          "explain": "La revisión técnica prefiere cerrar el bloque."
+        }
+      ]
+    },
+    "candidates": [
+      {
+        "name": "valid_best",
+        "assignment": {
+          "R1": 9,
+          "R2": 10,
+          "R3": 11
+        },
+        "valid": true,
+        "failures": [],
+        "cost": 0,
+        "preferences": [
+          {
+            "id": "producto_temprano",
+            "satisfied": true,
+            "penalty": 0,
+            "detail": "R1=9, preferido 9",
+            "explain": "Producto prefiere primera hora."
+          },
+          {
+            "id": "revision_tarde",
+            "satisfied": true,
+            "penalty": 0,
+            "detail": "R3=11, preferido 11",
+            "explain": "La revisión técnica prefiere cerrar el bloque."
+          }
+        ]
+      },
+      {
+        "name": "valid_but_not_best",
+        "assignment": {
+          "R1": 11,
+          "R2": 10,
+          "R3": 9
+        },
+        "valid": true,
+        "failures": [],
+        "cost": 3,
+        "preferences": [
+          {
+            "id": "producto_temprano",
+            "satisfied": false,
+            "penalty": 1,
+            "detail": "R1=11, preferido 9",
+            "explain": "Producto prefiere primera hora."
+          },
+          {
+            "id": "revision_tarde",
+            "satisfied": false,
+            "penalty": 2,
+            "detail": "R3=9, preferido 11",
+            "explain": "La revisión técnica prefiere cerrar el bloque."
+          }
+        ]
+      },
+      {
+        "name": "bad_overlap",
+        "assignment": {
+          "R1": 10,
+          "R2": 10,
+          "R3": 11
+        },
+        "valid": false,
+        "failures": [
+          {
+            "id": "ana_no_solape",
+            "detail": "R1=10 y R2=10",
+            "explain": "Ana participa en producto y cliente."
+          }
+        ],
+        "cost": null,
+        "preferences": []
+      },
+      {
+        "name": "bad_client_time",
+        "assignment": {
+          "R1": 9,
+          "R2": 11,
+          "R3": 10
+        },
+        "valid": false,
+        "failures": [
+          {
+            "id": "cliente_a_las_10",
+            "detail": "R2=11, esperado 10",
+            "explain": "El cliente solo puede a las 10."
+          }
+        ],
+        "cost": null,
+        "preferences": []
+      },
+      {
+        "name": "bad_room_conflict",
+        "assignment": {
+          "R1": 9,
+          "R2": 10,
+          "R3": 10
+        },
+        "valid": false,
+        "failures": [
+          {
+            "id": "sala_no_solape",
+            "detail": "R2=10 y R3=10",
+            "explain": "Cliente y revisión técnica comparten sala."
+          }
+        ],
+        "cost": null,
+        "preferences": []
+      }
+    ]
+  }
+}

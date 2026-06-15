@@ -1,0 +1,110 @@
+{
+  "problem": "horario-cursos-backtracking",
+  "raw_candidates": 64,
+  "unary_pruned_candidates": 16,
+  "initial_domains": {
+    "IA": [
+      [
+        9,
+        "A"
+      ],
+      [
+        9,
+        "B"
+      ],
+      [
+        10,
+        "A"
+      ],
+      [
+        10,
+        "B"
+      ]
+    ],
+    "Python": [
+      [
+        10,
+        "A"
+      ],
+      [
+        10,
+        "B"
+      ]
+    ],
+    "Datos": [
+      [
+        9,
+        "B"
+      ],
+      [
+        10,
+        "B"
+      ]
+    ]
+  },
+  "stats": {
+    "nodes": 10,
+    "branches_cut": 1,
+    "values_pruned_by_forward_checking": 8,
+    "max_depth": 3
+  },
+  "solutions": [
+    {
+      "Python": [
+        10,
+        "A"
+      ],
+      "IA": [
+        9,
+        "A"
+      ],
+      "Datos": [
+        9,
+        "B"
+      ]
+    },
+    {
+      "Python": [
+        10,
+        "A"
+      ],
+      "IA": [
+        9,
+        "A"
+      ],
+      "Datos": [
+        10,
+        "B"
+      ]
+    },
+    {
+      "Python": [
+        10,
+        "A"
+      ],
+      "IA": [
+        9,
+        "B"
+      ],
+      "Datos": [
+        10,
+        "B"
+      ]
+    },
+    {
+      "Python": [
+        10,
+        "B"
+      ],
+      "IA": [
+        9,
+        "A"
+      ],
+      "Datos": [
+        9,
+        "B"
+      ]
+    }
+  ],
+  "trace_events": 28
+}

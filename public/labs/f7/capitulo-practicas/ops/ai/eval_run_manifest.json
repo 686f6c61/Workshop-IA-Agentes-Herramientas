@@ -1,0 +1,8 @@
+{
+  "run_id": "eval-asistente-alumnado-2026-06-10-001",
+  "created_at": "2026-06-10T19:00:00+02:00",
+  "owner": "equipo-ia",
+  "dataset_version": "eval_cases.v1",
+  "baseline": {"system_version": "baseline", "prompt_version": "prompt-2026-05-20", "temperature": 0},
+  "candidate": {"system_version": "candidate", "prompt_version": "prompt-2026-06-10", "temperature": 0}
+}

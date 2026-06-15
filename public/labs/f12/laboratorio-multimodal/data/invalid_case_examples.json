@@ -1,0 +1,82 @@
+[
+  {
+    "case_id": "missing_policy_video",
+    "title": "Vídeo sin policy decision",
+    "capabilities": ["video_temporal", "risk_ops"],
+    "chapter_refs": [8, 10, 11],
+    "user_story": "Operaciones quiere revisar vídeo con PII potencial.",
+    "modalities": ["video", "frames"],
+    "evidence_artifacts": ["frame_sampling_policy", "temporal_eval"],
+    "controls_present": ["retention_policy"],
+    "risks": {
+      "pii": true,
+      "secret": false,
+      "untrusted_content": false,
+      "external_action": false,
+      "licensed_source": false
+    },
+    "quality": {
+      "grounding": 0.82,
+      "temporal": 0.81
+    },
+    "ops": {
+      "latency_ms": 2100,
+      "cost_units": 8.2,
+      "failure_rate": 0.03
+    },
+    "expected_decision": "pass"
+  },
+  {
+    "case_id": "bad_ops_contract",
+    "title": "Caso sin contrato operativo",
+    "capabilities": ["multimodal_rag"],
+    "chapter_refs": [6, 10],
+    "user_story": "Equipo quiere responder con RAG, pero no ha medido coste ni fallo.",
+    "modalities": ["pdf", "text"],
+    "evidence_artifacts": ["retrieval_manifest", "source_acl_check", "grounded_answer_eval"],
+    "controls_present": [],
+    "risks": {
+      "pii": false,
+      "secret": false,
+      "untrusted_content": false,
+      "external_action": false,
+      "licensed_source": false
+    },
+    "quality": {
+      "grounding": 0.86,
+      "user_value": 0.84
+    },
+    "ops": {
+      "latency_ms": 1800
+    },
+    "expected_decision": "pass"
+  },
+  {
+    "case_id": "external_action_without_owner",
+    "title": "Acción externa sin owner",
+    "capabilities": ["computer_use", "risk_ops"],
+    "chapter_refs": [9, 10, 11],
+    "user_story": "Un agente rellena un formulario externo sin approval gate.",
+    "modalities": ["screenshot", "dom", "tool_call"],
+    "evidence_artifacts": ["tool_trace"],
+    "controls_present": [],
+    "risks": {
+      "pii": true,
+      "secret": false,
+      "untrusted_content": true,
+      "external_action": true,
+      "licensed_source": false
+    },
+    "quality": {
+      "grounding": 0.85,
+      "extraction": 0.84,
+      "user_value": 0.86
+    },
+    "ops": {
+      "latency_ms": 1600,
+      "cost_units": 5.7,
+      "failure_rate": 0.02
+    },
+    "expected_decision": "pass"
+  }
+]

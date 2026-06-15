@@ -1,0 +1,141 @@
+{
+  "schema_version": "1.0",
+  "assumptions": {
+    "schema_version": "1.0",
+    "note": "Estimaciones didácticas para razonar sobre capacidad. Sustituye precios y latencias por los de tu proveedor y tu infraestructura.",
+    "per_step": {
+      "model_seconds": 3.2,
+      "browser_action_seconds": 0.8,
+      "observation_seconds": 0.5,
+      "screenshot_input_tokens": 900,
+      "action_output_tokens": 120
+    },
+    "pricing": {
+      "input_usd_per_million_tokens": 2.5,
+      "output_usd_per_million_tokens": 10.0
+    },
+    "human_review": {
+      "seconds_per_approval": 45,
+      "operator_hourly_cost_usd": 45
+    },
+    "scenarios": [
+      {
+        "scenario_id": "soporte_academico_200_dia",
+        "description": "Cola diaria de soporte académico con respuestas revisables, envíos revisados y casos bloqueados.",
+        "tasks_per_day": 200,
+        "business_hours": 8,
+        "browser_workers": 4,
+        "task_mix": {
+          "t01_preparar_respuesta_revisable_ticket": 0.55,
+          "t02_factura_pago": 0.05,
+          "t03_inyeccion_visual_exportar": 0.05,
+          "t04_reinicio_api": 0.05,
+          "t05_click_por_coordenadas": 0.05,
+          "t06_target_ambiguo": 0.1,
+          "t07_envio_externo_alumno": 0.15
+        }
+      }
+    ]
+  },
+  "task_estimates": [
+    {
+      "task_id": "t01_preparar_respuesta_revisable_ticket",
+      "decision": "success",
+      "steps_total": 4,
+      "input_tokens_est": 4500,
+      "output_tokens_est": 480,
+      "automation_seconds_est": 18.0,
+      "human_seconds_est": 0,
+      "model_cost_usd_est": 0.01605,
+      "human_cost_usd_est": 0.0,
+      "total_cost_usd_est": 0.0161
+    },
+    {
+      "task_id": "t02_factura_pago",
+      "decision": "needs_approval",
+      "steps_total": 1,
+      "input_tokens_est": 1800,
+      "output_tokens_est": 120,
+      "automation_seconds_est": 4.5,
+      "human_seconds_est": 45,
+      "model_cost_usd_est": 0.0057,
+      "human_cost_usd_est": 0.5625,
+      "total_cost_usd_est": 0.5682
+    },
+    {
+      "task_id": "t03_inyeccion_visual_exportar",
+      "decision": "block",
+      "steps_total": 1,
+      "input_tokens_est": 1800,
+      "output_tokens_est": 120,
+      "automation_seconds_est": 4.5,
+      "human_seconds_est": 0,
+      "model_cost_usd_est": 0.0057,
+      "human_cost_usd_est": 0.0,
+      "total_cost_usd_est": 0.0057
+    },
+    {
+      "task_id": "t04_reinicio_api",
+      "decision": "needs_approval",
+      "steps_total": 1,
+      "input_tokens_est": 1800,
+      "output_tokens_est": 120,
+      "automation_seconds_est": 4.5,
+      "human_seconds_est": 45,
+      "model_cost_usd_est": 0.0057,
+      "human_cost_usd_est": 0.5625,
+      "total_cost_usd_est": 0.5682
+    },
+    {
+      "task_id": "t05_click_por_coordenadas",
+      "decision": "review",
+      "steps_total": 1,
+      "input_tokens_est": 1800,
+      "output_tokens_est": 120,
+      "automation_seconds_est": 4.5,
+      "human_seconds_est": 0,
+      "model_cost_usd_est": 0.0057,
+      "human_cost_usd_est": 0.0,
+      "total_cost_usd_est": 0.0057
+    },
+    {
+      "task_id": "t06_target_ambiguo",
+      "decision": "review",
+      "steps_total": 1,
+      "input_tokens_est": 1800,
+      "output_tokens_est": 120,
+      "automation_seconds_est": 4.5,
+      "human_seconds_est": 0,
+      "model_cost_usd_est": 0.0057,
+      "human_cost_usd_est": 0.0,
+      "total_cost_usd_est": 0.0057
+    },
+    {
+      "task_id": "t07_envio_externo_alumno",
+      "decision": "needs_approval",
+      "steps_total": 1,
+      "input_tokens_est": 1800,
+      "output_tokens_est": 120,
+      "automation_seconds_est": 4.5,
+      "human_seconds_est": 45,
+      "model_cost_usd_est": 0.0057,
+      "human_cost_usd_est": 0.5625,
+      "total_cost_usd_est": 0.5682
+    }
+  ],
+  "scenario_estimates": [
+    {
+      "scenario_id": "soporte_academico_200_dia",
+      "description": "Cola diaria de soporte académico con respuestas revisables, envíos revisados y casos bloqueados.",
+      "tasks_per_day": 200,
+      "browser_workers": 4,
+      "avg_seconds_per_task_est": 11.93,
+      "daily_automation_hours_est": 0.66,
+      "daily_human_review_hours_est": 0.62,
+      "daily_cost_usd_est": 30.41,
+      "worker_utilization_est": 0.021,
+      "capacity_gate": "pass"
+    }
+  ],
+  "warning": "No es una factura real. Es un modelo operativo para discutir capacidad, latencia, revisión humana y coste."
+}

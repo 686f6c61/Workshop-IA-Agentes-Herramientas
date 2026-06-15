@@ -1,0 +1,28 @@
+{
+  "system_id": "academic-assistant-rag-v1",
+  "name": "Asistente académico con RAG y revisión humana",
+  "release_stage": "canary",
+  "decision": "publicar_con_condiciones",
+  "versioned_components": {
+    "model_id": "provider-model@2026-06-07",
+    "prompt_version": "academic-assistant-system-prompt@0.4.2",
+    "rag_index_version": "normativa-académica-index@2026-06-07",
+    "tool_policy_version": "ticket-tools-policy@0.3.0",
+    "risk_policy_version": "control_policy@0.1.0",
+    "evaluation_set": "rag-governance-smoke@0.2.0"
+  },
+  "required_evidence": [
+    "model_card",
+    "dataset_card",
+    "rag_eval_report",
+    "trace_sample",
+    "privacy_review",
+    "release_gate"
+  ],
+  "owners": {
+    "technical_owner": "equipo-ia-académica",
+    "human_review_owner": "secretaria-académica",
+    "privacy_owner": "owner-privacy",
+    "governance_owner": "owner-governance"
+  }
+}

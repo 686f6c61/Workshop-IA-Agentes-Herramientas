@@ -1,0 +1,8 @@
+{
+  "change_id": "prompt-cita-o-abstencion-v2",
+  "change": "Exigir que el asistente responda con evidencia o se abstenga cuando el caso no esté cubierto.",
+  "primary_metric": "weighted_quality",
+  "guardrail_metrics": ["critical_failures", "regressions", "cost_per_accepted_eur"],
+  "minimum_interpretable_delta": 0.05,
+  "if_fails": "mantener baseline, clasificar el fallo y añadirlo al dataset de regresión"
+}

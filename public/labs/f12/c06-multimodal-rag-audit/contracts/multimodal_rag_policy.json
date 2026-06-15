@@ -1,0 +1,40 @@
+{
+  "top_k": 5,
+  "minimum_recall_at_k": 0.75,
+  "minimum_evidence_coverage": 0.8,
+  "minimum_modality_coverage": 0.75,
+  "minimum_context_precision": 0.45,
+  "maximum_unsupported_claims": 0,
+  "modality_boosts": {
+    "document_text": 0.18,
+    "document_page_image": 0.16,
+    "table": 0.2,
+    "figure": 0.16,
+    "operational_record": 0.22
+  },
+  "block_when_flags": [
+    "visual_instruction_override",
+    "credential_request",
+    "unsafe_system_instruction"
+  ],
+  "review_when_flags": [
+    "low_visual_quality",
+    "conflicting_sources",
+    "missing_required_modality",
+    "low_context_precision"
+  ],
+  "required_answer_fields": [
+    "decision",
+    "answer",
+    "evidence",
+    "limits",
+    "next_action"
+  ],
+  "evidence_contract": {
+    "must_include_source_id": true,
+    "must_include_modality": true,
+    "must_include_page_when_document": true,
+    "must_include_region_when_visual": true,
+    "must_include_fact_id": true
+  }
+}

@@ -1,0 +1,62 @@
+[
+  {
+    "id": "tickets_mlp_small",
+    "description": "Clasificador de prioridad para tickets internos con señales tabulares ya codificadas.",
+    "task": "multiclass_classification",
+    "input_dim": 48,
+    "hidden_layers": [32],
+    "output_dim": 3,
+    "output_activation": "softmax",
+    "training_examples": 5000,
+    "class_balance": 0.18,
+    "expected_valid": true
+  },
+  {
+    "id": "tickets_mlp_medium",
+    "description": "Versión con más capacidad para relaciones no lineales y suficiente volumen de datos.",
+    "task": "multiclass_classification",
+    "input_dim": 48,
+    "hidden_layers": [128, 64],
+    "output_dim": 3,
+    "output_activation": "softmax",
+    "training_examples": 5000,
+    "class_balance": 0.18,
+    "expected_valid": true
+  },
+  {
+    "id": "tickets_mlp_excessive_for_data",
+    "description": "Arquitectura grande para pocos datos; sirve para detectar riesgo de memorizar.",
+    "task": "multiclass_classification",
+    "input_dim": 48,
+    "hidden_layers": [1024, 1024],
+    "output_dim": 3,
+    "output_activation": "softmax",
+    "training_examples": 1200,
+    "class_balance": 0.12,
+    "expected_valid": true
+  },
+  {
+    "id": "binary_output_wrong",
+    "description": "Caso inválido: tarea binaria con salida de dos neuronas y softmax en lugar de una salida sigmoide.",
+    "task": "binary_classification",
+    "input_dim": 24,
+    "hidden_layers": [16],
+    "output_dim": 2,
+    "output_activation": "softmax",
+    "training_examples": 800,
+    "class_balance": 0.40,
+    "expected_valid": false
+  },
+  {
+    "id": "regression_price_baseline",
+    "description": "Regresión para estimar un valor numérico a partir de variables tabulares.",
+    "task": "regression",
+    "input_dim": 18,
+    "hidden_layers": [32, 16],
+    "output_dim": 1,
+    "output_activation": "linear",
+    "training_examples": 3000,
+    "class_balance": null,
+    "expected_valid": true
+  }
+]

@@ -1,0 +1,96 @@
+{
+  "manifest_policy_id": "support-split-policy-v1",
+  "selected_strategy": "time_group_holdout",
+  "split": "test",
+  "n": 4,
+  "missing_predictions": [],
+  "accuracy": 0.75,
+  "accuracy_ci_95_normal_approx": {
+    "low": 0.3256,
+    "high": 1.0,
+    "standard_error": 0.2165
+  },
+  "latency_ms": {
+    "avg": 942.5,
+    "max": 1160
+  },
+  "slices": {
+    "product": {
+      "becas": {
+        "n": 1,
+        "accuracy": 1.0,
+        "correct": 1,
+        "needs_more_evidence": true
+      },
+      "horarios": {
+        "n": 1,
+        "accuracy": 1.0,
+        "correct": 1,
+        "needs_more_evidence": true
+      },
+      "matricula": {
+        "n": 1,
+        "accuracy": 0.0,
+        "correct": 0,
+        "needs_more_evidence": true
+      },
+      "pagos": {
+        "n": 1,
+        "accuracy": 1.0,
+        "correct": 1,
+        "needs_more_evidence": true
+      }
+    },
+    "channel": {
+      "chat": {
+        "n": 1,
+        "accuracy": 1.0,
+        "correct": 1,
+        "needs_more_evidence": true
+      },
+      "email": {
+        "n": 2,
+        "accuracy": 0.5,
+        "correct": 1,
+        "needs_more_evidence": true
+      },
+      "portal": {
+        "n": 1,
+        "accuracy": 1.0,
+        "correct": 1,
+        "needs_more_evidence": true
+      }
+    },
+    "label": {
+      "answer": {
+        "n": 2,
+        "accuracy": 1.0,
+        "correct": 2,
+        "needs_more_evidence": true
+      },
+      "ask_more": {
+        "n": 1,
+        "accuracy": 1.0,
+        "correct": 1,
+        "needs_more_evidence": true
+      },
+      "escalate": {
+        "n": 1,
+        "accuracy": 0.0,
+        "correct": 0,
+        "needs_more_evidence": true
+      }
+    }
+  },
+  "failures": [
+    {
+      "case_id": "s023",
+      "product": "matricula",
+      "channel": "email",
+      "expected": "escalate",
+      "predicted": "answer",
+      "confidence": 0.57
+    }
+  ],
+  "decision": "review_test_too_small"
+}

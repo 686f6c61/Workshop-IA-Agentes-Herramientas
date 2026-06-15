@@ -1,0 +1,332 @@
+{
+  "manifest_id": "f12-c01-modality-contract-v1",
+  "owner": "equipo-aprendizaje-ia",
+  "goal": "Decidir que modalidad minima necesita cada caso antes de comprar tecnologia o prometer una demo.",
+  "case_count": 5,
+  "valid": true,
+  "global_issues": [],
+  "invalid_cases": [],
+  "high_risk_cases": [
+    "support-screenshot-001",
+    "invoice-pdf-002",
+    "meeting-audio-004",
+    "grant-workflow-005"
+  ],
+  "cases": [
+    {
+      "case_id": "support-screenshot-001",
+      "title": "Incidencia de soporte con captura de pantalla",
+      "modalities": [
+        "image",
+        "text"
+      ],
+      "minimum_modalities": [
+        "text",
+        "image"
+      ],
+      "candidate_architecture": "vlm_plus_rules",
+      "recommended_architecture": "vlm_or_multimodal_embedding_retrieval",
+      "architecture_match": false,
+      "output_required_fields": [
+        "categoria",
+        "evidencia_visual",
+        "accion_recomendada",
+        "confidence"
+      ],
+      "evidence_required": [
+        "texto_del_ticket",
+        "region_visual_relevante",
+        "mensaje_de_error"
+      ],
+      "metrics": [
+        "schema_pass_rate",
+        "visual_evidence_accuracy",
+        "resolution_rate"
+      ],
+      "risk_score": 6,
+      "risk_reasons": [
+        {
+          "risk": "pii_in_screenshot",
+          "token": "pii",
+          "weight": 3
+        },
+        {
+          "risk": "false_visual_assumption",
+          "token": "false",
+          "weight": 2
+        },
+        {
+          "risk": "accessibility_gap",
+          "token": "accessibility",
+          "weight": 1
+        }
+      ],
+      "modality_tax": {
+        "complexity": 2,
+        "latency": 2,
+        "privacy": 6,
+        "evaluation": 3
+      },
+      "human_review": "required_when_confidence_below_0_75_or_personal_data_visible",
+      "issues": []
+    },
+    {
+      "case_id": "invoice-pdf-002",
+      "title": "Extraccion de factura en PDF",
+      "modalities": [
+        "document",
+        "text"
+      ],
+      "minimum_modalities": [
+        "document",
+        "text"
+      ],
+      "candidate_architecture": "ocr_layout_plus_llm",
+      "recommended_architecture": "ocr_layout_plus_llm_or_multimodal_rag",
+      "architecture_match": true,
+      "output_required_fields": [
+        "proveedor",
+        "fecha",
+        "total",
+        "impuestos",
+        "evidencia_por_campo"
+      ],
+      "evidence_required": [
+        "pagina",
+        "bbox_or_line_reference",
+        "valor_extraido"
+      ],
+      "metrics": [
+        "field_f1",
+        "evidence_coverage",
+        "manual_review_rate"
+      ],
+      "risk_score": 7,
+      "risk_reasons": [
+        {
+          "risk": "layout_error",
+          "token": "layout",
+          "weight": 2
+        },
+        {
+          "risk": "currency_mismatch",
+          "token": "currency",
+          "weight": 2
+        },
+        {
+          "risk": "metadata_pii",
+          "token": "pii",
+          "weight": 3
+        }
+      ],
+      "modality_tax": {
+        "complexity": 2,
+        "latency": 2,
+        "privacy": 7,
+        "evaluation": 3
+      },
+      "human_review": "required_for_total_mismatch_or_missing_evidence",
+      "issues": []
+    },
+    {
+      "case_id": "catalog-search-003",
+      "title": "Busqueda de producto por texto e imagen",
+      "modalities": [
+        "image",
+        "text"
+      ],
+      "minimum_modalities": [
+        "text",
+        "image"
+      ],
+      "candidate_architecture": "multimodal_embedding_retrieval",
+      "recommended_architecture": "vlm_or_multimodal_embedding_retrieval",
+      "architecture_match": true,
+      "output_required_fields": [
+        "product_id",
+        "score",
+        "matching_attributes",
+        "reason"
+      ],
+      "evidence_required": [
+        "atributos_visuales",
+        "metadatos_de_producto",
+        "ranking_score"
+      ],
+      "metrics": [
+        "recall_at_5",
+        "precision_at_5",
+        "attribute_match_rate"
+      ],
+      "risk_score": 4,
+      "risk_reasons": [
+        {
+          "risk": "style_bias",
+          "token": "style",
+          "weight": 1
+        },
+        {
+          "risk": "ambiguous_query",
+          "token": "ambiguous",
+          "weight": 1
+        },
+        {
+          "risk": "catalog_drift",
+          "token": "drift",
+          "weight": 2
+        }
+      ],
+      "modality_tax": {
+        "complexity": 2,
+        "latency": 2,
+        "privacy": 4,
+        "evaluation": 3
+      },
+      "human_review": "sampled_review_for_top_5_results",
+      "issues": []
+    },
+    {
+      "case_id": "meeting-audio-004",
+      "title": "Resumen de reunion con audio",
+      "modalities": [
+        "audio",
+        "text"
+      ],
+      "minimum_modalities": [
+        "audio",
+        "text"
+      ],
+      "candidate_architecture": "asr_plus_llm_with_review",
+      "recommended_architecture": "asr_plus_llm_with_timestamps",
+      "architecture_match": false,
+      "output_required_fields": [
+        "resumen",
+        "acuerdos",
+        "tareas",
+        "dudas"
+      ],
+      "evidence_required": [
+        "timestamp",
+        "speaker_if_available",
+        "transcript_span"
+      ],
+      "metrics": [
+        "wer",
+        "action_item_precision",
+        "timestamp_coverage"
+      ],
+      "risk_score": 8,
+      "risk_reasons": [
+        {
+          "risk": "voice_pii",
+          "token": "pii",
+          "weight": 3
+        },
+        {
+          "risk": "speaker_confusion",
+          "token": "speaker",
+          "weight": 2
+        },
+        {
+          "risk": "hallucinated_action_item",
+          "token": "hallucinated",
+          "weight": 3
+        }
+      ],
+      "modality_tax": {
+        "complexity": 2,
+        "latency": 3,
+        "privacy": 8,
+        "evaluation": 3
+      },
+      "human_review": "required_before_sending_minutes",
+      "issues": []
+    },
+    {
+      "case_id": "grant-workflow-005",
+      "title": "Solicitud de beca bloqueada con captura, PDF y politica interna",
+      "modalities": [
+        "document",
+        "image",
+        "table",
+        "text"
+      ],
+      "minimum_modalities": [
+        "text",
+        "image",
+        "document",
+        "table"
+      ],
+      "candidate_architecture": "ocr_layout_plus_llm_or_multimodal_rag_with_vlm_triage",
+      "recommended_architecture": "ocr_layout_plus_llm_or_multimodal_rag",
+      "architecture_match": true,
+      "output_required_fields": [
+        "causa_probable",
+        "evidencia_visual",
+        "evidencia_documental",
+        "estado_operativo",
+        "siguiente_paso",
+        "requiere_revision_humana"
+      ],
+      "evidence_required": [
+        "region_visual_relevante",
+        "pagina_o_clausula",
+        "fila_de_estado",
+        "texto_del_ticket"
+      ],
+      "metrics": [
+        "evidence_coverage",
+        "field_accuracy",
+        "resolution_rate",
+        "manual_review_precision"
+      ],
+      "risk_score": 12,
+      "risk_reasons": [
+        {
+          "risk": "pii_in_screenshot",
+          "token": "pii",
+          "weight": 3
+        },
+        {
+          "risk": "metadata_pii",
+          "token": "pii",
+          "weight": 3
+        },
+        {
+          "risk": "layout_error",
+          "token": "layout",
+          "weight": 2
+        },
+        {
+          "risk": "false_visual_assumption",
+          "token": "false",
+          "weight": 2
+        },
+        {
+          "risk": "policy_drift",
+          "token": "drift",
+          "weight": 2
+        }
+      ],
+      "modality_tax": {
+        "complexity": 4,
+        "latency": 3,
+        "privacy": 12,
+        "evaluation": 6
+      },
+      "human_review": "required_when_policy_conflict_or_missing_evidence_or_personal_data_visible",
+      "issues": []
+    }
+  ],
+  "engineering_decision": {
+    "default_rule": "usar la modalidad minima que aporte evidencia nueva medible",
+    "do_not_do": "no convertir una tarea textual en multimodal solo porque el proveedor acepte imagenes o audio",
+    "measure_before_shipping": [
+      "schema_pass_rate",
+      "evidence_coverage",
+      "cost_per_valid_answer",
+      "latency_p95",
+      "manual_review_rate"
+    ]
+  }
+}

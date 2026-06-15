@@ -1,0 +1,80 @@
+{
+  "contract_version": "rl_event_contract.v1",
+  "schema_version": "rl_event.v1",
+  "gamma": 0.9,
+  "required_fields": [
+    "schema_version",
+    "event_id",
+    "episode_id",
+    "t",
+    "event_time",
+    "ingestion_time",
+    "reward_time",
+    "state_id",
+    "state_features",
+    "available_actions",
+    "action",
+    "action_probability",
+    "policy_id",
+    "policy_version",
+    "reward",
+    "reward_version",
+    "reward_terms",
+    "next_state_id",
+    "terminal",
+    "trace_id",
+    "environment_version",
+    "data_minimization"
+  ],
+  "field_types": {
+    "schema_version": "str",
+    "event_id": "str",
+    "episode_id": "str",
+    "t": "int",
+    "event_time": "datetime",
+    "ingestion_time": "datetime",
+    "reward_time": "datetime",
+    "state_id": "str",
+    "state_features": "dict",
+    "available_actions": "list",
+    "action": "str",
+    "action_probability": "number",
+    "policy_id": "str",
+    "policy_version": "str",
+    "reward": "number",
+    "reward_version": "str",
+    "reward_terms": "dict",
+    "next_state_id": "str",
+    "terminal": "bool",
+    "trace_id": "str",
+    "environment_version": "str",
+    "data_minimization": "dict"
+  },
+  "allowed_actions": [
+    "consultar_rag",
+    "pedir_dato",
+    "responder",
+    "responder_con_cita",
+    "escalar_revision"
+  ],
+  "required_reward_terms": [
+    "resolved",
+    "groundedness",
+    "cost",
+    "reopened"
+  ],
+  "critical_state_action_pairs": [
+    ["ticket_nuevo", "pedir_dato"],
+    ["ticket_con_evidencia", "responder_con_cita"],
+    ["ticket_con_evidencia", "escalar_revision"]
+  ],
+  "minimum_events_per_critical_pair": 1,
+  "minimum_action_probability": 0.05,
+  "maximum_reward_delay_hours": 72,
+  "decision_policy": {
+    "block_on_schema_errors": true,
+    "block_on_time_errors": true,
+    "review_on_low_coverage": true,
+    "review_on_low_propensity": true
+  }
+}

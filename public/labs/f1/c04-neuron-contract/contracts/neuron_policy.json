@@ -1,0 +1,6 @@
+{
+  "tolerance": 0.000001,
+  "allowed_activations": ["linear", "relu", "sigmoid"],
+  "sensitivity_delta": 0.1,
+  "required_fields": ["id", "inputs", "weights", "bias", "activation"]
+}

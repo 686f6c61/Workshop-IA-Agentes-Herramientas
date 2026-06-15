@@ -1,0 +1,6 @@
+case_id,decision,expected_decision,wer,critical_slot_error_rate,critical_slot_errors,partial_revision_count,partial_stability,quality_flags,should_be_manual_or_confirmed
+q01_estado_beca,answer,answer,0.0833,0.0,0,0,1.0,,False
+q02_ruido_pasillo,ask_repeat,ask_repeat,0.3333,0.5,1,0,1.0,wer_above_gate|critical_slot_error|audio_quality_low|endpoint_delay_high|first_audio_latency_high,True
+q03_interrupcion_usuario,stop_and_answer,stop_and_answer,0.0,0.0,0,0,1.0,barge_in_respected,False
+q04_datos_sensibles,answer,answer,0.0,0.0,0,0,1.0,first_audio_latency_high|pii_redacted_before_logging,False
+q05_accion_con_confirmacion,confirm_before_tool,confirm_before_tool,0.0,0.0,0,0,1.0,first_audio_latency_high|tool_requires_explicit_confirmation,True

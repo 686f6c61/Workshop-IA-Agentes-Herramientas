@@ -1,0 +1,15 @@
+{
+  "expected_raw_candidates": 64,
+  "expected_pruned_candidates": 16,
+  "expected_valid_solutions": 4,
+  "expected_best_solution": {
+    "IA": [9, "A"],
+    "Python": [10, "A"],
+    "Datos": [9, "B"]
+  },
+  "expected_best_cost": 0,
+  "expected_pruned_domains": {
+    "Python": 2,
+    "Datos": 2
+  }
+}

@@ -1,0 +1,182 @@
+{
+  "schema_errors": [],
+  "variant_summary": [
+    {
+      "variant": "control",
+      "n": 12,
+      "resolved_rate": 0.583333,
+      "minutes_mean": 62.083333,
+      "cost_mean": 1.220833,
+      "latency_mean_ms": 440.416667,
+      "negative_feedback_rate": 0.25
+    },
+    {
+      "variant": "treatment",
+      "n": 12,
+      "resolved_rate": 0.833333,
+      "minutes_mean": 49.083333,
+      "cost_mean": 1.3625,
+      "latency_mean_ms": 492.916667,
+      "negative_feedback_rate": 0.166667
+    }
+  ],
+  "srm": {
+    "observed": {
+      "control": 12,
+      "treatment": 12
+    },
+    "expected_allocation": {
+      "control": 0.5,
+      "treatment": 0.5
+    },
+    "chi_square": 0.0,
+    "p_value": 1.0,
+    "status": "pass"
+  },
+  "balance": [
+    {
+      "field": "pre_week_tasks",
+      "standardized_mean_difference": 0.0,
+      "abs_standardized_mean_difference": 0.0,
+      "status": "pass"
+    },
+    {
+      "field": "historical_resolution_rate",
+      "standardized_mean_difference": 0.0,
+      "abs_standardized_mean_difference": 0.0,
+      "status": "pass"
+    }
+  ],
+  "primary_effect": {
+    "control_mean": 0.583333,
+    "treatment_mean": 0.833333,
+    "effect": 0.25,
+    "standard_error": 0.186339,
+    "ci95_low": -0.115224,
+    "ci95_high": 0.615224,
+    "p_value": 0.179712
+  },
+  "cuped_effect": {
+    "theta": 3.107096,
+    "covariate": "historical_resolution_rate",
+    "effect": 0.25,
+    "standard_error": 0.162557,
+    "ci95_low": -0.068612,
+    "ci95_high": 0.568612,
+    "p_value": 0.124068
+  },
+  "guardrails": [
+    {
+      "metric": "negative_feedback",
+      "control_mean": 0.25,
+      "treatment_mean": 0.166667,
+      "delta": -0.083333,
+      "threshold": 0.05,
+      "direction": "lower_or_equal",
+      "status": "pass"
+    },
+    {
+      "metric": "latency_ms",
+      "control_mean": 440.416667,
+      "treatment_mean": 492.916667,
+      "delta": 52.5,
+      "threshold": 110,
+      "direction": "lower_or_equal",
+      "status": "pass"
+    },
+    {
+      "metric": "cost_eur",
+      "control_mean": 1.220833,
+      "treatment_mean": 1.3625,
+      "delta": 0.141667,
+      "threshold": 0.35,
+      "direction": "lower_or_equal",
+      "status": "pass"
+    }
+  ],
+  "slice_effects": [
+    {
+      "control_mean": 0.25,
+      "treatment_mean": 0.75,
+      "effect": 0.5,
+      "standard_error": 0.353553,
+      "ci95_low": -0.192965,
+      "ci95_high": 1.192965,
+      "p_value": 0.157299,
+      "segment": "becas",
+      "n": 8
+    },
+    {
+      "control_mean": 1.0,
+      "treatment_mean": 1.0,
+      "effect": 0.0,
+      "standard_error": 0.0,
+      "ci95_low": 0.0,
+      "ci95_high": 0.0,
+      "p_value": 1.0,
+      "segment": "matricula",
+      "n": 8
+    },
+    {
+      "control_mean": 0.5,
+      "treatment_mean": 0.75,
+      "effect": 0.25,
+      "standard_error": 0.381881,
+      "ci95_low": -0.498487,
+      "ci95_high": 0.998487,
+      "p_value": 0.512691,
+      "segment": "practicas",
+      "n": 8
+    }
+  ],
+  "readiness": {
+    "alpha": 0.05,
+    "power": 0.8,
+    "baseline_rate": 0.58,
+    "planned_minimum_detectable_effect": 0.05,
+    "z_alpha": 1.959964,
+    "z_power": 0.841621,
+    "current_min_n_per_variant": 12,
+    "required_n_per_variant_for_planned_mde": 1530,
+    "observed_minimum_detectable_effect_with_current_n": 0.564504,
+    "checks": [
+      {
+        "check": "aa_test",
+        "status": "review",
+        "message": "Ejecutar A/A antes del A/B para validar instrumentación, reparto y métricas."
+      },
+      {
+        "check": "exposure_event",
+        "status": "pass",
+        "message": "Registrar evento de exposición `experiment_exposure`."
+      },
+      {
+        "check": "persistent_assignment",
+        "status": "pass",
+        "message": "La unidad debe conservar variante durante la ventana de medición."
+      },
+      {
+        "check": "planned_sample_size",
+        "status": "review",
+        "message": "n actual por variante 12; n recomendado por variante para MDE 0.05: 1530."
+      },
+      {
+        "check": "peeking_policy",
+        "status": "pass",
+        "message": "No mirar para decidir antes de cerrar la ventana planificada."
+      },
+      {
+        "check": "rollout_policy",
+        "status": "pass",
+        "message": "Ramp inicial 5%, pasos [5, 25, 50, 100]."
+      }
+    ],
+    "status": "review"
+  },
+  "status": "review",
+  "reasons": [
+    "readiness en revisión: aa_test",
+    "readiness en revisión: planned_sample_size",
+    "efecto prometedor pero intervalo aún cruza el efecto mínimo"
+  ]
+}

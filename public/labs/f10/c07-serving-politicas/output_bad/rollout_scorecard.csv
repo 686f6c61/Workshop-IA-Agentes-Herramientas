@@ -1,0 +1,4 @@
+stage,traffic_pct,min_duration_minutes,exit_criteria_count,status,reason
+pilot_25,25,60,1,block,duration_too_short;exit_criteria_too_weak
+pilot_5,,,0,block,missing_required_stage
+shadow,,,0,block,missing_required_stage

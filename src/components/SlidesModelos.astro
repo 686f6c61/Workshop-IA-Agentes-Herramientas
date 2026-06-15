@@ -429,7 +429,7 @@ import SlidesRAGSemantico from './SlidesRAGSemantico.astro';
       <i data-lucide="database"></i>
       <div class="icon-card-content">
         <strong>RAG</strong>
-        <p>Embeddings y contexto no son “documentos mágicos”: son representaciones y fragmentos que entran al prompt.</p>
+        <p>Embeddings y contexto no son “documentos inteligentes”: son representaciones y fragmentos que entran al prompt.</p>
       </div>
     </div>
     <div class="icon-card">
@@ -559,7 +559,7 @@ import SlidesRAGSemantico from './SlidesRAGSemantico.astro';
 
   <div class="callout">
     <p class="callout-title"><i data-lucide="zap"></i> Skin in the game</p>
-    <p>MoE es brillante cuando quieres mucha capacidad con coste activo menor. La trampa: <strong>no abarata mágicamente todo</strong>. Necesitas memoria para expertos, routing estable, balanceo, buen runtime y hardware con comunicación rápida. Si comparas modelos, mira siempre <strong>parámetros totales, activos, contexto, precisión, runtime y coste por token</strong>.</p>
+    <p>MoE es brillante cuando quieres mucha capacidad con coste activo menor. La trampa: <strong>no abarata todo por sí solo</strong>. Necesitas memoria para expertos, routing estable, balanceo, buen runtime y hardware con comunicación rápida. Si comparas modelos, mira siempre <strong>parámetros totales, activos, contexto, precisión, runtime y coste por token</strong>.</p>
   </div>
 
   <div class="refs">
@@ -716,7 +716,7 @@ import SlidesRAGSemantico from './SlidesRAGSemantico.astro';
 
   <div class="callout">
     <p class="callout-title"><i data-lucide="shield-check"></i> Skin in the game</p>
-    <p>No compres “razonamiento” como magia. Úsalo cuando una eval demuestre que reduce fallos relevantes. Y si la respuesta mueve dinero, permisos, código o decisiones sensibles, el razonamiento debe terminar en <strong>evidencia verificable</strong>: tests, citas, constraints, tool logs o aprobación humana.</p>
+    <p>No compres “razonamiento” como etiqueta. Úsalo cuando una eval demuestre que reduce fallos relevantes. Y si la respuesta mueve dinero, permisos, código o decisiones sensibles, el razonamiento debe terminar en <strong>evidencia verificable</strong>: tests, citas, constraints, tool logs o aprobación humana.</p>
   </div>
 
   <div class="refs">
@@ -2549,7 +2549,7 @@ TCO API       ≈ tokens entrada + tokens salida + tools + reintentos + latencia
 </Slide>
 
 <!-- SLIDE 140 -->
-<Slide id="actualizarse-estado-arte" number={140} title="Cómo mantenerse actualizado sin comprar humo">
+<Slide id="actualizarse-estado-arte" number={140} title="Cómo mantenerse actualizado sin comprar promesas">
   <p><i data-lucide="compass"></i> El estado del arte cambia cada pocas semanas. La habilidad profesional no es memorizar nombres: es tener un método para decidir qué merece confianza.</p>
   <h3><i data-lucide="list-checks"></i> Orden de confianza</h3>
   <table>
@@ -2825,7 +2825,7 @@ TCO API       ≈ tokens entrada + tokens salida + tools + reintentos + latencia
       <tr><th>Error</th><th>Qué pasa</th><th>Corrección</th></tr>
     </thead>
     <tbody>
-      <tr><td><strong>Probar solo casos fáciles</strong></td><td>El demo parece mágico</td><td>Incluye edge cases, datos sucios y ejemplos fallidos</td></tr>
+      <tr><td><strong>Probar solo casos fáciles</strong></td><td>La demo parece suficiente</td><td>Incluye edge cases, datos sucios y ejemplos fallidos</td></tr>
       <tr><td><strong>Cambiar prompt y modelo a la vez</strong></td><td>No sabes qué mejoró</td><td>Un cambio por experimento</td></tr>
       <tr><td><strong>No fijar versiones</strong></td><td>El resultado cambia semanas después</td><td>Snapshot/model ID, librerías y dataset versionados</td></tr>
       <tr><td><strong>Ignorar coste/latencia</strong></td><td>Funciona, pero no escala</td><td>Registra tokens, tool calls y tiempo por caso</td></tr>
@@ -3281,7 +3281,7 @@ TCO API       ≈ tokens entrada + tokens salida + tools + reintentos + latencia
 <Slide id="fine-tuning-tipos-siglas" number={165} title="Fine-tuning: tipos, siglas y mapa mental">
   <p><i data-lucide="map"></i> Fine-tuning no es una sola técnica. Es una familia de métodos para adaptar un modelo preentrenado a una tarea concreta. La pregunta importante no es "¿entrenamos?", sino <strong>qué señal de aprendizaje tenemos, qué pesos vamos a tocar y cómo sabremos si mejoró</strong>.</p>
   <div class="case-study">
-    <p class="case-study-title"><i data-lucide="briefcase-business"></i> Ejemplo de calle</p>
+    <p class="case-study-title"><i data-lucide="briefcase-business"></i> Caso cercano</p>
     <p>Un equipo de soporte quiere que el modelo lea tickets y devuelva siempre <code>&#123;"categoria","prioridad","respuesta_sugerida"&#125;</code>. Si el problema es que no conoce la política actual, necesitas RAG. Si conoce el contenido pero falla el formato, la taxonomía o el tono en miles de tickets repetidos, fine-tuning puede convertir una instrucción frágil en comportamiento estable.</p>
     <div class="case-study-rows">
       <div><strong>Entrada</strong><span>"Cliente no puede acceder después de cambiar MFA"</span></div>
@@ -3383,7 +3383,7 @@ TCO API       ≈ tokens entrada + tokens salida + tools + reintentos + latencia
   <p><i data-lucide="octagon-alert"></i> Fine-tuning no es una base de datos, no es un buscador y no es un certificado de verdad. Si lo usas para memorizar información cambiante o para compensar ausencia de evaluación, normalmente solo consigues un sistema más caro de depurar.</p>
   <table class="compact-table resource-table">
     <thead>
-      <tr><th>Señal de alarma</th><th>Por qué fine-tuning es mala idea</th><th>Qué usar antes</th><th>Ejemplo de calle</th></tr>
+      <tr><th>Señal de alarma</th><th>Por qué fine-tuning es mala idea</th><th>Qué usar antes</th><th>Caso cercano</th></tr>
     </thead>
     <tbody>
       <tr><td><strong>Datos vivos</strong></td><td>El modelo no se actualiza solo; reentrenar por cada cambio es lento y arriesgado.</td><td>RAG, API, tool, base de datos.</td><td>Precios, stock, normativa interna, documentación de producto.</td></tr>
@@ -3558,7 +3558,7 @@ TCO API       ≈ tokens entrada + tokens salida + tools + reintentos + latencia
     <div>
       <h3><i data-lucide="triangle-alert"></i> Contras</h3>
       <ul>
-        <li><i data-lucide="sliders-horizontal"></i> Rank, capas objetivo y alpha importan: no es magia.</li>
+        <li><i data-lucide="sliders-horizontal"></i> Rank, capas objetivo y alpha importan: no son decoración.</li>
         <li><i data-lucide="database-zap"></i> No arregla datos pobres ni taxonomías ambiguas.</li>
         <li><i data-lucide="brain-circuit"></i> No convierte un modelo pequeño en uno frontier para razonamiento general.</li>
       </ul>

@@ -1,0 +1,4 @@
+{"type":"metric","metric":"latency_p95_ms","value":5100,"slo":4200,"release_id":"support-rag@1.9.0-rc1"}
+{"type":"metric","metric":"citation_acceptance_rate","value":0.82,"slo":0.9,"release_id":"support-rag@1.9.0-rc1"}
+{"type":"metric","metric":"review_queue_age_p95_minutes","value":41,"slo":30,"release_id":"support-rag@1.9.0-rc1"}
+{"type":"trace","trace_id":"trace_001","run_id":"run_001","model_id":"model_b","prompt_version":"prompt_v13","route_id":"rag_fast","index_version":"rag_index_2026_06","release_id":"support-rag@1.9.0-rc1"}

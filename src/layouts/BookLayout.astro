@@ -1,0 +1,392 @@
+---
+import 'katex/dist/katex.min.css';
+import '../styles/book.css';
+
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title, description = 'Facsímil web de Inteligencia artificial para gente curiosa.' } = Astro.props;
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="author" content="686f6c61" />
+    <meta name="robots" content="index, follow" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="shortcut icon" href="/favicon.svg" type="image/svg+xml" />
+    <script is:inline src="https://unpkg.com/lucide@0.460.0/dist/umd/lucide.min.js"></script>
+    <script is:inline src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+  </head>
+  <body class="book-body">
+    <slot />
+    <script is:inline>
+      document.addEventListener('DOMContentLoaded', function () {
+        if (window.lucide) window.lucide.createIcons();
+        renderMermaidBlocks();
+        enhanceCodeBlocks();
+        prepareExternalLinks();
+        syncChapterNavigation();
+        window.addEventListener('hashchange', syncChapterNavigation);
+      });
+
+      function renderMermaidBlocks() {
+        if (!window.mermaid) return;
+
+        document.querySelectorAll('pre > code.language-mermaid').forEach(function (code) {
+          var pre = code.parentElement;
+          if (!pre) return;
+
+          var container = document.createElement('div');
+          container.className = 'mermaid book-mermaid';
+          container.textContent = code.textContent || '';
+          pre.replaceWith(container);
+        });
+
+        window.mermaid.initialize({
+          startOnLoad: false,
+          theme: 'base',
+          securityLevel: 'loose',
+          themeVariables: {
+            background: '#ffffff',
+            primaryColor: '#f5f5f5',
+            primaryTextColor: '#000000',
+            primaryBorderColor: '#777777',
+            lineColor: '#555555',
+            secondaryColor: '#eeeeee',
+            tertiaryColor: '#fafafa',
+            fontFamily: 'Inter, system-ui, sans-serif',
+          },
+        });
+
+        window.mermaid.run({ querySelector: '.book-mermaid' }).then(function () {
+          enhanceMermaidFigures();
+        }).catch(function (error) {
+          console.warn('Mermaid:', error.message);
+        });
+      }
+
+      function enhanceMermaidFigures() {
+        document.querySelectorAll('.book-mermaid').forEach(function (figure) {
+          var svg = figure.querySelector('svg');
+          if (!svg || figure.dataset.enhanced === 'true') return;
+
+          figure.dataset.enhanced = 'true';
+          var context = getDiagramContext(figure);
+          signDiagram(svg, context.signature);
+
+          var toolbar = document.createElement('div');
+          toolbar.className = 'diagram-toolbar';
+          toolbar.setAttribute('aria-label', 'Acciones del diagrama');
+
+          var zoomButton = document.createElement('button');
+          zoomButton.type = 'button';
+          zoomButton.className = 'diagram-action';
+          zoomButton.title = 'Ampliar diagrama';
+          zoomButton.setAttribute('aria-label', 'Ampliar diagrama');
+          zoomButton.innerHTML = '<i data-lucide="maximize-2"></i>';
+          zoomButton.addEventListener('click', function (event) {
+            event.stopPropagation();
+            openDiagramOverlay(svg);
+          });
+
+          var downloadButton = document.createElement('button');
+          downloadButton.type = 'button';
+          downloadButton.className = 'diagram-action';
+          downloadButton.title = 'Descargar SVG en alta calidad';
+          downloadButton.setAttribute('aria-label', 'Descargar SVG en alta calidad');
+          downloadButton.innerHTML = '<i data-lucide="download"></i>';
+          downloadButton.addEventListener('click', function (event) {
+            event.stopPropagation();
+            downloadDiagram(svg, context.fileName);
+          });
+
+          toolbar.appendChild(zoomButton);
+          toolbar.appendChild(downloadButton);
+          figure.appendChild(toolbar);
+
+          svg.setAttribute('role', 'img');
+          svg.addEventListener('click', function () {
+            openDiagramOverlay(svg);
+          });
+        });
+
+        if (window.lucide) window.lucide.createIcons();
+      }
+
+      function getDiagramContext(figure) {
+        var chapter = figure.closest('.book-chapter');
+        var fascicleNumber = chapter?.dataset.fascicleNumber || '00';
+        var chapterNumber = chapter?.dataset.chapterNumber || '00';
+        var chapterTitle = chapter?.dataset.chapterTitle || 'diagrama';
+        var signature = 'IA para gente curiosa / Facsímil ' + fascicleNumber + ' / Capítulo ' + chapterNumber + ' / 686f6c61';
+        var diagramIndex = Array.from(chapter?.querySelectorAll('.book-mermaid') || [figure]).indexOf(figure) + 1;
+        var fileName = [
+          'ia-gente-curiosa',
+          'fasciculo-' + fascicleNumber,
+          'capitulo-' + chapterNumber,
+          slugify(chapterTitle),
+          'diagrama-' + String(diagramIndex).padStart(2, '0'),
+        ].filter(Boolean).join('-') + '.svg';
+
+        return { signature: signature, fileName: fileName };
+      }
+
+      function signDiagram(svg, signature) {
+        if (svg.querySelector('[data-diagram-signature]')) return;
+
+        var box = getSvgBox(svg);
+        var footerHeight = Math.max(28, Math.round(box.height * 0.045));
+        var namespace = 'http://www.w3.org/2000/svg';
+        var text = document.createElementNS(namespace, 'text');
+        text.setAttribute('data-diagram-signature', 'true');
+        text.setAttribute('x', String(box.x + box.width - 10));
+        text.setAttribute('y', String(box.y + box.height + footerHeight - 9));
+        text.setAttribute('text-anchor', 'end');
+        text.setAttribute('font-family', 'Inter, Arial, sans-serif');
+        text.setAttribute('font-size', String(Math.max(10, Math.min(14, Math.round(box.width / 58)))));
+        text.setAttribute('fill', '#8a8a8a');
+        text.textContent = signature;
+
+        svg.setAttribute('viewBox', [box.x, box.y, box.width, box.height + footerHeight].join(' '));
+        if (svg.hasAttribute('height')) {
+          var numericHeight = Number(String(svg.getAttribute('height')).replace(/px$/, ''));
+          if (Number.isFinite(numericHeight) && numericHeight > 0) {
+            svg.setAttribute('height', String(numericHeight + footerHeight));
+          }
+        }
+        svg.appendChild(text);
+      }
+
+      function getSvgBox(svg) {
+        var viewBox = svg.getAttribute('viewBox');
+        if (viewBox) {
+          var values = viewBox.trim().split(/[\s,]+/).map(Number);
+          if (values.length === 4 && values.every(Number.isFinite)) {
+            return { x: values[0], y: values[1], width: values[2], height: values[3] };
+          }
+        }
+
+        var width = Number(String(svg.getAttribute('width') || '900').replace(/px$/, ''));
+        var height = Number(String(svg.getAttribute('height') || '520').replace(/px$/, ''));
+        return {
+          x: 0,
+          y: 0,
+          width: Number.isFinite(width) && width > 0 ? width : 900,
+          height: Number.isFinite(height) && height > 0 ? height : 520,
+        };
+      }
+
+      function openDiagramOverlay(svg) {
+        var overlay = document.createElement('div');
+        overlay.className = 'diagram-overlay';
+        var clone = svg.cloneNode(true);
+        clone.removeAttribute('width');
+        clone.removeAttribute('height');
+        overlay.appendChild(clone);
+        overlay.addEventListener('click', function () {
+          overlay.remove();
+        });
+        document.body.appendChild(overlay);
+      }
+
+      function downloadDiagram(svg, fileName) {
+        var clone = svg.cloneNode(true);
+        clone.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
+        clone.removeAttribute('width');
+        clone.removeAttribute('height');
+
+        var source = '<?xml version="1.0" encoding="UTF-8"?>\n' + new XMLSerializer().serializeToString(clone);
+        var blob = new Blob([source], { type: 'image/svg+xml;charset=utf-8' });
+        var url = URL.createObjectURL(blob);
+        var link = document.createElement('a');
+        link.href = url;
+        link.download = fileName;
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
+        window.setTimeout(function () {
+          URL.revokeObjectURL(url);
+        }, 1000);
+      }
+
+      function slugify(value) {
+        return String(value)
+          .normalize('NFD')
+          .replace(/[\u0300-\u036f]/g, '')
+          .toLowerCase()
+          .replace(/[^a-z0-9]+/g, '-')
+          .replace(/^-+|-+$/g, '')
+          .slice(0, 56);
+      }
+
+      function enhanceCodeBlocks() {
+        document.querySelectorAll('.chapter-content pre').forEach(function (pre) {
+          if (pre.dataset.copyEnhanced === 'true') return;
+
+          var code = pre.querySelector('code');
+          if (!code || code.classList.contains('language-mermaid')) return;
+
+          pre.dataset.copyEnhanced = 'true';
+          var wrapper = document.createElement('div');
+          wrapper.className = 'code-block';
+          pre.parentNode.insertBefore(wrapper, pre);
+          wrapper.appendChild(pre);
+
+          var button = document.createElement('button');
+          button.type = 'button';
+          button.className = 'code-copy-button';
+          button.title = 'Copiar código';
+          button.setAttribute('aria-label', 'Copiar código');
+          button.innerHTML = '<i data-lucide="copy"></i>';
+          button.addEventListener('click', function () {
+            copyText(code.textContent || '').then(function () {
+              button.classList.add('is-copied');
+              button.title = 'Copiado';
+              button.setAttribute('aria-label', 'Código copiado');
+              button.innerHTML = '<i data-lucide="check"></i>';
+              if (window.lucide) window.lucide.createIcons();
+
+              window.setTimeout(function () {
+                button.classList.remove('is-copied');
+                button.title = 'Copiar código';
+                button.setAttribute('aria-label', 'Copiar código');
+                button.innerHTML = '<i data-lucide="copy"></i>';
+                if (window.lucide) window.lucide.createIcons();
+              }, 1400);
+            }).catch(function () {
+              button.classList.add('has-error');
+              button.title = 'No se pudo copiar';
+              window.setTimeout(function () {
+                button.classList.remove('has-error');
+                button.title = 'Copiar código';
+              }, 1400);
+            });
+          });
+
+          wrapper.appendChild(button);
+
+          if (isDownloadableCodeBlock(code.className || '')) {
+            wrapper.classList.add('has-code-download');
+            var downloadButton = document.createElement('button');
+            downloadButton.type = 'button';
+            downloadButton.className = 'code-download-button';
+            downloadButton.title = 'Descargar este archivo';
+            downloadButton.setAttribute('aria-label', 'Descargar este archivo');
+            downloadButton.innerHTML = '<i data-lucide="download"></i>';
+            downloadButton.addEventListener('click', function () {
+              downloadCodeBlock(code.textContent || '', code.className || '', pre);
+            });
+
+            wrapper.appendChild(downloadButton);
+          }
+        });
+
+        if (window.lucide) window.lucide.createIcons();
+      }
+
+      function downloadCodeBlock(content, className, preElement) {
+        var chapter = preElement?.closest('.book-chapter');
+        var languageMatch = className.match(/language-([a-z0-9_-]+)/i);
+        var language = languageMatch ? languageMatch[1].toLowerCase() : 'text';
+        var extensionByLanguage = {
+          bash: 'sh',
+          shell: 'sh',
+          sh: 'sh',
+          python: 'py',
+          py: 'py',
+          javascript: 'js',
+          js: 'js',
+          typescript: 'ts',
+          ts: 'ts',
+          json: 'json',
+          jsonl: 'jsonl',
+          yaml: 'yaml',
+          yml: 'yml',
+          sql: 'sql',
+          csv: 'csv',
+          text: 'txt',
+          txt: 'txt',
+        };
+        var extension = extensionByLanguage[language] || 'txt';
+        var chapterNumber = chapter?.dataset.chapterNumber || '00';
+        var fascicleNumber = chapter?.dataset.fascicleNumber || '00';
+        var codeIndex = Array.from(chapter?.querySelectorAll('pre') || [preElement]).indexOf(preElement) + 1;
+        var fileName = 'facsimil-' + fascicleNumber + '-capitulo-' + chapterNumber + '-codigo-' + String(codeIndex).padStart(2, '0') + '.' + extension;
+        var blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
+        var url = URL.createObjectURL(blob);
+        var link = document.createElement('a');
+        link.href = url;
+        link.download = fileName;
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
+        URL.revokeObjectURL(url);
+      }
+
+      function isDownloadableCodeBlock(className) {
+        var languageMatch = className.match(/language-([a-z0-9_-]+)/i);
+        var language = languageMatch ? languageMatch[1].toLowerCase() : 'text';
+        return !['bash', 'shell', 'sh', 'console', 'terminal', 'text', 'txt', 'mermaid'].includes(language);
+      }
+
+      function copyText(text) {
+        if (window.navigator?.clipboard?.writeText) {
+          return window.navigator.clipboard.writeText(text);
+        }
+
+        return new Promise(function (resolve, reject) {
+          if (typeof document.execCommand !== 'function') {
+            reject(new Error('copy unavailable'));
+            return;
+          }
+
+          var textarea = document.createElement('textarea');
+          textarea.value = text;
+          textarea.setAttribute('readonly', '');
+          textarea.style.position = 'fixed';
+          textarea.style.top = '-9999px';
+          textarea.style.left = '-9999px';
+          document.body.appendChild(textarea);
+          textarea.select();
+
+          try {
+            var copied = document.execCommand('copy');
+            textarea.remove();
+            copied ? resolve() : reject(new Error('copy failed'));
+          } catch (error) {
+            textarea.remove();
+            reject(error);
+          }
+        });
+      }
+
+      function prepareExternalLinks() {
+        document.querySelectorAll('main a[href]').forEach(function (link) {
+          if (!link.hostname || link.hostname === window.location.hostname) return;
+          link.setAttribute('target', '_blank');
+          link.setAttribute('rel', 'noopener noreferrer');
+        });
+      }
+
+      function syncChapterNavigation() {
+        var hash = window.location.hash || '#capitulo-01';
+        document.querySelectorAll('.chapter-nav a[href^="#"]').forEach(function (link) {
+          var isCurrent = link.getAttribute('href') === hash;
+          link.classList.toggle('is-current', isCurrent);
+          if (isCurrent) {
+            link.setAttribute('aria-current', 'page');
+          } else {
+            link.removeAttribute('aria-current');
+          }
+        });
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,37 @@
+{
+  "policy_id": "f11-product-ai-release-v1",
+  "scope": "piloto limitado de asistente interno para solicitudes de matrícula",
+  "decision_levels": {
+    "pilot_limited": "Puede pasar a piloto con alcance, observabilidad, revisión y rollback definidos.",
+    "pilot_with_conditions": "Puede prepararse, pero requiere cerrar condiciones antes de exponerlo.",
+    "do_not_pilot": "No pasa a piloto porque rompe un mínimo de valor, calidad, coste, UX u operación."
+  },
+  "thresholds": {
+    "min_readiness_score": 78,
+    "min_task_success": 0.75,
+    "min_groundedness": 0.85,
+    "min_abstention": 0.7,
+    "min_trace_coverage": 0.95,
+    "min_ops_readiness": 0.8,
+    "min_ux_recovery_score": 0.75,
+    "max_cost_per_task_eur": 0.45,
+    "max_latency_p95_ms": 4500
+  },
+  "weights": {
+    "value": 18,
+    "quality": 22,
+    "cost": 12,
+    "operations": 18,
+    "governance": 12,
+    "ux": 18
+  },
+  "required_evidence": [
+    "metric_tree",
+    "eval_snapshot",
+    "unit_economics",
+    "privacy_review",
+    "trace_contract",
+    "rollback_plan",
+    "ux_recovery_paths"
+  ]
+}

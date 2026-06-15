@@ -1,0 +1,92 @@
+{
+  "status": "review",
+  "naive_effect": {
+    "treated_n": 12,
+    "control_n": 12,
+    "treated_mean": 0.833333,
+    "control_mean": 0.333333,
+    "effect": 0.5,
+    "estimable": true
+  },
+  "adjusted_by_priority": {
+    "field": "prior_priority",
+    "strata": [
+      {
+        "treated_n": 7,
+        "control_n": 2,
+        "treated_mean": 1.0,
+        "control_mean": 1.0,
+        "effect": 0.0,
+        "estimable": true,
+        "stratum": "high",
+        "weight": 0.375
+      },
+      {
+        "treated_n": 0,
+        "control_n": 6,
+        "treated_mean": 0.0,
+        "control_mean": 0.0,
+        "effect": null,
+        "estimable": false,
+        "stratum": "low",
+        "weight": 0.25
+      },
+      {
+        "treated_n": 5,
+        "control_n": 4,
+        "treated_mean": 0.6,
+        "control_mean": 0.5,
+        "effect": 0.1,
+        "estimable": true,
+        "stratum": "medium",
+        "weight": 0.375
+      }
+    ],
+    "weighted_effect_over_estimable_population": 0.0375,
+    "estimable_population_weight": 0.75,
+    "status": "review"
+  },
+  "adjusted_by_segment": {
+    "field": "segment",
+    "strata": [
+      {
+        "treated_n": 4,
+        "control_n": 4,
+        "treated_mean": 1.0,
+        "control_mean": 0.25,
+        "effect": 0.75,
+        "estimable": true,
+        "stratum": "becas",
+        "weight": 0.333333
+      },
+      {
+        "treated_n": 5,
+        "control_n": 4,
+        "treated_mean": 1.0,
+        "control_mean": 0.5,
+        "effect": 0.5,
+        "estimable": true,
+        "stratum": "matricula",
+        "weight": 0.375
+      },
+      {
+        "treated_n": 3,
+        "control_n": 4,
+        "treated_mean": 0.333333,
+        "control_mean": 0.25,
+        "effect": 0.083333,
+        "estimable": true,
+        "stratum": "practicas",
+        "weight": 0.291667
+      }
+    ],
+    "weighted_effect_over_estimable_population": 0.461805,
+    "estimable_population_weight": 1.0,
+    "status": "pass"
+  },
+  "reasons": [
+    "falta solapamiento en alguna prioridad: hay niveles donde solo vemos acción o solo vemos control",
+    "el efecto ingenuo cambia mucho al estratificar; hay señal de confusion por contexto"
+  ],
+  "decision": "usar como triage, no como conclusion causal final"
+}

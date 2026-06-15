@@ -1,0 +1,67 @@
+# Facsímil 1: Los cimientos
+
+titulo: "Los cimientos"
+fasciculo: 1
+total_capitulos: 12
+estado: revision
+
+capitulos:
+  - numero: 1
+    archivo: 01-que-es-y-no-es-ia.md
+    titulo: "Qué es y qué no es la inteligencia artificial"
+    estado: revision
+
+  - numero: 2
+    archivo: 02-sistemas-deterministas.md
+    titulo: "Sistemas deterministas frente a sistemas probabilísticos"
+    estado: revision
+
+  - numero: 3
+    archivo: 03-principios-ia.md
+    titulo: "Principios fundamentales de la inteligencia artificial"
+    estado: revision
+
+  - numero: 4
+    archivo: 04-neurona-artificial.md
+    titulo: "La neurona artificial: el átomo del aprendizaje"
+    estado: revision
+
+  - numero: 5
+    archivo: 05-redes-neuronales.md
+    titulo: "Redes neuronales: capas, arquitectura y flujo"
+    estado: revision
+
+  - numero: 6
+    archivo: 06-backpropagation.md
+    titulo: "Cómo aprende una red: retropropagación"
+    estado: revision
+
+  - numero: 7
+    archivo: 07-funciones-perdida-optimizadores.md
+    titulo: "Funciones de pérdida y optimizadores"
+    estado: revision
+
+  - numero: 8
+    archivo: 08-cnns-rnns.md
+    titulo: "CNNs y RNNs: redes para visión y secuencias"
+    estado: revision
+
+  - numero: 9
+    archivo: 09-tokens-embeddings.md
+    titulo: "Del token al embedding: cómo el modelo representa lenguaje"
+    estado: revision
+
+  - numero: 10
+    archivo: 10-entrenamiento-inferencia.md
+    titulo: "Entrenamiento frente a inferencia: dos mundos distintos"
+    estado: revision
+
+  - numero: 11
+    archivo: 11-machine-learning-clasico.md
+    titulo: "Machine learning clásico: el mapa antes de los LLM"
+    estado: revision
+
+  - numero: 12
+    archivo: 12-recapitulacion-fundamentos.md
+    titulo: "Lo que deberías saber: recapitulación de fundamentos"
+    estado: revision

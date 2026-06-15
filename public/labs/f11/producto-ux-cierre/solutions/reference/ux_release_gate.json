@@ -1,0 +1,9 @@
+{
+  "gate": "ux_release_gate",
+  "status": "review",
+  "overall_score": 0.975,
+  "required_fixes": [
+    "error recuperable: falta `evidence_visible`.",
+    "error recuperable: la sesión no termina en éxito de tarea."
+  ]
+}

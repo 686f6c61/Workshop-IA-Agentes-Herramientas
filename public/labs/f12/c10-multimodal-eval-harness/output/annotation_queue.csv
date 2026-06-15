@@ -1,0 +1,5 @@
+case_id,title,modality,decision,failures,review_instruction
+chart_becas_growth,Gráfico de becas: crecimiento anual,chart,review,case_score_bajo|evidencia_insuficiente|claims_no_soportados,Revisar recuperación/citas: la respuesta no se puede defender con evidencias.
+video_alarm_timestamp,Vídeo de mantenimiento: evento temporal,video,review,case_score_bajo|evidencia_insuficiente|claims_no_soportados|latencia_alta,Revisar recuperación/citas: la respuesta no se puede defender con evidencias.
+rag_pdf_slide_policy,RAG multimodal: política en PDF y slide,mixed,review,case_score_bajo|evidencia_insuficiente|claims_no_soportados,Revisar recuperación/citas: la respuesta no se puede defender con evidencias.
+computer_use_send_trace,Traza de computer use: envío externo,ui_trace,review,case_score_bajo|evidencia_insuficiente|claims_no_soportados,Revisar recuperación/citas: la respuesta no se puede defender con evidencias.

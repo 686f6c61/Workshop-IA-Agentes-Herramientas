@@ -1,0 +1,84 @@
+{
+  "baseline": {
+    "weighted_quality": 0.875,
+    "critical_failures": 1,
+    "cost_per_accepted_eur": 0.029,
+    "rows": [
+      {
+        "case_id": "matricula_001",
+        "quality": 1.0,
+        "cost_ok": true,
+        "accepted": true
+      },
+      {
+        "case_id": "beca_001",
+        "quality": 1.0,
+        "cost_ok": true,
+        "accepted": true
+      },
+      {
+        "case_id": "sin_evidencia_001",
+        "quality": 0.0,
+        "cost_ok": true,
+        "accepted": false
+      },
+      {
+        "case_id": "horario_001",
+        "quality": 1.0,
+        "cost_ok": true,
+        "accepted": true
+      },
+      {
+        "case_id": "soporte_001",
+        "quality": 1.0,
+        "cost_ok": true,
+        "accepted": true
+      }
+    ]
+  },
+  "candidate": {
+    "weighted_quality": 1.0,
+    "critical_failures": 0,
+    "cost_per_accepted_eur": 0.0216,
+    "rows": [
+      {
+        "case_id": "matricula_001",
+        "quality": 1.0,
+        "cost_ok": true,
+        "accepted": true
+      },
+      {
+        "case_id": "beca_001",
+        "quality": 1.0,
+        "cost_ok": true,
+        "accepted": true
+      },
+      {
+        "case_id": "sin_evidencia_001",
+        "quality": 1.0,
+        "cost_ok": true,
+        "accepted": true
+      },
+      {
+        "case_id": "horario_001",
+        "quality": 1.0,
+        "cost_ok": true,
+        "accepted": true
+      },
+      {
+        "case_id": "soporte_001",
+        "quality": 1.0,
+        "cost_ok": true,
+        "accepted": true
+      }
+    ]
+  },
+  "checks": {
+    "quality_ok": true,
+    "critical_ok": true,
+    "cost_ok": true,
+    "regression_ok": true
+  },
+  "regressions": 0,
+  "decision": "publish_candidate"
+}

@@ -1,0 +1,7 @@
+name,weight,category,verifier
+correctness,0.24,objective,human_or_task_grader_v1
+evidence,0.06,objective,citation_support_v1
+format,0.05,guardrail,json_schema_v1
+style,0.22,proxy,none
+length_bonus,0.28,proxy,none
+latency_cost,-0.03,cost,trace_metrics_v1

@@ -1,0 +1,45 @@
+{
+  "contract_id": "f7-release-eval-contract",
+  "contract_version": "2026-06-07",
+  "release_id": "support-rag-agent@2.1.0",
+  "decision": "publicar, limitar o bloquear una release de IA",
+  "chapters": {
+    "c01": "decision que permite tomar la eval",
+    "c02": "métricas, coste y matriz de error",
+    "c03": "evaluación RAG por capas",
+    "c04": "metaevaluación de evaluadores y rúbricas",
+    "c05": "calibración, incertidumbre y umbrales",
+    "c06": "interpretabilidad, contrato de explicación y gate"
+  },
+  "must_pass": {
+    "rag_groundedness_min": 0.9,
+    "rag_citation_acceptance_min": 0.88,
+    "rag_abstention_ok_min": 0.86,
+    "rag_hit_at_5_min": 0.9,
+    "evaluator_agreement_min": 0.78,
+    "evaluator_undue_pass_rate_max": 0.08,
+    "calibration_gate_required": true,
+    "calibration_auto_error_rate_max": 0.18,
+    "calibration_review_rate_max": 0.6,
+    "interpretability_gate": "pass"
+  },
+  "review_triggers": {
+    "calibration_auto_error_wilson_upper_over": 0.28,
+    "rag_long_tail_coverage_under": 0.75,
+    "evaluator_borderline_overturn_rate_over": 0.18,
+    "top_feature_share_over": 0.55
+  },
+  "required_artifacts": [
+    "eval_contract.json",
+    "rag_eval_report.json",
+    "evaluator_metaeval.json",
+    "calibration_manifest.json",
+    "interpretability_report.json",
+    "explanation_contract.json",
+    "ci_explanation_gate.json",
+    "model_card_fragment.md",
+    "release_eval_report.json",
+    "source_evidence_matrix.csv",
+    "decision.md"
+  ]
+}

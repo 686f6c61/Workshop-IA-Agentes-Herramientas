@@ -1,0 +1,26 @@
+{
+  "min_examples_per_parameter": 0.1,
+  "warning_examples_per_parameter": 1.0,
+  "max_parameters_for_intro_lab": 250000,
+  "min_class_balance": 0.05,
+  "allowed_tasks": ["binary_classification", "multiclass_classification", "regression"],
+  "output_rules": {
+    "binary_classification": {
+      "output_dim": 1,
+      "activation": "sigmoid"
+    },
+    "multiclass_classification": {
+      "min_output_dim": 2,
+      "activation": "softmax"
+    },
+    "regression": {
+      "output_dim": 1,
+      "activation": "linear"
+    }
+  },
+  "bytes_per_parameter": {
+    "fp32": 4,
+    "bf16": 2,
+    "int8": 1
+  }
+}

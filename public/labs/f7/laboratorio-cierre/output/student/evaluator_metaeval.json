@@ -1,0 +1,18 @@
+{
+  "report_id": "f7-evaluator-metaeval-student-variant",
+  "chapter": "07.04",
+  "rubric_version": "support-answer-rubric-v3-student",
+  "reference_cases": 80,
+  "metrics": {
+    "agreement": 0.76,
+    "weighted_kappa": 0.66,
+    "undue_pass_rate": 0.09,
+    "undue_fail_rate": 0.1,
+    "borderline_overturn_rate": 0.2,
+    "rubric_coverage": 0.9
+  },
+  "calibration_notes": [
+    "La variante fuerza al alumno a explicar por que el evaluador no puede actuar como gate unico.",
+    "El informe exige corrección de rúbrica o más casos frontera antes de publicar."
+  ]
+}

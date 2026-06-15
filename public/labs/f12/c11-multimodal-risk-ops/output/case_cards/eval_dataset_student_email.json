@@ -1,0 +1,25 @@
+{
+  "case_id": "eval_dataset_student_email",
+  "title": "Caso real usado como evaluación contiene correo de alumno",
+  "modality": "eval_dataset",
+  "purpose": "Convertir un fallo real en test de regresión sin conservar PII directa",
+  "owner": "equipo_evalops",
+  "destination": "internal_eval_store",
+  "storage": "eval_case_redacted",
+  "entity_count": 2,
+  "max_entity_sensitivity": 0.5115,
+  "exposure_score": 0.12,
+  "impact": 0.68,
+  "risk_score": 0.4633,
+  "missing_controls": [
+    "redacted_fixture"
+  ],
+  "retention_days": 180,
+  "decision": "review",
+  "expected_decision": "review",
+  "decision_matches_expected": true,
+  "failures": [
+    "controles_faltantes"
+  ],
+  "next_action": "Añadir controles faltantes: redacted_fixture"
+}

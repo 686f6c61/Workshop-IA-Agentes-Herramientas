@@ -1,0 +1,22 @@
+{
+  "lab_id": "f2-laboratorio-ia-clasica",
+  "version": "1.0.0",
+  "csp_gate": {
+    "required_sessions": ["repaso", "practica", "tutoria"],
+    "must_use_lab": ["practica"],
+    "must_be_tuesday": ["tutoria"]
+  },
+  "symbolic_gate": {
+    "required_checks": ["rol_requerido", "aprobacion_del_equipo", "acceso_temporal_permitido"],
+    "expected_action": "conceder_acceso_temporal",
+    "min_trace_steps": 6
+  },
+  "required_outputs": [
+    "csp_solution.json",
+    "csp_decision.md",
+    "csp_trace.jsonl",
+    "symbolic_plan_report.json",
+    "symbolic_plan_decision.md",
+    "symbolic_plan_trace.jsonl"
+  ]
+}

@@ -1,0 +1,38 @@
+titulo: "La ciencia de los datos"
+fasciculo: 8
+total_capitulos: 8
+estado: revision
+
+capitulos:
+  - numero: 1
+    archivo: 01-datos-datasets-linaje-contratos.md
+    titulo: "Datos, datasets y linaje: la primera decisión de IA"
+    estado: revision
+  - numero: 2
+    archivo: 02-calidad-datos-schema-duplicados-leakage-etiquetas.md
+    titulo: "Calidad de datos: schema, duplicados, leakage y etiquetas"
+    estado: revision
+  - numero: 3
+    archivo: 03-splits-muestreo-leakage-evaluacion.md
+    titulo: "Splits, muestreo y leakage: medir sin engañarse"
+    estado: revision
+  - numero: 4
+    archivo: 04-features-representaciones-embeddings.md
+    titulo: "Features y representaciones: de tablas a embeddings"
+    estado: revision
+  - numero: 5
+    archivo: 05-slices-sesgos-decision-algoritmica.md
+    titulo: "Slices, sesgos y decisión algorítmica"
+    estado: revision
+  - numero: 6
+    archivo: 06-dataops-pipelines-drift-monitorizacion.md
+    titulo: "DataOps: pipelines, drift y monitorización"
+    estado: revision
+  - numero: 7
+    archivo: 07-analisis-aplicado-experimentos-causalidad.md
+    titulo: "Análisis aplicado: experimentos, causalidad y decisión"
+    estado: revision
+  - numero: 8
+    archivo: 08-recapitulacion-laboratorio-ciencia-datos.md
+    titulo: "Recapitulación y laboratorio de ciencia de datos"
+    estado: revision

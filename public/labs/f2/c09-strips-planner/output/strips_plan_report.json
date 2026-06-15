@@ -1,0 +1,172 @@
+{
+  "plan": [
+    "validar_factura",
+    "enviar_factura",
+    "registrar_envio"
+  ],
+  "valid": true,
+  "reason": "ok",
+  "final_state": [
+    "cliente_identificado",
+    "email_confirmado",
+    "email_enviado",
+    "factura_validada",
+    "importe_calculado",
+    "log_creado"
+  ],
+  "expansions": 4,
+  "candidate_plans": [
+    {
+      "plan": [
+        "validar_factura",
+        "enviar_factura",
+        "registrar_envio"
+      ],
+      "valid": true,
+      "reason": "ok",
+      "trace": [
+        {
+          "step": 0,
+          "action": null,
+          "state": [
+            "cliente_identificado",
+            "email_confirmado",
+            "factura_preparada",
+            "importe_calculado"
+          ]
+        },
+        {
+          "step": 1,
+          "action": "validar_factura",
+          "state": [
+            "cliente_identificado",
+            "email_confirmado",
+            "factura_validada",
+            "importe_calculado"
+          ]
+        },
+        {
+          "step": 2,
+          "action": "enviar_factura",
+          "state": [
+            "cliente_identificado",
+            "email_confirmado",
+            "email_enviado",
+            "factura_validada",
+            "importe_calculado"
+          ]
+        },
+        {
+          "step": 3,
+          "action": "registrar_envio",
+          "state": [
+            "cliente_identificado",
+            "email_confirmado",
+            "email_enviado",
+            "factura_validada",
+            "importe_calculado",
+            "log_creado"
+          ]
+        }
+      ]
+    },
+    {
+      "plan": [
+        "enviar_factura",
+        "validar_factura",
+        "registrar_envio"
+      ],
+      "valid": false,
+      "reason": "precondiciones_no_satisfechas:enviar_factura:factura_validada",
+      "trace": [
+        {
+          "step": 0,
+          "action": null,
+          "state": [
+            "cliente_identificado",
+            "email_confirmado",
+            "factura_preparada",
+            "importe_calculado"
+          ]
+        }
+      ]
+    },
+    {
+      "plan": [
+        "validar_factura",
+        "registrar_envio",
+        "enviar_factura"
+      ],
+      "valid": false,
+      "reason": "precondiciones_no_satisfechas:registrar_envio:email_enviado",
+      "trace": [
+        {
+          "step": 0,
+          "action": null,
+          "state": [
+            "cliente_identificado",
+            "email_confirmado",
+            "factura_preparada",
+            "importe_calculado"
+          ]
+        },
+        {
+          "step": 1,
+          "action": "validar_factura",
+          "state": [
+            "cliente_identificado",
+            "email_confirmado",
+            "factura_validada",
+            "importe_calculado"
+          ]
+        }
+      ]
+    }
+  ],
+  "trace": [
+    {
+      "step": 0,
+      "action": null,
+      "state": [
+        "cliente_identificado",
+        "email_confirmado",
+        "factura_preparada",
+        "importe_calculado"
+      ]
+    },
+    {
+      "step": 1,
+      "action": "validar_factura",
+      "state": [
+        "cliente_identificado",
+        "email_confirmado",
+        "factura_validada",
+        "importe_calculado"
+      ]
+    },
+    {
+      "step": 2,
+      "action": "enviar_factura",
+      "state": [
+        "cliente_identificado",
+        "email_confirmado",
+        "email_enviado",
+        "factura_validada",
+        "importe_calculado"
+      ]
+    },
+    {
+      "step": 3,
+      "action": "registrar_envio",
+      "state": [
+        "cliente_identificado",
+        "email_confirmado",
+        "email_enviado",
+        "factura_validada",
+        "importe_calculado",
+        "log_creado"
+      ]
+    }
+  ],
+  "gate_valid": true
+}

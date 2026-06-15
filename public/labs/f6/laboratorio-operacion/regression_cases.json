@@ -1,0 +1,15 @@
+[
+  {
+    "case_id": "reg_support_rag_continuity_2026_06_07",
+    "source": "continuity_drill",
+    "task": "policy_qa_with_citations",
+    "release": "support-rag@1.9.0-rc1",
+    "must_pass": {
+      "latency_p95_ms_max": 4200,
+      "citation_acceptance_rate_min": 0.9,
+      "review_queue_age_p95_minutes_max": 30,
+      "trace_attrs_required": true
+    },
+    "why_it_exists": "Evita repetir una release que parece correcta en calidad media pero degrada citas, latencia y cola de revisión."
+  }
+]

@@ -1,0 +1,29 @@
+{
+  "trace_id": "f10-c06-bad-0001",
+  "status": "block",
+  "errors": [
+    "missing field: dataset_version",
+    "missing component score: abstention",
+    "hard gate failed: supported_claims"
+  ],
+  "warnings": [],
+  "computed_reward": null,
+  "contributions": {},
+  "required_fields": [
+    "trace_id",
+    "run_at",
+    "policy_version",
+    "reward_card_version",
+    "input_slice",
+    "candidate_id",
+    "component_scores",
+    "hard_gates",
+    "reward",
+    "winner",
+    "latency_ms",
+    "input_tokens",
+    "output_tokens",
+    "grader_versions",
+    "dataset_version"
+  ]
+}

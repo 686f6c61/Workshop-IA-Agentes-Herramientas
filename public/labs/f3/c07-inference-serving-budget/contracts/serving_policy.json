@@ -1,0 +1,5 @@
+{
+  "max_gqa_kv_cache_gb": 5.0,
+  "max_shared_latency_s": 25.0
+}
+

@@ -1,0 +1,57 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Preference pair for post-training audit",
+  "type": "object",
+  "required": [
+    "pair_id",
+    "prompt_id",
+    "task_family",
+    "prompt",
+    "chosen",
+    "rejected",
+    "preference_reason",
+    "rubric_scores",
+    "annotator_ids",
+    "agreement",
+    "chosen_reward_score",
+    "rejected_reward_score",
+    "chosen_tokens",
+    "rejected_tokens",
+    "source_policy",
+    "created_at",
+    "verifier_result"
+  ],
+  "properties": {
+    "pair_id": {"type": "string"},
+    "prompt_id": {"type": "string"},
+    "task_family": {"type": "string"},
+    "prompt": {"type": "string"},
+    "chosen": {"type": "string"},
+    "rejected": {"type": "string"},
+    "preference_reason": {"type": "string"},
+    "rubric_scores": {
+      "type": "object",
+      "required": ["correctness", "evidence", "format", "cost"],
+      "additionalProperties": {"type": "number"}
+    },
+    "annotator_ids": {"type": "array", "items": {"type": "string"}},
+    "agreement": {"type": "number", "minimum": 0, "maximum": 1},
+    "chosen_reward_score": {"type": "number", "minimum": 0, "maximum": 1},
+    "rejected_reward_score": {"type": "number", "minimum": 0, "maximum": 1},
+    "chosen_tokens": {"type": "integer", "minimum": 1},
+    "rejected_tokens": {"type": "integer", "minimum": 1},
+    "source_policy": {"type": "string"},
+    "created_at": {"type": "string"},
+    "reference_answer": {"type": "string"},
+    "verifier_result": {
+      "type": "object",
+      "required": ["available", "score", "version", "notes"],
+      "properties": {
+        "available": {"type": "boolean"},
+        "score": {"type": ["number", "null"]},
+        "version": {"type": "string"},
+        "notes": {"type": "string"}
+      }
+    }
+  }
+}

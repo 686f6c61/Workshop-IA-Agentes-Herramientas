@@ -1,0 +1,21 @@
+{
+  "case_id": "doc_dni_invoice",
+  "title": "PDF administrativo con DNI y correo",
+  "modality": "document",
+  "purpose": "Responder una consulta de matrícula sin exponer identificadores",
+  "owner": "equipo_soporte_academico",
+  "destination": "approved_ai_provider",
+  "storage": "redacted_trace",
+  "entity_count": 2,
+  "max_entity_sensitivity": 0.833,
+  "exposure_score": 0.0,
+  "impact": 0.7,
+  "risk_score": 0.4959,
+  "missing_controls": [],
+  "retention_days": 30,
+  "decision": "review",
+  "expected_decision": "review",
+  "decision_matches_expected": true,
+  "failures": [],
+  "next_action": "Enviar a revisión de privacidad/seguridad antes de publicar."
+}

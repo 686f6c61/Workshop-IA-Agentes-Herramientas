@@ -1,0 +1,31 @@
+{
+  "scenario_id": "f10_c06_reward_engineering",
+  "contract_version": "1.0.0",
+  "min_cases": 8,
+  "min_slice_count": 4,
+  "min_case_pass_rate": 0.90,
+  "min_hidden_case_rate": 0.25,
+  "min_hard_gates": 3,
+  "min_normalized_cost_terms": 2,
+  "max_proxy_weight_share": 0.25,
+  "max_cost_weight_share": 0.20,
+  "forbid_positive_length_bonus": true,
+  "required_terms": [
+    "correctness",
+    "evidence",
+    "format",
+    "abstention"
+  ],
+  "required_outputs": [
+    "reward_card_audit_report.json",
+    "reward_card_decision.md",
+    "reward_card.md",
+    "component_scorecard.csv",
+    "case_scorecard.csv",
+    "sensitivity_report.csv",
+    "threshold_calibration.csv",
+    "threshold_recommendation.md",
+    "grader_confusion_matrix.csv",
+    "trace_validation_report.json"
+  ]
+}

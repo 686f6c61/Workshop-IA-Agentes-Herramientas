@@ -1,0 +1,69 @@
+{
+  "base_triples": [
+    [
+      "factura:f9",
+      "rdf:type",
+      "Factura"
+    ],
+    [
+      "Factura",
+      "rdfs:subClassOf",
+      "DocumentoFiscal"
+    ],
+    [
+      "DocumentoFiscal",
+      "rdfs:subClassOf",
+      "Documento"
+    ],
+    [
+      "factura:f9",
+      "perteneceA",
+      "cliente:c42"
+    ],
+    [
+      "cliente:c42",
+      "tienePlan",
+      "plan:empresa"
+    ],
+    [
+      "servicio:api",
+      "dependeDe",
+      "servicio:db"
+    ],
+    [
+      "servicio:db",
+      "rdf:type",
+      "BaseDatos"
+    ]
+  ],
+  "inferred_triples": [
+    [
+      "factura:f9",
+      "rdf:type",
+      "Documento"
+    ],
+    [
+      "factura:f9",
+      "rdf:type",
+      "DocumentoFiscal"
+    ]
+  ],
+  "all_triples_count": 9,
+  "queries": {
+    "tipos_factura": [
+      "Documento",
+      "DocumentoFiscal",
+      "Factura"
+    ],
+    "facturas_cliente": [
+      "factura:f9"
+    ],
+    "dependencias_db": [
+      "servicio:api"
+    ],
+    "plan_cliente": [
+      "plan:empresa"
+    ]
+  },
+  "gate_valid": true
+}

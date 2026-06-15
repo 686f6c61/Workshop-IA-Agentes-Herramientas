@@ -1,0 +1,334 @@
+{
+  "manifest_version": "1.0",
+  "policy_id": "support-split-policy-v1",
+  "generated_at_utc": "2026-06-14T11:03:16Z",
+  "owner": "equipo-datos-ia",
+  "evaluation_question": "Medir si un asistente académico generaliza a estudiantes y fuentes documentales posteriores sin reutilizar información de desarrollo.",
+  "dataset": {
+    "path": "data/support_split_cases.csv",
+    "sha256": "6c0ca71077ceb10e846d11f31085b378803d1f4050849a6903aca2198d6ecb7d",
+    "row_count": 24
+  },
+  "policy": {
+    "path": "contracts/split_policy.json",
+    "sha256": "958aa00035bbba7c4f509cbaabbab4e3278107d73ab62375588d209d05460736"
+  },
+  "split_contract": {
+    "selected_strategy": "time_group_holdout",
+    "gate": "review",
+    "recommendation": "revisar label_distribution_shift antes de cerrar time_group_holdout",
+    "target_ratios": {
+      "train": 0.6,
+      "validation": 0.2,
+      "test": 0.2
+    },
+    "actual_counts": {
+      "train": 15,
+      "validation": 5,
+      "test": 4
+    },
+    "keys": {
+      "id": "case_id",
+      "group": "student_id",
+      "source": "source_id",
+      "time": "created_at",
+      "label": "label",
+      "text": "text"
+    },
+    "blocking_failures": [],
+    "review_failures": [
+      "label_distribution_shift"
+    ],
+    "finding_counts": {}
+  },
+  "allowed_split_use": {
+    "train": [
+      "fit de modelos",
+      "fit de transformadores",
+      "construccion de vocabulario",
+      "seleccion inicial de features",
+      "generacion de ejemplos de desarrollo"
+    ],
+    "validation": [
+      "seleccion de modelo",
+      "seleccion de prompt",
+      "ajuste de umbral",
+      "ajuste de chunking",
+      "comparación de estrategias"
+    ],
+    "test": [
+      "medición final acordada",
+      "reporte de decision",
+      "regresion final antes de publicar cambios"
+    ]
+  },
+  "forbidden_test_use": [
+    "elegir modelo después de mirar test",
+    "reescribir prompts después de mirar test",
+    "ajustar umbrales después de mirar test",
+    "cambiar chunking o retriever después de mirar test",
+    "usar respuestas esperadas de test como ejemplos",
+    "repetir test hasta que la metrica guste"
+  ],
+  "preprocessing_contract": {
+    "fit_scope": "train",
+    "transform_scope": [
+      "train",
+      "validation",
+      "test"
+    ],
+    "fit_only_on_train": [
+      "normalizacion",
+      "imputacion",
+      "seleccion de features",
+      "pca",
+      "vectorizadores",
+      "calibración",
+      "oversampling",
+      "deduplicacion supervisada"
+    ],
+    "report_required": true
+  },
+  "rag_llm_eval_contract": {
+    "rag_group_fields": [
+      "source_id"
+    ],
+    "rag_forbidden_cross_split_overlap": [
+      "mismo documento en train y test",
+      "chunks hermanos del mismo documento en splits distintos",
+      "preguntas generadas desde el mismo documento en train y test"
+    ],
+    "llm_eval_forbidden_cross_split_overlap": [
+      "ejemplos few-shot demasiado parecidos al test",
+      "respuestas esperadas de test en trazas de desarrollo",
+      "reutilizacion del test como validation"
+    ],
+    "holdout_required_for_public_claim": true
+  },
+  "assignments_by_split": {
+    "train": [
+      "s001",
+      "s002",
+      "s004",
+      "s005",
+      "s006",
+      "s007",
+      "s008",
+      "s009",
+      "s010",
+      "s011",
+      "s012",
+      "s013",
+      "s014",
+      "s015",
+      "s016"
+    ],
+    "validation": [
+      "s003",
+      "s017",
+      "s018",
+      "s019",
+      "s020"
+    ],
+    "test": [
+      "s021",
+      "s022",
+      "s023",
+      "s024"
+    ]
+  },
+  "assignments": [
+    {
+      "case_id": "s001",
+      "split": "train",
+      "group": "stu-001",
+      "source": "doc-mat-001",
+      "created_at": "2026-04-01",
+      "label": "answer"
+    },
+    {
+      "case_id": "s002",
+      "split": "train",
+      "group": "stu-002",
+      "source": "doc-bec-001",
+      "created_at": "2026-04-02",
+      "label": "ask_more"
+    },
+    {
+      "case_id": "s003",
+      "split": "validation",
+      "group": "stu-003",
+      "source": "doc-pay-001",
+      "created_at": "2026-04-03",
+      "label": "answer"
+    },
+    {
+      "case_id": "s004",
+      "split": "train",
+      "group": "stu-004",
+      "source": "doc-hor-001",
+      "created_at": "2026-04-04",
+      "label": "answer"
+    },
+    {
+      "case_id": "s005",
+      "split": "train",
+      "group": "stu-005",
+      "source": "doc-mat-002",
+      "created_at": "2026-04-05",
+      "label": "escalate"
+    },
+    {
+      "case_id": "s006",
+      "split": "train",
+      "group": "stu-006",
+      "source": "doc-tit-001",
+      "created_at": "2026-04-06",
+      "label": "answer"
+    },
+    {
+      "case_id": "s007",
+      "split": "train",
+      "group": "stu-007",
+      "source": "doc-bec-002",
+      "created_at": "2026-04-07",
+      "label": "answer"
+    },
+    {
+      "case_id": "s008",
+      "split": "train",
+      "group": "stu-008",
+      "source": "doc-pra-001",
+      "created_at": "2026-04-08",
+      "label": "ask_more"
+    },
+    {
+      "case_id": "s009",
+      "split": "train",
+      "group": "stu-001",
+      "source": "doc-mat-001",
+      "created_at": "2026-04-09",
+      "label": "answer"
+    },
+    {
+      "case_id": "s010",
+      "split": "train",
+      "group": "stu-009",
+      "source": "doc-pay-002",
+      "created_at": "2026-04-10",
+      "label": "escalate"
+    },
+    {
+      "case_id": "s011",
+      "split": "train",
+      "group": "stu-010",
+      "source": "doc-hor-002",
+      "created_at": "2026-04-11",
+      "label": "answer"
+    },
+    {
+      "case_id": "s012",
+      "split": "train",
+      "group": "stu-011",
+      "source": "doc-bec-003",
+      "created_at": "2026-04-12",
+      "label": "ask_more"
+    },
+    {
+      "case_id": "s013",
+      "split": "train",
+      "group": "stu-012",
+      "source": "doc-mat-003",
+      "created_at": "2026-04-13",
+      "label": "answer"
+    },
+    {
+      "case_id": "s014",
+      "split": "train",
+      "group": "stu-002",
+      "source": "doc-bec-001",
+      "created_at": "2026-04-14",
+      "label": "ask_more"
+    },
+    {
+      "case_id": "s015",
+      "split": "train",
+      "group": "stu-013",
+      "source": "doc-bec-004",
+      "created_at": "2026-04-15",
+      "label": "escalate"
+    },
+    {
+      "case_id": "s016",
+      "split": "train",
+      "group": "stu-014",
+      "source": "doc-pra-002",
+      "created_at": "2026-04-16",
+      "label": "ask_more"
+    },
+    {
+      "case_id": "s017",
+      "split": "validation",
+      "group": "stu-015",
+      "source": "doc-tit-002",
+      "created_at": "2026-04-17",
+      "label": "answer"
+    },
+    {
+      "case_id": "s018",
+      "split": "validation",
+      "group": "stu-016",
+      "source": "doc-hor-003",
+      "created_at": "2026-04-18",
+      "label": "answer"
+    },
+    {
+      "case_id": "s019",
+      "split": "validation",
+      "group": "stu-003",
+      "source": "doc-pay-001",
+      "created_at": "2026-04-19",
+      "label": "answer"
+    },
+    {
+      "case_id": "s020",
+      "split": "validation",
+      "group": "stu-017",
+      "source": "doc-mat-004",
+      "created_at": "2026-04-20",
+      "label": "answer"
+    },
+    {
+      "case_id": "s021",
+      "split": "test",
+      "group": "stu-018",
+      "source": "doc-bec-005",
+      "created_at": "2026-04-21",
+      "label": "ask_more"
+    },
+    {
+      "case_id": "s022",
+      "split": "test",
+      "group": "stu-019",
+      "source": "doc-pay-003",
+      "created_at": "2026-04-22",
+      "label": "answer"
+    },
+    {
+      "case_id": "s023",
+      "split": "test",
+      "group": "stu-020",
+      "source": "doc-mat-005",
+      "created_at": "2026-04-23",
+      "label": "escalate"
+    },
+    {
+      "case_id": "s024",
+      "split": "test",
+      "group": "stu-021",
+      "source": "doc-hor-004",
+      "created_at": "2026-04-24",
+      "label": "answer"
+    }
+  ]
+}

@@ -1,0 +1,38 @@
+[
+  {
+    "id": "spanish_vs_english_cost",
+    "texts": [
+      "machine learning is useful",
+      "el aprendizaje automático resulta útil"
+    ],
+    "expected": "comparar consumo aproximado de tokens entre idiomas",
+    "must_be_similar": false
+  },
+  {
+    "id": "semantic_pair",
+    "texts": [
+      "gato doméstico",
+      "felino de casa"
+    ],
+    "expected": "deberían quedar cerca aunque compartan pocas palabras",
+    "must_be_similar": true
+  },
+  {
+    "id": "code_pair",
+    "texts": [
+      "function getUser(id) { return db.user(id) }",
+      "def get_user(id): return db.user(id)"
+    ],
+    "expected": "misma intención de código en sintaxis distinta",
+    "must_be_similar": true
+  },
+  {
+    "id": "long_word",
+    "texts": [
+      "desarrolladores responsables",
+      "desarrollo responsable"
+    ],
+    "expected": "ver subtokens y parentesco morfológico",
+    "must_be_similar": true
+  }
+]

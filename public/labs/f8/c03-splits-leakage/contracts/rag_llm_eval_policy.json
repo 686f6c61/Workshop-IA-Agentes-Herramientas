@@ -1,0 +1,57 @@
+{
+  "policy_id": "support-rag-llm-eval-split-policy-v1",
+  "principle": "En RAG y LLM eval, el split debe proteger documentos, chunks, preguntas, respuestas esperadas, prompts y trazas.",
+  "rag": {
+    "group_by": [
+      "document_id",
+      "source_id",
+      "source_version",
+      "canonical_url"
+    ],
+    "forbidden_cross_split_overlap": [
+      "mismo documento en train y test",
+      "chunks hermanos del mismo documento en splits distintos",
+      "preguntas sinteticas derivadas del mismo documento en train y test",
+      "respuestas esperadas del test dentro del indice usado para desarrollar"
+    ],
+    "retrieval_scope_by_split": {
+      "train": "indice construido solo con documentos permitidos para desarrollo",
+      "validation": "indice congelado para elegir parámetros",
+      "test": "indice y corpus versionados antes de medir"
+    },
+    "metrics_to_report": [
+      "recall_at_k",
+      "mrr",
+      "context_precision",
+      "answer_faithfulness",
+      "answer_correctness"
+    ]
+  },
+  "llm_eval": {
+    "protect": [
+      "prompt",
+      "few_shot_examples",
+      "expected_answer",
+      "rubric",
+      "tool_traces",
+      "model_outputs_used_for_tuning"
+    ],
+    "forbidden_test_use": [
+      "copiar ejemplos de test al prompt",
+      "reescribir rubricas tras mirar fallos de test",
+      "elegir modelo comparando muchas veces contra test",
+      "usar trazas de test para crear ejemplos de train"
+    ],
+    "holdout_rule": "Si test se usa para tomar decisiones, crea un nuevo holdout para la afirmacion final."
+  },
+  "hard_negatives": {
+    "definition": "Ejemplos muy parecidos al positivo pero con respuesta o etiqueta distinta.",
+    "useful_for": [
+      "retrieval",
+      "ranking",
+      "clasificacion semantica",
+      "deteccion de duplicados"
+    ],
+    "split_rule": "Los negativos dificiles deben generarse dentro del split correspondiente o antes de partir usando grupos que no crucen splits."
+  }
+}

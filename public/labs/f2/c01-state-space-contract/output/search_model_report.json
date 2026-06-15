@@ -1,0 +1,110 @@
+{
+  "problem": "rutas_peninsula_demo",
+  "validation": {
+    "valid": true,
+    "errors": [],
+    "warnings": [
+      "hay ciclos; el algoritmo debe mantener visitados"
+    ],
+    "branching_factor": 1.3333,
+    "depth_estimate": 6,
+    "estimated_nodes": 19,
+    "has_cycle": true
+  },
+  "plans": [
+    {
+      "id": "directo_por_zaragoza",
+      "actions": [
+        "madrid_zaragoza",
+        "zaragoza_barcelona"
+      ],
+      "path": [
+        "Madrid",
+        "Zaragoza",
+        "Barcelona"
+      ],
+      "cost": 615,
+      "reaches_goal": true,
+      "valid": true,
+      "errors": [],
+      "repeated_states": []
+    },
+    {
+      "id": "por_valencia",
+      "actions": [
+        "madrid_valencia",
+        "valencia_barcelona"
+      ],
+      "path": [
+        "Madrid",
+        "Valencia",
+        "Barcelona"
+      ],
+      "cost": 710,
+      "reaches_goal": true,
+      "valid": true,
+      "errors": [],
+      "repeated_states": []
+    },
+    {
+      "id": "ciclo_y_meta",
+      "actions": [
+        "madrid_zaragoza",
+        "zaragoza_madrid",
+        "madrid_zaragoza",
+        "zaragoza_barcelona"
+      ],
+      "path": [
+        "Madrid",
+        "Zaragoza",
+        "Madrid",
+        "Zaragoza",
+        "Barcelona"
+      ],
+      "cost": 1245,
+      "reaches_goal": true,
+      "valid": true,
+      "errors": [],
+      "repeated_states": [
+        "Madrid",
+        "Zaragoza"
+      ]
+    },
+    {
+      "id": "accion_imposible",
+      "actions": [
+        "burgos_bilbao",
+        "bilbao_zaragoza"
+      ],
+      "path": [
+        "Madrid"
+      ],
+      "cost": 0,
+      "reaches_goal": false,
+      "valid": false,
+      "errors": [
+        "acción burgos_bilbao requiere origen Burgos, pero el estado actual es Madrid"
+      ],
+      "repeated_states": []
+    },
+    {
+      "id": "no_llega_a_meta",
+      "actions": [
+        "madrid_burgos",
+        "burgos_bilbao"
+      ],
+      "path": [
+        "Madrid",
+        "Burgos",
+        "Bilbao"
+      ],
+      "cost": 405,
+      "reaches_goal": false,
+      "valid": false,
+      "errors": [
+        "el plan termina en Bilbao, que no pertenece a goals"
+      ],
+      "repeated_states": []
+    }
+  ]
+}

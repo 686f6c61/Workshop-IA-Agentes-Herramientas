@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" role="img" aria-label="Factura sintética con tabla de conceptos y total">
+  <rect width="960" height="540" fill="#FFFFFF"/>
+  <text x="70" y="72" font-family="Arial, sans-serif" font-size="30" fill="#111111">Factura F-2026-017</text>
+  <text x="70" y="112" font-family="Arial, sans-serif" font-size="15" fill="#555555">Proveedor Demo S.L.</text>
+  <rect x="70" y="150" width="820" height="230" fill="#FFFFFF" stroke="#111111"/>
+  <line x1="70" y1="205" x2="890" y2="205" stroke="#111111"/>
+  <line x1="70" y1="260" x2="890" y2="260" stroke="#CCCCCC"/>
+  <line x1="70" y1="315" x2="890" y2="315" stroke="#CCCCCC"/>
+  <line x1="640" y1="150" x2="640" y2="380" stroke="#111111"/>
+  <text x="95" y="185" font-family="Arial, sans-serif" font-size="16" fill="#111111">Concepto</text>
+  <text x="735" y="185" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" fill="#111111">Importe</text>
+  <text x="95" y="240" font-family="Arial, sans-serif" font-size="15" fill="#111111">Licencia educativa</text>
+  <text x="735" y="240" text-anchor="middle" font-family="Arial, sans-serif" font-size="15" fill="#111111">120,00</text>
+  <text x="95" y="295" font-family="Arial, sans-serif" font-size="15" fill="#111111">Soporte</text>
+  <text x="735" y="295" text-anchor="middle" font-family="Arial, sans-serif" font-size="15" fill="#111111">30,00</text>
+  <text x="610" y="430" text-anchor="end" font-family="Arial, sans-serif" font-size="20" fill="#111111">Total</text>
+  <text x="820" y="430" text-anchor="end" font-family="Arial, sans-serif" font-size="20" fill="#111111">150,00 EUR</text>
+  <text x="925" y="520" text-anchor="end" font-family="Arial, sans-serif" font-size="11" fill="#888888" opacity="0.55">IA para gente curiosa / F12 C04 / 686f6c61</text>
+</svg>

@@ -1,0 +1,46 @@
+{
+  "case_id": "q05_sin_evidencia",
+  "title": "Pregunta sobre una acción que no aparece en el vídeo",
+  "query": "¿En qué segundo se aprueba el reembolso?",
+  "decision": "review",
+  "expected_decision": "review",
+  "answer": "No encuentro una aprobación; solo veo solicitud y revisión pendiente.",
+  "expected_answer": "No hay evidencia suficiente de aprobación de reembolso en el vídeo.",
+  "segments": [],
+  "event_metrics": [
+    {
+      "event_id": "refund_approved",
+      "label": "reembolso aprobado",
+      "expected": [
+        null,
+        null
+      ],
+      "predicted": null,
+      "tiou": 0.0,
+      "boundary_error_s": null,
+      "evidence_coverage": 0.0,
+      "evidence_frame_ids": []
+    }
+  ],
+  "metrics": {
+    "mean_tiou": 0.0,
+    "min_evidence_coverage": 0.0,
+    "max_boundary_error_s": null,
+    "temporal_order_ok": true,
+    "source_trace_ok": true,
+    "visual_instruction_override": false,
+    "event_count": 1,
+    "frame_count": 3,
+    "duration_s": 30
+  },
+  "quality_flags": [
+    "evidence_coverage_low"
+  ],
+  "evidence": [],
+  "limits": [
+    "Los frames sintéticos representan evidencias temporales, no vídeo real.",
+    "Una respuesta útil debe citar segmento, frame y modalidad.",
+    "No hay evento verificable; responder exigiría inventar evidencia."
+  ],
+  "next_action": "Pedir revisión humana o más evidencia temporal antes de responder."
+}

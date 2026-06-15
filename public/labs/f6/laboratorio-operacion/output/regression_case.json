@@ -1,0 +1,33 @@
+{
+  "case_id": "reg_support_rag_continuity_2026_06_07",
+  "source": "continuity_drill",
+  "must_pass": {
+    "latency_p95_ms_max": 4200,
+    "citation_acceptance_rate_min": 0.9,
+    "review_queue_age_p95_minutes_max": 30,
+    "trace_attrs_required": true
+  },
+  "observed_findings": [
+    {
+      "metric": "latency_p95_ms",
+      "value": 6900,
+      "slo": 4200,
+      "status": "breach",
+      "mitigation": "mover ruta crítica a provider_b y reducir canary"
+    },
+    {
+      "metric": "citation_acceptance_rate",
+      "value": 0.71,
+      "slo": 0.9,
+      "status": "breach",
+      "mitigation": "volver al índice estable y añadir caso a regresión RAG"
+    },
+    {
+      "metric": "review_queue_age_p95_minutes",
+      "value": 52,
+      "slo": 30,
+      "status": "breach",
+      "mitigation": "activar cola de solo revisión crítica y ampliar owner temporal"
+    }
+  ]
+}

@@ -1,0 +1,4 @@
+cluster_id,n,variants,mixed,resolved_control,resolved_treatment,spillover_events
+team_a,4,"control,treatment",True,1.0,1.0,2
+team_b,4,"control,treatment",True,0.0,1.0,2
+team_c,4,"control,treatment",True,1.0,1.0,3

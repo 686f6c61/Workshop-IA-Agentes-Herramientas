@@ -1,0 +1,24 @@
+contract_id: reference-tool-boundary-contract
+version: 2026.06.07-reference
+owner: owner-platform
+
+tools:
+  - tool_name: retrieve_admissions_policy
+    mode: read
+    allowed: true
+    approval_required: false
+
+  - tool_name: prepare_ranking_explanation
+    mode: prepare
+    allowed: true
+    approval_required: true
+
+  - tool_name: publish_ranking
+    mode: execute
+    allowed: false
+    approval_required: true
+
+closure_evidence:
+  - prepare_execute_separation_test
+  - disabled_execute_tool_visibility_test
+  - parameter_schema_test

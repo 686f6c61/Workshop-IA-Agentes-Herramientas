@@ -1,0 +1,24 @@
+{
+  "case_id": "ui_api_key_prompt_injection",
+  "title": "Captura de pantalla con API key y texto que intenta dar órdenes",
+  "modality": "ui_trace",
+  "purpose": "Diagnosticar una incidencia sin copiar secretos ni obedecer OCR",
+  "owner": "equipo_plataforma",
+  "destination": "security_ticket",
+  "storage": "secret_leak",
+  "entity_count": 2,
+  "max_entity_sensitivity": 0.99,
+  "exposure_score": 0.34,
+  "impact": 1.0,
+  "risk_score": 0.718,
+  "missing_controls": [],
+  "retention_days": 0,
+  "decision": "block",
+  "expected_decision": "block",
+  "decision_matches_expected": true,
+  "failures": [
+    "secreto_sin_redactar",
+    "prompt_injection_visual_actionable"
+  ],
+  "next_action": "Revocar secreto, redactar captura, abrir incidente y bloquear publicación."
+}

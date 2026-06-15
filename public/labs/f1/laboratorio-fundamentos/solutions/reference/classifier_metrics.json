@@ -1,0 +1,36 @@
+{
+  "lab_id": "f1-laboratorio-fundamentos",
+  "positive_class": "ticket_debe_revisarse_pronto",
+  "models": [
+    {
+      "model_id": "modelo_a",
+      "tp": 44,
+      "fp": 28,
+      "fn": 6,
+      "tn": 122,
+      "precision": 0.6111,
+      "recall": 0.88,
+      "f1": 0.7213,
+      "priority_queue": 72,
+      "total_cases": 200
+    },
+    {
+      "model_id": "modelo_b",
+      "tp": 36,
+      "fp": 8,
+      "fn": 14,
+      "tn": 142,
+      "precision": 0.8182,
+      "recall": 0.72,
+      "f1": 0.766,
+      "priority_queue": 44,
+      "total_cases": 200
+    }
+  ],
+  "decision": {
+    "status": "publicar_piloto",
+    "selected_model": "modelo_b",
+    "capacity": 60,
+    "reason": "Se elige el modelo que supera el F1 mínimo y cabe en la cola diaria."
+  }
+}

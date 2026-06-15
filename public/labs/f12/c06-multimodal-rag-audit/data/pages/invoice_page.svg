@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 640" role="img" aria-labelledby="title desc">
+  <title id="title">Factura sintética con tabla</title>
+  <desc id="desc">Factura con line items y total verificable.</desc>
+  <rect width="900" height="640" fill="#ffffff"/>
+  <rect x="70" y="54" width="760" height="532" fill="#ffffff" stroke="#111111" stroke-width="2"/>
+  <text x="106" y="108" font-family="Inter, Arial, sans-serif" font-size="25" font-weight="700" fill="#111111">Factura FAC-2026-014</text>
+  <text x="106" y="144" font-family="Inter, Arial, sans-serif" font-size="14" fill="#555555">Alumno ALU-24017 · Fecha 2026-06-14</text>
+  <rect x="106" y="190" width="688" height="52" fill="#111111"/>
+  <text x="132" y="223" font-family="Inter, Arial, sans-serif" font-size="14" font-weight="700" fill="#ffffff">Concepto</text>
+  <text x="562" y="223" text-anchor="end" font-family="Inter, Arial, sans-serif" font-size="14" font-weight="700" fill="#ffffff">Base</text>
+  <text x="668" y="223" text-anchor="end" font-family="Inter, Arial, sans-serif" font-size="14" font-weight="700" fill="#ffffff">IVA</text>
+  <text x="770" y="223" text-anchor="end" font-family="Inter, Arial, sans-serif" font-size="14" font-weight="700" fill="#ffffff">Total</text>
+  <rect x="106" y="242" width="688" height="54" fill="#ffffff" stroke="#111111"/>
+  <text x="132" y="275" font-family="Inter, Arial, sans-serif" font-size="15" fill="#111111">Matrícula primer plazo</text>
+  <text x="562" y="275" text-anchor="end" font-family="Inter, Arial, sans-serif" font-size="15" fill="#111111">420.00</text>
+  <text x="668" y="275" text-anchor="end" font-family="Inter, Arial, sans-serif" font-size="15" fill="#111111">88.20</text>
+  <text x="770" y="275" text-anchor="end" font-family="Inter, Arial, sans-serif" font-size="15" fill="#111111">508.20</text>
+  <rect x="106" y="296" width="688" height="54" fill="#f7f7f7" stroke="#111111"/>
+  <text x="132" y="329" font-family="Inter, Arial, sans-serif" font-size="15" fill="#111111">Certificado académico</text>
+  <text x="562" y="329" text-anchor="end" font-family="Inter, Arial, sans-serif" font-size="15" fill="#111111">18.00</text>
+  <text x="668" y="329" text-anchor="end" font-family="Inter, Arial, sans-serif" font-size="15" fill="#111111">3.78</text>
+  <text x="770" y="329" text-anchor="end" font-family="Inter, Arial, sans-serif" font-size="15" fill="#111111">21.78</text>
+  <text x="770" y="414" text-anchor="end" font-family="Inter, Arial, sans-serif" font-size="22" font-weight="700" fill="#111111">Total 529.98 EUR</text>
+  <text x="794" y="566" text-anchor="end" font-family="Inter, Arial, sans-serif" font-size="10" fill="#999999">IA para gente curiosa / Facsímil 12 / Capítulo 06 / 686f6c61</text>
+</svg>

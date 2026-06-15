@@ -1,0 +1,36 @@
+{
+  "severity": "SEV-2",
+  "status": "degraded_controlled",
+  "findings": [
+    {
+      "type": "metric",
+      "metric": "latency_p95_ms",
+      "value": 5100,
+      "slo": 4200,
+      "release_id": "support-rag@1.9.0-rc1",
+      "status": "breach"
+    },
+    {
+      "type": "metric",
+      "metric": "citation_acceptance_rate",
+      "value": 0.82,
+      "slo": 0.9,
+      "release_id": "support-rag@1.9.0-rc1",
+      "status": "breach"
+    },
+    {
+      "type": "metric",
+      "metric": "review_queue_age_p95_minutes",
+      "value": 41,
+      "slo": 30,
+      "release_id": "support-rag@1.9.0-rc1",
+      "status": "breach"
+    }
+  ],
+  "trace_attrs_ok": true,
+  "mitigations": [
+    "rollback_to_baseline",
+    "restore_stable_index",
+    "add_regression_case"
+  ]
+}

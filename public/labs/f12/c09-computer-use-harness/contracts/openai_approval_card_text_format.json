@@ -1,0 +1,62 @@
+{
+  "type": "json_schema",
+  "name": "computer_use_approval_card",
+  "strict": true,
+  "schema": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "run_id": {
+        "type": "string",
+        "description": "Identifier of the current computer-use run."
+      },
+      "decision": {
+        "type": "string",
+        "enum": ["approve", "deny", "needs_more_context"],
+        "description": "Recommended decision shown to the reviewer."
+      },
+      "question": {
+        "type": "string",
+        "description": "Concrete approval question. It must name the exact action, target and consequence."
+      },
+      "action_summary": {
+        "type": "string",
+        "description": "One-sentence summary of the proposed UI action."
+      },
+      "target_summary": {
+        "type": "string",
+        "description": "Human-readable target: role, accessible name, URL and stable id when present."
+      },
+      "risk_tags": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "enum": ["authenticated", "destructive", "external_submit", "financial", "pii_export", "terms_or_cookies"]
+        },
+        "description": "Risk tags that justify approval or denial."
+      },
+      "evidence": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "description": "Evidence from the trace that the reviewer can inspect."
+      },
+      "default_if_no_answer": {
+        "type": "string",
+        "enum": ["deny", "review"],
+        "description": "Safe default when the human does not answer."
+      }
+    },
+    "required": [
+      "run_id",
+      "decision",
+      "question",
+      "action_summary",
+      "target_summary",
+      "risk_tags",
+      "evidence",
+      "default_if_no_answer"
+    ]
+  }
+}

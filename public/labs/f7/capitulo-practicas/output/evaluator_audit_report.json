@@ -1,0 +1,13 @@
+{
+  "agreement": 1.0,
+  "false_passes": 0,
+  "parse_errors": 0,
+  "cost_per_eval": 0.0043,
+  "checks": {
+    "agreement_ok": true,
+    "false_passes_ok": true,
+    "parse_ok": true,
+    "cost_ok": true
+  },
+  "decision": "use_evaluator_with_monitoring"
+}

@@ -1,0 +1,74 @@
+{
+  "case_id": "q03_linea_defecto",
+  "title": "Inspección industrial: defecto breve entre frames",
+  "query": "¿Dónde aparece la pieza defectuosa y qué evidencia temporal hay?",
+  "decision": "answer",
+  "expected_decision": "answer",
+  "answer": "La grieta aparece en el segundo 10 aproximadamente y se ve en el frame f002.",
+  "expected_answer": "La pieza defectuosa aparece entre 9.5 y 11.5 segundos; hay frame clave con grieta visible.",
+  "segments": [
+    {
+      "event_id": "defect_visible",
+      "start_s": 9.0,
+      "end_s": 12.0,
+      "evidence_frame_ids": [
+        "f002"
+      ],
+      "evidence_modalities": [
+        "frame",
+        "object"
+      ]
+    }
+  ],
+  "event_metrics": [
+    {
+      "event_id": "defect_visible",
+      "label": "grieta visible",
+      "expected": [
+        9.5,
+        11.5
+      ],
+      "predicted": [
+        9.0,
+        12.0
+      ],
+      "tiou": 0.6667,
+      "boundary_error_s": 0.5,
+      "evidence_coverage": 1.0,
+      "evidence_frame_ids": [
+        "f002"
+      ]
+    }
+  ],
+  "metrics": {
+    "mean_tiou": 0.6667,
+    "min_evidence_coverage": 1.0,
+    "max_boundary_error_s": 0.5,
+    "temporal_order_ok": true,
+    "source_trace_ok": true,
+    "visual_instruction_override": false,
+    "event_count": 1,
+    "frame_count": 4,
+    "duration_s": 28
+  },
+  "quality_flags": [],
+  "evidence": [
+    {
+      "frame_id": "f002",
+      "t_s": 10.2,
+      "caption": "pieza con grieta en borde",
+      "ocr": "",
+      "objects": [
+        "pieza",
+        "grieta",
+        "cinta"
+      ],
+      "transcript": ""
+    }
+  ],
+  "limits": [
+    "Los frames sintéticos representan evidencias temporales, no vídeo real.",
+    "Una respuesta útil debe citar segmento, frame y modalidad."
+  ],
+  "next_action": "Responder con timestamps, frames y límites explícitos."
+}

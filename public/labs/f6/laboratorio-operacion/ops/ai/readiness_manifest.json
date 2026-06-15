@@ -1,0 +1,35 @@
+{
+  "service": "support-rag",
+  "release": "support-rag@2.0.0",
+  "owner": "equipo-ia",
+  "slo": {
+    "latency_p95_ms": 4200,
+    "availability": 0.995,
+    "contract_fail_rate_max": 0.006,
+    "cost_p95_eur": 0.035,
+    "review_queue_age_p95_minutes": 30
+  },
+  "rollback": {
+    "last_known_good": "support-rag@1.8.0",
+    "rollback_command": "feature_flags set support_rag_v2 candidate_weight=0",
+    "rollback_tested_at": "2026-06-07T09:30:00Z",
+    "max_rollback_minutes": 10
+  },
+  "evalops": {
+    "datasets": [
+      "golden",
+      "regression",
+      "production_sample",
+      "continuity_regression"
+    ],
+    "release_gate": "ops/ai/release_gate.py",
+    "baseline_release": "support-rag@1.8.0",
+    "candidate_release": "support-rag@2.0.0"
+  },
+  "incident": {
+    "runbook": "runbook_ai_service.md",
+    "oncall": "equipo-ia",
+    "severity_matrix": "ops/ai/severity_matrix.yaml",
+    "update_cadence_minutes": 15
+  }
+}

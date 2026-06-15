@@ -1,0 +1,212 @@
+{
+  "status": "publicar",
+  "metrics": {
+    "hit_at_1": 1.0,
+    "mrr": 1.0,
+    "abstention_ok": 1.0,
+    "trace_complete_rate": 1.0
+  },
+  "blocks": [],
+  "results": [
+    {
+      "case_id": "c1",
+      "expected_doc": "matricula_vigente",
+      "should_answer": true,
+      "ranked_docs": [
+        "matricula_vigente"
+      ],
+      "answer": "La matrícula ordinaria se puede modificar hasta el 15 de septiembre.",
+      "trace": {
+        "trace_id": "179220b8-28e5-44af-bc5d-1b46e3184b0a",
+        "case_id": "c1",
+        "spans": [
+          {
+            "name": "input",
+            "timestamp_ms": 1781119217688,
+            "attrs": {
+              "question": "Hasta cuándo puedo modificar la matrícula"
+            }
+          },
+          {
+            "name": "filter_documents",
+            "timestamp_ms": 1781119217688,
+            "attrs": {
+              "candidates": [
+                "matricula_vigente",
+                "becas_vigente",
+                "pagos_vigente",
+                "soporte_vigente"
+              ]
+            }
+          },
+          {
+            "name": "retrieve",
+            "timestamp_ms": 1781119217688,
+            "attrs": {
+              "results": [
+                "matricula_vigente"
+              ]
+            }
+          },
+          {
+            "name": "generate",
+            "timestamp_ms": 1781119217688,
+            "attrs": {
+              "answer": "La matrícula ordinaria se puede modificar hasta el 15 de septiembre.",
+              "answerable": true
+            }
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "c2",
+      "expected_doc": "becas_vigente",
+      "should_answer": true,
+      "ranked_docs": [
+        "becas_vigente"
+      ],
+      "answer": "Las becas internas se revisan en dos fases: documentación y entrevista.",
+      "trace": {
+        "trace_id": "4929f488-f94d-4972-85ec-56bf53c358df",
+        "case_id": "c2",
+        "spans": [
+          {
+            "name": "input",
+            "timestamp_ms": 1781119217688,
+            "attrs": {
+              "question": "Cómo se revisan las becas internas"
+            }
+          },
+          {
+            "name": "filter_documents",
+            "timestamp_ms": 1781119217688,
+            "attrs": {
+              "candidates": [
+                "matricula_vigente",
+                "becas_vigente",
+                "pagos_vigente",
+                "soporte_vigente"
+              ]
+            }
+          },
+          {
+            "name": "retrieve",
+            "timestamp_ms": 1781119217688,
+            "attrs": {
+              "results": [
+                "becas_vigente"
+              ]
+            }
+          },
+          {
+            "name": "generate",
+            "timestamp_ms": 1781119217688,
+            "attrs": {
+              "answer": "Las becas internas se revisan en dos fases: documentación y entrevista.",
+              "answerable": true
+            }
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "c3",
+      "expected_doc": "pagos_vigente",
+      "should_answer": false,
+      "ranked_docs": [
+        "pagos_vigente"
+      ],
+      "answer": "No tengo evidencia suficiente para responder con este RAG.",
+      "trace": {
+        "trace_id": "5b75b862-18aa-42a5-a510-64b831fb29b6",
+        "case_id": "c3",
+        "spans": [
+          {
+            "name": "input",
+            "timestamp_ms": 1781119217688,
+            "attrs": {
+              "question": "Cuántos pagos pendientes hay por campus"
+            }
+          },
+          {
+            "name": "filter_documents",
+            "timestamp_ms": 1781119217688,
+            "attrs": {
+              "candidates": [
+                "matricula_vigente",
+                "becas_vigente",
+                "pagos_vigente",
+                "soporte_vigente"
+              ]
+            }
+          },
+          {
+            "name": "retrieve",
+            "timestamp_ms": 1781119217688,
+            "attrs": {
+              "results": [
+                "pagos_vigente"
+              ]
+            }
+          },
+          {
+            "name": "generate",
+            "timestamp_ms": 1781119217688,
+            "attrs": {
+              "answer": "No tengo evidencia suficiente para responder con este RAG.",
+              "answerable": false
+            }
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "c4",
+      "expected_doc": null,
+      "should_answer": false,
+      "ranked_docs": [],
+      "answer": "No tengo evidencia suficiente para responder con este RAG.",
+      "trace": {
+        "trace_id": "d8c5332d-608a-4e38-94d5-ea6f13ac1840",
+        "case_id": "c4",
+        "spans": [
+          {
+            "name": "input",
+            "timestamp_ms": 1781119217688,
+            "attrs": {
+              "question": "Cuál es el horario de cafetería"
+            }
+          },
+          {
+            "name": "filter_documents",
+            "timestamp_ms": 1781119217688,
+            "attrs": {
+              "candidates": [
+                "matricula_vigente",
+                "becas_vigente",
+                "pagos_vigente",
+                "soporte_vigente"
+              ]
+            }
+          },
+          {
+            "name": "retrieve",
+            "timestamp_ms": 1781119217688,
+            "attrs": {
+              "results": []
+            }
+          },
+          {
+            "name": "generate",
+            "timestamp_ms": 1781119217688,
+            "attrs": {
+              "answer": "No tengo evidencia suficiente para responder con este RAG.",
+              "answerable": false
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,137 @@
+{
+  "scenario_id": "routing_modelos_soporte_c03_risky",
+  "status": "review",
+  "selected_policy": "greedy",
+  "rounds": 60,
+  "contract_version": "bandit_policy_gate.v1",
+  "policies": [
+    {
+      "policy_id": "greedy",
+      "cumulative_reward": 40.68,
+      "regret": 3.37,
+      "exploration_share": 0.0333,
+      "sensitive_exploration_count": 0,
+      "average_cost": 0.1865,
+      "action_counts": {
+        "modelo_fuerte": 58,
+        "modelo_rapido": 1,
+        "revision_humana": 1
+      },
+      "action_share": {
+        "modelo_fuerte": 0.9667,
+        "modelo_rapido": 0.0167,
+        "revision_humana": 0.0167
+      },
+      "observed_means": {
+        "modelo_fuerte": 0.6812,
+        "modelo_rapido": 0.52,
+        "revision_humana": 0.65
+      },
+      "gate_checks": {
+        "min_cumulative_reward": false,
+        "max_regret": true,
+        "max_exploration_share": true,
+        "max_sensitive_exploration_count": true,
+        "max_average_cost": true,
+        "required_trace_events": true
+      },
+      "gate_ok": false
+    },
+    {
+      "policy_id": "epsilon_greedy",
+      "cumulative_reward": 40.33,
+      "regret": 3.72,
+      "exploration_share": 0.0833,
+      "sensitive_exploration_count": 0,
+      "average_cost": 0.1908,
+      "action_counts": {
+        "modelo_fuerte": 55,
+        "modelo_rapido": 3,
+        "revision_humana": 2
+      },
+      "action_share": {
+        "modelo_fuerte": 0.9167,
+        "modelo_rapido": 0.05,
+        "revision_humana": 0.0333
+      },
+      "observed_means": {
+        "modelo_fuerte": 0.6822,
+        "modelo_rapido": 0.5033,
+        "revision_humana": 0.65
+      },
+      "gate_checks": {
+        "min_cumulative_reward": false,
+        "max_regret": true,
+        "max_exploration_share": true,
+        "max_sensitive_exploration_count": true,
+        "max_average_cost": true,
+        "required_trace_events": true
+      },
+      "gate_ok": false
+    },
+    {
+      "policy_id": "ucb",
+      "cumulative_reward": 40.09,
+      "regret": 3.96,
+      "exploration_share": 0.5667,
+      "sensitive_exploration_count": 0,
+      "average_cost": 0.3533,
+      "action_counts": {
+        "modelo_fuerte": 25,
+        "modelo_rapido": 12,
+        "revision_humana": 23
+      },
+      "action_share": {
+        "modelo_fuerte": 0.4167,
+        "modelo_rapido": 0.2,
+        "revision_humana": 0.3833
+      },
+      "observed_means": {
+        "modelo_fuerte": 0.704,
+        "modelo_rapido": 0.5592,
+        "revision_humana": 0.6861
+      },
+      "gate_checks": {
+        "min_cumulative_reward": false,
+        "max_regret": true,
+        "max_exploration_share": false,
+        "max_sensitive_exploration_count": true,
+        "max_average_cost": false,
+        "required_trace_events": true
+      },
+      "gate_ok": false
+    },
+    {
+      "policy_id": "thompson_sampling",
+      "cumulative_reward": 40.5,
+      "regret": 3.55,
+      "exploration_share": 0.4,
+      "sensitive_exploration_count": 0,
+      "average_cost": 0.3403,
+      "action_counts": {
+        "modelo_fuerte": 34,
+        "modelo_rapido": 6,
+        "revision_humana": 20
+      },
+      "action_share": {
+        "modelo_fuerte": 0.5667,
+        "modelo_rapido": 0.1,
+        "revision_humana": 0.3333
+      },
+      "observed_means": {
+        "modelo_fuerte": 0.6932,
+        "modelo_rapido": 0.54,
+        "revision_humana": 0.6845
+      },
+      "gate_checks": {
+        "min_cumulative_reward": false,
+        "max_regret": true,
+        "max_exploration_share": false,
+        "max_sensitive_exploration_count": true,
+        "max_average_cost": false,
+        "required_trace_events": true
+      },
+      "gate_ok": false
+    }
+  ]
+}

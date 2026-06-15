@@ -1,0 +1,31 @@
+{
+  "required_files": [
+    "contracts/experiment_contract.json",
+    "contracts/analysis_plan.json",
+    "contracts/metric_catalog.json",
+    "contracts/feature_flag_contract.json",
+    "contracts/warehouse_schema.sql",
+    "output/experiment_design_validation.json",
+    "output/experiment_report.json",
+    "output/experiment_readiness.md",
+    "output/experiment_decision.md"
+  ],
+  "required_report_fields": [
+    "status",
+    "srm",
+    "balance",
+    "primary_effect",
+    "guardrails",
+    "slice_effects",
+    "readiness"
+  ],
+  "block_if": {
+    "schema_errors": true,
+    "srm_status": "block",
+    "any_guardrail_status": "block"
+  },
+  "review_if": {
+    "readiness_status": "review",
+    "decision_status": "review"
+  }
+}

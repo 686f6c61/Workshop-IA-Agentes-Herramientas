@@ -1,0 +1,50 @@
+{
+  "case_id": "normativa_interna",
+  "status": "estrategia_defendible",
+  "selected_option": "rag_local_o_controlado",
+  "ranking": [
+    {
+      "option_id": "rag_local_o_controlado",
+      "label": "Modelo abierto o proveedor controlado con RAG sobre documentos internos",
+      "weighted_score": 4.45,
+      "scores": {
+        "actualizacion_conocimiento": 5,
+        "citas": 5,
+        "coste_contexto": 4,
+        "control_datos": 4,
+        "velocidad_prototipo": 3
+      }
+    },
+    {
+      "option_id": "fine_tuning_mensual",
+      "label": "Fine-tuning mensual con ejemplos de preguntas y respuestas",
+      "weighted_score": 2.2,
+      "scores": {
+        "actualizacion_conocimiento": 1,
+        "citas": 2,
+        "coste_contexto": 4,
+        "control_datos": 3,
+        "velocidad_prototipo": 2
+      }
+    },
+    {
+      "option_id": "api_prompt_largo",
+      "label": "API potente con documentos pegados en prompt",
+      "weighted_score": 2.15,
+      "scores": {
+        "actualizacion_conocimiento": 2,
+        "citas": 2,
+        "coste_contexto": 1,
+        "control_datos": 2,
+        "velocidad_prototipo": 5
+      }
+    }
+  ],
+  "evaluation_axes": [
+    "respuesta_correcta",
+    "cita_correcta",
+    "abstencion",
+    "latencia",
+    "coste"
+  ]
+}

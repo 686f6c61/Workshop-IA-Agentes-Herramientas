@@ -1,0 +1,6 @@
+[
+  {"case_id":"evaluator_001","evaluator_pass":1,"parse_ok":true,"cost_eur":0.004},
+  {"case_id":"evaluator_002","evaluator_pass":0,"parse_ok":true,"cost_eur":0.004},
+  {"case_id":"evaluator_003","evaluator_pass":1,"parse_ok":true,"cost_eur":0.005},
+  {"case_id":"evaluator_004","evaluator_pass":0,"parse_ok":true,"cost_eur":0.004}
+]

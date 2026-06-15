@@ -1,0 +1,5 @@
+metric,control_mean,treatment_mean,delta,standard_error,ci95_low,ci95_high,query_type,n
+answer_accepted,0.5,1.0,0.5,0.5,-0.48,1.48,becas,4
+answer_accepted,1.0,1.0,0.0,0.0,0.0,0.0,matricula,4
+answer_accepted,0.5,1.0,0.5,0.5,-0.48,1.48,normativa,4
+answer_accepted,0.5,0.5,0.0,0.707107,-1.385929,1.385929,practicas,4

@@ -113,7 +113,7 @@ const teachingNotesById: Record<string, string[]> = {
     `Estas métricas existen porque casi nunca todos los errores cuestan lo mismo. Precision castiga alarmas falsas, recall castiga casos perdidos y F1 resume el equilibrio cuando necesitas una sola cifra de lectura rápida.`,
   ],
   'clustering-kmeans': [
-    `Clustering no descubre categorías naturales por arte de magia. Construye grupos según la geometría que le des: variables, escala, distancia y número de clusters condicionan totalmente el resultado.`,
+    `Clustering no descubre categorías naturales por sí solo. Construye grupos según la geometría que le des: variables, escala, distancia y número de clusters condicionan totalmente el resultado.`,
   ],
   'cuando-no-confiar-clusters': [
     `Un cluster debe leerse como una hipótesis exploratoria. Sirve para preguntar mejor, segmentar provisionalmente o detectar anomalías, pero necesita validación de dominio antes de convertirse en regla de negocio.`,
@@ -336,7 +336,7 @@ const teachingNotesById: Record<string, string[]> = {
     `En producción, razonar es coordinar capas. El LLM interpreta, el retrieval aporta evidencia, las reglas fijan límites, las tools cambian el mundo y las trazas permiten revisar qué ocurrió.`,
   ],
   'agente-clasico-moderno-que-saber': [
-    `La idea final es diseñar agentes con vocabulario clásico y herramientas modernas. Eso reduce humo: menos promesas de autonomía y más contratos, permisos, validadores, memoria explícita y medición.`,
+    `La idea final es diseñar agentes con vocabulario clásico y herramientas modernas. Eso reduce promesas vagas: menos autonomía indefinida y más contratos, permisos, validadores, memoria explícita y medición.`,
   ],
 
   'lab-principios': [
@@ -781,7 +781,7 @@ const appliedLensById: Record<string, AppliedLens> = {
     decision: 'Pon cada garantía en la capa que mejor puede cumplirla.',
   },
   'agente-clasico-moderno-que-saber': {
-    theory: 'El vocabulario clásico sirve para quitar magia a los agentes modernos.',
+    theory: 'El vocabulario clásico sirve para quitar opacidad a los agentes modernos.',
     formula: 'Agente robusto = estado + acción + restricción + eval + recuperación.',
     example: 'Un agente de soporte fiable no solo responde: consulta, valida permiso, cita y escala.',
     decision: 'Evalúa agentes por tareas completadas con seguridad, no por razonamientos bonitos.',

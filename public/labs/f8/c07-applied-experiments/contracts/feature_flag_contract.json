@@ -1,0 +1,33 @@
+{
+  "flag_key": "support_template_guided_reply",
+  "versión": "2026-06-07",
+  "owner": "equipo-datos-ia",
+  "targeting_key": "unit_id",
+  "salt": "f8-c07-demo",
+  "variants": {
+    "control": 0.5,
+    "treatment": 0.5
+  },
+  "required_exposure_fields": [
+    "unit_id",
+    "flag_key",
+    "variant",
+    "assigned_at",
+    "exposed_at",
+    "flag_version",
+    "context_hash"
+  ],
+  "context_fields": [
+    "segment",
+    "pre_week_tasks",
+    "historical_resolution_rate"
+  ],
+  "rules": [
+    {
+      "name": "default_50_50",
+      "type": "deterministic_bucket",
+      "unit": "unit_id",
+      "description": "Reparte unidades de forma reproducible por hash."
+    }
+  ]
+}

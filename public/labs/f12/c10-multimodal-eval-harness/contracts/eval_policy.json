@@ -1,0 +1,38 @@
+{
+  "schema_version": "1.0",
+  "project": "IA para gente curiosa",
+  "fasciculo": 12,
+  "capitulo": 10,
+  "quality_gates": {
+    "min_case_score": 0.75,
+    "min_overall_score": 0.78,
+    "min_slice_score": 0.70,
+    "min_evidence_score": 0.75,
+    "max_unsupported_claim_rate": 0.20,
+    "max_latency_ms": 9000,
+    "max_cost_usd": 0.08,
+    "block_on_pii_leak": true,
+    "require_evidence_for_all_non_refusals": true
+  },
+  "weights": {
+    "answer": 0.45,
+    "evidence": 0.30,
+    "claim_support": 0.15,
+    "safety": 0.10
+  },
+  "required_slices": [
+    "document_ai",
+    "chart_reasoning",
+    "image_grounding",
+    "video_temporal",
+    "audio_realtime",
+    "multimodal_rag",
+    "computer_use"
+  ],
+  "outputs": {
+    "require_case_scores_csv": true,
+    "require_slice_scores_csv": true,
+    "require_annotation_queue": true,
+    "require_signed_svg": true
+  }
+}

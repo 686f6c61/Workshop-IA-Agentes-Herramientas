@@ -1,0 +1,17 @@
+{
+  "pipeline": [
+    "ingesta_video",
+    "extraccion_frames_audio_ocr",
+    "frame_stream_csv",
+    "reglas_eventos",
+    "temporal_index",
+    "auditoria_respuesta"
+  ],
+  "engineering_checks": [
+    "versionar politica de muestreo",
+    "guardar modalidad de evidencia",
+    "bloquear texto visual no confiable",
+    "medir capacidad por hora de video",
+    "exigir answer/review/block"
+  ]
+}

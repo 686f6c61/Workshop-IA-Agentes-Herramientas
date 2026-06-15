@@ -1,0 +1,65 @@
+titulo: "IA multimodal y sistemas que perciben"
+fasciculo: 12
+total_capitulos: 12
+estado: en_progreso
+
+capitulos:
+  - numero: 1
+    archivo: 01-que-es-la-ia-multimodal.md
+    titulo: "Qué es la IA multimodal: texto, imagen, audio, vídeo y acción"
+    estado: revision
+
+  - numero: 2
+    archivo: 02-pixeles-patches-embeddings-visuales.md
+    titulo: "De píxeles a patches: cómo una imagen se convierte en representación"
+    estado: revision
+
+  - numero: 3
+    archivo: 03-clip-aprendizaje-contrastivo.md
+    titulo: "CLIP y aprendizaje contrastivo: alinear texto e imagen"
+    estado: revision
+
+  - numero: 4
+    archivo: 04-modelos-vision-lenguaje.md
+    titulo: "Modelos visión-lenguaje: encoder visual, conector y LLM"
+    estado: revision
+
+  - numero: 5
+    archivo: 05-document-ai-pdf-layout-tablas.md
+    titulo: "Document AI: PDFs, layout, tablas y evidencias"
+    estado: revision
+
+  - numero: 6
+    archivo: 06-rag-multimodal.md
+    titulo: "RAG multimodal: recuperar texto, páginas, imágenes y tablas"
+    estado: revision
+
+  - numero: 7
+    archivo: 07-audio-voz-conversacion-tiempo-real.md
+    titulo: "Audio, voz y conversación en tiempo real"
+    estado: revision
+
+  - numero: 8
+    archivo: 08-video-razonamiento-temporal.md
+    titulo: "Vídeo y razonamiento temporal: eventos, clips y memoria"
+    estado: revision
+
+  - numero: 9
+    archivo: 09-computer-use-agentes-pantallas.md
+    titulo: "Computer use: agentes que miran pantallas y actúan con permisos"
+    estado: revision
+
+  - numero: 10
+    archivo: 10-evaluar-sistemas-multimodales.md
+    titulo: "Evaluar sistemas multimodales: calidad, evidencia y coste"
+    estado: revision
+
+  - numero: 11
+    archivo: 11-privacidad-seguridad-operacion-multimodal.md
+    titulo: "Privacidad, seguridad y operación multimodal"
+    estado: revision
+
+  - numero: 12
+    archivo: 12-recapitulacion-laboratorio-multimodal.md
+    titulo: "Recapitulación y laboratorio multimodal"
+    estado: revision

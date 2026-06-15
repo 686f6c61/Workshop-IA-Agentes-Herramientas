@@ -1,0 +1,71 @@
+{
+  "scenario_id": "f10_c05_preference_posttraining",
+  "contract_version": "1.0.0",
+  "dataset_snapshot_id": "pref_dataset_2026_06_08",
+  "target_use": "pre_dpo_or_reward_model_audit",
+  "status": "block",
+  "diagnostics": {
+    "pairs": 6,
+    "task_families": 5,
+    "avg_agreement": 0.411667,
+    "low_agreement_rate": 1.0,
+    "chosen_win_rate": 0.166667,
+    "avg_reward_margin": -0.351667,
+    "negative_margin_rate": 0.833333,
+    "verifier_coverage": 0.5,
+    "duplicate_pair_rate": 0.0,
+    "reversed_conflicts": 1,
+    "length_bias_ratio": 1.299065
+  },
+  "checks": {
+    "schema": true,
+    "min_pairs": false,
+    "min_task_families": true,
+    "min_avg_agreement": false,
+    "max_low_agreement_rate": false,
+    "min_chosen_win_rate": false,
+    "min_avg_reward_margin": false,
+    "max_negative_margin_rate": false,
+    "min_verifier_coverage": false,
+    "max_duplicate_pair_rate": true,
+    "max_reversed_conflicts": false,
+    "max_length_bias_ratio": true
+  },
+  "task_family_summary": [
+    {
+      "task_family": "producto",
+      "pairs": 1,
+      "avg_margin": -0.38,
+      "avg_agreement": 0.42,
+      "verifier_coverage": 0.0
+    },
+    {
+      "task_family": "rag",
+      "pairs": 1,
+      "avg_margin": -0.55,
+      "avg_agreement": 0.38,
+      "verifier_coverage": 0.0
+    },
+    {
+      "task_family": "razonamiento",
+      "pairs": 1,
+      "avg_margin": -0.58,
+      "avg_agreement": 0.5,
+      "verifier_coverage": 1.0
+    },
+    {
+      "task_family": "salida_estructurada",
+      "pairs": 1,
+      "avg_margin": -0.6,
+      "avg_agreement": 0.45,
+      "verifier_coverage": 1.0
+    },
+    {
+      "task_family": "soporte",
+      "pairs": 2,
+      "avg_margin": 0.0,
+      "avg_agreement": 0.36,
+      "verifier_coverage": 0.5
+    }
+  ]
+}

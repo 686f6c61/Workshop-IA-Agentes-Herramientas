@@ -1,0 +1,67 @@
+[
+  {
+    "id": "rust_definition",
+    "task_type": "factual",
+    "prompt": "Explica en una frase qué es Rust.",
+    "expected_exact": "Rust es un lenguaje de programación de sistemas centrado en seguridad de memoria.",
+    "candidates": [
+      {
+        "text": "Rust es un lenguaje de programación de sistemas centrado en seguridad de memoria.",
+        "logit": 4.2
+      },
+      {
+        "text": "Rust es un lenguaje de programación que prioriza rendimiento y seguridad de memoria.",
+        "logit": 3.6
+      },
+      {
+        "text": "Rust combina control de bajo nivel con garantías fuertes frente a errores de memoria.",
+        "logit": 2.4
+      },
+      {
+        "text": "Rust es popular para servicios, herramientas de sistema y código donde importa la concurrencia.",
+        "logit": 1.5
+      }
+    ],
+    "properties": {
+      "must_contain_any": [
+        ["rust"],
+        ["lenguaje", "control"],
+        ["memoria", "seguridad"]
+      ],
+      "max_chars": 160
+    }
+  },
+  {
+    "id": "json_priority",
+    "task_type": "structured",
+    "prompt": "Clasifica un ticket de soporte en JSON con categoría y prioridad.",
+    "expected_exact": "{\"categoria\":\"soporte\",\"prioridad\":\"alta\"}",
+    "candidates": [
+      {
+        "text": "{\"categoria\":\"soporte\",\"prioridad\":\"alta\"}",
+        "logit": 3.9
+      },
+      {
+        "text": "{\"prioridad\":\"alta\",\"categoria\":\"soporte\"}",
+        "logit": 3.4
+      },
+      {
+        "text": "{\"categoria\":\"soporte\",\"prioridad\":\"media\"}",
+        "logit": 2.1
+      },
+      {
+        "text": "El ticket parece de soporte y tiene prioridad alta.",
+        "logit": 1.2
+      }
+    ],
+    "properties": {
+      "must_contain_any": [
+        ["categoria"],
+        ["prioridad"],
+        ["soporte"],
+        ["alta"]
+      ],
+      "max_chars": 80
+    }
+  }
+]

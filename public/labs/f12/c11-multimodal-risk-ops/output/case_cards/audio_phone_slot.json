@@ -1,0 +1,21 @@
+{
+  "case_id": "audio_phone_slot",
+  "title": "Llamada con teléfono y cambio de cita",
+  "modality": "audio",
+  "purpose": "Detectar intención y confirmar slot crítico antes de actualizar la cita",
+  "owner": "equipo_contact_center",
+  "destination": "internal_support_tool",
+  "storage": "redacted_trace",
+  "entity_count": 2,
+  "max_entity_sensitivity": 0.455,
+  "exposure_score": 0.0,
+  "impact": 0.55,
+  "risk_score": 0.3178,
+  "missing_controls": [],
+  "retention_days": 30,
+  "decision": "pass",
+  "expected_decision": "pass",
+  "decision_matches_expected": true,
+  "failures": [],
+  "next_action": "Mantener como caso de regresión y vigilar drift de entradas."
+}

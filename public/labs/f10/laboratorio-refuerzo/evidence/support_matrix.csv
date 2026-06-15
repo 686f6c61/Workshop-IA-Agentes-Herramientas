@@ -1,0 +1,9 @@
+slice,action,events,observed_count,target_probability_mass,observed_share,has_observed_support
+alta_criticidad,modelo_fuerte,3,2,0.786667,0.666667,True
+alta_criticidad,revision_humana,3,1,0.213333,0.333333,True
+baja_criticidad,modelo_fuerte,4,2,0.42,0.5,True
+baja_criticidad,modelo_rapido,4,2,0.51,0.5,True
+baja_criticidad,revision_humana,4,0,0.07,0.0,False
+media_criticidad,modelo_fuerte,5,2,0.594,0.4,True
+media_criticidad,modelo_rapido,5,2,0.224,0.4,True
+media_criticidad,revision_humana,5,1,0.182,0.2,True

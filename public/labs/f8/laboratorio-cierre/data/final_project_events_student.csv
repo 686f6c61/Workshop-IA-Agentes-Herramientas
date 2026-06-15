@@ -1,0 +1,13 @@
+case_id,split,segment,language,source,trace_id,has_required_fields,label,prediction,decision,latency_ms,accepted,citation_valid,experiment_variant
+c001,train,matricula,es,crm,t001,1,1,1,priority,430,1,1,control
+c002,train,becas,es,crm,t002,1,0,0,normal,470,1,1,control
+c003,train,practicas,en,form,t003,1,1,0,normal,620,0,1,control
+c004,train,matricula,ca,crm,t004,1,0,0,normal,455,1,1,control
+c005,validation,becas,es,form,t005,1,1,1,priority,510,1,1,treatment
+c006,validation,practicas,en,form,t006,1,1,0,normal,690,0,1,treatment
+c007,validation,matricula,es,crm,t007,1,0,0,normal,480,1,1,treatment
+c008,test,becas,ca,crm,t008,1,1,1,priority,540,1,1,treatment
+c009,test,practicas,en,form,t009,1,1,0,normal,760,0,1,treatment
+c010,test,matricula,es,crm,t010,1,0,0,normal,500,1,1,control
+c011,test,becas,en,form,t011,1,1,0,normal,730,0,0,treatment
+c012,test,practicas,en,form,t012,1,1,1,priority,710,1,1,treatment

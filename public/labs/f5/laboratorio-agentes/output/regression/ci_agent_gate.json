@@ -1,0 +1,12 @@
+{
+  "status": "bloquear",
+  "blocks": [
+    "route_accuracy",
+    "task_pass_rate",
+    "trace_complete_rate",
+    "tool_violation_count",
+    "approval_violation_count",
+    "latency_p95_ms"
+  ],
+  "reviews": []
+}

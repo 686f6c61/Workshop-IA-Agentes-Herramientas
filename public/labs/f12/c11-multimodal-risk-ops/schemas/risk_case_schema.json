@@ -1,0 +1,29 @@
+{
+  "type": "object",
+  "required": [
+    "case_id",
+    "title",
+    "modality",
+    "purpose",
+    "owner",
+    "destination",
+    "storage",
+    "entities",
+    "present_controls",
+    "impact",
+    "expected_decision"
+  ],
+  "properties": {
+    "case_id": {"type": "string"},
+    "title": {"type": "string"},
+    "modality": {"type": "string"},
+    "purpose": {"type": "string"},
+    "owner": {"type": "string"},
+    "destination": {"type": "string"},
+    "storage": {"type": "string"},
+    "entities": {"type": "array"},
+    "present_controls": {"type": "array"},
+    "impact": {"type": "number"},
+    "expected_decision": {"enum": ["pass", "review", "block"]}
+  }
+}

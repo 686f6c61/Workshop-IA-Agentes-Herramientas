@@ -1,0 +1,6 @@
+session_id,scenario,state_visible,evidence_visible,limits_copy,action_separated,recovery_path,accessibility_copy,trace_available,manual_fallback,success
+ux01,evidencia completa,yes,yes,yes,yes,yes,yes,yes,yes,yes
+ux02,fuente incompleta,yes,yes,yes,yes,yes,yes,yes,yes,yes
+ux03,permiso pendiente,yes,yes,yes,yes,yes,yes,yes,yes,yes
+ux04,error recuperable,yes,no,yes,yes,yes,yes,yes,yes,no
+ux05,caso fuera de alcance,yes,yes,yes,yes,yes,yes,yes,yes,yes

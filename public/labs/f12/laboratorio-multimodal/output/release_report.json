@@ -1,0 +1,3076 @@
+{
+  "schema_version": "1.0",
+  "project": "IA para gente curiosa",
+  "fasciculo": 12,
+  "capitulo": 12,
+  "summaries": {
+    "baseline": {
+      "scenario": "baseline",
+      "case_count": 8,
+      "pass_count": 2,
+      "review_count": 4,
+      "block_count": 2,
+      "avg_quality": 0.7903,
+      "avg_risk": 0.2238,
+      "global_decision": "block_release",
+      "mismatches": []
+    },
+    "remediated": {
+      "scenario": "remediated",
+      "case_count": 8,
+      "pass_count": 7,
+      "review_count": 1,
+      "block_count": 0,
+      "avg_quality": 0.8341,
+      "avg_risk": 0.0762,
+      "global_decision": "review_release",
+      "mismatches": []
+    },
+    "candidate": {
+      "scenario": "candidate",
+      "case_count": 8,
+      "pass_count": 8,
+      "review_count": 0,
+      "block_count": 0,
+      "avg_quality": 0.84,
+      "avg_risk": 0.0762,
+      "global_decision": "ship",
+      "mismatches": []
+    }
+  },
+  "baseline": [
+    {
+      "scenario": "baseline",
+      "case_id": "catalog_alt_text",
+      "title": "Generador de texto alternativo para catálogo",
+      "capabilities": [
+        "vision_language"
+      ],
+      "chapter_refs": [
+        1,
+        2,
+        4,
+        10
+      ],
+      "modalities": [
+        "image",
+        "text"
+      ],
+      "quality_score": 0.865,
+      "base_risk": 0.08,
+      "mitigation_credit": 0.05,
+      "risk_score": 0.03,
+      "latency_ms": 900,
+      "cost_units": 1.4,
+      "failure_rate": 0.01,
+      "missing_evidence": [],
+      "missing_controls": [],
+      "failures": [],
+      "decision": "pass",
+      "expected_decision": "pass",
+      "decision_matches_expected": true,
+      "next_action": "Publicar con monitorización y conservar evidencia de release."
+    },
+    {
+      "scenario": "baseline",
+      "case_id": "invoice_table_extraction",
+      "title": "Extracción de importes en facturas escaneadas",
+      "capabilities": [
+        "document_ai"
+      ],
+      "chapter_refs": [
+        2,
+        5,
+        10,
+        11
+      ],
+      "modalities": [
+        "pdf",
+        "ocr",
+        "table"
+      ],
+      "quality_score": 0.7975,
+      "base_risk": 0.18,
+      "mitigation_credit": 0.12,
+      "risk_score": 0.06,
+      "latency_ms": 1800,
+      "cost_units": 4.8,
+      "failure_rate": 0.035,
+      "missing_evidence": [
+        "table_eval"
+      ],
+      "missing_controls": [],
+      "failures": [
+        "missing_evidence"
+      ],
+      "decision": "review",
+      "expected_decision": "review",
+      "decision_matches_expected": true,
+      "next_action": "Completar evidencias: table_eval"
+    },
+    {
+      "scenario": "baseline",
+      "case_id": "policy_rag_with_internal_slides",
+      "title": "RAG multimodal sobre políticas con slides internas",
+      "capabilities": [
+        "multimodal_rag",
+        "risk_ops"
+      ],
+      "chapter_refs": [
+        3,
+        5,
+        6,
+        10,
+        11
+      ],
+      "modalities": [
+        "pdf",
+        "image",
+        "ocr",
+        "text"
+      ],
+      "quality_score": 0.7975,
+      "base_risk": 0.58,
+      "mitigation_credit": 0.13,
+      "risk_score": 0.45,
+      "latency_ms": 2100,
+      "cost_units": 7.2,
+      "failure_rate": 0.045,
+      "missing_evidence": [
+        "artifact_lineage",
+        "policy_decision",
+        "source_acl_check"
+      ],
+      "missing_controls": [
+        "revocation_runbook",
+        "secret_scan"
+      ],
+      "failures": [
+        "failure_rate_above_slo",
+        "missing_controls",
+        "missing_evidence",
+        "missing_policy_decision",
+        "secret_without_full_response"
+      ],
+      "decision": "block",
+      "expected_decision": "block",
+      "decision_matches_expected": true,
+      "next_action": "Bloquear, escanear secretos, redactar artefactos y definir runbook de revocación."
+    },
+    {
+      "scenario": "baseline",
+      "case_id": "voice_appointment_agent",
+      "title": "Asistente de voz para cambiar citas",
+      "capabilities": [
+        "realtime_voice"
+      ],
+      "chapter_refs": [
+        7,
+        9,
+        10,
+        11
+      ],
+      "modalities": [
+        "audio",
+        "transcript",
+        "tool_call"
+      ],
+      "quality_score": 0.78,
+      "base_risk": 0.18,
+      "mitigation_credit": 0.12,
+      "risk_score": 0.06,
+      "latency_ms": 2600,
+      "cost_units": 5.1,
+      "failure_rate": 0.025,
+      "missing_evidence": [
+        "latency_trace"
+      ],
+      "missing_controls": [],
+      "failures": [
+        "latency_above_slo",
+        "missing_evidence"
+      ],
+      "decision": "review",
+      "expected_decision": "review",
+      "decision_matches_expected": true,
+      "next_action": "Completar evidencias: latency_trace"
+    },
+    {
+      "scenario": "baseline",
+      "case_id": "parking_video_event_triage",
+      "title": "Vídeo para detectar accesos a parking",
+      "capabilities": [
+        "video_temporal",
+        "risk_ops"
+      ],
+      "chapter_refs": [
+        2,
+        8,
+        10,
+        11
+      ],
+      "modalities": [
+        "video",
+        "frames",
+        "event_timeline"
+      ],
+      "quality_score": 0.6825,
+      "base_risk": 0.18,
+      "mitigation_credit": 0.0,
+      "risk_score": 0.18,
+      "latency_ms": 3100,
+      "cost_units": 8.8,
+      "failure_rate": 0.055,
+      "missing_evidence": [
+        "artifact_lineage",
+        "policy_decision",
+        "temporal_eval"
+      ],
+      "missing_controls": [
+        "redaction_plan"
+      ],
+      "failures": [
+        "failure_rate_above_slo",
+        "latency_above_slo",
+        "missing_controls",
+        "missing_evidence",
+        "missing_policy_decision",
+        "quality_below_pass"
+      ],
+      "decision": "review",
+      "expected_decision": "review",
+      "decision_matches_expected": true,
+      "next_action": "Completar evidencias: artifact_lineage, policy_decision, temporal_eval"
+    },
+    {
+      "scenario": "baseline",
+      "case_id": "computer_use_claim_submission",
+      "title": "Agente que rellena un formulario externo con captura de pantalla",
+      "capabilities": [
+        "computer_use",
+        "risk_ops"
+      ],
+      "chapter_refs": [
+        9,
+        10,
+        11
+      ],
+      "modalities": [
+        "screenshot",
+        "dom",
+        "tool_call"
+      ],
+      "quality_score": 0.8325,
+      "base_risk": 0.92,
+      "mitigation_credit": 0.08,
+      "risk_score": 0.84,
+      "latency_ms": 1700,
+      "cost_units": 6.2,
+      "failure_rate": 0.02,
+      "missing_evidence": [
+        "approval_card",
+        "artifact_lineage",
+        "egress_policy",
+        "redaction_plan"
+      ],
+      "missing_controls": [
+        "approval_gate",
+        "egress_policy",
+        "redaction_plan",
+        "retention_policy",
+        "revocation_runbook"
+      ],
+      "failures": [
+        "external_action_without_approval_or_egress",
+        "missing_controls",
+        "missing_evidence",
+        "risk_above_block",
+        "secret_without_full_response"
+      ],
+      "decision": "block",
+      "expected_decision": "block",
+      "decision_matches_expected": true,
+      "next_action": "Bloquear, escanear secretos, redactar artefactos y definir runbook de revocación."
+    },
+    {
+      "scenario": "baseline",
+      "case_id": "visual_search_catalog",
+      "title": "Buscador visual para documentación de producto",
+      "capabilities": [
+        "vision_language",
+        "multimodal_rag"
+      ],
+      "chapter_refs": [
+        2,
+        3,
+        4,
+        6,
+        10
+      ],
+      "modalities": [
+        "image",
+        "embedding",
+        "text",
+        "pdf"
+      ],
+      "quality_score": 0.8425,
+      "base_risk": 0.2,
+      "mitigation_credit": 0.13,
+      "risk_score": 0.07,
+      "latency_ms": 1900,
+      "cost_units": 5.9,
+      "failure_rate": 0.025,
+      "missing_evidence": [],
+      "missing_controls": [],
+      "failures": [],
+      "decision": "pass",
+      "expected_decision": "pass",
+      "decision_matches_expected": true,
+      "next_action": "Publicar con monitorización y conservar evidencia de release."
+    },
+    {
+      "scenario": "baseline",
+      "case_id": "student_multimodal_helpdesk",
+      "title": "Helpdesk multimodal para alumnado",
+      "capabilities": [
+        "document_ai",
+        "multimodal_rag",
+        "realtime_voice",
+        "risk_ops"
+      ],
+      "chapter_refs": [
+        5,
+        6,
+        7,
+        10,
+        11
+      ],
+      "modalities": [
+        "pdf",
+        "audio",
+        "image",
+        "ocr",
+        "rag"
+      ],
+      "quality_score": 0.725,
+      "base_risk": 0.3,
+      "mitigation_credit": 0.2,
+      "risk_score": 0.1,
+      "latency_ms": 2400,
+      "cost_units": 9.4,
+      "failure_rate": 0.052,
+      "missing_evidence": [
+        "artifact_lineage",
+        "grounded_answer_eval",
+        "latency_trace",
+        "policy_decision",
+        "slot_eval",
+        "source_acl_check",
+        "table_eval"
+      ],
+      "missing_controls": [],
+      "failures": [
+        "cost_above_budget",
+        "failure_rate_above_slo",
+        "latency_above_slo",
+        "missing_evidence",
+        "missing_policy_decision",
+        "quality_below_pass"
+      ],
+      "decision": "review",
+      "expected_decision": "review",
+      "decision_matches_expected": true,
+      "next_action": "Completar evidencias: artifact_lineage, grounded_answer_eval, latency_trace, policy_decision"
+    }
+  ],
+  "remediated": [
+    {
+      "scenario": "remediated",
+      "case_id": "catalog_alt_text",
+      "title": "Generador de texto alternativo para catálogo",
+      "capabilities": [
+        "vision_language"
+      ],
+      "chapter_refs": [
+        1,
+        2,
+        4,
+        10
+      ],
+      "modalities": [
+        "image",
+        "text"
+      ],
+      "quality_score": 0.88,
+      "base_risk": 0.08,
+      "mitigation_credit": 0.05,
+      "risk_score": 0.03,
+      "latency_ms": 850,
+      "cost_units": 1.3,
+      "failure_rate": 0.01,
+      "missing_evidence": [],
+      "missing_controls": [],
+      "failures": [],
+      "decision": "pass",
+      "expected_decision": "pass",
+      "decision_matches_expected": true,
+      "next_action": "Publicar con monitorización y conservar evidencia de release."
+    },
+    {
+      "scenario": "remediated",
+      "case_id": "invoice_table_extraction",
+      "title": "Extracción de importes en facturas escaneadas",
+      "capabilities": [
+        "document_ai"
+      ],
+      "chapter_refs": [
+        2,
+        5,
+        10,
+        11
+      ],
+      "modalities": [
+        "pdf",
+        "ocr",
+        "table"
+      ],
+      "quality_score": 0.8525,
+      "base_risk": 0.18,
+      "mitigation_credit": 0.12,
+      "risk_score": 0.06,
+      "latency_ms": 1650,
+      "cost_units": 4.3,
+      "failure_rate": 0.025,
+      "missing_evidence": [],
+      "missing_controls": [],
+      "failures": [],
+      "decision": "pass",
+      "expected_decision": "pass",
+      "decision_matches_expected": true,
+      "next_action": "Publicar con monitorización y conservar evidencia de release."
+    },
+    {
+      "scenario": "remediated",
+      "case_id": "policy_rag_with_internal_slides",
+      "title": "RAG multimodal sobre políticas con slides internas",
+      "capabilities": [
+        "multimodal_rag",
+        "risk_ops"
+      ],
+      "chapter_refs": [
+        3,
+        5,
+        6,
+        10,
+        11
+      ],
+      "modalities": [
+        "pdf",
+        "image",
+        "ocr",
+        "text"
+      ],
+      "quality_score": 0.8375,
+      "base_risk": 0.2,
+      "mitigation_credit": 0.13,
+      "risk_score": 0.07,
+      "latency_ms": 2000,
+      "cost_units": 6.7,
+      "failure_rate": 0.03,
+      "missing_evidence": [],
+      "missing_controls": [],
+      "failures": [],
+      "decision": "pass",
+      "expected_decision": "pass",
+      "decision_matches_expected": true,
+      "next_action": "Publicar con monitorización y conservar evidencia de release."
+    },
+    {
+      "scenario": "remediated",
+      "case_id": "voice_appointment_agent",
+      "title": "Asistente de voz para cambiar citas",
+      "capabilities": [
+        "realtime_voice"
+      ],
+      "chapter_refs": [
+        7,
+        9,
+        10,
+        11
+      ],
+      "modalities": [
+        "audio",
+        "transcript",
+        "tool_call"
+      ],
+      "quality_score": 0.8175,
+      "base_risk": 0.18,
+      "mitigation_credit": 0.12,
+      "risk_score": 0.06,
+      "latency_ms": 1700,
+      "cost_units": 4.6,
+      "failure_rate": 0.02,
+      "missing_evidence": [],
+      "missing_controls": [],
+      "failures": [],
+      "decision": "pass",
+      "expected_decision": "pass",
+      "decision_matches_expected": true,
+      "next_action": "Publicar con monitorización y conservar evidencia de release."
+    },
+    {
+      "scenario": "remediated",
+      "case_id": "parking_video_event_triage",
+      "title": "Vídeo para detectar accesos a parking",
+      "capabilities": [
+        "video_temporal",
+        "risk_ops"
+      ],
+      "chapter_refs": [
+        2,
+        8,
+        10,
+        11
+      ],
+      "modalities": [
+        "video",
+        "frames",
+        "event_timeline"
+      ],
+      "quality_score": 0.7675,
+      "base_risk": 0.18,
+      "mitigation_credit": 0.12,
+      "risk_score": 0.06,
+      "latency_ms": 2150,
+      "cost_units": 8.1,
+      "failure_rate": 0.035,
+      "missing_evidence": [
+        "policy_decision"
+      ],
+      "missing_controls": [],
+      "failures": [
+        "missing_evidence",
+        "missing_policy_decision",
+        "quality_below_pass"
+      ],
+      "decision": "review",
+      "expected_decision": "review",
+      "decision_matches_expected": true,
+      "next_action": "Completar evidencias: policy_decision"
+    },
+    {
+      "scenario": "remediated",
+      "case_id": "computer_use_claim_submission",
+      "title": "Agente que rellena un formulario externo con captura de pantalla",
+      "capabilities": [
+        "computer_use",
+        "risk_ops"
+      ],
+      "chapter_refs": [
+        9,
+        10,
+        11
+      ],
+      "modalities": [
+        "screenshot",
+        "dom",
+        "tool_call"
+      ],
+      "quality_score": 0.86,
+      "base_risk": 0.54,
+      "mitigation_credit": 0.38,
+      "risk_score": 0.16,
+      "latency_ms": 1750,
+      "cost_units": 6.0,
+      "failure_rate": 0.018,
+      "missing_evidence": [],
+      "missing_controls": [],
+      "failures": [],
+      "decision": "pass",
+      "expected_decision": "pass",
+      "decision_matches_expected": true,
+      "next_action": "Publicar con monitorización y conservar evidencia de release."
+    },
+    {
+      "scenario": "remediated",
+      "case_id": "visual_search_catalog",
+      "title": "Buscador visual para documentación de producto",
+      "capabilities": [
+        "vision_language",
+        "multimodal_rag"
+      ],
+      "chapter_refs": [
+        2,
+        3,
+        4,
+        6,
+        10
+      ],
+      "modalities": [
+        "image",
+        "embedding",
+        "text",
+        "pdf"
+      ],
+      "quality_score": 0.8575,
+      "base_risk": 0.2,
+      "mitigation_credit": 0.13,
+      "risk_score": 0.07,
+      "latency_ms": 1800,
+      "cost_units": 5.4,
+      "failure_rate": 0.02,
+      "missing_evidence": [],
+      "missing_controls": [],
+      "failures": [],
+      "decision": "pass",
+      "expected_decision": "pass",
+      "decision_matches_expected": true,
+      "next_action": "Publicar con monitorización y conservar evidencia de release."
+    },
+    {
+      "scenario": "remediated",
+      "case_id": "student_multimodal_helpdesk",
+      "title": "Helpdesk multimodal para alumnado",
+      "capabilities": [
+        "document_ai",
+        "multimodal_rag",
+        "realtime_voice",
+        "risk_ops"
+      ],
+      "chapter_refs": [
+        5,
+        6,
+        7,
+        10,
+        11
+      ],
+      "modalities": [
+        "pdf",
+        "audio",
+        "image",
+        "ocr",
+        "rag"
+      ],
+      "quality_score": 0.8,
+      "base_risk": 0.3,
+      "mitigation_credit": 0.2,
+      "risk_score": 0.1,
+      "latency_ms": 2100,
+      "cost_units": 8.6,
+      "failure_rate": 0.033,
+      "missing_evidence": [],
+      "missing_controls": [],
+      "failures": [],
+      "decision": "pass",
+      "expected_decision": "pass",
+      "decision_matches_expected": true,
+      "next_action": "Publicar con monitorización y conservar evidencia de release."
+    }
+  ],
+  "candidate": [
+    {
+      "scenario": "candidate",
+      "case_id": "catalog_alt_text",
+      "title": "Generador de texto alternativo para catálogo",
+      "capabilities": [
+        "vision_language"
+      ],
+      "chapter_refs": [
+        1,
+        2,
+        4,
+        10
+      ],
+      "modalities": [
+        "image",
+        "text"
+      ],
+      "quality_score": 0.88,
+      "base_risk": 0.08,
+      "mitigation_credit": 0.05,
+      "risk_score": 0.03,
+      "latency_ms": 850,
+      "cost_units": 1.3,
+      "failure_rate": 0.01,
+      "missing_evidence": [],
+      "missing_controls": [],
+      "failures": [],
+      "decision": "pass",
+      "expected_decision": "pass",
+      "decision_matches_expected": true,
+      "next_action": "Publicar con monitorización y conservar evidencia de release."
+    },
+    {
+      "scenario": "candidate",
+      "case_id": "invoice_table_extraction",
+      "title": "Extracción de importes en facturas escaneadas",
+      "capabilities": [
+        "document_ai"
+      ],
+      "chapter_refs": [
+        2,
+        5,
+        10,
+        11
+      ],
+      "modalities": [
+        "pdf",
+        "ocr",
+        "table"
+      ],
+      "quality_score": 0.8525,
+      "base_risk": 0.18,
+      "mitigation_credit": 0.12,
+      "risk_score": 0.06,
+      "latency_ms": 1650,
+      "cost_units": 4.3,
+      "failure_rate": 0.025,
+      "missing_evidence": [],
+      "missing_controls": [],
+      "failures": [],
+      "decision": "pass",
+      "expected_decision": "pass",
+      "decision_matches_expected": true,
+      "next_action": "Publicar con monitorización y conservar evidencia de release."
+    },
+    {
+      "scenario": "candidate",
+      "case_id": "policy_rag_with_internal_slides",
+      "title": "RAG multimodal sobre políticas con slides internas",
+      "capabilities": [
+        "multimodal_rag",
+        "risk_ops"
+      ],
+      "chapter_refs": [
+        3,
+        5,
+        6,
+        10,
+        11
+      ],
+      "modalities": [
+        "pdf",
+        "image",
+        "ocr",
+        "text"
+      ],
+      "quality_score": 0.8375,
+      "base_risk": 0.2,
+      "mitigation_credit": 0.13,
+      "risk_score": 0.07,
+      "latency_ms": 2000,
+      "cost_units": 6.7,
+      "failure_rate": 0.03,
+      "missing_evidence": [],
+      "missing_controls": [],
+      "failures": [],
+      "decision": "pass",
+      "expected_decision": "pass",
+      "decision_matches_expected": true,
+      "next_action": "Publicar con monitorización y conservar evidencia de release."
+    },
+    {
+      "scenario": "candidate",
+      "case_id": "voice_appointment_agent",
+      "title": "Asistente de voz para cambiar citas",
+      "capabilities": [
+        "realtime_voice"
+      ],
+      "chapter_refs": [
+        7,
+        9,
+        10,
+        11
+      ],
+      "modalities": [
+        "audio",
+        "transcript",
+        "tool_call"
+      ],
+      "quality_score": 0.8175,
+      "base_risk": 0.18,
+      "mitigation_credit": 0.12,
+      "risk_score": 0.06,
+      "latency_ms": 1700,
+      "cost_units": 4.6,
+      "failure_rate": 0.02,
+      "missing_evidence": [],
+      "missing_controls": [],
+      "failures": [],
+      "decision": "pass",
+      "expected_decision": "pass",
+      "decision_matches_expected": true,
+      "next_action": "Publicar con monitorización y conservar evidencia de release."
+    },
+    {
+      "scenario": "candidate",
+      "case_id": "parking_video_event_triage",
+      "title": "Vídeo para detectar accesos a parking",
+      "capabilities": [
+        "video_temporal",
+        "risk_ops"
+      ],
+      "chapter_refs": [
+        2,
+        8,
+        10,
+        11
+      ],
+      "modalities": [
+        "video",
+        "frames",
+        "event_timeline"
+      ],
+      "quality_score": 0.815,
+      "base_risk": 0.18,
+      "mitigation_credit": 0.12,
+      "risk_score": 0.06,
+      "latency_ms": 2050,
+      "cost_units": 8.3,
+      "failure_rate": 0.028,
+      "missing_evidence": [],
+      "missing_controls": [],
+      "failures": [],
+      "decision": "pass",
+      "expected_decision": "pass",
+      "decision_matches_expected": true,
+      "next_action": "Publicar con monitorización y conservar evidencia de release."
+    },
+    {
+      "scenario": "candidate",
+      "case_id": "computer_use_claim_submission",
+      "title": "Agente que rellena un formulario externo con captura de pantalla",
+      "capabilities": [
+        "computer_use",
+        "risk_ops"
+      ],
+      "chapter_refs": [
+        9,
+        10,
+        11
+      ],
+      "modalities": [
+        "screenshot",
+        "dom",
+        "tool_call"
+      ],
+      "quality_score": 0.86,
+      "base_risk": 0.54,
+      "mitigation_credit": 0.38,
+      "risk_score": 0.16,
+      "latency_ms": 1750,
+      "cost_units": 6.0,
+      "failure_rate": 0.018,
+      "missing_evidence": [],
+      "missing_controls": [],
+      "failures": [],
+      "decision": "pass",
+      "expected_decision": "pass",
+      "decision_matches_expected": true,
+      "next_action": "Publicar con monitorización y conservar evidencia de release."
+    },
+    {
+      "scenario": "candidate",
+      "case_id": "visual_search_catalog",
+      "title": "Buscador visual para documentación de producto",
+      "capabilities": [
+        "vision_language",
+        "multimodal_rag"
+      ],
+      "chapter_refs": [
+        2,
+        3,
+        4,
+        6,
+        10
+      ],
+      "modalities": [
+        "image",
+        "embedding",
+        "text",
+        "pdf"
+      ],
+      "quality_score": 0.8575,
+      "base_risk": 0.2,
+      "mitigation_credit": 0.13,
+      "risk_score": 0.07,
+      "latency_ms": 1800,
+      "cost_units": 5.4,
+      "failure_rate": 0.02,
+      "missing_evidence": [],
+      "missing_controls": [],
+      "failures": [],
+      "decision": "pass",
+      "expected_decision": "pass",
+      "decision_matches_expected": true,
+      "next_action": "Publicar con monitorización y conservar evidencia de release."
+    },
+    {
+      "scenario": "candidate",
+      "case_id": "student_multimodal_helpdesk",
+      "title": "Helpdesk multimodal para alumnado",
+      "capabilities": [
+        "document_ai",
+        "multimodal_rag",
+        "realtime_voice",
+        "risk_ops"
+      ],
+      "chapter_refs": [
+        5,
+        6,
+        7,
+        10,
+        11
+      ],
+      "modalities": [
+        "pdf",
+        "audio",
+        "image",
+        "ocr",
+        "rag"
+      ],
+      "quality_score": 0.8,
+      "base_risk": 0.3,
+      "mitigation_credit": 0.2,
+      "risk_score": 0.1,
+      "latency_ms": 2100,
+      "cost_units": 8.6,
+      "failure_rate": 0.033,
+      "missing_evidence": [],
+      "missing_controls": [],
+      "failures": [],
+      "decision": "pass",
+      "expected_decision": "pass",
+      "decision_matches_expected": true,
+      "next_action": "Publicar con monitorización y conservar evidencia de release."
+    }
+  ],
+  "remediation_diff": [
+    {
+      "case_id": "catalog_alt_text",
+      "decision_before": "pass",
+      "decision_after": "pass",
+      "quality_delta": 0.015,
+      "risk_delta": 0.0,
+      "latency_delta_ms": -50,
+      "failure_rate_delta": 0.0,
+      "remaining_failures": []
+    },
+    {
+      "case_id": "invoice_table_extraction",
+      "decision_before": "review",
+      "decision_after": "pass",
+      "quality_delta": 0.055,
+      "risk_delta": 0.0,
+      "latency_delta_ms": -150,
+      "failure_rate_delta": -0.01,
+      "remaining_failures": []
+    },
+    {
+      "case_id": "policy_rag_with_internal_slides",
+      "decision_before": "block",
+      "decision_after": "pass",
+      "quality_delta": 0.04,
+      "risk_delta": -0.38,
+      "latency_delta_ms": -100,
+      "failure_rate_delta": -0.015,
+      "remaining_failures": []
+    },
+    {
+      "case_id": "voice_appointment_agent",
+      "decision_before": "review",
+      "decision_after": "pass",
+      "quality_delta": 0.0375,
+      "risk_delta": 0.0,
+      "latency_delta_ms": -900,
+      "failure_rate_delta": -0.005,
+      "remaining_failures": []
+    },
+    {
+      "case_id": "parking_video_event_triage",
+      "decision_before": "review",
+      "decision_after": "review",
+      "quality_delta": 0.085,
+      "risk_delta": -0.12,
+      "latency_delta_ms": -950,
+      "failure_rate_delta": -0.02,
+      "remaining_failures": [
+        "missing_evidence",
+        "missing_policy_decision",
+        "quality_below_pass"
+      ]
+    },
+    {
+      "case_id": "computer_use_claim_submission",
+      "decision_before": "block",
+      "decision_after": "pass",
+      "quality_delta": 0.0275,
+      "risk_delta": -0.68,
+      "latency_delta_ms": 50,
+      "failure_rate_delta": -0.002,
+      "remaining_failures": []
+    },
+    {
+      "case_id": "visual_search_catalog",
+      "decision_before": "pass",
+      "decision_after": "pass",
+      "quality_delta": 0.015,
+      "risk_delta": 0.0,
+      "latency_delta_ms": -100,
+      "failure_rate_delta": -0.005,
+      "remaining_failures": []
+    },
+    {
+      "case_id": "student_multimodal_helpdesk",
+      "decision_before": "review",
+      "decision_after": "pass",
+      "quality_delta": 0.075,
+      "risk_delta": 0.0,
+      "latency_delta_ms": -300,
+      "failure_rate_delta": -0.019,
+      "remaining_failures": []
+    }
+  ],
+  "release_candidate_diff": [
+    {
+      "case_id": "catalog_alt_text",
+      "decision_before": "pass",
+      "decision_after": "pass",
+      "quality_delta": 0.0,
+      "risk_delta": 0.0,
+      "latency_delta_ms": 0,
+      "failure_rate_delta": 0.0,
+      "remaining_failures": []
+    },
+    {
+      "case_id": "invoice_table_extraction",
+      "decision_before": "pass",
+      "decision_after": "pass",
+      "quality_delta": 0.0,
+      "risk_delta": 0.0,
+      "latency_delta_ms": 0,
+      "failure_rate_delta": 0.0,
+      "remaining_failures": []
+    },
+    {
+      "case_id": "policy_rag_with_internal_slides",
+      "decision_before": "pass",
+      "decision_after": "pass",
+      "quality_delta": 0.0,
+      "risk_delta": 0.0,
+      "latency_delta_ms": 0,
+      "failure_rate_delta": 0.0,
+      "remaining_failures": []
+    },
+    {
+      "case_id": "voice_appointment_agent",
+      "decision_before": "pass",
+      "decision_after": "pass",
+      "quality_delta": 0.0,
+      "risk_delta": 0.0,
+      "latency_delta_ms": 0,
+      "failure_rate_delta": 0.0,
+      "remaining_failures": []
+    },
+    {
+      "case_id": "parking_video_event_triage",
+      "decision_before": "review",
+      "decision_after": "pass",
+      "quality_delta": 0.0475,
+      "risk_delta": 0.0,
+      "latency_delta_ms": -100,
+      "failure_rate_delta": -0.007,
+      "remaining_failures": []
+    },
+    {
+      "case_id": "computer_use_claim_submission",
+      "decision_before": "pass",
+      "decision_after": "pass",
+      "quality_delta": 0.0,
+      "risk_delta": 0.0,
+      "latency_delta_ms": 0,
+      "failure_rate_delta": 0.0,
+      "remaining_failures": []
+    },
+    {
+      "case_id": "visual_search_catalog",
+      "decision_before": "pass",
+      "decision_after": "pass",
+      "quality_delta": 0.0,
+      "risk_delta": 0.0,
+      "latency_delta_ms": 0,
+      "failure_rate_delta": 0.0,
+      "remaining_failures": []
+    },
+    {
+      "case_id": "student_multimodal_helpdesk",
+      "decision_before": "pass",
+      "decision_after": "pass",
+      "quality_delta": 0.0,
+      "risk_delta": 0.0,
+      "latency_delta_ms": 0,
+      "failure_rate_delta": 0.0,
+      "remaining_failures": []
+    }
+  ],
+  "chapter_traceability": [
+    {
+      "chapter": "1",
+      "concept": "qué es multimodalidad y qué modalidad aporta cada parte",
+      "case_count": 1,
+      "cases": [
+        "catalog_alt_text"
+      ]
+    },
+    {
+      "chapter": "2",
+      "concept": "representaciones visuales, patches y coste de entrada",
+      "case_count": 4,
+      "cases": [
+        "catalog_alt_text",
+        "invoice_table_extraction",
+        "parking_video_event_triage",
+        "visual_search_catalog"
+      ]
+    },
+    {
+      "chapter": "3",
+      "concept": "búsqueda y ranking contrastivo",
+      "case_count": 2,
+      "cases": [
+        "policy_rag_with_internal_slides",
+        "visual_search_catalog"
+      ]
+    },
+    {
+      "chapter": "4",
+      "concept": "contrato de llamada visión-lenguaje",
+      "case_count": 2,
+      "cases": [
+        "catalog_alt_text",
+        "visual_search_catalog"
+      ]
+    },
+    {
+      "chapter": "5",
+      "concept": "Document AI, layout, tablas y evidencias",
+      "case_count": 3,
+      "cases": [
+        "invoice_table_extraction",
+        "policy_rag_with_internal_slides",
+        "student_multimodal_helpdesk"
+      ]
+    },
+    {
+      "chapter": "6",
+      "concept": "RAG multimodal, recuperación y grounding",
+      "case_count": 3,
+      "cases": [
+        "policy_rag_with_internal_slides",
+        "student_multimodal_helpdesk",
+        "visual_search_catalog"
+      ]
+    },
+    {
+      "chapter": "7",
+      "concept": "audio, voz, turnos y latencia",
+      "case_count": 2,
+      "cases": [
+        "student_multimodal_helpdesk",
+        "voice_appointment_agent"
+      ]
+    },
+    {
+      "chapter": "8",
+      "concept": "vídeo, clips, memoria temporal y eventos",
+      "case_count": 1,
+      "cases": [
+        "parking_video_event_triage"
+      ]
+    },
+    {
+      "chapter": "9",
+      "concept": "computer use, permisos y aprobación",
+      "case_count": 2,
+      "cases": [
+        "computer_use_claim_submission",
+        "voice_appointment_agent"
+      ]
+    },
+    {
+      "chapter": "10",
+      "concept": "evaluación multimodal y slices",
+      "case_count": 8,
+      "cases": [
+        "catalog_alt_text",
+        "computer_use_claim_submission",
+        "invoice_table_extraction",
+        "parking_video_event_triage",
+        "policy_rag_with_internal_slides",
+        "student_multimodal_helpdesk",
+        "visual_search_catalog",
+        "voice_appointment_agent"
+      ]
+    },
+    {
+      "chapter": "11",
+      "concept": "privacidad, seguridad, policy y lineage",
+      "case_count": 6,
+      "cases": [
+        "computer_use_claim_submission",
+        "invoice_table_extraction",
+        "parking_video_event_triage",
+        "policy_rag_with_internal_slides",
+        "student_multimodal_helpdesk",
+        "voice_appointment_agent"
+      ]
+    }
+  ],
+  "modality_coverage": [
+    {
+      "modality": "audio",
+      "case_count": 6,
+      "avg_quality": 0.79,
+      "avg_risk": 0.08,
+      "blocks": 0,
+      "reviews": 2
+    },
+    {
+      "modality": "dom",
+      "case_count": 3,
+      "avg_quality": 0.8508,
+      "avg_risk": 0.3867,
+      "blocks": 1,
+      "reviews": 0
+    },
+    {
+      "modality": "embedding",
+      "case_count": 3,
+      "avg_quality": 0.8525,
+      "avg_risk": 0.07,
+      "blocks": 0,
+      "reviews": 0
+    },
+    {
+      "modality": "event_timeline",
+      "case_count": 3,
+      "avg_quality": 0.755,
+      "avg_risk": 0.1,
+      "blocks": 0,
+      "reviews": 2
+    },
+    {
+      "modality": "frames",
+      "case_count": 3,
+      "avg_quality": 0.755,
+      "avg_risk": 0.1,
+      "blocks": 0,
+      "reviews": 2
+    },
+    {
+      "modality": "image",
+      "case_count": 12,
+      "avg_quality": 0.8317,
+      "avg_risk": 0.0992,
+      "blocks": 1,
+      "reviews": 1
+    },
+    {
+      "modality": "ocr",
+      "case_count": 9,
+      "avg_quality": 0.8111,
+      "avg_risk": 0.1189,
+      "blocks": 1,
+      "reviews": 2
+    },
+    {
+      "modality": "pdf",
+      "case_count": 12,
+      "avg_quality": 0.8215,
+      "avg_risk": 0.1067,
+      "blocks": 1,
+      "reviews": 2
+    },
+    {
+      "modality": "rag",
+      "case_count": 3,
+      "avg_quality": 0.775,
+      "avg_risk": 0.1,
+      "blocks": 0,
+      "reviews": 1
+    },
+    {
+      "modality": "screenshot",
+      "case_count": 3,
+      "avg_quality": 0.8508,
+      "avg_risk": 0.3867,
+      "blocks": 1,
+      "reviews": 0
+    },
+    {
+      "modality": "table",
+      "case_count": 3,
+      "avg_quality": 0.8342,
+      "avg_risk": 0.06,
+      "blocks": 0,
+      "reviews": 1
+    },
+    {
+      "modality": "text",
+      "case_count": 9,
+      "avg_quality": 0.8506,
+      "avg_risk": 0.0989,
+      "blocks": 1,
+      "reviews": 0
+    },
+    {
+      "modality": "tool_call",
+      "case_count": 6,
+      "avg_quality": 0.8279,
+      "avg_risk": 0.2233,
+      "blocks": 1,
+      "reviews": 1
+    },
+    {
+      "modality": "transcript",
+      "case_count": 3,
+      "avg_quality": 0.805,
+      "avg_risk": 0.06,
+      "blocks": 0,
+      "reviews": 1
+    },
+    {
+      "modality": "video",
+      "case_count": 3,
+      "avg_quality": 0.755,
+      "avg_risk": 0.1,
+      "blocks": 0,
+      "reviews": 2
+    }
+  ],
+  "sli_slo_matrix": [
+    {
+      "scenario": "baseline",
+      "case_id": "catalog_alt_text",
+      "metric": "quality_score",
+      "value": 0.865,
+      "operator": ">=",
+      "threshold": 0.78,
+      "status": "pass"
+    },
+    {
+      "scenario": "baseline",
+      "case_id": "catalog_alt_text",
+      "metric": "risk_score",
+      "value": 0.03,
+      "operator": "<",
+      "threshold": 0.48,
+      "status": "pass"
+    },
+    {
+      "scenario": "baseline",
+      "case_id": "catalog_alt_text",
+      "metric": "latency_ms",
+      "value": 900,
+      "operator": "<=",
+      "threshold": 2200,
+      "status": "pass"
+    },
+    {
+      "scenario": "baseline",
+      "case_id": "catalog_alt_text",
+      "metric": "cost_units",
+      "value": 1.4,
+      "operator": "<=",
+      "threshold": 9.0,
+      "status": "pass"
+    },
+    {
+      "scenario": "baseline",
+      "case_id": "catalog_alt_text",
+      "metric": "failure_rate",
+      "value": 0.01,
+      "operator": "<=",
+      "threshold": 0.04,
+      "status": "pass"
+    },
+    {
+      "scenario": "baseline",
+      "case_id": "catalog_alt_text",
+      "metric": "missing_evidence_count",
+      "value": 0,
+      "operator": "==",
+      "threshold": 0,
+      "status": "pass"
+    },
+    {
+      "scenario": "baseline",
+      "case_id": "catalog_alt_text",
+      "metric": "missing_controls_count",
+      "value": 0,
+      "operator": "==",
+      "threshold": 0,
+      "status": "pass"
+    },
+    {
+      "scenario": "baseline",
+      "case_id": "invoice_table_extraction",
+      "metric": "quality_score",
+      "value": 0.7975,
+      "operator": ">=",
+      "threshold": 0.78,
+      "status": "pass"
+    },
+    {
+      "scenario": "baseline",
+      "case_id": "invoice_table_extraction",
+      "metric": "risk_score",
+      "value": 0.06,
+      "operator": "<",
+      "threshold": 0.48,
+      "status": "pass"
+    },
+    {
+      "scenario": "baseline",
+      "case_id": "invoice_table_extraction",
+      "metric": "latency_ms",
+      "value": 1800,
+      "operator": "<=",
+      "threshold": 2200,
+      "status": "pass"
+    },
+    {
+      "scenario": "baseline",
+      "case_id": "invoice_table_extraction",
+      "metric": "cost_units",
+      "value": 4.8,
+      "operator": "<=",
+      "threshold": 9.0,
+      "status": "pass"
+    },
+    {
+      "scenario": "baseline",
+      "case_id": "invoice_table_extraction",
+      "metric": "failure_rate",
+      "value": 0.035,
+      "operator": "<=",
+      "threshold": 0.04,
+      "status": "pass"
+    },
+    {
+      "scenario": "baseline",
+      "case_id": "invoice_table_extraction",
+      "metric": "missing_evidence_count",
+      "value": 1,
+      "operator": "==",
+      "threshold": 0,
+      "status": "review"
+    },
+    {
+      "scenario": "baseline",
+      "case_id": "invoice_table_extraction",
+      "metric": "missing_controls_count",
+      "value": 0,
+      "operator": "==",
+      "threshold": 0,
+      "status": "pass"
+    },
+    {
+      "scenario": "baseline",
+      "case_id": "policy_rag_with_internal_slides",
+      "metric": "quality_score",
+      "value": 0.7975,
+      "operator": ">=",
+      "threshold": 0.78,
+      "status": "pass"
+    },
+    {
+      "scenario": "baseline",
+      "case_id": "policy_rag_with_internal_slides",
+      "metric": "risk_score",
+      "value": 0.45,
+      "operator": "<",
+      "threshold": 0.48,
+      "status": "pass"
+    },
+    {
+      "scenario": "baseline",
+      "case_id": "policy_rag_with_internal_slides",
+      "metric": "latency_ms",
+      "value": 2100,
+      "operator": "<=",
+      "threshold": 2200,
+      "status": "pass"
+    },
+    {
+      "scenario": "baseline",
+      "case_id": "policy_rag_with_internal_slides",
+      "metric": "cost_units",
+      "value": 7.2,
+      "operator": "<=",
+      "threshold": 9.0,
+      "status": "pass"
+    },
+    {
+      "scenario": "baseline",
+      "case_id": "policy_rag_with_internal_slides",
+      "metric": "failure_rate",
+      "value": 0.045,
+      "operator": "<=",
+      "threshold": 0.04,
+      "status": "review"
+    },
+    {
+      "scenario": "baseline",
+      "case_id": "policy_rag_with_internal_slides",
+      "metric": "missing_evidence_count",
+      "value": 3,
+      "operator": "==",
+      "threshold": 0,
+      "status": "review"
+    },
+    {
+      "scenario": "baseline",
+      "case_id": "policy_rag_with_internal_slides",
+      "metric": "missing_controls_count",
+      "value": 2,
+      "operator": "==",
+      "threshold": 0,
+      "status": "review"
+    },
+    {
+      "scenario": "baseline",
+      "case_id": "voice_appointment_agent",
+      "metric": "quality_score",
+      "value": 0.78,
+      "operator": ">=",
+      "threshold": 0.78,
+      "status": "pass"
+    },
+    {
+      "scenario": "baseline",
+      "case_id": "voice_appointment_agent",
+      "metric": "risk_score",
+      "value": 0.06,
+      "operator": "<",
+      "threshold": 0.48,
+      "status": "pass"
+    },
+    {
+      "scenario": "baseline",
+      "case_id": "voice_appointment_agent",
+      "metric": "latency_ms",
+      "value": 2600,
+      "operator": "<=",
+      "threshold": 2200,
+      "status": "review"
+    },
+    {
+      "scenario": "baseline",
+      "case_id": "voice_appointment_agent",
+      "metric": "cost_units",
+      "value": 5.1,
+      "operator": "<=",
+      "threshold": 9.0,
+      "status": "pass"
+    },
+    {
+      "scenario": "baseline",
+      "case_id": "voice_appointment_agent",
+      "metric": "failure_rate",
+      "value": 0.025,
+      "operator": "<=",
+      "threshold": 0.04,
+      "status": "pass"
+    },
+    {
+      "scenario": "baseline",
+      "case_id": "voice_appointment_agent",
+      "metric": "missing_evidence_count",
+      "value": 1,
+      "operator": "==",
+      "threshold": 0,
+      "status": "review"
+    },
+    {
+      "scenario": "baseline",
+      "case_id": "voice_appointment_agent",
+      "metric": "missing_controls_count",
+      "value": 0,
+      "operator": "==",
+      "threshold": 0,
+      "status": "pass"
+    },
+    {
+      "scenario": "baseline",
+      "case_id": "parking_video_event_triage",
+      "metric": "quality_score",
+      "value": 0.6825,
+      "operator": ">=",
+      "threshold": 0.78,
+      "status": "review"
+    },
+    {
+      "scenario": "baseline",
+      "case_id": "parking_video_event_triage",
+      "metric": "risk_score",
+      "value": 0.18,
+      "operator": "<",
+      "threshold": 0.48,
+      "status": "pass"
+    },
+    {
+      "scenario": "baseline",
+      "case_id": "parking_video_event_triage",
+      "metric": "latency_ms",
+      "value": 3100,
+      "operator": "<=",
+      "threshold": 2200,
+      "status": "review"
+    },
+    {
+      "scenario": "baseline",
+      "case_id": "parking_video_event_triage",
+      "metric": "cost_units",
+      "value": 8.8,
+      "operator": "<=",
+      "threshold": 9.0,
+      "status": "pass"
+    },
+    {
+      "scenario": "baseline",
+      "case_id": "parking_video_event_triage",
+      "metric": "failure_rate",
+      "value": 0.055,
+      "operator": "<=",
+      "threshold": 0.04,
+      "status": "review"
+    },
+    {
+      "scenario": "baseline",
+      "case_id": "parking_video_event_triage",
+      "metric": "missing_evidence_count",
+      "value": 3,
+      "operator": "==",
+      "threshold": 0,
+      "status": "review"
+    },
+    {
+      "scenario": "baseline",
+      "case_id": "parking_video_event_triage",
+      "metric": "missing_controls_count",
+      "value": 1,
+      "operator": "==",
+      "threshold": 0,
+      "status": "review"
+    },
+    {
+      "scenario": "baseline",
+      "case_id": "computer_use_claim_submission",
+      "metric": "quality_score",
+      "value": 0.8325,
+      "operator": ">=",
+      "threshold": 0.78,
+      "status": "pass"
+    },
+    {
+      "scenario": "baseline",
+      "case_id": "computer_use_claim_submission",
+      "metric": "risk_score",
+      "value": 0.84,
+      "operator": "<",
+      "threshold": 0.48,
+      "status": "review"
+    },
+    {
+      "scenario": "baseline",
+      "case_id": "computer_use_claim_submission",
+      "metric": "latency_ms",
+      "value": 1700,
+      "operator": "<=",
+      "threshold": 2200,
+      "status": "pass"
+    },
+    {
+      "scenario": "baseline",
+      "case_id": "computer_use_claim_submission",
+      "metric": "cost_units",
+      "value": 6.2,
+      "operator": "<=",
+      "threshold": 9.0,
+      "status": "pass"
+    },
+    {
+      "scenario": "baseline",
+      "case_id": "computer_use_claim_submission",
+      "metric": "failure_rate",
+      "value": 0.02,
+      "operator": "<=",
+      "threshold": 0.04,
+      "status": "pass"
+    },
+    {
+      "scenario": "baseline",
+      "case_id": "computer_use_claim_submission",
+      "metric": "missing_evidence_count",
+      "value": 4,
+      "operator": "==",
+      "threshold": 0,
+      "status": "review"
+    },
+    {
+      "scenario": "baseline",
+      "case_id": "computer_use_claim_submission",
+      "metric": "missing_controls_count",
+      "value": 5,
+      "operator": "==",
+      "threshold": 0,
+      "status": "review"
+    },
+    {
+      "scenario": "baseline",
+      "case_id": "visual_search_catalog",
+      "metric": "quality_score",
+      "value": 0.8425,
+      "operator": ">=",
+      "threshold": 0.78,
+      "status": "pass"
+    },
+    {
+      "scenario": "baseline",
+      "case_id": "visual_search_catalog",
+      "metric": "risk_score",
+      "value": 0.07,
+      "operator": "<",
+      "threshold": 0.48,
+      "status": "pass"
+    },
+    {
+      "scenario": "baseline",
+      "case_id": "visual_search_catalog",
+      "metric": "latency_ms",
+      "value": 1900,
+      "operator": "<=",
+      "threshold": 2200,
+      "status": "pass"
+    },
+    {
+      "scenario": "baseline",
+      "case_id": "visual_search_catalog",
+      "metric": "cost_units",
+      "value": 5.9,
+      "operator": "<=",
+      "threshold": 9.0,
+      "status": "pass"
+    },
+    {
+      "scenario": "baseline",
+      "case_id": "visual_search_catalog",
+      "metric": "failure_rate",
+      "value": 0.025,
+      "operator": "<=",
+      "threshold": 0.04,
+      "status": "pass"
+    },
+    {
+      "scenario": "baseline",
+      "case_id": "visual_search_catalog",
+      "metric": "missing_evidence_count",
+      "value": 0,
+      "operator": "==",
+      "threshold": 0,
+      "status": "pass"
+    },
+    {
+      "scenario": "baseline",
+      "case_id": "visual_search_catalog",
+      "metric": "missing_controls_count",
+      "value": 0,
+      "operator": "==",
+      "threshold": 0,
+      "status": "pass"
+    },
+    {
+      "scenario": "baseline",
+      "case_id": "student_multimodal_helpdesk",
+      "metric": "quality_score",
+      "value": 0.725,
+      "operator": ">=",
+      "threshold": 0.78,
+      "status": "review"
+    },
+    {
+      "scenario": "baseline",
+      "case_id": "student_multimodal_helpdesk",
+      "metric": "risk_score",
+      "value": 0.1,
+      "operator": "<",
+      "threshold": 0.48,
+      "status": "pass"
+    },
+    {
+      "scenario": "baseline",
+      "case_id": "student_multimodal_helpdesk",
+      "metric": "latency_ms",
+      "value": 2400,
+      "operator": "<=",
+      "threshold": 2200,
+      "status": "review"
+    },
+    {
+      "scenario": "baseline",
+      "case_id": "student_multimodal_helpdesk",
+      "metric": "cost_units",
+      "value": 9.4,
+      "operator": "<=",
+      "threshold": 9.0,
+      "status": "review"
+    },
+    {
+      "scenario": "baseline",
+      "case_id": "student_multimodal_helpdesk",
+      "metric": "failure_rate",
+      "value": 0.052,
+      "operator": "<=",
+      "threshold": 0.04,
+      "status": "review"
+    },
+    {
+      "scenario": "baseline",
+      "case_id": "student_multimodal_helpdesk",
+      "metric": "missing_evidence_count",
+      "value": 7,
+      "operator": "==",
+      "threshold": 0,
+      "status": "review"
+    },
+    {
+      "scenario": "baseline",
+      "case_id": "student_multimodal_helpdesk",
+      "metric": "missing_controls_count",
+      "value": 0,
+      "operator": "==",
+      "threshold": 0,
+      "status": "pass"
+    },
+    {
+      "scenario": "remediated",
+      "case_id": "catalog_alt_text",
+      "metric": "quality_score",
+      "value": 0.88,
+      "operator": ">=",
+      "threshold": 0.78,
+      "status": "pass"
+    },
+    {
+      "scenario": "remediated",
+      "case_id": "catalog_alt_text",
+      "metric": "risk_score",
+      "value": 0.03,
+      "operator": "<",
+      "threshold": 0.48,
+      "status": "pass"
+    },
+    {
+      "scenario": "remediated",
+      "case_id": "catalog_alt_text",
+      "metric": "latency_ms",
+      "value": 850,
+      "operator": "<=",
+      "threshold": 2200,
+      "status": "pass"
+    },
+    {
+      "scenario": "remediated",
+      "case_id": "catalog_alt_text",
+      "metric": "cost_units",
+      "value": 1.3,
+      "operator": "<=",
+      "threshold": 9.0,
+      "status": "pass"
+    },
+    {
+      "scenario": "remediated",
+      "case_id": "catalog_alt_text",
+      "metric": "failure_rate",
+      "value": 0.01,
+      "operator": "<=",
+      "threshold": 0.04,
+      "status": "pass"
+    },
+    {
+      "scenario": "remediated",
+      "case_id": "catalog_alt_text",
+      "metric": "missing_evidence_count",
+      "value": 0,
+      "operator": "==",
+      "threshold": 0,
+      "status": "pass"
+    },
+    {
+      "scenario": "remediated",
+      "case_id": "catalog_alt_text",
+      "metric": "missing_controls_count",
+      "value": 0,
+      "operator": "==",
+      "threshold": 0,
+      "status": "pass"
+    },
+    {
+      "scenario": "remediated",
+      "case_id": "invoice_table_extraction",
+      "metric": "quality_score",
+      "value": 0.8525,
+      "operator": ">=",
+      "threshold": 0.78,
+      "status": "pass"
+    },
+    {
+      "scenario": "remediated",
+      "case_id": "invoice_table_extraction",
+      "metric": "risk_score",
+      "value": 0.06,
+      "operator": "<",
+      "threshold": 0.48,
+      "status": "pass"
+    },
+    {
+      "scenario": "remediated",
+      "case_id": "invoice_table_extraction",
+      "metric": "latency_ms",
+      "value": 1650,
+      "operator": "<=",
+      "threshold": 2200,
+      "status": "pass"
+    },
+    {
+      "scenario": "remediated",
+      "case_id": "invoice_table_extraction",
+      "metric": "cost_units",
+      "value": 4.3,
+      "operator": "<=",
+      "threshold": 9.0,
+      "status": "pass"
+    },
+    {
+      "scenario": "remediated",
+      "case_id": "invoice_table_extraction",
+      "metric": "failure_rate",
+      "value": 0.025,
+      "operator": "<=",
+      "threshold": 0.04,
+      "status": "pass"
+    },
+    {
+      "scenario": "remediated",
+      "case_id": "invoice_table_extraction",
+      "metric": "missing_evidence_count",
+      "value": 0,
+      "operator": "==",
+      "threshold": 0,
+      "status": "pass"
+    },
+    {
+      "scenario": "remediated",
+      "case_id": "invoice_table_extraction",
+      "metric": "missing_controls_count",
+      "value": 0,
+      "operator": "==",
+      "threshold": 0,
+      "status": "pass"
+    },
+    {
+      "scenario": "remediated",
+      "case_id": "policy_rag_with_internal_slides",
+      "metric": "quality_score",
+      "value": 0.8375,
+      "operator": ">=",
+      "threshold": 0.78,
+      "status": "pass"
+    },
+    {
+      "scenario": "remediated",
+      "case_id": "policy_rag_with_internal_slides",
+      "metric": "risk_score",
+      "value": 0.07,
+      "operator": "<",
+      "threshold": 0.48,
+      "status": "pass"
+    },
+    {
+      "scenario": "remediated",
+      "case_id": "policy_rag_with_internal_slides",
+      "metric": "latency_ms",
+      "value": 2000,
+      "operator": "<=",
+      "threshold": 2200,
+      "status": "pass"
+    },
+    {
+      "scenario": "remediated",
+      "case_id": "policy_rag_with_internal_slides",
+      "metric": "cost_units",
+      "value": 6.7,
+      "operator": "<=",
+      "threshold": 9.0,
+      "status": "pass"
+    },
+    {
+      "scenario": "remediated",
+      "case_id": "policy_rag_with_internal_slides",
+      "metric": "failure_rate",
+      "value": 0.03,
+      "operator": "<=",
+      "threshold": 0.04,
+      "status": "pass"
+    },
+    {
+      "scenario": "remediated",
+      "case_id": "policy_rag_with_internal_slides",
+      "metric": "missing_evidence_count",
+      "value": 0,
+      "operator": "==",
+      "threshold": 0,
+      "status": "pass"
+    },
+    {
+      "scenario": "remediated",
+      "case_id": "policy_rag_with_internal_slides",
+      "metric": "missing_controls_count",
+      "value": 0,
+      "operator": "==",
+      "threshold": 0,
+      "status": "pass"
+    },
+    {
+      "scenario": "remediated",
+      "case_id": "voice_appointment_agent",
+      "metric": "quality_score",
+      "value": 0.8175,
+      "operator": ">=",
+      "threshold": 0.78,
+      "status": "pass"
+    },
+    {
+      "scenario": "remediated",
+      "case_id": "voice_appointment_agent",
+      "metric": "risk_score",
+      "value": 0.06,
+      "operator": "<",
+      "threshold": 0.48,
+      "status": "pass"
+    },
+    {
+      "scenario": "remediated",
+      "case_id": "voice_appointment_agent",
+      "metric": "latency_ms",
+      "value": 1700,
+      "operator": "<=",
+      "threshold": 2200,
+      "status": "pass"
+    },
+    {
+      "scenario": "remediated",
+      "case_id": "voice_appointment_agent",
+      "metric": "cost_units",
+      "value": 4.6,
+      "operator": "<=",
+      "threshold": 9.0,
+      "status": "pass"
+    },
+    {
+      "scenario": "remediated",
+      "case_id": "voice_appointment_agent",
+      "metric": "failure_rate",
+      "value": 0.02,
+      "operator": "<=",
+      "threshold": 0.04,
+      "status": "pass"
+    },
+    {
+      "scenario": "remediated",
+      "case_id": "voice_appointment_agent",
+      "metric": "missing_evidence_count",
+      "value": 0,
+      "operator": "==",
+      "threshold": 0,
+      "status": "pass"
+    },
+    {
+      "scenario": "remediated",
+      "case_id": "voice_appointment_agent",
+      "metric": "missing_controls_count",
+      "value": 0,
+      "operator": "==",
+      "threshold": 0,
+      "status": "pass"
+    },
+    {
+      "scenario": "remediated",
+      "case_id": "parking_video_event_triage",
+      "metric": "quality_score",
+      "value": 0.7675,
+      "operator": ">=",
+      "threshold": 0.78,
+      "status": "review"
+    },
+    {
+      "scenario": "remediated",
+      "case_id": "parking_video_event_triage",
+      "metric": "risk_score",
+      "value": 0.06,
+      "operator": "<",
+      "threshold": 0.48,
+      "status": "pass"
+    },
+    {
+      "scenario": "remediated",
+      "case_id": "parking_video_event_triage",
+      "metric": "latency_ms",
+      "value": 2150,
+      "operator": "<=",
+      "threshold": 2200,
+      "status": "pass"
+    },
+    {
+      "scenario": "remediated",
+      "case_id": "parking_video_event_triage",
+      "metric": "cost_units",
+      "value": 8.1,
+      "operator": "<=",
+      "threshold": 9.0,
+      "status": "pass"
+    },
+    {
+      "scenario": "remediated",
+      "case_id": "parking_video_event_triage",
+      "metric": "failure_rate",
+      "value": 0.035,
+      "operator": "<=",
+      "threshold": 0.04,
+      "status": "pass"
+    },
+    {
+      "scenario": "remediated",
+      "case_id": "parking_video_event_triage",
+      "metric": "missing_evidence_count",
+      "value": 1,
+      "operator": "==",
+      "threshold": 0,
+      "status": "review"
+    },
+    {
+      "scenario": "remediated",
+      "case_id": "parking_video_event_triage",
+      "metric": "missing_controls_count",
+      "value": 0,
+      "operator": "==",
+      "threshold": 0,
+      "status": "pass"
+    },
+    {
+      "scenario": "remediated",
+      "case_id": "computer_use_claim_submission",
+      "metric": "quality_score",
+      "value": 0.86,
+      "operator": ">=",
+      "threshold": 0.78,
+      "status": "pass"
+    },
+    {
+      "scenario": "remediated",
+      "case_id": "computer_use_claim_submission",
+      "metric": "risk_score",
+      "value": 0.16,
+      "operator": "<",
+      "threshold": 0.48,
+      "status": "pass"
+    },
+    {
+      "scenario": "remediated",
+      "case_id": "computer_use_claim_submission",
+      "metric": "latency_ms",
+      "value": 1750,
+      "operator": "<=",
+      "threshold": 2200,
+      "status": "pass"
+    },
+    {
+      "scenario": "remediated",
+      "case_id": "computer_use_claim_submission",
+      "metric": "cost_units",
+      "value": 6.0,
+      "operator": "<=",
+      "threshold": 9.0,
+      "status": "pass"
+    },
+    {
+      "scenario": "remediated",
+      "case_id": "computer_use_claim_submission",
+      "metric": "failure_rate",
+      "value": 0.018,
+      "operator": "<=",
+      "threshold": 0.04,
+      "status": "pass"
+    },
+    {
+      "scenario": "remediated",
+      "case_id": "computer_use_claim_submission",
+      "metric": "missing_evidence_count",
+      "value": 0,
+      "operator": "==",
+      "threshold": 0,
+      "status": "pass"
+    },
+    {
+      "scenario": "remediated",
+      "case_id": "computer_use_claim_submission",
+      "metric": "missing_controls_count",
+      "value": 0,
+      "operator": "==",
+      "threshold": 0,
+      "status": "pass"
+    },
+    {
+      "scenario": "remediated",
+      "case_id": "visual_search_catalog",
+      "metric": "quality_score",
+      "value": 0.8575,
+      "operator": ">=",
+      "threshold": 0.78,
+      "status": "pass"
+    },
+    {
+      "scenario": "remediated",
+      "case_id": "visual_search_catalog",
+      "metric": "risk_score",
+      "value": 0.07,
+      "operator": "<",
+      "threshold": 0.48,
+      "status": "pass"
+    },
+    {
+      "scenario": "remediated",
+      "case_id": "visual_search_catalog",
+      "metric": "latency_ms",
+      "value": 1800,
+      "operator": "<=",
+      "threshold": 2200,
+      "status": "pass"
+    },
+    {
+      "scenario": "remediated",
+      "case_id": "visual_search_catalog",
+      "metric": "cost_units",
+      "value": 5.4,
+      "operator": "<=",
+      "threshold": 9.0,
+      "status": "pass"
+    },
+    {
+      "scenario": "remediated",
+      "case_id": "visual_search_catalog",
+      "metric": "failure_rate",
+      "value": 0.02,
+      "operator": "<=",
+      "threshold": 0.04,
+      "status": "pass"
+    },
+    {
+      "scenario": "remediated",
+      "case_id": "visual_search_catalog",
+      "metric": "missing_evidence_count",
+      "value": 0,
+      "operator": "==",
+      "threshold": 0,
+      "status": "pass"
+    },
+    {
+      "scenario": "remediated",
+      "case_id": "visual_search_catalog",
+      "metric": "missing_controls_count",
+      "value": 0,
+      "operator": "==",
+      "threshold": 0,
+      "status": "pass"
+    },
+    {
+      "scenario": "remediated",
+      "case_id": "student_multimodal_helpdesk",
+      "metric": "quality_score",
+      "value": 0.8,
+      "operator": ">=",
+      "threshold": 0.78,
+      "status": "pass"
+    },
+    {
+      "scenario": "remediated",
+      "case_id": "student_multimodal_helpdesk",
+      "metric": "risk_score",
+      "value": 0.1,
+      "operator": "<",
+      "threshold": 0.48,
+      "status": "pass"
+    },
+    {
+      "scenario": "remediated",
+      "case_id": "student_multimodal_helpdesk",
+      "metric": "latency_ms",
+      "value": 2100,
+      "operator": "<=",
+      "threshold": 2200,
+      "status": "pass"
+    },
+    {
+      "scenario": "remediated",
+      "case_id": "student_multimodal_helpdesk",
+      "metric": "cost_units",
+      "value": 8.6,
+      "operator": "<=",
+      "threshold": 9.0,
+      "status": "pass"
+    },
+    {
+      "scenario": "remediated",
+      "case_id": "student_multimodal_helpdesk",
+      "metric": "failure_rate",
+      "value": 0.033,
+      "operator": "<=",
+      "threshold": 0.04,
+      "status": "pass"
+    },
+    {
+      "scenario": "remediated",
+      "case_id": "student_multimodal_helpdesk",
+      "metric": "missing_evidence_count",
+      "value": 0,
+      "operator": "==",
+      "threshold": 0,
+      "status": "pass"
+    },
+    {
+      "scenario": "remediated",
+      "case_id": "student_multimodal_helpdesk",
+      "metric": "missing_controls_count",
+      "value": 0,
+      "operator": "==",
+      "threshold": 0,
+      "status": "pass"
+    },
+    {
+      "scenario": "candidate",
+      "case_id": "catalog_alt_text",
+      "metric": "quality_score",
+      "value": 0.88,
+      "operator": ">=",
+      "threshold": 0.78,
+      "status": "pass"
+    },
+    {
+      "scenario": "candidate",
+      "case_id": "catalog_alt_text",
+      "metric": "risk_score",
+      "value": 0.03,
+      "operator": "<",
+      "threshold": 0.48,
+      "status": "pass"
+    },
+    {
+      "scenario": "candidate",
+      "case_id": "catalog_alt_text",
+      "metric": "latency_ms",
+      "value": 850,
+      "operator": "<=",
+      "threshold": 2200,
+      "status": "pass"
+    },
+    {
+      "scenario": "candidate",
+      "case_id": "catalog_alt_text",
+      "metric": "cost_units",
+      "value": 1.3,
+      "operator": "<=",
+      "threshold": 9.0,
+      "status": "pass"
+    },
+    {
+      "scenario": "candidate",
+      "case_id": "catalog_alt_text",
+      "metric": "failure_rate",
+      "value": 0.01,
+      "operator": "<=",
+      "threshold": 0.04,
+      "status": "pass"
+    },
+    {
+      "scenario": "candidate",
+      "case_id": "catalog_alt_text",
+      "metric": "missing_evidence_count",
+      "value": 0,
+      "operator": "==",
+      "threshold": 0,
+      "status": "pass"
+    },
+    {
+      "scenario": "candidate",
+      "case_id": "catalog_alt_text",
+      "metric": "missing_controls_count",
+      "value": 0,
+      "operator": "==",
+      "threshold": 0,
+      "status": "pass"
+    },
+    {
+      "scenario": "candidate",
+      "case_id": "invoice_table_extraction",
+      "metric": "quality_score",
+      "value": 0.8525,
+      "operator": ">=",
+      "threshold": 0.78,
+      "status": "pass"
+    },
+    {
+      "scenario": "candidate",
+      "case_id": "invoice_table_extraction",
+      "metric": "risk_score",
+      "value": 0.06,
+      "operator": "<",
+      "threshold": 0.48,
+      "status": "pass"
+    },
+    {
+      "scenario": "candidate",
+      "case_id": "invoice_table_extraction",
+      "metric": "latency_ms",
+      "value": 1650,
+      "operator": "<=",
+      "threshold": 2200,
+      "status": "pass"
+    },
+    {
+      "scenario": "candidate",
+      "case_id": "invoice_table_extraction",
+      "metric": "cost_units",
+      "value": 4.3,
+      "operator": "<=",
+      "threshold": 9.0,
+      "status": "pass"
+    },
+    {
+      "scenario": "candidate",
+      "case_id": "invoice_table_extraction",
+      "metric": "failure_rate",
+      "value": 0.025,
+      "operator": "<=",
+      "threshold": 0.04,
+      "status": "pass"
+    },
+    {
+      "scenario": "candidate",
+      "case_id": "invoice_table_extraction",
+      "metric": "missing_evidence_count",
+      "value": 0,
+      "operator": "==",
+      "threshold": 0,
+      "status": "pass"
+    },
+    {
+      "scenario": "candidate",
+      "case_id": "invoice_table_extraction",
+      "metric": "missing_controls_count",
+      "value": 0,
+      "operator": "==",
+      "threshold": 0,
+      "status": "pass"
+    },
+    {
+      "scenario": "candidate",
+      "case_id": "policy_rag_with_internal_slides",
+      "metric": "quality_score",
+      "value": 0.8375,
+      "operator": ">=",
+      "threshold": 0.78,
+      "status": "pass"
+    },
+    {
+      "scenario": "candidate",
+      "case_id": "policy_rag_with_internal_slides",
+      "metric": "risk_score",
+      "value": 0.07,
+      "operator": "<",
+      "threshold": 0.48,
+      "status": "pass"
+    },
+    {
+      "scenario": "candidate",
+      "case_id": "policy_rag_with_internal_slides",
+      "metric": "latency_ms",
+      "value": 2000,
+      "operator": "<=",
+      "threshold": 2200,
+      "status": "pass"
+    },
+    {
+      "scenario": "candidate",
+      "case_id": "policy_rag_with_internal_slides",
+      "metric": "cost_units",
+      "value": 6.7,
+      "operator": "<=",
+      "threshold": 9.0,
+      "status": "pass"
+    },
+    {
+      "scenario": "candidate",
+      "case_id": "policy_rag_with_internal_slides",
+      "metric": "failure_rate",
+      "value": 0.03,
+      "operator": "<=",
+      "threshold": 0.04,
+      "status": "pass"
+    },
+    {
+      "scenario": "candidate",
+      "case_id": "policy_rag_with_internal_slides",
+      "metric": "missing_evidence_count",
+      "value": 0,
+      "operator": "==",
+      "threshold": 0,
+      "status": "pass"
+    },
+    {
+      "scenario": "candidate",
+      "case_id": "policy_rag_with_internal_slides",
+      "metric": "missing_controls_count",
+      "value": 0,
+      "operator": "==",
+      "threshold": 0,
+      "status": "pass"
+    },
+    {
+      "scenario": "candidate",
+      "case_id": "voice_appointment_agent",
+      "metric": "quality_score",
+      "value": 0.8175,
+      "operator": ">=",
+      "threshold": 0.78,
+      "status": "pass"
+    },
+    {
+      "scenario": "candidate",
+      "case_id": "voice_appointment_agent",
+      "metric": "risk_score",
+      "value": 0.06,
+      "operator": "<",
+      "threshold": 0.48,
+      "status": "pass"
+    },
+    {
+      "scenario": "candidate",
+      "case_id": "voice_appointment_agent",
+      "metric": "latency_ms",
+      "value": 1700,
+      "operator": "<=",
+      "threshold": 2200,
+      "status": "pass"
+    },
+    {
+      "scenario": "candidate",
+      "case_id": "voice_appointment_agent",
+      "metric": "cost_units",
+      "value": 4.6,
+      "operator": "<=",
+      "threshold": 9.0,
+      "status": "pass"
+    },
+    {
+      "scenario": "candidate",
+      "case_id": "voice_appointment_agent",
+      "metric": "failure_rate",
+      "value": 0.02,
+      "operator": "<=",
+      "threshold": 0.04,
+      "status": "pass"
+    },
+    {
+      "scenario": "candidate",
+      "case_id": "voice_appointment_agent",
+      "metric": "missing_evidence_count",
+      "value": 0,
+      "operator": "==",
+      "threshold": 0,
+      "status": "pass"
+    },
+    {
+      "scenario": "candidate",
+      "case_id": "voice_appointment_agent",
+      "metric": "missing_controls_count",
+      "value": 0,
+      "operator": "==",
+      "threshold": 0,
+      "status": "pass"
+    },
+    {
+      "scenario": "candidate",
+      "case_id": "parking_video_event_triage",
+      "metric": "quality_score",
+      "value": 0.815,
+      "operator": ">=",
+      "threshold": 0.78,
+      "status": "pass"
+    },
+    {
+      "scenario": "candidate",
+      "case_id": "parking_video_event_triage",
+      "metric": "risk_score",
+      "value": 0.06,
+      "operator": "<",
+      "threshold": 0.48,
+      "status": "pass"
+    },
+    {
+      "scenario": "candidate",
+      "case_id": "parking_video_event_triage",
+      "metric": "latency_ms",
+      "value": 2050,
+      "operator": "<=",
+      "threshold": 2200,
+      "status": "pass"
+    },
+    {
+      "scenario": "candidate",
+      "case_id": "parking_video_event_triage",
+      "metric": "cost_units",
+      "value": 8.3,
+      "operator": "<=",
+      "threshold": 9.0,
+      "status": "pass"
+    },
+    {
+      "scenario": "candidate",
+      "case_id": "parking_video_event_triage",
+      "metric": "failure_rate",
+      "value": 0.028,
+      "operator": "<=",
+      "threshold": 0.04,
+      "status": "pass"
+    },
+    {
+      "scenario": "candidate",
+      "case_id": "parking_video_event_triage",
+      "metric": "missing_evidence_count",
+      "value": 0,
+      "operator": "==",
+      "threshold": 0,
+      "status": "pass"
+    },
+    {
+      "scenario": "candidate",
+      "case_id": "parking_video_event_triage",
+      "metric": "missing_controls_count",
+      "value": 0,
+      "operator": "==",
+      "threshold": 0,
+      "status": "pass"
+    },
+    {
+      "scenario": "candidate",
+      "case_id": "computer_use_claim_submission",
+      "metric": "quality_score",
+      "value": 0.86,
+      "operator": ">=",
+      "threshold": 0.78,
+      "status": "pass"
+    },
+    {
+      "scenario": "candidate",
+      "case_id": "computer_use_claim_submission",
+      "metric": "risk_score",
+      "value": 0.16,
+      "operator": "<",
+      "threshold": 0.48,
+      "status": "pass"
+    },
+    {
+      "scenario": "candidate",
+      "case_id": "computer_use_claim_submission",
+      "metric": "latency_ms",
+      "value": 1750,
+      "operator": "<=",
+      "threshold": 2200,
+      "status": "pass"
+    },
+    {
+      "scenario": "candidate",
+      "case_id": "computer_use_claim_submission",
+      "metric": "cost_units",
+      "value": 6.0,
+      "operator": "<=",
+      "threshold": 9.0,
+      "status": "pass"
+    },
+    {
+      "scenario": "candidate",
+      "case_id": "computer_use_claim_submission",
+      "metric": "failure_rate",
+      "value": 0.018,
+      "operator": "<=",
+      "threshold": 0.04,
+      "status": "pass"
+    },
+    {
+      "scenario": "candidate",
+      "case_id": "computer_use_claim_submission",
+      "metric": "missing_evidence_count",
+      "value": 0,
+      "operator": "==",
+      "threshold": 0,
+      "status": "pass"
+    },
+    {
+      "scenario": "candidate",
+      "case_id": "computer_use_claim_submission",
+      "metric": "missing_controls_count",
+      "value": 0,
+      "operator": "==",
+      "threshold": 0,
+      "status": "pass"
+    },
+    {
+      "scenario": "candidate",
+      "case_id": "visual_search_catalog",
+      "metric": "quality_score",
+      "value": 0.8575,
+      "operator": ">=",
+      "threshold": 0.78,
+      "status": "pass"
+    },
+    {
+      "scenario": "candidate",
+      "case_id": "visual_search_catalog",
+      "metric": "risk_score",
+      "value": 0.07,
+      "operator": "<",
+      "threshold": 0.48,
+      "status": "pass"
+    },
+    {
+      "scenario": "candidate",
+      "case_id": "visual_search_catalog",
+      "metric": "latency_ms",
+      "value": 1800,
+      "operator": "<=",
+      "threshold": 2200,
+      "status": "pass"
+    },
+    {
+      "scenario": "candidate",
+      "case_id": "visual_search_catalog",
+      "metric": "cost_units",
+      "value": 5.4,
+      "operator": "<=",
+      "threshold": 9.0,
+      "status": "pass"
+    },
+    {
+      "scenario": "candidate",
+      "case_id": "visual_search_catalog",
+      "metric": "failure_rate",
+      "value": 0.02,
+      "operator": "<=",
+      "threshold": 0.04,
+      "status": "pass"
+    },
+    {
+      "scenario": "candidate",
+      "case_id": "visual_search_catalog",
+      "metric": "missing_evidence_count",
+      "value": 0,
+      "operator": "==",
+      "threshold": 0,
+      "status": "pass"
+    },
+    {
+      "scenario": "candidate",
+      "case_id": "visual_search_catalog",
+      "metric": "missing_controls_count",
+      "value": 0,
+      "operator": "==",
+      "threshold": 0,
+      "status": "pass"
+    },
+    {
+      "scenario": "candidate",
+      "case_id": "student_multimodal_helpdesk",
+      "metric": "quality_score",
+      "value": 0.8,
+      "operator": ">=",
+      "threshold": 0.78,
+      "status": "pass"
+    },
+    {
+      "scenario": "candidate",
+      "case_id": "student_multimodal_helpdesk",
+      "metric": "risk_score",
+      "value": 0.1,
+      "operator": "<",
+      "threshold": 0.48,
+      "status": "pass"
+    },
+    {
+      "scenario": "candidate",
+      "case_id": "student_multimodal_helpdesk",
+      "metric": "latency_ms",
+      "value": 2100,
+      "operator": "<=",
+      "threshold": 2200,
+      "status": "pass"
+    },
+    {
+      "scenario": "candidate",
+      "case_id": "student_multimodal_helpdesk",
+      "metric": "cost_units",
+      "value": 8.6,
+      "operator": "<=",
+      "threshold": 9.0,
+      "status": "pass"
+    },
+    {
+      "scenario": "candidate",
+      "case_id": "student_multimodal_helpdesk",
+      "metric": "failure_rate",
+      "value": 0.033,
+      "operator": "<=",
+      "threshold": 0.04,
+      "status": "pass"
+    },
+    {
+      "scenario": "candidate",
+      "case_id": "student_multimodal_helpdesk",
+      "metric": "missing_evidence_count",
+      "value": 0,
+      "operator": "==",
+      "threshold": 0,
+      "status": "pass"
+    },
+    {
+      "scenario": "candidate",
+      "case_id": "student_multimodal_helpdesk",
+      "metric": "missing_controls_count",
+      "value": 0,
+      "operator": "==",
+      "threshold": 0,
+      "status": "pass"
+    }
+  ],
+  "contract_validation": [
+    {
+      "source": "candidate",
+      "case_id": "catalog_alt_text",
+      "status": "pass",
+      "errors": []
+    },
+    {
+      "source": "candidate",
+      "case_id": "invoice_table_extraction",
+      "status": "pass",
+      "errors": []
+    },
+    {
+      "source": "candidate",
+      "case_id": "policy_rag_with_internal_slides",
+      "status": "pass",
+      "errors": []
+    },
+    {
+      "source": "candidate",
+      "case_id": "voice_appointment_agent",
+      "status": "pass",
+      "errors": []
+    },
+    {
+      "source": "candidate",
+      "case_id": "parking_video_event_triage",
+      "status": "pass",
+      "errors": []
+    },
+    {
+      "source": "candidate",
+      "case_id": "computer_use_claim_submission",
+      "status": "pass",
+      "errors": []
+    },
+    {
+      "source": "candidate",
+      "case_id": "visual_search_catalog",
+      "status": "pass",
+      "errors": []
+    },
+    {
+      "source": "candidate",
+      "case_id": "student_multimodal_helpdesk",
+      "status": "pass",
+      "errors": []
+    },
+    {
+      "source": "invalid_examples",
+      "case_id": "missing_policy_video",
+      "status": "fail",
+      "errors": [
+        "quality_too_sparse",
+        "missing_required_evidence:artifact_lineage|event_timeline|policy_decision|redaction_plan",
+        "missing_required_controls:redaction_plan",
+        "expected_pass_but_contract_fails"
+      ]
+    },
+    {
+      "source": "invalid_examples",
+      "case_id": "bad_ops_contract",
+      "status": "fail",
+      "errors": [
+        "missing_ops:cost_units",
+        "missing_ops:failure_rate",
+        "quality_too_sparse",
+        "expected_pass_but_contract_fails"
+      ]
+    },
+    {
+      "source": "invalid_examples",
+      "case_id": "external_action_without_owner",
+      "status": "fail",
+      "errors": [
+        "missing_required_evidence:approval_card|artifact_lineage|egress_policy|policy_decision|redaction_plan",
+        "missing_required_controls:approval_gate|egress_policy|redaction_plan|retention_policy|taint_label",
+        "expected_pass_but_contract_fails"
+      ]
+    }
+  ],
+  "candidate_patch": {
+    "schema_version": "1.0",
+    "patch_id": "candidate_patch.parking_video_event_triage.v1",
+    "base_dataset": "remediated_cases.json",
+    "target_case_id": "parking_video_event_triage",
+    "changes": {
+      "owner": "ai_ops_video_owner",
+      "approvers": [
+        "privacy_owner",
+        "security_owner",
+        "operations_owner"
+      ],
+      "evidence_artifacts_add": [
+        "policy_decision",
+        "frame_region_redaction_eval",
+        "temporal_eval_v2"
+      ],
+      "controls_add": [
+        "policy_decision_recorded"
+      ],
+      "quality_update": {
+        "grounding": 0.83,
+        "extraction": 0.81,
+        "temporal": 0.82,
+        "user_value": 0.8
+      },
+      "ops_update": {
+        "latency_ms": 2050,
+        "cost_units": 8.3,
+        "failure_rate": 0.028
+      },
+      "expected_decision": "pass",
+      "release_notes": [
+        "Se registra una policy_decision explícita para tratamiento de vídeo con PII potencial.",
+        "Se añade evaluación de redacción por región para frames con caras o matrículas.",
+        "Se reemplaza la evaluación temporal básica por temporal_eval_v2 con falsos positivos y falsos negativos por evento.",
+        "Se mantiene retención corta y lineage del artefacto para auditoría posterior."
+      ],
+      "rollback_plan": "Si temporal_eval_v2 baja de 0.78, si la redacción por región falla o si desaparece policy_decision, desactivar la ruta de vídeo y volver a revisión manual."
+    }
+  },
+  "policy": {
+    "schema_version": "1.0",
+    "project": "IA para gente curiosa",
+    "fasciculo": 12,
+    "capitulo": 12,
+    "quality_gates": {
+      "pass_min_quality": 0.78,
+      "review_min_quality": 0.66,
+      "block_min_risk": 0.78,
+      "review_min_risk": 0.48,
+      "max_latency_ms": 2200,
+      "max_cost_units": 9.0,
+      "max_failure_rate": 0.04,
+      "require_evidence_for_release": true,
+      "require_human_approval_for_external_action": true,
+      "require_policy_decision_for_sensitive_cases": true
+    },
+    "required_evidence_by_capability": {
+      "vision_language": [
+        "request_contract",
+        "golden_set",
+        "slice_eval"
+      ],
+      "document_ai": [
+        "schema_contract",
+        "source_page_refs",
+        "table_eval"
+      ],
+      "multimodal_rag": [
+        "retrieval_manifest",
+        "source_acl_check",
+        "grounded_answer_eval"
+      ],
+      "realtime_voice": [
+        "turn_log",
+        "slot_eval",
+        "latency_trace"
+      ],
+      "video_temporal": [
+        "frame_sampling_policy",
+        "temporal_eval",
+        "event_timeline"
+      ],
+      "computer_use": [
+        "approval_card",
+        "tool_trace",
+        "egress_policy"
+      ],
+      "risk_ops": [
+        "redaction_plan",
+        "policy_decision",
+        "artifact_lineage"
+      ]
+    },
+    "required_controls_by_risk": {
+      "pii": [
+        "redaction_plan",
+        "retention_policy"
+      ],
+      "secret": [
+        "secret_scan",
+        "revocation_runbook"
+      ],
+      "untrusted_content": [
+        "taint_label"
+      ],
+      "external_action": [
+        "approval_gate",
+        "egress_policy"
+      ],
+      "licensed_source": [
+        "source_license_check"
+      ]
+    },
+    "chapter_traceability": {
+      "1": "qué es multimodalidad y qué modalidad aporta cada parte",
+      "2": "representaciones visuales, patches y coste de entrada",
+      "3": "búsqueda y ranking contrastivo",
+      "4": "contrato de llamada visión-lenguaje",
+      "5": "Document AI, layout, tablas y evidencias",
+      "6": "RAG multimodal, recuperación y grounding",
+      "7": "audio, voz, turnos y latencia",
+      "8": "vídeo, clips, memoria temporal y eventos",
+      "9": "computer use, permisos y aprobación",
+      "10": "evaluación multimodal y slices",
+      "11": "privacidad, seguridad, policy y lineage"
+    }
+  }
+}

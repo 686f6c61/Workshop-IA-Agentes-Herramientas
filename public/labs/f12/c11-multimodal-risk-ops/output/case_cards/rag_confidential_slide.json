@@ -1,0 +1,26 @@
+{
+  "case_id": "rag_confidential_slide",
+  "title": "RAG multimodal recupera una slide interna confidencial",
+  "modality": "rag",
+  "purpose": "Responder con política pública sin revelar una nota interna de negociación",
+  "owner": "equipo_conocimiento",
+  "destination": "approved_ai_provider",
+  "storage": "redacted_trace",
+  "entity_count": 1,
+  "max_entity_sensitivity": 0.798,
+  "exposure_score": 0.0,
+  "impact": 0.88,
+  "risk_score": 0.5937,
+  "missing_controls": [
+    "claim_grounding"
+  ],
+  "retention_days": 30,
+  "decision": "block",
+  "expected_decision": "block",
+  "decision_matches_expected": true,
+  "failures": [
+    "secreto_sin_redactar",
+    "controles_faltantes"
+  ],
+  "next_action": "Redactar información interna, revisar acceso de la fuente y bloquear publicación."
+}

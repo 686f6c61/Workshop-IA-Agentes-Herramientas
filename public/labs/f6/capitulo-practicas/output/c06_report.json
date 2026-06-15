@@ -1,0 +1,43 @@
+{
+  "title": "Gate de release",
+  "artifact": {
+    "scorecard": {
+      "contract": 1.0,
+      "evals": 0.96,
+      "latency": 0.94,
+      "cost": 0.98,
+      "rollback": 1.0,
+      "observability": 0.95
+    },
+    "gates": {
+      "min_all": 0.93,
+      "must_have_rollback": true
+    },
+    "blocked": []
+  },
+  "checks": [
+    {
+      "name": "scorecard completa",
+      "passed": true,
+      "detail": "El release mira más que accuracy."
+    },
+    {
+      "name": "sin bloqueos",
+      "passed": true,
+      "detail": "Bloqueos: []."
+    },
+    {
+      "name": "rollback obligatorio",
+      "passed": true,
+      "detail": "No se publica sin vuelta atrás."
+    },
+    {
+      "name": "observabilidad pasa",
+      "passed": true,
+      "detail": "El cambio deja evidencia."
+    }
+  ],
+  "status": "valid",
+  "decision": "La versión puede pasar a canary: cumple contrato, evals, latencia, coste, rollback y observabilidad.",
+  "chapter": "c06"
+}

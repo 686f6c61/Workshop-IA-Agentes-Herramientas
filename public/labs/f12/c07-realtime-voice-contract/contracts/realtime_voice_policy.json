@@ -1,0 +1,48 @@
+{
+  "schema_version": "1.0",
+  "project": "IA para gente curiosa",
+  "fasciculo": 12,
+  "capitulo": 7,
+  "audio": {
+    "sample_rate_hz": 16000,
+    "frame_ms": 20,
+    "vad_energy_threshold": 0.012,
+    "endpoint_silence_ms": 500
+  },
+  "quality_gates": {
+    "max_wer_for_automatic_decision": 0.18,
+    "max_critical_slot_error_rate": 0.0,
+    "max_endpoint_delay_ms": 700,
+    "max_first_audio_latency_ms": 1300,
+    "max_barge_in_stop_latency_ms": 250,
+    "min_mean_energy": 0.018
+  },
+  "tool_policy": {
+    "confirmation_required_for": [
+      "cancelar_matricula",
+      "enviar_correo_oficial",
+      "cambiar_datos_personales",
+      "emitir_reembolso"
+    ],
+    "confirmation_phrases": [
+      "confirmo",
+      "si autorizo",
+      "autorizo",
+      "adelante"
+    ]
+  },
+  "privacy": {
+    "redact_before_logging": true,
+    "pii_patterns": {
+      "dni": "\\b\\d{8}[A-Z]\\b",
+      "card": "\\b(?:\\d[ -]*?){13,16}\\b",
+      "phone_es": "\\b(?:\\+34\\s*)?(?:\\d[\\s-]?){8}\\d\\b"
+    }
+  },
+  "outputs": {
+    "require_turn_cards": true,
+    "require_audio_samples": true,
+    "require_latency_budget": true,
+    "require_signed_svg": true
+  }
+}

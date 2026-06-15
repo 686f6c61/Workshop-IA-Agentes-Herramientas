@@ -1,0 +1,8 @@
+name,weight,category,verifier
+correctness,0.4,objective,human_or_task_grader_v1
+evidence,0.22,objective,citation_support_v1
+format,0.13,guardrail,json_schema_v1
+abstention,0.12,guardrail,answerability_v1
+latency_cost,-0.07,cost,trace_metrics_v1
+token_cost,-0.04,cost,trace_metrics_v1
+tool_cost,-0.02,cost,trace_metrics_v1

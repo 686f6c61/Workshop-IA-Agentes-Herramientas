@@ -1,0 +1,58 @@
+{
+  "type": "function",
+  "name": "request_ui_action",
+  "description": "Propose exactly one UI action for a computer-use harness. This tool does not execute the action; the application policy gate decides whether to execute, review, approve or block it.",
+  "strict": true,
+  "parameters": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "action_type": {
+        "type": "string",
+        "enum": ["click", "type", "keypress", "scroll", "wait"],
+        "description": "The UI operation the model proposes."
+      },
+      "target": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "role": {
+            "type": "string",
+            "enum": ["button", "link", "textbox", "status", "coordinate"],
+            "description": "Accessible role, or coordinate only when the harness explicitly allows coordinate actions."
+          },
+          "name": {
+            "type": "string",
+            "description": "Accessible name or empty string when the action is wait."
+          },
+          "test_id": {
+            "type": "string",
+            "description": "Stable data-testid when available; empty string when unavailable."
+          }
+        },
+        "required": ["role", "name", "test_id"]
+      },
+      "text": {
+        "type": "string",
+        "description": "Text to type for type actions; empty string otherwise."
+      },
+      "reason": {
+        "type": "string",
+        "description": "Short operational reason for the proposed action."
+      },
+      "risk_tags": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "enum": ["authenticated", "destructive", "external_submit", "financial", "pii_export", "terms_or_cookies"]
+        },
+        "description": "Risk tags inferred by the model; the policy gate recomputes these from the UI state before execution."
+      },
+      "requires_approval": {
+        "type": "boolean",
+        "description": "Whether the model believes the action needs human approval. This is advisory; the policy gate is authoritative."
+      }
+    },
+    "required": ["action_type", "target", "text", "reason", "risk_tags", "requires_approval"]
+  }
+}

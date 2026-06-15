@@ -1,0 +1,46 @@
+{
+  "query_id": "q01_beca_envio",
+  "decision": "answer",
+  "answer": "No puede enviarse todavía: la política exige justificante de matrícula validado y el estado operativo indica pendiente_validacion el 2026-06-14.",
+  "evidence": [
+    {
+      "source_id": "policy_text_submission_rule",
+      "modality": "document_text",
+      "fact_id": "policy_submission_rule",
+      "page": 1,
+      "region_id": "sec_3_2",
+      "score": 1.0067
+    },
+    {
+      "source_id": "status_table_current",
+      "modality": "operational_record",
+      "fact_id": "status_current_pending_validation",
+      "page": null,
+      "region_id": null,
+      "score": 0.993
+    },
+    {
+      "source_id": "general_rag_note",
+      "modality": "document_text",
+      "fact_id": "answer_must_cite_sources",
+      "page": 1,
+      "region_id": "sec_3_3",
+      "score": 0.6968
+    }
+  ],
+  "limits": [
+    "No decide elegibilidad final ni sustituye una resolución administrativa."
+  ],
+  "next_action": "Guardar borrador, aportar documentación y volver a consultar el estado operativo.",
+  "metrics": {
+    "recall_at_k": 1.0,
+    "evidence_coverage": 1.0,
+    "modality_coverage": 1.0,
+    "context_precision": 1.0,
+    "ndcg_at_k": 1.0,
+    "mrr": 1.0,
+    "unsupported_claim_count": 0,
+    "retrieved_count": 5,
+    "relevant_retrieved_count": 5
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "status": "review",
+  "mixed_clusters_with_spillover": [
+    "team_a",
+    "team_b",
+    "team_c"
+  ],
+  "cluster_summary": [
+    {
+      "cluster_id": "team_a",
+      "n": 4,
+      "variants": "control,treatment",
+      "mixed": true,
+      "resolved_control": 1.0,
+      "resolved_treatment": 1.0,
+      "spillover_events": 2
+    },
+    {
+      "cluster_id": "team_b",
+      "n": 4,
+      "variants": "control,treatment",
+      "mixed": true,
+      "resolved_control": 0.0,
+      "resolved_treatment": 1.0,
+      "spillover_events": 2
+    },
+    {
+      "cluster_id": "team_c",
+      "n": 4,
+      "variants": "control,treatment",
+      "mixed": true,
+      "resolved_control": 1.0,
+      "resolved_treatment": 1.0,
+      "spillover_events": 3
+    }
+  ],
+  "decision": "si hay aprendizaje compartido por operador o equipo, considera asignar por cluster_id"
+}

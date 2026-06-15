@@ -1,0 +1,10 @@
+case_id,slice,hidden,expected_winner,winner,winner_score,case_ok
+rag_cita_valida,rag,False,a,a,0.7055,True
+rag_sin_fuente,rag,True,b,b,0.621,True
+json_contrato,salida_estructurada,False,b,b,0.7244,True
+sql_ejecutable,sql,False,a,a,0.646,True
+coste_controlado,coste,True,a,a,0.7165,True
+herramienta_timeout,herramientas,False,b,b,0.6983,True
+privacidad_minimizacion,privacidad,True,a,a,0.6538,True
+formato_y_evidencia,salida_estructurada,False,a,a,0.7114,True
+sensibilidad_evidencia,rag,False,a,a,0.6165,True

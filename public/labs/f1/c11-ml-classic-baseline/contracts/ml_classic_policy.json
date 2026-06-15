@@ -1,0 +1,9 @@
+{
+  "test_every_nth_row": 5,
+  "learning_rate": 0.25,
+  "epochs": 700,
+  "threshold": 0.5,
+  "min_recall": 0.75,
+  "min_f1": 0.75,
+  "require_f1_above_majority": true
+}

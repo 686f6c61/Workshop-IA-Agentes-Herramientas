@@ -1,0 +1,257 @@
+{
+  "scenario_id": "rag_internal_policy_reward_bad",
+  "reward_card_version": "0.1.0",
+  "objective": "Recompensa rota: premia longitud, estilo y coste por encima de evidencia.",
+  "contract_version": "1.0.0",
+  "status": "block",
+  "diagnostics": {
+    "cases": 4,
+    "slice_count": 3,
+    "case_pass_rate": 0.0,
+    "hidden_case_rate": 0.0,
+    "proxy_weight_share": 0.568182,
+    "cost_weight_share": 0.034091,
+    "verifier_coverage": 0.666667,
+    "positive_length_bonus": true,
+    "required_missing": [
+      "abstention"
+    ],
+    "hard_gate_count": 1,
+    "hard_gates_with_verifier": 0,
+    "normalized_cost_terms": 1,
+    "grader_accuracy": 0.166666,
+    "grader_precision": 0.25,
+    "grader_recall": 0.25
+  },
+  "checks": {
+    "min_cases": false,
+    "min_slice_count": false,
+    "min_case_pass_rate": false,
+    "min_hidden_case_rate": false,
+    "min_hard_gates": false,
+    "hard_gates_have_verifier": false,
+    "min_normalized_cost_terms": false,
+    "max_proxy_weight_share": false,
+    "max_cost_weight_share": true,
+    "forbid_positive_length_bonus": false,
+    "required_terms_present": false
+  },
+  "reward_terms": [
+    {
+      "name": "correctness",
+      "weight": 0.24,
+      "category": "objective",
+      "verifier": "human_or_task_grader_v1"
+    },
+    {
+      "name": "evidence",
+      "weight": 0.06,
+      "category": "objective",
+      "verifier": "citation_support_v1"
+    },
+    {
+      "name": "format",
+      "weight": 0.05,
+      "category": "guardrail",
+      "verifier": "json_schema_v1"
+    },
+    {
+      "name": "style",
+      "weight": 0.22,
+      "category": "proxy",
+      "verifier": "none"
+    },
+    {
+      "name": "length_bonus",
+      "weight": 0.28,
+      "category": "proxy",
+      "verifier": "none"
+    },
+    {
+      "name": "latency_cost",
+      "weight": -0.03,
+      "category": "cost",
+      "verifier": "trace_metrics_v1"
+    }
+  ],
+  "normalization": [
+    {
+      "term": "latency_cost",
+      "method": "raw_ms_bucket",
+      "source": "trace_metrics_v1",
+      "lower_is_better": true
+    }
+  ],
+  "hard_gates": [
+    {
+      "name": "valid_output_contract",
+      "verifier": "none",
+      "required": true,
+      "reason": "Declarado, pero no conectado a una prueba reproducible."
+    }
+  ],
+  "cases": [
+    {
+      "case_id": "rag_cita_valida",
+      "slice": "rag",
+      "hidden": false,
+      "expected_winner": "a",
+      "winner": "b",
+      "winner_score": 0.688,
+      "case_ok": false,
+      "ranked_candidates": [
+        {
+          "candidate_id": "b",
+          "score": 0.688,
+          "contributions": {
+            "correctness": 0.144,
+            "evidence": 0.0,
+            "format": 0.05,
+            "style": 0.22,
+            "length_bonus": 0.28,
+            "latency_cost": -0.006
+          }
+        },
+        {
+          "candidate_id": "a",
+          "score": 0.5115,
+          "contributions": {
+            "correctness": 0.24,
+            "evidence": 0.06,
+            "format": 0.05,
+            "style": 0.088,
+            "length_bonus": 0.084,
+            "latency_cost": -0.0105
+          }
+        }
+      ]
+    },
+    {
+      "case_id": "sin_fuente",
+      "slice": "rag",
+      "hidden": false,
+      "expected_winner": "a",
+      "winner": "b",
+      "winner_score": 0.5464,
+      "case_ok": false,
+      "ranked_candidates": [
+        {
+          "candidate_id": "b",
+          "score": 0.5464,
+          "contributions": {
+            "correctness": 0.0,
+            "evidence": 0.0,
+            "format": 0.05,
+            "style": 0.22,
+            "length_bonus": 0.28,
+            "latency_cost": -0.0036
+          }
+        },
+        {
+          "candidate_id": "a",
+          "score": 0.406,
+          "contributions": {
+            "correctness": 0.24,
+            "evidence": 0.0,
+            "format": 0.05,
+            "style": 0.066,
+            "length_bonus": 0.056,
+            "latency_cost": -0.006
+          }
+        }
+      ]
+    },
+    {
+      "case_id": "json_contrato",
+      "slice": "salida_estructurada",
+      "hidden": false,
+      "expected_winner": "a",
+      "winner": "b",
+      "winner_score": 0.701,
+      "case_ok": false,
+      "ranked_candidates": [
+        {
+          "candidate_id": "b",
+          "score": 0.701,
+          "contributions": {
+            "correctness": 0.192,
+            "evidence": 0.012,
+            "format": 0.0,
+            "style": 0.22,
+            "length_bonus": 0.28,
+            "latency_cost": -0.003
+          }
+        },
+        {
+          "candidate_id": "a",
+          "score": 0.485,
+          "contributions": {
+            "correctness": 0.24,
+            "evidence": 0.06,
+            "format": 0.05,
+            "style": 0.088,
+            "length_bonus": 0.056,
+            "latency_cost": -0.009
+          }
+        }
+      ]
+    },
+    {
+      "case_id": "coste_controlado",
+      "slice": "coste",
+      "hidden": false,
+      "expected_winner": "a",
+      "winner": "b",
+      "winner_score": 0.7435,
+      "case_ok": false,
+      "ranked_candidates": [
+        {
+          "candidate_id": "b",
+          "score": 0.7435,
+          "contributions": {
+            "correctness": 0.168,
+            "evidence": 0.03,
+            "format": 0.05,
+            "style": 0.22,
+            "length_bonus": 0.28,
+            "latency_cost": -0.0045
+          }
+        },
+        {
+          "candidate_id": "a",
+          "score": 0.532,
+          "contributions": {
+            "correctness": 0.24,
+            "evidence": 0.06,
+            "format": 0.05,
+            "style": 0.11,
+            "length_bonus": 0.084,
+            "latency_cost": -0.012
+          }
+        }
+      ]
+    }
+  ],
+  "grader_confusion_matrix": [
+    {
+      "grader": "citation_support_v1",
+      "tp": 1,
+      "tn": 0,
+      "fp": 1,
+      "fn": 1,
+      "precision": 0.5,
+      "recall": 0.5,
+      "accuracy": 0.333333
+    },
+    {
+      "grader": "json_schema_v1",
+      "tp": 0,
+      "tn": 0,
+      "fp": 1,
+      "fn": 0,
+      "precision": 0.0,
+      "recall": 0.0,
+      "accuracy": 0.0
+    }
+  ]
+}

@@ -1,0 +1,73 @@
+{
+  "purpose": "Convertir cada Manos a la obra del facsímil 4 en una decisión editable: entrada, criterio, ejecución, salida y adaptación.",
+  "required_report_fields": [
+    "status",
+    "summary"
+  ],
+  "chapter_expectations": {
+    "c01": {
+      "expected_top": "rag",
+      "what_you_take": "Una matriz para decidir si usar prompt/schema, RAG, tool, ajuste, modelo local o mezcla."
+    },
+    "c02": {
+      "required_payload_checks": [
+        "schema_strict",
+        "has_tool",
+        "has_trace",
+        "multimodal",
+        "low_temperature"
+      ],
+      "what_you_take": "Un payload de API completo con contrato de salida, tool, metadata y entrada multimodal."
+    },
+    "c03": {
+      "what_you_take": "Una hoja reproducible de presupuesto de tokens, ventana, caché y coste."
+    },
+    "c04": {
+      "expected_top": "open_weight_permissive",
+      "hard_filters": [
+        "privacy",
+        "json",
+        "license"
+      ],
+      "what_you_take": "Una matriz de selección de modelo que distingue API cerrada, pesos abiertos, licencia, control de datos, reproducibilidad y coste operativo."
+    },
+    "c05": {
+      "minimum_memory_margin_gb": 2,
+      "what_you_take": "Un cálculo inicial para no prometer que un modelo local cabe si la VRAM no acompaña."
+    },
+    "c06": {
+      "acceptable_top": [
+        "hybrid",
+        "cloud_api"
+      ],
+      "what_you_take": "Una comparación editable entre cloud, local, híbrido y GPU alquilada."
+    },
+    "c07": {
+      "expected_hit_at_1": "d1",
+      "what_you_take": "Un ranking mínimo para explicar dimensión, similitud y evaluación de embeddings."
+    },
+    "c08": {
+      "expected_hybrid_top": "doc-01",
+      "what_you_take": "Un ejemplo de búsqueda híbrida con filtro para evitar documentos antiguos pero parecidos."
+    },
+    "c09": {
+      "what_you_take": "Un mini RAG que recupera, cita o se abstiene."
+    },
+    "c10": {
+      "minimum_metric": 0.5,
+      "what_you_take": "Una separación práctica entre retrieval, citas y groundedness."
+    },
+    "c11": {
+      "minimum_graph_hits": 2,
+      "what_you_take": "Un plan pequeño de Agentic RAG/GraphRAG con evidencias combinadas."
+    },
+    "c12": {
+      "expected_top_campus": "Norte",
+      "what_you_take": "Una consulta Text-to-SQL validada antes de ejecutarse."
+    },
+    "c14": {
+      "minimum_ratio": 0.85,
+      "what_you_take": "Un gate de arquitectura para decidir si un prototipo puede avanzar."
+    }
+  }
+}

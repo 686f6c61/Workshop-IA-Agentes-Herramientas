@@ -1,0 +1,21 @@
+{
+  "case_id": "public_product_photo",
+  "title": "Foto pública de producto sin personas ni identificadores",
+  "modality": "image",
+  "purpose": "Generar texto alternativo para catálogo público",
+  "owner": "equipo_contenido",
+  "destination": "approved_ai_provider",
+  "storage": "public_asset",
+  "entity_count": 0,
+  "max_entity_sensitivity": 0.0,
+  "exposure_score": 0.0,
+  "impact": 0.2,
+  "risk_score": 0.056,
+  "missing_controls": [],
+  "retention_days": 365,
+  "decision": "pass",
+  "expected_decision": "pass",
+  "decision_matches_expected": true,
+  "failures": [],
+  "next_action": "Mantener como caso de regresión y vigilar drift de entradas."
+}

@@ -1,0 +1,15 @@
+{
+  "contract_id": "reference-data-quality-contract",
+  "required_columns": [
+    "case_id",
+    "split",
+    "trace_id",
+    "has_required_fields",
+    "label",
+    "prediction"
+  ],
+  "blocking_rules": {
+    "missing_trace_rate": 0.0,
+    "missing_required_fields_rate": 0.0
+  }
+}

@@ -1,0 +1,30 @@
+---
+import BookLayout from '../../../layouts/BookLayout.astro';
+import { getBookDocument } from '../../../lib/book';
+
+const document = await getBookDocument('nota-del-autor');
+---
+
+<BookLayout title={`${document.title} · IA para gente curiosa`} description={document.description}>
+  <main class="document-shell">
+    <nav class="document-topbar" aria-label="Navegación del libro">
+      <a class="quiet-link" href="/libro/">
+        <i data-lucide="arrow-left"></i>
+        Libro
+      </a>
+      <div>
+        <a href="/libro/proyecto/">Sobre el proyecto</a>
+        <a href="/libro/licencia/">Licencia MIT</a>
+      </div>
+    </nav>
+
+    <article class="book-document">
+      <header class="document-cover">
+        <p class="eyebrow">{document.eyebrow}</p>
+        <h1>{document.title}</h1>
+        <p>{document.description}</p>
+      </header>
+      <div class="chapter-content" set:html={document.html} />
+    </article>
+  </main>
+</BookLayout>

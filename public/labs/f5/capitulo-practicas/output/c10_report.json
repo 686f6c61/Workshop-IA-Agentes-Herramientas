@@ -1,0 +1,76 @@
+{
+  "title": "Evaluación de agentes y gates",
+  "artifact": {
+    "runs": [
+      {
+        "id": "r1",
+        "route_ok": true,
+        "tools_ok": true,
+        "approval_ok": true,
+        "trace_ok": true,
+        "cost_eur": 0.03,
+        "latency_ms": 1800
+      },
+      {
+        "id": "r2",
+        "route_ok": true,
+        "tools_ok": true,
+        "approval_ok": true,
+        "trace_ok": true,
+        "cost_eur": 0.05,
+        "latency_ms": 2400
+      },
+      {
+        "id": "r3",
+        "route_ok": true,
+        "tools_ok": true,
+        "approval_ok": true,
+        "trace_ok": true,
+        "cost_eur": 0.04,
+        "latency_ms": 2100
+      }
+    ],
+    "metrics": {
+      "route_accuracy": 1.0,
+      "tool_pass_rate": 1.0,
+      "approval_pass_rate": 1.0,
+      "trace_complete_rate": 1.0,
+      "p95_latency_ms": 2400,
+      "max_cost_eur": 0.05
+    },
+    "gates": {
+      "route_accuracy": true,
+      "tool_pass_rate": true,
+      "approval_pass_rate": true,
+      "trace_complete_rate": true,
+      "latency": true,
+      "cost": true
+    }
+  },
+  "checks": [
+    {
+      "name": "métricas de trayectoria",
+      "passed": true,
+      "detail": "No se mira solo la respuesta final."
+    },
+    {
+      "name": "gates pasan",
+      "passed": true,
+      "detail": "La versión puede avanzar a canary."
+    },
+    {
+      "name": "coste limitado",
+      "passed": true,
+      "detail": "El gate incluye presupuesto."
+    },
+    {
+      "name": "latencia limitada",
+      "passed": true,
+      "detail": "El gate incluye experiencia de usuario."
+    }
+  ],
+  "status": "valid",
+  "what_you_take": "Un gate de evaluación que mira trayectoria, permisos, coste y latencia.",
+  "decision": "La versión puede pasar a canary: ruta, tools, aprobación, trazas, coste y latencia cumplen el contrato mínimo.",
+  "chapter": "c10"
+}

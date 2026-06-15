@@ -1,0 +1,11 @@
+{
+  "scenario_id": "informes_7b_q4",
+  "weights_gb": 3.5,
+  "kv_cache_gb": 4.295,
+  "runtime_margin_gb": 6,
+  "estimated_total_memory_gb": 13.795,
+  "tokens_per_second_per_user": 15.0,
+  "decode_seconds_per_user": 80.0,
+  "status": "redisenar_serving",
+  "why": "La memoria parece tratable, pero la latencia de decode no sirve para una experiencia interactiva."
+}

@@ -1,0 +1,7 @@
+flow_id,memory_type,retention_days,default_days,owner,action
+F-001,contexto_efimero,0,0,platform_ai,mantener
+F-002,corpus_rag,365,365,rag_owner,mantener
+F-003,traza_operativa,90,14,ops_owner,reducir
+F-004,memoria_usuario,30,30,product_owner,mantener
+F-005,dataset_evaluacion,180,180,eval_owner,mantener
+F-006,entrenamiento,365,0,ml_owner,reducir

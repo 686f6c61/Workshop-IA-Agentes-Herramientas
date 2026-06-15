@@ -1,0 +1,25 @@
+artifact_id,system_id,requirement_id,path,owner,status,version,reviewed_on,notes
+ev-aims-001,academic_support_assistant,AIMS_SCOPE,output/iso42001_aims_scope.md,owner-governance,accepted,0.1.0,2026-06-07,alcance inicial cubre el sistema académico
+ev-inv-001,academic_support_assistant,AI_INVENTORY,output/ai_system_register.csv,equipo-plataforma-ia,accepted,0.1.0,2026-06-07,inventario generado por este kit
+ev-dpia-001,academic_support_assistant,GDPR_DPIA,../c02-privacy-dpia/output/dpia_precheck.md,owner-privacy,accepted,0.2.0,2026-06-07,precheck de privacidad conectado con el capítulo 02
+ev-rmf-001,academic_support_assistant,NIST_GOVERN_MAP_MEASURE_MANAGE,output/article_to_artifact_crosswalk.csv,owner-governance,accepted,0.1.0,2026-06-07,crosswalk de gobierno y medición
+ev-quality-001,academic_support_assistant,AIACT_ART15_QUALITY_ROBUSTNESS,../c03-llm-appsec/output/appsec_gate_report.md,owner-eval,accepted,0.3.0,2026-06-07,gate técnico reutilizado del capítulo 03
+ev-post-001,academic_support_assistant,AIACT_ART72_POST_MARKET,output/change_control_record.md,owner-ops,partial,0.1.0,2026-06-07,falta automatizar reporte mensual
+ev-aims-002,admissions_prioritization_helper,AIMS_SCOPE,output/iso42001_aims_scope.md,owner-governance,accepted,0.1.0,2026-06-07,alcance incluye piloto de admisiones
+ev-inv-002,admissions_prioritization_helper,AI_INVENTORY,output/ai_system_register.csv,equipo-datos-academicos,accepted,0.1.0,2026-06-07,inventario generado por este kit
+ev-risk-002,admissions_prioritization_helper,AIACT_ART9_RISK_MANAGEMENT,../c01-risk-governance/output/risk_register.md,owner-risk,accepted,0.3.0,2026-06-07,registro de riesgos vivo
+ev-data-002,admissions_prioritization_helper,AIACT_ART10_DATA_GOVERNANCE,output/data_governance_pack.md,owner-data,partial,0.1.0,2026-06-07,falta cierre de representatividad por programa académico
+ev-tech-002,admissions_prioritization_helper,AIACT_ART11_ANNEXIV_TECH_DOC,output/annex_iv_technical_file.md,equipo-datos-academicos,accepted,0.1.0,2026-06-07,technical file mínimo generado
+ev-logs-002,admissions_prioritization_helper,AIACT_ART12_RECORD_KEEPING,output/trace_evidence_sample.jsonl,owner-platform,missing,0.0.0,2026-06-07,no hay export real de trazas del piloto
+ev-instr-002,admissions_prioritization_helper,AIACT_ART13_INSTRUCTIONS,output/operator_manual.md,owner-product,partial,0.1.0,2026-06-07,falta validar instrucciones con operadores
+ev-human-002,admissions_prioritization_helper,AIACT_ART14_HUMAN_OVERSIGHT,output/human_oversight_playbook.md,owner-ops,partial,0.1.0,2026-06-07,falta prueba de escalado
+ev-quality-002,admissions_prioritization_helper,AIACT_ART15_QUALITY_ROBUSTNESS,output/eval_and_robustness_report.md,owner-eval,partial,0.1.0,2026-06-07,falta eval por subgrupos y umbral de regresión
+ev-qms-002,admissions_prioritization_helper,AIACT_ART17_QMS,output/change_control_record.md,owner-quality,accepted,0.1.0,2026-06-07,cambio de modelo prompt e índice cubiertos
+ev-fria-002,admissions_prioritization_helper,AIACT_ART27_FRIA,output/fria_precheck.md,owner-governance,missing,0.0.0,2026-06-07,pendiente de revisión por deployer
+ev-dpia-002,admissions_prioritization_helper,GDPR_DPIA,../c02-privacy-dpia/output/dpia_precheck.md,owner-privacy,partial,0.2.0,2026-06-07,falta decisión formal de retención
+ev-rmf-002,admissions_prioritization_helper,NIST_GOVERN_MAP_MEASURE_MANAGE,output/article_to_artifact_crosswalk.csv,owner-governance,accepted,0.1.0,2026-06-07,crosswalk de gobierno y medición
+ev-aims-003,internal_coding_helper,AIMS_SCOPE,output/iso42001_aims_scope.md,owner-governance,accepted,0.1.0,2026-06-07,alcance incluye herramientas internas de productividad
+ev-inv-003,internal_coding_helper,AI_INVENTORY,output/ai_system_register.csv,equipo-ingenieria,accepted,0.1.0,2026-06-07,inventario generado por este kit
+ev-quality-003,internal_coding_helper,AIACT_ART15_QUALITY_ROBUSTNESS,output/eval_and_robustness_report.md,owner-eval,accepted,0.2.0,2026-06-07,pruebas de calidad y permisos de repositorio
+ev-post-003,internal_coding_helper,AIACT_ART72_POST_MARKET,output/change_control_record.md,owner-ops,accepted,0.1.0,2026-06-07,revisiones mensuales de cambios
+ev-rmf-003,internal_coding_helper,NIST_GOVERN_MAP_MEASURE_MANAGE,output/article_to_artifact_crosswalk.csv,owner-governance,accepted,0.1.0,2026-06-07,crosswalk de gobierno y medición

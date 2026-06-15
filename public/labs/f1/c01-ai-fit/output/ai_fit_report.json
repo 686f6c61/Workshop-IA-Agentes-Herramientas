@@ -1,0 +1,142 @@
+[
+  {
+    "id": "ventas_trimestre",
+    "title": "Calcular ventas del último trimestre",
+    "recommendation": "hybrid_system",
+    "components": [
+      "sql_or_deterministic_code",
+      "tool_or_api",
+      "human_review"
+    ],
+    "needs_review": true,
+    "controls": [
+      "tests_with_known_answers",
+      "data_lineage",
+      "query_review",
+      "permission_boundary",
+      "dry_run",
+      "audit_log",
+      "named_reviewer",
+      "acceptance_criteria",
+      "decision_record"
+    ],
+    "reasons": [
+      "hay que calcular o consultar un dato exacto",
+      "hace falta leer estado real o actuar sobre un sistema",
+      "el impacto o la acción externa exige una persona responsable"
+    ]
+  },
+  {
+    "id": "politica_becas",
+    "title": "Responder dudas sobre una política de becas",
+    "recommendation": "hybrid_system",
+    "components": [
+      "search_or_rag",
+      "llm_generation",
+      "tool_or_api"
+    ],
+    "needs_review": false,
+    "controls": [
+      "source_citations",
+      "freshness_date",
+      "retrieval_evaluation",
+      "structured_prompt",
+      "output_schema",
+      "sampling_policy",
+      "permission_boundary",
+      "dry_run",
+      "audit_log"
+    ],
+    "reasons": [
+      "la respuesta debe apoyarse en fuentes recuperables",
+      "hay que redactar, resumir o transformar lenguaje",
+      "hace falta leer estado real o actuar sobre un sistema"
+    ]
+  },
+  {
+    "id": "correo_seguimiento",
+    "title": "Redactar un correo de seguimiento",
+    "recommendation": "llm_generation",
+    "components": [
+      "llm_generation"
+    ],
+    "needs_review": false,
+    "controls": [
+      "structured_prompt",
+      "output_schema",
+      "sampling_policy"
+    ],
+    "reasons": [
+      "hay que redactar, resumir o transformar lenguaje"
+    ]
+  },
+  {
+    "id": "reembolso_cliente",
+    "title": "Proponer y ejecutar un reembolso",
+    "recommendation": "hybrid_system",
+    "components": [
+      "sql_or_deterministic_code",
+      "search_or_rag",
+      "llm_generation",
+      "tool_or_api",
+      "human_review"
+    ],
+    "needs_review": true,
+    "controls": [
+      "tests_with_known_answers",
+      "data_lineage",
+      "query_review",
+      "source_citations",
+      "freshness_date",
+      "retrieval_evaluation",
+      "structured_prompt",
+      "output_schema",
+      "sampling_policy",
+      "permission_boundary",
+      "dry_run",
+      "audit_log",
+      "named_reviewer",
+      "acceptance_criteria",
+      "decision_record"
+    ],
+    "reasons": [
+      "hay que calcular o consultar un dato exacto",
+      "la respuesta debe apoyarse en fuentes recuperables",
+      "hay que redactar, resumir o transformar lenguaje",
+      "hace falta leer estado real o actuar sobre un sistema",
+      "el impacto o la acción externa exige una persona responsable"
+    ]
+  },
+  {
+    "id": "incidencia_produccion",
+    "title": "Resumir una incidencia de producción",
+    "recommendation": "hybrid_system",
+    "components": [
+      "search_or_rag",
+      "llm_generation",
+      "tool_or_api",
+      "human_review"
+    ],
+    "needs_review": true,
+    "controls": [
+      "source_citations",
+      "freshness_date",
+      "retrieval_evaluation",
+      "structured_prompt",
+      "output_schema",
+      "sampling_policy",
+      "permission_boundary",
+      "dry_run",
+      "audit_log",
+      "named_reviewer",
+      "acceptance_criteria",
+      "decision_record"
+    ],
+    "reasons": [
+      "la respuesta debe apoyarse en fuentes recuperables",
+      "hay que redactar, resumir o transformar lenguaje",
+      "hace falta leer estado real o actuar sobre un sistema",
+      "el impacto o la acción externa exige una persona responsable"
+    ]
+  }
+]

@@ -1,0 +1,9 @@
+{
+  "rubric_id": "academic_agent_evaluator_v1",
+  "blocking_criteria": ["evidence", "policy"],
+  "pass_threshold": 0.75,
+  "min_agreement": 0.75,
+  "max_false_passes": 0,
+  "max_parse_errors": 0,
+  "max_cost_per_valid_evaluation": 0.006
+}

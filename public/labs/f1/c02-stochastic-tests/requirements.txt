@@ -1,0 +1,2 @@
+# Sin dependencias externas.
+# Python 3.10+ es suficiente para ejecutar el simulador y sus tests.

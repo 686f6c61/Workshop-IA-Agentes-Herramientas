@@ -1,0 +1,16 @@
+{
+  "weights_gb": {
+    "16": 14.0,
+    "8": 7.0,
+    "4": 3.5
+  },
+  "kv_cache_gb": {
+    "MHA": 17.1799,
+    "GQA": 4.295,
+    "MQA": 0.5369
+  },
+  "latency_single_user_s": 7.5167,
+  "latency_shared_s": 20.85,
+  "shared_tokens_per_second_per_user": 15.0,
+  "gate_valid": true
+}

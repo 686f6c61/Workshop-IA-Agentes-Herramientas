@@ -1,0 +1,6 @@
+{
+  "target_token": "banco",
+  "weight_sum_tolerance": 0.000001,
+  "expected_top_token": "banco"
+}
+

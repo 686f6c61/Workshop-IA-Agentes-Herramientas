@@ -1,0 +1,6 @@
+{
+  "uct_c": 1.4,
+  "require_same_minimax_alphabeta": true,
+  "min_expected_prunes": 1
+}
+

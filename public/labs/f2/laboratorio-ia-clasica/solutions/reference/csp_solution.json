@@ -1,0 +1,18 @@
+{
+  "status": "solucion_valida",
+  "solution": {
+    "practica": [
+      "lun_11",
+      "Lab"
+    ],
+    "tutoria": [
+      "mar_09",
+      "Aula"
+    ],
+    "repaso": [
+      "lun_09",
+      "Aula"
+    ]
+  },
+  "trace_event_count": 54
+}

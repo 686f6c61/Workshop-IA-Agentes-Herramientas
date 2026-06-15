@@ -1,0 +1,4 @@
+slice,events,doubly_robust,ess_ratio,max_importance_weight,logged_action_support
+alta_criticidad,2,1.0928,0.98666,24.0,0.955
+baja_criticidad,2,0.721049,0.990099,0.055556,0.045
+media_criticidad,2,0.897335,0.501155,31.666667,0.49

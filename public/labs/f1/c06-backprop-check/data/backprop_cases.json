@@ -1,0 +1,26 @@
+[
+  {
+    "id": "chapter_example",
+    "description": "Ejemplo del capítulo: la predicción queda por debajo de la etiqueta y el peso debe subir.",
+    "x": 2.0,
+    "w": 0.4,
+    "b": -0.1,
+    "y": 1.0
+  },
+  {
+    "id": "saturated_sigmoid",
+    "description": "Sigmoide saturada: la pérdida puede ser alta, pero la derivada se queda casi sin señal.",
+    "x": 8.0,
+    "w": 3.0,
+    "b": 1.0,
+    "y": 0.0
+  },
+  {
+    "id": "small_signal",
+    "description": "Entrada pequeña: el gradiente del peso es pequeño y el sesgo domina la actualización.",
+    "x": 0.05,
+    "w": 0.8,
+    "b": -0.2,
+    "y": 1.0
+  }
+]

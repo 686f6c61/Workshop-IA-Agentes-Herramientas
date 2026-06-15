@@ -1,0 +1,4 @@
+control_mean,treatment_mean,effect,standard_error,ci95_low,ci95_high,p_value,segment,n
+0.25,0.75,0.5,0.353553,-0.192965,1.192965,0.157299,becas,8
+1.0,1.0,0.0,0.0,0.0,0.0,1.0,matricula,8
+0.5,0.75,0.25,0.381881,-0.498487,0.998487,0.512691,practicas,8

@@ -1,0 +1,42 @@
+{
+  "scale": {
+    "min": 1,
+    "max": 5,
+    "fields": {
+      "likelihood": "Probabilidad estimada en la ventana revisada.",
+      "impact": "Impacto si el escenario ocurre.",
+      "exposure": "Alcance: usuarios, datos, integraciones o frecuencia.",
+      "detectability_gap": "Dificultad para detectar el problema a tiempo; 1 es fácil, 5 es difícil."
+    }
+  },
+  "risk_thresholds": {
+    "bajo": 80,
+    "medio": 180,
+    "alto": 350
+  },
+  "release_rules": {
+    "max_critical": 0,
+    "max_high_without_owner": 0,
+    "require_evidence_for_high": true,
+    "require_privacy_review_when_personal_data": true,
+    "decision_if_blocked": "revisar_antes_de_publicar"
+  },
+  "control_catalog": {
+    "datos": ["minimizacion", "seudonimizacion", "retencion_limitada", "dataset_card"],
+    "rag": ["citas_obligatorias", "versionado_indice", "abstencion_sin_evidencia", "eval_retrieval"],
+    "tools": ["permisos_minimos", "aprobacion_humana", "idempotencia", "registro_de_efectos"],
+    "modelo": ["model_card", "eval_regresion", "limites_de_uso", "fallback"],
+    "observabilidad": ["trace_id", "span_modelo", "metricas_coste", "muestreo_revisable"],
+    "gobernanza": ["owner", "decision_escrita", "revision_periodica", "paquete_evidencias"]
+  },
+  "framework_artifact_map": {
+    "nist_ai_rmf_govern": ["owner", "decision_escrita", "paquete_evidencias"],
+    "nist_ai_rmf_map": ["inventario_sistema", "contexto_uso", "limites_sistema"],
+    "nist_ai_rmf_measure": ["risk_register", "eval_regresion", "trace_sample"],
+    "nist_ai_rmf_manage": ["control_matrix", "release_gate", "revision_periodica"],
+    "iso_42001": ["politica_ia", "raci_operativo", "mejora_continua"],
+    "ai_act": ["clasificacion_uso", "documentacion_tecnica", "monitorizacion_post_release"],
+    "gdpr": ["privacy_review", "retencion_limitada", "minimizacion"],
+    "owasp_llm": ["permisos_minimos", "validacion_salida", "control_contexto_tools"]
+  }
+}

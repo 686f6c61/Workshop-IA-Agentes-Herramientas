@@ -1,0 +1,40 @@
+{
+  "name": "rutas_peninsula_demo",
+  "description": "Modelo mínimo de rutas entre ciudades para auditar estados, acciones, costes y planes candidatos.",
+  "states": ["Madrid", "Zaragoza", "Barcelona", "Valencia", "Bilbao", "Burgos"],
+  "initial_state": "Madrid",
+  "goals": ["Barcelona"],
+  "actions": [
+    {"id": "madrid_zaragoza", "from": "Madrid", "to": "Zaragoza", "cost": 315},
+    {"id": "zaragoza_barcelona", "from": "Zaragoza", "to": "Barcelona", "cost": 300},
+    {"id": "madrid_valencia", "from": "Madrid", "to": "Valencia", "cost": 360},
+    {"id": "valencia_barcelona", "from": "Valencia", "to": "Barcelona", "cost": 350},
+    {"id": "madrid_burgos", "from": "Madrid", "to": "Burgos", "cost": 245},
+    {"id": "burgos_bilbao", "from": "Burgos", "to": "Bilbao", "cost": 160},
+    {"id": "bilbao_zaragoza", "from": "Bilbao", "to": "Zaragoza", "cost": 310},
+    {"id": "zaragoza_madrid", "from": "Zaragoza", "to": "Madrid", "cost": 315}
+  ],
+  "candidate_plans": [
+    {
+      "id": "directo_por_zaragoza",
+      "actions": ["madrid_zaragoza", "zaragoza_barcelona"]
+    },
+    {
+      "id": "por_valencia",
+      "actions": ["madrid_valencia", "valencia_barcelona"]
+    },
+    {
+      "id": "ciclo_y_meta",
+      "actions": ["madrid_zaragoza", "zaragoza_madrid", "madrid_zaragoza", "zaragoza_barcelona"]
+    },
+    {
+      "id": "accion_imposible",
+      "actions": ["burgos_bilbao", "bilbao_zaragoza"]
+    },
+    {
+      "id": "no_llega_a_meta",
+      "actions": ["madrid_burgos", "burgos_bilbao"]
+    }
+  ],
+  "depth_estimate": 6
+}

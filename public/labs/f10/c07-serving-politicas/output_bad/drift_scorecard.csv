@@ -1,0 +1,5 @@
+slice,status,reason,requests,reward_mean,reward_delta,case_pass_rate,evidence_pass_rate,p95_latency_ms,tool_error_rate,fallback_rate
+herramientas,block,reward_delta;reward_mean;case_pass_rate;evidence_pass_rate;p95_latency_ms;tool_error_rate;fallback_rate,260,0.55,-0.11,0.82,0.84,3300,0.09,0.18
+privacidad,block,reward_delta;reward_mean;case_pass_rate;evidence_pass_rate;p95_latency_ms;fallback_rate,20,0.61,-0.13,0.88,0.89,2600,0.03,0.09
+rag,block,reward_delta;reward_mean;case_pass_rate;evidence_pass_rate;p95_latency_ms;tool_error_rate;fallback_rate,250,0.59,-0.13,0.84,0.82,3100,0.06,0.13
+sql,block,reward_delta;reward_mean;case_pass_rate;evidence_pass_rate;p95_latency_ms;tool_error_rate;fallback_rate,260,0.58,-0.11,0.86,0.87,2850,0.055,0.11

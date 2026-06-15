@@ -1,0 +1,293 @@
+{
+  "results": [
+    {
+      "id": "spanish_vs_english_cost",
+      "expected": "comparar consumo aproximado de tokens entre idiomas",
+      "must_be_similar": false,
+      "texts": [
+        {
+          "text": "machine learning is useful",
+          "tokens": [
+            "machine",
+            "learning",
+            "is",
+            "useful"
+          ],
+          "token_ids": [
+            23723,
+            3134,
+            35838,
+            41931
+          ],
+          "token_count": 4,
+          "estimated_cost_usd": 8e-08,
+          "embedding_preview": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.408,
+            0.0
+          ]
+        },
+        {
+          "text": "el aprendizaje automático resulta útil",
+          "tokens": [
+            "el",
+            "aprendizaje",
+            "automático",
+            "resulta",
+            "útil"
+          ],
+          "token_ids": [
+            8368,
+            3474,
+            9725,
+            370,
+            1710
+          ],
+          "token_count": 5,
+          "estimated_cost_usd": 1e-07,
+          "embedding_preview": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        }
+      ],
+      "cosine_similarity": 0.7715,
+      "passes_similarity_threshold": true,
+      "token_budget_warning": false
+    },
+    {
+      "id": "semantic_pair",
+      "expected": "deberían quedar cerca aunque compartan pocas palabras",
+      "must_be_similar": true,
+      "texts": [
+        {
+          "text": "gato doméstico",
+          "tokens": [
+            "gato",
+            "doméstico"
+          ],
+          "token_ids": [
+            28189,
+            36126
+          ],
+          "token_count": 2,
+          "estimated_cost_usd": 4e-08,
+          "embedding_preview": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "text": "felino de casa",
+          "tokens": [
+            "felino",
+            "de",
+            "casa"
+          ],
+          "token_ids": [
+            44852,
+            1675,
+            39475
+          ],
+          "token_count": 3,
+          "estimated_cost_usd": 6e-08,
+          "embedding_preview": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        }
+      ],
+      "cosine_similarity": 0.8165,
+      "passes_similarity_threshold": true,
+      "token_budget_warning": false
+    },
+    {
+      "id": "code_pair",
+      "expected": "misma intención de código en sintaxis distinta",
+      "must_be_similar": true,
+      "texts": [
+        {
+          "text": "function getUser(id) { return db.user(id) }",
+          "tokens": [
+            "function",
+            "getuser",
+            "(",
+            "id",
+            ")",
+            "{",
+            "return",
+            "db",
+            ".",
+            "user",
+            "(",
+            "id",
+            ")",
+            "}"
+          ],
+          "token_ids": [
+            11038,
+            10363,
+            35641,
+            33644,
+            347,
+            21677,
+            20319,
+            48780,
+            5336,
+            32255,
+            35641,
+            33644,
+            347,
+            30178
+          ],
+          "token_count": 14,
+          "estimated_cost_usd": 2.8e-07,
+          "embedding_preview": [
+            0.0,
+            0.0,
+            -0.236,
+            0.0,
+            0.236,
+            -0.471,
+            0.236,
+            0.0
+          ]
+        },
+        {
+          "text": "def get_user(id): return db.user(id)",
+          "tokens": [
+            "def",
+            "get_user",
+            "(",
+            "id",
+            ")",
+            ":",
+            "return",
+            "db",
+            ".",
+            "user",
+            "(",
+            "id",
+            ")"
+          ],
+          "token_ids": [
+            27379,
+            33042,
+            35641,
+            33644,
+            347,
+            21302,
+            20319,
+            48780,
+            5336,
+            32255,
+            35641,
+            33644,
+            347
+          ],
+          "token_count": 13,
+          "estimated_cost_usd": 2.6e-07,
+          "embedding_preview": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.258,
+            -0.516,
+            0.258,
+            0.258
+          ]
+        }
+      ],
+      "cosine_similarity": 0.9129,
+      "passes_similarity_threshold": true,
+      "token_budget_warning": true
+    },
+    {
+      "id": "long_word",
+      "expected": "ver subtokens y parentesco morfológico",
+      "must_be_similar": true,
+      "texts": [
+        {
+          "text": "desarrolladores responsables",
+          "tokens": [
+            "desa",
+            "rroll",
+            "adore",
+            "s",
+            "responsables"
+          ],
+          "token_ids": [
+            20798,
+            2513,
+            43312,
+            17434,
+            25299
+          ],
+          "token_count": 5,
+          "estimated_cost_usd": 1e-07,
+          "embedding_preview": [
+            0.0,
+            0.0,
+            0.0,
+            -0.302,
+            0.302,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "text": "desarrollo responsable",
+          "tokens": [
+            "desarrollo",
+            "responsable"
+          ],
+          "token_ids": [
+            29925,
+            32326
+          ],
+          "token_count": 2,
+          "estimated_cost_usd": 4e-08,
+          "embedding_preview": [
+            0.0,
+            0.0,
+            0.0,
+            -0.707,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        }
+      ],
+      "cosine_similarity": 0.8528,
+      "passes_similarity_threshold": true,
+      "token_budget_warning": false
+    }
+  ],
+  "invalid": []
+}

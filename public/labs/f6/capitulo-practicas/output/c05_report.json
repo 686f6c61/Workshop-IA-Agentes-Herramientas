@@ -1,0 +1,50 @@
+{
+  "title": "Política de routing",
+  "artifact": {
+    "routes": [
+      {
+        "task": "faq_policy",
+        "primary": "rag_fast",
+        "fallback": "rag_safe",
+        "budget_eur": 0.03
+      },
+      {
+        "task": "student_balance",
+        "primary": "tool_sql",
+        "fallback": "human_review",
+        "budget_eur": 0.02
+      },
+      {
+        "task": "complex_case",
+        "primary": "agent_supervised",
+        "fallback": "human_review",
+        "budget_eur": 0.12
+      }
+    ]
+  },
+  "checks": [
+    {
+      "name": "fallback por ruta",
+      "passed": true,
+      "detail": "Toda ruta tiene degradación."
+    },
+    {
+      "name": "presupuesto por tarea",
+      "passed": true,
+      "detail": "El router no decide gratis."
+    },
+    {
+      "name": "dato sensible a humano",
+      "passed": true,
+      "detail": "Privacidad y revisión conectan."
+    },
+    {
+      "name": "agente solo en caso complejo",
+      "passed": true,
+      "detail": "No se usa agente por reflejo."
+    }
+  ],
+  "status": "valid",
+  "decision": "La política enruta por tarea, coste, riesgo y fallback; no por preferencia de proveedor.",
+  "chapter": "c05"
+}

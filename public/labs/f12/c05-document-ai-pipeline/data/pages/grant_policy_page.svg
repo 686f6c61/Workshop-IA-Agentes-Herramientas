@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 1240" role="img" aria-label="Página sintética de política de becas">
+  <rect width="960" height="1240" fill="#FFFFFF"/>
+  <rect x="72" y="70" width="816" height="1100" fill="#FFFFFF" stroke="#111111" stroke-width="2"/>
+  <text x="112" y="136" font-family="Arial, sans-serif" font-size="28" font-weight="700" fill="#111111">Política de becas 2026</text>
+  <line x1="112" y1="164" x2="828" y2="164" stroke="#111111" stroke-width="1"/>
+  <text x="112" y="228" font-family="Arial, sans-serif" font-size="18" fill="#111111">1. Envío de solicitud</text>
+  <text x="140" y="270" font-family="Arial, sans-serif" font-size="16" fill="#111111">La solicitud solo puede enviarse cuando el justificante de matrícula está validado.</text>
+  <text x="140" y="304" font-family="Arial, sans-serif" font-size="16" fill="#111111">Si el estado es pendiente_validacion, se debe pedir revisión antes de reintentar.</text>
+  <text x="112" y="384" font-family="Arial, sans-serif" font-size="18" fill="#111111">2. Fechas</text>
+  <text x="140" y="426" font-family="Arial, sans-serif" font-size="16" fill="#111111">Fecha límite interna: 2026-07-15.</text>
+  <text x="112" y="506" font-family="Arial, sans-serif" font-size="18" fill="#111111">3. Canal de revisión</text>
+  <text x="140" y="548" font-family="Arial, sans-serif" font-size="16" fill="#111111">Mesa de becas. No aprobar automáticamente si falta evidencia documental.</text>
+  <rect x="112" y="650" width="720" height="160" fill="#F7F7F7" stroke="#111111"/>
+  <text x="140" y="700" font-family="Arial, sans-serif" font-size="16" font-weight="700" fill="#111111">Nota operativa</text>
+  <text x="140" y="742" font-family="Arial, sans-serif" font-size="15" fill="#111111">Toda decisión debe citar página, sección y campo.</text>
+  <text x="828" y="1134" text-anchor="end" font-family="Arial, sans-serif" font-size="12" fill="#777777">Página 1 · documento sintético</text>
+</svg>

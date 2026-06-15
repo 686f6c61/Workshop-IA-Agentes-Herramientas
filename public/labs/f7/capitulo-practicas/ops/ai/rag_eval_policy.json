@@ -1,0 +1,6 @@
+{
+  "min_recall_at_k": 0.70,
+  "min_groundedness": 0.80,
+  "min_citation_acceptance": 0.80,
+  "min_abstention_accuracy": 0.90
+}

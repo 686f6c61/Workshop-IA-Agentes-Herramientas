@@ -1,0 +1,2792 @@
+{
+  "model_version": "support-prioritizer-linear-v1",
+  "threshold": 0.68,
+  "accuracy": 0.75,
+  "local_explanations": [
+    {
+      "case_id": "t001",
+      "label": 1,
+      "intercept": -2.35,
+      "logit": 1.8119999999999998,
+      "score": 0.859603,
+      "prediction": 1,
+      "top_features": [
+        {
+          "feature": "student_wait_days",
+          "value": 12.0,
+          "weight": 0.13,
+          "contribution_logit": 1.56,
+          "direction": "sube"
+        },
+        {
+          "feature": "missing_payment",
+          "value": 1.0,
+          "weight": 1.25,
+          "contribution_logit": 1.25,
+          "direction": "sube"
+        },
+        {
+          "feature": "prior_cases",
+          "value": 3.0,
+          "weight": 0.28,
+          "contribution_logit": 0.8400000000000001,
+          "direction": "sube"
+        },
+        {
+          "feature": "contains_policy_keyword",
+          "value": 1.0,
+          "weight": 0.62,
+          "contribution_logit": 0.62,
+          "direction": "sube"
+        },
+        {
+          "feature": "deadline_hours",
+          "value": 6.0,
+          "weight": -0.018,
+          "contribution_logit": -0.10799999999999998,
+          "direction": "baja"
+        },
+        {
+          "feature": "docs_attached",
+          "value": 0.0,
+          "weight": -0.75,
+          "contribution_logit": -0.0,
+          "direction": "neutral"
+        }
+      ]
+    },
+    {
+      "case_id": "t002",
+      "label": 0,
+      "intercept": -2.35,
+      "logit": -4.51,
+      "score": 0.010879,
+      "prediction": 0,
+      "top_features": [
+        {
+          "feature": "deadline_hours",
+          "value": 120.0,
+          "weight": -0.018,
+          "contribution_logit": -2.1599999999999997,
+          "direction": "baja"
+        },
+        {
+          "feature": "docs_attached",
+          "value": 1.0,
+          "weight": -0.75,
+          "contribution_logit": -0.75,
+          "direction": "baja"
+        },
+        {
+          "feature": "contains_policy_keyword",
+          "value": 1.0,
+          "weight": 0.62,
+          "contribution_logit": 0.62,
+          "direction": "sube"
+        },
+        {
+          "feature": "student_wait_days",
+          "value": 1.0,
+          "weight": 0.13,
+          "contribution_logit": 0.13,
+          "direction": "sube"
+        },
+        {
+          "feature": "missing_payment",
+          "value": 0.0,
+          "weight": 1.25,
+          "contribution_logit": 0.0,
+          "direction": "neutral"
+        },
+        {
+          "feature": "prior_cases",
+          "value": 0.0,
+          "weight": 0.28,
+          "contribution_logit": 0.0,
+          "direction": "neutral"
+        }
+      ]
+    },
+    {
+      "case_id": "t003",
+      "label": 1,
+      "intercept": -2.35,
+      "logit": 0.30600000000000005,
+      "score": 0.575909,
+      "prediction": 0,
+      "top_features": [
+        {
+          "feature": "missing_payment",
+          "value": 1.0,
+          "weight": 1.25,
+          "contribution_logit": 1.25,
+          "direction": "sube"
+        },
+        {
+          "feature": "student_wait_days",
+          "value": 9.0,
+          "weight": 0.13,
+          "contribution_logit": 1.17,
+          "direction": "sube"
+        },
+        {
+          "feature": "prior_cases",
+          "value": 2.0,
+          "weight": 0.28,
+          "contribution_logit": 0.56,
+          "direction": "sube"
+        },
+        {
+          "feature": "deadline_hours",
+          "value": 18.0,
+          "weight": -0.018,
+          "contribution_logit": -0.32399999999999995,
+          "direction": "baja"
+        },
+        {
+          "feature": "docs_attached",
+          "value": 0.0,
+          "weight": -0.75,
+          "contribution_logit": -0.0,
+          "direction": "neutral"
+        },
+        {
+          "feature": "contains_policy_keyword",
+          "value": 0.0,
+          "weight": 0.62,
+          "contribution_logit": 0.0,
+          "direction": "neutral"
+        }
+      ]
+    },
+    {
+      "case_id": "t004",
+      "label": 0,
+      "intercept": -2.35,
+      "logit": -3.856,
+      "score": 0.020714,
+      "prediction": 0,
+      "top_features": [
+        {
+          "feature": "deadline_hours",
+          "value": 72.0,
+          "weight": -0.018,
+          "contribution_logit": -1.2959999999999998,
+          "direction": "baja"
+        },
+        {
+          "feature": "docs_attached",
+          "value": 1.0,
+          "weight": -0.75,
+          "contribution_logit": -0.75,
+          "direction": "baja"
+        },
+        {
+          "feature": "prior_cases",
+          "value": 1.0,
+          "weight": 0.28,
+          "contribution_logit": 0.28,
+          "direction": "sube"
+        },
+        {
+          "feature": "student_wait_days",
+          "value": 2.0,
+          "weight": 0.13,
+          "contribution_logit": 0.26,
+          "direction": "sube"
+        },
+        {
+          "feature": "missing_payment",
+          "value": 0.0,
+          "weight": 1.25,
+          "contribution_logit": 0.0,
+          "direction": "neutral"
+        },
+        {
+          "feature": "contains_policy_keyword",
+          "value": 0.0,
+          "weight": 0.62,
+          "contribution_logit": 0.0,
+          "direction": "neutral"
+        }
+      ]
+    },
+    {
+      "case_id": "t005",
+      "label": 1,
+      "intercept": -2.35,
+      "logit": 1.5299999999999998,
+      "score": 0.822006,
+      "prediction": 1,
+      "top_features": [
+        {
+          "feature": "student_wait_days",
+          "value": 14.0,
+          "weight": 0.13,
+          "contribution_logit": 1.82,
+          "direction": "sube"
+        },
+        {
+          "feature": "missing_payment",
+          "value": 1.0,
+          "weight": 1.25,
+          "contribution_logit": 1.25,
+          "direction": "sube"
+        },
+        {
+          "feature": "prior_cases",
+          "value": 4.0,
+          "weight": 0.28,
+          "contribution_logit": 1.12,
+          "direction": "sube"
+        },
+        {
+          "feature": "docs_attached",
+          "value": 1.0,
+          "weight": -0.75,
+          "contribution_logit": -0.75,
+          "direction": "baja"
+        },
+        {
+          "feature": "contains_policy_keyword",
+          "value": 1.0,
+          "weight": 0.62,
+          "contribution_logit": 0.62,
+          "direction": "sube"
+        },
+        {
+          "feature": "deadline_hours",
+          "value": 10.0,
+          "weight": -0.018,
+          "contribution_logit": -0.18,
+          "direction": "baja"
+        }
+      ]
+    },
+    {
+      "case_id": "t006",
+      "label": 0,
+      "intercept": -2.35,
+      "logit": -3.6879999999999993,
+      "score": 0.024411,
+      "prediction": 0,
+      "top_features": [
+        {
+          "feature": "deadline_hours",
+          "value": 96.0,
+          "weight": -0.018,
+          "contribution_logit": -1.7279999999999998,
+          "direction": "baja"
+        },
+        {
+          "feature": "student_wait_days",
+          "value": 3.0,
+          "weight": 0.13,
+          "contribution_logit": 0.39,
+          "direction": "sube"
+        },
+        {
+          "feature": "missing_payment",
+          "value": 0.0,
+          "weight": 1.25,
+          "contribution_logit": 0.0,
+          "direction": "neutral"
+        },
+        {
+          "feature": "docs_attached",
+          "value": 0.0,
+          "weight": -0.75,
+          "contribution_logit": -0.0,
+          "direction": "neutral"
+        },
+        {
+          "feature": "prior_cases",
+          "value": 0.0,
+          "weight": 0.28,
+          "contribution_logit": 0.0,
+          "direction": "neutral"
+        },
+        {
+          "feature": "contains_policy_keyword",
+          "value": 0.0,
+          "weight": 0.62,
+          "contribution_logit": 0.0,
+          "direction": "neutral"
+        }
+      ]
+    },
+    {
+      "case_id": "t007",
+      "label": 1,
+      "intercept": -2.35,
+      "logit": 0.826,
+      "score": 0.695508,
+      "prediction": 1,
+      "top_features": [
+        {
+          "feature": "prior_cases",
+          "value": 5.0,
+          "weight": 0.28,
+          "contribution_logit": 1.4000000000000001,
+          "direction": "sube"
+        },
+        {
+          "feature": "student_wait_days",
+          "value": 10.0,
+          "weight": 0.13,
+          "contribution_logit": 1.3,
+          "direction": "sube"
+        },
+        {
+          "feature": "contains_policy_keyword",
+          "value": 1.0,
+          "weight": 0.62,
+          "contribution_logit": 0.62,
+          "direction": "sube"
+        },
+        {
+          "feature": "deadline_hours",
+          "value": 8.0,
+          "weight": -0.018,
+          "contribution_logit": -0.144,
+          "direction": "baja"
+        },
+        {
+          "feature": "missing_payment",
+          "value": 0.0,
+          "weight": 1.25,
+          "contribution_logit": 0.0,
+          "direction": "neutral"
+        },
+        {
+          "feature": "docs_attached",
+          "value": 0.0,
+          "weight": -0.75,
+          "contribution_logit": -0.0,
+          "direction": "neutral"
+        }
+      ]
+    },
+    {
+      "case_id": "t008",
+      "label": 0,
+      "intercept": -2.35,
+      "logit": -5.072,
+      "score": 0.006231,
+      "prediction": 0,
+      "top_features": [
+        {
+          "feature": "deadline_hours",
+          "value": 144.0,
+          "weight": -0.018,
+          "contribution_logit": -2.5919999999999996,
+          "direction": "baja"
+        },
+        {
+          "feature": "docs_attached",
+          "value": 1.0,
+          "weight": -0.75,
+          "contribution_logit": -0.75,
+          "direction": "baja"
+        },
+        {
+          "feature": "contains_policy_keyword",
+          "value": 1.0,
+          "weight": 0.62,
+          "contribution_logit": 0.62,
+          "direction": "sube"
+        },
+        {
+          "feature": "missing_payment",
+          "value": 0.0,
+          "weight": 1.25,
+          "contribution_logit": 0.0,
+          "direction": "neutral"
+        },
+        {
+          "feature": "prior_cases",
+          "value": 0.0,
+          "weight": 0.28,
+          "contribution_logit": 0.0,
+          "direction": "neutral"
+        },
+        {
+          "feature": "student_wait_days",
+          "value": 0.0,
+          "weight": 0.13,
+          "contribution_logit": 0.0,
+          "direction": "neutral"
+        }
+      ]
+    },
+    {
+      "case_id": "t009",
+      "label": 1,
+      "intercept": -2.35,
+      "logit": 0.40800000000000003,
+      "score": 0.600608,
+      "prediction": 0,
+      "top_features": [
+        {
+          "feature": "missing_payment",
+          "value": 1.0,
+          "weight": 1.25,
+          "contribution_logit": 1.25,
+          "direction": "sube"
+        },
+        {
+          "feature": "student_wait_days",
+          "value": 8.0,
+          "weight": 0.13,
+          "contribution_logit": 1.04,
+          "direction": "sube"
+        },
+        {
+          "feature": "contains_policy_keyword",
+          "value": 1.0,
+          "weight": 0.62,
+          "contribution_logit": 0.62,
+          "direction": "sube"
+        },
+        {
+          "feature": "deadline_hours",
+          "value": 24.0,
+          "weight": -0.018,
+          "contribution_logit": -0.43199999999999994,
+          "direction": "baja"
+        },
+        {
+          "feature": "prior_cases",
+          "value": 1.0,
+          "weight": 0.28,
+          "contribution_logit": 0.28,
+          "direction": "sube"
+        },
+        {
+          "feature": "docs_attached",
+          "value": 0.0,
+          "weight": -0.75,
+          "contribution_logit": -0.0,
+          "direction": "neutral"
+        }
+      ]
+    },
+    {
+      "case_id": "t010",
+      "label": 0,
+      "intercept": -2.35,
+      "logit": -3.0999999999999996,
+      "score": 0.043107,
+      "prediction": 0,
+      "top_features": [
+        {
+          "feature": "deadline_hours",
+          "value": 60.0,
+          "weight": -0.018,
+          "contribution_logit": -1.0799999999999998,
+          "direction": "baja"
+        },
+        {
+          "feature": "docs_attached",
+          "value": 1.0,
+          "weight": -0.75,
+          "contribution_logit": -0.75,
+          "direction": "baja"
+        },
+        {
+          "feature": "prior_cases",
+          "value": 2.0,
+          "weight": 0.28,
+          "contribution_logit": 0.56,
+          "direction": "sube"
+        },
+        {
+          "feature": "student_wait_days",
+          "value": 4.0,
+          "weight": 0.13,
+          "contribution_logit": 0.52,
+          "direction": "sube"
+        },
+        {
+          "feature": "missing_payment",
+          "value": 0.0,
+          "weight": 1.25,
+          "contribution_logit": 0.0,
+          "direction": "neutral"
+        },
+        {
+          "feature": "contains_policy_keyword",
+          "value": 0.0,
+          "weight": 0.62,
+          "contribution_logit": 0.0,
+          "direction": "neutral"
+        }
+      ]
+    },
+    {
+      "case_id": "t011",
+      "label": 1,
+      "intercept": -2.35,
+      "logit": 3.208,
+      "score": 0.961134,
+      "prediction": 1,
+      "top_features": [
+        {
+          "feature": "student_wait_days",
+          "value": 16.0,
+          "weight": 0.13,
+          "contribution_logit": 2.08,
+          "direction": "sube"
+        },
+        {
+          "feature": "prior_cases",
+          "value": 6.0,
+          "weight": 0.28,
+          "contribution_logit": 1.6800000000000002,
+          "direction": "sube"
+        },
+        {
+          "feature": "missing_payment",
+          "value": 1.0,
+          "weight": 1.25,
+          "contribution_logit": 1.25,
+          "direction": "sube"
+        },
+        {
+          "feature": "contains_policy_keyword",
+          "value": 1.0,
+          "weight": 0.62,
+          "contribution_logit": 0.62,
+          "direction": "sube"
+        },
+        {
+          "feature": "deadline_hours",
+          "value": 4.0,
+          "weight": -0.018,
+          "contribution_logit": -0.072,
+          "direction": "baja"
+        },
+        {
+          "feature": "docs_attached",
+          "value": 0.0,
+          "weight": -0.75,
+          "contribution_logit": -0.0,
+          "direction": "neutral"
+        }
+      ]
+    },
+    {
+      "case_id": "t012",
+      "label": 0,
+      "intercept": -2.35,
+      "logit": -5.994,
+      "score": 0.002487,
+      "prediction": 0,
+      "top_features": [
+        {
+          "feature": "deadline_hours",
+          "value": 168.0,
+          "weight": -0.018,
+          "contribution_logit": -3.0239999999999996,
+          "direction": "baja"
+        },
+        {
+          "feature": "docs_attached",
+          "value": 1.0,
+          "weight": -0.75,
+          "contribution_logit": -0.75,
+          "direction": "baja"
+        },
+        {
+          "feature": "student_wait_days",
+          "value": 1.0,
+          "weight": 0.13,
+          "contribution_logit": 0.13,
+          "direction": "sube"
+        },
+        {
+          "feature": "missing_payment",
+          "value": 0.0,
+          "weight": 1.25,
+          "contribution_logit": 0.0,
+          "direction": "neutral"
+        },
+        {
+          "feature": "prior_cases",
+          "value": 0.0,
+          "weight": 0.28,
+          "contribution_logit": 0.0,
+          "direction": "neutral"
+        },
+        {
+          "feature": "contains_policy_keyword",
+          "value": 0.0,
+          "weight": 0.62,
+          "contribution_logit": 0.0,
+          "direction": "neutral"
+        }
+      ]
+    },
+    {
+      "case_id": "t013",
+      "label": 1,
+      "intercept": -2.35,
+      "logit": 0.6040000000000004,
+      "score": 0.646571,
+      "prediction": 0,
+      "top_features": [
+        {
+          "feature": "student_wait_days",
+          "value": 11.0,
+          "weight": 0.13,
+          "contribution_logit": 1.4300000000000002,
+          "direction": "sube"
+        },
+        {
+          "feature": "prior_cases",
+          "value": 4.0,
+          "weight": 0.28,
+          "contribution_logit": 1.12,
+          "direction": "sube"
+        },
+        {
+          "feature": "contains_policy_keyword",
+          "value": 1.0,
+          "weight": 0.62,
+          "contribution_logit": 0.62,
+          "direction": "sube"
+        },
+        {
+          "feature": "deadline_hours",
+          "value": 12.0,
+          "weight": -0.018,
+          "contribution_logit": -0.21599999999999997,
+          "direction": "baja"
+        },
+        {
+          "feature": "missing_payment",
+          "value": 0.0,
+          "weight": 1.25,
+          "contribution_logit": 0.0,
+          "direction": "neutral"
+        },
+        {
+          "feature": "docs_attached",
+          "value": 0.0,
+          "weight": -0.75,
+          "contribution_logit": -0.0,
+          "direction": "neutral"
+        }
+      ]
+    },
+    {
+      "case_id": "t014",
+      "label": 0,
+      "intercept": -2.35,
+      "logit": -3.25,
+      "score": 0.037327,
+      "prediction": 0,
+      "top_features": [
+        {
+          "feature": "deadline_hours",
+          "value": 80.0,
+          "weight": -0.018,
+          "contribution_logit": -1.44,
+          "direction": "baja"
+        },
+        {
+          "feature": "prior_cases",
+          "value": 1.0,
+          "weight": 0.28,
+          "contribution_logit": 0.28,
+          "direction": "sube"
+        },
+        {
+          "feature": "student_wait_days",
+          "value": 2.0,
+          "weight": 0.13,
+          "contribution_logit": 0.26,
+          "direction": "sube"
+        },
+        {
+          "feature": "missing_payment",
+          "value": 0.0,
+          "weight": 1.25,
+          "contribution_logit": 0.0,
+          "direction": "neutral"
+        },
+        {
+          "feature": "docs_attached",
+          "value": 0.0,
+          "weight": -0.75,
+          "contribution_logit": -0.0,
+          "direction": "neutral"
+        },
+        {
+          "feature": "contains_policy_keyword",
+          "value": 0.0,
+          "weight": 0.62,
+          "contribution_logit": 0.0,
+          "direction": "neutral"
+        }
+      ]
+    },
+    {
+      "case_id": "t015",
+      "label": 1,
+      "intercept": -2.35,
+      "logit": 0.44999999999999996,
+      "score": 0.610639,
+      "prediction": 0,
+      "top_features": [
+        {
+          "feature": "missing_payment",
+          "value": 1.0,
+          "weight": 1.25,
+          "contribution_logit": 1.25,
+          "direction": "sube"
+        },
+        {
+          "feature": "student_wait_days",
+          "value": 7.0,
+          "weight": 0.13,
+          "contribution_logit": 0.91,
+          "direction": "sube"
+        },
+        {
+          "feature": "contains_policy_keyword",
+          "value": 1.0,
+          "weight": 0.62,
+          "contribution_logit": 0.62,
+          "direction": "sube"
+        },
+        {
+          "feature": "prior_cases",
+          "value": 2.0,
+          "weight": 0.28,
+          "contribution_logit": 0.56,
+          "direction": "sube"
+        },
+        {
+          "feature": "deadline_hours",
+          "value": 30.0,
+          "weight": -0.018,
+          "contribution_logit": -0.5399999999999999,
+          "direction": "baja"
+        },
+        {
+          "feature": "docs_attached",
+          "value": 0.0,
+          "weight": -0.75,
+          "contribution_logit": -0.0,
+          "direction": "neutral"
+        }
+      ]
+    },
+    {
+      "case_id": "t016",
+      "label": 0,
+      "intercept": -2.35,
+      "logit": -3.7899999999999996,
+      "score": 0.022096,
+      "prediction": 0,
+      "top_features": [
+        {
+          "feature": "deadline_hours",
+          "value": 110.0,
+          "weight": -0.018,
+          "contribution_logit": -1.9799999999999998,
+          "direction": "baja"
+        },
+        {
+          "feature": "docs_attached",
+          "value": 1.0,
+          "weight": -0.75,
+          "contribution_logit": -0.75,
+          "direction": "baja"
+        },
+        {
+          "feature": "contains_policy_keyword",
+          "value": 1.0,
+          "weight": 0.62,
+          "contribution_logit": 0.62,
+          "direction": "sube"
+        },
+        {
+          "feature": "student_wait_days",
+          "value": 3.0,
+          "weight": 0.13,
+          "contribution_logit": 0.39,
+          "direction": "sube"
+        },
+        {
+          "feature": "prior_cases",
+          "value": 1.0,
+          "weight": 0.28,
+          "contribution_logit": 0.28,
+          "direction": "sube"
+        },
+        {
+          "feature": "missing_payment",
+          "value": 0.0,
+          "weight": 1.25,
+          "contribution_logit": 0.0,
+          "direction": "neutral"
+        }
+      ]
+    },
+    {
+      "case_id": "t017",
+      "label": 1,
+      "intercept": -2.35,
+      "logit": 0.3920000000000001,
+      "score": 0.596764,
+      "prediction": 0,
+      "top_features": [
+        {
+          "feature": "student_wait_days",
+          "value": 13.0,
+          "weight": 0.13,
+          "contribution_logit": 1.69,
+          "direction": "sube"
+        },
+        {
+          "feature": "missing_payment",
+          "value": 1.0,
+          "weight": 1.25,
+          "contribution_logit": 1.25,
+          "direction": "sube"
+        },
+        {
+          "feature": "prior_cases",
+          "value": 3.0,
+          "weight": 0.28,
+          "contribution_logit": 0.8400000000000001,
+          "direction": "sube"
+        },
+        {
+          "feature": "docs_attached",
+          "value": 1.0,
+          "weight": -0.75,
+          "contribution_logit": -0.75,
+          "direction": "baja"
+        },
+        {
+          "feature": "deadline_hours",
+          "value": 16.0,
+          "weight": -0.018,
+          "contribution_logit": -0.288,
+          "direction": "baja"
+        },
+        {
+          "feature": "contains_policy_keyword",
+          "value": 0.0,
+          "weight": 0.62,
+          "contribution_logit": 0.0,
+          "direction": "neutral"
+        }
+      ]
+    },
+    {
+      "case_id": "t018",
+      "label": 0,
+      "intercept": -2.35,
+      "logit": -3.7039999999999997,
+      "score": 0.024033,
+      "prediction": 0,
+      "top_features": [
+        {
+          "feature": "deadline_hours",
+          "value": 48.0,
+          "weight": -0.018,
+          "contribution_logit": -0.8639999999999999,
+          "direction": "baja"
+        },
+        {
+          "feature": "docs_attached",
+          "value": 1.0,
+          "weight": -0.75,
+          "contribution_logit": -0.75,
+          "direction": "baja"
+        },
+        {
+          "feature": "student_wait_days",
+          "value": 2.0,
+          "weight": 0.13,
+          "contribution_logit": 0.26,
+          "direction": "sube"
+        },
+        {
+          "feature": "missing_payment",
+          "value": 0.0,
+          "weight": 1.25,
+          "contribution_logit": 0.0,
+          "direction": "neutral"
+        },
+        {
+          "feature": "prior_cases",
+          "value": 0.0,
+          "weight": 0.28,
+          "contribution_logit": 0.0,
+          "direction": "neutral"
+        },
+        {
+          "feature": "contains_policy_keyword",
+          "value": 0.0,
+          "weight": 0.62,
+          "contribution_logit": 0.0,
+          "direction": "neutral"
+        }
+      ]
+    },
+    {
+      "case_id": "t019",
+      "label": 1,
+      "intercept": -2.35,
+      "logit": 1.2600000000000002,
+      "score": 0.779026,
+      "prediction": 1,
+      "top_features": [
+        {
+          "feature": "student_wait_days",
+          "value": 15.0,
+          "weight": 0.13,
+          "contribution_logit": 1.9500000000000002,
+          "direction": "sube"
+        },
+        {
+          "feature": "prior_cases",
+          "value": 5.0,
+          "weight": 0.28,
+          "contribution_logit": 1.4000000000000001,
+          "direction": "sube"
+        },
+        {
+          "feature": "contains_policy_keyword",
+          "value": 1.0,
+          "weight": 0.62,
+          "contribution_logit": 0.62,
+          "direction": "sube"
+        },
+        {
+          "feature": "deadline_hours",
+          "value": 20.0,
+          "weight": -0.018,
+          "contribution_logit": -0.36,
+          "direction": "baja"
+        },
+        {
+          "feature": "missing_payment",
+          "value": 0.0,
+          "weight": 1.25,
+          "contribution_logit": 0.0,
+          "direction": "neutral"
+        },
+        {
+          "feature": "docs_attached",
+          "value": 0.0,
+          "weight": -0.75,
+          "contribution_logit": -0.0,
+          "direction": "neutral"
+        }
+      ]
+    },
+    {
+      "case_id": "t020",
+      "label": 0,
+      "intercept": -2.35,
+      "logit": -4.749999999999999,
+      "score": 0.008577,
+      "prediction": 0,
+      "top_features": [
+        {
+          "feature": "deadline_hours",
+          "value": 130.0,
+          "weight": -0.018,
+          "contribution_logit": -2.34,
+          "direction": "baja"
+        },
+        {
+          "feature": "docs_attached",
+          "value": 1.0,
+          "weight": -0.75,
+          "contribution_logit": -0.75,
+          "direction": "baja"
+        },
+        {
+          "feature": "prior_cases",
+          "value": 2.0,
+          "weight": 0.28,
+          "contribution_logit": 0.56,
+          "direction": "sube"
+        },
+        {
+          "feature": "student_wait_days",
+          "value": 1.0,
+          "weight": 0.13,
+          "contribution_logit": 0.13,
+          "direction": "sube"
+        },
+        {
+          "feature": "missing_payment",
+          "value": 0.0,
+          "weight": 1.25,
+          "contribution_logit": 0.0,
+          "direction": "neutral"
+        },
+        {
+          "feature": "contains_policy_keyword",
+          "value": 0.0,
+          "weight": 0.62,
+          "contribution_logit": 0.0,
+          "direction": "neutral"
+        }
+      ]
+    }
+  ],
+  "deletion_tests": [
+    {
+      "case_id": "t001",
+      "removed_feature": "student_wait_days",
+      "original_score": 0.859603,
+      "after_score": 0.562669,
+      "score_drop": 0.296935,
+      "prediction_changed": true
+    },
+    {
+      "case_id": "t002",
+      "removed_feature": "deadline_hours",
+      "original_score": 0.010879,
+      "after_score": 0.087066,
+      "score_drop": -0.076187,
+      "prediction_changed": false
+    },
+    {
+      "case_id": "t003",
+      "removed_feature": "missing_payment",
+      "original_score": 0.575909,
+      "after_score": 0.280093,
+      "score_drop": 0.295816,
+      "prediction_changed": false
+    },
+    {
+      "case_id": "t004",
+      "removed_feature": "deadline_hours",
+      "original_score": 0.020714,
+      "after_score": 0.071758,
+      "score_drop": -0.051043,
+      "prediction_changed": false
+    },
+    {
+      "case_id": "t005",
+      "removed_feature": "student_wait_days",
+      "original_score": 0.822006,
+      "after_score": 0.428004,
+      "score_drop": 0.394002,
+      "prediction_changed": true
+    },
+    {
+      "case_id": "t006",
+      "removed_feature": "deadline_hours",
+      "original_score": 0.024411,
+      "after_score": 0.123467,
+      "score_drop": -0.099056,
+      "prediction_changed": false
+    },
+    {
+      "case_id": "t007",
+      "removed_feature": "prior_cases",
+      "original_score": 0.695508,
+      "after_score": 0.360314,
+      "score_drop": 0.335194,
+      "prediction_changed": true
+    },
+    {
+      "case_id": "t008",
+      "removed_feature": "deadline_hours",
+      "original_score": 0.006231,
+      "after_score": 0.077272,
+      "score_drop": -0.071041,
+      "prediction_changed": false
+    },
+    {
+      "case_id": "t009",
+      "removed_feature": "missing_payment",
+      "original_score": 0.600608,
+      "after_score": 0.301114,
+      "score_drop": 0.299494,
+      "prediction_changed": false
+    },
+    {
+      "case_id": "t010",
+      "removed_feature": "deadline_hours",
+      "original_score": 0.043107,
+      "after_score": 0.117119,
+      "score_drop": -0.074012,
+      "prediction_changed": false
+    },
+    {
+      "case_id": "t011",
+      "removed_feature": "student_wait_days",
+      "original_score": 0.961134,
+      "after_score": 0.75547,
+      "score_drop": 0.205665,
+      "prediction_changed": false
+    },
+    {
+      "case_id": "t012",
+      "removed_feature": "deadline_hours",
+      "original_score": 0.002487,
+      "after_score": 0.0488,
+      "score_drop": -0.046312,
+      "prediction_changed": false
+    },
+    {
+      "case_id": "t013",
+      "removed_feature": "student_wait_days",
+      "original_score": 0.646571,
+      "after_score": 0.304492,
+      "score_drop": 0.342079,
+      "prediction_changed": false
+    },
+    {
+      "case_id": "t014",
+      "removed_feature": "deadline_hours",
+      "original_score": 0.037327,
+      "after_score": 0.140638,
+      "score_drop": -0.103311,
+      "prediction_changed": false
+    },
+    {
+      "case_id": "t015",
+      "removed_feature": "missing_payment",
+      "original_score": 0.610639,
+      "after_score": 0.310026,
+      "score_drop": 0.300614,
+      "prediction_changed": false
+    },
+    {
+      "case_id": "t016",
+      "removed_feature": "deadline_hours",
+      "original_score": 0.022096,
+      "after_score": 0.140638,
+      "score_drop": -0.118542,
+      "prediction_changed": false
+    },
+    {
+      "case_id": "t017",
+      "removed_feature": "student_wait_days",
+      "original_score": 0.596764,
+      "after_score": 0.214502,
+      "score_drop": 0.382262,
+      "prediction_changed": false
+    },
+    {
+      "case_id": "t018",
+      "removed_feature": "deadline_hours",
+      "original_score": 0.024033,
+      "after_score": 0.055201,
+      "score_drop": -0.031168,
+      "prediction_changed": false
+    },
+    {
+      "case_id": "t019",
+      "removed_feature": "student_wait_days",
+      "original_score": 0.779026,
+      "after_score": 0.334033,
+      "score_drop": 0.444993,
+      "prediction_changed": true
+    },
+    {
+      "case_id": "t020",
+      "removed_feature": "deadline_hours",
+      "original_score": 0.008577,
+      "after_score": 0.082413,
+      "score_drop": -0.073836,
+      "prediction_changed": false
+    }
+  ],
+  "top_k_fidelity": [
+    {
+      "case_id": "t001",
+      "k": 2,
+      "top_features": [
+        "student_wait_days",
+        "missing_payment"
+      ],
+      "original_score": 0.859603,
+      "without_top_score": 0.269335,
+      "only_top_score": 0.613014,
+      "comprehensiveness": 0.590269,
+      "sufficiency_delta": 0.246589
+    },
+    {
+      "case_id": "t002",
+      "k": 2,
+      "top_features": [
+        "deadline_hours",
+        "docs_attached"
+      ],
+      "original_score": 0.010879,
+      "without_top_score": 0.167982,
+      "only_top_score": 0.005168,
+      "comprehensiveness": -0.157103,
+      "sufficiency_delta": 0.00571
+    },
+    {
+      "case_id": "t003",
+      "k": 2,
+      "top_features": [
+        "missing_payment",
+        "student_wait_days"
+      ],
+      "original_score": 0.575909,
+      "without_top_score": 0.107744,
+      "only_top_score": 0.517493,
+      "comprehensiveness": 0.468165,
+      "sufficiency_delta": 0.058416
+    },
+    {
+      "case_id": "t004",
+      "k": 2,
+      "top_features": [
+        "deadline_hours",
+        "docs_attached"
+      ],
+      "original_score": 0.020714,
+      "without_top_score": 0.140638,
+      "only_top_score": 0.012176,
+      "comprehensiveness": -0.119924,
+      "sufficiency_delta": 0.008538
+    },
+    {
+      "case_id": "t005",
+      "k": 2,
+      "top_features": [
+        "student_wait_days",
+        "missing_payment"
+      ],
+      "original_score": 0.822006,
+      "without_top_score": 0.176535,
+      "only_top_score": 0.672607,
+      "comprehensiveness": 0.645471,
+      "sufficiency_delta": 0.149399
+    },
+    {
+      "case_id": "t006",
+      "k": 2,
+      "top_features": [
+        "deadline_hours",
+        "student_wait_days"
+      ],
+      "original_score": 0.024411,
+      "without_top_score": 0.087066,
+      "only_top_score": 0.024411,
+      "comprehensiveness": -0.062655,
+      "sufficiency_delta": 0.0
+    },
+    {
+      "case_id": "t007",
+      "k": 2,
+      "top_features": [
+        "prior_cases",
+        "student_wait_days"
+      ],
+      "original_score": 0.695508,
+      "without_top_score": 0.13308,
+      "only_top_score": 0.586618,
+      "comprehensiveness": 0.562429,
+      "sufficiency_delta": 0.108891
+    },
+    {
+      "case_id": "t008",
+      "k": 2,
+      "top_features": [
+        "deadline_hours",
+        "docs_attached"
+      ],
+      "original_score": 0.006231,
+      "without_top_score": 0.150588,
+      "only_top_score": 0.003362,
+      "comprehensiveness": -0.144357,
+      "sufficiency_delta": 0.002869
+    },
+    {
+      "case_id": "t009",
+      "k": 2,
+      "top_features": [
+        "missing_payment",
+        "student_wait_days"
+      ],
+      "original_score": 0.600608,
+      "without_top_score": 0.132159,
+      "only_top_score": 0.485004,
+      "comprehensiveness": 0.468449,
+      "sufficiency_delta": 0.115604
+    },
+    {
+      "case_id": "t010",
+      "k": 2,
+      "top_features": [
+        "deadline_hours",
+        "docs_attached"
+      ],
+      "original_score": 0.043107,
+      "without_top_score": 0.219257,
+      "only_top_score": 0.015068,
+      "comprehensiveness": -0.17615,
+      "sufficiency_delta": 0.028039
+    },
+    {
+      "case_id": "t011",
+      "k": 2,
+      "top_features": [
+        "student_wait_days",
+        "prior_cases"
+      ],
+      "original_score": 0.961134,
+      "without_top_score": 0.365401,
+      "only_top_score": 0.803766,
+      "comprehensiveness": 0.595734,
+      "sufficiency_delta": 0.157368
+    },
+    {
+      "case_id": "t012",
+      "k": 2,
+      "top_features": [
+        "deadline_hours",
+        "docs_attached"
+      ],
+      "original_score": 0.002487,
+      "without_top_score": 0.097969,
+      "only_top_score": 0.002185,
+      "comprehensiveness": -0.095481,
+      "sufficiency_delta": 0.000303
+    },
+    {
+      "case_id": "t013",
+      "k": 2,
+      "top_features": [
+        "student_wait_days",
+        "prior_cases"
+      ],
+      "original_score": 0.646571,
+      "without_top_score": 0.12499,
+      "only_top_score": 0.549834,
+      "comprehensiveness": 0.521581,
+      "sufficiency_delta": 0.096737
+    },
+    {
+      "case_id": "t014",
+      "k": 2,
+      "top_features": [
+        "deadline_hours",
+        "prior_cases"
+      ],
+      "original_score": 0.037327,
+      "without_top_score": 0.110073,
+      "only_top_score": 0.029029,
+      "comprehensiveness": -0.072746,
+      "sufficiency_delta": 0.008298
+    },
+    {
+      "case_id": "t015",
+      "k": 2,
+      "top_features": [
+        "missing_payment",
+        "student_wait_days"
+      ],
+      "original_score": 0.610639,
+      "without_top_score": 0.153164,
+      "only_top_score": 0.452642,
+      "comprehensiveness": 0.457476,
+      "sufficiency_delta": 0.157997
+    },
+    {
+      "case_id": "t016",
+      "k": 2,
+      "top_features": [
+        "deadline_hours",
+        "docs_attached"
+      ],
+      "original_score": 0.022096,
+      "without_top_score": 0.257309,
+      "only_top_score": 0.006181,
+      "comprehensiveness": -0.235213,
+      "sufficiency_delta": 0.015915
+    },
+    {
+      "case_id": "t017",
+      "k": 2,
+      "top_features": [
+        "student_wait_days",
+        "missing_payment"
+      ],
+      "original_score": 0.596764,
+      "without_top_score": 0.072561,
+      "only_top_score": 0.643365,
+      "comprehensiveness": 0.524203,
+      "sufficiency_delta": 0.046601
+    },
+    {
+      "case_id": "t018",
+      "k": 2,
+      "top_features": [
+        "deadline_hours",
+        "docs_attached"
+      ],
+      "original_score": 0.024033,
+      "without_top_score": 0.110073,
+      "only_top_score": 0.018633,
+      "comprehensiveness": -0.08604,
+      "sufficiency_delta": 0.0054
+    },
+    {
+      "case_id": "t019",
+      "k": 2,
+      "top_features": [
+        "student_wait_days",
+        "prior_cases"
+      ],
+      "original_score": 0.779026,
+      "without_top_score": 0.110073,
+      "only_top_score": 0.731059,
+      "comprehensiveness": 0.668954,
+      "sufficiency_delta": 0.047968
+    },
+    {
+      "case_id": "t020",
+      "k": 2,
+      "top_features": [
+        "deadline_hours",
+        "docs_attached"
+      ],
+      "original_score": 0.008577,
+      "without_top_score": 0.159762,
+      "only_top_score": 0.004321,
+      "comprehensiveness": -0.151185,
+      "sufficiency_delta": 0.004257
+    }
+  ],
+  "permutation_importance": [
+    {
+      "feature": "deadline_hours",
+      "baseline_accuracy": 0.75,
+      "permuted_accuracy": 0.5,
+      "drop": 0.25
+    },
+    {
+      "feature": "student_wait_days",
+      "baseline_accuracy": 0.75,
+      "permuted_accuracy": 0.55,
+      "drop": 0.2
+    },
+    {
+      "feature": "prior_cases",
+      "baseline_accuracy": 0.75,
+      "permuted_accuracy": 0.6,
+      "drop": 0.15
+    },
+    {
+      "feature": "missing_payment",
+      "baseline_accuracy": 0.75,
+      "permuted_accuracy": 0.65,
+      "drop": 0.1
+    },
+    {
+      "feature": "docs_attached",
+      "baseline_accuracy": 0.75,
+      "permuted_accuracy": 0.65,
+      "drop": 0.1
+    },
+    {
+      "feature": "contains_policy_keyword",
+      "baseline_accuracy": 0.75,
+      "permuted_accuracy": 0.7,
+      "drop": 0.05
+    }
+  ],
+  "top_feature_distribution": [
+    {
+      "feature": "deadline_hours",
+      "count": 10,
+      "share": 0.5
+    },
+    {
+      "feature": "student_wait_days",
+      "count": 6,
+      "share": 0.3
+    },
+    {
+      "feature": "missing_payment",
+      "count": 3,
+      "share": 0.15
+    },
+    {
+      "feature": "prior_cases",
+      "count": 1,
+      "share": 0.05
+    }
+  ],
+  "feature_correlation_report": [
+    {
+      "feature_a": "prior_cases",
+      "feature_b": "student_wait_days",
+      "correlation": 0.8837,
+      "abs_correlation": 0.8837
+    },
+    {
+      "feature_a": "deadline_hours",
+      "feature_b": "student_wait_days",
+      "correlation": -0.8574,
+      "abs_correlation": 0.8574
+    },
+    {
+      "feature_a": "deadline_hours",
+      "feature_b": "prior_cases",
+      "correlation": -0.7349,
+      "abs_correlation": 0.7349
+    },
+    {
+      "feature_a": "missing_payment",
+      "feature_b": "student_wait_days",
+      "correlation": 0.6381,
+      "abs_correlation": 0.6381
+    },
+    {
+      "feature_a": "missing_payment",
+      "feature_b": "deadline_hours",
+      "correlation": -0.6198,
+      "abs_correlation": 0.6198
+    },
+    {
+      "feature_a": "deadline_hours",
+      "feature_b": "docs_attached",
+      "correlation": 0.5648,
+      "abs_correlation": 0.5648
+    },
+    {
+      "feature_a": "docs_attached",
+      "feature_b": "student_wait_days",
+      "correlation": -0.493,
+      "abs_correlation": 0.493
+    },
+    {
+      "feature_a": "contains_policy_keyword",
+      "feature_b": "student_wait_days",
+      "correlation": 0.4441,
+      "abs_correlation": 0.4441
+    },
+    {
+      "feature_a": "docs_attached",
+      "feature_b": "prior_cases",
+      "correlation": -0.4345,
+      "abs_correlation": 0.4345
+    },
+    {
+      "feature_a": "prior_cases",
+      "feature_b": "contains_policy_keyword",
+      "correlation": 0.4312,
+      "abs_correlation": 0.4312
+    },
+    {
+      "feature_a": "missing_payment",
+      "feature_b": "prior_cases",
+      "correlation": 0.3587,
+      "abs_correlation": 0.3587
+    },
+    {
+      "feature_a": "missing_payment",
+      "feature_b": "docs_attached",
+      "correlation": -0.3145,
+      "abs_correlation": 0.3145
+    },
+    {
+      "feature_a": "deadline_hours",
+      "feature_b": "contains_policy_keyword",
+      "correlation": -0.3108,
+      "abs_correlation": 0.3108
+    },
+    {
+      "feature_a": "docs_attached",
+      "feature_b": "contains_policy_keyword",
+      "correlation": -0.3015,
+      "abs_correlation": 0.3015
+    },
+    {
+      "feature_a": "missing_payment",
+      "feature_b": "contains_policy_keyword",
+      "correlation": 0.2423,
+      "abs_correlation": 0.2423
+    }
+  ],
+  "stability": {
+    "cases": 20,
+    "top1_agreement": 0.9667
+  },
+  "counterfactuals": [
+    {
+      "case_id": "t001",
+      "original_prediction": 1,
+      "original_score": 0.859603,
+      "target_prediction": 0,
+      "best": {
+        "changes": [
+          {
+            "missing_payment": 0
+          }
+        ],
+        "description": "comprobar y resolver pago pendiente si procede",
+        "after_score": 0.636915,
+        "after_prediction": 0,
+        "reaches_target": true
+      },
+      "candidates": [
+        {
+          "changes": [
+            {
+              "missing_payment": 0
+            }
+          ],
+          "description": "comprobar y resolver pago pendiente si procede",
+          "after_score": 0.636915,
+          "after_prediction": 0,
+          "reaches_target": true
+        },
+        {
+          "changes": [
+            {
+              "docs_attached": 1
+            },
+            {
+              "missing_payment": 0
+            }
+          ],
+          "description": "pedir o adjuntar documentación completa + comprobar y resolver pago pendiente si procede",
+          "after_score": 0.453138,
+          "after_prediction": 0,
+          "reaches_target": true
+        },
+        {
+          "changes": [
+            {
+              "docs_attached": 1
+            }
+          ],
+          "description": "pedir o adjuntar documentación completa",
+          "after_score": 0.743073,
+          "after_prediction": 1,
+          "reaches_target": false
+        }
+      ]
+    },
+    {
+      "case_id": "t002",
+      "original_prediction": 0,
+      "original_score": 0.010879,
+      "target_prediction": 1,
+      "best": {
+        "changes": [
+          {
+            "docs_attached": 1
+          }
+        ],
+        "description": "pedir o adjuntar documentación completa",
+        "after_score": 0.010879,
+        "after_prediction": 0,
+        "reaches_target": false
+      },
+      "candidates": [
+        {
+          "changes": [
+            {
+              "docs_attached": 1
+            }
+          ],
+          "description": "pedir o adjuntar documentación completa",
+          "after_score": 0.010879,
+          "after_prediction": 0,
+          "reaches_target": false
+        },
+        {
+          "changes": [
+            {
+              "missing_payment": 0
+            }
+          ],
+          "description": "comprobar y resolver pago pendiente si procede",
+          "after_score": 0.010879,
+          "after_prediction": 0,
+          "reaches_target": false
+        },
+        {
+          "changes": [
+            {
+              "docs_attached": 1
+            },
+            {
+              "missing_payment": 0
+            }
+          ],
+          "description": "pedir o adjuntar documentación completa + comprobar y resolver pago pendiente si procede",
+          "after_score": 0.010879,
+          "after_prediction": 0,
+          "reaches_target": false
+        }
+      ]
+    },
+    {
+      "case_id": "t003",
+      "original_prediction": 0,
+      "original_score": 0.575909,
+      "target_prediction": 1,
+      "best": {
+        "changes": [
+          {
+            "missing_payment": 0
+          }
+        ],
+        "description": "comprobar y resolver pago pendiente si procede",
+        "after_score": 0.280093,
+        "after_prediction": 0,
+        "reaches_target": false
+      },
+      "candidates": [
+        {
+          "changes": [
+            {
+              "missing_payment": 0
+            }
+          ],
+          "description": "comprobar y resolver pago pendiente si procede",
+          "after_score": 0.280093,
+          "after_prediction": 0,
+          "reaches_target": false
+        },
+        {
+          "changes": [
+            {
+              "docs_attached": 1
+            }
+          ],
+          "description": "pedir o adjuntar documentación completa",
+          "after_score": 0.390788,
+          "after_prediction": 0,
+          "reaches_target": false
+        },
+        {
+          "changes": [
+            {
+              "docs_attached": 1
+            },
+            {
+              "missing_payment": 0
+            }
+          ],
+          "description": "pedir o adjuntar documentación completa + comprobar y resolver pago pendiente si procede",
+          "after_score": 0.155251,
+          "after_prediction": 0,
+          "reaches_target": false
+        }
+      ]
+    },
+    {
+      "case_id": "t004",
+      "original_prediction": 0,
+      "original_score": 0.020714,
+      "target_prediction": 1,
+      "best": {
+        "changes": [
+          {
+            "docs_attached": 1
+          }
+        ],
+        "description": "pedir o adjuntar documentación completa",
+        "after_score": 0.020714,
+        "after_prediction": 0,
+        "reaches_target": false
+      },
+      "candidates": [
+        {
+          "changes": [
+            {
+              "docs_attached": 1
+            }
+          ],
+          "description": "pedir o adjuntar documentación completa",
+          "after_score": 0.020714,
+          "after_prediction": 0,
+          "reaches_target": false
+        },
+        {
+          "changes": [
+            {
+              "missing_payment": 0
+            }
+          ],
+          "description": "comprobar y resolver pago pendiente si procede",
+          "after_score": 0.020714,
+          "after_prediction": 0,
+          "reaches_target": false
+        },
+        {
+          "changes": [
+            {
+              "docs_attached": 1
+            },
+            {
+              "missing_payment": 0
+            }
+          ],
+          "description": "pedir o adjuntar documentación completa + comprobar y resolver pago pendiente si procede",
+          "after_score": 0.020714,
+          "after_prediction": 0,
+          "reaches_target": false
+        }
+      ]
+    },
+    {
+      "case_id": "t005",
+      "original_prediction": 1,
+      "original_score": 0.822006,
+      "target_prediction": 0,
+      "best": {
+        "changes": [
+          {
+            "missing_payment": 0
+          }
+        ],
+        "description": "comprobar y resolver pago pendiente si procede",
+        "after_score": 0.569546,
+        "after_prediction": 0,
+        "reaches_target": true
+      },
+      "candidates": [
+        {
+          "changes": [
+            {
+              "missing_payment": 0
+            }
+          ],
+          "description": "comprobar y resolver pago pendiente si procede",
+          "after_score": 0.569546,
+          "after_prediction": 0,
+          "reaches_target": true
+        },
+        {
+          "changes": [
+            {
+              "docs_attached": 1
+            },
+            {
+              "missing_payment": 0
+            }
+          ],
+          "description": "pedir o adjuntar documentación completa + comprobar y resolver pago pendiente si procede",
+          "after_score": 0.569546,
+          "after_prediction": 0,
+          "reaches_target": true
+        },
+        {
+          "changes": [
+            {
+              "docs_attached": 1
+            }
+          ],
+          "description": "pedir o adjuntar documentación completa",
+          "after_score": 0.822006,
+          "after_prediction": 1,
+          "reaches_target": false
+        }
+      ]
+    },
+    {
+      "case_id": "t006",
+      "original_prediction": 0,
+      "original_score": 0.024411,
+      "target_prediction": 1,
+      "best": {
+        "changes": [
+          {
+            "docs_attached": 1
+          }
+        ],
+        "description": "pedir o adjuntar documentación completa",
+        "after_score": 0.011681,
+        "after_prediction": 0,
+        "reaches_target": false
+      },
+      "candidates": [
+        {
+          "changes": [
+            {
+              "docs_attached": 1
+            }
+          ],
+          "description": "pedir o adjuntar documentación completa",
+          "after_score": 0.011681,
+          "after_prediction": 0,
+          "reaches_target": false
+        },
+        {
+          "changes": [
+            {
+              "missing_payment": 0
+            }
+          ],
+          "description": "comprobar y resolver pago pendiente si procede",
+          "after_score": 0.024411,
+          "after_prediction": 0,
+          "reaches_target": false
+        },
+        {
+          "changes": [
+            {
+              "docs_attached": 1
+            },
+            {
+              "missing_payment": 0
+            }
+          ],
+          "description": "pedir o adjuntar documentación completa + comprobar y resolver pago pendiente si procede",
+          "after_score": 0.011681,
+          "after_prediction": 0,
+          "reaches_target": false
+        }
+      ]
+    },
+    {
+      "case_id": "t007",
+      "original_prediction": 1,
+      "original_score": 0.695508,
+      "target_prediction": 0,
+      "best": {
+        "changes": [
+          {
+            "docs_attached": 1
+          }
+        ],
+        "description": "pedir o adjuntar documentación completa",
+        "after_score": 0.518991,
+        "after_prediction": 0,
+        "reaches_target": true
+      },
+      "candidates": [
+        {
+          "changes": [
+            {
+              "docs_attached": 1
+            }
+          ],
+          "description": "pedir o adjuntar documentación completa",
+          "after_score": 0.518991,
+          "after_prediction": 0,
+          "reaches_target": true
+        },
+        {
+          "changes": [
+            {
+              "docs_attached": 1
+            },
+            {
+              "missing_payment": 0
+            }
+          ],
+          "description": "pedir o adjuntar documentación completa + comprobar y resolver pago pendiente si procede",
+          "after_score": 0.518991,
+          "after_prediction": 0,
+          "reaches_target": true
+        },
+        {
+          "changes": [
+            {
+              "missing_payment": 0
+            }
+          ],
+          "description": "comprobar y resolver pago pendiente si procede",
+          "after_score": 0.695508,
+          "after_prediction": 1,
+          "reaches_target": false
+        }
+      ]
+    },
+    {
+      "case_id": "t008",
+      "original_prediction": 0,
+      "original_score": 0.006231,
+      "target_prediction": 1,
+      "best": {
+        "changes": [
+          {
+            "docs_attached": 1
+          }
+        ],
+        "description": "pedir o adjuntar documentación completa",
+        "after_score": 0.006231,
+        "after_prediction": 0,
+        "reaches_target": false
+      },
+      "candidates": [
+        {
+          "changes": [
+            {
+              "docs_attached": 1
+            }
+          ],
+          "description": "pedir o adjuntar documentación completa",
+          "after_score": 0.006231,
+          "after_prediction": 0,
+          "reaches_target": false
+        },
+        {
+          "changes": [
+            {
+              "missing_payment": 0
+            }
+          ],
+          "description": "comprobar y resolver pago pendiente si procede",
+          "after_score": 0.006231,
+          "after_prediction": 0,
+          "reaches_target": false
+        },
+        {
+          "changes": [
+            {
+              "docs_attached": 1
+            },
+            {
+              "missing_payment": 0
+            }
+          ],
+          "description": "pedir o adjuntar documentación completa + comprobar y resolver pago pendiente si procede",
+          "after_score": 0.006231,
+          "after_prediction": 0,
+          "reaches_target": false
+        }
+      ]
+    },
+    {
+      "case_id": "t009",
+      "original_prediction": 0,
+      "original_score": 0.600608,
+      "target_prediction": 1,
+      "best": {
+        "changes": [
+          {
+            "missing_payment": 0
+          }
+        ],
+        "description": "comprobar y resolver pago pendiente si procede",
+        "after_score": 0.301114,
+        "after_prediction": 0,
+        "reaches_target": false
+      },
+      "candidates": [
+        {
+          "changes": [
+            {
+              "missing_payment": 0
+            }
+          ],
+          "description": "comprobar y resolver pago pendiente si procede",
+          "after_score": 0.301114,
+          "after_prediction": 0,
+          "reaches_target": false
+        },
+        {
+          "changes": [
+            {
+              "docs_attached": 1
+            }
+          ],
+          "description": "pedir o adjuntar documentación completa",
+          "after_score": 0.415324,
+          "after_prediction": 0,
+          "reaches_target": false
+        },
+        {
+          "changes": [
+            {
+              "docs_attached": 1
+            },
+            {
+              "missing_payment": 0
+            }
+          ],
+          "description": "pedir o adjuntar documentación completa + comprobar y resolver pago pendiente si procede",
+          "after_score": 0.169103,
+          "after_prediction": 0,
+          "reaches_target": false
+        }
+      ]
+    },
+    {
+      "case_id": "t010",
+      "original_prediction": 0,
+      "original_score": 0.043107,
+      "target_prediction": 1,
+      "best": {
+        "changes": [
+          {
+            "docs_attached": 1
+          }
+        ],
+        "description": "pedir o adjuntar documentación completa",
+        "after_score": 0.043107,
+        "after_prediction": 0,
+        "reaches_target": false
+      },
+      "candidates": [
+        {
+          "changes": [
+            {
+              "docs_attached": 1
+            }
+          ],
+          "description": "pedir o adjuntar documentación completa",
+          "after_score": 0.043107,
+          "after_prediction": 0,
+          "reaches_target": false
+        },
+        {
+          "changes": [
+            {
+              "missing_payment": 0
+            }
+          ],
+          "description": "comprobar y resolver pago pendiente si procede",
+          "after_score": 0.043107,
+          "after_prediction": 0,
+          "reaches_target": false
+        },
+        {
+          "changes": [
+            {
+              "docs_attached": 1
+            },
+            {
+              "missing_payment": 0
+            }
+          ],
+          "description": "pedir o adjuntar documentación completa + comprobar y resolver pago pendiente si procede",
+          "after_score": 0.043107,
+          "after_prediction": 0,
+          "reaches_target": false
+        }
+      ]
+    },
+    {
+      "case_id": "t011",
+      "original_prediction": 1,
+      "original_score": 0.961134,
+      "target_prediction": 0,
+      "best": {
+        "changes": [
+          {
+            "missing_payment": 0
+          }
+        ],
+        "description": "comprobar y resolver pago pendiente si procede",
+        "after_score": 0.876316,
+        "after_prediction": 1,
+        "reaches_target": false
+      },
+      "candidates": [
+        {
+          "changes": [
+            {
+              "missing_payment": 0
+            }
+          ],
+          "description": "comprobar y resolver pago pendiente si procede",
+          "after_score": 0.876316,
+          "after_prediction": 1,
+          "reaches_target": false
+        },
+        {
+          "changes": [
+            {
+              "docs_attached": 1
+            }
+          ],
+          "description": "pedir o adjuntar documentación completa",
+          "after_score": 0.921145,
+          "after_prediction": 1,
+          "reaches_target": false
+        },
+        {
+          "changes": [
+            {
+              "docs_attached": 1
+            },
+            {
+              "missing_payment": 0
+            }
+          ],
+          "description": "pedir o adjuntar documentación completa + comprobar y resolver pago pendiente si procede",
+          "after_score": 0.769945,
+          "after_prediction": 1,
+          "reaches_target": false
+        }
+      ]
+    },
+    {
+      "case_id": "t012",
+      "original_prediction": 0,
+      "original_score": 0.002487,
+      "target_prediction": 1,
+      "best": {
+        "changes": [
+          {
+            "docs_attached": 1
+          }
+        ],
+        "description": "pedir o adjuntar documentación completa",
+        "after_score": 0.002487,
+        "after_prediction": 0,
+        "reaches_target": false
+      },
+      "candidates": [
+        {
+          "changes": [
+            {
+              "docs_attached": 1
+            }
+          ],
+          "description": "pedir o adjuntar documentación completa",
+          "after_score": 0.002487,
+          "after_prediction": 0,
+          "reaches_target": false
+        },
+        {
+          "changes": [
+            {
+              "missing_payment": 0
+            }
+          ],
+          "description": "comprobar y resolver pago pendiente si procede",
+          "after_score": 0.002487,
+          "after_prediction": 0,
+          "reaches_target": false
+        },
+        {
+          "changes": [
+            {
+              "docs_attached": 1
+            },
+            {
+              "missing_payment": 0
+            }
+          ],
+          "description": "pedir o adjuntar documentación completa + comprobar y resolver pago pendiente si procede",
+          "after_score": 0.002487,
+          "after_prediction": 0,
+          "reaches_target": false
+        }
+      ]
+    },
+    {
+      "case_id": "t013",
+      "original_prediction": 0,
+      "original_score": 0.646571,
+      "target_prediction": 1,
+      "best": {
+        "changes": [
+          {
+            "docs_attached": 1
+          }
+        ],
+        "description": "pedir o adjuntar documentación completa",
+        "after_score": 0.463565,
+        "after_prediction": 0,
+        "reaches_target": false
+      },
+      "candidates": [
+        {
+          "changes": [
+            {
+              "docs_attached": 1
+            }
+          ],
+          "description": "pedir o adjuntar documentación completa",
+          "after_score": 0.463565,
+          "after_prediction": 0,
+          "reaches_target": false
+        },
+        {
+          "changes": [
+            {
+              "missing_payment": 0
+            }
+          ],
+          "description": "comprobar y resolver pago pendiente si procede",
+          "after_score": 0.646571,
+          "after_prediction": 0,
+          "reaches_target": false
+        },
+        {
+          "changes": [
+            {
+              "docs_attached": 1
+            },
+            {
+              "missing_payment": 0
+            }
+          ],
+          "description": "pedir o adjuntar documentación completa + comprobar y resolver pago pendiente si procede",
+          "after_score": 0.463565,
+          "after_prediction": 0,
+          "reaches_target": false
+        }
+      ]
+    },
+    {
+      "case_id": "t014",
+      "original_prediction": 0,
+      "original_score": 0.037327,
+      "target_prediction": 1,
+      "best": {
+        "changes": [
+          {
+            "docs_attached": 1
+          }
+        ],
+        "description": "pedir o adjuntar documentación completa",
+        "after_score": 0.017986,
+        "after_prediction": 0,
+        "reaches_target": false
+      },
+      "candidates": [
+        {
+          "changes": [
+            {
+              "docs_attached": 1
+            }
+          ],
+          "description": "pedir o adjuntar documentación completa",
+          "after_score": 0.017986,
+          "after_prediction": 0,
+          "reaches_target": false
+        },
+        {
+          "changes": [
+            {
+              "missing_payment": 0
+            }
+          ],
+          "description": "comprobar y resolver pago pendiente si procede",
+          "after_score": 0.037327,
+          "after_prediction": 0,
+          "reaches_target": false
+        },
+        {
+          "changes": [
+            {
+              "docs_attached": 1
+            },
+            {
+              "missing_payment": 0
+            }
+          ],
+          "description": "pedir o adjuntar documentación completa + comprobar y resolver pago pendiente si procede",
+          "after_score": 0.017986,
+          "after_prediction": 0,
+          "reaches_target": false
+        }
+      ]
+    },
+    {
+      "case_id": "t015",
+      "original_prediction": 0,
+      "original_score": 0.610639,
+      "target_prediction": 1,
+      "best": {
+        "changes": [
+          {
+            "missing_payment": 0
+          }
+        ],
+        "description": "comprobar y resolver pago pendiente si procede",
+        "after_score": 0.310026,
+        "after_prediction": 0,
+        "reaches_target": false
+      },
+      "candidates": [
+        {
+          "changes": [
+            {
+              "missing_payment": 0
+            }
+          ],
+          "description": "comprobar y resolver pago pendiente si procede",
+          "after_score": 0.310026,
+          "after_prediction": 0,
+          "reaches_target": false
+        },
+        {
+          "changes": [
+            {
+              "docs_attached": 1
+            }
+          ],
+          "description": "pedir o adjuntar documentación completa",
+          "after_score": 0.425557,
+          "after_prediction": 0,
+          "reaches_target": false
+        },
+        {
+          "changes": [
+            {
+              "docs_attached": 1
+            },
+            {
+              "missing_payment": 0
+            }
+          ],
+          "description": "pedir o adjuntar documentación completa + comprobar y resolver pago pendiente si procede",
+          "after_score": 0.175086,
+          "after_prediction": 0,
+          "reaches_target": false
+        }
+      ]
+    },
+    {
+      "case_id": "t016",
+      "original_prediction": 0,
+      "original_score": 0.022096,
+      "target_prediction": 1,
+      "best": {
+        "changes": [
+          {
+            "docs_attached": 1
+          }
+        ],
+        "description": "pedir o adjuntar documentación completa",
+        "after_score": 0.022096,
+        "after_prediction": 0,
+        "reaches_target": false
+      },
+      "candidates": [
+        {
+          "changes": [
+            {
+              "docs_attached": 1
+            }
+          ],
+          "description": "pedir o adjuntar documentación completa",
+          "after_score": 0.022096,
+          "after_prediction": 0,
+          "reaches_target": false
+        },
+        {
+          "changes": [
+            {
+              "missing_payment": 0
+            }
+          ],
+          "description": "comprobar y resolver pago pendiente si procede",
+          "after_score": 0.022096,
+          "after_prediction": 0,
+          "reaches_target": false
+        },
+        {
+          "changes": [
+            {
+              "docs_attached": 1
+            },
+            {
+              "missing_payment": 0
+            }
+          ],
+          "description": "pedir o adjuntar documentación completa + comprobar y resolver pago pendiente si procede",
+          "after_score": 0.022096,
+          "after_prediction": 0,
+          "reaches_target": false
+        }
+      ]
+    },
+    {
+      "case_id": "t017",
+      "original_prediction": 0,
+      "original_score": 0.596764,
+      "target_prediction": 1,
+      "best": {
+        "changes": [
+          {
+            "missing_payment": 0
+          }
+        ],
+        "description": "comprobar y resolver pago pendiente si procede",
+        "after_score": 0.297757,
+        "after_prediction": 0,
+        "reaches_target": false
+      },
+      "candidates": [
+        {
+          "changes": [
+            {
+              "missing_payment": 0
+            }
+          ],
+          "description": "comprobar y resolver pago pendiente si procede",
+          "after_score": 0.297757,
+          "after_prediction": 0,
+          "reaches_target": false
+        },
+        {
+          "changes": [
+            {
+              "docs_attached": 1
+            }
+          ],
+          "description": "pedir o adjuntar documentación completa",
+          "after_score": 0.596764,
+          "after_prediction": 0,
+          "reaches_target": false
+        },
+        {
+          "changes": [
+            {
+              "docs_attached": 1
+            },
+            {
+              "missing_payment": 0
+            }
+          ],
+          "description": "pedir o adjuntar documentación completa + comprobar y resolver pago pendiente si procede",
+          "after_score": 0.297757,
+          "after_prediction": 0,
+          "reaches_target": false
+        }
+      ]
+    },
+    {
+      "case_id": "t018",
+      "original_prediction": 0,
+      "original_score": 0.024033,
+      "target_prediction": 1,
+      "best": {
+        "changes": [
+          {
+            "docs_attached": 1
+          }
+        ],
+        "description": "pedir o adjuntar documentación completa",
+        "after_score": 0.024033,
+        "after_prediction": 0,
+        "reaches_target": false
+      },
+      "candidates": [
+        {
+          "changes": [
+            {
+              "docs_attached": 1
+            }
+          ],
+          "description": "pedir o adjuntar documentación completa",
+          "after_score": 0.024033,
+          "after_prediction": 0,
+          "reaches_target": false
+        },
+        {
+          "changes": [
+            {
+              "missing_payment": 0
+            }
+          ],
+          "description": "comprobar y resolver pago pendiente si procede",
+          "after_score": 0.024033,
+          "after_prediction": 0,
+          "reaches_target": false
+        },
+        {
+          "changes": [
+            {
+              "docs_attached": 1
+            },
+            {
+              "missing_payment": 0
+            }
+          ],
+          "description": "pedir o adjuntar documentación completa + comprobar y resolver pago pendiente si procede",
+          "after_score": 0.024033,
+          "after_prediction": 0,
+          "reaches_target": false
+        }
+      ]
+    },
+    {
+      "case_id": "t019",
+      "original_prediction": 1,
+      "original_score": 0.779026,
+      "target_prediction": 0,
+      "best": {
+        "changes": [
+          {
+            "docs_attached": 1
+          }
+        ],
+        "description": "pedir o adjuntar documentación completa",
+        "after_score": 0.624806,
+        "after_prediction": 0,
+        "reaches_target": true
+      },
+      "candidates": [
+        {
+          "changes": [
+            {
+              "docs_attached": 1
+            }
+          ],
+          "description": "pedir o adjuntar documentación completa",
+          "after_score": 0.624806,
+          "after_prediction": 0,
+          "reaches_target": true
+        },
+        {
+          "changes": [
+            {
+              "docs_attached": 1
+            },
+            {
+              "missing_payment": 0
+            }
+          ],
+          "description": "pedir o adjuntar documentación completa + comprobar y resolver pago pendiente si procede",
+          "after_score": 0.624806,
+          "after_prediction": 0,
+          "reaches_target": true
+        },
+        {
+          "changes": [
+            {
+              "missing_payment": 0
+            }
+          ],
+          "description": "comprobar y resolver pago pendiente si procede",
+          "after_score": 0.779026,
+          "after_prediction": 1,
+          "reaches_target": false
+        }
+      ]
+    },
+    {
+      "case_id": "t020",
+      "original_prediction": 0,
+      "original_score": 0.008577,
+      "target_prediction": 1,
+      "best": {
+        "changes": [
+          {
+            "docs_attached": 1
+          }
+        ],
+        "description": "pedir o adjuntar documentación completa",
+        "after_score": 0.008577,
+        "after_prediction": 0,
+        "reaches_target": false
+      },
+      "candidates": [
+        {
+          "changes": [
+            {
+              "docs_attached": 1
+            }
+          ],
+          "description": "pedir o adjuntar documentación completa",
+          "after_score": 0.008577,
+          "after_prediction": 0,
+          "reaches_target": false
+        },
+        {
+          "changes": [
+            {
+              "missing_payment": 0
+            }
+          ],
+          "description": "comprobar y resolver pago pendiente si procede",
+          "after_score": 0.008577,
+          "after_prediction": 0,
+          "reaches_target": false
+        },
+        {
+          "changes": [
+            {
+              "docs_attached": 1
+            },
+            {
+              "missing_payment": 0
+            }
+          ],
+          "description": "pedir o adjuntar documentación completa + comprobar y resolver pago pendiente si procede",
+          "after_score": 0.008577,
+          "after_prediction": 0,
+          "reaches_target": false
+        }
+      ]
+    }
+  ],
+  "data_hash_sha256": "ec7bf55279ff3c6a3f93510b638fea374eff27577425cdcb76b5ba103c7af20e",
+  "policy_hash_sha256": "9b16a2f2b078e25f87522702c9719026bb360230f40afe06ec8ad137f05aadba",
+  "audit_checks": [
+    {
+      "name": "deletion_top_feature_drop",
+      "passes": true,
+      "detail": {
+        "max_drop": 0.444993,
+        "minimum": 0.08
+      }
+    },
+    {
+      "name": "permutation_importance_drop",
+      "passes": true,
+      "detail": {
+        "max_drop": 0.25,
+        "minimum": 0.03
+      }
+    },
+    {
+      "name": "stability_top1",
+      "passes": true,
+      "detail": {
+        "top1_agreement": 0.9667,
+        "minimum": 0.7
+      }
+    },
+    {
+      "name": "counterfactual_available",
+      "passes": true,
+      "detail": "al menos un caso tiene contrafactual accionable que cambia la decisión"
+    },
+    {
+      "name": "comprehensiveness_top2",
+      "passes": true,
+      "detail": {
+        "average": 0.210094,
+        "minimum": 0.12
+      }
+    },
+    {
+      "name": "sufficiency_top2",
+      "passes": true,
+      "detail": {
+        "average": 0.063245,
+        "maximum": 0.2
+      }
+    },
+    {
+      "name": "feature_proxy_scan",
+      "passes": true,
+      "detail": {
+        "max_abs_correlation": 0.8837,
+        "maximum": 0.9,
+        "top_pair": {
+          "feature_a": "prior_cases",
+          "feature_b": "student_wait_days",
+          "correlation": 0.8837,
+          "abs_correlation": 0.8837
+        }
+      }
+    }
+  ]
+}

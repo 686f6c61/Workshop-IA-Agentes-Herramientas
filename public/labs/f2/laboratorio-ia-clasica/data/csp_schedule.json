@@ -1,0 +1,11 @@
+{
+  "sessions": ["repaso", "practica", "tutoria"],
+  "slots": ["lun_09", "lun_11", "mar_09", "mar_11"],
+  "rooms": ["Aula", "Lab"],
+  "constraints": {
+    "unique_slot": true,
+    "practica_room": "Lab",
+    "repaso_before_practica": true,
+    "tutoria_day_prefix": "mar"
+  }
+}

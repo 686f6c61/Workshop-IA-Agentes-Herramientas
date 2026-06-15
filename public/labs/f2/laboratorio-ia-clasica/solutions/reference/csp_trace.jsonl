@@ -1,0 +1,54 @@
+{"event": "select_variable", "session": "practica", "domain_size": 4}
+{"event": "try_value", "session": "practica", "value": ["lun_09", "Lab"], "ok": true, "reason": "ok"}
+{"event": "select_variable", "session": "tutoria", "domain_size": 4}
+{"event": "try_value", "session": "tutoria", "value": ["mar_09", "Aula"], "ok": true, "reason": "ok"}
+{"event": "select_variable", "session": "repaso", "domain_size": 8}
+{"event": "try_value", "session": "repaso", "value": ["lun_09", "Aula"], "ok": false, "reason": "dos sesiones comparten hora"}
+{"event": "try_value", "session": "repaso", "value": ["lun_09", "Lab"], "ok": false, "reason": "dos sesiones comparten hora"}
+{"event": "try_value", "session": "repaso", "value": ["lun_11", "Aula"], "ok": false, "reason": "repaso no va antes de práctica"}
+{"event": "try_value", "session": "repaso", "value": ["lun_11", "Lab"], "ok": false, "reason": "repaso no va antes de práctica"}
+{"event": "try_value", "session": "repaso", "value": ["mar_09", "Aula"], "ok": false, "reason": "dos sesiones comparten hora"}
+{"event": "try_value", "session": "repaso", "value": ["mar_09", "Lab"], "ok": false, "reason": "dos sesiones comparten hora"}
+{"event": "try_value", "session": "repaso", "value": ["mar_11", "Aula"], "ok": false, "reason": "repaso no va antes de práctica"}
+{"event": "try_value", "session": "repaso", "value": ["mar_11", "Lab"], "ok": false, "reason": "repaso no va antes de práctica"}
+{"event": "backtrack", "assignment": {"practica": ["lun_09", "Lab"], "tutoria": ["mar_09", "Aula"]}}
+{"event": "try_value", "session": "tutoria", "value": ["mar_09", "Lab"], "ok": true, "reason": "ok"}
+{"event": "select_variable", "session": "repaso", "domain_size": 8}
+{"event": "try_value", "session": "repaso", "value": ["lun_09", "Aula"], "ok": false, "reason": "dos sesiones comparten hora"}
+{"event": "try_value", "session": "repaso", "value": ["lun_09", "Lab"], "ok": false, "reason": "dos sesiones comparten hora"}
+{"event": "try_value", "session": "repaso", "value": ["lun_11", "Aula"], "ok": false, "reason": "repaso no va antes de práctica"}
+{"event": "try_value", "session": "repaso", "value": ["lun_11", "Lab"], "ok": false, "reason": "repaso no va antes de práctica"}
+{"event": "try_value", "session": "repaso", "value": ["mar_09", "Aula"], "ok": false, "reason": "dos sesiones comparten hora"}
+{"event": "try_value", "session": "repaso", "value": ["mar_09", "Lab"], "ok": false, "reason": "dos sesiones comparten hora"}
+{"event": "try_value", "session": "repaso", "value": ["mar_11", "Aula"], "ok": false, "reason": "repaso no va antes de práctica"}
+{"event": "try_value", "session": "repaso", "value": ["mar_11", "Lab"], "ok": false, "reason": "repaso no va antes de práctica"}
+{"event": "backtrack", "assignment": {"practica": ["lun_09", "Lab"], "tutoria": ["mar_09", "Lab"]}}
+{"event": "try_value", "session": "tutoria", "value": ["mar_11", "Aula"], "ok": true, "reason": "ok"}
+{"event": "select_variable", "session": "repaso", "domain_size": 8}
+{"event": "try_value", "session": "repaso", "value": ["lun_09", "Aula"], "ok": false, "reason": "dos sesiones comparten hora"}
+{"event": "try_value", "session": "repaso", "value": ["lun_09", "Lab"], "ok": false, "reason": "dos sesiones comparten hora"}
+{"event": "try_value", "session": "repaso", "value": ["lun_11", "Aula"], "ok": false, "reason": "repaso no va antes de práctica"}
+{"event": "try_value", "session": "repaso", "value": ["lun_11", "Lab"], "ok": false, "reason": "repaso no va antes de práctica"}
+{"event": "try_value", "session": "repaso", "value": ["mar_09", "Aula"], "ok": false, "reason": "repaso no va antes de práctica"}
+{"event": "try_value", "session": "repaso", "value": ["mar_09", "Lab"], "ok": false, "reason": "repaso no va antes de práctica"}
+{"event": "try_value", "session": "repaso", "value": ["mar_11", "Aula"], "ok": false, "reason": "dos sesiones comparten hora"}
+{"event": "try_value", "session": "repaso", "value": ["mar_11", "Lab"], "ok": false, "reason": "dos sesiones comparten hora"}
+{"event": "backtrack", "assignment": {"practica": ["lun_09", "Lab"], "tutoria": ["mar_11", "Aula"]}}
+{"event": "try_value", "session": "tutoria", "value": ["mar_11", "Lab"], "ok": true, "reason": "ok"}
+{"event": "select_variable", "session": "repaso", "domain_size": 8}
+{"event": "try_value", "session": "repaso", "value": ["lun_09", "Aula"], "ok": false, "reason": "dos sesiones comparten hora"}
+{"event": "try_value", "session": "repaso", "value": ["lun_09", "Lab"], "ok": false, "reason": "dos sesiones comparten hora"}
+{"event": "try_value", "session": "repaso", "value": ["lun_11", "Aula"], "ok": false, "reason": "repaso no va antes de práctica"}
+{"event": "try_value", "session": "repaso", "value": ["lun_11", "Lab"], "ok": false, "reason": "repaso no va antes de práctica"}
+{"event": "try_value", "session": "repaso", "value": ["mar_09", "Aula"], "ok": false, "reason": "repaso no va antes de práctica"}
+{"event": "try_value", "session": "repaso", "value": ["mar_09", "Lab"], "ok": false, "reason": "repaso no va antes de práctica"}
+{"event": "try_value", "session": "repaso", "value": ["mar_11", "Aula"], "ok": false, "reason": "dos sesiones comparten hora"}
+{"event": "try_value", "session": "repaso", "value": ["mar_11", "Lab"], "ok": false, "reason": "dos sesiones comparten hora"}
+{"event": "backtrack", "assignment": {"practica": ["lun_09", "Lab"], "tutoria": ["mar_11", "Lab"]}}
+{"event": "backtrack", "assignment": {"practica": ["lun_09", "Lab"]}}
+{"event": "try_value", "session": "practica", "value": ["lun_11", "Lab"], "ok": true, "reason": "ok"}
+{"event": "select_variable", "session": "tutoria", "domain_size": 4}
+{"event": "try_value", "session": "tutoria", "value": ["mar_09", "Aula"], "ok": true, "reason": "ok"}
+{"event": "select_variable", "session": "repaso", "domain_size": 8}
+{"event": "try_value", "session": "repaso", "value": ["lun_09", "Aula"], "ok": true, "reason": "ok"}
+{"event": "solution", "assignment": {"practica": ["lun_11", "Lab"], "tutoria": ["mar_09", "Aula"], "repaso": ["lun_09", "Aula"]}}

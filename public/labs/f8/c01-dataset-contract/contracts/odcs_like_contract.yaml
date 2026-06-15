@@ -1,0 +1,41 @@
+contract_id: support-cases-data-contract-v1
+version: 1.0.0
+kind: data_contract
+owner: equipo-datos-ia
+purpose: Construir y evaluar un asistente academico con casos sinteticos de soporte.
+schema:
+  - name: case_id
+    physical_type: string
+    required: true
+    quality:
+      - rule: unique
+  - name: split
+    physical_type: string
+    required: true
+    quality:
+      - rule: valid_values
+        values: [train, validation, test]
+  - name: label
+    physical_type: string
+    required: true
+    quality:
+      - rule: valid_values
+        values: [answer, ask_more, escalate]
+  - name: license
+    physical_type: string
+    required: true
+    quality:
+      - rule: compatible_with_split
+  - name: pii_risk
+    physical_type: string
+    required: true
+    quality:
+      - rule: valid_values
+        values: [low, medium]
+service_level:
+  freshness_days: 30
+  max_missing_rate: 0.0
+  duplicate_text_across_splits: 0
+support:
+  channel: "#equipo-datos-ia"
+  escalation: equipo-datos-ia

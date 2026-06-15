@@ -1,0 +1,47 @@
+{
+  "schema_version": "1.0",
+  "project": "IA para gente curiosa",
+  "fasciculo": 12,
+  "capitulo": 12,
+  "quality_gates": {
+    "pass_min_quality": 0.78,
+    "review_min_quality": 0.66,
+    "block_min_risk": 0.78,
+    "review_min_risk": 0.48,
+    "max_latency_ms": 2200,
+    "max_cost_units": 9.0,
+    "max_failure_rate": 0.04,
+    "require_evidence_for_release": true,
+    "require_human_approval_for_external_action": true,
+    "require_policy_decision_for_sensitive_cases": true
+  },
+  "required_evidence_by_capability": {
+    "vision_language": ["request_contract", "golden_set", "slice_eval"],
+    "document_ai": ["schema_contract", "source_page_refs", "table_eval"],
+    "multimodal_rag": ["retrieval_manifest", "source_acl_check", "grounded_answer_eval"],
+    "realtime_voice": ["turn_log", "slot_eval", "latency_trace"],
+    "video_temporal": ["frame_sampling_policy", "temporal_eval", "event_timeline"],
+    "computer_use": ["approval_card", "tool_trace", "egress_policy"],
+    "risk_ops": ["redaction_plan", "policy_decision", "artifact_lineage"]
+  },
+  "required_controls_by_risk": {
+    "pii": ["redaction_plan", "retention_policy"],
+    "secret": ["secret_scan", "revocation_runbook"],
+    "untrusted_content": ["taint_label"],
+    "external_action": ["approval_gate", "egress_policy"],
+    "licensed_source": ["source_license_check"]
+  },
+  "chapter_traceability": {
+    "1": "qué es multimodalidad y qué modalidad aporta cada parte",
+    "2": "representaciones visuales, patches y coste de entrada",
+    "3": "búsqueda y ranking contrastivo",
+    "4": "contrato de llamada visión-lenguaje",
+    "5": "Document AI, layout, tablas y evidencias",
+    "6": "RAG multimodal, recuperación y grounding",
+    "7": "audio, voz, turnos y latencia",
+    "8": "vídeo, clips, memoria temporal y eventos",
+    "9": "computer use, permisos y aprobación",
+    "10": "evaluación multimodal y slices",
+    "11": "privacidad, seguridad, policy y lineage"
+  }
+}

@@ -1,0 +1,135 @@
+{
+  "model_version": "support-prioritizer-2026-06-01",
+  "prompt_version": "ticket-routing-prompt-v4",
+  "retrieval_version": "support-docs-index-2026-05-30",
+  "score_name": "raw_score",
+  "score_semantics": "probabilidad de que el ticket requiera prioridad urgente",
+  "calibrator_type": "histogram_laplace",
+  "calibrator_version": "cal-ticket-v1",
+  "policy_version": "support-thresholds-v3",
+  "owner": "equipo-ia",
+  "dataset_hash_sha256": "01d8033ef36e985d5fb4cc020a387bbd4a63a937966beda11c29f3c29b7129c5",
+  "policy_hash_sha256": "b85a3e0e72f87e160f31482859d87e9c943e3ff31c27f1ec28a90f16ad7a80d9",
+  "observed_slices": [
+    "becas",
+    "general",
+    "matricula",
+    "soporte_tecnico"
+  ],
+  "valid_slices": [
+    "general",
+    "becas",
+    "matricula",
+    "soporte_tecnico"
+  ],
+  "known_bad_slices": [],
+  "dataset_counts": {
+    "calibration": 36,
+    "evaluation": 36
+  },
+  "base_rates": {
+    "calibration": 0.5833,
+    "evaluation": 0.6111
+  },
+  "quality_gate": {
+    "passes": true,
+    "checks": [
+      {
+        "name": "slice_min_cases:becas",
+        "passes": true,
+        "detail": {
+          "count": 10,
+          "minimum": 6
+        }
+      },
+      {
+        "name": "slice_min_cases:general",
+        "passes": true,
+        "detail": {
+          "count": 9,
+          "minimum": 6
+        }
+      },
+      {
+        "name": "slice_min_cases:matricula",
+        "passes": true,
+        "detail": {
+          "count": 9,
+          "minimum": 6
+        }
+      },
+      {
+        "name": "slice_min_cases:soporte_tecnico",
+        "passes": true,
+        "detail": {
+          "count": 8,
+          "minimum": 6
+        }
+      },
+      {
+        "name": "calibrated_ece",
+        "passes": true,
+        "detail": {
+          "ece": 0.0526,
+          "maximum": 0.16
+        }
+      },
+      {
+        "name": "recommended_policy",
+        "passes": true,
+        "detail": {
+          "low": 0.15,
+          "high": 0.75,
+          "cost": 18.8,
+          "review_rate": 0.4444,
+          "auto_coverage": 0.5556,
+          "auto_error_rate": 0.15,
+          "auto_error_wilson_95": [
+            0.0524,
+            0.3604
+          ],
+          "confusion_auto": {
+            "tp": 13,
+            "fp": 3,
+            "fn": 0,
+            "tn": 4
+          },
+          "passes": true
+        }
+      }
+    ]
+  },
+  "metrics": {
+    "raw_ece": 0.0911,
+    "calibrated_ece": 0.0526,
+    "raw_brier": 0.1773,
+    "calibrated_brier": 0.173
+  },
+  "recommended_policy": {
+    "low": 0.15,
+    "high": 0.75,
+    "cost": 18.8,
+    "review_rate": 0.4444,
+    "auto_coverage": 0.5556,
+    "auto_error_rate": 0.15,
+    "auto_error_wilson_95": [
+      0.0524,
+      0.3604
+    ],
+    "confusion_auto": {
+      "tp": 13,
+      "fp": 3,
+      "fn": 0,
+      "tn": 4
+    },
+    "passes": true
+  },
+  "recalibration_triggers": {
+    "model_changed": true,
+    "prompt_changed": true,
+    "retrieval_changed": true,
+    "base_rate_relative_change": 0.2,
+    "ece_regression": 0.03,
+    "new_slice_without_minimum_cases": true
+  }
+}

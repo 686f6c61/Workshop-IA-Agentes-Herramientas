@@ -1,0 +1,30 @@
+titulo: "Seguridad, privacidad y gobernanza"
+fasciculo: 9
+total_capitulos: 5
+estado: revision
+
+capitulos:
+  - numero: 1
+    archivo: 01-riesgos-controles-evidencias-gobernanza.md
+    titulo: "Riesgos, controles y evidencias: la primera capa de gobernanza"
+    estado: revision
+
+  - numero: 2
+    archivo: 02-privacidad-datos-personales-minimizacion-dpia.md
+    titulo: "Privacidad y datos personales: minimización, DPIA y memoria"
+    estado: revision
+
+  - numero: 3
+    archivo: 03-seguridad-aplicaciones-llm-tools-rag.md
+    titulo: "Seguridad de aplicaciones LLM: instrucciones, tools, RAG y límites"
+    estado: revision
+
+  - numero: 4
+    archivo: 04-cumplimiento-ai-act-iso-evidencias.md
+    titulo: "Cumplimiento y auditoría: AI Act, ISO 42001 y paquetes de evidencia"
+    estado: revision
+
+  - numero: 5
+    archivo: 05-recapitulacion-laboratorio-gobernanza.md
+    titulo: "Recapitulación y laboratorio de gobernanza"
+    estado: revision

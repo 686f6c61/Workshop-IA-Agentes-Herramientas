@@ -1,0 +1,14 @@
+entity_type,tp,fp,fn,precision,recall,f2,high_recall_entity,passes_recall_target
+ACCESS_TOKEN_FRAGMENT,1,0,0,1.0,1.0,1.0,True,True
+ADDRESS,1,0,0,1.0,1.0,1.0,False,True
+API_KEY,1,0,0,1.0,1.0,1.0,True,True
+COOKIE,0,0,1,1.0,0.0,0.0,False,True
+DNI_NIE,1,0,1,1.0,0.5,0.5556,True,False
+EMAIL,2,0,0,1.0,1.0,1.0,False,True
+FACE,1,0,1,1.0,0.5,0.5556,True,False
+GPS_LOCATION,0,0,1,1.0,0.0,0.0,True,False
+HEALTH,0,0,1,1.0,0.0,0.0,True,False
+LICENSE_PLATE,1,0,0,1.0,1.0,1.0,True,True
+PHONE,1,0,0,1.0,1.0,1.0,False,True
+PROMPT_INJECTION,1,0,0,1.0,1.0,1.0,False,True
+STUDENT_ID,1,0,0,1.0,1.0,1.0,False,True

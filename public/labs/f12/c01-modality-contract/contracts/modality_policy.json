@@ -1,0 +1,48 @@
+{
+  "required_case_fields": [
+    "case_id",
+    "title",
+    "task",
+    "available_inputs",
+    "minimum_modalities",
+    "candidate_architecture",
+    "output_contract",
+    "evidence_required",
+    "metrics",
+    "risks",
+    "human_review"
+  ],
+  "allowed_modalities": ["text", "image", "document", "audio", "video", "table", "screen", "action"],
+  "architecture_hints": {
+    "text": "text_llm_or_classifier",
+    "image": "vlm_or_multimodal_embedding",
+    "document": "ocr_layout_rag_or_vlm",
+    "audio": "asr_plus_llm",
+    "video": "video_sampling_plus_temporal_model",
+    "table": "sql_or_table_reasoning",
+    "screen": "computer_use_with_policy",
+    "action": "tool_agent_with_approval"
+  },
+  "risk_weights": {
+    "pii": 3,
+    "metadata": 2,
+    "false": 2,
+    "layout": 2,
+    "voice": 3,
+    "speaker": 2,
+    "drift": 2,
+    "ambiguous": 1,
+    "accessibility": 1,
+    "currency": 2,
+    "style": 1,
+    "hallucinated": 3
+  },
+  "gates": {
+    "min_cases": 3,
+    "min_metrics_per_case": 2,
+    "min_risks_per_case": 2,
+    "require_evidence": true,
+    "require_output_required_fields": true,
+    "require_human_review_rule": true
+  }
+}

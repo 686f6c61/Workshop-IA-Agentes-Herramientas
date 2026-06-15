@@ -1,0 +1,29 @@
+{
+  "trace_id": "f10-c06-bad-0001",
+  "run_at": "2026-06-09T17:35:00Z",
+  "policy_version": "rag-policy-2026-06-09",
+  "reward_card_version": "1.0.0",
+  "input_slice": "rag",
+  "candidate_id": "b",
+  "component_scores": {
+    "correctness": 1.0,
+    "evidence": 0.35,
+    "format": 1.0,
+    "latency_cost": 0.12,
+    "token_cost": 0.18,
+    "tool_cost": 0.0
+  },
+  "hard_gates": {
+    "valid_output_contract": true,
+    "supported_claims": false,
+    "answerability_or_abstention": true
+  },
+  "reward": 0.82,
+  "winner": true,
+  "latency_ms": 940,
+  "input_tokens": 1310,
+  "output_tokens": 280,
+  "grader_versions": {
+    "citation_support_v1": "2026-06-09"
+  }
+}

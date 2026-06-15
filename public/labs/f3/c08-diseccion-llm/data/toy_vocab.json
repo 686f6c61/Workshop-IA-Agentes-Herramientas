@@ -1,0 +1,16 @@
+{
+  "vocab_note": "Vocabulario minimo para simular el ultimo paso de logits a token. No pretende representar un tokenizer real.",
+  "candidate_logits": {
+    "{\"categoria\"": 4.8,
+    "Texto": 0.2,
+    "No": 1.1,
+    "ampliacion": 3.2,
+    "incidencia": 3.8,
+    "riesgo": 2.6,
+    "desconocido": 0.4,
+    "aprobada": 2.1,
+    "ticket": 2.9,
+    "```": -1.2
+  }
+}
+

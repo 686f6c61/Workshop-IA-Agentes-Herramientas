@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" role="img" aria-label="Producto sintético con etiqueta visible">
+  <rect width="960" height="540" fill="#FFFFFF"/>
+  <rect x="170" y="96" width="340" height="340" rx="28" fill="#F4F4F4" stroke="#111111"/>
+  <circle cx="340" cy="266" r="96" fill="#DDDDDD" stroke="#111111"/>
+  <rect x="610" y="130" width="230" height="230" rx="18" fill="#FFFFFF" stroke="#111111"/>
+  <text x="725" y="182" text-anchor="middle" font-family="Arial, sans-serif" font-size="20" fill="#111111">Etiqueta</text>
+  <text x="725" y="226" text-anchor="middle" font-family="Arial, sans-serif" font-size="15" fill="#111111">Uso interior</text>
+  <text x="725" y="256" text-anchor="middle" font-family="Arial, sans-serif" font-size="15" fill="#111111">Sin niños 0-3</text>
+  <text x="725" y="286" text-anchor="middle" font-family="Arial, sans-serif" font-size="15" fill="#111111">CE demo</text>
+  <text x="925" y="520" text-anchor="end" font-family="Arial, sans-serif" font-size="11" fill="#888888" opacity="0.55">IA para gente curiosa / F12 C04 / 686f6c61</text>
+</svg>

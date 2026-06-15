@@ -1,0 +1,28 @@
+{
+  "min_labeled_examples_for_supervised": 80,
+  "high_context_tokens": 12000,
+  "high_impact_threshold": 4,
+  "latency_sensitive_ms": 1200,
+  "principles": {
+    "supervised_learning": {
+      "artifact": "dataset etiquetado + métrica de error",
+      "next_chapter": "capítulo 4 y capítulo 6"
+    },
+    "unsupervised_learning": {
+      "artifact": "perfilado de clusters + validación de dominio",
+      "next_chapter": "facsímil 8"
+    },
+    "post_training": {
+      "artifact": "pares de preferencia + política de rechazo",
+      "next_chapter": "facsímil 3 y facsímil 4"
+    },
+    "attention_context": {
+      "artifact": "presupuesto de contexto + estrategia de recuperación",
+      "next_chapter": "facsímil 3 y facsímil 4"
+    },
+    "scaling_cost": {
+      "artifact": "eval pequeña + curva coste/calidad/latencia",
+      "next_chapter": "capítulo 10 y facsímil 7"
+    }
+  }
+}

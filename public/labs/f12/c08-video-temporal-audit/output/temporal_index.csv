@@ -1,0 +1,7 @@
+video_id,event_id,label,start_s,end_s,evidence_frame_ids,evidence_modalities
+demo_503,error_503_visible,error 503 visible,11.0,14.0,f002,visual_ocr|frame
+demo_503,restart_service,reinicio de servicio,16.5,20.5,f003,transcript|frame
+instruccion_visual,visual_prompt_injection,texto visual no confiable,5.5,8.5,f002,visual_ocr|frame|security
+linea_defecto,defect_visible,defecto visible,9.2,11.2,f002,frame|object
+puerta_badge,badge_ok,tarjeta validada,15.0,17.0,f003,visual_ocr|frame
+puerta_badge,door_open,puerta abierta,7.5,10.5,f002,frame

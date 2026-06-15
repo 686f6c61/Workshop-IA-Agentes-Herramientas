@@ -1,0 +1,32 @@
+{
+  "service": "support-rag",
+  "release": "support-rag@2.0.0",
+  "owner": "ai-platform",
+  "slo": {
+    "latency_p95_ms": 4200,
+    "availability": 0.995,
+    "contract_fail_rate_max": 0.006
+  },
+  "observability": {
+    "required_attributes": ["trace_id", "run_id", "task", "model_id"],
+    "dashboards": ["runtime"],
+    "alerts": ["slo_burn_rate"]
+  },
+  "rollback": {
+    "last_known_good": "support-rag@1.9.3"
+  },
+  "evalops": {
+    "datasets": ["golden"],
+    "release_gate": "ops/ai/release_gate.py"
+  },
+  "incident": {
+    "runbook": "ops/ai/runbook_ai_service.md",
+    "oncall": "ai-platform-oncall"
+  },
+  "continuity": {
+    "rto_minutes": 30
+  },
+  "handoff": {
+    "queues": ["support_n2"]
+  }
+}

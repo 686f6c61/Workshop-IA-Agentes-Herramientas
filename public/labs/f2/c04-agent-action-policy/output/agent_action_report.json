@@ -1,0 +1,273 @@
+{
+  "case_id": "checkout-page-fails",
+  "first_action": "read_browser_console",
+  "eligible": [
+    {
+      "id": "read_browser_console",
+      "label": "Leer consola del navegador",
+      "description": "Abrir la página y recoger el primer error de consola o red.",
+      "expected_observation": "Error exacto de JavaScript, recurso 404 o fallo de red.",
+      "operational_cost": 1,
+      "remaining_uncertainty": 2,
+      "risk": 0,
+      "estimated_tokens": 600,
+      "estimated_latency_seconds": 15,
+      "destructive": false,
+      "sensitive_data": false,
+      "eligible": true,
+      "blocked_reasons": [],
+      "score": 3.0
+    },
+    {
+      "id": "run_checkout_smoke_test",
+      "label": "Ejecutar smoke test de checkout",
+      "description": "Correr una prueba mínima que reproduce la ruta /checkout.",
+      "expected_observation": "Reproducción automática y punto aproximado de fallo.",
+      "operational_cost": 3,
+      "remaining_uncertainty": 2,
+      "risk": 0,
+      "estimated_tokens": 800,
+      "estimated_latency_seconds": 45,
+      "destructive": false,
+      "sensitive_data": false,
+      "eligible": true,
+      "blocked_reasons": [],
+      "score": 5.0
+    },
+    {
+      "id": "ask_user_for_screenshot",
+      "label": "Pedir captura al usuario",
+      "description": "Solicitar una captura de pantalla si no se puede reproducir localmente.",
+      "expected_observation": "Contexto visual, navegador y mensaje visible.",
+      "operational_cost": 2,
+      "remaining_uncertainty": 4,
+      "risk": 0,
+      "estimated_tokens": 400,
+      "estimated_latency_seconds": 60,
+      "destructive": false,
+      "sensitive_data": false,
+      "eligible": true,
+      "blocked_reasons": [],
+      "score": 6.0
+    },
+    {
+      "id": "inspect_server_logs",
+      "label": "Mirar logs del servidor",
+      "description": "Buscar errores 5xx o trazas de backend relacionadas con checkout.",
+      "expected_observation": "Excepción de backend, timeouts o ausencia de errores servidor.",
+      "operational_cost": 2,
+      "remaining_uncertainty": 2,
+      "risk": 1,
+      "estimated_tokens": 900,
+      "estimated_latency_seconds": 30,
+      "destructive": false,
+      "sensitive_data": false,
+      "eligible": true,
+      "blocked_reasons": [],
+      "score": 6.0
+    },
+    {
+      "id": "search_external_docs",
+      "label": "Buscar documentación externa",
+      "description": "Buscar si la librería de pagos tiene una incidencia conocida.",
+      "expected_observation": "Issue, changelog o aviso de proveedor relevante.",
+      "operational_cost": 4,
+      "remaining_uncertainty": 3,
+      "risk": 1,
+      "estimated_tokens": 1400,
+      "estimated_latency_seconds": 60,
+      "destructive": false,
+      "sensitive_data": false,
+      "eligible": true,
+      "blocked_reasons": [],
+      "score": 9.0
+    }
+  ],
+  "blocked": [
+    {
+      "id": "edit_checkout_component",
+      "label": "Editar componente de checkout",
+      "description": "Modificar el componente que parece sospechoso antes de recoger evidencia.",
+      "expected_observation": "Cambio de código que puede arreglar o introducir una regresión.",
+      "operational_cost": 3,
+      "remaining_uncertainty": 1,
+      "risk": 5,
+      "estimated_tokens": 1800,
+      "estimated_latency_seconds": 70,
+      "destructive": true,
+      "sensitive_data": false,
+      "eligible": false,
+      "blocked_reasons": [
+        "riesgo alto sin aprobación",
+        "acción destructiva sin evidencia previa"
+      ],
+      "score": 14.0
+    },
+    {
+      "id": "query_production_orders",
+      "label": "Consultar pedidos de producción",
+      "description": "Revisar pedidos reales para comprobar si la incidencia afecta a pagos.",
+      "expected_observation": "Señales de impacto real, pero con datos sensibles.",
+      "operational_cost": 5,
+      "remaining_uncertainty": 1,
+      "risk": 5,
+      "estimated_tokens": 1600,
+      "estimated_latency_seconds": 80,
+      "destructive": false,
+      "sensitive_data": true,
+      "eligible": false,
+      "blocked_reasons": [
+        "riesgo alto sin aprobación",
+        "requiere permiso para datos sensibles"
+      ],
+      "score": 16.0
+    }
+  ],
+  "all_actions": [
+    {
+      "id": "read_browser_console",
+      "label": "Leer consola del navegador",
+      "description": "Abrir la página y recoger el primer error de consola o red.",
+      "expected_observation": "Error exacto de JavaScript, recurso 404 o fallo de red.",
+      "operational_cost": 1,
+      "remaining_uncertainty": 2,
+      "risk": 0,
+      "estimated_tokens": 600,
+      "estimated_latency_seconds": 15,
+      "destructive": false,
+      "sensitive_data": false,
+      "eligible": true,
+      "blocked_reasons": [],
+      "score": 3.0
+    },
+    {
+      "id": "inspect_server_logs",
+      "label": "Mirar logs del servidor",
+      "description": "Buscar errores 5xx o trazas de backend relacionadas con checkout.",
+      "expected_observation": "Excepción de backend, timeouts o ausencia de errores servidor.",
+      "operational_cost": 2,
+      "remaining_uncertainty": 2,
+      "risk": 1,
+      "estimated_tokens": 900,
+      "estimated_latency_seconds": 30,
+      "destructive": false,
+      "sensitive_data": false,
+      "eligible": true,
+      "blocked_reasons": [],
+      "score": 6.0
+    },
+    {
+      "id": "run_checkout_smoke_test",
+      "label": "Ejecutar smoke test de checkout",
+      "description": "Correr una prueba mínima que reproduce la ruta /checkout.",
+      "expected_observation": "Reproducción automática y punto aproximado de fallo.",
+      "operational_cost": 3,
+      "remaining_uncertainty": 2,
+      "risk": 0,
+      "estimated_tokens": 800,
+      "estimated_latency_seconds": 45,
+      "destructive": false,
+      "sensitive_data": false,
+      "eligible": true,
+      "blocked_reasons": [],
+      "score": 5.0
+    },
+    {
+      "id": "ask_user_for_screenshot",
+      "label": "Pedir captura al usuario",
+      "description": "Solicitar una captura de pantalla si no se puede reproducir localmente.",
+      "expected_observation": "Contexto visual, navegador y mensaje visible.",
+      "operational_cost": 2,
+      "remaining_uncertainty": 4,
+      "risk": 0,
+      "estimated_tokens": 400,
+      "estimated_latency_seconds": 60,
+      "destructive": false,
+      "sensitive_data": false,
+      "eligible": true,
+      "blocked_reasons": [],
+      "score": 6.0
+    },
+    {
+      "id": "search_external_docs",
+      "label": "Buscar documentación externa",
+      "description": "Buscar si la librería de pagos tiene una incidencia conocida.",
+      "expected_observation": "Issue, changelog o aviso de proveedor relevante.",
+      "operational_cost": 4,
+      "remaining_uncertainty": 3,
+      "risk": 1,
+      "estimated_tokens": 1400,
+      "estimated_latency_seconds": 60,
+      "destructive": false,
+      "sensitive_data": false,
+      "eligible": true,
+      "blocked_reasons": [],
+      "score": 9.0
+    },
+    {
+      "id": "edit_checkout_component",
+      "label": "Editar componente de checkout",
+      "description": "Modificar el componente que parece sospechoso antes de recoger evidencia.",
+      "expected_observation": "Cambio de código que puede arreglar o introducir una regresión.",
+      "operational_cost": 3,
+      "remaining_uncertainty": 1,
+      "risk": 5,
+      "estimated_tokens": 1800,
+      "estimated_latency_seconds": 70,
+      "destructive": true,
+      "sensitive_data": false,
+      "eligible": false,
+      "blocked_reasons": [
+        "riesgo alto sin aprobación",
+        "acción destructiva sin evidencia previa"
+      ],
+      "score": 14.0
+    },
+    {
+      "id": "query_production_orders",
+      "label": "Consultar pedidos de producción",
+      "description": "Revisar pedidos reales para comprobar si la incidencia afecta a pagos.",
+      "expected_observation": "Señales de impacto real, pero con datos sensibles.",
+      "operational_cost": 5,
+      "remaining_uncertainty": 1,
+      "risk": 5,
+      "estimated_tokens": 1600,
+      "estimated_latency_seconds": 80,
+      "destructive": false,
+      "sensitive_data": true,
+      "eligible": false,
+      "blocked_reasons": [
+        "riesgo alto sin aprobación",
+        "requiere permiso para datos sensibles"
+      ],
+      "score": 16.0
+    }
+  ],
+  "policy": {
+    "weights": {
+      "operational_cost": 1.0,
+      "remaining_uncertainty": 1.0,
+      "risk": 2.0
+    },
+    "budgets": {
+      "max_actions_first_pass": 4,
+      "max_estimated_tokens": 5000,
+      "max_latency_seconds": 90
+    },
+    "hard_rules": {
+      "max_risk_without_approval": 3,
+      "require_evidence_before_destructive_action": true,
+      "require_permission_for_sensitive_data": true
+    },
+    "expected_first_action": "read_browser_console",
+    "expected_blocked_actions": [
+      "edit_checkout_component",
+      "query_production_orders"
+    ],
+    "stop_conditions": [
+      "Responder solo si hay evidencia suficiente y el riesgo residual es bajo.",
+      "Pedir aprobación si la siguiente acción requiere datos sensibles o modifica código sin prueba mínima.",
+      "Escalar si se agota el presupuesto de acciones sin reducir la incertidumbre."
+    ]
+  }
+}

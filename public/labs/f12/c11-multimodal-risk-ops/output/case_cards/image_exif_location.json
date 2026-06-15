@@ -1,0 +1,25 @@
+{
+  "case_id": "image_exif_location",
+  "title": "Imagen aparentemente inocua con coordenadas GPS en EXIF",
+  "modality": "image",
+  "purpose": "Publicar una foto de una instalación sin revelar ubicación sensible",
+  "owner": "equipo_contenido",
+  "destination": "approved_ai_provider",
+  "storage": "raw_prompt",
+  "entity_count": 2,
+  "max_entity_sensitivity": 0.776,
+  "exposure_score": 0.22,
+  "impact": 0.75,
+  "risk_score": 0.6022,
+  "missing_controls": [
+    "metadata_strip"
+  ],
+  "retention_days": 7,
+  "decision": "review",
+  "expected_decision": "review",
+  "decision_matches_expected": true,
+  "failures": [
+    "controles_faltantes"
+  ],
+  "next_action": "Añadir controles faltantes: metadata_strip"
+}

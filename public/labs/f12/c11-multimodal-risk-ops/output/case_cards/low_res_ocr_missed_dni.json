@@ -1,0 +1,25 @@
+{
+  "case_id": "low_res_ocr_missed_dni",
+  "title": "OCR de baja resolución con DNI parcialmente detectado",
+  "modality": "document",
+  "purpose": "Extraer una fecha de un documento escaneado sin conservar identificadores",
+  "owner": "equipo_document_ai",
+  "destination": "approved_ai_provider",
+  "storage": "raw_prompt",
+  "entity_count": 2,
+  "max_entity_sensitivity": 0.396,
+  "exposure_score": 0.22,
+  "impact": 0.82,
+  "risk_score": 0.485,
+  "missing_controls": [
+    "field_level_redaction"
+  ],
+  "retention_days": 7,
+  "decision": "review",
+  "expected_decision": "review",
+  "decision_matches_expected": true,
+  "failures": [
+    "controles_faltantes"
+  ],
+  "next_action": "Añadir controles faltantes: field_level_redaction"
+}

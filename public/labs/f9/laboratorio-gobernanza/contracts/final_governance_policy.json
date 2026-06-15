@@ -1,0 +1,34 @@
+{
+  "policy_version": "f9-final-governance-policy@0.1.0",
+  "assessment_date": "2026-06-07",
+  "required_layers": [
+    "risk",
+    "privacy",
+    "llm_appsec",
+    "zero_trust_agents",
+    "compliance",
+    "operation"
+  ],
+  "decision_order": {
+    "publicar_con_seguimiento": 0,
+    "publicar_con_condiciones": 1,
+    "revisar_antes": 2
+  },
+  "release_rules": {
+    "block_status": "block",
+    "review_status": "review",
+    "pass_status": "pass",
+    "max_open_review_high_severity": 2,
+    "high_severity_min": 4,
+    "max_days_for_blocker": 0,
+    "max_days_for_review": 30
+  },
+  "layer_weights": {
+    "risk": 1.1,
+    "privacy": 1.2,
+    "llm_appsec": 1.2,
+    "zero_trust_agents": 1.25,
+    "compliance": 1.3,
+    "operation": 1.0
+  }
+}

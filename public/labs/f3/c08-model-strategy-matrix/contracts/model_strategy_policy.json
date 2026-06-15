@@ -1,0 +1,6 @@
+{
+  "expected_winner": "api_con_rag",
+  "min_context_score": 4,
+  "weights_sum_tolerance": 0.000001
+}
+

@@ -1,0 +1,16 @@
+[
+  {"query_id": "q01_beca_envio", "source_id": "policy_text_submission_rule", "relevance": 3, "reason": "regla normativa obligatoria"},
+  {"query_id": "q01_beca_envio", "source_id": "status_table_current", "relevance": 3, "reason": "estado operativo obligatorio"},
+  {"query_id": "q01_beca_envio", "source_id": "general_rag_note", "relevance": 2, "reason": "contrato de cita y límites"},
+  {"query_id": "q01_beca_envio", "source_id": "policy_page_image_submission_rule", "relevance": 1, "reason": "apoyo visual revisable"},
+  {"query_id": "q02_factura_total", "source_id": "invoice_table_lines", "relevance": 3, "reason": "tabla calculable obligatoria"},
+  {"query_id": "q02_factura_total", "source_id": "invoice_page_visual", "relevance": 3, "reason": "evidencia visual de factura"},
+  {"query_id": "q03_piloto_metricas", "source_id": "metric_chart_visual", "relevance": 3, "reason": "tendencia visual obligatoria"},
+  {"query_id": "q03_piloto_metricas", "source_id": "metric_table_values", "relevance": 3, "reason": "valores exactos obligatorios"},
+  {"query_id": "q04_instruccion_visual", "source_id": "unsafe_visual_instruction_page", "relevance": 3, "reason": "riesgo visual obligatorio"},
+  {"query_id": "q04_instruccion_visual", "source_id": "general_rag_note", "relevance": 2, "reason": "contrato de cita y límites"},
+  {"query_id": "q04_instruccion_visual", "source_id": "policy_text_submission_rule", "relevance": 1, "reason": "política de dominio relacionada"},
+  {"query_id": "q05_pregunta_sin_evidencia", "source_id": "policy_text_submission_rule", "relevance": 2, "reason": "regla parcial"},
+  {"query_id": "q05_pregunta_sin_evidencia", "source_id": "status_table_current", "relevance": 2, "reason": "estado parcial"},
+  {"query_id": "q05_pregunta_sin_evidencia", "source_id": "general_rag_note", "relevance": 1, "reason": "ayuda a declarar límites"}
+]

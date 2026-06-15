@@ -1,0 +1,6 @@
+state,value,best_action,margin
+nuevo,1.190578,pedir_dato,0.924579
+evidencia,1.7,responder_con_cita,1.298
+critico,0.556,escalar,1.576
+resuelto,0.0,terminal,
+reabierto,0.0,terminal,

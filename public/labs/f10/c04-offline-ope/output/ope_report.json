@@ -1,0 +1,146 @@
+{
+  "scenario_id": "routing_modelos_offline_ope_c04",
+  "contract_version": "offline_ope_gate.v1",
+  "target_policy_id": "routing_policy_candidate_v2",
+  "behavior_policy_id": "routing_policy_stable_v1",
+  "status": "pass",
+  "estimates": {
+    "direct_method": 0.732683,
+    "ips": 0.788824,
+    "wis": 0.748713,
+    "doubly_robust": 0.743715
+  },
+  "diagnostics": {
+    "events": 12,
+    "max_importance_weight": 1.538462,
+    "min_importance_weight": 0.578947,
+    "ess": 11.022744,
+    "ess_ratio": 0.918562,
+    "logged_action_support": 0.4575,
+    "abs_ips_wis_gap": 0.040112,
+    "abs_dm_dr_gap": 0.011031,
+    "bootstrap_ci_lower": 0.723226,
+    "bootstrap_ci_upper": 0.763769,
+    "min_slice_events": 3,
+    "max_unsupported_target_probability_mass": 0.07
+  },
+  "confidence_interval": {
+    "estimator": "doubly_robust",
+    "confidence_level": 0.9,
+    "samples": 500,
+    "lower": 0.723226,
+    "upper": 0.763769
+  },
+  "slice_diagnostics": [
+    {
+      "slice": "alta_criticidad",
+      "events": 3,
+      "doubly_robust": 0.81484,
+      "ess_ratio": 0.968165,
+      "max_importance_weight": 1.114286,
+      "logged_action_support": 0.6
+    },
+    {
+      "slice": "baja_criticidad",
+      "events": 4,
+      "doubly_robust": 0.712383,
+      "ess_ratio": 0.922269,
+      "max_importance_weight": 1.538462,
+      "logged_action_support": 0.46
+    },
+    {
+      "slice": "media_criticidad",
+      "events": 5,
+      "doubly_robust": 0.726105,
+      "ess_ratio": 0.904065,
+      "max_importance_weight": 1.304348,
+      "logged_action_support": 0.37
+    }
+  ],
+  "support_matrix": [
+    {
+      "slice": "alta_criticidad",
+      "action": "modelo_fuerte",
+      "events": 3,
+      "observed_count": 2,
+      "target_probability_mass": 0.786667,
+      "observed_share": 0.666667,
+      "has_observed_support": true
+    },
+    {
+      "slice": "alta_criticidad",
+      "action": "revision_humana",
+      "events": 3,
+      "observed_count": 1,
+      "target_probability_mass": 0.213333,
+      "observed_share": 0.333333,
+      "has_observed_support": true
+    },
+    {
+      "slice": "baja_criticidad",
+      "action": "modelo_fuerte",
+      "events": 4,
+      "observed_count": 2,
+      "target_probability_mass": 0.42,
+      "observed_share": 0.5,
+      "has_observed_support": true
+    },
+    {
+      "slice": "baja_criticidad",
+      "action": "modelo_rapido",
+      "events": 4,
+      "observed_count": 2,
+      "target_probability_mass": 0.51,
+      "observed_share": 0.5,
+      "has_observed_support": true
+    },
+    {
+      "slice": "baja_criticidad",
+      "action": "revision_humana",
+      "events": 4,
+      "observed_count": 0,
+      "target_probability_mass": 0.07,
+      "observed_share": 0.0,
+      "has_observed_support": false
+    },
+    {
+      "slice": "media_criticidad",
+      "action": "modelo_fuerte",
+      "events": 5,
+      "observed_count": 2,
+      "target_probability_mass": 0.594,
+      "observed_share": 0.4,
+      "has_observed_support": true
+    },
+    {
+      "slice": "media_criticidad",
+      "action": "modelo_rapido",
+      "events": 5,
+      "observed_count": 2,
+      "target_probability_mass": 0.224,
+      "observed_share": 0.4,
+      "has_observed_support": true
+    },
+    {
+      "slice": "media_criticidad",
+      "action": "revision_humana",
+      "events": 5,
+      "observed_count": 1,
+      "target_probability_mass": 0.182,
+      "observed_share": 0.2,
+      "has_observed_support": true
+    }
+  ],
+  "checks": {
+    "min_events": true,
+    "min_ess_ratio": true,
+    "max_importance_weight": true,
+    "max_abs_ips_wis_gap": true,
+    "max_abs_dm_dr_gap": true,
+    "min_logged_action_support": true,
+    "min_dr_estimate": true,
+    "min_dr_ci_lower_bound": true,
+    "min_slice_events": true,
+    "max_unsupported_target_probability_mass": true
+  }
+}

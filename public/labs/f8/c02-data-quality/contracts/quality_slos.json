@@ -1,0 +1,48 @@
+{
+  "slo_id": "support-quality-slos-v1",
+  "owner": "equipo-datos-ia",
+  "dataset": "quality_cases_dirty",
+  "slis": [
+    {
+      "name": "critical_missing_rate",
+      "description": "Porcentaje de celdas vacias en columnas críticas.",
+      "target": "<= 0.005",
+      "source": "quality_report.checks.missing_rate"
+    },
+    {
+      "name": "cross_split_duplicates",
+      "description": "Duplicados exactos o cercanos entre train, validation y test.",
+      "target": "0",
+      "source": "exact_cross_split_duplicates + near_cross_split_duplicates"
+    },
+    {
+      "name": "invalid_catalog_values",
+      "description": "Valores fuera de catalogo en campos con contrato.",
+      "target": "0",
+      "source": "product_values + label_values + pii_risk_values"
+    },
+    {
+      "name": "license_mismatches",
+      "description": "Filas usadas con una licencia incompatible con su split.",
+      "target": "0",
+      "source": "license_compatibility"
+    },
+    {
+      "name": "annotator_kappa",
+      "description": "Acuerdo corregido por azar entre dos anotadores.",
+      "target": ">= 0.6",
+      "source": "annotator_agreement.kappa"
+    },
+    {
+      "name": "label_review_queue_size",
+      "description": "Casos pendientes de revisión antes de automatizar la decisión.",
+      "target": "<= 2",
+      "source": "label_review_candidates"
+    }
+  ],
+  "error_budget_policy": {
+    "block": "No se puede entrenar, evaluar ni indexar si falla un SLO bloqueante.",
+    "review": "Se puede explorar manualmente, pero no automatizar una decisión.",
+    "pass": "Se puede usar para el uso declarado y versionar la evidencia."
+  }
+}

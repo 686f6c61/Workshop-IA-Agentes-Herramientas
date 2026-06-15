@@ -1,0 +1,18 @@
+{
+  "contract_id": "f5-agent-eval-contract",
+  "contract_version": "2026-06-07",
+  "agent_version": "support-agent-v2",
+  "must_pass": {
+    "route_accuracy_min": 0.9,
+    "task_pass_rate_min": 0.85,
+    "trace_complete_rate_min": 0.95,
+    "tool_violation_count_max": 0,
+    "approval_violation_count_max": 0,
+    "mean_cost_max": 0.08,
+    "latency_p95_ms_max": 8000
+  },
+  "review_triggers": {
+    "tool_call_mean_over": 3.0,
+    "human_review_rate_over": 0.45
+  }
+}

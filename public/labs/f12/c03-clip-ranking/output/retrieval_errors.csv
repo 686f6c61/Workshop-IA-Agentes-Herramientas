@@ -1,0 +1,7 @@
+image_id,positive_text,top_text_id,top_text,positive_score,top_score,margin_vs_next,reason
+ui_error,captura de una interfaz con un botón desactivado por un campo obligatorio,ui_error,captura de una interfaz con un botón desactivado por un campo obligatorio,0.998836,0.998836,0.009213,margen_bajo
+grant_form_blocked,captura de una solicitud de beca con el boton de enviar bloqueado y aviso de documento pendiente,grant_form_blocked,captura de una solicitud de beca con el boton de enviar bloqueado y aviso de documento pendiente,0.999422,0.999422,0.004723,margen_bajo
+invoice_total,factura con una tabla de importes y total pendiente de validar,invoice_total,factura con una tabla de importes y total pendiente de validar,0.998611,0.998611,0.021102,margen_bajo
+grant_policy_pdf,documento de politica de becas con requisitos de justificante fecha limite y formato aceptado,grant_policy_pdf,documento de politica de becas con requisitos de justificante fecha limite y formato aceptado,0.999601,0.999601,0.01799,margen_bajo
+whiteboard_plan,"pizarra con un plan de sprint, tareas y flechas entre decisiones",whiteboard_plan,"pizarra con un plan de sprint, tareas y flechas entre decisiones",0.998733,0.998733,0.031512,margen_bajo
+whiteboard_invoice_confuser,pizarra con columnas de números y una lista de tareas,whiteboard_invoice_confuser,pizarra con columnas de números y una lista de tareas,0.998084,0.998084,0.042289,margen_bajo

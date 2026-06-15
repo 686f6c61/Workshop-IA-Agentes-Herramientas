@@ -1,0 +1,248 @@
+---
+import BookLayout from '../../layouts/BookLayout.astro';
+import { getBookDocuments, getFasciclesOverview } from '../../lib/book';
+
+const fascicles = await getFasciclesOverview();
+const documents = getBookDocuments();
+const totalAvailable = fascicles.reduce((sum, fascicle) => sum + fascicle.availableChapters, 0);
+const totalPlanned = fascicles.reduce((sum, fascicle) => sum + fascicle.totalChapters, 0);
+const totalLaboratories = fascicles.reduce((sum, fascicle) => sum + fascicle.laboratory.count, 0);
+const totalChallenges = fascicles.reduce((sum, fascicle) => sum + fascicle.laboratory.challengeCount, 0);
+const completedFascicles = fascicles.filter((fascicle) => fascicle.availableChapters === fascicle.totalChapters).length;
+
+const readingRoutes = [
+  {
+    title: 'Leer desde cero',
+    description: 'Para construir vocabulario técnico sin asumir base previa: cimientos, IA clásica y arquitecturas.',
+    href: '/libro/fasciculo-01/',
+    icon: 'route',
+    meta: 'F01 → F03',
+  },
+  {
+    title: 'Construir sistemas',
+    description: 'Para pasar de modelos a APIs, RAG, agentes, tools, operación y despliegue mantenible.',
+    href: '/libro/fasciculo-04/',
+    icon: 'wrench',
+    meta: 'F04 → F06',
+  },
+  {
+    title: 'Medir y gobernar',
+    description: 'Para evaluar, calibrar, auditar datos y preparar privacidad, controles y evidencias.',
+    href: '/libro/fasciculo-07/',
+    icon: 'clipboard-check',
+    meta: 'F07 → F09',
+  },
+  {
+    title: 'Decidir producto',
+    description: 'Para cerrar con recompensa, consecuencias, UX, piloto limitado y paquete final defendible.',
+    href: '/libro/fasciculo-10/',
+    icon: 'badge-check',
+    meta: 'F10 → F11',
+  },
+  {
+    title: 'Trabajar con señales',
+    description: 'Para entrar en imagen, audio, vídeo, documentos, RAG multimodal y computer use con criterio de ingeniería.',
+    href: '/libro/fasciculo-12/',
+    icon: 'scan-eye',
+    meta: 'F12',
+  },
+];
+
+function laboratoryLabel(count: number, challengeCount: number) {
+  if (count === 0) return '';
+  const laboratoryText = count === 1 ? 'Laboratorio' : 'Laboratorios';
+  const challengeText = challengeCount === 1 ? 'reto' : 'retos';
+  return `${count} ${laboratoryText}: ${challengeCount} ${challengeText}`;
+}
+
+function editorialStatusLabel(status: string, availableChapters: number, totalChapters: number) {
+  if (status.toLowerCase() === 'planificado') return 'Planificado';
+  return availableChapters === totalChapters ? 'Completo' : 'En escritura';
+}
+---
+
+<BookLayout
+  title="Inteligencia artificial para gente curiosa"
+  description="Facsímil abierto sobre inteligencia artificial, organizado en facsímiles y nacido del workshop IA para gente curiosa."
+>
+  <main class="book-hub">
+    <nav class="book-topbar" aria-label="Navegación principal del facsímil">
+      <div>
+        <a href="/libro/proyecto/">Sobre el proyecto</a>
+        {documents.map((document) => <a href={`/libro/${document.slug}/`}>{document.title}</a>)}
+      </div>
+    </nav>
+
+    <section class="hub-hero" aria-labelledby="hub-title">
+      <div class="hub-copy">
+        <p class="eyebrow">Facsímil abierto · En revisión editorial</p>
+        <h1 id="hub-title">Inteligencia artificial para gente curiosa</h1>
+        <p class="hub-lead">
+          Un facsímil para entender, construir y defender sistemas de IA sin asumir que ya sabes
+          todo de antemano. Toma una parte del taller público como punto de partida, pero aquí
+          se convierte en lectura lenta:
+          capítulos autocontenidos, mapas, fórmulas, laboratorios, referencias y decisiones
+          que puedas llevar a un proyecto real.
+        </p>
+        <div class="hub-actions" aria-label="Acciones principales">
+          <a class="primary-link" href="/libro/fasciculo-01/">
+            <i data-lucide="book-open"></i>
+            Empezar por los cimientos
+          </a>
+          <a class="secondary-link" href="/libro/proyecto/">
+            <i data-lucide="info"></i>
+            Sobre el proyecto
+          </a>
+        </div>
+        <p class="hub-meta">
+          Por <a href="https://x.com/686f6c61">686f6c61</a> · Licencia MIT · {totalAvailable} de {totalPlanned} capítulos disponibles
+        </p>
+      </div>
+      <div class="hub-dashboard" aria-label="Estado del facsímil">
+        <div>
+          <span>{String(completedFascicles).padStart(2, '0')}</span>
+          <strong>facsímiles completos</strong>
+        </div>
+        <div>
+          <span>{totalAvailable}</span>
+          <strong>capítulos de lectura</strong>
+        </div>
+        <div>
+          <span>{totalLaboratories}</span>
+          <strong>laboratorios finales</strong>
+        </div>
+        <div>
+          <span>{totalChallenges}</span>
+          <strong>retos con resolución</strong>
+        </div>
+      </div>
+    </section>
+
+    <section class="project-strip" aria-labelledby="project-title">
+      <div>
+        <p class="eyebrow">Sobre el proyecto</p>
+        <h2 id="project-title">Del taller a la lectura lenta</h2>
+      </div>
+      <p>
+        El <a href="https://www.workshop-ia-2026.686f6c61.dev/" target="_blank" rel="noopener noreferrer">workshop IA para gente curiosa</a>
+        es una parte del material de partida: material visual, notas docentes y ejemplos que abren camino.
+        El facsímil no es una copia del taller ni depende solo de él: amplía, reordena y profundiza
+        cada tema con escena de entrada, explicación llana, tripas técnicas, tropiezos habituales,
+        vocabulario, mapa de relaciones, laboratorios y referencias. La promesa es simple: explicar sin atajos.
+      </p>
+    </section>
+
+    <section class="truth-note" aria-labelledby="truth-title">
+      <div>
+        <p class="eyebrow">Honestidad editorial</p>
+        <h2 id="truth-title">¿Es esto la verdad absoluta?</h2>
+      </div>
+      <div>
+        <strong>No.</strong>
+        <p>
+          La IA cambia demasiado rápido como para fingir que un facsímil puede cerrarlo todo.
+          Seguro que dejo fuera técnicas, modelos, herramientas, debates y matices por el camino.
+          Precisamente por eso este proyecto insiste tanto en las bases: si entiendes representación,
+          datos, evaluación, arquitectura, operación, límites, producto y consecuencias, puedes leer
+          mejor lo que venga después.
+        </p>
+        <p>
+          La ambición no es adivinar el futuro de la IA. Es darte criterio para reconocerlo cuando
+          llegue, compararlo con lo anterior y decidir qué merece atención, qué es ruido y qué necesita
+          práctica antes de creérselo.
+        </p>
+      </div>
+    </section>
+
+    <section class="home-principles" aria-labelledby="principles-title">
+      <div>
+        <p class="eyebrow">Qué te llevas</p>
+        <h2 id="principles-title">Criterio, artefactos y práctica</h2>
+      </div>
+      <div class="principle-grid">
+        <article>
+          <i data-lucide="brain"></i>
+          <h3>Entender</h3>
+          <p>Conceptos explicados desde cero, con fórmulas desglosadas y ejemplos reproducibles.</p>
+        </article>
+        <article>
+          <i data-lucide="hammer"></i>
+          <h3>Construir</h3>
+          <p>APIs, RAG, agentes, operación, datos y producto tratados como sistemas reales.</p>
+        </article>
+        <article>
+          <i data-lucide="activity"></i>
+          <h3>Medir</h3>
+          <p>Métricas, evals, slices, costes, trazas y gates para decidir con evidencia.</p>
+        </article>
+        <article>
+          <i data-lucide="file-check-2"></i>
+          <h3>Defender</h3>
+          <p>Laboratorios y paquetes finales pensados para explicar decisiones ante otras personas.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section-heading" aria-labelledby="routes-title">
+      <p class="eyebrow">Rutas de lectura</p>
+      <h2 id="routes-title">Elige por dónde entrar</h2>
+      <p>El facsímil puede leerse de principio a fin, pero también por necesidad: aprender base, construir, evaluar, cerrar producto o trabajar con señales multimodales.</p>
+    </section>
+
+    <section class="reading-routes" aria-label="Rutas de lectura del facsímil">
+      {readingRoutes.map((route) => (
+        <a href={route.href}>
+          <span class="route-meta">{route.meta}</span>
+          <i data-lucide={route.icon}></i>
+          <strong>{route.title}</strong>
+          <span>{route.description}</span>
+        </a>
+      ))}
+    </section>
+
+    <section class="section-heading" aria-labelledby="fascicles-title">
+      <p class="eyebrow">Facsímiles</p>
+      <h2 id="fascicles-title">El facsímil completo</h2>
+      <p>El primero conviene leerlo en orden. A partir de ahí, cada facsímil funciona como una unidad independiente y termina con laboratorio.</p>
+    </section>
+
+    <section class="fascicle-index" aria-label="Facsímiles disponibles">
+      {fascicles.map((fascicle) => (
+        <a class="fascicle-tile" href={`/libro/${fascicle.slug}/`}>
+          <span class="fascicle-number">{String(fascicle.number).padStart(2, '0')}</span>
+          <span class="fascicle-body">
+            <strong>{fascicle.shortTitle}</strong>
+            <span>{fascicle.description}</span>
+            <span class="fascicle-status">
+              {editorialStatusLabel(fascicle.status, fascicle.availableChapters, fascicle.totalChapters)}
+              · {fascicle.availableChapters} de {fascicle.totalChapters} capítulos
+            </span>
+            {fascicle.laboratory.count > 0 && (
+              <span class="fascicle-status fascicle-laboratory">
+                {laboratoryLabel(fascicle.laboratory.count, fascicle.laboratory.challengeCount)}
+              </span>
+            )}
+          </span>
+          <i data-lucide="arrow-right"></i>
+        </a>
+      ))}
+    </section>
+
+    <section class="book-link-list" aria-label="Documentos del facsímil">
+      <a href="/libro/nota-del-autor/">
+        <i data-lucide="book-open-text"></i>
+        <span>
+          <strong>Nota del autor</strong>
+          <small>Motivación, público y estructura pedagógica.</small>
+        </span>
+      </a>
+      <a href="/libro/licencia/">
+        <i data-lucide="scale"></i>
+        <span>
+          <strong>Licencia MIT</strong>
+          <small>Uso libre con atribución a 686f6c61 y a la obra original.</small>
+        </span>
+      </a>
+    </section>
+  </main>
+</BookLayout>

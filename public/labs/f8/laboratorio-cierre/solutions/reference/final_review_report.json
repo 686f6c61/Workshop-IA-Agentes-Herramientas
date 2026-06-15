@@ -1,0 +1,106 @@
+{
+  "status": "review",
+  "contract_id": "f8-final-lab-review",
+  "contract_version": "2026-06-07",
+  "checks": [
+    {
+      "check": "schema",
+      "status": "pass",
+      "value": []
+    },
+    {
+      "check": "missing_trace_rate",
+      "status": "pass",
+      "value": 0.0,
+      "threshold": 0.0
+    },
+    {
+      "check": "missing_required_fields_rate",
+      "status": "pass",
+      "value": 0.0,
+      "threshold": 0.0
+    },
+    {
+      "check": "latency_p95_ms",
+      "status": "review",
+      "value": 730.0,
+      "threshold": 720
+    },
+    {
+      "check": "test_accuracy",
+      "status": "review",
+      "value": 0.6,
+      "threshold": 0.75
+    },
+    {
+      "check": "citation_valid_rate",
+      "status": "pass",
+      "value": 0.916667,
+      "threshold": 0.9
+    },
+    {
+      "check": "critical_slice_miss_rate:language=en",
+      "status": "review",
+      "value": 0.8,
+      "threshold": 0.25
+    },
+    {
+      "check": "critical_slice_miss_rate:segment=practicas",
+      "status": "review",
+      "value": 0.75,
+      "threshold": 0.25
+    },
+    {
+      "check": "critical_slice_miss_rate:source=form",
+      "status": "review",
+      "value": 0.666667,
+      "threshold": 0.25
+    }
+  ],
+  "split_summary": [
+    {
+      "split": "test",
+      "n": 5,
+      "accuracy": 0.6,
+      "miss_rate": 0.5,
+      "accepted_rate": 0.6
+    },
+    {
+      "split": "train",
+      "n": 4,
+      "accuracy": 0.75,
+      "miss_rate": 0.5,
+      "accepted_rate": 0.75
+    },
+    {
+      "split": "validation",
+      "n": 3,
+      "accuracy": 0.666667,
+      "miss_rate": 0.5,
+      "accepted_rate": 0.666667
+    }
+  ],
+  "slice_summary": [
+    {
+      "slice": "language=en",
+      "n": 5,
+      "accuracy": 0.2,
+      "miss_rate": 0.8,
+      "accepted_rate": 0.2
+    },
+    {
+      "slice": "segment=practicas",
+      "n": 4,
+      "accuracy": 0.25,
+      "miss_rate": 0.75,
+      "accepted_rate": 0.25
+    },
+    {
+      "slice": "source=form",
+      "n": 6,
+      "accuracy": 0.333333,
+      "miss_rate": 0.666667,
+      "accepted_rate": 0.333333
+    }
+  ]
+}

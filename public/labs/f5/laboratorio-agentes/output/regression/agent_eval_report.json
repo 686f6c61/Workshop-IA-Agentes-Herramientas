@@ -1,0 +1,69 @@
+{
+  "status": "bloquear",
+  "metrics": {
+    "route_accuracy": 0.5,
+    "task_pass_rate": 0.0,
+    "trace_complete_rate": 0.5,
+    "tool_violation_count": 2,
+    "approval_violation_count": 1,
+    "mean_cost": 0.0775,
+    "latency_p95_ms": 9000,
+    "tool_call_mean": 1.5,
+    "human_review_rate": 0.0
+  },
+  "blocks": [
+    "route_accuracy",
+    "task_pass_rate",
+    "trace_complete_rate",
+    "tool_violation_count",
+    "approval_violation_count",
+    "latency_p95_ms"
+  ],
+  "reviews": [],
+  "cases": [
+    {
+      "case_id": "r01",
+      "route_ok": true,
+      "required_tools_ok": false,
+      "forbidden_tools_ok": true,
+      "approval_ok": true,
+      "cost_ok": true,
+      "latency_ok": true,
+      "trace_ok": true,
+      "pass": false
+    },
+    {
+      "case_id": "r02",
+      "route_ok": false,
+      "required_tools_ok": false,
+      "forbidden_tools_ok": false,
+      "approval_ok": false,
+      "cost_ok": false,
+      "latency_ok": false,
+      "trace_ok": true,
+      "pass": false
+    },
+    {
+      "case_id": "r03",
+      "route_ok": true,
+      "required_tools_ok": true,
+      "forbidden_tools_ok": false,
+      "approval_ok": true,
+      "cost_ok": false,
+      "latency_ok": false,
+      "trace_ok": false,
+      "pass": false
+    },
+    {
+      "case_id": "r04",
+      "route_ok": false,
+      "required_tools_ok": false,
+      "forbidden_tools_ok": true,
+      "approval_ok": true,
+      "cost_ok": false,
+      "latency_ok": false,
+      "trace_ok": false,
+      "pass": false
+    }
+  ]
+}

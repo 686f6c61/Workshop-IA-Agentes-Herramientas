@@ -1,0 +1,15 @@
+{
+  "target_token": "banco",
+  "weights": {
+    "El": 0.107815,
+    "banco": 0.65224,
+    "aprobó": 0.239946
+  },
+  "weight_sum": 1.0,
+  "top_token": "banco",
+  "contextual_vector": [
+    0.759,
+    0.370394
+  ],
+  "gate_valid": true
+}

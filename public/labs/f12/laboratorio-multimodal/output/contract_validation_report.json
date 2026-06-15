@@ -1,0 +1,90 @@
+{
+  "schema_version": "1.0",
+  "rows": [
+    {
+      "source": "candidate",
+      "case_id": "catalog_alt_text",
+      "status": "pass",
+      "errors": []
+    },
+    {
+      "source": "candidate",
+      "case_id": "invoice_table_extraction",
+      "status": "pass",
+      "errors": []
+    },
+    {
+      "source": "candidate",
+      "case_id": "policy_rag_with_internal_slides",
+      "status": "pass",
+      "errors": []
+    },
+    {
+      "source": "candidate",
+      "case_id": "voice_appointment_agent",
+      "status": "pass",
+      "errors": []
+    },
+    {
+      "source": "candidate",
+      "case_id": "parking_video_event_triage",
+      "status": "pass",
+      "errors": []
+    },
+    {
+      "source": "candidate",
+      "case_id": "computer_use_claim_submission",
+      "status": "pass",
+      "errors": []
+    },
+    {
+      "source": "candidate",
+      "case_id": "visual_search_catalog",
+      "status": "pass",
+      "errors": []
+    },
+    {
+      "source": "candidate",
+      "case_id": "student_multimodal_helpdesk",
+      "status": "pass",
+      "errors": []
+    },
+    {
+      "source": "invalid_examples",
+      "case_id": "missing_policy_video",
+      "status": "fail",
+      "errors": [
+        "quality_too_sparse",
+        "missing_required_evidence:artifact_lineage|event_timeline|policy_decision|redaction_plan",
+        "missing_required_controls:redaction_plan",
+        "expected_pass_but_contract_fails"
+      ]
+    },
+    {
+      "source": "invalid_examples",
+      "case_id": "bad_ops_contract",
+      "status": "fail",
+      "errors": [
+        "missing_ops:cost_units",
+        "missing_ops:failure_rate",
+        "quality_too_sparse",
+        "expected_pass_but_contract_fails"
+      ]
+    },
+    {
+      "source": "invalid_examples",
+      "case_id": "external_action_without_owner",
+      "status": "fail",
+      "errors": [
+        "missing_required_evidence:approval_card|artifact_lineage|egress_policy|policy_decision|redaction_plan",
+        "missing_required_controls:approval_gate|egress_policy|redaction_plan|retention_policy|taint_label",
+        "expected_pass_but_contract_fails"
+      ]
+    }
+  ],
+  "summary": {
+    "checked": 11,
+    "passed": 8,
+    "failed": 3
+  }
+}

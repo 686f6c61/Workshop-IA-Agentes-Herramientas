@@ -1,0 +1,142 @@
+{
+  "candidates": [
+    {
+      "feature_id": "matricula_rag_assistant",
+      "title": "Asistente sustentado de matrícula",
+      "decision": "pilot_limited",
+      "readiness_score": 98.0,
+      "scores": {
+        "value": 0.891,
+        "quality": 1.0,
+        "cost": 1.0,
+        "operations": 1.0,
+        "governance": 1.0,
+        "ux": 1.0
+      },
+      "blockers": [],
+      "conditions": [],
+      "unit_economics": {
+        "expected_value_eur": 1.1,
+        "task_success": 0.81,
+        "cost_per_task_eur": 0.31,
+        "useful_margin_eur": 0.581
+      },
+      "recommended_scope": "Piloto limitado a tareas con evidencia documental recuperable, revisión de casos incompletos y rollback operativo."
+    },
+    {
+      "feature_id": "auto_close_request",
+      "title": "Cierre automático de solicitud",
+      "decision": "do_not_pilot",
+      "readiness_score": 79.7,
+      "scores": {
+        "value": 0.972,
+        "quality": 0.771,
+        "cost": 1.0,
+        "operations": 0.879,
+        "governance": 0.45,
+        "ux": 0.667
+      },
+      "blockers": [
+        {
+          "metric": "task_success",
+          "observed": 0.72,
+          "expected": 0.75,
+          "operator": ">=",
+          "severity": "blocker"
+        },
+        {
+          "metric": "groundedness",
+          "observed": 0.8,
+          "expected": 0.85,
+          "operator": ">=",
+          "severity": "blocker"
+        },
+        {
+          "metric": "abstention",
+          "observed": 0.42,
+          "expected": 0.7,
+          "operator": ">=",
+          "severity": "blocker"
+        },
+        {
+          "metric": "ux_recovery_score",
+          "observed": 0.5,
+          "expected": 0.75,
+          "operator": ">=",
+          "severity": "blocker"
+        },
+        {
+          "metric": "evidence",
+          "observed": [
+            "eval_snapshot",
+            "metric_tree",
+            "trace_contract",
+            "unit_economics"
+          ],
+          "expected": [
+            "eval_snapshot",
+            "metric_tree",
+            "privacy_review",
+            "rollback_plan",
+            "trace_contract",
+            "unit_economics",
+            "ux_recovery_paths"
+          ],
+          "missing": [
+            "privacy_review",
+            "rollback_plan",
+            "ux_recovery_paths"
+          ],
+          "severity": "blocker"
+        }
+      ],
+      "conditions": [
+        {
+          "metric": "trace_coverage",
+          "observed": 0.91,
+          "expected": 0.95,
+          "operator": ">=",
+          "severity": "condition"
+        },
+        {
+          "metric": "ops_readiness",
+          "observed": 0.64,
+          "expected": 0.8,
+          "operator": ">=",
+          "severity": "condition"
+        }
+      ],
+      "unit_economics": {
+        "expected_value_eur": 1.35,
+        "task_success": 0.72,
+        "cost_per_task_eur": 0.38,
+        "useful_margin_eur": 0.592
+      },
+      "recommended_scope": "No pasar a piloto; usar alternativa sin IA o rediseñar alcance."
+    },
+    {
+      "feature_id": "policy_search_copilot",
+      "title": "Copiloto de búsqueda normativa",
+      "decision": "pilot_limited",
+      "readiness_score": 93.1,
+      "scores": {
+        "value": 0.619,
+        "quality": 1.0,
+        "cost": 1.0,
+        "operations": 1.0,
+        "governance": 1.0,
+        "ux": 1.0
+      },
+      "blockers": [],
+      "conditions": [],
+      "unit_economics": {
+        "expected_value_eur": 0.72,
+        "task_success": 0.86,
+        "cost_per_task_eur": 0.18,
+        "useful_margin_eur": 0.439
+      },
+      "recommended_scope": "Piloto limitado a tareas con evidencia documental recuperable, revisión de casos incompletos y rollback operativo."
+    }
+  ],
+  "selected_candidate": "matricula_rag_assistant"
+}

@@ -1,0 +1,16 @@
+{
+  "expected_first_token": "{\"categoria\"",
+  "min_prompt_tokens": 55,
+  "max_prompt_tokens": 220,
+  "max_entropy_for_json": 1.7,
+  "max_ttft_seconds": 1.0,
+  "max_kv_cache_gb": 3.0,
+  "required_report_sections": [
+    "Tokenizacion",
+    "Formas de tensores",
+    "Arquitectura y runtime moderno",
+    "Logits y sampling",
+    "KV cache y runtime",
+    "Decision de ingenieria"
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "max_plan_length": 6,
+  "required_goal_facts": [
+    "factura_validada",
+    "email_enviado",
+    "log_creado"
+  ],
+  "require_invalid_candidate": true
+}
+

@@ -1,0 +1,16 @@
+{
+  "image_path": "data/synthetic_ticket.ppm",
+  "patch_size": 2,
+  "projection_dimension": 6,
+  "normalization": {
+    "mean": [0.485, 0.456, 0.406],
+    "std": [0.229, 0.224, 0.225]
+  },
+  "gates": {
+    "max_demo_visual_tokens": 32,
+    "max_attention_pairs_demo": 1024,
+    "max_padding_ratio": 0.08,
+    "require_svg": true,
+    "require_resolution_cases": 4
+  }
+}

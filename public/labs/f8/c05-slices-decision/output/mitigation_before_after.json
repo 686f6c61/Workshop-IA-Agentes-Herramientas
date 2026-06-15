@@ -1,0 +1,248 @@
+{
+  "summary": [
+    {
+      "policy": "base",
+      "status": "block",
+      "positive_if_score_gte": 0.78,
+      "negative_if_score_lt": 0.38,
+      "n": 36,
+      "safety_capture": 0.7778,
+      "miss_rate": 0.2222,
+      "review_rate": 0.3611,
+      "automation_rate": 0.6389,
+      "cost_total": 50.6,
+      "cost_per_case": 1.4056,
+      "block_flags": 5,
+      "review_flags": 7
+    },
+    {
+      "policy": "banda_revision",
+      "status": "review",
+      "positive_if_score_gte": 0.78,
+      "negative_if_score_lt": 0.32,
+      "n": 36,
+      "safety_capture": 1.0,
+      "miss_rate": 0.0,
+      "review_rate": 0.5278,
+      "automation_rate": 0.4722,
+      "cost_total": 25.8,
+      "cost_per_case": 0.7167,
+      "block_flags": 0,
+      "review_flags": 5
+    }
+  ],
+  "critical_slices": [
+    {
+      "policy": "base",
+      "slice_id": "language=en",
+      "n": 9,
+      "positives": 4,
+      "auto_recall": 0.25,
+      "miss_rate": 0.25,
+      "safety_capture": 0.75,
+      "review_rate": 0.5556,
+      "cost_per_case": 1.5556
+    },
+    {
+      "policy": "base",
+      "slice_id": "access_need=si",
+      "n": 12,
+      "positives": 6,
+      "auto_recall": 0.0,
+      "miss_rate": 0.6667,
+      "safety_capture": 0.3333,
+      "review_rate": 0.5,
+      "cost_per_case": 3.2667
+    },
+    {
+      "policy": "base",
+      "slice_id": "product=practicas|access_need=si",
+      "n": 4,
+      "positives": 2,
+      "auto_recall": 0.0,
+      "miss_rate": 1.0,
+      "safety_capture": 0.0,
+      "review_rate": 0.5,
+      "cost_per_case": 4.6
+    },
+    {
+      "policy": "banda_revision",
+      "slice_id": "language=en",
+      "n": 9,
+      "positives": 4,
+      "auto_recall": 0.25,
+      "miss_rate": 0.0,
+      "safety_capture": 1.0,
+      "review_rate": 0.6667,
+      "cost_per_case": 0.8
+    },
+    {
+      "policy": "banda_revision",
+      "slice_id": "access_need=si",
+      "n": 12,
+      "positives": 6,
+      "auto_recall": 0.0,
+      "miss_rate": 0.0,
+      "safety_capture": 1.0,
+      "review_rate": 0.9167,
+      "cost_per_case": 1.1
+    },
+    {
+      "policy": "banda_revision",
+      "slice_id": "product=practicas|access_need=si",
+      "n": 4,
+      "positives": 2,
+      "auto_recall": 0.0,
+      "miss_rate": 0.0,
+      "safety_capture": 1.0,
+      "review_rate": 1.0,
+      "cost_per_case": 1.2
+    }
+  ],
+  "baseline_flags": [
+    {
+      "severity": "block",
+      "kind": "global_safety_capture",
+      "message": "La captura global de casos prioritarios queda por debajo del mínimo.",
+      "value": 0.7778,
+      "threshold": 0.88
+    },
+    {
+      "severity": "block",
+      "kind": "global_miss_rate",
+      "message": "La tasa global de casos prioritarios enviados a flujo normal es demasiado alta.",
+      "value": 0.2222,
+      "threshold": 0.12
+    },
+    {
+      "severity": "review",
+      "kind": "auto_recall_gap",
+      "message": "La diferencia entre slices en auto_recall supera el gate.",
+      "value": 1.0,
+      "threshold": 0.25,
+      "min_slice": "access_need=si",
+      "max_slice": "product=titulos|access_need=no"
+    },
+    {
+      "severity": "review",
+      "kind": "miss_rate_gap",
+      "message": "La diferencia entre slices en miss_rate supera el gate.",
+      "value": 1.0,
+      "threshold": 0.2,
+      "min_slice": "product=becas",
+      "max_slice": "product=practicas|access_need=si"
+    },
+    {
+      "severity": "review",
+      "kind": "false_positive_rate_gap",
+      "message": "La diferencia entre slices en false_positive_rate supera el gate.",
+      "value": 0.3333,
+      "threshold": 0.25,
+      "min_slice": "product=becas",
+      "max_slice": "product=titulos|access_need=no"
+    },
+    {
+      "severity": "review",
+      "kind": "review_rate_gap",
+      "message": "La diferencia entre slices en review_rate supera el gate.",
+      "value": 0.75,
+      "threshold": 0.35,
+      "min_slice": "product=titulos|access_need=no",
+      "max_slice": "language=en|access_need=si"
+    },
+    {
+      "severity": "review",
+      "kind": "cost_per_case_gap",
+      "message": "La diferencia entre slices en cost_per_case supera el gate.",
+      "value": 4.36,
+      "threshold": 2.0,
+      "min_slice": "product=practicas|access_need=no",
+      "max_slice": "product=practicas|access_need=si"
+    },
+    {
+      "severity": "block",
+      "kind": "critical_slice_miss",
+      "slice_id": "language=en",
+      "message": "Un slice crítico contiene casos prioritarios enviados a flujo normal.",
+      "value": 0.25,
+      "threshold": 0
+    },
+    {
+      "severity": "block",
+      "kind": "critical_slice_miss",
+      "slice_id": "access_need=si",
+      "message": "Un slice crítico contiene casos prioritarios enviados a flujo normal.",
+      "value": 0.6667,
+      "threshold": 0
+    },
+    {
+      "severity": "review",
+      "kind": "small_slice",
+      "slice_id": "product=becas|access_need=si",
+      "message": "Slice con muestra insuficiente para sostener una conclusion.",
+      "value": 2,
+      "threshold": 4
+    },
+    {
+      "severity": "review",
+      "kind": "small_slice",
+      "slice_id": "product=matricula|access_need=si",
+      "message": "Slice con muestra insuficiente para sostener una conclusion.",
+      "value": 2,
+      "threshold": 4
+    },
+    {
+      "severity": "block",
+      "kind": "critical_slice_miss",
+      "slice_id": "product=practicas|access_need=si",
+      "message": "Un slice crítico contiene casos prioritarios enviados a flujo normal.",
+      "value": 1.0,
+      "threshold": 0
+    }
+  ],
+  "candidate_flags": [
+    {
+      "severity": "review",
+      "kind": "auto_recall_gap",
+      "message": "La diferencia entre slices en auto_recall supera el gate.",
+      "value": 1.0,
+      "threshold": 0.25,
+      "min_slice": "access_need=si",
+      "max_slice": "product=titulos|access_need=no"
+    },
+    {
+      "severity": "review",
+      "kind": "false_positive_rate_gap",
+      "message": "La diferencia entre slices en false_positive_rate supera el gate.",
+      "value": 0.3333,
+      "threshold": 0.25,
+      "min_slice": "product=becas",
+      "max_slice": "product=titulos|access_need=no"
+    },
+    {
+      "severity": "review",
+      "kind": "review_rate_gap",
+      "message": "La diferencia entre slices en review_rate supera el gate.",
+      "value": 1.0,
+      "threshold": 0.35,
+      "min_slice": "product=titulos|access_need=no",
+      "max_slice": "product=titulos|access_need=si"
+    },
+    {
+      "severity": "review",
+      "kind": "small_slice",
+      "slice_id": "product=becas|access_need=si",
+      "message": "Slice con muestra insuficiente para sostener una conclusion.",
+      "value": 2,
+      "threshold": 4
+    },
+    {
+      "severity": "review",
+      "kind": "small_slice",
+      "slice_id": "product=matricula|access_need=si",
+      "message": "Slice con muestra insuficiente para sostener una conclusion.",
+      "value": 2,
+      "threshold": 4
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "chapter": "c02",
+  "status": "valid",
+  "checks": [
+    {
+      "name": "script_exit_zero",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "artifact:output/threshold_scorecard.json",
+      "passed": true,
+      "detail": "output/threshold_scorecard.json"
+    },
+    {
+      "name": "artifact:output/threshold_decision.md",
+      "passed": true,
+      "detail": "output/threshold_decision.md"
+    }
+  ]
+}

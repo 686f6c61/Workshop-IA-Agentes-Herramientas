@@ -1,0 +1,34 @@
+{
+  "status": "fail",
+  "findings": [
+    {
+      "severity": "fail",
+      "check": "retention_too_long",
+      "where": "retention_plan.csv:F-003",
+      "message": "retención 90 días supera el valor esperado 14 para `traza_operativa`"
+    },
+    {
+      "severity": "fail",
+      "check": "retention_too_long",
+      "where": "retention_plan.csv:F-006",
+      "message": "retención 365 días supera el valor esperado 0 para `entrenamiento`"
+    },
+    {
+      "severity": "fail",
+      "check": "training_personal_data",
+      "where": "F-006",
+      "message": "uso de datos personales para entrenamiento o ajuste sin decisión específica cerrada"
+    },
+    {
+      "severity": "fail",
+      "check": "release_gate",
+      "where": "privacy_release_gate.md",
+      "message": "el gate de privacidad indica revisar antes de publicar"
+    }
+  ],
+  "checked_files": [
+    "output/data_flow_inventory.json",
+    "output/redacted_trace_sample.jsonl",
+    "output/retention_plan.csv"
+  ]
+}

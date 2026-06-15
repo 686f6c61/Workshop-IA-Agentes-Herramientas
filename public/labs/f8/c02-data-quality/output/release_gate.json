@@ -1,0 +1,17 @@
+{
+  "gate": "block",
+  "blocking_failures": [
+    "case_id_unique",
+    "product_values",
+    "label_values",
+    "pii_risk_values",
+    "license_compatibility",
+    "exact_cross_split_duplicates",
+    "near_cross_split_duplicates"
+  ],
+  "review_failures": [
+    "label_review_queue",
+    "annotator_agreement"
+  ],
+  "recommendation": "bloquear uso hasta corregir fallos de contrato, leakage o schema"
+}

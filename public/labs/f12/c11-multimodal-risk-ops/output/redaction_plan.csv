@@ -1,0 +1,25 @@
+case_id,entity_type,operator,location,confidence
+doc_dni_invoice,DNI_NIE,redact,"page=1 bbox=120,240,210,260",0.98
+doc_dni_invoice,EMAIL,hash:email,"page=1 bbox=70,310,230,330",0.95
+image_badge_face,FACE,blur:strong,region=face,0.88
+image_badge_face,STUDENT_ID,tokenize:student_id,region=badge,0.92
+audio_phone_slot,PHONE,mask:last2,transcript_segment=00:08-00:11,0.91
+audio_phone_slot,NAME,replace:<PERSONA>,transcript_segment=00:02-00:03,0.77
+video_license_plate,LICENSE_PLATE,blur_or_redact,"frame=144 bbox=400,180,510,210",0.86
+video_license_plate,FACE,blur:strong,"frame=145 bbox=220,90,280,160",0.63
+rag_confidential_slide,INTERNAL_SECRET,redact,slide=12 region=notes,0.84
+ui_api_key_prompt_injection,API_KEY,revoke_and_redact,ocr_line=3,0.99
+ui_api_key_prompt_injection,PROMPT_INJECTION,taint_untrusted_content,ocr_line=6,0.87
+computer_use_external_submit,EMAIL,hash:email,screenshot_header,0.92
+computer_use_external_submit,INTERNAL_SECRET,redact,network_panel,0.73
+eval_dataset_student_email,EMAIL,hash:email,prompt,0.96
+eval_dataset_student_email,STUDENT_ID,tokenize:student_id,metadata.student_id,0.93
+image_exif_location,GPS_LOCATION,strip_exif_and_round_geohash,metadata.exif.gps,0.97
+image_exif_location,ADDRESS,generalize:city,ocr_line=2,0.72
+low_res_ocr_missed_dni,DNI_NIE,redact,"page=1 bbox=86,340,190,362",0.42
+low_res_ocr_missed_dni,EMAIL,hash:email,"page=1 bbox=62,420,244,440",0.88
+audio_noise_health_hint,HEALTH,redact,transcript_segment=00:22-00:25,0.66
+audio_noise_health_hint,PHONE,mask:last2,transcript_segment=00:31-00:34,0.61
+eval_reconstructible_token_fragment,ACCESS_TOKEN_FRAGMENT,revoke_if_reconstructible,metadata.trace.request_header,0.9
+eval_reconstructible_token_fragment,COOKIE,redact,metadata.trace.cookie,0.87
+reflection_face_in_public_photo,FACE,blur:strong,region=reflection,0.56

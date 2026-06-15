@@ -1,0 +1,337 @@
+[
+  {
+    "id": "tickets_mlp_small",
+    "description": "Clasificador de prioridad para tickets internos con señales tabulares ya codificadas.",
+    "task": "multiclass_classification",
+    "architecture": [
+      48,
+      32,
+      3
+    ],
+    "output_contract": {
+      "output_dim": 3,
+      "activation": "softmax"
+    },
+    "training_examples": 5000,
+    "class_balance": 0.18,
+    "valid": true,
+    "expected_valid": true,
+    "matches_expectation": true,
+    "status": "ok",
+    "errors": [],
+    "warnings": [],
+    "layer_shapes": [
+      {
+        "layer": 1,
+        "input_dim": 48,
+        "output_dim": 32,
+        "weight_shape": [
+          32,
+          48
+        ],
+        "bias_shape": [
+          32
+        ],
+        "parameters": 1568
+      },
+      {
+        "layer": 2,
+        "input_dim": 32,
+        "output_dim": 3,
+        "weight_shape": [
+          3,
+          32
+        ],
+        "bias_shape": [
+          3
+        ],
+        "parameters": 99
+      }
+    ],
+    "total_parameters": 1667,
+    "examples_per_parameter": 2.9994,
+    "memory_estimate_mb": {
+      "fp32": 0.0064,
+      "bf16": 0.0032,
+      "int8": 0.0016
+    }
+  },
+  {
+    "id": "tickets_mlp_medium",
+    "description": "Versión con más capacidad para relaciones no lineales y suficiente volumen de datos.",
+    "task": "multiclass_classification",
+    "architecture": [
+      48,
+      128,
+      64,
+      3
+    ],
+    "output_contract": {
+      "output_dim": 3,
+      "activation": "softmax"
+    },
+    "training_examples": 5000,
+    "class_balance": 0.18,
+    "valid": true,
+    "expected_valid": true,
+    "matches_expectation": true,
+    "status": "warning",
+    "errors": [],
+    "warnings": [
+      "relación ejemplos/parámetro baja; exige validación fuerte"
+    ],
+    "layer_shapes": [
+      {
+        "layer": 1,
+        "input_dim": 48,
+        "output_dim": 128,
+        "weight_shape": [
+          128,
+          48
+        ],
+        "bias_shape": [
+          128
+        ],
+        "parameters": 6272
+      },
+      {
+        "layer": 2,
+        "input_dim": 128,
+        "output_dim": 64,
+        "weight_shape": [
+          64,
+          128
+        ],
+        "bias_shape": [
+          64
+        ],
+        "parameters": 8256
+      },
+      {
+        "layer": 3,
+        "input_dim": 64,
+        "output_dim": 3,
+        "weight_shape": [
+          3,
+          64
+        ],
+        "bias_shape": [
+          3
+        ],
+        "parameters": 195
+      }
+    ],
+    "total_parameters": 14723,
+    "examples_per_parameter": 0.339605,
+    "memory_estimate_mb": {
+      "fp32": 0.0562,
+      "bf16": 0.0281,
+      "int8": 0.014
+    }
+  },
+  {
+    "id": "tickets_mlp_excessive_for_data",
+    "description": "Arquitectura grande para pocos datos; sirve para detectar riesgo de memorizar.",
+    "task": "multiclass_classification",
+    "architecture": [
+      48,
+      1024,
+      1024,
+      3
+    ],
+    "output_contract": {
+      "output_dim": 3,
+      "activation": "softmax"
+    },
+    "training_examples": 1200,
+    "class_balance": 0.12,
+    "valid": true,
+    "expected_valid": true,
+    "matches_expectation": true,
+    "status": "warning",
+    "errors": [],
+    "warnings": [
+      "demasiados parámetros para el laboratorio introductorio",
+      "muy pocos ejemplos por parámetro"
+    ],
+    "layer_shapes": [
+      {
+        "layer": 1,
+        "input_dim": 48,
+        "output_dim": 1024,
+        "weight_shape": [
+          1024,
+          48
+        ],
+        "bias_shape": [
+          1024
+        ],
+        "parameters": 50176
+      },
+      {
+        "layer": 2,
+        "input_dim": 1024,
+        "output_dim": 1024,
+        "weight_shape": [
+          1024,
+          1024
+        ],
+        "bias_shape": [
+          1024
+        ],
+        "parameters": 1049600
+      },
+      {
+        "layer": 3,
+        "input_dim": 1024,
+        "output_dim": 3,
+        "weight_shape": [
+          3,
+          1024
+        ],
+        "bias_shape": [
+          3
+        ],
+        "parameters": 3075
+      }
+    ],
+    "total_parameters": 1102851,
+    "examples_per_parameter": 0.001088,
+    "memory_estimate_mb": {
+      "fp32": 4.207,
+      "bf16": 2.1035,
+      "int8": 1.0518
+    }
+  },
+  {
+    "id": "binary_output_wrong",
+    "description": "Caso inválido: tarea binaria con salida de dos neuronas y softmax en lugar de una salida sigmoide.",
+    "task": "binary_classification",
+    "architecture": [
+      24,
+      16,
+      2
+    ],
+    "output_contract": {
+      "output_dim": 2,
+      "activation": "softmax"
+    },
+    "training_examples": 800,
+    "class_balance": 0.4,
+    "valid": false,
+    "expected_valid": false,
+    "matches_expectation": true,
+    "status": "invalid",
+    "errors": [
+      "binary_classification espera output_dim=1",
+      "binary_classification espera activación sigmoid"
+    ],
+    "warnings": [],
+    "layer_shapes": [
+      {
+        "layer": 1,
+        "input_dim": 24,
+        "output_dim": 16,
+        "weight_shape": [
+          16,
+          24
+        ],
+        "bias_shape": [
+          16
+        ],
+        "parameters": 400
+      },
+      {
+        "layer": 2,
+        "input_dim": 16,
+        "output_dim": 2,
+        "weight_shape": [
+          2,
+          16
+        ],
+        "bias_shape": [
+          2
+        ],
+        "parameters": 34
+      }
+    ],
+    "total_parameters": 434,
+    "examples_per_parameter": 1.843318,
+    "memory_estimate_mb": {
+      "fp32": 0.0017,
+      "bf16": 0.0008,
+      "int8": 0.0004
+    }
+  },
+  {
+    "id": "regression_price_baseline",
+    "description": "Regresión para estimar un valor numérico a partir de variables tabulares.",
+    "task": "regression",
+    "architecture": [
+      18,
+      32,
+      16,
+      1
+    ],
+    "output_contract": {
+      "output_dim": 1,
+      "activation": "linear"
+    },
+    "training_examples": 3000,
+    "class_balance": null,
+    "valid": true,
+    "expected_valid": true,
+    "matches_expectation": true,
+    "status": "ok",
+    "errors": [],
+    "warnings": [],
+    "layer_shapes": [
+      {
+        "layer": 1,
+        "input_dim": 18,
+        "output_dim": 32,
+        "weight_shape": [
+          32,
+          18
+        ],
+        "bias_shape": [
+          32
+        ],
+        "parameters": 608
+      },
+      {
+        "layer": 2,
+        "input_dim": 32,
+        "output_dim": 16,
+        "weight_shape": [
+          16,
+          32
+        ],
+        "bias_shape": [
+          16
+        ],
+        "parameters": 528
+      },
+      {
+        "layer": 3,
+        "input_dim": 16,
+        "output_dim": 1,
+        "weight_shape": [
+          1,
+          16
+        ],
+        "bias_shape": [
+          1
+        ],
+        "parameters": 17
+      }
+    ],
+    "total_parameters": 1153,
+    "examples_per_parameter": 2.601908,
+    "memory_estimate_mb": {
+      "fp32": 0.0044,
+      "bf16": 0.0022,
+      "int8": 0.0011
+    }
+  }
+]

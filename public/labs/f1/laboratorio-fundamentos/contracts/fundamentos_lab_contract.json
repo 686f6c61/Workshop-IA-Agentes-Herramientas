@@ -1,0 +1,22 @@
+{
+  "lab_id": "f1-laboratorio-fundamentos",
+  "version": "1.0.0",
+  "priority_review_capacity": 60,
+  "classifier_gate": {
+    "min_f1": 0.74,
+    "max_priority_queue": 60,
+    "prefer_when_capacity_limited": "modelo_b"
+  },
+  "semantic_search_gate": {
+    "min_hit_at_1": 1.0,
+    "min_mrr": 1.0,
+    "min_trace_complete_rate": 1.0
+  },
+  "required_outputs": [
+    "classifier_metrics.json",
+    "classifier_decision.md",
+    "semantic_search_report.json",
+    "semantic_search_decision.md",
+    "semantic_search_traces.jsonl"
+  ]
+}

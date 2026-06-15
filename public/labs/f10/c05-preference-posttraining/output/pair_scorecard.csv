@@ -1,0 +1,13 @@
+pair_id,prompt_id,task_family,agreement,reward_margin,chosen_wins,verifier_available,verifier_score,chosen_tokens,rejected_tokens
+p001,support_001,soporte,0.88,0.44,True,True,0.83,42,22
+p002,rag_001,rag,0.91,0.52,True,True,0.92,45,24
+p003,sql_001,sql,0.82,0.51,True,True,0.86,39,11
+p004,json_001,salida_estructurada,0.95,0.66,True,True,1.0,19,13
+p005,math_001,razonamiento,0.9,0.44,True,True,1.0,36,18
+p006,code_001,codigo,0.86,0.56,True,True,0.89,35,9
+p007,agent_001,agentes,0.87,0.49,True,True,0.81,38,17
+p008,eval_001,evaluación,0.8,0.35,True,False,,30,20
+p009,privacy_001,privacidad,0.84,0.58,True,False,,37,20
+p010,cost_001,coste,0.83,0.46,True,True,0.78,37,15
+p011,tool_001,herramientas,0.89,0.58,True,True,0.86,33,17
+p012,product_001,producto,0.81,0.42,True,True,0.8,34,13

@@ -1,0 +1,18 @@
+{
+  "weights": {
+    "calidad": 0.25,
+    "latencia": 0.15,
+    "coste": 0.1,
+    "privacidad": 0.15,
+    "mantenimiento": 0.1,
+    "adaptacion": 0.1,
+    "contexto_externo": 0.15
+  },
+  "options": {
+    "api_potente": {"calidad": 5, "latencia": 3, "coste": 2, "privacidad": 2, "mantenimiento": 5, "adaptacion": 3, "contexto_externo": 4},
+    "modelo_local_cuantizado": {"calidad": 3, "latencia": 4, "coste": 5, "privacidad": 5, "mantenimiento": 3, "adaptacion": 3, "contexto_externo": 2},
+    "modelo_abierto_gpu": {"calidad": 4, "latencia": 4, "coste": 3, "privacidad": 4, "mantenimiento": 2, "adaptacion": 5, "contexto_externo": 3},
+    "api_con_rag": {"calidad": 4, "latencia": 3, "coste": 3, "privacidad": 3, "mantenimiento": 4, "adaptacion": 4, "contexto_externo": 5}
+  }
+}
+

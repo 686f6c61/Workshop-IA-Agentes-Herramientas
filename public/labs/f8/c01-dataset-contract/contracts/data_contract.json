@@ -1,0 +1,45 @@
+{
+  "contract_id": "support-cases-data-contract-v1",
+  "owner": "equipo-datos-ia",
+  "purpose": "Construir y evaluar un asistente académico con casos sinteticos de soporte.",
+  "dataset_path": "data/support_cases.csv",
+  "required_columns": [
+    "case_id",
+    "split",
+    "created_at",
+    "source_id",
+    "product",
+    "language",
+    "channel",
+    "label",
+    "text",
+    "license",
+    "pii_risk",
+    "owner",
+    "consent_scope"
+  ],
+  "allowed_splits": ["train", "validation", "test"],
+  "allowed_labels": ["answer", "ask_more", "escalate"],
+  "allowed_licenses": {
+    "train": ["internal_training_allowed"],
+    "validation": ["internal_training_allowed", "support_eval_only"],
+    "test": ["internal_training_allowed", "support_eval_only"]
+  },
+  "allowed_pii_risk": ["low", "medium"],
+  "max_missing_rate": 0.0,
+  "min_rows_per_split": {
+    "train": 6,
+    "validation": 3,
+    "test": 4
+  },
+  "min_label_count_total": 2,
+  "max_duplicate_text_across_splits": 0,
+  "required_lineage_fields": ["source_id", "created_at", "owner", "license", "consent_scope"],
+  "release_policy": {
+    "block_on_schema_error": true,
+    "block_on_split_leakage": true,
+    "block_on_license_mismatch": true,
+    "block_on_missing_lineage": true,
+    "block_on_high_pii_risk": true
+  }
+}

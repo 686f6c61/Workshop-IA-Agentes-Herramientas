@@ -1,0 +1,55 @@
+{
+  "policy_id": "support-preprocessing-leakage-policy-v1",
+  "principle": "Toda operacion que aprenda parámetros desde los datos debe hacer fit solo con train.",
+  "required_order": [
+    "crear splits",
+    "ajustar transformadores con train",
+    "aplicar transformadores a train, validation y test",
+    "guardar parámetros y versión de pipeline",
+    "medir con splits ya congelados"
+  ],
+  "transformations": [
+    {
+      "name": "normalizacion_numerica",
+      "fit_scope": "train",
+      "learns": "media, desviacion, mínimos o máximos",
+      "risk_if_fit_all_data": "validation y test influyen en la escala del entrenamiento"
+    },
+    {
+      "name": "imputacion",
+      "fit_scope": "train",
+      "learns": "media, moda, percentil o modelo de imputacion",
+      "risk_if_fit_all_data": "los valores ausentes se rellenan usando información de particiones reservadas"
+    },
+    {
+      "name": "seleccion_features",
+      "fit_scope": "train",
+      "learns": "features con relacion estadistica con la etiqueta",
+      "risk_if_fit_all_data": "la etiqueta de test participa en la eleccion de variables"
+    },
+    {
+      "name": "pca_o_reduccion_dimensional",
+      "fit_scope": "train",
+      "learns": "componentes, centroides o proyecciones",
+      "risk_if_fit_all_data": "la geometria de test modifica la representación del entrenamiento"
+    },
+    {
+      "name": "vectorizador_texto",
+      "fit_scope": "train",
+      "learns": "vocabulario, idf, hashes controlados o normalizadores",
+      "risk_if_fit_all_data": "palabras de test aparecen como conocidas durante desarrollo"
+    },
+    {
+      "name": "oversampling_o_balanceo",
+      "fit_scope": "train",
+      "learns": "ejemplos sinteticos, vecinos o pesos de clase",
+      "risk_if_fit_all_data": "validation y test alteran la frontera que se entrena"
+    }
+  ],
+  "required_artifacts": [
+    "split_manifest.json",
+    "pipeline_manifest.json",
+    "preprocessing_params.json",
+    "train_only_fit_log.json"
+  ]
+}

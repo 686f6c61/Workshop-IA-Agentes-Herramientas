@@ -1,0 +1,64 @@
+{
+  "contract_id": "f8-c07-experiment-contract",
+  "versión": "2026-06-07",
+  "owner": "equipo-datos-ia",
+  "unit": "unit_id",
+  "expected_allocation": {
+    "control": 0.5,
+    "treatment": 0.5
+  },
+  "required_columns": [
+    "unit_id",
+    "variant",
+    "segment",
+    "pre_week_tasks",
+    "historical_resolution_rate",
+    "resolved",
+    "minutes_to_resolution",
+    "cost_eur",
+    "latency_ms",
+    "negative_feedback"
+  ],
+  "allowed_variants": ["control", "treatment"],
+  "allowed_segments": ["matricula", "becas", "practicas"],
+  "primary_metric": {
+    "name": "resolved",
+    "direction": "higher_is_better",
+    "minimum_effect": 0.05,
+    "minimum_n_per_variant": 10,
+    "baseline_rate": 0.58
+  },
+  "statistical_plan": {
+    "alpha": 0.05,
+    "power": 0.8,
+    "minimum_detectable_effect": 0.05,
+    "planned_looks": 1,
+    "sequential_testing_enabled": false,
+    "peeking_policy": "No mirar para decidir antes de cerrar la ventana planificada."
+  },
+  "assignment_contract": {
+    "flag_key": "support_template_guided_reply",
+    "targeting_key": "unit_id",
+    "assignment_unit": "ticket",
+    "requires_persistent_assignment": true,
+    "requires_exposure_event": true,
+    "exposure_event_name": "experiment_exposure",
+    "aa_test_required_before_ab": true
+  },
+  "rollout_policy": {
+    "initial_ramp_percent": 5,
+    "ramp_steps_percent": [5, 25, 50, 100],
+    "rollback_if_guardrail_blocks": true,
+    "publish_requires_status": "pass"
+  },
+  "guardrails": {
+    "max_negative_feedback_rate_delta": 0.05,
+    "max_latency_mean_delta_ms": 110,
+    "max_cost_mean_delta_eur": 0.35
+  },
+  "quality_gates": {
+    "max_abs_standardized_mean_difference": 0.25,
+    "srm_p_value_block_threshold": 0.001
+  },
+  "slices": ["segment"]
+}

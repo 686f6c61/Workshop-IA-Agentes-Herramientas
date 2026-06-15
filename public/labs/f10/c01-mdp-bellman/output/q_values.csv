@@ -1,0 +1,8 @@
+state,action,q_value
+nuevo,pedir_dato,1.190579
+nuevo,responder_directo,0.052052
+nuevo,escalar,0.266
+evidencia,responder_con_cita,1.7
+evidencia,escalar,0.402
+critico,escalar,0.556
+critico,responder_directo,-1.02

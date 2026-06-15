@@ -1,0 +1,400 @@
+{
+  "flows": [
+    {
+      "flow_id": "F-001",
+      "name": "Prompt de consulta de alumnado",
+      "source": "web_chat",
+      "destination": "llm_provider",
+      "data_items": [
+        "question_text",
+        "course_code",
+        "language",
+        "consent_flag"
+      ],
+      "purpose": "responder_consulta",
+      "legal_basis_hint": "contract_or_legitimate_interest",
+      "role": "controller",
+      "memory_type": "contexto_efimero",
+      "stores_raw_text": false,
+      "retention_days": 0,
+      "special_category": false,
+      "automated_decision": false,
+      "large_scale": true,
+      "cross_border": true,
+      "model_training": false,
+      "third_party": true,
+      "owner": "platform_ai",
+      "evidence": [
+        "provider_dpa",
+        "prompt_contract",
+        "redaction_test"
+      ],
+      "privacy_factors": {
+        "criticality": 4,
+        "exposure": 4,
+        "retention": 1,
+        "detectability_gap": 3
+      },
+      "privacy_score": 48,
+      "privacy_band": "bajo",
+      "minimization": {
+        "allowed_fields": [
+          "question_text",
+          "course_code",
+          "language",
+          "consent_flag"
+        ],
+        "fields_to_review": [],
+        "transformations": [],
+        "minimization_ratio": 1.0
+      },
+      "dpia_triggers": [
+        "large_scale",
+        "cross_border_third_party"
+      ],
+      "needs_dpia_precheck": true
+    },
+    {
+      "flow_id": "F-002",
+      "name": "Recuperación RAG de normativa",
+      "source": "vector_store",
+      "destination": "llm_provider",
+      "data_items": [
+        "document_id",
+        "chunk_id",
+        "chunk_text",
+        "source_url",
+        "version",
+        "access_group"
+      ],
+      "purpose": "recuperar_contexto",
+      "legal_basis_hint": "legitimate_interest",
+      "role": "controller",
+      "memory_type": "corpus_rag",
+      "stores_raw_text": true,
+      "retention_days": 365,
+      "special_category": false,
+      "automated_decision": false,
+      "large_scale": true,
+      "cross_border": false,
+      "model_training": false,
+      "third_party": false,
+      "owner": "rag_owner",
+      "evidence": [
+        "index_manifest",
+        "access_policy",
+        "source_catalog"
+      ],
+      "privacy_factors": {
+        "criticality": 2,
+        "exposure": 4,
+        "retention": 4,
+        "detectability_gap": 3
+      },
+      "privacy_score": 96,
+      "privacy_band": "medio",
+      "minimization": {
+        "allowed_fields": [
+          "document_id",
+          "chunk_id",
+          "chunk_text",
+          "source_url",
+          "access_group"
+        ],
+        "fields_to_review": [
+          "version"
+        ],
+        "transformations": [
+          {
+            "field": "version",
+            "action": "justificar_o_eliminar"
+          }
+        ],
+        "minimization_ratio": 0.833
+      },
+      "dpia_triggers": [
+        "large_scale",
+        "long_retention_raw_text"
+      ],
+      "needs_dpia_precheck": true
+    },
+    {
+      "flow_id": "F-003",
+      "name": "Trazas operativas con texto bruto",
+      "source": "app_runtime",
+      "destination": "observability_tool",
+      "data_items": [
+        "trace_id",
+        "timestamp",
+        "model_id",
+        "latency_ms",
+        "token_count",
+        "question_text",
+        "email",
+        "phone"
+      ],
+      "purpose": "depurar_servicio",
+      "legal_basis_hint": "legitimate_interest",
+      "role": "processor",
+      "memory_type": "traza_operativa",
+      "stores_raw_text": true,
+      "retention_days": 90,
+      "special_category": false,
+      "automated_decision": false,
+      "large_scale": true,
+      "cross_border": true,
+      "model_training": false,
+      "third_party": true,
+      "owner": "ops_owner",
+      "evidence": [
+        "trace_contract",
+        "retention_policy"
+      ],
+      "privacy_factors": {
+        "criticality": 4,
+        "exposure": 5,
+        "retention": 3,
+        "detectability_gap": 4
+      },
+      "privacy_score": 240,
+      "privacy_band": "alto",
+      "minimization": {
+        "allowed_fields": [
+          "trace_id",
+          "timestamp",
+          "model_id",
+          "latency_ms",
+          "token_count"
+        ],
+        "fields_to_review": [
+          "question_text",
+          "email",
+          "phone"
+        ],
+        "transformations": [
+          {
+            "field": "question_text",
+            "action": "redactar_o_sustituir_por_hash"
+          },
+          {
+            "field": "email",
+            "action": "redactar_o_sustituir_por_hash"
+          },
+          {
+            "field": "phone",
+            "action": "redactar_o_sustituir_por_hash"
+          }
+        ],
+        "minimization_ratio": 0.625
+      },
+      "dpia_triggers": [
+        "large_scale",
+        "cross_border_third_party",
+        "long_retention_raw_text"
+      ],
+      "needs_dpia_precheck": true
+    },
+    {
+      "flow_id": "F-004",
+      "name": "Memoria de preferencias",
+      "source": "app_runtime",
+      "destination": "profile_store",
+      "data_items": [
+        "user_id_hash",
+        "language",
+        "accessibility_preference",
+        "consent_flag",
+        "expires_at"
+      ],
+      "purpose": "recordar_preferencias",
+      "legal_basis_hint": "consent",
+      "role": "controller",
+      "memory_type": "memoria_usuario",
+      "stores_raw_text": false,
+      "retention_days": 30,
+      "special_category": false,
+      "automated_decision": false,
+      "large_scale": false,
+      "cross_border": false,
+      "model_training": false,
+      "third_party": false,
+      "owner": "product_owner",
+      "evidence": [
+        "memory_policy",
+        "delete_workflow"
+      ],
+      "privacy_factors": {
+        "criticality": 3,
+        "exposure": 2,
+        "retention": 2,
+        "detectability_gap": 2
+      },
+      "privacy_score": 24,
+      "privacy_band": "mínimo",
+      "minimization": {
+        "allowed_fields": [
+          "user_id_hash",
+          "language",
+          "accessibility_preference",
+          "consent_flag",
+          "expires_at"
+        ],
+        "fields_to_review": [],
+        "transformations": [],
+        "minimization_ratio": 1.0
+      },
+      "dpia_triggers": [],
+      "needs_dpia_precheck": false
+    },
+    {
+      "flow_id": "F-005",
+      "name": "Dataset de evaluación con tickets revisados",
+      "source": "support_tool",
+      "destination": "eval_repository",
+      "data_items": [
+        "case_id",
+        "expected_answer",
+        "model_answer",
+        "rubric",
+        "source_document",
+        "reviewer_id"
+      ],
+      "purpose": "evaluar_calidad",
+      "legal_basis_hint": "legitimate_interest",
+      "role": "controller",
+      "memory_type": "dataset_evaluacion",
+      "stores_raw_text": false,
+      "retention_days": 180,
+      "special_category": false,
+      "automated_decision": false,
+      "large_scale": false,
+      "cross_border": false,
+      "model_training": false,
+      "third_party": false,
+      "owner": "eval_owner",
+      "evidence": [
+        "dataset_card",
+        "split_manifest",
+        "review_notes"
+      ],
+      "privacy_factors": {
+        "criticality": 2,
+        "exposure": 1,
+        "retention": 4,
+        "detectability_gap": 2
+      },
+      "privacy_score": 16,
+      "privacy_band": "mínimo",
+      "minimization": {
+        "allowed_fields": [
+          "case_id",
+          "expected_answer",
+          "model_answer",
+          "rubric",
+          "source_document",
+          "reviewer_id"
+        ],
+        "fields_to_review": [],
+        "transformations": [],
+        "minimization_ratio": 1.0
+      },
+      "dpia_triggers": [],
+      "needs_dpia_precheck": false
+    },
+    {
+      "flow_id": "F-006",
+      "name": "Intento de usar tickets para fine tuning",
+      "source": "support_tool",
+      "destination": "training_pipeline",
+      "data_items": [
+        "case_id",
+        "question_text",
+        "answer_text",
+        "email",
+        "student_status"
+      ],
+      "purpose": "evaluar_calidad",
+      "legal_basis_hint": "legitimate_interest",
+      "role": "controller",
+      "memory_type": "entrenamiento",
+      "stores_raw_text": true,
+      "retention_days": 365,
+      "special_category": true,
+      "automated_decision": false,
+      "large_scale": true,
+      "cross_border": true,
+      "model_training": true,
+      "third_party": true,
+      "owner": "ml_owner",
+      "evidence": [
+        "dataset_card",
+        "dpia_note",
+        "training_decision"
+      ],
+      "privacy_factors": {
+        "criticality": 5,
+        "exposure": 5,
+        "retention": 4,
+        "detectability_gap": 4
+      },
+      "privacy_score": 400,
+      "privacy_band": "alto",
+      "minimization": {
+        "allowed_fields": [
+          "case_id"
+        ],
+        "fields_to_review": [
+          "question_text",
+          "answer_text",
+          "email",
+          "student_status"
+        ],
+        "transformations": [
+          {
+            "field": "question_text",
+            "action": "redactar_o_sustituir_por_hash"
+          },
+          {
+            "field": "answer_text",
+            "action": "redactar_o_sustituir_por_hash"
+          },
+          {
+            "field": "email",
+            "action": "redactar_o_sustituir_por_hash"
+          },
+          {
+            "field": "student_status",
+            "action": "justificar_o_eliminar"
+          }
+        ],
+        "minimization_ratio": 0.2
+      },
+      "dpia_triggers": [
+        "special_category",
+        "large_scale",
+        "cross_border_third_party",
+        "model_training_personal_data",
+        "long_retention_raw_text"
+      ],
+      "needs_dpia_precheck": true
+    }
+  ],
+  "release": {
+    "decision": "revisar_antes_de_publicar",
+    "blockers": [
+      "hay texto bruto retenido por encima del límite",
+      "hay uso de datos personales para entrenamiento sin decisión específica",
+      "hay señales que exigen prechequeo EIPD/DPIA documentado"
+    ],
+    "high_flows": [
+      "F-003",
+      "F-006"
+    ],
+    "dpia_flows": [
+      "F-001",
+      "F-002",
+      "F-003",
+      "F-006"
+    ]
+  }
+}

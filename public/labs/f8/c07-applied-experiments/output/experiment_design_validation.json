@@ -1,0 +1,95 @@
+{
+  "status": "pass",
+  "checks": [
+    {
+      "check": "plan_field:hypothesis",
+      "status": "pass",
+      "message": "Campo hypothesis presente en analysis_plan.json."
+    },
+    {
+      "check": "plan_field:unit",
+      "status": "pass",
+      "message": "Campo unit presente en analysis_plan.json."
+    },
+    {
+      "check": "plan_field:population",
+      "status": "pass",
+      "message": "Campo population presente en analysis_plan.json."
+    },
+    {
+      "check": "plan_field:treatment",
+      "status": "pass",
+      "message": "Campo treatment presente en analysis_plan.json."
+    },
+    {
+      "check": "plan_field:control",
+      "status": "pass",
+      "message": "Campo control presente en analysis_plan.json."
+    },
+    {
+      "check": "plan_field:primary_metric",
+      "status": "pass",
+      "message": "Campo primary_metric presente en analysis_plan.json."
+    },
+    {
+      "check": "plan_field:metric_window",
+      "status": "pass",
+      "message": "Campo metric_window presente en analysis_plan.json."
+    },
+    {
+      "check": "plan_field:guardrail_metrics",
+      "status": "pass",
+      "message": "Campo guardrail_metrics presente en analysis_plan.json."
+    },
+    {
+      "check": "plan_field:planned_looks",
+      "status": "pass",
+      "message": "Campo planned_looks presente en analysis_plan.json."
+    },
+    {
+      "check": "plan_field:decision_rules",
+      "status": "pass",
+      "message": "Campo decision_rules presente en analysis_plan.json."
+    },
+    {
+      "check": "primary_metric_in_catalog",
+      "status": "pass",
+      "message": "La metrica primaria debe existir en metric_catalog.json y tener type=primary."
+    },
+    {
+      "check": "guardrail_in_catalog:negative_feedback",
+      "status": "pass",
+      "message": "Cada guardrail del plan debe existir en el catalogo con type=guardrail."
+    },
+    {
+      "check": "guardrail_in_catalog:latency_ms",
+      "status": "pass",
+      "message": "Cada guardrail del plan debe existir en el catalogo con type=guardrail."
+    },
+    {
+      "check": "guardrail_in_catalog:cost_eur",
+      "status": "pass",
+      "message": "Cada guardrail del plan debe existir en el catalogo con type=guardrail."
+    },
+    {
+      "check": "guardrail_in_catalog:citation_valid",
+      "status": "pass",
+      "message": "Cada guardrail del plan debe existir en el catalogo con type=guardrail."
+    },
+    {
+      "check": "one_primary_metric",
+      "status": "pass",
+      "message": "Debe haber una metrica primaria clara; el resto se reporta como guardrail o diagnostico."
+    },
+    {
+      "check": "exposure_fields",
+      "status": "pass",
+      "message": "La flag debe exigir campo de exposición real."
+    },
+    {
+      "check": "targeting_key_matches_unit",
+      "status": "pass",
+      "message": "La unidad del plan debe coincidir con el targeting_key o estar justificada."
+    }
+  ]
+}

@@ -1,0 +1,101 @@
+{
+  "sat": {
+    "name": "campaña-con-aprobación-legal",
+    "variables": {
+      "A": "Enviar oferta por email",
+      "B": "Mostrar oferta como banner",
+      "C": "Texto aprobado por legal"
+    },
+    "clauses": [
+      ["A", "B"],
+      ["!A", "C"],
+      ["!B", "C"]
+    ],
+    "natural_language_rules": [
+      "Debe haber al menos un canal: email o banner.",
+      "Si hay email, legal debe aprobar.",
+      "Si hay banner, legal debe aprobar."
+    ]
+  },
+  "csp": {
+    "name": "agenda-de-tres-reuniones",
+    "variables": {
+      "R1": "Reunión de producto",
+      "R2": "Reunión con cliente",
+      "R3": "Revisión técnica"
+    },
+    "domains": {
+      "R1": [9, 10, 11],
+      "R2": [9, 10, 11],
+      "R3": [9, 10, 11]
+    },
+    "hard_constraints": [
+      {
+        "id": "ana_no_solape",
+        "type": "not_equals",
+        "left": "R1",
+        "right": "R2",
+        "explain": "Ana participa en producto y cliente."
+      },
+      {
+        "id": "cliente_a_las_10",
+        "type": "equals_value",
+        "left": "R2",
+        "value": 10,
+        "explain": "El cliente solo puede a las 10."
+      },
+      {
+        "id": "sala_no_solape",
+        "type": "not_equals",
+        "left": "R2",
+        "right": "R3",
+        "explain": "Cliente y revisión técnica comparten sala."
+      }
+    ],
+    "soft_preferences": [
+      {
+        "id": "producto_temprano",
+        "type": "prefer_value",
+        "left": "R1",
+        "value": 9,
+        "penalty": 1,
+        "explain": "Producto prefiere primera hora."
+      },
+      {
+        "id": "revision_tarde",
+        "type": "prefer_value",
+        "left": "R3",
+        "value": 11,
+        "penalty": 2,
+        "explain": "La revisión técnica prefiere cerrar el bloque."
+      }
+    ],
+    "candidate_schedules": {
+      "valid_best": {
+        "R1": 9,
+        "R2": 10,
+        "R3": 11
+      },
+      "valid_but_not_best": {
+        "R1": 11,
+        "R2": 10,
+        "R3": 9
+      },
+      "bad_overlap": {
+        "R1": 10,
+        "R2": 10,
+        "R3": 11
+      },
+      "bad_client_time": {
+        "R1": 9,
+        "R2": 11,
+        "R3": 10
+      },
+      "bad_room_conflict": {
+        "R1": 9,
+        "R2": 10,
+        "R3": 10
+      }
+    }
+  }
+}

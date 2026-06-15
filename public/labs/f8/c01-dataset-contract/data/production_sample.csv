@@ -1,0 +1,13 @@
+case_id,created_at,product,language,channel,label,pii_risk
+pd001,2026-06-01,matricula,es,portal,answer,low
+pd002,2026-06-01,matricula,es,portal,answer,low
+pd003,2026-06-01,matricula,es,email,ask_more,low
+pd004,2026-06-02,pagos,es,email,escalate,medium
+pd005,2026-06-02,pagos,es,portal,answer,medium
+pd006,2026-06-02,pagos,es,portal,answer,medium
+pd007,2026-06-03,becas,es,chat,ask_more,low
+pd008,2026-06-03,becas,es,portal,answer,low
+pd009,2026-06-03,becas,es,email,escalate,medium
+pd010,2026-06-04,practicas,es,chat,ask_more,low
+pd011,2026-06-04,practicas,es,email,ask_more,low
+pd012,2026-06-04,horarios,es,portal,answer,low

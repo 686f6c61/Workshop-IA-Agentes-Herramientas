@@ -1,0 +1,13 @@
+{
+  "ticket_id": "ticket:t1",
+  "triples": [
+    ["ticket:t1", "paraPersona", "persona:ana"],
+    ["ticket:t1", "solicitaAccesoA", "recurso:facturas"],
+    ["ticket:t1", "tieneAprobacion", "persona:luis"],
+    ["persona:ana", "perteneceA", "equipo:finanzas"],
+    ["persona:ana", "tieneRol", "rol:finanzas"],
+    ["persona:luis", "responsableDe", "equipo:finanzas"],
+    ["recurso:facturas", "requiereRol", "rol:finanzas"],
+    ["recurso:facturas", "permiteAcceso", "temporal"]
+  ]
+}

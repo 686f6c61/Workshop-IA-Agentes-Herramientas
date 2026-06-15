@@ -1,0 +1,65 @@
+{
+  "title": "Motor de permisos",
+  "artifact": {
+    "actions": [
+      {
+        "action": "read_policy",
+        "risk": "low",
+        "decision": "allow"
+      },
+      {
+        "action": "read_balance",
+        "risk": "private_read",
+        "decision": "allow_if_authenticated"
+      },
+      {
+        "action": "create_ticket",
+        "risk": "persistent_write",
+        "decision": "approval_required"
+      },
+      {
+        "action": "send_email",
+        "risk": "external_effect",
+        "decision": "approval_required"
+      }
+    ],
+    "approval_queue": [
+      {
+        "action": "create_ticket",
+        "risk": "persistent_write",
+        "decision": "approval_required"
+      },
+      {
+        "action": "send_email",
+        "risk": "external_effect",
+        "decision": "approval_required"
+      }
+    ]
+  },
+  "checks": [
+    {
+      "name": "acciones clasificadas",
+      "passed": true,
+      "detail": "No todas las tools tienen el mismo riesgo."
+    },
+    {
+      "name": "escrituras con aprobación",
+      "passed": true,
+      "detail": "El modelo no ejecuta efectos externos sin revisión."
+    },
+    {
+      "name": "cola de aprobación no vacía",
+      "passed": true,
+      "detail": "El sistema separa decisión y ejecución."
+    },
+    {
+      "name": "lectura privada exige autenticación",
+      "passed": true,
+      "detail": "Privacidad no es un comentario, es una regla."
+    }
+  ],
+  "status": "valid",
+  "what_you_take": "Un motor de permisos con cola de aprobación para acciones con efecto.",
+  "decision": "La autonomía queda graduada: leer, escribir y enviar no comparten permisos ni la misma ruta de aprobación.",
+  "chapter": "c08"
+}

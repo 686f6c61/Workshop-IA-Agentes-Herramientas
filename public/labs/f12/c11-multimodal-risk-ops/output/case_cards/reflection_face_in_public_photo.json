@@ -1,0 +1,25 @@
+{
+  "case_id": "reflection_face_in_public_photo",
+  "title": "Foto de producto con una cara reflejada en cristal",
+  "modality": "image",
+  "purpose": "Generar texto alternativo para catálogo público sin publicar personas accidentales",
+  "owner": "equipo_contenido",
+  "destination": "approved_ai_provider",
+  "storage": "public_asset",
+  "entity_count": 1,
+  "max_entity_sensitivity": 0.448,
+  "exposure_score": 0.0,
+  "impact": 0.63,
+  "risk_score": 0.3977,
+  "missing_controls": [
+    "region_redaction"
+  ],
+  "retention_days": 365,
+  "decision": "review",
+  "expected_decision": "review",
+  "decision_matches_expected": true,
+  "failures": [
+    "controles_faltantes"
+  ],
+  "next_action": "Añadir controles faltantes: region_redaction"
+}

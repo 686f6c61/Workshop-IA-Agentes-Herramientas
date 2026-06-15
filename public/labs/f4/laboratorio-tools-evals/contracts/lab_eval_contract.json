@@ -1,0 +1,17 @@
+{
+  "contract_id": "f4-tools-evals-contract",
+  "contract_version": "2026-06-07",
+  "rag_must_pass": {
+    "hit_at_1_min": 0.9,
+    "mrr_min": 0.9,
+    "abstention_ok_min": 0.9,
+    "trace_complete_rate_min": 1.0
+  },
+  "router_must_pass": {
+    "route_accuracy_min": 0.95,
+    "task_pass_rate_min": 0.9,
+    "trace_complete_rate_min": 1.0,
+    "tool_error_count_max": 0
+  },
+  "required_trace_spans": ["input", "route", "tool", "evaluate"]
+}

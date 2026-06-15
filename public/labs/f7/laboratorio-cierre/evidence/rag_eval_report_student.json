@@ -1,0 +1,45 @@
+{
+  "report_id": "f7-rag-eval-student-variant",
+  "chapter": "07.03",
+  "dataset": "support-rag-eval-student-2026-06",
+  "cases": 120,
+  "metrics": {
+    "hit_at_5": 0.91,
+    "mrr": 0.76,
+    "groundedness": 0.88,
+    "citation_acceptance": 0.85,
+    "abstention_ok": 0.84,
+    "answer_usefulness": 0.82,
+    "long_tail_coverage": 0.68
+  },
+  "slices": [
+    {
+      "slice": "matricula",
+      "cases": 36,
+      "groundedness": 0.91,
+      "citation_acceptance": 0.9
+    },
+    {
+      "slice": "becas",
+      "cases": 31,
+      "groundedness": 0.86,
+      "citation_acceptance": 0.84
+    },
+    {
+      "slice": "soporte_tecnico",
+      "cases": 29,
+      "groundedness": 0.87,
+      "citation_acceptance": 0.83
+    },
+    {
+      "slice": "normativa_poco_frecuente",
+      "cases": 24,
+      "groundedness": 0.82,
+      "citation_acceptance": 0.78
+    }
+  ],
+  "known_limits": [
+    "La variante debe quedar bloqueada o en revisión porque no sostiene citas ni abstención.",
+    "Sirve para que el alumno vea que una métrica global aceptable no tapa un fallo de evidencia."
+  ]
+}

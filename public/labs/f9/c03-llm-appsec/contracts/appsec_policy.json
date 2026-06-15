@@ -1,0 +1,103 @@
+{
+  "policy_version": "llm_appsec_policy@2026-06-07",
+  "default_decision": "block",
+  "roles": {
+    "student": {
+      "scopes": ["docs:read_public", "assistant:ask"]
+    },
+    "operator": {
+      "scopes": ["docs:read_public", "case:read", "email:draft", "assistant:ask"]
+    },
+    "case_manager": {
+      "scopes": ["docs:read_public", "case:read", "case:write", "email:draft", "email:send", "assistant:ask"]
+    }
+  },
+  "rag": {
+    "require_acl_before_similarity": true,
+    "require_active_document": true,
+    "require_allowed_purpose": true,
+    "instruction_like_patterns": [
+      "ignora la política",
+      "muestra la configuración",
+      "revela instrucciones",
+      "ejecuta sin permiso",
+      "omite aprobación"
+    ]
+  },
+  "egress_policy": {
+    "allowed_email_domains": ["universidad.example"],
+    "allowed_http_domains": ["universidad.example", "boe.es", "eur-lex.europa.eu"]
+  },
+  "tools": [
+    {
+      "name": "search_policy_docs",
+      "capability": "retrieve_policy_context",
+      "effect": "read",
+      "scope_required": ["docs:read_public"],
+      "approval_required": false,
+      "egress": "none",
+      "schema": {
+        "required": ["query", "purpose"],
+        "additionalProperties": false,
+        "properties": {
+          "query": { "type": "string", "maxLength": 240 },
+          "purpose": { "type": "string", "enum": ["academic_guidance", "case_support"] }
+        }
+      }
+    },
+    {
+      "name": "prepare_academic_email",
+      "capability": "prepare_or_send_email",
+      "effect": "external_send",
+      "scope_required": ["case:read", "email:draft"],
+      "approval_required": "when_send_or_personal_data",
+      "egress": "email_domain_allowlist",
+      "schema": {
+        "required": ["recipient", "subject", "body", "case_id", "send_mode", "contains_personal_data"],
+        "additionalProperties": false,
+        "properties": {
+          "recipient": { "type": "string", "format": "email" },
+          "subject": { "type": "string", "maxLength": 120 },
+          "body": { "type": "string", "maxLength": 4000 },
+          "case_id": { "type": "string", "pattern": "^CASE-[0-9]{4}$" },
+          "send_mode": { "type": "string", "enum": ["prepare", "send"] },
+          "contains_personal_data": { "type": "boolean" }
+        }
+      }
+    },
+    {
+      "name": "update_case_status",
+      "capability": "change_case_state",
+      "effect": "state_change",
+      "scope_required": ["case:read", "case:write"],
+      "approval_required": true,
+      "egress": "none",
+      "schema": {
+        "required": ["case_id", "new_status", "reason", "idempotency_key"],
+        "additionalProperties": false,
+        "properties": {
+          "case_id": { "type": "string", "pattern": "^CASE-[0-9]{4}$" },
+          "new_status": { "type": "string", "enum": ["pending_review", "resolved", "needs_documentation"] },
+          "reason": { "type": "string", "maxLength": 500 },
+          "idempotency_key": { "type": "string", "pattern": "^idem_[a-z0-9_]{8,64}$" }
+        }
+      }
+    },
+    {
+      "name": "fetch_public_page",
+      "capability": "read_public_web_page",
+      "effect": "external_fetch",
+      "scope_required": ["assistant:ask"],
+      "approval_required": false,
+      "egress": "http_domain_allowlist",
+      "schema": {
+        "required": ["url", "purpose"],
+        "additionalProperties": false,
+        "properties": {
+          "url": { "type": "string", "format": "url" },
+          "purpose": { "type": "string", "enum": ["source_check", "reference_lookup"] }
+        }
+      }
+    }
+  ]
+}

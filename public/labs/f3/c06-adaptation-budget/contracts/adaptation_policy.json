@@ -1,0 +1,6 @@
+{
+  "max_lora_trainable_percent": 2.0,
+  "max_int4_7b_gb": 3.6,
+  "max_distillation_kl": 0.2
+}
+

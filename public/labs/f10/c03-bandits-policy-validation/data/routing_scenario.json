@@ -1,0 +1,24 @@
+{
+  "scenario_id": "routing_modelos_soporte_c03",
+  "description": "Rondas reproducibles para comparar politicas bandit en routing de modelos.",
+  "actions": {
+    "modelo_rapido": {"cost": 0.05},
+    "modelo_fuerte": {"cost": 0.18},
+    "revision_humana": {"cost": 0.7}
+  },
+  "rounds": [
+    {"round": 1, "slice": "baja_criticidad", "allowed_actions": ["modelo_rapido", "modelo_fuerte", "revision_humana"], "reward_by_action": {"modelo_rapido": 0.60, "modelo_fuerte": 0.77, "revision_humana": 0.66}},
+    {"round": 2, "slice": "media_criticidad", "allowed_actions": ["modelo_rapido", "modelo_fuerte", "revision_humana"], "reward_by_action": {"modelo_rapido": 0.55, "modelo_fuerte": 0.78, "revision_humana": 0.68}},
+    {"round": 3, "slice": "baja_criticidad", "allowed_actions": ["modelo_rapido", "modelo_fuerte", "revision_humana"], "reward_by_action": {"modelo_rapido": 0.64, "modelo_fuerte": 0.75, "revision_humana": 0.65}},
+    {"round": 4, "slice": "alta_criticidad", "allowed_actions": ["modelo_fuerte", "revision_humana"], "reward_by_action": {"modelo_fuerte": 0.81, "revision_humana": 0.72}},
+    {"round": 5, "slice": "baja_criticidad", "allowed_actions": ["modelo_rapido", "modelo_fuerte", "revision_humana"], "reward_by_action": {"modelo_rapido": 0.59, "modelo_fuerte": 0.79, "revision_humana": 0.67}},
+    {"round": 6, "slice": "media_criticidad", "allowed_actions": ["modelo_rapido", "modelo_fuerte", "revision_humana"], "reward_by_action": {"modelo_rapido": 0.58, "modelo_fuerte": 0.76, "revision_humana": 0.69}},
+    {"round": 7, "slice": "baja_criticidad", "allowed_actions": ["modelo_rapido", "modelo_fuerte", "revision_humana"], "reward_by_action": {"modelo_rapido": 0.63, "modelo_fuerte": 0.80, "revision_humana": 0.66}},
+    {"round": 8, "slice": "media_criticidad", "allowed_actions": ["modelo_rapido", "modelo_fuerte", "revision_humana"], "reward_by_action": {"modelo_rapido": 0.56, "modelo_fuerte": 0.77, "revision_humana": 0.68}},
+    {"round": 9, "slice": "alta_criticidad", "allowed_actions": ["modelo_fuerte", "revision_humana"], "reward_by_action": {"modelo_fuerte": 0.82, "revision_humana": 0.73}},
+    {"round": 10, "slice": "baja_criticidad", "allowed_actions": ["modelo_rapido", "modelo_fuerte", "revision_humana"], "reward_by_action": {"modelo_rapido": 0.61, "modelo_fuerte": 0.78, "revision_humana": 0.66}},
+    {"round": 11, "slice": "media_criticidad", "allowed_actions": ["modelo_rapido", "modelo_fuerte", "revision_humana"], "reward_by_action": {"modelo_rapido": 0.57, "modelo_fuerte": 0.79, "revision_humana": 0.67}},
+    {"round": 12, "slice": "baja_criticidad", "allowed_actions": ["modelo_rapido", "modelo_fuerte", "revision_humana"], "reward_by_action": {"modelo_rapido": 0.62, "modelo_fuerte": 0.76, "revision_humana": 0.65}}
+  ],
+  "repeat": 5
+}

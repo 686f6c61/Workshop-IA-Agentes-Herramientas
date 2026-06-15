@@ -1,0 +1,32 @@
+{
+  "contract_version": "1.0.0",
+  "max_population_stability_index": 0.20,
+  "max_reward_delta": 0.10,
+  "min_reward_mean": 0.62,
+  "min_case_pass_rate": 0.90,
+  "min_evidence_pass_rate": 0.90,
+  "max_p95_latency_ms": 2500,
+  "max_tool_error_rate": 0.04,
+  "max_fallback_rate": 0.08,
+  "required_stages": ["shadow", "pilot_5", "pilot_25"],
+  "required_trace_fields": [
+    "trace_id",
+    "policy_version",
+    "policy_candidate_version",
+    "reward_card_version",
+    "input_slice",
+    "action",
+    "action_probability",
+    "reward",
+    "hard_gates",
+    "latency_ms",
+    "fallback_policy_version"
+  ],
+  "required_outputs": [
+    "serving_audit_report.json",
+    "serving_decision.md",
+    "drift_scorecard.csv",
+    "rollout_scorecard.csv",
+    "serving_runbook.md"
+  ]
+}

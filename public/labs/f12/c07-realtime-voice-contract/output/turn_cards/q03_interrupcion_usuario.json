@@ -1,0 +1,45 @@
+{
+  "case_id": "q03_interrupcion_usuario",
+  "title": "Barge-in: el usuario interrumpe al agente",
+  "decision": "stop_and_answer",
+  "expected_decision": "stop_and_answer",
+  "redacted_transcript": "espera no envies ese correo quiero revisar el texto antes",
+  "answer": "Detengo la locución, cancelo la propuesta de envío y paso a revisión.",
+  "metrics": {
+    "wer": 0.0,
+    "substitutions": 0,
+    "deletions": 0,
+    "insertions": 0,
+    "reference_words": 10,
+    "hypothesis_words": 10,
+    "critical_slot_count": 2,
+    "critical_slot_errors": 0,
+    "critical_slot_error_rate": 0.0,
+    "critical_slot_mismatches": [],
+    "partial_count": 3,
+    "partial_revision_count": 0,
+    "partial_stability": 1.0,
+    "speech_start_ms": 0,
+    "speech_end_ms": 1900,
+    "mean_energy": 0.081,
+    "endpoint_delay_ms": 360,
+    "first_audio_latency_ms": 1070,
+    "total_turn_latency_ms": 5120,
+    "sample_rate_hz": 16000,
+    "endpoint_silence_ms": 500,
+    "barge_in_stop_latency_ms": 130
+  },
+  "quality_flags": [
+    "barge_in_respected"
+  ],
+  "evidence": [
+    "barge_in_event",
+    "send_email_requires_confirmation"
+  ],
+  "limits": [
+    "La transcripción de voz no se trata como verdad absoluta.",
+    "Las herramientas con efecto externo requieren política y confirmación."
+  ],
+  "next_action": "Detener TTS, cancelar la salida anterior y continuar desde la nueva intención.",
+  "audit_action": "Detener reproducción, cancelar salida anterior y reabrir el turno."
+}

@@ -1,0 +1,88 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "F9 C04 compliance record-keeping event",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "event_id",
+    "event_type",
+    "timestamp",
+    "system_id",
+    "policy_version",
+    "model_id",
+    "prompt_version",
+    "rag_index_version",
+    "tool_policy_version",
+    "classification",
+    "decision",
+    "blockers",
+    "conditions",
+    "personal_data_stored",
+    "retention_until"
+  ],
+  "properties": {
+    "event_id": {
+      "type": "string",
+      "pattern": "^f9c04_trace_[0-9]{3,}$"
+    },
+    "event_type": {
+      "type": "string",
+      "enum": [
+        "compliance_gate_evaluated"
+      ]
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "system_id": {
+      "type": "string"
+    },
+    "policy_version": {
+      "type": "string"
+    },
+    "model_id": {
+      "type": "string"
+    },
+    "prompt_version": {
+      "type": "string"
+    },
+    "rag_index_version": {
+      "type": "string"
+    },
+    "tool_policy_version": {
+      "type": "string"
+    },
+    "classification": {
+      "type": "string"
+    },
+    "decision": {
+      "type": "string",
+      "enum": [
+        "publicar_con_seguimiento",
+        "publicar_con_condiciones",
+        "revisar_antes"
+      ]
+    },
+    "blockers": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "conditions": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "personal_data_stored": {
+      "type": "boolean"
+    },
+    "retention_until": {
+      "type": "string",
+      "format": "date"
+    }
+  },
+  "example_retention_until": "2026-12-04"
+}

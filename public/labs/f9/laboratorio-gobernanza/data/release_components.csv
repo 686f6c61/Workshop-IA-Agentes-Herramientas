@@ -1,0 +1,4 @@
+system_id,name,stage,model_id,prompt_version,rag_index_version,tool_policy_version,provider_profile,owner
+academic_support_assistant,Asistente académico con RAG,production,provider-model@2026-06-07,academic-prompt@0.4.2,normativa-academica@2026.1,ticket-tools@0.3.0,hosted-llm-eu,equipo-plataforma-ia
+admissions_prioritization_helper,Ayuda de priorización para admisiones,pilot,provider-model@2026-06-07,admissions-prompt@0.2.0,admissions-index@2026.1,admissions-tools@0.1.0,hosted-llm-eu,equipo-datos-academicos
+internal_coding_helper,Asistente interno de código,production,provider-code-model@2026-06-07,coding-prompt@1.1.0,engineering-docs@2026.2,repo-tools@0.5.1,local-runtime,equipo-ingenieria

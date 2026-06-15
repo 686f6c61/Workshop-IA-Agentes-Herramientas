@@ -1,0 +1,52 @@
+{
+  "metrics": [
+    {
+      "name": "resolved",
+      "type": "primary",
+      "unit": "unit_id",
+      "window": "day_7",
+      "direction": "higher_is_better",
+      "definition": "Caso resuelto de forma correcta dentro de la ventana observada."
+    },
+    {
+      "name": "negative_feedback",
+      "type": "guardrail",
+      "unit": "unit_id",
+      "window": "day_7",
+      "direction": "lower_is_better",
+      "definition": "Feedback negativo asociado a la intervencion o respuesta."
+    },
+    {
+      "name": "latency_ms",
+      "type": "guardrail",
+      "unit": "unit_id",
+      "window": "exposure",
+      "direction": "lower_is_better",
+      "definition": "Latencia medida desde solicitud hasta respuesta disponible."
+    },
+    {
+      "name": "cost_eur",
+      "type": "guardrail",
+      "unit": "unit_id",
+      "window": "exposure",
+      "direction": "lower_is_better",
+      "definition": "Coste aproximado por unidad expuesta."
+    },
+    {
+      "name": "citation_valid",
+      "type": "guardrail",
+      "unit": "unit_id",
+      "window": "exposure",
+      "direction": "higher_is_better",
+      "definition": "La respuesta cita una fuente valida y suficiente."
+    },
+    {
+      "name": "retrieval_precision",
+      "type": "diagnostic",
+      "unit": "unit_id",
+      "window": "exposure",
+      "direction": "higher_is_better",
+      "definition": "Proporcion de documentos recuperados que son relevantes para la consulta."
+    }
+  ]
+}

@@ -1,0 +1,75 @@
+titulo: "La caja de herramientas"
+fasciculo: 4
+total_capitulos: 14
+estado: revision
+
+capitulos:
+  - numero: 1
+    archivo: 01-elegir-intervencion-correcta.md
+    titulo: "Elegir la intervención correcta: prompt, RAG, tool o ajuste"
+    estado: revision
+
+  - numero: 2
+    archivo: 02-apis-modelos-mensajes-structured-outputs.md
+    titulo: "APIs de modelos: mensajes, streaming y salidas estructuradas"
+    estado: revision
+
+  - numero: 3
+    archivo: 03-tokens-coste-contexto-cache.md
+    titulo: "Tokens, coste, contexto y caché"
+    estado: revision
+
+  - numero: 4
+    archivo: 04-model-cards-eleccion-modelos.md
+    titulo: "Model cards y elección de modelos"
+    estado: revision
+
+  - numero: 5
+    archivo: 05-modelos-locales-ollama-lmstudio-gguf.md
+    titulo: "Modelos locales: Ollama, LM Studio, GGUF y cuantización"
+    estado: revision
+
+  - numero: 6
+    archivo: 06-cloud-vs-local-privacidad-latencia-coste.md
+    titulo: "Cloud frente a local: privacidad, latencia y coste"
+    estado: revision
+
+  - numero: 7
+    archivo: 07-embeddings-busqueda-semantica.md
+    titulo: "Embeddings aplicados y búsqueda semántica"
+    estado: revision
+
+  - numero: 8
+    archivo: 08-bases-vectoriales-hybrid-search.md
+    titulo: "Bases vectoriales, filtros y búsqueda híbrida"
+    estado: revision
+
+  - numero: 9
+    archivo: 09-rag-basico-chunking-retrieval-citas.md
+    titulo: "RAG básico: chunking, retrieval, citas y abstención"
+    estado: revision
+
+  - numero: 10
+    archivo: 10-evaluar-rag-retrieval-groundedness.md
+    titulo: "Evaluar RAG: retrieval, groundedness y abstención"
+    estado: revision
+
+  - numero: 11
+    archivo: 11-agentic-rag-graphrag-cuando-complicar.md
+    titulo: "Agentic RAG y GraphRAG: cuándo complicar"
+    estado: revision
+
+  - numero: 12
+    archivo: 12-text-to-sql-herramientas-datos.md
+    titulo: "Text-to-SQL y herramientas de datos"
+    estado: revision
+
+  - numero: 13
+    archivo: 13-laboratorio-minimo-evals-trazas.md
+    titulo: "Laboratorio mínimo: notebooks, evals y trazas"
+    estado: revision
+
+  - numero: 14
+    archivo: 14-recapitulacion-caja-herramientas.md
+    titulo: "Lo que deberías saber: la caja de herramientas"
+    estado: revision

@@ -1,0 +1,18 @@
+system_id,layer,requirement,status,owner,evidence_path,exists,note
+academic_support_assistant,risk,risk_register_complete,pass,owner-risk,../c01-risk-governance/output/risk_register.md,true,evidencia presente; revisar calidad y vigencia
+academic_support_assistant,privacy,dpia_precheck_and_minimization,pass,owner-privacy,../c02-privacy-dpia/output/dpia_precheck.md,true,evidencia presente; revisar calidad y vigencia
+academic_support_assistant,llm_appsec,rag_tool_gate,pass,owner-platform,../c03-llm-appsec/output/appsec_gate_report.md,true,evidencia presente; revisar calidad y vigencia
+academic_support_assistant,compliance,post_deployment_monitoring,review,owner-ops,../c04-compliance-audit/output/change_control_record.md,true,condición abierta; necesita cierre con owner y nuevo gate
+admissions_prioritization_helper,risk,high_impact_risk_register,pass,owner-risk,../c01-risk-governance/output/risk_register.md,true,evidencia presente; revisar calidad y vigencia
+admissions_prioritization_helper,privacy,dpia_retention_decision,review,owner-privacy,../c02-privacy-dpia/output/dpia_precheck.md,true,condición abierta; necesita cierre con owner y nuevo gate
+admissions_prioritization_helper,llm_appsec,tool_and_rag_boundary,review,owner-platform,../c03-llm-appsec/output/appsec_gate_report.md,true,condición abierta; necesita cierre con owner y nuevo gate
+admissions_prioritization_helper,compliance,recordkeeping_export,pass,owner-platform,evidence/recordkeeping_contract.json,true,archivo presente; verificar que el contrato está conectado a export real de trazas
+admissions_prioritization_helper,compliance,fria_precheck,review,owner-governance,../c04-compliance-audit/output/compliance_gap_matrix.md,true,condición abierta; necesita cierre con owner y nuevo gate
+admissions_prioritization_helper,operation,rollback_and_monitoring,review,owner-ops,../c04-compliance-audit/output/audit_gate.md,true,condición abierta; necesita cierre con owner y nuevo gate
+internal_coding_helper,risk,internal_use_register,pass,owner-risk,../c01-risk-governance/output/control_matrix.csv,true,evidencia presente; revisar calidad y vigencia
+internal_coding_helper,llm_appsec,repo_tool_scope,pass,owner-platform,../c03-llm-appsec/output/tool_contract_matrix.csv,true,evidencia presente; revisar calidad y vigencia
+internal_coding_helper,operation,local_runtime_monitoring,pass,owner-ops,../c04-compliance-audit/output/provider_due_diligence_checklist.md,true,evidencia presente; revisar calidad y vigencia
+admissions_prioritization_helper,zero_trust_agents,agent_identity_and_short_lived_credentials,pass,owner-platform,evidence/agent_identity_policy.yaml,true,evidencia presente; revisar calidad y vigencia
+admissions_prioritization_helper,zero_trust_agents,least_agency_tool_boundary,review,owner-platform,evidence/tool_boundary_contract.yaml,true,condición abierta; necesita cierre con owner y nuevo gate
+academic_support_assistant,zero_trust_agents,memory_ttl_and_source_integrity,review,owner-privacy,evidence/memory_retention_policy.md,true,condición abierta; necesita cierre con owner y nuevo gate
+internal_coding_helper,zero_trust_agents,repo_scoped_agent_identity,pass,owner-platform,evidence/credential_scope_register.csv,true,evidencia presente; revisar calidad y vigencia

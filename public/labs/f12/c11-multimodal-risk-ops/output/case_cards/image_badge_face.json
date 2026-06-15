@@ -1,0 +1,21 @@
+{
+  "case_id": "image_badge_face",
+  "title": "Foto de acreditación con cara y ID de estudiante",
+  "modality": "image",
+  "purpose": "Verificar que una imagen es del tipo correcto antes de archivarla",
+  "owner": "equipo_admisiones",
+  "destination": "internal_support_tool",
+  "storage": "redacted_trace",
+  "entity_count": 2,
+  "max_entity_sensitivity": 0.704,
+  "exposure_score": 0.0,
+  "impact": 0.72,
+  "risk_score": 0.455,
+  "missing_controls": [],
+  "retention_days": 30,
+  "decision": "review",
+  "expected_decision": "review",
+  "decision_matches_expected": true,
+  "failures": [],
+  "next_action": "Enviar a revisión de privacidad/seguridad antes de publicar."
+}

@@ -1,0 +1,72 @@
+{
+  "title": "Contrato operativo de tool",
+  "artifact": {
+    "name": "consultar_saldo",
+    "input_schema": {
+      "required": [
+        "case_id"
+      ],
+      "types": {
+        "case_id": "string"
+      }
+    },
+    "output_schema": {
+      "required": [
+        "pending_eur",
+        "currency"
+      ],
+      "types": {
+        "pending_eur": "number",
+        "currency": "string"
+      }
+    },
+    "permission": "authenticated_read",
+    "side_effect": "none",
+    "timeouts_ms": {
+      "connect": 250,
+      "read": 1000
+    },
+    "errors": [
+      "not_found",
+      "forbidden",
+      "timeout",
+      "schema_invalid"
+    ],
+    "trace_events": [
+      "tool.call",
+      "tool.result",
+      "tool.error"
+    ]
+  },
+  "checks": [
+    {
+      "name": "schema de entrada completo",
+      "passed": true,
+      "detail": "La tool no acepta texto libre como contrato."
+    },
+    {
+      "name": "schema de salida completo",
+      "passed": true,
+      "detail": "La observación vuelve estructurada."
+    },
+    {
+      "name": "permiso explícito",
+      "passed": true,
+      "detail": "La tool declara su frontera de acceso."
+    },
+    {
+      "name": "errores nombrados",
+      "passed": true,
+      "detail": "El agente puede distinguir fallo de negocio y fallo técnico."
+    },
+    {
+      "name": "trazas nombradas",
+      "passed": true,
+      "detail": "La ejecución se puede reconstruir."
+    }
+  ],
+  "status": "valid",
+  "what_you_take": "Un contrato de tool con schema, permiso, errores, timeout y eventos de traza.",
+  "decision": "La tool puede integrarse en un agente: no depende de una descripción bonita, sino de schema, permisos, errores y trazas.",
+  "chapter": "c03"
+}

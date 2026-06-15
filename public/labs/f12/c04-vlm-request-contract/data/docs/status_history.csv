@@ -1,0 +1,5 @@
+event_id,case_id,status,source,timestamp
+e001,grant_workflow_005,documento_subido,portal,2026-06-12T09:10:00
+e002,grant_workflow_005,validacion_pendiente,backoffice,2026-06-12T09:12:00
+e003,grant_workflow_005,envio_bloqueado,portal,2026-06-12T09:13:00
+e004,invoice_total_002,total_extraido,ocr,2026-06-12T10:02:00

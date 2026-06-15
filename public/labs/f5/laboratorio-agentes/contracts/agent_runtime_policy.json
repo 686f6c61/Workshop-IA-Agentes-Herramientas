@@ -1,0 +1,10 @@
+{
+  "policy_id": "f5-agent-runtime-policy",
+  "policy_version": "2026-06-07",
+  "states": ["CREATED", "PLANNING", "WAITING_APPROVAL", "TOOL_CALLING", "COMPLETED", "DUPLICATE"],
+  "persistent_routes": ["support_ticket", "guide_update"],
+  "approval_required_for": ["persistent_write"],
+  "required_trace_spans": ["run.started", "route.decision", "tool.call", "tool.result", "run.completed"],
+  "required_duplicate_span": "run.duplicate",
+  "required_waiting_span": "approval.required"
+}

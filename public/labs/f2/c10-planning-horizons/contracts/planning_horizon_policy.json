@@ -1,0 +1,6 @@
+{
+  "max_horizon": 4,
+  "expected_first_sat_horizon": 3,
+  "require_replan_after_observation": true
+}
+

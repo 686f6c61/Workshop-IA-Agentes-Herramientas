@@ -1,0 +1,44 @@
+{
+  "title": "Decision record de arquitectura agentic",
+  "artifact": {
+    "weights": {
+      "predictability": 0.35,
+      "flexibility": 0.2,
+      "auditability": 0.3,
+      "latency": 0.15
+    },
+    "scores": {
+      "workflow": 4.25,
+      "react": 3.2,
+      "planner_executor": 3.7,
+      "multiagent": 2.45
+    },
+    "choice": "workflow"
+  },
+  "checks": [
+    {
+      "name": "opciones comparadas",
+      "passed": true,
+      "detail": "No se elige arquitectura por nombre de moda."
+    },
+    {
+      "name": "pesos explícitos",
+      "passed": true,
+      "detail": "La decisión declara qué importa."
+    },
+    {
+      "name": "workflow gana para caso regulado",
+      "passed": true,
+      "detail": "La trazabilidad pesa más que la flexibilidad."
+    },
+    {
+      "name": "queda alternativa",
+      "passed": true,
+      "detail": "Hay plan si aumenta complejidad multi-paso."
+    }
+  ],
+  "status": "valid",
+  "what_you_take": "Un ADR para elegir arquitectura agentic por pesos, no por moda.",
+  "decision": "Para un proceso académico con permisos y trazas, la recomendación inicial es workflow; si aparecen tareas abiertas, se reevalúa planner-executor.",
+  "chapter": "c05"
+}

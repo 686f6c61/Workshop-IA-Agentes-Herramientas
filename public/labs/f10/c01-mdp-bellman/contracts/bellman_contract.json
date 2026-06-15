@@ -1,0 +1,18 @@
+{
+  "scenario_id": "support_mdp_v1",
+  "contract_version": "1.0.0",
+  "gamma": 0.9,
+  "max_iterations": 100,
+  "convergence_tolerance": 0.000001,
+  "min_non_terminal_states": 2,
+  "required_transition_fields": [
+    "reward",
+    "next_state",
+    "probability"
+  ],
+  "gate": {
+    "require_probability_mass": 1.0,
+    "max_probability_error": 0.000001,
+    "min_value_margin_for_decision": 0.05
+  }
+}

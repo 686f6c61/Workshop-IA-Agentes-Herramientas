@@ -1,0 +1,47 @@
+{
+  "contract_id": "support-quality-contract-v1",
+  "owner": "equipo-datos-ia",
+  "purpose": "Auditar calidad de datos, leakage y etiquetas antes de entrenar, evaluar o indexar.",
+  "required_columns": [
+    "case_id",
+    "split",
+    "created_at",
+    "source_id",
+    "product",
+    "language",
+    "channel",
+    "label",
+    "text",
+    "expected_label",
+    "model_probability",
+    "license",
+    "pii_risk",
+    "owner",
+    "consent_scope",
+    "annotator_a",
+    "annotator_b"
+  ],
+  "allowed_splits": ["train", "validation", "test"],
+  "allowed_products": ["matricula", "becas", "pagos", "horarios", "titulos", "practicas"],
+  "allowed_languages": ["es"],
+  "allowed_channels": ["portal", "email", "chat"],
+  "allowed_labels": ["answer", "ask_more", "escalate"],
+  "allowed_pii_risk": ["low", "medium"],
+  "allowed_licenses": {
+    "train": ["internal_training_allowed"],
+    "validation": ["support_eval_only"],
+    "test": ["support_eval_only"]
+  },
+  "min_rows_per_split": {
+    "train": 6,
+    "validation": 3,
+    "test": 4
+  },
+  "max_missing_rate": 0.02,
+  "max_exact_cross_split_duplicates": 0,
+  "max_near_cross_split_duplicates": 0,
+  "near_duplicate_jaccard_threshold": 0.82,
+  "min_model_probability_for_label": 0.55,
+  "min_kappa": 0.6,
+  "max_split_label_total_variation": 0.35
+}

@@ -1,0 +1,43 @@
+[
+  {
+    "id": "baseline_relu",
+    "inputs": [0.5, 0.3, 0.8],
+    "weights": [0.2, -0.4, 0.7],
+    "bias": 0.1,
+    "activation": "relu",
+    "expected_output": 0.64
+  },
+  {
+    "id": "negative_relu",
+    "inputs": [1.0, 2.0, -1.0],
+    "weights": [-0.5, -0.2, 0.1],
+    "bias": -0.3,
+    "activation": "relu",
+    "expected_output": 0.0
+  },
+  {
+    "id": "binary_sigmoid",
+    "inputs": [2.0, -1.0],
+    "weights": [0.8, 0.4],
+    "bias": -0.2,
+    "activation": "sigmoid",
+    "expected_output": 0.7310585786
+  },
+  {
+    "id": "linear_score",
+    "inputs": [0.2, 0.4, 0.6, 0.8],
+    "weights": [1.0, 0.5, -0.5, 0.25],
+    "bias": 0.05,
+    "activation": "linear",
+    "expected_output": 0.35
+  },
+  {
+    "id": "invalid_dimension",
+    "expected_valid": false,
+    "inputs": [0.5, 0.3, 0.8],
+    "weights": [0.2, -0.4],
+    "bias": 0.1,
+    "activation": "relu",
+    "expected_output": null
+  }
+]

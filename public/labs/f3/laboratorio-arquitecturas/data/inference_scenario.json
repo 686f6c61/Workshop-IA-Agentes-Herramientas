@@ -1,0 +1,18 @@
+{
+  "scenario_id": "informes_7b_q4",
+  "model": {
+    "parameters": 7000000000,
+    "weight_bits": 4,
+    "layers": 32,
+    "kv_heads": 8,
+    "head_dim": 128,
+    "kv_bytes": 2
+  },
+  "serving": {
+    "batch": 16,
+    "context_tokens": 2048,
+    "output_tokens_per_user": 1200,
+    "aggregate_decode_tokens_per_second": 240,
+    "runtime_margin_gb": 6
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "expected_sat_assignments_tested": 8,
+  "expected_sat_models": 3,
+  "expected_best_schedule": {
+    "R1": 9,
+    "R2": 10,
+    "R3": 11
+  },
+  "expected_best_schedule_cost": 0,
+  "minimum_csp_solutions": 4,
+  "expected_invalid_candidates": [
+    "bad_overlap",
+    "bad_client_time",
+    "bad_room_conflict"
+  ]
+}

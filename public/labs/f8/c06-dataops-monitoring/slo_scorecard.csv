@@ -1,0 +1,3 @@
+window,status,n,missing_trace_rate,latency_p95_ms,review_rate,miss_rate,safety_capture,flag_count
+2026-06-07,pass,10,0.0,590.0,0.4,0.0,1.0,0
+2026-06-08,block,10,0.1,760.0,0.7,0.6,0.4,15

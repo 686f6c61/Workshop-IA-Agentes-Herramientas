@@ -1,0 +1,25 @@
+{
+  "full_params": 16777216,
+  "lora_params": 131072,
+  "adapter_params": 524288,
+  "lora_trainable_percent": 0.78125,
+  "adapter_trainable_percent": 3.125,
+  "probabilities": {
+    "factura": 0.665241,
+    "rotos": 0.244728,
+    "saludo": 0.090031
+  },
+  "gradients": {
+    "factura": 0.665241,
+    "rotos": -0.755272,
+    "saludo": 0.090031
+  },
+  "loss": 1.407606,
+  "memory_gb": {
+    "16": 14.0,
+    "8": 7.0,
+    "4": 3.5
+  },
+  "distillation_kl": 0.066603,
+  "gate_valid": true
+}

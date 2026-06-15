@@ -1,0 +1,52 @@
+{
+  "layer_norm": [
+    1.224741,
+    -1.224741,
+    0.0
+  ],
+  "temperature_distributions": [
+    {
+      "temperature": 0.5,
+      "probs": {
+        "París": 0.878619,
+        "Madrid": 0.118908,
+        "Lyon": 0.002178,
+        "azul": 0.000295
+      },
+      "entropy": 0.382645
+    },
+    {
+      "temperature": 1.0,
+      "probs": {
+        "París": 0.696387,
+        "Madrid": 0.256187,
+        "Lyon": 0.034671,
+        "azul": 0.012755
+      },
+      "entropy": 0.773068
+    },
+    {
+      "temperature": 2.0,
+      "probs": {
+        "París": 0.508907,
+        "Madrid": 0.308668,
+        "Lyon": 0.113552,
+        "azul": 0.068873
+      },
+      "entropy": 1.137899
+    }
+  ],
+  "top_k": {
+    "París": 0.731059,
+    "Madrid": 0.268941,
+    "Lyon": 0.0,
+    "azul": 0.0
+  },
+  "top_p": {
+    "París": 0.731059,
+    "Madrid": 0.268941,
+    "Lyon": 0.0,
+    "azul": 0.0
+  },
+  "gate_valid": true
+}

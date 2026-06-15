@@ -1,0 +1,16 @@
+{
+  "snapshot_date": "2026-06-07",
+  "dataset": "f11_matricula_product_eval_v1",
+  "cases": 120,
+  "slices": {
+    "matricula_general": 48,
+    "becas_y_pago": 32,
+    "documentacion_incompleta": 24,
+    "casos_fuera_de_alcance": 16
+  },
+  "notes": [
+    "Las métricas se interpretan como señales de decisión, no como verdad permanente.",
+    "Los casos fuera de alcance cuentan para abstención y recuperación.",
+    "El piloto solo puede cubrir tareas con evidencia documental recuperable."
+  ]
+}

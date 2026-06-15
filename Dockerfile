@@ -3,7 +3,9 @@ WORKDIR /app
 
 # Build-time public identifier de GlitchTip. Se recibe desde Coolify.
 ARG PUBLIC_GLITCHTIP_DSN
+ARG PUBLIC_SITE_URL=https://workshop-ia-2026.686f6c61.dev
 ENV PUBLIC_GLITCHTIP_DSN=$PUBLIC_GLITCHTIP_DSN
+ENV PUBLIC_SITE_URL=$PUBLIC_SITE_URL
 
 COPY package*.json ./
 RUN npm ci

@@ -1,0 +1,32 @@
+{
+  "plan_id": "policy_candidate_v4_rollout_bad",
+  "feature_flag": "rl_policy_router_v4",
+  "policy_candidate_version": "policy_candidate_v4",
+  "reward_card_version": "1.0.0",
+  "owner": "ml-platform",
+  "stages": [
+    {
+      "name": "pilot_25",
+      "traffic_pct": 25,
+      "min_duration_minutes": 60,
+      "exit_criteria": ["reward_mean"]
+    }
+  ],
+  "rollback": {
+    "ready": false,
+    "decision": "manual_redeploy",
+    "max_minutes_to_restore": 90,
+    "conditions": []
+  },
+  "trace_sample": {
+    "trace_id": "trace-002",
+    "policy_version": "policy_stable_v3",
+    "policy_candidate_version": "policy_candidate_v4",
+    "reward_card_version": "1.0.0",
+    "input_slice": "rag",
+    "action": "large_reasoning_model",
+    "reward": 0.58,
+    "hard_gates": {"valid_output_contract": true},
+    "latency_ms": 3100
+  }
+}

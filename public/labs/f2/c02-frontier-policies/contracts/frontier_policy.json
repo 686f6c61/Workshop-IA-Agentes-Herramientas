@@ -1,0 +1,6 @@
+{
+  "max_expanded_warning": 50,
+  "ids_max_depth": 6,
+  "require_ucs_lowest_cost": true,
+  "expected_goal": "G"
+}

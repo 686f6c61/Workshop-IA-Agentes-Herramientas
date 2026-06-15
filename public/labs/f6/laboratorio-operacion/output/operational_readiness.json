@@ -1,0 +1,131 @@
+{
+  "service": "support-rag",
+  "release": "support-rag@2.0.0",
+  "score": 0.0889,
+  "gate": "not_ready",
+  "passed_weight": 4,
+  "total_weight": 45,
+  "checks": [
+    {
+      "section": "identity",
+      "passes": true,
+      "weight": 4,
+      "earned": 4,
+      "detail": {
+        "required": [
+          "service",
+          "release",
+          "owner"
+        ]
+      },
+      "next_action": "ok"
+    },
+    {
+      "section": "slo",
+      "passes": false,
+      "weight": 8,
+      "earned": 0,
+      "detail": {
+        "observed": [
+          "availability",
+          "contract_fail_rate_max",
+          "latency_p95_ms"
+        ]
+      },
+      "next_action": "añadir coste p95 y edad máxima de cola de revisión"
+    },
+    {
+      "section": "observability",
+      "passes": false,
+      "weight": 7,
+      "earned": 0,
+      "detail": {
+        "attributes": [
+          "trace_id",
+          "run_id",
+          "task",
+          "model_id"
+        ],
+        "dashboards": [
+          "runtime"
+        ],
+        "alerts": [
+          "slo_burn_rate"
+        ]
+      },
+      "next_action": "completar atributos de traza, dashboards y alertas"
+    },
+    {
+      "section": "rollback",
+      "passes": false,
+      "weight": 6,
+      "earned": 0,
+      "detail": {
+        "observed": [
+          "last_known_good"
+        ]
+      },
+      "next_action": "añadir comando probado, fecha de prueba y tiempo máximo de rollback"
+    },
+    {
+      "section": "evalops",
+      "passes": false,
+      "weight": 6,
+      "earned": 0,
+      "detail": {
+        "datasets": [
+          "golden"
+        ],
+        "release_gate": "ops/ai/release_gate.py"
+      },
+      "next_action": "añadir datasets de regresión, muestra de producción, baseline y candidate"
+    },
+    {
+      "section": "incident",
+      "passes": false,
+      "weight": 5,
+      "earned": 0,
+      "detail": {
+        "observed": [
+          "oncall",
+          "runbook"
+        ]
+      },
+      "next_action": "añadir matriz de severidad y cadencia de comunicación"
+    },
+    {
+      "section": "continuity",
+      "passes": false,
+      "weight": 5,
+      "earned": 0,
+      "detail": {
+        "observed": [
+          "rto_minutes"
+        ]
+      },
+      "next_action": "añadir RPO, rutas de fallback y drill de continuidad"
+    },
+    {
+      "section": "handoff",
+      "passes": false,
+      "weight": 4,
+      "earned": 0,
+      "detail": {
+        "queues": [
+          "support_n2"
+        ],
+        "approval_fields": []
+      },
+      "next_action": "añadir tarjeta de aprobación con campos mínimos"
+    }
+  ],
+  "next_actions": [
+    "añadir coste p95 y edad máxima de cola de revisión",
+    "completar atributos de traza, dashboards y alertas",
+    "añadir comando probado, fecha de prueba y tiempo máximo de rollback",
+    "añadir datasets de regresión, muestra de producción, baseline y candidate",
+    "añadir matriz de severidad y cadencia de comunicación",
+    "añadir RPO, rutas de fallback y drill de continuidad",
+    "añadir tarjeta de aprobación con campos mínimos"
+  ]
+}

@@ -1,0 +1,46 @@
+{
+  "title": "Cola de revisión humana",
+  "artifact": {
+    "items": [
+      {
+        "id": "rev-1",
+        "risk": "privacy",
+        "age_min": 12,
+        "owner": "guardia"
+      },
+      {
+        "id": "rev-2",
+        "risk": "external_effect",
+        "age_min": 31,
+        "owner": "responsable"
+      }
+    ],
+    "slo_minutes": 45,
+    "degraded_mode": "disable_persistent_actions"
+  },
+  "checks": [
+    {
+      "name": "cola con owner",
+      "passed": true,
+      "detail": "No hay revisión anónima."
+    },
+    {
+      "name": "SLO cumple",
+      "passed": true,
+      "detail": "La revisión tiene tiempo objetivo."
+    },
+    {
+      "name": "modo degradado",
+      "passed": true,
+      "detail": "Si la cola cae, el sistema sabe qué apagar."
+    },
+    {
+      "name": "riesgos clasificados",
+      "passed": true,
+      "detail": "La revisión depende del riesgo."
+    }
+  ],
+  "status": "valid",
+  "decision": "La revisión humana queda operable: owner, SLO, riesgo y modo degradado están escritos.",
+  "chapter": "c08"
+}

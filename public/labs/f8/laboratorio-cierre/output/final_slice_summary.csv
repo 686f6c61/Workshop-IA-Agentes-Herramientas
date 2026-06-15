@@ -1,0 +1,4 @@
+slice,n,accuracy,miss_rate,accepted_rate
+language=en,5,0.2,0.8,0.2
+segment=practicas,4,0.25,0.75,0.25
+source=form,6,0.333333,0.666667,0.333333

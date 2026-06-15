@@ -1,0 +1,55 @@
+{
+  "minimax": {
+    "best": "limitar_tool",
+    "scores": {
+      "limitar_tool": 4,
+      "seguir_automatico": -8,
+      "pedir_revision": 3
+    },
+    "stats": {
+      "leaves": 6
+    }
+  },
+  "alphabeta": {
+    "best": "limitar_tool",
+    "scores": {
+      "limitar_tool": 4,
+      "seguir_automatico": -8,
+      "pedir_revision": 3
+    },
+    "stats": {
+      "leaves": 4,
+      "prunes": 2
+    }
+  },
+  "monte_carlo": {
+    "limitar_tool": {
+      "mean": 4.1667,
+      "uncertainty": 0.4082,
+      "worst": 3,
+      "best": 5
+    },
+    "seguir_automatico": {
+      "mean": -0.6667,
+      "uncertainty": 0.4082,
+      "worst": -8,
+      "best": 9
+    },
+    "pedir_revision": {
+      "mean": 4.8333,
+      "uncertainty": 0.4082,
+      "worst": 3,
+      "best": 7
+    }
+  },
+  "uct": {
+    "best": "limitar_tool",
+    "scores": {
+      "limitar_tool": 4.8935,
+      "seguir_automatico": 2.6987,
+      "pedir_revision": 4.8743
+    },
+    "c": 1.4
+  },
+  "gate_valid": true
+}

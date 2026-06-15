@@ -1,0 +1,52 @@
+{
+  "purpose": "Convertir cada capítulo del facsímil 5 en una decisión de ingeniería de agentes que el alumno pueda tocar y adaptar.",
+  "chapter_expectations": {
+    "c01": {
+      "max_steps": 8,
+      "max_cost_eur": 0.1,
+      "what_you_take": "Un manifest de agente con objetivo, memoria, tools, permisos, presupuesto y reglas de parada."
+    },
+    "c02": {
+      "minimum_transitions": 3,
+      "terminal_state": "COMPLETED",
+      "what_you_take": "Una trayectoria estado-acción-observación que permite depurar una run."
+    },
+    "c03": {
+      "required_errors": 4,
+      "what_you_take": "Un contrato de tool con schema, permiso, errores, timeout y eventos de traza."
+    },
+    "c04": {
+      "max_compression_ratio": 0.25,
+      "what_you_take": "Un handoff que conserva intención, evidencia y límites sin copiar ruido."
+    },
+    "c05": {
+      "expected_choice": "workflow",
+      "minimum_alternative_score": 3.5,
+      "what_you_take": "Un ADR para elegir arquitectura agentic por pesos, no por moda."
+    },
+    "c06": {
+      "minimum_sensors": 6,
+      "what_you_take": "Un harness con límites, sensores, trazas y redacción de datos."
+    },
+    "c07": {
+      "required_providers": [
+        "openai_agents",
+        "anthropic",
+        "google_adk"
+      ],
+      "what_you_take": "Un contrato portable antes de acoplarte a un SDK concreto."
+    },
+    "c08": {
+      "what_you_take": "Un motor de permisos con cola de aprobación para acciones con efecto."
+    },
+    "c09": {
+      "what_you_take": "Un router para elegir entre tool local, MCP, A2A, workflow o revisión humana."
+    },
+    "c10": {
+      "min_route_accuracy": 0.95,
+      "max_latency_ms": 3000,
+      "max_cost_eur": 0.08,
+      "what_you_take": "Un gate de evaluación que mira trayectoria, permisos, coste y latencia."
+    }
+  }
+}

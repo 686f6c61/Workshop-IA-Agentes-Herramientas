@@ -1,0 +1,86 @@
+{
+  "schema_version": "1.0",
+  "project": "IA para gente curiosa",
+  "fasciculo": 12,
+  "capitulo": 11,
+  "quality_gates": {
+    "auto_pass_max_risk": 0.44,
+    "review_min_risk": 0.45,
+    "block_min_risk": 0.82,
+    "block_on_unredacted_secret": true,
+    "block_on_actionable_prompt_injection": true,
+    "require_owner_for_high_risk": true,
+    "require_retention_for_persistent_storage": true,
+    "require_human_approval_for_external_submit": true
+  },
+  "entity_sensitivity": {
+    "NAME": 0.35,
+    "EMAIL": 0.45,
+    "PHONE": 0.50,
+    "STUDENT_ID": 0.55,
+    "ADDRESS": 0.60,
+    "GPS_LOCATION": 0.80,
+    "DNI_NIE": 0.85,
+    "FACE": 0.80,
+    "LICENSE_PLATE": 0.75,
+    "HEALTH": 0.95,
+    "PAYMENT": 0.90,
+    "API_KEY": 1.00,
+    "ACCESS_TOKEN_FRAGMENT": 0.85,
+    "COOKIE": 0.80,
+    "INTERNAL_SECRET": 0.95,
+    "PROMPT_INJECTION": 0.70
+  },
+  "redaction_operators": {
+    "NAME": "replace:<PERSONA>",
+    "EMAIL": "hash:email",
+    "PHONE": "mask:last2",
+    "STUDENT_ID": "tokenize:student_id",
+    "ADDRESS": "generalize:city",
+    "GPS_LOCATION": "strip_exif_and_round_geohash",
+    "DNI_NIE": "redact",
+    "FACE": "blur:strong",
+    "LICENSE_PLATE": "blur_or_redact",
+    "HEALTH": "redact",
+    "PAYMENT": "redact",
+    "API_KEY": "revoke_and_redact",
+    "ACCESS_TOKEN_FRAGMENT": "revoke_if_reconstructible",
+    "COOKIE": "redact",
+    "INTERNAL_SECRET": "redact",
+    "PROMPT_INJECTION": "taint_untrusted_content"
+  },
+  "retention_days": {
+    "raw_prompt": 7,
+    "redacted_trace": 30,
+    "eval_case_redacted": 180,
+    "security_incident": 365,
+    "secret_leak": 0,
+    "public_asset": 365
+  },
+  "approved_destinations": [
+    "internal_eval_store",
+    "internal_support_tool",
+    "approved_ai_provider",
+    "security_ticket"
+  ],
+  "blocked_destinations": [
+    "public_webhook",
+    "personal_email",
+    "unknown_domain"
+  ],
+  "required_controls_by_modality": {
+    "document": ["ocr_pii_scan", "field_level_redaction", "retention_policy"],
+    "image": ["image_pii_scan", "region_redaction", "metadata_strip"],
+    "audio": ["transcript_pii_scan", "slot_confirmation", "retention_policy"],
+    "video": ["frame_sampling_policy", "region_redaction", "retention_policy"],
+    "rag": ["acl_filter", "source_label", "claim_grounding"],
+    "ui_trace": ["secret_scan", "taint_ocr", "approval_gate", "egress_policy"],
+    "eval_dataset": ["redacted_fixture", "dataset_owner", "retention_policy"]
+  },
+  "detector_eval": {
+    "beta": 2.0,
+    "default_threshold": 0.70,
+    "high_recall_entities": ["DNI_NIE", "API_KEY", "ACCESS_TOKEN_FRAGMENT", "HEALTH", "PAYMENT", "FACE", "LICENSE_PLATE", "GPS_LOCATION"],
+    "minimum_recall_for_high_risk": 0.90
+  }
+}

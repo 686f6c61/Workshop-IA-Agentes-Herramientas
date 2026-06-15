@@ -179,7 +179,6 @@ body {
   justify-content: center;
   padding-top: 0;
   background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
-  border-left: 6px solid var(--accent);
 }
 
 .slide-section .slide-inner {
@@ -523,8 +522,6 @@ li > i[data-lucide] {
 }
 
 .teaching-notes {
-  border-left: 3px solid var(--border-strong);
-  padding-left: 1rem;
   margin: -0.25rem 0 1.2rem;
   display: grid;
   gap: 0.55rem;
@@ -632,7 +629,6 @@ code.math-code sub {
   background: #fff;
   color: var(--fg);
   border: 1px solid var(--fg);
-  border-left: 4px solid var(--fg);
   font-family: var(--font-mono);
   font-size: 0.85rem;
   padding: 1.2rem 1.5rem;
@@ -655,12 +651,12 @@ code.math-code sub {
 }
 
 .code-block .keyword {
-  color: #312e81;
+  color: #000000;
   font-weight: 800;
 }
 
 .code-block .string {
-  color: #166534;
+  color: #333333;
   font-weight: 700;
 }
 
@@ -738,10 +734,9 @@ code.math-code sub {
 
 .callout {
   background: var(--accent-light);
-  border-left: 3px solid var(--fg);
   padding: 1rem 1.2rem;
   margin: 1.2rem 0;
-  border-radius: 0 6px 6px 0;
+  border-radius: 6px;
   font-size: 1rem;
 }
 
@@ -1646,10 +1641,6 @@ code.math-code sub {
   background: #fff;
 }
 
-.decision-score-row.good {
-  border-left: 5px solid var(--fg);
-}
-
 .decision-score-row.mid {
   background: var(--accent-light);
 }
@@ -2311,7 +2302,7 @@ code.math-code sub {
 }
 
 .agent-architecture-svg .tool {
-  fill: #f2f2ef;
+  fill: #f2f2f2;
 }
 
 .agent-architecture-svg .data,
@@ -3000,10 +2991,10 @@ code.math-code sub {
 /* ---- VARIANTES DE COMPOSICION AVANZADA ---- */
 
 .big-idea {
-  border-left: 4px solid var(--fg);
   padding: 0.8rem 1rem;
   margin: 0.8rem 0 1.2rem;
   background: var(--accent-light);
+  border-radius: 8px;
 }
 
 .big-idea p {
@@ -3158,10 +3149,6 @@ code.math-code sub {
 .metric-card span {
   color: var(--fg-secondary);
   font-size: 0.8rem;
-}
-
-.risk-card {
-  border-left: 4px solid var(--fg);
 }
 
 .risk-card .risk-control {

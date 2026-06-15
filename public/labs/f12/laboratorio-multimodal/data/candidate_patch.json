@@ -1,0 +1,41 @@
+{
+  "schema_version": "1.0",
+  "patch_id": "candidate_patch.parking_video_event_triage.v1",
+  "base_dataset": "remediated_cases.json",
+  "target_case_id": "parking_video_event_triage",
+  "changes": {
+    "owner": "ai_ops_video_owner",
+    "approvers": [
+      "privacy_owner",
+      "security_owner",
+      "operations_owner"
+    ],
+    "evidence_artifacts_add": [
+      "policy_decision",
+      "frame_region_redaction_eval",
+      "temporal_eval_v2"
+    ],
+    "controls_add": [
+      "policy_decision_recorded"
+    ],
+    "quality_update": {
+      "grounding": 0.83,
+      "extraction": 0.81,
+      "temporal": 0.82,
+      "user_value": 0.8
+    },
+    "ops_update": {
+      "latency_ms": 2050,
+      "cost_units": 8.3,
+      "failure_rate": 0.028
+    },
+    "expected_decision": "pass",
+    "release_notes": [
+      "Se registra una policy_decision explícita para tratamiento de vídeo con PII potencial.",
+      "Se añade evaluación de redacción por región para frames con caras o matrículas.",
+      "Se reemplaza la evaluación temporal básica por temporal_eval_v2 con falsos positivos y falsos negativos por evento.",
+      "Se mantiene retención corta y lineage del artefacto para auditoría posterior."
+    ],
+    "rollback_plan": "Si temporal_eval_v2 baja de 0.78, si la redacción por región falla o si desaparece policy_decision, desactivar la ruta de vídeo y volver a revisión manual."
+  }
+}

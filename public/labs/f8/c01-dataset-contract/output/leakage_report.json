@@ -1,0 +1,6 @@
+{
+  "check": "duplicate_text_across_splits",
+  "passes": true,
+  "duplicates": [],
+  "reading": "sin duplicados textuales entre splits"
+}

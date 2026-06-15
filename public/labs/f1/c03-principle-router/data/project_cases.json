@@ -1,0 +1,62 @@
+[
+  {
+    "id": "clasificar_tickets",
+    "title": "Clasificar tickets de soporte académico",
+    "labeled_examples": 420,
+    "unlabeled_pool": 3000,
+    "needs_generation": false,
+    "needs_preference_alignment": false,
+    "context_tokens": 900,
+    "quality_target": "macro_f1 >= 0.82",
+    "latency_ms": 700,
+    "impact": 3
+  },
+  {
+    "id": "descubrir_segmentos",
+    "title": "Descubrir segmentos de alumnos sin etiquetas previas",
+    "labeled_examples": 0,
+    "unlabeled_pool": 12000,
+    "needs_generation": false,
+    "needs_preference_alignment": false,
+    "context_tokens": 600,
+    "quality_target": "clusters interpretables por tutoría",
+    "latency_ms": 2000,
+    "impact": 3
+  },
+  {
+    "id": "asistente_becas",
+    "title": "Asistente que responde sobre becas y sabe abstenerse",
+    "labeled_examples": 60,
+    "unlabeled_pool": 800,
+    "needs_generation": true,
+    "needs_preference_alignment": true,
+    "context_tokens": 18000,
+    "quality_target": "respuestas con cita y abstención cuando falte fuente",
+    "latency_ms": 1800,
+    "impact": 4
+  },
+  {
+    "id": "resumen_contratos",
+    "title": "Resumir contratos largos con cláusulas cruzadas",
+    "labeled_examples": 30,
+    "unlabeled_pool": 500,
+    "needs_generation": true,
+    "needs_preference_alignment": false,
+    "context_tokens": 64000,
+    "quality_target": "no omitir cláusulas de cancelación y renovación",
+    "latency_ms": 3500,
+    "impact": 5
+  },
+  {
+    "id": "modelo_local_rapido",
+    "title": "Elegir modelo local para respuestas internas de baja latencia",
+    "labeled_examples": 120,
+    "unlabeled_pool": 2000,
+    "needs_generation": true,
+    "needs_preference_alignment": false,
+    "context_tokens": 2500,
+    "quality_target": "calidad suficiente con p95 < 1200 ms",
+    "latency_ms": 900,
+    "impact": 2
+  }
+]

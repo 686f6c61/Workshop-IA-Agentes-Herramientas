@@ -1,0 +1,9 @@
+case_id,decision_before,decision_after,quality_delta,risk_delta,latency_delta_ms,failure_rate_delta,remaining_failures
+catalog_alt_text,pass,pass,0.015,0.0,-50,0.0,
+invoice_table_extraction,review,pass,0.055,0.0,-150,-0.01,
+policy_rag_with_internal_slides,block,pass,0.04,-0.38,-100,-0.015,
+voice_appointment_agent,review,pass,0.0375,0.0,-900,-0.005,
+parking_video_event_triage,review,review,0.085,-0.12,-950,-0.02,missing_evidence|missing_policy_decision|quality_below_pass
+computer_use_claim_submission,block,pass,0.0275,-0.68,50,-0.002,
+visual_search_catalog,pass,pass,0.015,0.0,-100,-0.005,
+student_multimodal_helpdesk,review,pass,0.075,0.0,-300,-0.019,

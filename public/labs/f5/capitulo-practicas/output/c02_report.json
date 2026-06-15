@@ -1,0 +1,63 @@
+{
+  "title": "Bucle estado-acción-observación",
+  "artifact": {
+    "transitions": [
+      {
+        "state": "CREATED",
+        "action": "classify_intent",
+        "observation": "needs_policy",
+        "next_state": "PLANNING"
+      },
+      {
+        "state": "PLANNING",
+        "action": "buscar_politica",
+        "observation": "policy_found",
+        "next_state": "TOOL_CALLING"
+      },
+      {
+        "state": "TOOL_CALLING",
+        "action": "preparar_respuesta",
+        "observation": "draft_ready",
+        "next_state": "WAITING_APPROVAL"
+      },
+      {
+        "state": "WAITING_APPROVAL",
+        "action": "human_approve",
+        "observation": "approved",
+        "next_state": "COMPLETED"
+      }
+    ],
+    "budget": {
+      "max_steps": 6,
+      "max_tool_calls": 3,
+      "used_steps": 4,
+      "used_tool_calls": 1
+    }
+  },
+  "checks": [
+    {
+      "name": "hay trayectoria",
+      "passed": true,
+      "detail": "La práctica no evalúa solo respuesta final."
+    },
+    {
+      "name": "cada paso tiene acción y observación",
+      "passed": true,
+      "detail": "El bucle agente es observable."
+    },
+    {
+      "name": "la parada es explícita",
+      "passed": true,
+      "detail": "La run no queda abierta por inercia."
+    },
+    {
+      "name": "presupuesto respetado",
+      "passed": true,
+      "detail": "El agente no tiene autonomía infinita."
+    }
+  ],
+  "status": "valid",
+  "what_you_take": "Una trayectoria estado-acción-observación que permite depurar una run.",
+  "decision": "El bucle es apto para enseñar agentes: cada acción produce una observación, consume presupuesto y termina por regla.",
+  "chapter": "c02"
+}

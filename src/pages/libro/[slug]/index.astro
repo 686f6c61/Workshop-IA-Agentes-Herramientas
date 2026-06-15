@@ -1,0 +1,223 @@
+---
+import BookLayout from '../../../layouts/BookLayout.astro';
+import { getFascicle, getFasciclesOverview } from '../../../lib/book';
+
+export async function getStaticPaths() {
+  const fascicles = await getFasciclesOverview();
+  return fascicles.map((fascicle) => ({
+    params: { slug: fascicle.slug },
+  }));
+}
+
+const slug = Astro.params.slug ?? '';
+const fascicle = await getFascicle(slug);
+const progressLabel = `${fascicle.availableChapters} / ${fascicle.totalChapters}`;
+const normalizedStatus = fascicle.status.toLowerCase();
+const statusLabel =
+  normalizedStatus === 'planificado'
+    ? 'Planificado'
+    : fascicle.availableChapters === fascicle.totalChapters
+      ? 'Completo'
+      : 'En escritura';
+const pendingCount = Math.max(fascicle.totalChapters - fascicle.availableChapters, 0);
+const statusDetail =
+  normalizedStatus === 'planificado'
+    ? 'Ruta reservada para las próximas entregas del facsímil.'
+    : pendingCount === 0
+    ? 'Contenido completo, pendiente de revisión editorial final.'
+    : `${pendingCount} capítulos planificados pendientes.`;
+const laboratoryNavItems = fascicle.chapters
+  .filter((chapter) => chapter.laboratory)
+  .map((chapter) => ({
+    chapterNumber: chapter.number,
+    anchorId: chapter.laboratory!.anchorId,
+    challengeCount: chapter.laboratory!.challengeCount,
+  }));
+const laboratorySummaryLabel =
+  fascicle.laboratory.count > 0
+    ? `${fascicle.laboratory.count} ${fascicle.laboratory.count === 1 ? 'Laboratorio' : 'Laboratorios'}: ${fascicle.laboratory.challengeCount} ${fascicle.laboratory.challengeCount === 1 ? 'reto' : 'retos'}`
+    : '';
+const firstChapter = fascicle.chapters[0];
+const isPlannedOnly = normalizedStatus === 'planificado' && fascicle.chapters.length === 0;
+---
+
+<BookLayout
+  title={`${fascicle.title} · IA para gente curiosa`}
+  description={`${fascicle.title}: lectura web generada con Astro desde los capítulos Markdown.`}
+>
+  <div class="reader-shell">
+    <aside class="book-sidebar" id="indice-fasciculo" aria-label="Navegación del facsímil">
+      <a class="sidebar-back" href="/libro/">
+        <i data-lucide="arrow-left"></i>
+        Facsímil
+      </a>
+
+      <div class="sidebar-links" aria-label="Documentos del proyecto">
+        <a href="/libro/proyecto/">Proyecto</a>
+        <a href="/libro/nota-del-autor/">Nota del autor</a>
+        <a href="/libro/licencia/">Licencia MIT</a>
+      </div>
+
+      <div class="sidebar-heading">
+        <span class="fascicle-number">{String(fascicle.number).padStart(2, '0')}</span>
+        <div>
+          <p>Facsímil</p>
+          <h1>{fascicle.shortTitle}</h1>
+        </div>
+      </div>
+
+      <div class="sidebar-meta">
+        <span><i data-lucide="layers"></i>{progressLabel} capítulos</span>
+        {laboratorySummaryLabel && <span><i data-lucide="flask-conical"></i>{laboratorySummaryLabel}</span>}
+        <span><i data-lucide="book-open-text"></i>Lectura autónoma</span>
+        <span><i data-lucide="badge-check"></i>{statusLabel}</span>
+      </div>
+
+      <nav class="chapter-nav" aria-label="Capítulos disponibles">
+        <p class="nav-label">Capítulos</p>
+        {fascicle.chapters.map((chapter) => (
+          <a href={`#capitulo-${String(chapter.number).padStart(2, '0')}`}>
+            <span>{String(chapter.number).padStart(2, '0')}</span>
+            {chapter.title}
+          </a>
+        ))}
+      </nav>
+
+      {laboratoryNavItems.length > 0 && (
+        <nav class="chapter-nav laboratory-nav" aria-label="Laboratorio del facsímil">
+          <p class="nav-label">Laboratorio</p>
+          {laboratoryNavItems.map((item) => (
+            <a href={`#${item.anchorId}`}>
+              <span>LAB</span>
+              Laboratorio · {item.challengeCount} {item.challengeCount === 1 ? 'reto' : 'retos'}
+            </a>
+          ))}
+        </nav>
+      )}
+
+      {fascicle.pendingChapters.length > 0 && (
+        <div class="pending-list">
+          <p class="nav-label">Pendientes</p>
+          {fascicle.pendingChapters.map((chapter) => (
+            <a href={`#capitulo-${String(chapter.numero).padStart(2, '0')}`} id={`capitulo-${String(chapter.numero).padStart(2, '0')}`}>
+              <strong>{String(chapter.numero).padStart(2, '0')}</strong>
+              {chapter.titulo}
+            </a>
+          ))}
+        </div>
+      )}
+    </aside>
+
+    <main class="book-main" id="contenido">
+      <header class="fascicle-cover">
+        <p class="eyebrow">Facsímil {String(fascicle.number).padStart(2, '0')} · {statusLabel}</p>
+        <h1>{fascicle.shortTitle}</h1>
+        <p class="fascicle-description">{fascicle.description}</p>
+        <div class="reader-quicklinks" aria-label="Acciones del facsímil">
+          {firstChapter ? (
+            <a class="primary-link" href={`#capitulo-${String(firstChapter.number).padStart(2, '0')}`}>
+              <i data-lucide="book-open"></i>
+              Empezar lectura
+            </a>
+          ) : (
+            <a class="primary-link" href="#indice-fasciculo">
+              <i data-lucide="list"></i>
+              Ver estado
+            </a>
+          )}
+          <a class="secondary-link" href="#indice-fasciculo">
+            <i data-lucide="list"></i>
+            Ver índice
+          </a>
+        </div>
+        <dl class="edition-facts">
+          <div>
+            <dt>Contenido disponible</dt>
+            <dd>{fascicle.availableChapters} de {fascicle.totalChapters} capítulos listos</dd>
+            <small>{statusDetail}</small>
+          </div>
+          <div>
+            <dt>Estado editorial</dt>
+            <dd>{statusLabel}</dd>
+            <small>Lectura web generada desde los capítulos Markdown originales.</small>
+          </div>
+        </dl>
+        <section class="cover-note" aria-labelledby="edition-title">
+          <h2 id="edition-title">Sobre esta edición</h2>
+          <p>
+            Esta página se genera desde capítulos Markdown propios del facsímil.
+            Las fórmulas se renderizan con KaTeX, los mapas con Mermaid y las notas al pie se mantienen
+            junto al texto para leer el facsímil como una pieza autónoma, no como una exportación del taller.
+          </p>
+        </section>
+      </header>
+
+      {isPlannedOnly && (
+        <section class="planned-note" aria-labelledby="planned-title">
+          <p class="eyebrow">Ruta reservada</p>
+          <h2 id="planned-title">Este facsímil está planificado</h2>
+          <p>
+            La página existe para que las referencias cruzadas del facsímil ya sean clicables. Cuando
+            empecemos este bloque, los capítulos aparecerán aquí con sus anclas definitivas.
+          </p>
+        </section>
+      )}
+
+      {fascicle.chapters.map((chapter) => (
+        <article
+          class="book-chapter"
+          id={`capitulo-${String(chapter.number).padStart(2, '0')}`}
+          data-fascicle-number={String(fascicle.number).padStart(2, '0')}
+          data-fascicle-title={fascicle.shortTitle}
+          data-chapter-number={String(chapter.number).padStart(2, '0')}
+          data-chapter-title={chapter.title}
+        >
+          <div class="chapter-ribbon">
+            <span>Capítulo {String(chapter.number).padStart(2, '0')}</span>
+          </div>
+          {chapter.labKits.length > 0 && (
+            <aside
+              class="chapter-exercise-downloads"
+              aria-labelledby={`chapter-${String(chapter.number).padStart(2, '0')}-downloads-title`}
+            >
+              <div class="chapter-exercise-downloads-header">
+                <p>Ejercicios descargables</p>
+                <h2 id={`chapter-${String(chapter.number).padStart(2, '0')}-downloads-title`}>
+                  Material práctico del capítulo
+                </h2>
+              </div>
+              <div class="chapter-exercise-downloads-list">
+                {chapter.labKits.map((kit) => (
+                  <section class="chapter-exercise-kit" data-chapter-lab-kit={kit.path}>
+                    <div>
+                      <h3>{kit.label}</h3>
+                      <p>{kit.contentSummary}</p>
+                    </div>
+                    <div class="chapter-exercise-kit-actions">
+                      <a class="chapter-exercise-download" href={kit.zipHref} download>
+                        <i data-lucide="download"></i>
+                        Descargar ZIP
+                      </a>
+                      <a class="chapter-exercise-readme" href={kit.readmeHref} target="_blank" rel="noopener">
+                        <i data-lucide="book-open-text"></i>
+                        Ver README
+                      </a>
+                    </div>
+                  </section>
+                ))}
+              </div>
+            </aside>
+          )}
+          <div class="chapter-content" set:html={chapter.html} />
+        </article>
+      ))}
+
+      <footer class="reader-footer">
+        <p>
+          Inteligencia artificial para gente curiosa · Por <a href="https://x.com/686f6c61">686f6c61</a> ·
+          <a href="/libro/licencia/">Licencia MIT</a>
+        </p>
+      </footer>
+    </main>
+  </div>
+</BookLayout>

@@ -1,0 +1,7 @@
+{"step": "resolver_entidades", "ticket": "ticket:t1", "user": "persona:ana", "resource": "recurso:facturas", "approver": "persona:luis"}
+{"step": "consultar_grafo", "required_role": "rol:finanzas", "user_team": "equipo:finanzas"}
+{"step": "validar_precondicion", "check": "rol_requerido", "ok": true}
+{"step": "validar_precondicion", "check": "aprobacion_del_equipo", "ok": true}
+{"step": "validar_precondicion", "check": "acceso_temporal_permitido", "ok": true}
+{"step": "decidir_accion", "action": "conceder_acceso_temporal"}
+{"step": "registrar_traza", "ticket": "ticket:t1", "action": "conceder_acceso_temporal"}

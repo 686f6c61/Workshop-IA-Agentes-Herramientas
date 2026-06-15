@@ -1,0 +1,20 @@
+titulo: "Producto, UX y cierre"
+fasciculo: 11
+total_capitulos: 3
+estado: en_progreso
+
+capitulos:
+  - numero: 1
+    archivo: 01-producto-ai-fit-metricas-coste-riesgo.md
+    titulo: "Producto con IA: problema, métrica, coste y riesgo"
+    estado: revision
+
+  - numero: 2
+    archivo: 02-ux-ia-control-confianza-recuperacion.md
+    titulo: "UX de IA: control, confianza, recuperación y entrega"
+    estado: revision
+
+  - numero: 3
+    archivo: 03-cierre-laboratorio-producto-ux.md
+    titulo: "Cierre del libro y laboratorio de producto"
+    estado: revision

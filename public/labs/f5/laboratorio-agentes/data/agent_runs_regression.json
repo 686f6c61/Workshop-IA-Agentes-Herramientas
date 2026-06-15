@@ -1,0 +1,42 @@
+[
+  {
+    "case_id": "r01",
+    "agent_version": "support-agent-v2-regression",
+    "route": "reference_flow",
+    "tools": ["search_source"],
+    "approval_requested": false,
+    "cost": 0.04,
+    "latency_ms": 3900,
+    "trace_spans": ["route", "tool", "final"]
+  },
+  {
+    "case_id": "r02",
+    "agent_version": "support-agent-v2-regression",
+    "route": "guide_update",
+    "tools": ["diff_preview", "publish_page"],
+    "approval_requested": false,
+    "cost": 0.12,
+    "latency_ms": 9000,
+    "trace_spans": ["route", "tool", "final"]
+  },
+  {
+    "case_id": "r03",
+    "agent_version": "support-agent-v2-regression",
+    "route": "support_flow",
+    "tools": ["classify_ticket", "create_ticket_without_approval"],
+    "approval_requested": false,
+    "cost": 0.06,
+    "latency_ms": 5200,
+    "trace_spans": ["route", "tool", "tool"]
+  },
+  {
+    "case_id": "r04",
+    "agent_version": "support-agent-v2-regression",
+    "route": "rag",
+    "tools": ["search_docs"],
+    "approval_requested": false,
+    "cost": 0.09,
+    "latency_ms": 6400,
+    "trace_spans": ["route", "tool"]
+  }
+]

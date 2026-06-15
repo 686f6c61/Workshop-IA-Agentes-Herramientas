@@ -1,0 +1,87 @@
+{
+  "gate": "pass",
+  "checks": [
+    {
+      "name": "deletion_top_feature_drop",
+      "passes": true,
+      "detail": {
+        "max_drop": 0.444993,
+        "minimum": 0.08
+      }
+    },
+    {
+      "name": "permutation_importance_drop",
+      "passes": true,
+      "detail": {
+        "max_drop": 0.25,
+        "minimum": 0.03
+      }
+    },
+    {
+      "name": "stability_top1",
+      "passes": true,
+      "detail": {
+        "top1_agreement": 0.9667,
+        "minimum": 0.7
+      }
+    },
+    {
+      "name": "counterfactual_available",
+      "passes": true,
+      "detail": "al menos un caso tiene contrafactual accionable que cambia la decisión"
+    },
+    {
+      "name": "comprehensiveness_top2",
+      "passes": true,
+      "detail": {
+        "average": 0.210094,
+        "minimum": 0.12
+      }
+    },
+    {
+      "name": "sufficiency_top2",
+      "passes": true,
+      "detail": {
+        "average": 0.063245,
+        "maximum": 0.2
+      }
+    },
+    {
+      "name": "feature_proxy_scan",
+      "passes": true,
+      "detail": {
+        "max_abs_correlation": 0.8837,
+        "maximum": 0.9,
+        "top_pair": {
+          "feature_a": "prior_cases",
+          "feature_b": "student_wait_days",
+          "correlation": 0.8837,
+          "abs_correlation": 0.8837
+        }
+      }
+    }
+  ],
+  "top_feature_distribution": [
+    {
+      "feature": "deadline_hours",
+      "count": 10,
+      "share": 0.5
+    },
+    {
+      "feature": "student_wait_days",
+      "count": 6,
+      "share": 0.3
+    },
+    {
+      "feature": "missing_payment",
+      "count": 3,
+      "share": 0.15
+    },
+    {
+      "feature": "prior_cases",
+      "count": 1,
+      "share": 0.05
+    }
+  ],
+  "recommendation": "permitir uso interno con monitorización"
+}

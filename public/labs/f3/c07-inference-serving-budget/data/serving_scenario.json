@@ -1,0 +1,16 @@
+{
+  "parameters": 7000000000,
+  "bits": [16, 8, 4],
+  "layers": 32,
+  "batch": 8,
+  "sequence": 4096,
+  "head_dim": 128,
+  "bytes_per_value": 2,
+  "kv_heads": {"MHA": 32, "GQA": 8, "MQA": 1},
+  "ttft_ms": 850,
+  "output_tokens": 300,
+  "tokens_per_second_single_user": 45,
+  "total_capacity_tokens_per_second": 180,
+  "concurrent_users": 12
+}
+

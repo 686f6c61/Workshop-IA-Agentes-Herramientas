@@ -1,0 +1,39 @@
+{
+  "eventType": "COMPLETE",
+  "job": {
+    "namespace": "ia-gente-curiosa",
+    "name": "f8-c06-monitor-dataops"
+  },
+  "run": {
+    "runId": "f8-c06-dataops-monitoring-run"
+  },
+  "inputs": [
+    {
+      "name": "data/reference_events.csv",
+      "facets": {
+        "sha256": "4bede56e818215df6e8d1b765939e2dfa387cf4b1f1881b99523c091138c1697"
+      }
+    },
+    {
+      "name": "data/production_events.csv",
+      "facets": {
+        "sha256": "421cf61a40acfb771a017ae8f812d5c427166137c3b2554240216663c52e8dcb"
+      }
+    }
+  ],
+  "outputs": [
+    {
+      "name": "output/monitoring_report.json"
+    },
+    {
+      "name": "output/slo_scorecard.csv"
+    },
+    {
+      "name": "output/alerts.md"
+    }
+  ],
+  "facets": {
+    "status": "block",
+    "contract": "f8-c06-dataops-monitoring-contract"
+  }
+}

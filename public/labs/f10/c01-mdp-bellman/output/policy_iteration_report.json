@@ -1,0 +1,115 @@
+{
+  "scenario_id": "support_mdp_v1",
+  "contract_version": "1.0.0",
+  "gamma": 0.9,
+  "iterations": 10,
+  "last_delta": 2.352e-07,
+  "gate_ok": true,
+  "validation_errors": [],
+  "values": {
+    "nuevo": 1.190578,
+    "evidencia": 1.7,
+    "critico": 0.556,
+    "resuelto": 0.0,
+    "reabierto": 0.0
+  },
+  "policy": {
+    "nuevo": {
+      "action": "pedir_dato",
+      "q_value": 1.190579,
+      "margin": 0.924579,
+      "decision_confident": true
+    },
+    "evidencia": {
+      "action": "responder_con_cita",
+      "q_value": 1.7,
+      "margin": 1.298,
+      "decision_confident": true
+    },
+    "critico": {
+      "action": "escalar",
+      "q_value": 0.556,
+      "margin": 1.576,
+      "decision_confident": true
+    }
+  },
+  "q_values": [
+    {
+      "state": "nuevo",
+      "action": "pedir_dato",
+      "q_value": 1.190579
+    },
+    {
+      "state": "nuevo",
+      "action": "responder_directo",
+      "q_value": 0.052052
+    },
+    {
+      "state": "nuevo",
+      "action": "escalar",
+      "q_value": 0.266
+    },
+    {
+      "state": "evidencia",
+      "action": "responder_con_cita",
+      "q_value": 1.7
+    },
+    {
+      "state": "evidencia",
+      "action": "escalar",
+      "q_value": 0.402
+    },
+    {
+      "state": "critico",
+      "action": "escalar",
+      "q_value": 0.556
+    },
+    {
+      "state": "critico",
+      "action": "responder_directo",
+      "q_value": -1.02
+    }
+  ],
+  "iteration_trace": [
+    {
+      "iteration": 1,
+      "max_delta": 1.7
+    },
+    {
+      "iteration": 2,
+      "max_delta": 0.783118
+    },
+    {
+      "iteration": 3,
+      "max_delta": 0.119817054
+    },
+    {
+      "iteration": 4,
+      "max_delta": 0.0183320093
+    },
+    {
+      "iteration": 5,
+      "max_delta": 0.0028047974
+    },
+    {
+      "iteration": 6,
+      "max_delta": 0.000429134
+    },
+    {
+      "iteration": 7,
+      "max_delta": 6.56575e-05
+    },
+    {
+      "iteration": 8,
+      "max_delta": 1.00456e-05
+    },
+    {
+      "iteration": 9,
+      "max_delta": 1.537e-06
+    },
+    {
+      "iteration": 10,
+      "max_delta": 2.352e-07
+    }
+  ]
+}

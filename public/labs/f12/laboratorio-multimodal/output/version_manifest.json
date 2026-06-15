@@ -1,0 +1,61 @@
+{
+  "schema_version": "1.0",
+  "project": "IA para gente curiosa",
+  "fasciculo": 12,
+  "capitulo": 12,
+  "artifact": "multimodal_release_lab",
+  "dataset_versions": {
+    "baseline": "baseline_cases.v1",
+    "remediated": "remediated_cases.v1",
+    "candidate_patch": "candidate_patch.parking_video_event_triage.v1"
+  },
+  "model_contract_versions": {
+    "vision_language": "vlm_contract.v1",
+    "document_ai": "document_ai_contract.v1",
+    "multimodal_rag": "retrieval_manifest.v1",
+    "realtime_voice": "voice_turn_contract.v1",
+    "video_temporal": "temporal_event_contract.v1",
+    "computer_use": "approval_card.v1",
+    "risk_ops": "policy_decision.v1"
+  },
+  "release_summaries": {
+    "baseline": {
+      "scenario": "baseline",
+      "case_count": 8,
+      "pass_count": 2,
+      "review_count": 4,
+      "block_count": 2,
+      "avg_quality": 0.7903,
+      "avg_risk": 0.2238,
+      "global_decision": "block_release",
+      "mismatches": []
+    },
+    "remediated": {
+      "scenario": "remediated",
+      "case_count": 8,
+      "pass_count": 7,
+      "review_count": 1,
+      "block_count": 0,
+      "avg_quality": 0.8341,
+      "avg_risk": 0.0762,
+      "global_decision": "review_release",
+      "mismatches": []
+    },
+    "candidate": {
+      "scenario": "candidate",
+      "case_count": 8,
+      "pass_count": 8,
+      "review_count": 0,
+      "block_count": 0,
+      "avg_quality": 0.84,
+      "avg_risk": 0.0762,
+      "global_decision": "ship",
+      "mismatches": []
+    }
+  },
+  "regression_policy": [
+    "Repetir evaluación si cambia el modelo visual, LLM, OCR, ASR, embedding, índice, prompt, herramienta o policy.",
+    "Bloquear release si una ruta sensible pierde policy_decision, lineage, redacción o aprobación.",
+    "Abrir revisión si p95 de latencia, coste o failure_rate superan el SLO del contrato."
+  ]
+}

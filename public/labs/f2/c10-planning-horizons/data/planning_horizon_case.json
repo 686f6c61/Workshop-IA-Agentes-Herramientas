@@ -1,0 +1,40 @@
+{
+  "initial": ["cliente", "factura_preparada", "email_confirmado"],
+  "goal": ["factura_validada", "email_enviado", "log_creado"],
+  "actions": [
+    {
+      "name": "validar",
+      "pre": ["cliente", "factura_preparada"],
+      "add": ["factura_validada"],
+      "delete": ["factura_preparada"],
+      "cost": 1
+    },
+    {
+      "name": "enviar",
+      "pre": ["factura_validada", "email_confirmado"],
+      "add": ["email_enviado"],
+      "delete": [],
+      "cost": 2,
+      "risk": "irreversible"
+    },
+    {
+      "name": "registrar",
+      "pre": ["email_enviado"],
+      "add": ["log_creado"],
+      "delete": [],
+      "cost": 1
+    },
+    {
+      "name": "pedir_aprobacion",
+      "pre": ["factura_validada"],
+      "add": ["aprobacion_humana"],
+      "delete": [],
+      "cost": 3
+    }
+  ],
+  "observation_after_first_step": {
+    "remove": ["email_confirmado"],
+    "add": ["email_pendiente_confirmacion"]
+  }
+}
+

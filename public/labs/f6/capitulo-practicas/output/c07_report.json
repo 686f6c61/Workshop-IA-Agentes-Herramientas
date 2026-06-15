@@ -1,0 +1,52 @@
+{
+  "title": "Rollout progresivo",
+  "artifact": {
+    "rollout": [
+      {
+        "stage": "shadow",
+        "traffic": 0.0,
+        "gate": "no_side_effects"
+      },
+      {
+        "stage": "canary",
+        "traffic": 0.05,
+        "gate": "slo_and_eval_pass"
+      },
+      {
+        "stage": "ramp",
+        "traffic": 0.25,
+        "gate": "no_p1_regression"
+      },
+      {
+        "stage": "rollback",
+        "traffic": 0.0,
+        "gate": "known_good_version"
+      }
+    ]
+  },
+  "checks": [
+    {
+      "name": "shadow sin efecto",
+      "passed": true,
+      "detail": "Se observa antes de impactar."
+    },
+    {
+      "name": "canary pequeño",
+      "passed": true,
+      "detail": "Exposición limitada."
+    },
+    {
+      "name": "ramp con gate",
+      "passed": true,
+      "detail": "Subir tráfico exige evidencia."
+    },
+    {
+      "name": "rollback definido",
+      "passed": true,
+      "detail": "Hay ruta de vuelta."
+    }
+  ],
+  "status": "valid",
+  "decision": "El cambio progresa por evidencia: shadow, canary, ramp y rollback tienen gates separados.",
+  "chapter": "c07"
+}

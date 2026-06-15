@@ -1,0 +1,67 @@
+<svg viewBox="0 0 1180 760" role="img" aria-labelledby="f12c07-title f12c07-desc" xmlns="http://www.w3.org/2000/svg">
+  <title id="f12c07-title">Contrato operativo de voz en tiempo real</title>
+  <desc id="f12c07-desc">Pipeline de audio con captura, VAD, ASR, gestor de turnos, herramientas, TTS, reproducción, trazas y evaluación.</desc>
+  <defs>
+    <marker id="f12c07-arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#111111"/>
+    </marker>
+  </defs>
+  <rect width="1180" height="760" fill="#FFFFFF"/>
+  <text x="62" y="58" font-size="28" font-weight="700" fill="#111111">Voz realtime: no es solo STT + LLM + TTS</text>
+  <text x="62" y="88" font-size="15" fill="#555555">Cada turno tiene audio, incertidumbre, latencia, interrupciones, herramientas y privacidad.</text>
+
+  <rect x="54" y="128" width="178" height="380" fill="#FFFFFF" stroke="#111111" stroke-width="1.5"/>
+  <text x="143" y="160" text-anchor="middle" font-size="15" font-weight="700" fill="#111111">Entrada</text>
+  <line x1="78" y1="184" x2="208" y2="184" stroke="#111111"/>
+  <text x="82" y="224" font-size="12" fill="#111111">micrófono</text>
+  <text x="82" y="254" font-size="12" fill="#111111">16 kHz / PCM / Opus</text>
+  <text x="82" y="284" font-size="12" fill="#111111">eco y ruido</text>
+  <text x="82" y="314" font-size="12" fill="#111111">frames 20 ms</text>
+  <rect x="82" y="352" width="104" height="52" fill="#F7F7F7" stroke="#111111"/>
+  <text x="134" y="375" text-anchor="middle" font-size="11" font-weight="700" fill="#111111">VAD</text>
+  <text x="134" y="393" text-anchor="middle" font-size="10" fill="#555555">habla / silencio</text>
+
+  <rect x="284" y="128" width="214" height="380" fill="#F7F7F7" stroke="#111111" stroke-width="1.5"/>
+  <text x="391" y="160" text-anchor="middle" font-size="15" font-weight="700" fill="#111111">ASR streaming</text>
+  <line x1="310" y1="184" x2="472" y2="184" stroke="#111111"/>
+  <text x="314" y="224" font-size="12" fill="#111111">parciales</text>
+  <text x="314" y="254" font-size="12" fill="#111111">final de turno</text>
+  <text x="314" y="284" font-size="12" fill="#111111">WER / confianza</text>
+  <text x="314" y="314" font-size="12" fill="#111111">timestamp</text>
+  <rect x="314" y="352" width="154" height="72" fill="#FFFFFF" stroke="#111111"/>
+  <text x="391" y="377" text-anchor="middle" font-size="11" font-weight="700" fill="#111111">Gates de calidad</text>
+  <text x="391" y="397" text-anchor="middle" font-size="10" fill="#555555">repetir · seguir · revisar</text>
+
+  <rect x="550" y="128" width="230" height="380" fill="#FFFFFF" stroke="#111111" stroke-width="1.5"/>
+  <text x="665" y="160" text-anchor="middle" font-size="15" font-weight="700" fill="#111111">Gestor de turno</text>
+  <line x1="576" y1="184" x2="754" y2="184" stroke="#111111"/>
+  <text x="580" y="224" font-size="12" fill="#111111">estado conversacional</text>
+  <text x="580" y="254" font-size="12" fill="#111111">barge-in</text>
+  <text x="580" y="284" font-size="12" fill="#111111">política de tools</text>
+  <text x="580" y="314" font-size="12" fill="#111111">confirmaciones</text>
+  <text x="580" y="344" font-size="12" fill="#111111">redacción de PII</text>
+  <rect x="580" y="384" width="170" height="58" fill="#111111" stroke="#111111"/>
+  <text x="665" y="408" text-anchor="middle" font-size="11" font-weight="700" fill="#FFFFFF">Contrato</text>
+  <text x="665" y="428" text-anchor="middle" font-size="10" fill="#FFFFFF">answer · repeat · confirm</text>
+
+  <rect x="836" y="128" width="246" height="380" fill="#F7F7F7" stroke="#111111" stroke-width="1.5"/>
+  <text x="959" y="160" text-anchor="middle" font-size="15" font-weight="700" fill="#111111">Salida</text>
+  <line x1="864" y1="184" x2="1054" y2="184" stroke="#111111"/>
+  <text x="868" y="224" font-size="12" fill="#111111">LLM / tools / RAG</text>
+  <text x="868" y="254" font-size="12" fill="#111111">TTS first audio</text>
+  <text x="868" y="284" font-size="12" fill="#111111">playout y jitter</text>
+  <text x="868" y="314" font-size="12" fill="#111111">cancelación si interrumpen</text>
+  <text x="868" y="344" font-size="12" fill="#111111">trazas y evals</text>
+  <rect x="868" y="384" width="180" height="58" fill="#FFFFFF" stroke="#111111"/>
+  <text x="958" y="408" text-anchor="middle" font-size="11" font-weight="700" fill="#111111">SLIs</text>
+  <text x="958" y="428" text-anchor="middle" font-size="10" fill="#555555">WER · latencia · barge-in</text>
+
+  <line x1="232" y1="320" x2="282" y2="320" stroke="#111111" stroke-width="1.6" marker-end="url(#f12c07-arrow)"/>
+  <line x1="498" y1="320" x2="548" y2="320" stroke="#111111" stroke-width="1.6" marker-end="url(#f12c07-arrow)"/>
+  <line x1="780" y1="320" x2="834" y2="320" stroke="#111111" stroke-width="1.6" marker-end="url(#f12c07-arrow)"/>
+
+  <rect x="132" y="572" width="916" height="82" fill="#FFFFFF" stroke="#111111" stroke-width="1.2"/>
+  <text x="158" y="604" font-size="13" font-weight="700" fill="#111111">Regla práctica</text>
+  <text x="158" y="628" font-size="13" fill="#111111">Una tool no se ejecuta porque “el audio parecía decirlo”; se ejecuta cuando el contrato de turno, calidad y permisos lo permite.</text>
+  <text x="1092" y="724" text-anchor="end" font-size="11" fill="#999999">IA para gente curiosa / Facsímil 12 / Capítulo 07 / 686f6c61</text>
+</svg>

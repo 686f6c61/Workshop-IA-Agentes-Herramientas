@@ -1,0 +1,117 @@
+[
+  {
+    "id": "clasificar_tickets",
+    "title": "Clasificar tickets de soporte académico",
+    "primary_principle": "supervised_learning",
+    "supporting_principles": [
+      "unsupervised_learning",
+      "scaling_cost"
+    ],
+    "required_artifacts": [
+      "dataset etiquetado + métrica de error",
+      "perfilado de clusters + validación de dominio",
+      "eval pequeña + curva coste/calidad/latencia"
+    ],
+    "review_flags": [],
+    "reasons": [
+      "hay suficientes ejemplos etiquetados para medir error",
+      "hay mucho dato sin etiquetar para explorar estructura",
+      "hay que comparar calidad, latencia y coste"
+    ],
+    "next_chapter": "capítulo 4 y capítulo 6"
+  },
+  {
+    "id": "descubrir_segmentos",
+    "title": "Descubrir segmentos de alumnos sin etiquetas previas",
+    "primary_principle": "unsupervised_learning",
+    "supporting_principles": [],
+    "required_artifacts": [
+      "perfilado de clusters + validación de dominio"
+    ],
+    "review_flags": [],
+    "reasons": [
+      "hay mucho dato sin etiquetar para explorar estructura"
+    ],
+    "next_chapter": "facsímil 8"
+  },
+  {
+    "id": "asistente_becas",
+    "title": "Asistente que responde sobre becas y sabe abstenerse",
+    "primary_principle": "post_training",
+    "supporting_principles": [
+      "supervised_learning",
+      "unsupervised_learning",
+      "attention_context",
+      "scaling_cost"
+    ],
+    "required_artifacts": [
+      "pares de preferencia + política de rechazo",
+      "dataset etiquetado + métrica de error",
+      "perfilado de clusters + validación de dominio",
+      "presupuesto de contexto + estrategia de recuperación",
+      "eval pequeña + curva coste/calidad/latencia"
+    ],
+    "review_flags": [
+      "pocos ejemplos etiquetados: valida antes de prometer fine-tuning",
+      "impacto alto: exige evaluación y revisión antes de publicar"
+    ],
+    "reasons": [
+      "hay mucho dato sin etiquetar para explorar estructura",
+      "el comportamiento deseado depende de preferencias y abstención",
+      "el presupuesto de contexto condiciona coste y recuperación",
+      "hay que comparar calidad, latencia y coste"
+    ],
+    "next_chapter": "facsímil 3 y facsímil 4"
+  },
+  {
+    "id": "resumen_contratos",
+    "title": "Resumir contratos largos con cláusulas cruzadas",
+    "primary_principle": "attention_context",
+    "supporting_principles": [
+      "supervised_learning",
+      "unsupervised_learning",
+      "post_training",
+      "scaling_cost"
+    ],
+    "required_artifacts": [
+      "presupuesto de contexto + estrategia de recuperación",
+      "dataset etiquetado + métrica de error",
+      "perfilado de clusters + validación de dominio",
+      "pares de preferencia + política de rechazo",
+      "eval pequeña + curva coste/calidad/latencia"
+    ],
+    "review_flags": [
+      "pocos ejemplos etiquetados: valida antes de prometer fine-tuning",
+      "impacto alto: exige evaluación y revisión antes de publicar"
+    ],
+    "reasons": [
+      "hay mucho dato sin etiquetar para explorar estructura",
+      "el presupuesto de contexto condiciona coste y recuperación",
+      "hay que comparar calidad, latencia y coste"
+    ],
+    "next_chapter": "facsímil 3 y facsímil 4"
+  },
+  {
+    "id": "modelo_local_rapido",
+    "title": "Elegir modelo local para respuestas internas de baja latencia",
+    "primary_principle": "scaling_cost",
+    "supporting_principles": [
+      "supervised_learning",
+      "unsupervised_learning",
+      "post_training"
+    ],
+    "required_artifacts": [
+      "eval pequeña + curva coste/calidad/latencia",
+      "dataset etiquetado + métrica de error",
+      "perfilado de clusters + validación de dominio",
+      "pares de preferencia + política de rechazo"
+    ],
+    "review_flags": [],
+    "reasons": [
+      "hay suficientes ejemplos etiquetados para medir error",
+      "hay mucho dato sin etiquetar para explorar estructura",
+      "la generación tiene objetivo estricto de latencia"
+    ],
+    "next_chapter": "capítulo 10 y facsímil 7"
+  }
+]

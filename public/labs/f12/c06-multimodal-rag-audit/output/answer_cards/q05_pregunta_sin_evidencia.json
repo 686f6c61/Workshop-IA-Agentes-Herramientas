@@ -1,0 +1,38 @@
+{
+  "query_id": "q05_pregunta_sin_evidencia",
+  "decision": "review",
+  "answer": "No hay evidencia suficiente para responder con seguridad. El sistema debe pedir la fuente que falta o enviar el caso a revisión.",
+  "evidence": [
+    {
+      "source_id": "policy_text_submission_rule",
+      "modality": "document_text",
+      "fact_id": "policy_submission_rule",
+      "page": 1,
+      "region_id": "sec_3_2",
+      "score": 0.7252
+    },
+    {
+      "source_id": "status_table_current",
+      "modality": "operational_record",
+      "fact_id": "status_current_pending_validation",
+      "page": null,
+      "region_id": null,
+      "score": 0.6817
+    }
+  ],
+  "limits": [
+    "La recuperación no cubre todas las evidencias o modalidades obligatorias."
+  ],
+  "next_action": "Añadir la resolución, estado o documento faltante y repetir la evaluación.",
+  "metrics": {
+    "recall_at_k": 0.6667,
+    "evidence_coverage": 0.6667,
+    "modality_coverage": 0.6667,
+    "context_precision": 0.6,
+    "ndcg_at_k": 1.0,
+    "mrr": 1.0,
+    "unsupported_claim_count": 0,
+    "retrieved_count": 5,
+    "relevant_retrieved_count": 3
+  }
+}

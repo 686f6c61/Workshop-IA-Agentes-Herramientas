@@ -1,0 +1,28 @@
+{
+  "tool": "refund_order",
+  "schema": {
+    "required_args": ["order_id", "amount_eur", "reason"],
+    "amount_min": 0.01,
+    "amount_max": 1000
+  },
+  "role_auto_limits": {
+    "support": 100,
+    "lead": 500,
+    "admin": 1000
+  },
+  "hitl": {
+    "risk_threshold": 8,
+    "amount_threshold": 500,
+    "allowed_roles_for_review": ["support", "lead"]
+  },
+  "business_policy": {
+    "allowed_order_statuses": ["paid"]
+  },
+  "expected_decisions": {
+    "A100": "ALLOW",
+    "A101": "HITL",
+    "A102": "DENY",
+    "A103": "DENY",
+    "A104": "DENY"
+  }
+}

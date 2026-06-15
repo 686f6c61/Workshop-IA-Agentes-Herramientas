@@ -1,0 +1,13 @@
+query_id,rank,score,case_id,split,product,label,text
+q001,1,0.632674,s002,train,becas,ask_more,duda incompleta sobre requisitos de beca
+q001,2,0.632674,s014,train,becas,ask_more,duda incompleta sobre requisitos de beca
+q001,3,0.275962,s007,train,becas,answer,consulta sobre documentacion de beca
+q002,1,0.524668,s010,train,pagos,escalate,reclamacion de pago duplicado
+q002,2,0.147551,s006,train,titulos,answer,solicitud de estado de titulo emitido
+q002,3,0.0,s001,train,matricula,answer,consulta sobre plazo de matricula ordinaria
+q003,1,0.59973,s011,train,horarios,answer,consulta de cambio de grupo horario
+q003,2,0.392927,s004,train,horarios,answer,consulta de horarios de laboratorio
+q003,3,0.283196,s015,train,becas,escalate,revision urgente de beca denegada
+q004,1,0.436979,s005,train,matricula,escalate,caso con cambio de expediente y plazo cerrado
+q004,2,0.209438,s001,train,matricula,answer,consulta sobre plazo de matricula ordinaria
+q004,3,0.209438,s009,train,matricula,answer,consulta sobre plazo matricula ordinaria

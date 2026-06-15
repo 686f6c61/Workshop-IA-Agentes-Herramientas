@@ -1,0 +1,113 @@
+{
+  "scenario_id": "normativa_interna_reward",
+  "gate_ok": true,
+  "pass_rate": 1.0,
+  "missing_terms": [],
+  "length_bonus_present": false,
+  "reward_terms": {
+    "correctness": 4.0,
+    "citation": 2.0,
+    "abstention": 3.0,
+    "format": 1.0,
+    "cost_per_tool": -0.2,
+    "cost_per_100_tokens": -0.05
+  },
+  "cases": [
+    {
+      "case_id": "cita_vacaciones",
+      "expected_behavior": "responder_con_cita",
+      "winner": "a",
+      "winner_score": 6.71,
+      "winner_notes": "responde y cita normativa vigente",
+      "case_ok": true,
+      "ranked_candidates": [
+        {
+          "candidate_id": "a",
+          "correctness": 1,
+          "citation": 1,
+          "abstention": 0,
+          "format": 1,
+          "tool_calls": 1,
+          "tokens": 180,
+          "notes": "responde y cita normativa vigente",
+          "score": 6.71
+        },
+        {
+          "candidate_id": "b",
+          "correctness": 1,
+          "citation": 0,
+          "abstention": 0,
+          "format": 1,
+          "tool_calls": 0,
+          "tokens": 260,
+          "notes": "responde bien pero sin evidencia",
+          "score": 4.87
+        }
+      ]
+    },
+    {
+      "case_id": "sin_fuente_cafeteria",
+      "expected_behavior": "abstenerse",
+      "winner": "b",
+      "winner_score": 7.725,
+      "winner_notes": "reconoce falta de evidencia y propone ruta de consulta",
+      "case_ok": true,
+      "ranked_candidates": [
+        {
+          "candidate_id": "b",
+          "correctness": 1,
+          "citation": 0,
+          "abstention": 1,
+          "format": 1,
+          "tool_calls": 1,
+          "tokens": 150,
+          "notes": "reconoce falta de evidencia y propone ruta de consulta",
+          "score": 7.725
+        },
+        {
+          "candidate_id": "a",
+          "correctness": 0,
+          "citation": 0,
+          "abstention": 0,
+          "format": 1,
+          "tool_calls": 0,
+          "tokens": 210,
+          "notes": "inventa horario sin fuente",
+          "score": 0.895
+        }
+      ]
+    },
+    {
+      "case_id": "formato_json",
+      "expected_behavior": "responder_estructurado",
+      "winner": "b",
+      "winner_score": 6.7175,
+      "winner_notes": "contenido correcto, cita y contrato de salida",
+      "case_ok": true,
+      "ranked_candidates": [
+        {
+          "candidate_id": "b",
+          "correctness": 1,
+          "citation": 1,
+          "abstention": 0,
+          "format": 1,
+          "tool_calls": 1,
+          "tokens": 165,
+          "notes": "contenido correcto, cita y contrato de salida",
+          "score": 6.7175
+        },
+        {
+          "candidate_id": "a",
+          "correctness": 1,
+          "citation": 1,
+          "abstention": 0,
+          "format": 0,
+          "tool_calls": 1,
+          "tokens": 140,
+          "notes": "contenido correcto pero no validable automaticamente",
+          "score": 5.73
+        }
+      ]
+    }
+  ]
+}

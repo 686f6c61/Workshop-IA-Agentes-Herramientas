@@ -1,0 +1,4 @@
+feature_id,expected_value_eur,task_success,cost_per_task_eur,useful_margin_eur
+matricula_rag_assistant,1.1,0.81,0.31,0.581
+auto_close_request,1.35,0.72,0.38,0.592
+policy_search_copilot,0.72,0.86,0.18,0.439

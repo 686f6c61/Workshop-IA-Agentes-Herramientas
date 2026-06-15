@@ -1,0 +1,460 @@
+{
+  "system": {
+    "system_id": "academic-assistant-rag-v1",
+    "name": "Asistente académico con RAG y revisión humana",
+    "owner": "equipo-ia-académica",
+    "purpose": "Responder dudas de matrícula, becas y normativa interna usando documentos versionados y abstención cuando no haya evidencia suficiente.",
+    "release_stage": "canary",
+    "jurisdiction": [
+      "UE",
+      "España"
+    ],
+    "users": [
+      "alumnado",
+      "personal de secretaría",
+      "equipo docente"
+    ],
+    "decision_effect": "orientativo_con_derivacion",
+    "data_classes": [
+      "documentos_publicos",
+      "normativa_interna",
+      "tickets_seudonimizados",
+      "trazas_operativas"
+    ],
+    "integrations": [
+      "modelo_cloud",
+      "vector_store",
+      "sistema_tickets",
+      "panel_observabilidad"
+    ],
+    "human_review": {
+      "required_for": [
+        "casos_con_datos_personales",
+        "respuesta_sin_cita",
+        "cambio_normativo_no_validado",
+        "solicitud_con_efecto_administrativo"
+      ],
+      "owner": "secretaria-académica"
+    },
+    "evidence_sources": [
+      "model_card",
+      "dataset_card",
+      "rag_eval_report",
+      "trace_sample",
+      "privacy_review",
+      "release_gate"
+    ]
+  },
+  "policy": {
+    "scale": {
+      "min": 1,
+      "max": 5,
+      "fields": {
+        "likelihood": "Probabilidad estimada en la ventana revisada.",
+        "impact": "Impacto si el escenario ocurre.",
+        "exposure": "Alcance: usuarios, datos, integraciones o frecuencia.",
+        "detectability_gap": "Dificultad para detectar el problema a tiempo; 1 es fácil, 5 es difícil."
+      }
+    },
+    "risk_thresholds": {
+      "bajo": 80,
+      "medio": 180,
+      "alto": 350
+    },
+    "release_rules": {
+      "max_critical": 0,
+      "max_high_without_owner": 0,
+      "require_evidence_for_high": true,
+      "require_privacy_review_when_personal_data": true,
+      "decision_if_blocked": "revisar_antes_de_publicar"
+    },
+    "control_catalog": {
+      "datos": [
+        "minimizacion",
+        "seudonimizacion",
+        "retencion_limitada",
+        "dataset_card"
+      ],
+      "rag": [
+        "citas_obligatorias",
+        "versionado_indice",
+        "abstencion_sin_evidencia",
+        "eval_retrieval"
+      ],
+      "tools": [
+        "permisos_minimos",
+        "aprobacion_humana",
+        "idempotencia",
+        "registro_de_efectos"
+      ],
+      "modelo": [
+        "model_card",
+        "eval_regresion",
+        "limites_de_uso",
+        "fallback"
+      ],
+      "observabilidad": [
+        "trace_id",
+        "span_modelo",
+        "metricas_coste",
+        "muestreo_revisable"
+      ],
+      "gobernanza": [
+        "owner",
+        "decision_escrita",
+        "revision_periodica",
+        "paquete_evidencias"
+      ]
+    },
+    "framework_artifact_map": {
+      "nist_ai_rmf_govern": [
+        "owner",
+        "decision_escrita",
+        "paquete_evidencias"
+      ],
+      "nist_ai_rmf_map": [
+        "inventario_sistema",
+        "contexto_uso",
+        "limites_sistema"
+      ],
+      "nist_ai_rmf_measure": [
+        "risk_register",
+        "eval_regresion",
+        "trace_sample"
+      ],
+      "nist_ai_rmf_manage": [
+        "control_matrix",
+        "release_gate",
+        "revision_periodica"
+      ],
+      "iso_42001": [
+        "politica_ia",
+        "raci_operativo",
+        "mejora_continua"
+      ],
+      "ai_act": [
+        "clasificacion_uso",
+        "documentacion_tecnica",
+        "monitorizacion_post_release"
+      ],
+      "gdpr": [
+        "privacy_review",
+        "retencion_limitada",
+        "minimizacion"
+      ],
+      "owasp_llm": [
+        "permisos_minimos",
+        "validacion_salida",
+        "control_contexto_tools"
+      ]
+    }
+  },
+  "risk_register": [
+    {
+      "scenario_id": "R-004",
+      "area": "modelo",
+      "description": "La respuesta parece segura, pero no incluye fuente recuperable para justificar una recomendación administrativa",
+      "likelihood": 4,
+      "impact": 4,
+      "exposure": 4,
+      "detectability_gap": 3,
+      "data_class": "normativa_interna",
+      "control_area": "modelo",
+      "owner": "owner-eval",
+      "existing_controls": [
+        "eval_regresion"
+      ],
+      "evidence_required": [
+        "citation_eval",
+        "abstention_cases"
+      ],
+      "risk_score": 192,
+      "risk_band": "alto",
+      "recommended_controls": [
+        "model_card",
+        "limites_de_uso",
+        "fallback"
+      ],
+      "needs_release_condition": true
+    },
+    {
+      "scenario_id": "R-002",
+      "area": "datos",
+      "description": "Una traza conserva texto con datos personales más tiempo del necesario para depuración",
+      "likelihood": 3,
+      "impact": 5,
+      "exposure": 3,
+      "detectability_gap": 4,
+      "data_class": "trazas_operativas",
+      "control_area": "datos",
+      "owner": "owner-privacy",
+      "existing_controls": [
+        "seudonimizacion"
+      ],
+      "evidence_required": [
+        "retention_policy",
+        "privacy_review"
+      ],
+      "risk_score": 180,
+      "risk_band": "alto",
+      "recommended_controls": [
+        "minimizacion",
+        "retencion_limitada",
+        "dataset_card"
+      ],
+      "needs_release_condition": true
+    },
+    {
+      "scenario_id": "R-005",
+      "area": "observabilidad",
+      "description": "No se puede reconstruir qué versión de prompt, modelo e índice produjo una respuesta revisada",
+      "likelihood": 3,
+      "impact": 4,
+      "exposure": 3,
+      "detectability_gap": 5,
+      "data_class": "trazas_operativas",
+      "control_area": "observabilidad",
+      "owner": "owner-observability",
+      "existing_controls": [
+        "trace_id"
+      ],
+      "evidence_required": [
+        "trace_sample",
+        "release_manifest"
+      ],
+      "risk_score": 180,
+      "risk_band": "alto",
+      "recommended_controls": [
+        "span_modelo",
+        "metricas_coste",
+        "muestreo_revisable"
+      ],
+      "needs_release_condition": true
+    },
+    {
+      "scenario_id": "R-003",
+      "area": "tools",
+      "description": "Una acción en el sistema de tickets se ejecuta sin confirmación humana aunque cambia el estado del expediente",
+      "likelihood": 2,
+      "impact": 5,
+      "exposure": 4,
+      "detectability_gap": 4,
+      "data_class": "tickets_seudonimizados",
+      "control_area": "tools",
+      "owner": "owner-platform",
+      "existing_controls": [
+        "registro_de_efectos"
+      ],
+      "evidence_required": [
+        "approval_policy",
+        "tool_trace_sample"
+      ],
+      "risk_score": 160,
+      "risk_band": "medio",
+      "recommended_controls": [
+        "permisos_minimos",
+        "aprobacion_humana",
+        "idempotencia"
+      ],
+      "needs_release_condition": false
+    },
+    {
+      "scenario_id": "R-001",
+      "area": "rag",
+      "description": "El asistente cita una norma antigua porque el índice no refleja el último cambio publicado",
+      "likelihood": 3,
+      "impact": 4,
+      "exposure": 4,
+      "detectability_gap": 3,
+      "data_class": "normativa_interna",
+      "control_area": "rag",
+      "owner": "owner-rag",
+      "existing_controls": [
+        "versionado_indice",
+        "eval_retrieval"
+      ],
+      "evidence_required": [
+        "rag_eval_report",
+        "index_manifest"
+      ],
+      "risk_score": 144,
+      "risk_band": "medio",
+      "recommended_controls": [
+        "citas_obligatorias",
+        "abstencion_sin_evidencia"
+      ],
+      "needs_release_condition": false
+    },
+    {
+      "scenario_id": "R-006",
+      "area": "gobernanza",
+      "description": "La ficha del sistema no define quién acepta riesgo residual ni cuándo se revisa",
+      "likelihood": 3,
+      "impact": 4,
+      "exposure": 3,
+      "detectability_gap": 4,
+      "data_class": "normativa_interna",
+      "control_area": "gobernanza",
+      "owner": "owner-governance",
+      "existing_controls": [
+        "owner"
+      ],
+      "evidence_required": [
+        "risk_acceptance_record",
+        "review_calendar"
+      ],
+      "risk_score": 144,
+      "risk_band": "medio",
+      "recommended_controls": [
+        "decision_escrita",
+        "revision_periodica",
+        "paquete_evidencias"
+      ],
+      "needs_release_condition": false
+    },
+    {
+      "scenario_id": "R-008",
+      "area": "rag",
+      "description": "Un documento de baja confianza entra en el contexto recuperado por falta de filtros de fuente",
+      "likelihood": 3,
+      "impact": 4,
+      "exposure": 3,
+      "detectability_gap": 4,
+      "data_class": "documentos_publicos",
+      "control_area": "rag",
+      "owner": "owner-rag",
+      "existing_controls": [
+        "citas_obligatorias"
+      ],
+      "evidence_required": [
+        "source_quality_policy",
+        "retrieval_trace"
+      ],
+      "risk_score": 144,
+      "risk_band": "medio",
+      "recommended_controls": [
+        "versionado_indice",
+        "abstencion_sin_evidencia",
+        "eval_retrieval"
+      ],
+      "needs_release_condition": false
+    },
+    {
+      "scenario_id": "R-007",
+      "area": "datos",
+      "description": "El conjunto de evaluación mezcla casos sintéticos y casos reales sin marca de origen",
+      "likelihood": 2,
+      "impact": 3,
+      "exposure": 4,
+      "detectability_gap": 3,
+      "data_class": "tickets_seudonimizados",
+      "control_area": "datos",
+      "owner": "owner-data",
+      "existing_controls": [
+        "dataset_card"
+      ],
+      "evidence_required": [
+        "dataset_card",
+        "split_manifest"
+      ],
+      "risk_score": 72,
+      "risk_band": "bajo",
+      "recommended_controls": [
+        "minimizacion",
+        "seudonimizacion",
+        "retencion_limitada"
+      ],
+      "needs_release_condition": false
+    }
+  ],
+  "release_gate": {
+    "decision": "publicar_con_condiciones",
+    "blockers": [],
+    "critical_count": 0,
+    "high_count": 3,
+    "release_stage": "canary",
+    "required_conditions": [
+      {
+        "scenario_id": "R-002",
+        "area": "datos",
+        "description": "Una traza conserva texto con datos personales más tiempo del necesario para depuración",
+        "likelihood": 3,
+        "impact": 5,
+        "exposure": 3,
+        "detectability_gap": 4,
+        "data_class": "trazas_operativas",
+        "control_area": "datos",
+        "owner": "owner-privacy",
+        "existing_controls": [
+          "seudonimizacion"
+        ],
+        "evidence_required": [
+          "retention_policy",
+          "privacy_review"
+        ],
+        "risk_score": 180,
+        "risk_band": "alto",
+        "recommended_controls": [
+          "minimizacion",
+          "retencion_limitada",
+          "dataset_card"
+        ],
+        "needs_release_condition": true
+      },
+      {
+        "scenario_id": "R-004",
+        "area": "modelo",
+        "description": "La respuesta parece segura, pero no incluye fuente recuperable para justificar una recomendación administrativa",
+        "likelihood": 4,
+        "impact": 4,
+        "exposure": 4,
+        "detectability_gap": 3,
+        "data_class": "normativa_interna",
+        "control_area": "modelo",
+        "owner": "owner-eval",
+        "existing_controls": [
+          "eval_regresion"
+        ],
+        "evidence_required": [
+          "citation_eval",
+          "abstention_cases"
+        ],
+        "risk_score": 192,
+        "risk_band": "alto",
+        "recommended_controls": [
+          "model_card",
+          "limites_de_uso",
+          "fallback"
+        ],
+        "needs_release_condition": true
+      },
+      {
+        "scenario_id": "R-005",
+        "area": "observabilidad",
+        "description": "No se puede reconstruir qué versión de prompt, modelo e índice produjo una respuesta revisada",
+        "likelihood": 3,
+        "impact": 4,
+        "exposure": 3,
+        "detectability_gap": 5,
+        "data_class": "trazas_operativas",
+        "control_area": "observabilidad",
+        "owner": "owner-observability",
+        "existing_controls": [
+          "trace_id"
+        ],
+        "evidence_required": [
+          "trace_sample",
+          "release_manifest"
+        ],
+        "risk_score": 180,
+        "risk_band": "alto",
+        "recommended_controls": [
+          "span_modelo",
+          "metricas_coste",
+          "muestreo_revisable"
+        ],
+        "needs_release_condition": true
+      }
+    ]
+  }
+}

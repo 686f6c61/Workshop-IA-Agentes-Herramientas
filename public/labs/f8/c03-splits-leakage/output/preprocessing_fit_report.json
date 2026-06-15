@@ -1,0 +1,72 @@
+{
+  "manifest_policy_id": "support-split-policy-v1",
+  "selected_strategy": "time_group_holdout",
+  "fit_train_only": {
+    "vocabulary_size": 40,
+    "fit_scope": "train"
+  },
+  "fit_all_data": {
+    "vocabulary_size": 56,
+    "extra_terms_learned_from_reserved_splits": [
+      "abonado",
+      "ampliacion",
+      "asignada",
+      "asociadas",
+      "aula",
+      "bloqueada",
+      "confirmacion",
+      "convocatoria",
+      "justificante",
+      "pendiente",
+      "pregunta",
+      "recibo",
+      "seminario",
+      "sesion",
+      "tasas",
+      "ya"
+    ],
+    "extra_term_count": 16
+  },
+  "reserved_split_terms_not_seen_in_train": {
+    "s003": [
+      "justificante",
+      "pendiente",
+      "pregunta"
+    ],
+    "s017": [
+      "asociadas",
+      "tasas"
+    ],
+    "s018": [
+      "asignada",
+      "aula",
+      "seminario",
+      "sesion"
+    ],
+    "s019": [
+      "justificante",
+      "pendiente",
+      "pregunta"
+    ],
+    "s020": [
+      "ampliacion"
+    ],
+    "s021": [
+      "convocatoria"
+    ],
+    "s022": [
+      "abonado",
+      "confirmacion",
+      "recibo",
+      "ya"
+    ],
+    "s023": [
+      "bloqueada"
+    ],
+    "s024": [
+      "aula",
+      "seminario"
+    ]
+  },
+  "decision": "block_fit_all_data"
+}

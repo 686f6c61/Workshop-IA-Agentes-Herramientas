@@ -1,0 +1,23 @@
+[
+  {
+    "case_id": "rag_001",
+    "answerable": true,
+    "gold_chunks": {"normativa-2026#plazos-ampliacion": 3},
+    "retrieved": [{"chunk_id": "normativa-2026#plazos-ampliacion"}, {"chunk_id": "faq-campus#matricula-general"}],
+    "answer": {"abstained": false, "citations": ["normativa-2026#plazos-ampliacion"], "claims": [{"supporting_chunks": ["normativa-2026#plazos-ampliacion"]}]}
+  },
+  {
+    "case_id": "rag_002",
+    "answerable": true,
+    "gold_chunks": {"normativa-2026#plazos-ampliacion": 2, "normativa-2026#pagos-pendientes": 3},
+    "retrieved": [{"chunk_id": "normativa-2026#plazos-ampliacion"}, {"chunk_id": "faq-campus#tasas"}],
+    "answer": {"abstained": false, "citations": ["normativa-2026#plazos-ampliacion"], "claims": [{"supporting_chunks": ["normativa-2026#plazos-ampliacion"]}, {"supporting_chunks": []}]}
+  },
+  {
+    "case_id": "rag_003",
+    "answerable": false,
+    "gold_chunks": {},
+    "retrieved": [{"chunk_id": "faq-campus#general"}],
+    "answer": {"abstained": true, "citations": [], "claims": []}
+  }
+]

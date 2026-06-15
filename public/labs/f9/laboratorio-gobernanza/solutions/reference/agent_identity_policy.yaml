@@ -1,0 +1,22 @@
+policy_id: reference-agent-identity-policy
+version: 2026.06.07-reference
+owner: owner-platform
+
+agents:
+  - agent_id: admissions_prioritization_helper.agent.review
+    system_id: admissions_prioritization_helper
+    environment: pilot
+    credential_ttl_minutes: 30
+    allowed_scopes:
+      - cases:read
+      - ranking:prepare
+      - policy_docs:read
+    forbidden_scopes:
+      - cases:update
+      - ranking:publish
+      - email:send
+
+closure_evidence:
+  - runtime_trace_contains_agent_id
+  - credential_rotation_log
+  - scope_review_record

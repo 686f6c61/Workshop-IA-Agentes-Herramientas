@@ -1,0 +1,72 @@
+[
+  {
+    "id": "ventas_trimestre",
+    "title": "Calcular ventas del último trimestre",
+    "description": "Dirección pide el importe total vendido por región durante el último trimestre cerrado.",
+    "needs_exact_number": true,
+    "needs_live_state": true,
+    "known_database": true,
+    "docs_available": false,
+    "generation_needed": false,
+    "requires_sources": true,
+    "external_action": false,
+    "uses_private_data": true,
+    "impact": 4
+  },
+  {
+    "id": "politica_becas",
+    "title": "Responder dudas sobre una política de becas",
+    "description": "Alumnado pregunta por plazos, requisitos y excepciones publicados en documentos internos.",
+    "needs_exact_number": false,
+    "needs_live_state": true,
+    "known_database": false,
+    "docs_available": true,
+    "generation_needed": true,
+    "requires_sources": true,
+    "external_action": false,
+    "uses_private_data": false,
+    "impact": 3
+  },
+  {
+    "id": "correo_seguimiento",
+    "title": "Redactar un correo de seguimiento",
+    "description": "Un equipo quiere convertir notas breves de una reunión en un correo claro y amable.",
+    "needs_exact_number": false,
+    "needs_live_state": false,
+    "known_database": false,
+    "docs_available": false,
+    "generation_needed": true,
+    "requires_sources": false,
+    "external_action": false,
+    "uses_private_data": false,
+    "impact": 1
+  },
+  {
+    "id": "reembolso_cliente",
+    "title": "Proponer y ejecutar un reembolso",
+    "description": "Soporte quiere que un asistente revise el historial y, si procede, cree el reembolso.",
+    "needs_exact_number": true,
+    "needs_live_state": true,
+    "known_database": true,
+    "docs_available": true,
+    "generation_needed": true,
+    "requires_sources": true,
+    "external_action": true,
+    "uses_private_data": true,
+    "impact": 5
+  },
+  {
+    "id": "incidencia_produccion",
+    "title": "Resumir una incidencia de producción",
+    "description": "On-call necesita leer logs, métricas y cambios recientes para preparar un resumen técnico.",
+    "needs_exact_number": false,
+    "needs_live_state": true,
+    "known_database": false,
+    "docs_available": true,
+    "generation_needed": true,
+    "requires_sources": true,
+    "external_action": false,
+    "uses_private_data": true,
+    "impact": 4
+  }
+]

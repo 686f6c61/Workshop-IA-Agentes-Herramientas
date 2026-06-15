@@ -1,0 +1,43 @@
+{
+  "contract_id": "f8-c06-pipeline-engineering-contract",
+  "versión": "2026-06-07",
+  "owner": "equipo-plataforma-ia",
+  "unit": "pipeline_trace",
+  "idempotency_key": ["window", "event_id"],
+  "required_trace_event_ids": ["p001", "p007", "p011", "p012", "p017"],
+  "required_spans": ["ingest", "validate", "score", "decide", "emit"],
+  "span_order": ["ingest", "validate", "score", "decide", "emit"],
+  "span_slos_ms": {
+    "ingest": 90,
+    "validate": 140,
+    "score": 320,
+    "decide": 90,
+    "emit": 100
+  },
+  "trace_slos": {
+    "max_total_trace_duration_ms": 700,
+    "max_missing_required_span_rate": 0.0,
+    "max_duplicate_idempotency_keys": 0,
+    "max_events_without_trace": 0
+  },
+  "schema_evolution_policy": {
+    "compatible": [
+      "add_optional_column",
+      "add_new_allowed_value_with_contract_version",
+      "raise_slo_after_successful_shadow_window"
+    ],
+    "breaking": [
+      "remove_required_column",
+      "rename_required_column_without_alias",
+      "change_decision_semantics",
+      "drop_trace_id",
+      "reuse_event_id_for_different_decision"
+    ]
+  },
+  "retry_policy": {
+    "max_attempts": 3,
+    "backoff_seconds": [5, 30, 120],
+    "requires_idempotency_key": true,
+    "manual_review_after_final_attempt": true
+  }
+}

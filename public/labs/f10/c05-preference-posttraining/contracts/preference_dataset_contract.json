@@ -1,0 +1,43 @@
+{
+  "scenario_id": "f10_c05_preference_posttraining",
+  "contract_version": "1.0.0",
+  "dataset_snapshot_id": "pref_dataset_2026_06_08",
+  "target_use": "pre_dpo_or_reward_model_audit",
+  "required_fields": [
+    "pair_id",
+    "prompt_id",
+    "task_family",
+    "prompt",
+    "chosen",
+    "rejected",
+    "preference_reason",
+    "rubric_scores",
+    "annotator_ids",
+    "agreement",
+    "chosen_reward_score",
+    "rejected_reward_score",
+    "chosen_tokens",
+    "rejected_tokens",
+    "source_policy",
+    "created_at",
+    "verifier_result"
+  ],
+  "required_rubric_keys": [
+    "correctness",
+    "evidence",
+    "format",
+    "cost"
+  ],
+  "min_pairs": 10,
+  "min_task_families": 3,
+  "min_avg_agreement": 0.72,
+  "max_low_agreement_rate": 0.25,
+  "min_chosen_win_rate": 0.75,
+  "min_avg_reward_margin": 0.15,
+  "max_negative_margin_rate": 0.15,
+  "min_verifier_coverage": 0.70,
+  "max_duplicate_pair_rate": 0.10,
+  "max_reversed_conflicts": 0,
+  "max_length_bias_ratio": 2.50,
+  "low_agreement_threshold": 0.55
+}

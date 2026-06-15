@@ -1,0 +1,66 @@
+{
+  "model_version": "support-prioritizer-linear-v1",
+  "explanation_policy_version": "interp-audit-v1",
+  "owner": "equipo-ia",
+  "purpose": "diagnóstico interno y revisión operativa de tickets priorizados",
+  "allowed_consumers": [
+    "ingenieria",
+    "soporte_n2",
+    "producto"
+  ],
+  "not_for": [
+    "decisión final sin revisión",
+    "comunicación automática a usuario"
+  ],
+  "required_fields": [
+    "case_id",
+    "model_version",
+    "score",
+    "prediction",
+    "top_features",
+    "deletion_test",
+    "counterfactual",
+    "data_hash_sha256",
+    "policy_hash_sha256"
+  ],
+  "logging_required": true,
+  "monitoring": {
+    "log_explanations": true,
+    "monitor_top_feature_distribution": true,
+    "monitor_counterfactual_availability": true,
+    "monitor_explanation_drift": true
+  },
+  "data_hash_sha256": "ec7bf55279ff3c6a3f93510b638fea374eff27577425cdcb76b5ba103c7af20e",
+  "policy_hash_sha256": "9c167a04f36c078893c049858de5e2b3cde14d3a0a6cd22c5a6936c787ab57a4",
+  "sample_explanation_event": {
+    "case_id": "t001",
+    "model_version": "support-prioritizer-linear-v1",
+    "score": 0.859603,
+    "prediction": 1,
+    "top_features": [
+      {
+        "feature": "student_wait_days",
+        "value": 12.0,
+        "weight": 0.13,
+        "contribution_logit": 1.56,
+        "direction": "sube"
+      },
+      {
+        "feature": "missing_payment",
+        "value": 1.0,
+        "weight": 1.25,
+        "contribution_logit": 1.25,
+        "direction": "sube"
+      },
+      {
+        "feature": "prior_cases",
+        "value": 3.0,
+        "weight": 0.28,
+        "contribution_logit": 0.8400000000000001,
+        "direction": "sube"
+      }
+    ],
+    "data_hash_sha256": "ec7bf55279ff3c6a3f93510b638fea374eff27577425cdcb76b5ba103c7af20e",
+    "policy_hash_sha256": "9c167a04f36c078893c049858de5e2b3cde14d3a0a6cd22c5a6936c787ab57a4"
+  }
+}

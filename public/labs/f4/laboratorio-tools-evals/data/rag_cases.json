@@ -1,0 +1,26 @@
+[
+  {
+    "case_id": "c1",
+    "question": "Hasta cuándo puedo modificar la matrícula",
+    "expected_doc": "matricula_vigente",
+    "should_answer": true
+  },
+  {
+    "case_id": "c2",
+    "question": "Cómo se revisan las becas internas",
+    "expected_doc": "becas_vigente",
+    "should_answer": true
+  },
+  {
+    "case_id": "c3",
+    "question": "Cuántos pagos pendientes hay por campus",
+    "expected_doc": "pagos_vigente",
+    "should_answer": false
+  },
+  {
+    "case_id": "c4",
+    "question": "Cuál es el horario de cafetería",
+    "expected_doc": null,
+    "should_answer": false
+  }
+]

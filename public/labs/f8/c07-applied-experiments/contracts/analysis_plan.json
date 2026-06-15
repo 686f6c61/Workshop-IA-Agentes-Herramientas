@@ -1,0 +1,40 @@
+{
+  "analysis_plan_id": "f8-c07-guided-template-analysis",
+  "versión": "2026-06-07",
+  "experiment_id": "support-template-guided-reply-v1",
+  "decision_owner": "equipo-datos-ia",
+  "hypothesis": "La plantilla guiada aumenta la resolución a 7 días sin empeorar citas, coste, latencia ni feedback negativo.",
+  "unit": "unit_id",
+  "population": "Casos académicos de matricula, becas y practicas con trazabilidad completa.",
+  "treatment": "Plantilla guiada y contexto documental revisado.",
+  "control": "Flujo actual.",
+  "primary_metric": "resolved",
+  "metric_window": "day_7",
+  "guardrail_metrics": [
+    "negative_feedback",
+    "latency_ms",
+    "cost_eur",
+    "citation_valid"
+  ],
+  "slices_to_report": [
+    "segment",
+    "query_type",
+    "language"
+  ],
+  "planned_looks": 1,
+  "multiple_comparison_policy": {
+    "primary_metric_count": 1,
+    "slice_results_are_exploratory": true,
+    "correction_for_guardrails": "report_each_guardrail_without_declaring_multiple_winners"
+  },
+  "exclusions_before_analysis": [
+    "unidades sin exposure event",
+    "unidades con fallback no etiquetado",
+    "unidades sin unit_id estable"
+  ],
+  "decision_rules": {
+    "pass": "Métrica primaria con efecto practico defendible, readiness pass y guardrails pass.",
+    "review": "Señal positiva con muestra insuficiente o slices por revisar.",
+    "block": "SRM block, schema invalido, exposición ausente o guardrail block."
+  }
+}

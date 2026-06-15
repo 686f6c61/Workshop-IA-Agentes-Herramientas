@@ -1,0 +1,6 @@
+case_id,decision,wer,mean_energy,endpoint_delay_ms,first_audio_latency_ms,barge_in_stop_latency_ms,total_turn_latency_ms
+q01_estado_beca,answer,0.0833,0.075,400,1190,,5750
+q02_ruido_pasillo,ask_repeat,0.3333,0.016,940,1760,,6900
+q03_interrupcion_usuario,stop_and_answer,0.0,0.081,360,1070,130,5120
+q04_datos_sensibles,answer,0.0,0.069,440,1380,,7100
+q05_accion_con_confirmacion,confirm_before_tool,0.0,0.073,420,1390,,6100

@@ -1,0 +1,60 @@
+{
+  "contract_id": "f8-c04-feature-contract-v1",
+  "owner": "equipo-datos-ia",
+  "purpose": "Construir features tabulares y representaciones vectoriales para soporte académico sin usar columnas de identidad o target como entrada del modelo.",
+  "entity_key": "case_id",
+  "event_time": "created_at",
+  "split_file": "data/split_assignments.csv",
+  "target": "label",
+  "allowed_input_columns": [
+    "created_at",
+    "product",
+    "channel",
+    "text"
+  ],
+  "forbidden_input_columns": [
+    "case_id",
+    "student_id",
+    "source_id",
+    "label"
+  ],
+  "fit_scope": "train",
+  "transform_scope": [
+    "train",
+    "validation",
+    "test"
+  ],
+  "categorical_features": [
+    "product",
+    "channel"
+  ],
+  "numeric_features": [
+    "days_since_min_train_date",
+    "text_token_count"
+  ],
+  "text_feature": {
+    "column": "text",
+    "method": "train_tfidf",
+    "max_terms": 40,
+    "min_token_length": 3
+  },
+  "dense_embedding": {
+    "method": "deterministic_hash_projection",
+    "dimensions": 64,
+    "normalization": "l2",
+    "purpose": "Baseline local para probar contrato, dimensiones y similitud antes de sustituirlo por un encoder neural."
+  },
+  "similarity": {
+    "metric": "cosine",
+    "top_k": 3,
+    "index_splits": [
+      "train"
+    ]
+  },
+  "quality_gates": {
+    "max_unknown_categories": 0,
+    "max_forbidden_features_used": 0,
+    "require_feature_manifest": true,
+    "require_l2_normalized_dense_vectors": true
+  }
+}

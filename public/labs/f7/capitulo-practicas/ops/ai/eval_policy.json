@@ -1,0 +1,8 @@
+{
+  "min_weighted_quality": 0.85,
+  "max_critical_failures": 0,
+  "max_cost_per_accepted_eur": 0.04,
+  "max_regressions": 0,
+  "critical_slices": ["sin_evidencia"],
+  "decision_owner": "equipo-ia"
+}

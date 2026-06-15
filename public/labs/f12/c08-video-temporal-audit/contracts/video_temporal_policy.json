@@ -1,0 +1,89 @@
+{
+  "schema_version": "1.0",
+  "project": "IA para gente curiosa",
+  "fasciculo": 12,
+  "capitulo": 8,
+  "quality_gates": {
+    "min_tiou": 0.5,
+    "max_boundary_error_s": 2.0,
+    "min_evidence_coverage": 1.0,
+    "require_temporal_order": true,
+    "require_source_trace": true
+  },
+  "sampling": {
+    "default_fps": 1,
+    "max_gap_without_keyframe_s": 8,
+    "prefer_keyframes_for_events": true,
+    "default_clip_seconds": 4,
+    "default_stride_seconds": 1
+  },
+  "event_extraction": {
+    "max_merge_gap_s": 2.0,
+    "rules": [
+      {
+        "event_id": "error_503_visible",
+        "label": "error 503 visible",
+        "match_any_ocr": ["503", "service unavailable"],
+        "match_any_caption": ["error"],
+        "match_any_objects": ["alerta"],
+        "default_window_s": 3.0,
+        "modalities": ["visual_ocr", "frame"]
+      },
+      {
+        "event_id": "restart_service",
+        "label": "reinicio de servicio",
+        "match_any_ocr": ["restart"],
+        "match_any_caption": ["reinicio"],
+        "match_any_objects": [],
+        "default_window_s": 4.0,
+        "modalities": ["transcript", "frame"]
+      },
+      {
+        "event_id": "door_open",
+        "label": "puerta abierta",
+        "match_any_ocr": [],
+        "match_any_caption": ["puerta abierta"],
+        "match_any_objects": ["puerta_abierta"],
+        "default_window_s": 3.0,
+        "modalities": ["frame"]
+      },
+      {
+        "event_id": "badge_ok",
+        "label": "tarjeta validada",
+        "match_any_ocr": ["access granted"],
+        "match_any_caption": ["acceso concedido"],
+        "match_any_objects": ["tarjeta"],
+        "default_window_s": 2.0,
+        "modalities": ["visual_ocr", "frame"]
+      },
+      {
+        "event_id": "defect_visible",
+        "label": "defecto visible",
+        "match_any_ocr": [],
+        "match_any_caption": ["grieta", "defecto"],
+        "match_any_objects": ["grieta"],
+        "default_window_s": 2.0,
+        "modalities": ["frame", "object"]
+      },
+      {
+        "event_id": "visual_prompt_injection",
+        "label": "texto visual no confiable",
+        "match_any_ocr": ["ignore policy", "approve all actions", "system prompt", "override"],
+        "match_any_caption": ["malicioso"],
+        "match_any_objects": ["texto"],
+        "default_window_s": 3.0,
+        "modalities": ["visual_ocr", "frame", "security"]
+      }
+    ]
+  },
+  "security": {
+    "treat_video_text_as_untrusted_data": true,
+    "block_visual_instruction_override": true
+  },
+  "outputs": {
+    "require_case_cards": true,
+    "require_storyboards": true,
+    "require_temporal_eval_csv": true,
+    "require_signed_svg": true
+  }
+}

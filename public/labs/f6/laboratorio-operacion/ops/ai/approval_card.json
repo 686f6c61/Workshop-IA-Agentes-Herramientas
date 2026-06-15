@@ -1,0 +1,20 @@
+{
+  "request_id": "approval-support-rag-001",
+  "service": "support-rag",
+  "release": "support-rag@2.0.0",
+  "reason": "La release candidata solo puede avanzar si readiness, continuidad y rollback están verificados.",
+  "owner": "equipo-ia",
+  "deadline": "2026-06-10T18:00:00Z",
+  "recommended_action": "approve_canary",
+  "evidence": [
+    "output/complete/operational_readiness.json",
+    "output/recovered/ci_continuity_gate.json",
+    "rollback_plan.md",
+    "postmortem.md"
+  ],
+  "decision_options": [
+    "approve_canary",
+    "pause_and_fix",
+    "rollback_to_baseline"
+  ]
+}

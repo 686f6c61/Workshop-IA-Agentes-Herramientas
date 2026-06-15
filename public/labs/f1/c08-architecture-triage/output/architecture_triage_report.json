@@ -1,0 +1,93 @@
+{
+  "results": [
+    {
+      "id": "vision_defects_edge",
+      "title": "Control visual de piezas en una línea de fabricación",
+      "input_type": "image_grid",
+      "deployment": "edge_gpu",
+      "recommendation": "CNN",
+      "candidates": [
+        {
+          "name": "CNN",
+          "why": "la entrada tiene estructura de rejilla y patrones locales",
+          "rough_params_first_conv": 896,
+          "activation_cells_first_map": 1605632
+        },
+        {
+          "name": "Vision Transformer",
+          "why": "posible si hay muchos datos y GPU, pero suele ser más caro al inicio",
+          "rough_attention_cells_if_196_patches": 38416
+        }
+      ],
+      "risks": [],
+      "valid_for_first_experiment": true
+    },
+    {
+      "id": "maintenance_sensor",
+      "title": "Predicción de fallo con señales de sensores",
+      "input_type": "time_series",
+      "deployment": "edge_cpu",
+      "recommendation": "LSTM/GRU o 1D CNN temporal",
+      "candidates": [
+        {
+          "name": "LSTM/GRU",
+          "why": "la secuencia es corta y el despliegue edge penaliza atención cuadrática",
+          "rough_lstm_params": 19712
+        },
+        {
+          "name": "1D CNN temporal",
+          "why": "buena alternativa si importan patrones locales y latencia baja"
+        }
+      ],
+      "risks": [],
+      "valid_for_first_experiment": true
+    },
+    {
+      "id": "support_ticket_short_text",
+      "title": "Clasificación de tickets de soporte cortos",
+      "input_type": "text_sequence",
+      "deployment": "cloud_cpu",
+      "recommendation": "Embedding + clasificador, comparado contra Transformer pequeño",
+      "candidates": [
+        {
+          "name": "Embedding + clasificador lineal",
+          "why": "para texto corto y pocas clases puede bastar antes de usar un LLM",
+          "tokens": 160
+        },
+        {
+          "name": "Transformer pequeño",
+          "why": "útil si el orden y el contexto completo cambian la etiqueta",
+          "attention_cells": 25600,
+          "rough_small_transformer_params": 3145728
+        }
+      ],
+      "risks": [],
+      "valid_for_first_experiment": true
+    },
+    {
+      "id": "legal_contract_review",
+      "title": "Revisión de contratos largos con referencias cruzadas",
+      "input_type": "long_text",
+      "deployment": "cloud_gpu",
+      "recommendation": "Transformer con RAG o chunking",
+      "candidates": [
+        {
+          "name": "Transformer con RAG/chunking",
+          "why": "el texto largo exige recuperar o trocear antes de pasar todo al contexto",
+          "attention_cells_full_context": 144000000,
+          "rough_small_transformer_params": 3145728
+        },
+        {
+          "name": "Clasificador por recuperación de fragmentos",
+          "why": "si hay pocos ejemplos, conviene recuperar pasajes relevantes y clasificar sobre evidencias antes de entrenar"
+        }
+      ],
+      "risks": [
+        "pocos_ejemplos_para_deep_learning",
+        "atencion_cuadratica_cara"
+      ],
+      "valid_for_first_experiment": true
+    }
+  ],
+  "invalid": []
+}

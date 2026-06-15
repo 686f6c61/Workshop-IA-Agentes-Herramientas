@@ -1,0 +1,13 @@
+event_id,slice,action,behavior_probability,target_probability,weight,reward
+evt_001,baja_criticidad,modelo_rapido,0.62,0.52,0.83871,0.69
+evt_002,baja_criticidad,modelo_fuerte,0.28,0.42,1.5,0.76
+evt_003,media_criticidad,modelo_fuerte,0.45,0.58,1.288889,0.79
+evt_004,media_criticidad,modelo_rapido,0.38,0.22,0.578947,0.55
+evt_005,alta_criticidad,modelo_fuerte,0.7,0.78,1.114286,0.83
+evt_006,alta_criticidad,revision_humana,0.3,0.22,0.733333,0.78
+evt_007,baja_criticidad,modelo_rapido,0.6,0.5,0.833333,0.7
+evt_008,media_criticidad,modelo_fuerte,0.46,0.6,1.304348,0.8
+evt_009,media_criticidad,modelo_rapido,0.4,0.25,0.625,0.57
+evt_010,alta_criticidad,modelo_fuerte,0.72,0.8,1.111111,0.84
+evt_011,baja_criticidad,modelo_fuerte,0.26,0.4,1.538462,0.74
+evt_012,media_criticidad,revision_humana,0.17,0.2,1.176471,0.73

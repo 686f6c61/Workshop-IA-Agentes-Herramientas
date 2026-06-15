@@ -1,0 +1,5 @@
+metric_window,variant,n,resolved_rate,followup_needed_rate,student_satisfied_rate
+day_1,control,6,0.5,0.666667,0.333333
+day_1,treatment,6,0.833333,0.666667,0.333333
+day_7,control,6,0.5,0.5,0.5
+day_7,treatment,6,0.833333,0.166667,0.833333

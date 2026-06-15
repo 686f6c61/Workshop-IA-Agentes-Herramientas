@@ -1,0 +1,16 @@
+{
+  "queue_size": 2,
+  "auto_continue": [
+    "rev_002"
+  ],
+  "next_card": {
+    "request_id": "rev_001",
+    "trace_id": "trace_abc",
+    "reasons": [
+      "low_confidence",
+      "effect_requires_review",
+      "missing_evidence"
+    ]
+  },
+  "decision": "needs_review"
+}

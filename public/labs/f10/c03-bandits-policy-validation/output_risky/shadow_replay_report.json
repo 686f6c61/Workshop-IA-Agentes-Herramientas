@@ -1,0 +1,55 @@
+{
+  "scenario_id": "routing_modelos_soporte_c03_risky",
+  "mode": "shadow_before_pilot",
+  "selected_policy": "greedy",
+  "rounds": 60,
+  "recommendations_by_action": {
+    "modelo_fuerte": 58,
+    "modelo_rapido": 1,
+    "revision_humana": 1
+  },
+  "sensitive_slice_rows": 25,
+  "sensitive_slice_stable_matches": 25,
+  "readiness_checks": {
+    "status_passes_gate": false,
+    "action_probability_logged": true,
+    "selection_reason_logged": true,
+    "no_exploration_slices_use_stable_action": true,
+    "max_regret_ok": true,
+    "max_average_cost_ok": true,
+    "trace_volume_ok": true
+  },
+  "pilot_guardrails": {
+    "feature_flag_key": "rl_model_routing_policy",
+    "baseline_variant": "stable",
+    "candidate_variant": "bandit_candidate",
+    "fallback_action": "modelo_fuerte",
+    "rollout_steps": [
+      {
+        "step": 1,
+        "traffic_share": 0.05,
+        "duration": "24h",
+        "decision": "manual_review"
+      },
+      {
+        "step": 2,
+        "traffic_share": 0.1,
+        "duration": "48h",
+        "decision": "manual_review"
+      },
+      {
+        "step": 3,
+        "traffic_share": 0.25,
+        "duration": "72h",
+        "decision": "manual_review"
+      }
+    ],
+    "stop_conditions": [
+      "regret_window_gt_contract",
+      "average_cost_gt_contract",
+      "quality_below_contract",
+      "missing_trace_or_reward",
+      "unexpected_traffic_shift"
+    ]
+  }
+}

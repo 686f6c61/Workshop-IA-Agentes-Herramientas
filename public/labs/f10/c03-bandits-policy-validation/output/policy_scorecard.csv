@@ -1,0 +1,5 @@
+policy_id,gate_ok,cumulative_reward,regret,exploration_share,sensitive_exploration_count,average_cost
+greedy,True,46.63,0.27,0.05,0,0.1865
+epsilon_greedy,True,45.95,0.95,0.1333,0,0.1973
+ucb,False,43.08,3.82,0.4833,0,0.2927
+thompson_sampling,True,46.63,0.27,0.05,0,0.1865

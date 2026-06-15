@@ -1,0 +1,6 @@
+[
+  {"case_id":"evaluator_001","human":{"pass":1}},
+  {"case_id":"evaluator_002","human":{"pass":0}},
+  {"case_id":"evaluator_003","human":{"pass":1}},
+  {"case_id":"evaluator_004","human":{"pass":0}}
+]

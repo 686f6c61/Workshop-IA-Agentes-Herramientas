@@ -1,0 +1,47 @@
+{
+  "sessions": [
+    {
+      "session_id": "ux01",
+      "scenario": "evidencia completa",
+      "score": 1.0,
+      "success": true,
+      "missing": []
+    },
+    {
+      "session_id": "ux02",
+      "scenario": "fuente incompleta",
+      "score": 1.0,
+      "success": true,
+      "missing": []
+    },
+    {
+      "session_id": "ux03",
+      "scenario": "permiso pendiente",
+      "score": 1.0,
+      "success": true,
+      "missing": []
+    },
+    {
+      "session_id": "ux04",
+      "scenario": "error recuperable",
+      "score": 0.875,
+      "success": false,
+      "missing": [
+        "evidence_visible"
+      ]
+    },
+    {
+      "session_id": "ux05",
+      "scenario": "caso fuera de alcance",
+      "score": 1.0,
+      "success": true,
+      "missing": []
+    }
+  ],
+  "overall_score": 0.975,
+  "gate_ok": false,
+  "required_fixes": [
+    "error recuperable: falta `evidence_visible`.",
+    "error recuperable: la sesión no termina en éxito de tarea."
+  ]
+}

@@ -1,0 +1,52 @@
+{
+  "case_id": "normativa_interna",
+  "description": "Asistente de normativa interna con documentos que cambian varias veces al año y necesidad de citar fuentes.",
+  "constraints": {
+    "knowledge_changes": true,
+    "must_cite_sources": true,
+    "documents_are_internal": true,
+    "prototype_needed": true
+  },
+  "options": [
+    {
+      "option_id": "api_prompt_largo",
+      "label": "API potente con documentos pegados en prompt",
+      "scores": {
+        "actualizacion_conocimiento": 2,
+        "citas": 2,
+        "coste_contexto": 1,
+        "control_datos": 2,
+        "velocidad_prototipo": 5
+      }
+    },
+    {
+      "option_id": "rag_local_o_controlado",
+      "label": "Modelo abierto o proveedor controlado con RAG sobre documentos internos",
+      "scores": {
+        "actualizacion_conocimiento": 5,
+        "citas": 5,
+        "coste_contexto": 4,
+        "control_datos": 4,
+        "velocidad_prototipo": 3
+      }
+    },
+    {
+      "option_id": "fine_tuning_mensual",
+      "label": "Fine-tuning mensual con ejemplos de preguntas y respuestas",
+      "scores": {
+        "actualizacion_conocimiento": 1,
+        "citas": 2,
+        "coste_contexto": 4,
+        "control_datos": 3,
+        "velocidad_prototipo": 2
+      }
+    }
+  ],
+  "weights": {
+    "actualizacion_conocimiento": 0.3,
+    "citas": 0.25,
+    "coste_contexto": 0.15,
+    "control_datos": 0.2,
+    "velocidad_prototipo": 0.1
+  }
+}

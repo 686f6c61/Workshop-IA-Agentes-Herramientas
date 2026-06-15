@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "VLMDecision",
+  "type": "object",
+  "required": [
+    "decision",
+    "visual_evidence",
+    "non_visual_evidence",
+    "limits",
+    "confidence",
+    "requires_human_review",
+    "next_action"
+  ],
+  "properties": {
+    "decision": {"type": "string"},
+    "visual_evidence": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["image_id", "region_id", "claim"],
+        "properties": {
+          "image_id": {"type": "string"},
+          "region_id": {"type": "string"},
+          "claim": {"type": "string"}
+        }
+      }
+    },
+    "non_visual_evidence": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["source_id", "claim"],
+        "properties": {
+          "source_id": {"type": "string"},
+          "claim": {"type": "string"}
+        }
+      }
+    },
+    "limits": {
+      "type": "array",
+      "items": {"type": "string"}
+    },
+    "confidence": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    },
+    "requires_human_review": {"type": "boolean"},
+    "next_action": {"type": "string"}
+  },
+  "additionalProperties": false
+}

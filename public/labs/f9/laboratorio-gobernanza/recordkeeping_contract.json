@@ -1,0 +1,20 @@
+{
+  "contract_id": "reference-recordkeeping-contract",
+  "versión": "2026.06.07-reference",
+  "required_fields": [
+    "event_id",
+    "timestamp",
+    "system_id",
+    "agent_id",
+    "policy_version",
+    "model_id",
+    "prompt_version",
+    "rag_index_version",
+    "tool_policy_version",
+    "decision",
+    "blocker_count",
+    "review_count",
+    "retention_until"
+  ],
+  "closure_rule": "The contract closes recordkeeping only when exported traces use these fields in the pipeline."
+}

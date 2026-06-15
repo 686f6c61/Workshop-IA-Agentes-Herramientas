@@ -1,0 +1,9 @@
+{
+  "policy_id": "f12-c03-clip-ranking-policy-v1",
+  "embedding_dimension": 6,
+  "temperature": 0.07,
+  "minimum_recall_at_1": 0.6,
+  "minimum_mean_positive_margin": 0.04,
+  "report_hard_negatives": true,
+  "gate_description": "El ranking pasa solo si recupera suficientes pares correctos y expone confusiones para revisión humana."
+}

@@ -1,0 +1,21 @@
+sev1:
+  user_impact: "caída total o salida insegura a gran escala"
+  response_minutes: 5
+  required_actions:
+    - activar comandante de incidencia
+    - rollback inmediato
+    - comunicación interna
+sev2:
+  user_impact: "degradación relevante en canary o segmento limitado"
+  response_minutes: 15
+  required_actions:
+    - reducir exposición
+    - activar fallback
+    - preservar evidencia
+sev3:
+  user_impact: "fallo parcial sin exposición amplia"
+  response_minutes: 60
+  required_actions:
+    - abrir incidencia menor
+    - añadir caso de regresión si aplica
+    - revisar runbook

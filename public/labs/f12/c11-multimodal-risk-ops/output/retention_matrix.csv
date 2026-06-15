@@ -1,0 +1,15 @@
+case_id,storage,retention_days,decision
+doc_dni_invoice,redacted_trace,30,review
+image_badge_face,redacted_trace,30,review
+audio_phone_slot,redacted_trace,30,pass
+video_license_plate,redacted_trace,30,review
+rag_confidential_slide,redacted_trace,30,block
+ui_api_key_prompt_injection,secret_leak,0,block
+computer_use_external_submit,redacted_trace,30,block
+eval_dataset_student_email,eval_case_redacted,180,review
+image_exif_location,raw_prompt,7,review
+low_res_ocr_missed_dni,raw_prompt,7,review
+audio_noise_health_hint,redacted_trace,30,review
+eval_reconstructible_token_fragment,eval_case_redacted,180,block
+reflection_face_in_public_photo,public_asset,365,review
+public_product_photo,public_asset,365,pass

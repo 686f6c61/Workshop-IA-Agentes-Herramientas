@@ -1,0 +1,56 @@
+[
+  {
+    "id": "local_support_assistant_7b",
+    "goal": "Inferencia local para asistente de soporte con documentos internos",
+    "mode": "inference",
+    "model_params_b": 7,
+    "precision": "int4",
+    "gpu_vram_gb": 12,
+    "context_tokens": 8192,
+    "layers": 32,
+    "hidden_size": 4096,
+    "batch_size": 1,
+    "dataset_examples": 0
+  },
+  {
+    "id": "support_tone_lora_8b",
+    "goal": "Ajustar tono y formato de respuestas de soporte",
+    "mode": "lora_finetune",
+    "model_params_b": 8,
+    "precision": "int4",
+    "gpu_vram_gb": 24,
+    "context_tokens": 4096,
+    "layers": 32,
+    "hidden_size": 4096,
+    "batch_size": 2,
+    "dataset_examples": 1800
+  },
+  {
+    "id": "pretrain_domain_model_1b",
+    "goal": "Entrenar desde cero un modelo pequeño de dominio",
+    "mode": "pretraining",
+    "model_params_b": 1,
+    "precision": "bf16",
+    "gpu_vram_gb": 80,
+    "context_tokens": 2048,
+    "layers": 24,
+    "hidden_size": 2048,
+    "batch_size": 8,
+    "training_tokens_b": 4,
+    "dataset_examples": 0
+  },
+  {
+    "id": "api_rag_policy_search",
+    "goal": "Responder sobre políticas internas cambiantes",
+    "mode": "api_rag",
+    "model_params_b": 0,
+    "precision": "api",
+    "gpu_vram_gb": 0,
+    "context_tokens": 12000,
+    "layers": 0,
+    "hidden_size": 0,
+    "batch_size": 1,
+    "dataset_examples": 0
+  }
+]
+

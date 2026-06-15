@@ -1,0 +1,45 @@
+titulo: "Aprendizaje por refuerzo"
+fasciculo: 10
+total_capitulos: 8
+estado: revision
+
+capitulos:
+  - numero: 1
+    archivo: 01-mdp-politicas-retorno-bellman.md
+    titulo: "MDP, políticas, retorno y Bellman"
+    estado: revision
+
+  - numero: 2
+    archivo: 02-datos-interaccion-trayectorias-linaje.md
+    titulo: "Datos de interacción: eventos, trayectorias y linaje"
+    estado: revision
+
+  - numero: 3
+    archivo: 03-exploracion-bandits-validacion-politicas.md
+    titulo: "Exploración, bandits y validación de políticas"
+    estado: revision
+
+  - numero: 4
+    archivo: 04-offline-rl-evaluacion-contrafactual.md
+    titulo: "Offline RL y evaluación contrafactual de políticas"
+    estado: revision
+
+  - numero: 5
+    archivo: 05-preferencias-post-training-rlhf-rlaif-rlvr.md
+    titulo: "Preferencias y post-training: RLHF, DPO, RLAIF y RLVR"
+    estado: revision
+
+  - numero: 6
+    archivo: 06-reward-engineering-calidad-verificadores.md
+    titulo: "Reward engineering: calidad de señal, verificadores y reward cards"
+    estado: revision
+
+  - numero: 7
+    archivo: 07-serving-politicas-monitorizacion-drift.md
+    titulo: "Serving de políticas: monitorización, drift y cambios controlados"
+    estado: revision
+
+  - numero: 8
+    archivo: 08-recapitulacion-laboratorio-refuerzo.md
+    titulo: "Recapitulación y laboratorio de refuerzo"
+    estado: revision

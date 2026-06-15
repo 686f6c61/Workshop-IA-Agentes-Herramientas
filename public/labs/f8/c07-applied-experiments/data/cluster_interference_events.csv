@@ -1,0 +1,13 @@
+unit_id,cluster_id,variant,operator_id,resolved,queue_minutes,spillover_note
+k001,team_a,control,op01,1,32,none
+k002,team_a,control,op01,1,35,none
+k003,team_a,treatment,op01,1,28,operator_shared_learning
+k004,team_a,treatment,op01,1,24,operator_shared_learning
+k005,team_b,control,op02,0,72,none
+k006,team_b,control,op02,0,81,none
+k007,team_b,treatment,op02,1,58,operator_shared_learning
+k008,team_b,treatment,op02,1,54,operator_shared_learning
+k009,team_c,control,op03,1,43,none
+k010,team_c,treatment,op03,1,39,operator_shared_learning
+k011,team_c,control,op03,1,41,operator_shared_learning
+k012,team_c,treatment,op03,1,36,operator_shared_learning

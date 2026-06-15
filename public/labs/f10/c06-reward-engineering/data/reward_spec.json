@@ -1,0 +1,126 @@
+{
+  "scenario_id": "rag_internal_policy_reward",
+  "reward_card_version": "1.0.0",
+  "objective": "Premiar respuestas correctas, con evidencia, formato validable, abstencion cuando falta fuente y coste razonable.",
+  "reward_terms": [
+    {"name": "correctness", "weight": 0.40, "category": "objective", "verifier": "human_or_task_grader_v1"},
+    {"name": "evidence", "weight": 0.22, "category": "objective", "verifier": "citation_support_v1"},
+    {"name": "format", "weight": 0.13, "category": "guardrail", "verifier": "json_schema_v1"},
+    {"name": "abstention", "weight": 0.12, "category": "guardrail", "verifier": "answerability_v1"},
+    {"name": "latency_cost", "weight": -0.07, "category": "cost", "verifier": "trace_metrics_v1"},
+    {"name": "token_cost", "weight": -0.04, "category": "cost", "verifier": "trace_metrics_v1"},
+    {"name": "tool_cost", "weight": -0.02, "category": "cost", "verifier": "trace_metrics_v1"}
+  ],
+  "normalization": [
+    {"term": "latency_cost", "method": "minmax_by_slice", "source": "trace_metrics_v1", "lower_is_better": true},
+    {"term": "token_cost", "method": "minmax_by_slice", "source": "trace_metrics_v1", "lower_is_better": true},
+    {"term": "tool_cost", "method": "count_to_unit_interval", "source": "trace_metrics_v1", "lower_is_better": true}
+  ],
+  "hard_gates": [
+    {"name": "valid_output_contract", "verifier": "json_schema_v1", "required": true, "reason": "La salida debe ser parseable antes de puntuar estilo o coste."},
+    {"name": "supported_claims", "verifier": "citation_support_v1", "required": true, "reason": "Una respuesta con afirmaciones de política interna debe estar soportada por documentos recuperados."},
+    {"name": "answerability_or_abstention", "verifier": "answerability_v1", "required": true, "reason": "Si no hay evidencia suficiente, la respuesta correcta es abstenerse y explicar la falta de fuente."}
+  ],
+  "grader_evaluation": [
+    {"item_id": "g001", "grader": "citation_support_v1", "gold": true, "prediction": true},
+    {"item_id": "g002", "grader": "citation_support_v1", "gold": false, "prediction": false},
+    {"item_id": "g003", "grader": "citation_support_v1", "gold": true, "prediction": true},
+    {"item_id": "g004", "grader": "citation_support_v1", "gold": false, "prediction": false},
+    {"item_id": "g005", "grader": "json_schema_v1", "gold": true, "prediction": true},
+    {"item_id": "g006", "grader": "json_schema_v1", "gold": false, "prediction": false},
+    {"item_id": "g007", "grader": "answerability_v1", "gold": true, "prediction": true},
+    {"item_id": "g008", "grader": "answerability_v1", "gold": false, "prediction": false}
+  ],
+  "test_cases": [
+    {
+      "case_id": "rag_cita_valida",
+      "slice": "rag",
+      "hidden": false,
+      "expected_winner": "a",
+      "candidates": [
+        {"candidate_id": "a", "scores": {"correctness": 1, "evidence": 1, "format": 1, "abstention": 0, "latency_cost": 0.35, "token_cost": 0.40, "tool_cost": 0.20}},
+        {"candidate_id": "b", "scores": {"correctness": 1, "evidence": 0, "format": 1, "abstention": 0, "latency_cost": 0.10, "token_cost": 0.25, "tool_cost": 0.00}}
+      ]
+    },
+    {
+      "case_id": "rag_sin_fuente",
+      "slice": "rag",
+      "hidden": true,
+      "expected_winner": "b",
+      "candidates": [
+        {"candidate_id": "a", "scores": {"correctness": 0, "evidence": 0, "format": 1, "abstention": 0, "latency_cost": 0.10, "token_cost": 0.20, "tool_cost": 0.00}},
+        {"candidate_id": "b", "scores": {"correctness": 1, "evidence": 0, "format": 1, "abstention": 1, "latency_cost": 0.22, "token_cost": 0.24, "tool_cost": 0.20}}
+      ]
+    },
+    {
+      "case_id": "json_contrato",
+      "slice": "salida_estructurada",
+      "hidden": false,
+      "expected_winner": "b",
+      "candidates": [
+        {"candidate_id": "a", "scores": {"correctness": 1, "evidence": 1, "format": 0, "abstention": 0, "latency_cost": 0.18, "token_cost": 0.22, "tool_cost": 0.10}},
+        {"candidate_id": "b", "scores": {"correctness": 1, "evidence": 1, "format": 1, "abstention": 0, "latency_cost": 0.20, "token_cost": 0.24, "tool_cost": 0.10}}
+      ]
+    },
+    {
+      "case_id": "sql_ejecutable",
+      "slice": "sql",
+      "hidden": false,
+      "expected_winner": "a",
+      "candidates": [
+        {"candidate_id": "a", "scores": {"correctness": 1, "evidence": 0.7, "format": 1, "abstention": 0, "latency_cost": 0.28, "token_cost": 0.36, "tool_cost": 0.20}},
+        {"candidate_id": "b", "scores": {"correctness": 0.4, "evidence": 0.2, "format": 0.5, "abstention": 0, "latency_cost": 0.12, "token_cost": 0.15, "tool_cost": 0.00}}
+      ]
+    },
+    {
+      "case_id": "coste_controlado",
+      "slice": "coste",
+      "hidden": true,
+      "expected_winner": "a",
+      "candidates": [
+        {"candidate_id": "a", "scores": {"correctness": 1, "evidence": 1, "format": 1, "abstention": 0, "latency_cost": 0.25, "token_cost": 0.30, "tool_cost": 0.20}},
+        {"candidate_id": "b", "scores": {"correctness": 1, "evidence": 1, "format": 1, "abstention": 0, "latency_cost": 0.80, "token_cost": 0.95, "tool_cost": 0.60}}
+      ]
+    },
+    {
+      "case_id": "herramienta_timeout",
+      "slice": "herramientas",
+      "hidden": false,
+      "expected_winner": "b",
+      "candidates": [
+        {"candidate_id": "a", "scores": {"correctness": 0.2, "evidence": 0, "format": 1, "abstention": 0, "latency_cost": 0.10, "token_cost": 0.20, "tool_cost": 0.00}},
+        {"candidate_id": "b", "scores": {"correctness": 1, "evidence": 0.4, "format": 1, "abstention": 1, "latency_cost": 0.35, "token_cost": 0.28, "tool_cost": 0.20}}
+      ]
+    },
+    {
+      "case_id": "privacidad_minimizacion",
+      "slice": "privacidad",
+      "hidden": true,
+      "expected_winner": "a",
+      "candidates": [
+        {"candidate_id": "a", "scores": {"correctness": 1, "evidence": 0.7, "format": 1, "abstention": 0, "latency_cost": 0.22, "token_cost": 0.32, "tool_cost": 0.10}},
+        {"candidate_id": "b", "scores": {"correctness": 0.3, "evidence": 0.2, "format": 1, "abstention": 0, "latency_cost": 0.12, "token_cost": 0.18, "tool_cost": 0.00}}
+      ]
+    },
+    {
+      "case_id": "formato_y_evidencia",
+      "slice": "salida_estructurada",
+      "hidden": false,
+      "expected_winner": "a",
+      "candidates": [
+        {"candidate_id": "a", "scores": {"correctness": 1, "evidence": 1, "format": 1, "abstention": 0, "latency_cost": 0.30, "token_cost": 0.34, "tool_cost": 0.20}},
+        {"candidate_id": "b", "scores": {"correctness": 1, "evidence": 0.3, "format": 1, "abstention": 0, "latency_cost": 0.18, "token_cost": 0.25, "tool_cost": 0.10}}
+      ]
+    },
+    {
+      "case_id": "sensibilidad_evidencia",
+      "slice": "rag",
+      "hidden": false,
+      "expected_winner": "a",
+      "candidates": [
+        {"candidate_id": "a", "scores": {"correctness": 0.80, "evidence": 1, "format": 1, "abstention": 0, "latency_cost": 0.45, "token_cost": 0.45, "tool_cost": 0.20}},
+        {"candidate_id": "b", "scores": {"correctness": 1, "evidence": 0.35, "format": 1, "abstention": 0, "latency_cost": 0.12, "token_cost": 0.18, "tool_cost": 0.00}}
+      ]
+    }
+  ]
+}

@@ -1,0 +1,375 @@
+{
+  "model": "horario-cursos-csp",
+  "raw_candidates": 64,
+  "pruned_candidates": 16,
+  "tested_after_pruning": 16,
+  "pruned_domains": {
+    "IA": [
+      [
+        9,
+        "A"
+      ],
+      [
+        9,
+        "B"
+      ],
+      [
+        10,
+        "A"
+      ],
+      [
+        10,
+        "B"
+      ]
+    ],
+    "Python": [
+      [
+        10,
+        "A"
+      ],
+      [
+        10,
+        "B"
+      ]
+    ],
+    "Datos": [
+      [
+        9,
+        "B"
+      ],
+      [
+        10,
+        "B"
+      ]
+    ]
+  },
+  "solutions": [
+    {
+      "assignment": {
+        "IA": [
+          9,
+          "A"
+        ],
+        "Python": [
+          10,
+          "A"
+        ],
+        "Datos": [
+          9,
+          "B"
+        ]
+      },
+      "cost": 0,
+      "preferences": [
+        {
+          "id": "ia_sala_a",
+          "satisfied": true,
+          "penalty": 0,
+          "detail": "IA=(9, 'A'), preferido room=A",
+          "explain": "IA prefiere sala A por pizarra grande."
+        },
+        {
+          "id": "datos_hora_9",
+          "satisfied": true,
+          "penalty": 0,
+          "detail": "Datos=(9, 'B'), preferido hour=9",
+          "explain": "Datos prefiere la primera hora."
+        }
+      ]
+    },
+    {
+      "assignment": {
+        "IA": [
+          9,
+          "A"
+        ],
+        "Python": [
+          10,
+          "B"
+        ],
+        "Datos": [
+          9,
+          "B"
+        ]
+      },
+      "cost": 0,
+      "preferences": [
+        {
+          "id": "ia_sala_a",
+          "satisfied": true,
+          "penalty": 0,
+          "detail": "IA=(9, 'A'), preferido room=A",
+          "explain": "IA prefiere sala A por pizarra grande."
+        },
+        {
+          "id": "datos_hora_9",
+          "satisfied": true,
+          "penalty": 0,
+          "detail": "Datos=(9, 'B'), preferido hour=9",
+          "explain": "Datos prefiere la primera hora."
+        }
+      ]
+    },
+    {
+      "assignment": {
+        "IA": [
+          9,
+          "A"
+        ],
+        "Python": [
+          10,
+          "A"
+        ],
+        "Datos": [
+          10,
+          "B"
+        ]
+      },
+      "cost": 1,
+      "preferences": [
+        {
+          "id": "ia_sala_a",
+          "satisfied": true,
+          "penalty": 0,
+          "detail": "IA=(9, 'A'), preferido room=A",
+          "explain": "IA prefiere sala A por pizarra grande."
+        },
+        {
+          "id": "datos_hora_9",
+          "satisfied": false,
+          "penalty": 1,
+          "detail": "Datos=(10, 'B'), preferido hour=9",
+          "explain": "Datos prefiere la primera hora."
+        }
+      ]
+    },
+    {
+      "assignment": {
+        "IA": [
+          9,
+          "B"
+        ],
+        "Python": [
+          10,
+          "A"
+        ],
+        "Datos": [
+          10,
+          "B"
+        ]
+      },
+      "cost": 2,
+      "preferences": [
+        {
+          "id": "ia_sala_a",
+          "satisfied": false,
+          "penalty": 1,
+          "detail": "IA=(9, 'B'), preferido room=A",
+          "explain": "IA prefiere sala A por pizarra grande."
+        },
+        {
+          "id": "datos_hora_9",
+          "satisfied": false,
+          "penalty": 1,
+          "detail": "Datos=(10, 'B'), preferido hour=9",
+          "explain": "Datos prefiere la primera hora."
+        }
+      ]
+    }
+  ],
+  "best_solution": {
+    "assignment": {
+      "IA": [
+        9,
+        "A"
+      ],
+      "Python": [
+        10,
+        "A"
+      ],
+      "Datos": [
+        9,
+        "B"
+      ]
+    },
+    "cost": 0,
+    "preferences": [
+      {
+        "id": "ia_sala_a",
+        "satisfied": true,
+        "penalty": 0,
+        "detail": "IA=(9, 'A'), preferido room=A",
+        "explain": "IA prefiere sala A por pizarra grande."
+      },
+      {
+        "id": "datos_hora_9",
+        "satisfied": true,
+        "penalty": 0,
+        "detail": "Datos=(9, 'B'), preferido hour=9",
+        "explain": "Datos prefiere la primera hora."
+      }
+    ]
+  },
+  "rejections_by_constraint": {
+    "sala_hora_unica": 10,
+    "ana_no_solape": 8
+  },
+  "candidate_checks": [
+    {
+      "name": "valid_best",
+      "assignment": {
+        "IA": [
+          9,
+          "A"
+        ],
+        "Python": [
+          10,
+          "A"
+        ],
+        "Datos": [
+          9,
+          "B"
+        ]
+      },
+      "valid": true,
+      "failures": [],
+      "cost": 0,
+      "preferences": [
+        {
+          "id": "ia_sala_a",
+          "satisfied": true,
+          "penalty": 0,
+          "detail": "IA=(9, 'A'), preferido room=A",
+          "explain": "IA prefiere sala A por pizarra grande."
+        },
+        {
+          "id": "datos_hora_9",
+          "satisfied": true,
+          "penalty": 0,
+          "detail": "Datos=(9, 'B'), preferido hour=9",
+          "explain": "Datos prefiere la primera hora."
+        }
+      ]
+    },
+    {
+      "name": "valid_but_more_cost",
+      "assignment": {
+        "IA": [
+          9,
+          "B"
+        ],
+        "Python": [
+          10,
+          "A"
+        ],
+        "Datos": [
+          10,
+          "B"
+        ]
+      },
+      "valid": true,
+      "failures": [],
+      "cost": 2,
+      "preferences": [
+        {
+          "id": "ia_sala_a",
+          "satisfied": false,
+          "penalty": 1,
+          "detail": "IA=(9, 'B'), preferido room=A",
+          "explain": "IA prefiere sala A por pizarra grande."
+        },
+        {
+          "id": "datos_hora_9",
+          "satisfied": false,
+          "penalty": 1,
+          "detail": "Datos=(10, 'B'), preferido hour=9",
+          "explain": "Datos prefiere la primera hora."
+        }
+      ]
+    },
+    {
+      "name": "bad_python_time",
+      "assignment": {
+        "IA": [
+          10,
+          "A"
+        ],
+        "Python": [
+          9,
+          "A"
+        ],
+        "Datos": [
+          9,
+          "B"
+        ]
+      },
+      "valid": false,
+      "failures": [
+        {
+          "id": "python_hora_10",
+          "arity": 1,
+          "detail": "Python=(9, 'A'), esperado hour=10",
+          "explain": "Python solo puede impartirse a las 10."
+        }
+      ],
+      "cost": null,
+      "preferences": []
+    },
+    {
+      "name": "bad_teacher_overlap",
+      "assignment": {
+        "IA": [
+          10,
+          "A"
+        ],
+        "Python": [
+          10,
+          "B"
+        ],
+        "Datos": [
+          9,
+          "B"
+        ]
+      },
+      "valid": false,
+      "failures": [
+        {
+          "id": "ana_no_solape",
+          "arity": 2,
+          "detail": "IA=(10, 'A'), Python=(10, 'B')",
+          "explain": "Ana imparte IA y Python, no puede estar en dos cursos a la misma hora."
+        }
+      ],
+      "cost": null,
+      "preferences": []
+    },
+    {
+      "name": "bad_room_slot",
+      "assignment": {
+        "IA": [
+          9,
+          "B"
+        ],
+        "Python": [
+          10,
+          "A"
+        ],
+        "Datos": [
+          9,
+          "B"
+        ]
+      },
+      "valid": false,
+      "failures": [
+        {
+          "id": "sala_hora_unica",
+          "arity": 3,
+          "detail": "IA=(9, 'B'), Python=(10, 'A'), Datos=(9, 'B')",
+          "explain": "Dos cursos no pueden ocupar la misma sala en la misma hora."
+        }
+      ],
+      "cost": null,
+      "preferences": []
+    }
+  ]
+}

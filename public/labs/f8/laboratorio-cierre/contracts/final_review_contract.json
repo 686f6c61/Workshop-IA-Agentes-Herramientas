@@ -1,0 +1,66 @@
+{
+  "contract_id": "f8-final-lab-review",
+  "versión": "2026-06-07",
+  "required_columns": [
+    "case_id",
+    "split",
+    "segment",
+    "language",
+    "source",
+    "trace_id",
+    "has_required_fields",
+    "label",
+    "prediction",
+    "decision",
+    "latency_ms",
+    "accepted",
+    "citation_valid",
+    "experiment_variant"
+  ],
+  "allowed_splits": ["train", "validation", "test"],
+  "critical_slices": [
+    {"field": "language", "value": "en"},
+    {"field": "segment", "value": "practicas"},
+    {"field": "source", "value": "form"}
+  ],
+  "slos": {
+    "max_missing_trace_rate": 0.0,
+    "max_missing_required_fields_rate": 0.0,
+    "max_latency_p95_ms": 720,
+    "min_test_accuracy": 0.75,
+    "min_citation_valid_rate": 0.9,
+    "max_critical_slice_miss_rate": 0.25
+  },
+  "evidence_files": [
+    {
+      "id": "traceability_policy",
+      "path": "evidence/traceability_policy.md",
+      "chapter": "08.06",
+      "purpose": "Define reconstruccion de decisiones y cierre de missing_trace_rate."
+    },
+    {
+      "id": "data_quality_contract",
+      "path": "evidence/data_quality_contract.json",
+      "chapter": "08.02",
+      "purpose": "Fija columnas, umbrales bloqueantes y reglas de revisión."
+    },
+    {
+      "id": "slice_remediation_plan",
+      "path": "evidence/slice_remediation_plan.md",
+      "chapter": "08.05",
+      "purpose": "Conecta slices críticos con acciones y evidencia esperada."
+    },
+    {
+      "id": "experiment_exposure_contract",
+      "path": "evidence/experiment_exposure_contract.json",
+      "chapter": "08.07",
+      "purpose": "Define unidad, exposición real, metrica primaria y guardrails."
+    },
+    {
+      "id": "data_release_scope",
+      "path": "evidence/data_release_scope.md",
+      "chapter": "08.01",
+      "purpose": "Declara alcance permitido y condiciones para avanzar."
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "contract_id": "reference-experiment-exposure-contract",
+  "unit": "case_id",
+  "primary_metric": "resolved_day_7",
+  "required_exposure_fields": [
+    "case_id",
+    "variant",
+    "prompt_version",
+    "retriever_version",
+    "trace_id"
+  ]
+}

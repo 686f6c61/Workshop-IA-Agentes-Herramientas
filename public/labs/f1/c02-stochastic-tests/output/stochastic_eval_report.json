@@ -1,0 +1,250 @@
+[
+  {
+    "case_id": "rust_definition",
+    "task_type": "factual",
+    "temperature": 0,
+    "probabilities": [
+      {
+        "text": "Rust es un lenguaje de programación de sistemas centrado en seguridad de memoria.",
+        "logit": 4.2,
+        "probability": 1.0
+      },
+      {
+        "text": "Rust es un lenguaje de programación que prioriza rendimiento y seguridad de memoria.",
+        "logit": 3.6,
+        "probability": 0.0
+      },
+      {
+        "text": "Rust combina control de bajo nivel con garantías fuertes frente a errores de memoria.",
+        "logit": 2.4,
+        "probability": 0.0
+      },
+      {
+        "text": "Rust es popular para servicios, herramientas de sistema y código donde importa la concurrencia.",
+        "logit": 1.5,
+        "probability": 0.0
+      }
+    ],
+    "exact_pass_rate": 1.0,
+    "property_pass_rate": 1.0,
+    "unique_outputs": 1,
+    "gate_pass": true
+  },
+  {
+    "case_id": "rust_definition",
+    "task_type": "factual",
+    "temperature": 0.4,
+    "probabilities": [
+      {
+        "text": "Rust es un lenguaje de programación de sistemas centrado en seguridad de memoria.",
+        "logit": 4.2,
+        "probability": 0.8094
+      },
+      {
+        "text": "Rust es un lenguaje de programación que prioriza rendimiento y seguridad de memoria.",
+        "logit": 3.6,
+        "probability": 0.1806
+      },
+      {
+        "text": "Rust combina control de bajo nivel con garantías fuertes frente a errores de memoria.",
+        "logit": 2.4,
+        "probability": 0.009
+      },
+      {
+        "text": "Rust es popular para servicios, herramientas de sistema y código donde importa la concurrencia.",
+        "logit": 1.5,
+        "probability": 0.0009
+      }
+    ],
+    "exact_pass_rate": 0.85,
+    "property_pass_rate": 1.0,
+    "unique_outputs": 3,
+    "gate_pass": true
+  },
+  {
+    "case_id": "rust_definition",
+    "task_type": "factual",
+    "temperature": 0.9,
+    "probabilities": [
+      {
+        "text": "Rust es un lenguaje de programación de sistemas centrado en seguridad de memoria.",
+        "logit": 4.2,
+        "probability": 0.5887
+      },
+      {
+        "text": "Rust es un lenguaje de programación que prioriza rendimiento y seguridad de memoria.",
+        "logit": 3.6,
+        "probability": 0.3023
+      },
+      {
+        "text": "Rust combina control de bajo nivel con garantías fuertes frente a errores de memoria.",
+        "logit": 2.4,
+        "probability": 0.0797
+      },
+      {
+        "text": "Rust es popular para servicios, herramientas de sistema y código donde importa la concurrencia.",
+        "logit": 1.5,
+        "probability": 0.0293
+      }
+    ],
+    "exact_pass_rate": 0.55,
+    "property_pass_rate": 0.95,
+    "unique_outputs": 4,
+    "gate_pass": true
+  },
+  {
+    "case_id": "rust_definition",
+    "task_type": "factual",
+    "temperature": 1.4,
+    "probabilities": [
+      {
+        "text": "Rust es un lenguaje de programación de sistemas centrado en seguridad de memoria.",
+        "logit": 4.2,
+        "probability": 0.4823
+      },
+      {
+        "text": "Rust es un lenguaje de programación que prioriza rendimiento y seguridad de memoria.",
+        "logit": 3.6,
+        "probability": 0.3142
+      },
+      {
+        "text": "Rust combina control de bajo nivel con garantías fuertes frente a errores de memoria.",
+        "logit": 2.4,
+        "probability": 0.1333
+      },
+      {
+        "text": "Rust es popular para servicios, herramientas de sistema y código donde importa la concurrencia.",
+        "logit": 1.5,
+        "probability": 0.0701
+      }
+    ],
+    "exact_pass_rate": 0.4,
+    "property_pass_rate": 0.9333,
+    "unique_outputs": 4,
+    "gate_pass": true
+  },
+  {
+    "case_id": "json_priority",
+    "task_type": "structured",
+    "temperature": 0,
+    "probabilities": [
+      {
+        "text": "{\"categoria\":\"soporte\",\"prioridad\":\"alta\"}",
+        "logit": 3.9,
+        "probability": 1.0
+      },
+      {
+        "text": "{\"prioridad\":\"alta\",\"categoria\":\"soporte\"}",
+        "logit": 3.4,
+        "probability": 0.0
+      },
+      {
+        "text": "{\"categoria\":\"soporte\",\"prioridad\":\"media\"}",
+        "logit": 2.1,
+        "probability": 0.0
+      },
+      {
+        "text": "El ticket parece de soporte y tiene prioridad alta.",
+        "logit": 1.2,
+        "probability": 0.0
+      }
+    ],
+    "exact_pass_rate": 1.0,
+    "property_pass_rate": 1.0,
+    "unique_outputs": 1,
+    "gate_pass": true
+  },
+  {
+    "case_id": "json_priority",
+    "task_type": "structured",
+    "temperature": 0.4,
+    "probabilities": [
+      {
+        "text": "{\"categoria\":\"soporte\",\"prioridad\":\"alta\"}",
+        "logit": 3.9,
+        "probability": 0.77
+      },
+      {
+        "text": "{\"prioridad\":\"alta\",\"categoria\":\"soporte\"}",
+        "logit": 3.4,
+        "probability": 0.2206
+      },
+      {
+        "text": "{\"categoria\":\"soporte\",\"prioridad\":\"media\"}",
+        "logit": 2.1,
+        "probability": 0.0086
+      },
+      {
+        "text": "El ticket parece de soporte y tiene prioridad alta.",
+        "logit": 1.2,
+        "probability": 0.0009
+      }
+    ],
+    "exact_pass_rate": 0.7667,
+    "property_pass_rate": 0.9917,
+    "unique_outputs": 3,
+    "gate_pass": true
+  },
+  {
+    "case_id": "json_priority",
+    "task_type": "structured",
+    "temperature": 0.9,
+    "probabilities": [
+      {
+        "text": "{\"categoria\":\"soporte\",\"prioridad\":\"alta\"}",
+        "logit": 3.9,
+        "probability": 0.5685
+      },
+      {
+        "text": "{\"prioridad\":\"alta\",\"categoria\":\"soporte\"}",
+        "logit": 3.4,
+        "probability": 0.3262
+      },
+      {
+        "text": "{\"categoria\":\"soporte\",\"prioridad\":\"media\"}",
+        "logit": 2.1,
+        "probability": 0.0769
+      },
+      {
+        "text": "El ticket parece de soporte y tiene prioridad alta.",
+        "logit": 1.2,
+        "probability": 0.0283
+      }
+    ],
+    "exact_pass_rate": 0.6417,
+    "property_pass_rate": 0.95,
+    "unique_outputs": 3,
+    "gate_pass": true
+  },
+  {
+    "case_id": "json_priority",
+    "task_type": "structured",
+    "temperature": 1.4,
+    "probabilities": [
+      {
+        "text": "{\"categoria\":\"soporte\",\"prioridad\":\"alta\"}",
+        "logit": 3.9,
+        "probability": 0.4714
+      },
+      {
+        "text": "{\"prioridad\":\"alta\",\"categoria\":\"soporte\"}",
+        "logit": 3.4,
+        "probability": 0.3298
+      },
+      {
+        "text": "{\"categoria\":\"soporte\",\"prioridad\":\"media\"}",
+        "logit": 2.1,
+        "probability": 0.1303
+      },
+      {
+        "text": "El ticket parece de soporte y tiene prioridad alta.",
+        "logit": 1.2,
+        "probability": 0.0685
+      }
+    ],
+    "exact_pass_rate": 0.3917,
+    "property_pass_rate": 0.7583,
+    "unique_outputs": 4,
+    "gate_pass": false
+  }
+]

@@ -1,0 +1,86 @@
+{
+  "reference_rows": 18,
+  "current_rows": 12,
+  "columns": [
+    "product",
+    "label",
+    "channel",
+    "pii_risk"
+  ],
+  "comparisons": [
+    {
+      "column": "product",
+      "reference_distribution": {
+        "becas": 0.222222,
+        "horarios": 0.166667,
+        "matricula": 0.222222,
+        "pagos": 0.166667,
+        "practicas": 0.111111,
+        "titulos": 0.111111
+      },
+      "current_distribution": {
+        "becas": 0.25,
+        "horarios": 0.083333,
+        "matricula": 0.25,
+        "pagos": 0.25,
+        "practicas": 0.166667,
+        "titulos": 0.0
+      },
+      "total_variation": 0.194444,
+      "jensen_shannon": 0.053396,
+      "psi": 1.411541,
+      "status": "review"
+    },
+    {
+      "column": "label",
+      "reference_distribution": {
+        "answer": 0.611111,
+        "ask_more": 0.222222,
+        "escalate": 0.166667
+      },
+      "current_distribution": {
+        "answer": 0.5,
+        "ask_more": 0.333333,
+        "escalate": 0.166667
+      },
+      "total_variation": 0.111111,
+      "jensen_shannon": 0.008376,
+      "psi": 0.067348,
+      "status": "pass"
+    },
+    {
+      "column": "channel",
+      "reference_distribution": {
+        "chat": 0.277778,
+        "email": 0.277778,
+        "portal": 0.444444
+      },
+      "current_distribution": {
+        "chat": 0.166667,
+        "email": 0.333333,
+        "portal": 0.5
+      },
+      "total_variation": 0.111111,
+      "jensen_shannon": 0.0091,
+      "psi": 0.073431,
+      "status": "pass"
+    },
+    {
+      "column": "pii_risk",
+      "reference_distribution": {
+        "low": 0.777778,
+        "medium": 0.222222
+      },
+      "current_distribution": {
+        "low": 0.666667,
+        "medium": 0.333333
+      },
+      "total_variation": 0.111111,
+      "jensen_shannon": 0.007732,
+      "psi": 0.062179,
+      "status": "pass"
+    }
+  ],
+  "gate": "review",
+  "recommendation": "revisar distribuciones con drift alto antes de reutilizar la eval"
+}

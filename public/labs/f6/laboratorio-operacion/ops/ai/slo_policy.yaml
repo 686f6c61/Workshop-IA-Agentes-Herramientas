@@ -1,0 +1,20 @@
+service: support-rag
+owner: ai-platform
+window: 30m
+slis:
+  latency_p95_ms:
+    description: "Tiempo p95 de respuesta extremo a extremo."
+    slo: 4200
+    burn_rate_alert: 2.0
+  citation_acceptance_rate:
+    description: "Proporción de respuestas con citas aceptadas por el contrato."
+    slo: 0.90
+    burn_rate_alert: 1.5
+  review_queue_age_p95_minutes:
+    description: "Edad p95 de casos pendientes de revisión humana."
+    slo: 30
+    burn_rate_alert: 1.5
+error_budget_policy:
+  freeze_release_if_any_slo_breaches: true
+  require_postmortem_if_breach_minutes_over: 20
+  require_regression_case: true

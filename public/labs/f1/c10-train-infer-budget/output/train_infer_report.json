@@ -1,0 +1,59 @@
+{
+  "results": [
+    {
+      "id": "local_support_assistant_7b",
+      "goal": "Inferencia local para asistente de soporte con documentos internos",
+      "mode": "inference",
+      "weights_gb": 3.5,
+      "kv_cache_gb": 4.29,
+      "total_inference_memory_gb": 7.79,
+      "safe_vram_gb": 10.2,
+      "rough_training_memory_gb": null,
+      "recommendation": "inferencia local viable con medición de latencia y calidad",
+      "risks": [],
+      "valid_first_step": true
+    },
+    {
+      "id": "support_tone_lora_8b",
+      "goal": "Ajustar tono y formato de respuestas de soporte",
+      "mode": "lora_finetune",
+      "weights_gb": 4.0,
+      "kv_cache_gb": 4.29,
+      "total_inference_memory_gb": 8.29,
+      "safe_vram_gb": 20.4,
+      "rough_training_memory_gb": 32.0,
+      "recommendation": "LoRA/QLoRA si el problema es formato o tono estable, no conocimiento vivo",
+      "risks": [],
+      "valid_first_step": true
+    },
+    {
+      "id": "pretrain_domain_model_1b",
+      "goal": "Entrenar desde cero un modelo pequeño de dominio",
+      "mode": "pretraining",
+      "weights_gb": 2.0,
+      "kv_cache_gb": 3.22,
+      "total_inference_memory_gb": 5.22,
+      "safe_vram_gb": 68.0,
+      "rough_training_memory_gb": 16.0,
+      "recommendation": "no entrenar desde cero sin corpus, presupuesto y evaluación mucho más sólidos",
+      "risks": [
+        "tokens_insuficientes_para_preentrenamiento"
+      ],
+      "valid_first_step": true
+    },
+    {
+      "id": "api_rag_policy_search",
+      "goal": "Responder sobre políticas internas cambiantes",
+      "mode": "api_rag",
+      "weights_gb": 0.0,
+      "kv_cache_gb": 0.0,
+      "total_inference_memory_gb": 0.0,
+      "safe_vram_gb": 0.0,
+      "rough_training_memory_gb": null,
+      "recommendation": "API + RAG antes que fine-tuning",
+      "risks": [],
+      "valid_first_step": true
+    }
+  ],
+  "invalid": []
+}

@@ -1,0 +1,98 @@
+[
+  {
+    "algorithm": "BFS",
+    "found": true,
+    "path": [
+      "S",
+      "B",
+      "G"
+    ],
+    "depth": 2,
+    "cost": 22,
+    "expanded": 8,
+    "generated": 8,
+    "max_frontier": 5,
+    "trace": [
+      "S",
+      "A",
+      "B",
+      "C",
+      "D",
+      "E",
+      "F",
+      "G"
+    ]
+  },
+  {
+    "algorithm": "DFS",
+    "found": true,
+    "path": [
+      "S",
+      "A",
+      "D",
+      "G"
+    ],
+    "depth": 3,
+    "cost": 12,
+    "expanded": 4,
+    "generated": 7,
+    "max_frontier": 4,
+    "trace": [
+      "S",
+      "A",
+      "D",
+      "G"
+    ]
+  },
+  {
+    "algorithm": "UCS",
+    "found": true,
+    "path": [
+      "S",
+      "B",
+      "F",
+      "G"
+    ],
+    "depth": 3,
+    "cost": 6,
+    "expanded": 6,
+    "generated": 10,
+    "max_frontier": 5,
+    "trace": [
+      "S",
+      "A",
+      "B",
+      "D",
+      "F",
+      "G"
+    ]
+  },
+  {
+    "algorithm": "IDS",
+    "found": true,
+    "path": [
+      "S",
+      "B",
+      "G"
+    ],
+    "depth": 2,
+    "cost": 22,
+    "expanded": 12,
+    "generated": 13,
+    "max_frontier": 4,
+    "trace": [
+      "L0:S",
+      "L1:S",
+      "L1:A",
+      "L1:B",
+      "L1:C",
+      "L2:S",
+      "L2:A",
+      "L2:D",
+      "L2:E",
+      "L2:B",
+      "L2:F",
+      "L2:G"
+    ]
+  }
+]

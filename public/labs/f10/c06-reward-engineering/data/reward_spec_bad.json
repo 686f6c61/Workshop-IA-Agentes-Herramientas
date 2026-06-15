@@ -1,0 +1,67 @@
+{
+  "scenario_id": "rag_internal_policy_reward_bad",
+  "reward_card_version": "0.1.0",
+  "objective": "Recompensa rota: premia longitud, estilo y coste por encima de evidencia.",
+  "reward_terms": [
+    {"name": "correctness", "weight": 0.24, "category": "objective", "verifier": "human_or_task_grader_v1"},
+    {"name": "evidence", "weight": 0.06, "category": "objective", "verifier": "citation_support_v1"},
+    {"name": "format", "weight": 0.05, "category": "guardrail", "verifier": "json_schema_v1"},
+    {"name": "style", "weight": 0.22, "category": "proxy", "verifier": "none"},
+    {"name": "length_bonus", "weight": 0.28, "category": "proxy", "verifier": "none"},
+    {"name": "latency_cost", "weight": -0.03, "category": "cost", "verifier": "trace_metrics_v1"}
+  ],
+  "normalization": [
+    {"term": "latency_cost", "method": "raw_ms_bucket", "source": "trace_metrics_v1", "lower_is_better": true}
+  ],
+  "hard_gates": [
+    {"name": "valid_output_contract", "verifier": "none", "required": true, "reason": "Declarado, pero no conectado a una prueba reproducible."}
+  ],
+  "grader_evaluation": [
+    {"item_id": "g001", "grader": "citation_support_v1", "gold": true, "prediction": true},
+    {"item_id": "g002", "grader": "citation_support_v1", "gold": false, "prediction": true},
+    {"item_id": "g003", "grader": "citation_support_v1", "gold": true, "prediction": false},
+    {"item_id": "g004", "grader": "json_schema_v1", "gold": false, "prediction": true}
+  ],
+  "test_cases": [
+    {
+      "case_id": "rag_cita_valida",
+      "slice": "rag",
+      "hidden": false,
+      "expected_winner": "a",
+      "candidates": [
+        {"candidate_id": "a", "scores": {"correctness": 1, "evidence": 1, "format": 1, "style": 0.4, "length_bonus": 0.3, "latency_cost": 0.35}},
+        {"candidate_id": "b", "scores": {"correctness": 0.6, "evidence": 0, "format": 1, "style": 1, "length_bonus": 1, "latency_cost": 0.20}}
+      ]
+    },
+    {
+      "case_id": "sin_fuente",
+      "slice": "rag",
+      "hidden": false,
+      "expected_winner": "a",
+      "candidates": [
+        {"candidate_id": "a", "scores": {"correctness": 1, "evidence": 0, "format": 1, "style": 0.3, "length_bonus": 0.2, "latency_cost": 0.20}},
+        {"candidate_id": "b", "scores": {"correctness": 0, "evidence": 0, "format": 1, "style": 1, "length_bonus": 1, "latency_cost": 0.12}}
+      ]
+    },
+    {
+      "case_id": "json_contrato",
+      "slice": "salida_estructurada",
+      "hidden": false,
+      "expected_winner": "a",
+      "candidates": [
+        {"candidate_id": "a", "scores": {"correctness": 1, "evidence": 1, "format": 1, "style": 0.4, "length_bonus": 0.2, "latency_cost": 0.30}},
+        {"candidate_id": "b", "scores": {"correctness": 0.8, "evidence": 0.2, "format": 0, "style": 1, "length_bonus": 1, "latency_cost": 0.10}}
+      ]
+    },
+    {
+      "case_id": "coste_controlado",
+      "slice": "coste",
+      "hidden": false,
+      "expected_winner": "a",
+      "candidates": [
+        {"candidate_id": "a", "scores": {"correctness": 1, "evidence": 1, "format": 1, "style": 0.5, "length_bonus": 0.3, "latency_cost": 0.40}},
+        {"candidate_id": "b", "scores": {"correctness": 0.7, "evidence": 0.5, "format": 1, "style": 1, "length_bonus": 1, "latency_cost": 0.15}}
+      ]
+    }
+  ]
+}

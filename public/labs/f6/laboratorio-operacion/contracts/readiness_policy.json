@@ -1,0 +1,52 @@
+{
+  "policy_id": "f6-operational-readiness-policy",
+  "policy_version": "2026-06-07",
+  "weights": {
+    "identity": 4,
+    "slo": 8,
+    "observability": 7,
+    "rollback": 6,
+    "evalops": 6,
+    "incident": 5,
+    "continuity": 5,
+    "handoff": 4
+  },
+  "required_trace_attributes": [
+    "trace_id",
+    "run_id",
+    "task",
+    "model_id",
+    "prompt_version",
+    "release_id",
+    "index_version"
+  ],
+  "required_dashboards": [
+    "runtime",
+    "cost",
+    "evalops",
+    "handoff"
+  ],
+  "required_alerts": [
+    "slo_burn_rate",
+    "contract_fail_rate",
+    "queue_age",
+    "canary_regression"
+  ],
+  "required_eval_datasets": [
+    "golden",
+    "regression",
+    "production_sample",
+    "continuity_regression"
+  ],
+  "required_handoff_fields": [
+    "reason",
+    "evidence",
+    "recommended_action",
+    "owner",
+    "deadline"
+  ],
+  "gate_thresholds": {
+    "ready": 0.95,
+    "ready_with_conditions": 0.75
+  }
+}

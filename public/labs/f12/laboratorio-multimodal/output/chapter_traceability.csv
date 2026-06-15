@@ -1,0 +1,12 @@
+chapter,concept,case_count,cases
+1,qué es multimodalidad y qué modalidad aporta cada parte,1,catalog_alt_text
+2,"representaciones visuales, patches y coste de entrada",4,catalog_alt_text|invoice_table_extraction|parking_video_event_triage|visual_search_catalog
+3,búsqueda y ranking contrastivo,2,policy_rag_with_internal_slides|visual_search_catalog
+4,contrato de llamada visión-lenguaje,2,catalog_alt_text|visual_search_catalog
+5,"Document AI, layout, tablas y evidencias",3,invoice_table_extraction|policy_rag_with_internal_slides|student_multimodal_helpdesk
+6,"RAG multimodal, recuperación y grounding",3,policy_rag_with_internal_slides|student_multimodal_helpdesk|visual_search_catalog
+7,"audio, voz, turnos y latencia",2,student_multimodal_helpdesk|voice_appointment_agent
+8,"vídeo, clips, memoria temporal y eventos",1,parking_video_event_triage
+9,"computer use, permisos y aprobación",2,computer_use_claim_submission|voice_appointment_agent
+10,evaluación multimodal y slices,8,catalog_alt_text|computer_use_claim_submission|invoice_table_extraction|parking_video_event_triage|policy_rag_with_internal_slides|student_multimodal_helpdesk|visual_search_catalog|voice_appointment_agent
+11,"privacidad, seguridad, policy y lineage",6,computer_use_claim_submission|invoice_table_extraction|parking_video_event_triage|policy_rag_with_internal_slides|student_multimodal_helpdesk|voice_appointment_agent

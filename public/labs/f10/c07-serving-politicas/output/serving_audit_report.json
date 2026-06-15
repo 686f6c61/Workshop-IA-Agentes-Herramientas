@@ -1,0 +1,100 @@
+{
+  "status": "pass",
+  "reference_window_id": "reference_2026_w23",
+  "current_window_id": "current_2026_w24_ok",
+  "policy_candidate_version": "policy_candidate_v4",
+  "reward_card_version": "1.0.0",
+  "diagnostics": {
+    "slice_population_stability_index": 0.001406,
+    "action_population_stability_index": 0.003482,
+    "blocked_slices": 0,
+    "blocked_rollout_stages": 0,
+    "plan_status": "pass"
+  },
+  "drift_failures": [],
+  "plan_report": {
+    "status": "pass",
+    "failures": [],
+    "missing_trace_fields": []
+  },
+  "slice_rows": [
+    {
+      "slice": "herramientas",
+      "status": "pass",
+      "reason": "ok",
+      "requests": 130,
+      "reward_mean": 0.65,
+      "reward_delta": -0.01,
+      "case_pass_rate": 0.91,
+      "evidence_pass_rate": 0.93,
+      "p95_latency_ms": 2380,
+      "tool_error_rate": 0.025,
+      "fallback_rate": 0.055
+    },
+    {
+      "slice": "privacidad",
+      "status": "pass",
+      "reason": "ok",
+      "requests": 80,
+      "reward_mean": 0.73,
+      "reward_delta": -0.01,
+      "case_pass_rate": 0.96,
+      "evidence_pass_rate": 0.97,
+      "p95_latency_ms": 1980,
+      "tool_error_rate": 0.006,
+      "fallback_rate": 0.026
+    },
+    {
+      "slice": "rag",
+      "status": "pass",
+      "reason": "ok",
+      "requests": 410,
+      "reward_mean": 0.73,
+      "reward_delta": 0.01,
+      "case_pass_rate": 0.95,
+      "evidence_pass_rate": 0.96,
+      "p95_latency_ms": 1900,
+      "tool_error_rate": 0.012,
+      "fallback_rate": 0.028
+    },
+    {
+      "slice": "sql",
+      "status": "pass",
+      "reason": "ok",
+      "requests": 150,
+      "reward_mean": 0.7,
+      "reward_delta": 0.01,
+      "case_pass_rate": 0.93,
+      "evidence_pass_rate": 0.92,
+      "p95_latency_ms": 2180,
+      "tool_error_rate": 0.018,
+      "fallback_rate": 0.038
+    }
+  ],
+  "rollout_rows": [
+    {
+      "stage": "shadow",
+      "traffic_pct": 0,
+      "min_duration_minutes": 120,
+      "exit_criteria_count": 4,
+      "status": "pass",
+      "reason": "ok"
+    },
+    {
+      "stage": "pilot_5",
+      "traffic_pct": 5,
+      "min_duration_minutes": 240,
+      "exit_criteria_count": 4,
+      "status": "pass",
+      "reason": "ok"
+    },
+    {
+      "stage": "pilot_25",
+      "traffic_pct": 25,
+      "min_duration_minutes": 480,
+      "exit_criteria_count": 4,
+      "status": "pass",
+      "reason": "ok"
+    }
+  ]
+}

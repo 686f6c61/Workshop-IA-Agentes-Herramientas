@@ -1,0 +1,6 @@
+{
+  "top_k_experts": 2,
+  "expected_top_expert": "cambios",
+  "min_top_image_text_similarity": 0.9
+}
+

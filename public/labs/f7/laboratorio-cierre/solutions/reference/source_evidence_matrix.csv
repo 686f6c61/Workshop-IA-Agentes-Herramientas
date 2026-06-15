@@ -1,0 +1,16 @@
+source,chapter,artifact,metric,observed,required,status,note
+rag_eval,07.03,rag_eval_report.json,hit_at_5,0.94,>= 0.9,pass,ok
+rag_eval,07.03,rag_eval_report.json,groundedness,0.92,>= 0.9,pass,ok
+rag_eval,07.03,rag_eval_report.json,citation_acceptance,0.9,>= 0.88,pass,ok
+rag_eval,07.03,rag_eval_report.json,abstention_ok,0.88,>= 0.86,pass,ok
+rag_eval,07.03,rag_eval_report.json,long_tail_coverage,0.72,>= 0.75,review,valor por debajo del umbral
+evaluator_metaeval,07.04,evaluator_metaeval.json,agreement,0.82,>= 0.78,pass,ok
+evaluator_metaeval,07.04,evaluator_metaeval.json,undue_pass_rate,0.06,<= 0.08,pass,ok
+evaluator_metaeval,07.04,evaluator_metaeval.json,borderline_overturn_rate,0.16,<= 0.18,pass,ok
+calibration,07.05,calibration_manifest.json,quality_gate.passes,True,True,pass,ok
+calibration,07.05,calibration_manifest.json,auto_error_rate,0.15,<= 0.18,pass,ok
+calibration,07.05,calibration_manifest.json,review_rate,0.4444,<= 0.6,pass,ok
+calibration,07.05,calibration_manifest.json,auto_error_wilson_upper,0.3604,<= 0.28,review,valor por encima del umbral
+interpretability,07.06,ci_explanation_gate.json,gate,pass,pass,pass,ok
+interpretability,07.06,ci_explanation_gate.json,top_feature_share,0.5,<= 0.55,pass,ok
+interpretability,07.06,explanation_contract.json,required_fields,"['case_id', 'counterfactual', 'data_hash_sha256', 'deletion_test', 'model_version', 'policy_hash_sha256', 'prediction', 'score', 'top_features']","['case_id', 'data_hash_sha256', 'model_version', 'policy_hash_sha256', 'prediction', 'score', 'top_features']",pass,ok

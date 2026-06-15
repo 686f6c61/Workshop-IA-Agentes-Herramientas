@@ -1,0 +1,118 @@
+{
+  "status": "block",
+  "summary": {
+    "events": 4,
+    "episodes": 3,
+    "contract_version": "rl_event_contract.v1",
+    "schema_version": "rl_event.v1",
+    "gamma": 0.9
+  },
+  "checks": {
+    "shape_ok": false,
+    "episodes_ok": false,
+    "coverage_ok": false,
+    "warnings_ok": true
+  },
+  "errors": {
+    "shape": [
+      {
+        "line": 1,
+        "event_id": "bad_001",
+        "episode_id": "bad_case_001",
+        "message": "action is not in available_actions"
+      },
+      {
+        "line": 2,
+        "event_id": "bad_002",
+        "episode_id": "bad_case_001",
+        "message": "event_time is after reward_time"
+      },
+      {
+        "line": 3,
+        "event_id": "bad_003",
+        "episode_id": "bad_case_002",
+        "message": "missing required field: action_probability"
+      },
+      {
+        "line": 4,
+        "event_id": "bad_004",
+        "episode_id": "bad_case_003",
+        "message": "missing required field: reward_version"
+      }
+    ],
+    "episodes": [
+      {
+        "episode_id": "bad_case_002",
+        "message": "episode has no terminal event"
+      },
+      {
+        "episode_id": "bad_case_003",
+        "message": "episode has no terminal event"
+      }
+    ]
+  },
+  "warnings": [],
+  "episode_returns": {
+    "bad_case_001": 2.3,
+    "bad_case_002": -0.1,
+    "bad_case_003": -0.1
+  },
+  "coverage": {
+    "state_counts": {
+      "ticket_con_evidencia": 1,
+      "ticket_nuevo": 3
+    },
+    "action_counts": {
+      "consultar_rag": 2,
+      "responder": 1,
+      "responder_con_cita": 1
+    },
+    "state_action": [
+      {
+        "state_id": "ticket_con_evidencia",
+        "action": "responder_con_cita",
+        "count": 1,
+        "share": 0.25
+      },
+      {
+        "state_id": "ticket_nuevo",
+        "action": "consultar_rag",
+        "count": 2,
+        "share": 0.5
+      },
+      {
+        "state_id": "ticket_nuevo",
+        "action": "responder",
+        "count": 1,
+        "share": 0.25
+      }
+    ],
+    "low_coverage_pairs": [
+      {
+        "state_id": "ticket_nuevo",
+        "action": "pedir_dato",
+        "count": 0,
+        "minimum": 1
+      },
+      {
+        "state_id": "ticket_con_evidencia",
+        "action": "escalar_revision",
+        "count": 0,
+        "minimum": 1
+      }
+    ]
+  },
+  "lineage": {
+    "policy_versions": [
+      "2026-06-07.3"
+    ],
+    "reward_versions": [
+      "__missing_reward_version__",
+      "support_reward.v2"
+    ],
+    "environment_versions": [
+      "support_runtime.2026-06-07"
+    ]
+  },
+  "snapshot_hash": "38f7765b720dd759989600f245390bec8a1c9641663352cec89ce35bae6a13ff"
+}

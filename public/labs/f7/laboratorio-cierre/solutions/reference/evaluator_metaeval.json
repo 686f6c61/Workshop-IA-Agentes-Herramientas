@@ -1,0 +1,18 @@
+{
+  "report_id": "f7-evaluator-metaeval-reference",
+  "chapter": "07.04",
+  "rubric_version": "support-answer-rubric-v3",
+  "reference_cases": 80,
+  "metrics": {
+    "agreement": 0.82,
+    "weighted_kappa": 0.71,
+    "undue_pass_rate": 0.06,
+    "undue_fail_rate": 0.09,
+    "borderline_overturn_rate": 0.16,
+    "rubric_coverage": 0.93
+  },
+  "calibration_notes": [
+    "Los casos frontera se revisan con doble lectura humana antes de ajustar la rúbrica.",
+    "El evaluador no decide release: aporta una señal versionada dentro del expediente."
+  ]
+}

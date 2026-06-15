@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1120 720" role="img" aria-labelledby="title desc">
+  <title id="title">Pipeline RAG multimodal auditado</title>
+  <desc id="desc">Arquitectura sintética de recuperación multimodal con índices, re-ranking, evidencias y gates.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#111111"/>
+    </marker>
+  </defs>
+  <rect width="1120" height="720" fill="#ffffff"/>
+  <text x="64" y="64" font-family="Inter, Arial, sans-serif" font-size="28" font-weight="700" fill="#111111">RAG multimodal: recuperar sin perder evidencia</text>
+  <text x="64" y="96" font-family="Inter, Arial, sans-serif" font-size="15" fill="#555555">Texto, páginas, tablas y figuras no se mezclan a ciegas: se indexan, se recuperan y se validan por contrato.</text>
+
+  <rect x="64" y="136" width="196" height="116" fill="#ffffff" stroke="#111111" stroke-width="1.5"/>
+  <text x="162" y="166" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="15" font-weight="700" fill="#111111">Fuentes</text>
+  <text x="90" y="196" font-family="Inter, Arial, sans-serif" font-size="12" fill="#111111">PDF · página</text>
+  <text x="90" y="218" font-family="Inter, Arial, sans-serif" font-size="12" fill="#111111">tabla · figura</text>
+  <text x="90" y="240" font-family="Inter, Arial, sans-serif" font-size="12" fill="#111111">estado operativo</text>
+
+  <rect x="320" y="136" width="208" height="116" fill="#f7f7f7" stroke="#111111" stroke-width="1.5"/>
+  <text x="424" y="166" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="15" font-weight="700" fill="#111111">Representación</text>
+  <text x="346" y="196" font-family="Inter, Arial, sans-serif" font-size="12" fill="#111111">chunks con página/bbox</text>
+  <text x="346" y="218" font-family="Inter, Arial, sans-serif" font-size="12" fill="#111111">embeddings por modalidad</text>
+  <text x="346" y="240" font-family="Inter, Arial, sans-serif" font-size="12" fill="#111111">resúmenes y tablas crudas</text>
+
+  <rect x="588" y="136" width="208" height="116" fill="#ffffff" stroke="#111111" stroke-width="1.5"/>
+  <text x="692" y="166" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="15" font-weight="700" fill="#111111">Retrieval híbrido</text>
+  <text x="614" y="196" font-family="Inter, Arial, sans-serif" font-size="12" fill="#111111">BM25 + vector + filtros</text>
+  <text x="614" y="218" font-family="Inter, Arial, sans-serif" font-size="12" fill="#111111">late interaction</text>
+  <text x="614" y="240" font-family="Inter, Arial, sans-serif" font-size="12" fill="#111111">re-ranking multimodal</text>
+
+  <rect x="856" y="136" width="200" height="116" fill="#f7f7f7" stroke="#111111" stroke-width="1.5"/>
+  <text x="956" y="166" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="15" font-weight="700" fill="#111111">Respuesta</text>
+  <text x="884" y="196" font-family="Inter, Arial, sans-serif" font-size="12" fill="#111111">evidencias citables</text>
+  <text x="884" y="218" font-family="Inter, Arial, sans-serif" font-size="12" fill="#111111">límites y decisión</text>
+  <text x="884" y="240" font-family="Inter, Arial, sans-serif" font-size="12" fill="#111111">answer/review/block</text>
+
+  <line x1="260" y1="194" x2="318" y2="194" stroke="#111111" stroke-width="1.6" marker-end="url(#arrow)"/>
+  <line x1="528" y1="194" x2="586" y2="194" stroke="#111111" stroke-width="1.6" marker-end="url(#arrow)"/>
+  <line x1="796" y1="194" x2="854" y2="194" stroke="#111111" stroke-width="1.6" marker-end="url(#arrow)"/>
+
+  <rect x="116" y="328" width="888" height="238" fill="#ffffff" stroke="#111111" stroke-width="1.5"/>
+  <text x="148" y="366" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="700" fill="#111111">Gates de ingeniería</text>
+  <line x1="148" y1="392" x2="972" y2="392" stroke="#111111" stroke-width="1"/>
+
+  <text x="160" y="430" font-family="Inter, Arial, sans-serif" font-size="14" font-weight="700" fill="#111111">1. ¿He recuperado la evidencia obligatoria?</text>
+  <text x="160" y="460" font-family="Inter, Arial, sans-serif" font-size="14" font-weight="700" fill="#111111">2. ¿Cubren las modalidades necesarias?</text>
+  <text x="160" y="490" font-family="Inter, Arial, sans-serif" font-size="14" font-weight="700" fill="#111111">3. ¿La precisión contextual evita ruido?</text>
+  <text x="160" y="520" font-family="Inter, Arial, sans-serif" font-size="14" font-weight="700" fill="#111111">4. ¿Hay instrucciones visuales o datos no confiables?</text>
+
+  <rect x="716" y="420" width="92" height="76" fill="#ffffff" stroke="#111111" stroke-width="1.2"/>
+  <text x="762" y="450" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="22" font-weight="700" fill="#111111">3</text>
+  <text x="762" y="476" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="12" fill="#555555">answer</text>
+  <rect x="824" y="420" width="92" height="76" fill="#f7f7f7" stroke="#111111" stroke-width="1.2"/>
+  <text x="870" y="450" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="22" font-weight="700" fill="#111111">1</text>
+  <text x="870" y="476" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="12" fill="#555555">review</text>
+  <rect x="932" y="420" width="52" height="76" fill="#111111" stroke="#111111" stroke-width="1.2"/>
+  <text x="958" y="450" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="22" font-weight="700" fill="#ffffff">1</text>
+  <text x="958" y="476" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="12" fill="#ffffff">block</text>
+
+  <text x="1030" y="676" text-anchor="end" font-family="Inter, Arial, sans-serif" font-size="11" fill="#999999">IA para gente curiosa / Facsímil 12 / Capítulo 06 / 686f6c61</text>
+</svg>

@@ -1,0 +1,257 @@
+{
+  "dataset_id": "f12-c03-catalog-demo-v1",
+  "temperature": 0.07,
+  "metrics": {
+    "image_to_text_recall_at_1": 1.0,
+    "image_to_text_recall_at_3": 1.0,
+    "text_to_image_recall_at_1": 1.0,
+    "text_to_image_recall_at_3": 1.0,
+    "mean_positive_margin": 0.125431,
+    "query_recall_at_1": 1.0
+  },
+  "loss": {
+    "image_to_text_loss": 0.425899,
+    "text_to_image_loss": 0.425976,
+    "symmetric_loss": 0.425937
+  },
+  "hard_negatives": [
+    {
+      "image_id": "ui_error",
+      "positive_text": "captura de una interfaz con un botón desactivado por un campo obligatorio",
+      "top_text_id": "ui_error",
+      "top_text": "captura de una interfaz con un botón desactivado por un campo obligatorio",
+      "positive_score": 0.998836,
+      "top_score": 0.998836,
+      "margin_vs_next": 0.009213,
+      "reason": "margen_bajo"
+    },
+    {
+      "image_id": "grant_form_blocked",
+      "positive_text": "captura de una solicitud de beca con el boton de enviar bloqueado y aviso de documento pendiente",
+      "top_text_id": "grant_form_blocked",
+      "top_text": "captura de una solicitud de beca con el boton de enviar bloqueado y aviso de documento pendiente",
+      "positive_score": 0.999422,
+      "top_score": 0.999422,
+      "margin_vs_next": 0.004723,
+      "reason": "margen_bajo"
+    },
+    {
+      "image_id": "invoice_total",
+      "positive_text": "factura con una tabla de importes y total pendiente de validar",
+      "top_text_id": "invoice_total",
+      "top_text": "factura con una tabla de importes y total pendiente de validar",
+      "positive_score": 0.998611,
+      "top_score": 0.998611,
+      "margin_vs_next": 0.021102,
+      "reason": "margen_bajo"
+    },
+    {
+      "image_id": "grant_policy_pdf",
+      "positive_text": "documento de politica de becas con requisitos de justificante fecha limite y formato aceptado",
+      "top_text_id": "grant_policy_pdf",
+      "top_text": "documento de politica de becas con requisitos de justificante fecha limite y formato aceptado",
+      "positive_score": 0.999601,
+      "top_score": 0.999601,
+      "margin_vs_next": 0.01799,
+      "reason": "margen_bajo"
+    },
+    {
+      "image_id": "whiteboard_plan",
+      "positive_text": "pizarra con un plan de sprint, tareas y flechas entre decisiones",
+      "top_text_id": "whiteboard_plan",
+      "top_text": "pizarra con un plan de sprint, tareas y flechas entre decisiones",
+      "positive_score": 0.998733,
+      "top_score": 0.998733,
+      "margin_vs_next": 0.031512,
+      "reason": "margen_bajo"
+    },
+    {
+      "image_id": "whiteboard_invoice_confuser",
+      "positive_text": "pizarra con columnas de números y una lista de tareas",
+      "top_text_id": "whiteboard_invoice_confuser",
+      "top_text": "pizarra con columnas de números y una lista de tareas",
+      "positive_score": 0.998084,
+      "top_score": 0.998084,
+      "margin_vs_next": 0.042289,
+      "reason": "margen_bajo"
+    }
+  ],
+  "query_rankings": [
+    {
+      "query_id": "q_catalogo_silla",
+      "text": "busco una silla negra de oficina con ruedas",
+      "expected_image_id": "black_chair",
+      "expected_rank": 1,
+      "top_3": [
+        {
+          "id": "black_chair",
+          "title": "Silla negra de oficina con ruedas",
+          "score": 0.998288
+        },
+        {
+          "id": "grant_policy_pdf",
+          "title": "Extracto de política de becas en PDF",
+          "score": 0.531807
+        },
+        {
+          "id": "invoice_total",
+          "title": "Factura con total y tabla de conceptos",
+          "score": 0.529026
+        }
+      ]
+    },
+    {
+      "query_id": "q_factura_total",
+      "text": "documento con total de factura y tabla de conceptos",
+      "expected_image_id": "invoice_total",
+      "expected_rank": 1,
+      "top_3": [
+        {
+          "id": "invoice_total",
+          "title": "Factura con total y tabla de conceptos",
+          "score": 0.998523
+        },
+        {
+          "id": "grant_policy_pdf",
+          "title": "Extracto de política de becas en PDF",
+          "score": 0.986303
+        },
+        {
+          "id": "whiteboard_invoice_confuser",
+          "title": "Pizarra con columnas de números",
+          "score": 0.647836
+        }
+      ]
+    },
+    {
+      "query_id": "q_beca_bloqueada",
+      "text": "solicitud de beca bloqueada por documento pendiente",
+      "expected_image_id": "grant_form_blocked",
+      "expected_rank": 1,
+      "top_3": [
+        {
+          "id": "grant_form_blocked",
+          "title": "Formulario de beca con envío bloqueado",
+          "score": 0.998205
+        },
+        {
+          "id": "ui_error",
+          "title": "Captura de formulario con botón desactivado",
+          "score": 0.984659
+        },
+        {
+          "id": "grant_policy_pdf",
+          "title": "Extracto de política de becas en PDF",
+          "score": 0.617895
+        }
+      ]
+    },
+    {
+      "query_id": "q_pizarra_numeros",
+      "text": "pizarra con números y planificación",
+      "expected_image_id": "whiteboard_invoice_confuser",
+      "expected_rank": 1,
+      "top_3": [
+        {
+          "id": "whiteboard_invoice_confuser",
+          "title": "Pizarra con columnas de números",
+          "score": 0.999094
+        },
+        {
+          "id": "whiteboard_plan",
+          "title": "Pizarra con plan de sprint y flechas",
+          "score": 0.967462
+        },
+        {
+          "id": "grant_policy_pdf",
+          "title": "Extracto de política de becas en PDF",
+          "score": 0.732596
+        }
+      ]
+    }
+  ],
+  "gate": "pass",
+  "gate_ok": true,
+  "matrix": [
+    [
+      0.998836,
+      0.989623,
+      0.454269,
+      0.489806,
+      0.305994,
+      0.202072,
+      0.302554,
+      0.364369
+    ],
+    [
+      0.994699,
+      0.999422,
+      0.535765,
+      0.577369,
+      0.340277,
+      0.266568,
+      0.3725,
+      0.448667
+    ],
+    [
+      0.474828,
+      0.541278,
+      0.998611,
+      0.977509,
+      0.534545,
+      0.467288,
+      0.385271,
+      0.601244
+    ],
+    [
+      0.519663,
+      0.594191,
+      0.981611,
+      0.999601,
+      0.534928,
+      0.476406,
+      0.541214,
+      0.735663
+    ],
+    [
+      0.333827,
+      0.363419,
+      0.548207,
+      0.495038,
+      0.998688,
+      0.509061,
+      0.421556,
+      0.433799
+    ],
+    [
+      0.221495,
+      0.282442,
+      0.452756,
+      0.437757,
+      0.550163,
+      0.998151,
+      0.572012,
+      0.56726
+    ],
+    [
+      0.331839,
+      0.408776,
+      0.407487,
+      0.547616,
+      0.438081,
+      0.599613,
+      0.998733,
+      0.967221
+    ],
+    [
+      0.392511,
+      0.476188,
+      0.624747,
+      0.746556,
+      0.470892,
+      0.585791,
+      0.955795,
+      0.998084
+    ]
+  ]
+}

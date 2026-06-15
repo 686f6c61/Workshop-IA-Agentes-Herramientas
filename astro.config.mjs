@@ -5,10 +5,12 @@ import sentry from '@sentry/astro';
 
 const hasSentryDsn = Boolean(process.env.PUBLIC_GLITCHTIP_DSN);
 const hasSentryAuthToken = Boolean(process.env.SENTRY_AUTH_TOKEN);
+const siteUrl =
+  process.env.PUBLIC_SITE_URL ?? process.env.ASTRO_SITE ?? 'https://workshop-ia-2026.686f6c61.dev';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://workshop-ia-2026.686f6c61.dev',
+  site: siteUrl,
   integrations: [
     ...(hasSentryDsn
       ? [

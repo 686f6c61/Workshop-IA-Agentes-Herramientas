@@ -1,0 +1,44 @@
+{
+  "seed": 686,
+  "examples": 700,
+  "train_ratio": 0.75,
+  "epochs": 120,
+  "validation_gap_warning": 0.08,
+  "runs": [
+    {
+      "id": "bce_sgd_lr_01",
+      "loss": "bce",
+      "optimizer": "sgd",
+      "learning_rate": 0.1,
+      "weight_decay": 0.0
+    },
+    {
+      "id": "bce_sgd_lr_1",
+      "loss": "bce",
+      "optimizer": "sgd",
+      "learning_rate": 1.0,
+      "weight_decay": 0.0
+    },
+    {
+      "id": "bce_adamw",
+      "loss": "bce",
+      "optimizer": "adamw",
+      "learning_rate": 0.05,
+      "weight_decay": 0.01
+    },
+    {
+      "id": "mse_sgd_lr_01",
+      "loss": "mse",
+      "optimizer": "sgd",
+      "learning_rate": 0.1,
+      "weight_decay": 0.0
+    },
+    {
+      "id": "bce_adamw_no_decay",
+      "loss": "bce",
+      "optimizer": "adamw",
+      "learning_rate": 0.05,
+      "weight_decay": 0.0
+    }
+  ]
+}

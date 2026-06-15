@@ -1,0 +1,61 @@
+policy_id: f9-agent-identity-policy
+version: 2026.06.07
+owner: owner-platform
+review_date: 2026-06-07
+
+agents:
+  - agent_id: academic_support_assistant.agent.rag
+    system_id: academic_support_assistant
+    environment: production
+    runtime_identity: svc-ai-academic-support-prod
+    credential_ttl_minutes: 60
+    allowed_scopes:
+      - policies:read
+      - tickets:prepare
+    forbidden_scopes:
+      - tickets:update
+      - email:send
+    evidence_required:
+      - trace_sample_with_agent_id
+      - credential_rotation_log
+      - scope_review_record
+
+  - agent_id: admissions_prioritization_helper.agent.review
+    system_id: admissions_prioritization_helper
+    environment: pilot
+    runtime_identity: svc-ai-admissions-pilot
+    credential_ttl_minutes: 30
+    allowed_scopes:
+      - cases:read
+      - ranking:prepare
+      - policy_docs:read
+    forbidden_scopes:
+      - cases:update
+      - ranking:publish
+      - email:send
+    evidence_required:
+      - trace_sample_with_agent_id
+      - credential_rotation_log
+      - scope_review_record
+
+  - agent_id: internal_coding_helper.agent.repo
+    system_id: internal_coding_helper
+    environment: production
+    runtime_identity: svc-ai-code-helper-prod
+    credential_ttl_minutes: 120
+    allowed_scopes:
+      - repo:read
+      - docs:read
+      - patch:prepare
+    forbidden_scopes:
+      - repo:delete
+      - secrets:read
+      - deploy:execute
+    evidence_required:
+      - repo_scope_test
+      - credential_rotation_log
+
+closure_rule: >
+  A system closes the identity control only when the runtime trace shows
+  agent_id, environment, credential scope and policy version for the same run
+  that is evaluated by the governance gate.

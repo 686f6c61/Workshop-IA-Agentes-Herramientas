@@ -1,0 +1,20 @@
+case_id,split,created_at,source_id,product,language,channel,label,text,expected_label,model_probability,license,pii_risk,owner,consent_scope,annotator_a,annotator_b
+q001,train,2026-05-01,doc-mat-001,matricula,es,portal,answer,"consulta sobre plazo de matricula ordinaria",answer,0.91,internal_training_allowed,low,soporte_academico,training_eval,answer,answer
+q002,train,2026-05-01,doc-bec-002,becas,es,email,ask_more,"duda incompleta sobre requisitos de beca",ask_more,0.72,internal_training_allowed,low,soporte_academico,training_eval,ask_more,ask_more
+q003,train,2026-05-02,doc-pay-001,pagos,es,portal,answer,"pregunta sobre justificante de pago pendiente",answer,0.82,internal_training_allowed,medium,soporte_academico,training_eval,answer,answer
+q004,train,2026-05-02,doc-hor-001,horarios,es,chat,answer,"consulta de horarios de laboratorio",answer,0.88,internal_training_allowed,low,soporte_academico,training_eval,answer,answer
+q004,train,2026-05-03,doc-hor-001,horarios,es,chat,answer,"consulta de horarios de laboratorio",answer,0.87,internal_training_allowed,low,soporte_academico,training_eval,answer,answer
+q006,train,2026-05-03,doc-tit-001,titulos,es,portal,resolve,"solicitud de estado de titulo emitido",answer,0.41,internal_training_allowed,low,soporte_academico,training_eval,answer,resolve
+q007,train,2026-05-04,,becas,es,portal,answer,"consulta sobre documentacion de beca",answer,0.79,internal_training_allowed,low,soporte_academico,training_eval,answer,answer
+q008,train,2026-05-04,doc-pra-001,practicas,es,chat,ask_more,"mensaje ambiguo sobre convenio de practicas",ask_more,0.63,internal_training_allowed,low,soporte_academico,training_eval,ask_more,answer
+q009,validation,2026-05-05,doc-mat-003,matricula,es,portal,answer,"pregunta sobre ampliacion de matricula",answer,0.86,support_eval_only,low,soporte_academico,eval_only,answer,answer
+q010,validation,2026-05-05,doc-pay-002,pagos,es,email,escalate,"reclamacion de pago duplicado",escalate,0.78,internal_training_allowed,medium,soporte_academico,eval_only,escalate,escalate
+q011,validation,2026-05-06,doc-hor-002,horarios,es,chat,answer,"consulta de cambio de grupo horario",answer,0.67,support_eval_only,low,soporte_academico,eval_only,answer,ask_more
+q012,validation,2026-05-06,doc-bec-004,becas,es,portal,ask_more,"faltan datos para revisar beca",ask_more,0.66,support_eval_only,low,soporte_academico,eval_only,ask_more,ask_more
+q013,test,2026-05-07,doc-mat-004,matricula,es,email,answer,"consulta sobre anulacion parcial de matricula",answer,0.81,support_eval_only,low,soporte_academico,eval_only,answer,answer
+q014,test,2026-05-07,doc-pay-003,pagos,es,portal,answer,"confirmacion de recibo ya abonado",answer,0.77,support_eval_only,low,soporte_academico,eval_only,answer,answer
+q015,test,2026-05-08,doc-bec-005,becas,es,chat,answer,"revision urgente de beca denegada",escalate,0.38,support_eval_only,medium,soporte_academico,eval_only,escalate,answer
+q016,test,2026-05-08,doc-pra-002,practicas,es,email,ask_more,"convenio de practicas sin empresa indicada",ask_more,0.71,support_eval_only,low,soporte_academico,eval_only,ask_more,ask_more
+q017,test,2026-05-09,doc-tit-002,titulos,es,portal,answer,"consulta sobre plazo de matricula ordinaria",answer,0.74,support_eval_only,low,soporte_academico,eval_only,answer,answer
+q018,test,2026-05-09,doc-hor-003,admisiones,es,chat,answer,"aula asignada a una sesion de seminario",answer,0.58,support_eval_only,high,soporte_academico,eval_only,answer,answer
+q019,test,2026-05-10,doc-bec-006,becas,es,portal,answer,"consulta sobre documentacion de beca necesaria",answer,0.57,support_eval_only,low,soporte_academico,eval_only,answer,answer

@@ -1,0 +1,560 @@
+{
+  "image": {
+    "path": "data/synthetic_ticket.ppm",
+    "height": 8,
+    "width": 8,
+    "channels": 3
+  },
+  "patch_size": 2,
+  "patch_rows": 4,
+  "patch_cols": 4,
+  "visual_token_count": 16,
+  "attention_pairs": 256,
+  "projection_dimension": 6,
+  "patches": [
+    {
+      "patch_id": 0,
+      "row": 0,
+      "col": 0,
+      "x": 0,
+      "y": 0,
+      "size": 2,
+      "mean_rgb": [
+        72.5,
+        72.5,
+        72.5
+      ],
+      "embedding_preview": [
+        -0.5,
+        -0.4463,
+        -0.3925,
+        -0.5969,
+        -0.5431,
+        -0.4894
+      ]
+    },
+    {
+      "patch_id": 1,
+      "row": 0,
+      "col": 1,
+      "x": 2,
+      "y": 0,
+      "size": 2,
+      "mean_rgb": [
+        125.0,
+        125.0,
+        125.0
+      ],
+      "embedding_preview": [
+        -0.44,
+        -0.3239,
+        -0.2078,
+        -0.638,
+        -0.522,
+        -0.4059
+      ]
+    },
+    {
+      "patch_id": 2,
+      "row": 0,
+      "col": 2,
+      "x": 4,
+      "y": 0,
+      "size": 2,
+      "mean_rgb": [
+        72.5,
+        72.5,
+        72.5
+      ],
+      "embedding_preview": [
+        -0.38,
+        -0.3663,
+        -0.3525,
+        -0.5969,
+        -0.5831,
+        -0.5694
+      ]
+    },
+    {
+      "patch_id": 3,
+      "row": 0,
+      "col": 3,
+      "x": 6,
+      "y": 0,
+      "size": 2,
+      "mean_rgb": [
+        20.0,
+        20.0,
+        20.0
+      ],
+      "embedding_preview": [
+        -0.32,
+        -0.4086,
+        -0.4973,
+        -0.5557,
+        -0.6443,
+        -0.7329
+      ]
+    },
+    {
+      "patch_id": 4,
+      "row": 1,
+      "col": 0,
+      "x": 0,
+      "y": 2,
+      "size": 2,
+      "mean_rgb": [
+        236.25,
+        236.25,
+        236.25
+      ],
+      "embedding_preview": [
+        -0.46,
+        -0.1894,
+        0.0812,
+        -0.6653,
+        -0.3947,
+        -0.1241
+      ]
+    },
+    {
+      "patch_id": 5,
+      "row": 1,
+      "col": 1,
+      "x": 2,
+      "y": 2,
+      "size": 2,
+      "mean_rgb": [
+        227.5,
+        227.5,
+        227.5
+      ],
+      "embedding_preview": [
+        -0.4,
+        -0.1631,
+        0.0737,
+        -0.6584,
+        -0.4216,
+        -0.1847
+      ]
+    },
+    {
+      "patch_id": 6,
+      "row": 1,
+      "col": 2,
+      "x": 4,
+      "y": 2,
+      "size": 2,
+      "mean_rgb": [
+        236.25,
+        236.25,
+        236.25
+      ],
+      "embedding_preview": [
+        -0.34,
+        -0.1094,
+        0.1212,
+        -0.6653,
+        -0.4347,
+        -0.2041
+      ]
+    },
+    {
+      "patch_id": 7,
+      "row": 1,
+      "col": 3,
+      "x": 6,
+      "y": 2,
+      "size": 2,
+      "mean_rgb": [
+        245.0,
+        245.0,
+        245.0
+      ],
+      "embedding_preview": [
+        -0.28,
+        -0.0557,
+        0.1686,
+        -0.6722,
+        -0.4478,
+        -0.2235
+      ]
+    },
+    {
+      "patch_id": 8,
+      "row": 2,
+      "col": 0,
+      "x": 0,
+      "y": 4,
+      "size": 2,
+      "mean_rgb": [
+        227.5,
+        227.5,
+        227.5
+      ],
+      "embedding_preview": [
+        -0.42,
+        -0.2031,
+        0.0137,
+        -0.5984,
+        -0.3816,
+        -0.1647
+      ]
+    },
+    {
+      "patch_id": 9,
+      "row": 2,
+      "col": 1,
+      "x": 2,
+      "y": 4,
+      "size": 2,
+      "mean_rgb": [
+        255.0,
+        255.0,
+        255.0
+      ],
+      "embedding_preview": [
+        -0.36,
+        -0.12,
+        0.12,
+        -0.62,
+        -0.38,
+        -0.14
+      ]
+    },
+    {
+      "patch_id": 10,
+      "row": 2,
+      "col": 2,
+      "x": 4,
+      "y": 4,
+      "size": 2,
+      "mean_rgb": [
+        227.5,
+        227.5,
+        227.5
+      ],
+      "embedding_preview": [
+        -0.3,
+        -0.1231,
+        0.0537,
+        -0.5984,
+        -0.4216,
+        -0.2447
+      ]
+    },
+    {
+      "patch_id": 11,
+      "row": 2,
+      "col": 3,
+      "x": 6,
+      "y": 4,
+      "size": 2,
+      "mean_rgb": [
+        245.0,
+        245.0,
+        245.0
+      ],
+      "embedding_preview": [
+        -0.24,
+        -0.0557,
+        0.1286,
+        -0.6122,
+        -0.4278,
+        -0.2435
+      ]
+    },
+    {
+      "patch_id": 12,
+      "row": 3,
+      "col": 0,
+      "x": 0,
+      "y": 6,
+      "size": 2,
+      "mean_rgb": [
+        245.0,
+        245.0,
+        245.0
+      ],
+      "embedding_preview": [
+        -0.38,
+        -0.1757,
+        0.0286,
+        -0.5522,
+        -0.3478,
+        -0.1435
+      ]
+    },
+    {
+      "patch_id": 13,
+      "row": 3,
+      "col": 1,
+      "x": 2,
+      "y": 6,
+      "size": 2,
+      "mean_rgb": [
+        245.0,
+        245.0,
+        238.75
+      ],
+      "embedding_preview": [
+        -0.3249,
+        -0.1259,
+        0.0388,
+        -0.5473,
+        -0.3825,
+        -0.1835
+      ]
+    },
+    {
+      "patch_id": 14,
+      "row": 3,
+      "col": 2,
+      "x": 4,
+      "y": 6,
+      "size": 2,
+      "mean_rgb": [
+        137.5,
+        137.5,
+        232.5
+      ],
+      "embedding_preview": [
+        -0.1855,
+        -0.4133,
+        -0.1196,
+        -0.5424,
+        -0.2486,
+        -0.4765
+      ]
+    },
+    {
+      "patch_id": 15,
+      "row": 3,
+      "col": 3,
+      "x": 6,
+      "y": 6,
+      "size": 2,
+      "mean_rgb": [
+        191.25,
+        191.25,
+        245.0
+      ],
+      "embedding_preview": [
+        -0.1578,
+        -0.2243,
+        0.0043,
+        -0.5522,
+        -0.3235,
+        -0.39
+      ]
+    }
+  ],
+  "normalized_preview": [
+    {
+      "patch_id": 0,
+      "normalized_mean_rgb": [
+        -0.8764,
+        -0.7665,
+        -0.5408
+      ]
+    },
+    {
+      "patch_id": 1,
+      "normalized_mean_rgb": [
+        0.0227,
+        0.1527,
+        0.3742
+      ]
+    },
+    {
+      "patch_id": 2,
+      "normalized_mean_rgb": [
+        -0.8764,
+        -0.7665,
+        -0.5408
+      ]
+    },
+    {
+      "patch_id": 3,
+      "normalized_mean_rgb": [
+        -1.7754,
+        -1.6856,
+        -1.4559
+      ]
+    },
+    {
+      "patch_id": 4,
+      "normalized_mean_rgb": [
+        1.9278,
+        2.1003,
+        2.3132
+      ]
+    },
+    {
+      "patch_id": 5,
+      "normalized_mean_rgb": [
+        1.778,
+        1.9471,
+        2.1607
+      ]
+    }
+  ],
+  "resolution_budgets": [
+    {
+      "name": "mini_demo",
+      "why": "ver patches a simple vista",
+      "height": 8,
+      "width": 8,
+      "patch_size": 2,
+      "patch_rows": 4,
+      "patch_cols": 4,
+      "visual_tokens": 16,
+      "attention_pairs": 256,
+      "padded_height": 8,
+      "padded_width": 8,
+      "padding_ratio": 0.0,
+      "token_ratio_vs_vit_224_p16": 0.0816,
+      "attention_pair_ratio_vs_vit_224_p16": 0.0067
+    },
+    {
+      "name": "vit_base_224_p16",
+      "why": "configuracion clasica de ViT base",
+      "height": 224,
+      "width": 224,
+      "patch_size": 16,
+      "patch_rows": 14,
+      "patch_cols": 14,
+      "visual_tokens": 196,
+      "attention_pairs": 38416,
+      "padded_height": 224,
+      "padded_width": 224,
+      "padding_ratio": 0.0,
+      "token_ratio_vs_vit_224_p16": 1.0,
+      "attention_pair_ratio_vs_vit_224_p16": 1.0
+    },
+    {
+      "name": "captura_hd_p16",
+      "why": "captura de pantalla relativamente comun",
+      "height": 720,
+      "width": 1280,
+      "patch_size": 16,
+      "patch_rows": 45,
+      "patch_cols": 80,
+      "visual_tokens": 3600,
+      "attention_pairs": 12960000,
+      "padded_height": 720,
+      "padded_width": 1280,
+      "padding_ratio": 0.0,
+      "token_ratio_vs_vit_224_p16": 18.3673,
+      "attention_pair_ratio_vs_vit_224_p16": 337.3594
+    },
+    {
+      "name": "captura_hd_p32",
+      "why": "menos tokens, mas compresion espacial",
+      "height": 720,
+      "width": 1280,
+      "patch_size": 32,
+      "patch_rows": 23,
+      "patch_cols": 40,
+      "visual_tokens": 920,
+      "attention_pairs": 846400,
+      "padded_height": 736,
+      "padded_width": 1280,
+      "padding_ratio": 0.022222,
+      "token_ratio_vs_vit_224_p16": 4.6939,
+      "attention_pair_ratio_vs_vit_224_p16": 22.0325
+    },
+    {
+      "name": "captura_beca_larga_p16",
+      "why": "captura larga de formulario completo: mucha evidencia pero coste alto",
+      "height": 1440,
+      "width": 3200,
+      "patch_size": 16,
+      "patch_rows": 90,
+      "patch_cols": 200,
+      "visual_tokens": 18000,
+      "attention_pairs": 324000000,
+      "padded_height": 1440,
+      "padded_width": 3200,
+      "padding_ratio": 0.0,
+      "token_ratio_vs_vit_224_p16": 91.8367,
+      "attention_pair_ratio_vs_vit_224_p16": 8433.9858
+    },
+    {
+      "name": "captura_beca_region_alerta_p16",
+      "why": "recorte de region con alerta y boton: menos tokens si sabes que evidencia necesitas",
+      "height": 320,
+      "width": 512,
+      "patch_size": 16,
+      "patch_rows": 20,
+      "patch_cols": 32,
+      "visual_tokens": 640,
+      "attention_pairs": 409600,
+      "padded_height": 320,
+      "padded_width": 512,
+      "padding_ratio": 0.0,
+      "token_ratio_vs_vit_224_p16": 3.2653,
+      "attention_pair_ratio_vs_vit_224_p16": 10.6622
+    },
+    {
+      "name": "captura_movil_larga_p16",
+      "why": "pantalla movil larga: aspect ratio extremo y mucho padding potencial",
+      "height": 2532,
+      "width": 1170,
+      "patch_size": 16,
+      "patch_rows": 159,
+      "patch_cols": 74,
+      "visual_tokens": 11766,
+      "attention_pairs": 138438756,
+      "padded_height": 2544,
+      "padded_width": 1184,
+      "padding_ratio": 0.016762,
+      "token_ratio_vs_vit_224_p16": 60.0306,
+      "attention_pair_ratio_vs_vit_224_p16": 3603.6744
+    },
+    {
+      "name": "documento_alta_res_p16",
+      "why": "pagina A4 escaneada a resolucion alta",
+      "height": 1654,
+      "width": 2339,
+      "patch_size": 16,
+      "patch_rows": 104,
+      "patch_cols": 147,
+      "visual_tokens": 15288,
+      "attention_pairs": 233722944,
+      "padded_height": 1664,
+      "padded_width": 2352,
+      "padding_ratio": 0.011637,
+      "token_ratio_vs_vit_224_p16": 78.0,
+      "attention_pair_ratio_vs_vit_224_p16": 6084.0
+    },
+    {
+      "name": "factura_region_total_p16",
+      "why": "recorte de tabla o total: alternativa a mandar toda la pagina",
+      "height": 320,
+      "width": 640,
+      "patch_size": 16,
+      "patch_rows": 20,
+      "patch_cols": 40,
+      "visual_tokens": 800,
+      "attention_pairs": 640000,
+      "padded_height": 320,
+      "padded_width": 640,
+      "padding_ratio": 0.0,
+      "token_ratio_vs_vit_224_p16": 4.0816,
+      "attention_pair_ratio_vs_vit_224_p16": 16.6597
+    }
+  ],
+  "engineering_decision": {
+    "rule": "bajar patch_size aumenta detalle, pero tambien tokens visuales y coste cuadratico de atencion",
+    "watch": [
+      "visual_tokens",
+      "attention_pairs",
+      "padding_ratio",
+      "texto_pequeno",
+      "aspect_ratio"
+    ]
+  },
+  "valid": true,
+  "issues": []
+}

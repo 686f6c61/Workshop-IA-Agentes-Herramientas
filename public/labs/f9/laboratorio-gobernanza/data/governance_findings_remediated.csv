@@ -1,0 +1,18 @@
+finding_id,system_id,layer,requirement,chapter,status,severity,owner,evidence_path,action,due_days
+f9-final-001,academic_support_assistant,risk,risk_register_complete,09.01,pass,3,owner-risk,../c01-risk-governance/output/risk_register.md,mantener revisión mensual,30
+f9-final-002,academic_support_assistant,privacy,dpia_precheck_and_minimization,09.02,pass,4,owner-privacy,../c02-privacy-dpia/output/dpia_precheck.md,mantener retención y redacción de trazas,30
+f9-final-003,academic_support_assistant,llm_appsec,rag_tool_gate,09.03,pass,4,owner-platform,../c03-llm-appsec/output/appsec_gate_report.md,mantener gate antes de cambios,14
+f9-final-004,academic_support_assistant,compliance,post_deployment_monitoring,09.04,review,3,owner-ops,../c04-compliance-audit/output/change_control_record.md,automatizar reporte mensual,21
+f9-final-005,admissions_prioritization_helper,risk,high_impact_risk_register,09.01,pass,5,owner-risk,../c01-risk-governance/output/risk_register.md,mantener owner y riesgo residual,14
+f9-final-006,admissions_prioritization_helper,privacy,dpia_retention_decision,09.02,review,5,owner-privacy,../c02-privacy-dpia/output/dpia_precheck.md,cerrar decisión formal de retención,14
+f9-final-007,admissions_prioritization_helper,llm_appsec,tool_and_rag_boundary,09.03,review,4,owner-platform,../c03-llm-appsec/output/appsec_gate_report.md,probar escenarios de permisos en piloto,14
+f9-final-008,admissions_prioritization_helper,compliance,recordkeeping_export,09.04,pass,5,owner-platform,evidence/recordkeeping_contract.json,export real conectado al pipeline,30
+f9-final-009,admissions_prioritization_helper,compliance,fria_precheck,09.04,review,4,owner-governance,../c04-compliance-audit/output/compliance_gap_matrix.md,cerrar precheck con deployer,21
+f9-final-010,admissions_prioritization_helper,operation,rollback_and_monitoring,06.10,review,4,owner-ops,../c04-compliance-audit/output/audit_gate.md,definir rollback y thresholds,21
+f9-final-011,internal_coding_helper,risk,internal_use_register,09.01,pass,2,owner-risk,../c01-risk-governance/output/control_matrix.csv,mantener inventario interno,30
+f9-final-012,internal_coding_helper,llm_appsec,repo_tool_scope,09.03,pass,3,owner-platform,../c03-llm-appsec/output/tool_contract_matrix.csv,mantener scopes por repositorio,30
+f9-final-013,internal_coding_helper,operation,local_runtime_monitoring,06.05,pass,3,owner-ops,../c04-compliance-audit/output/provider_due_diligence_checklist.md,mantener observabilidad local,30
+f9-final-014,admissions_prioritization_helper,zero_trust_agents,agent_identity_and_short_lived_credentials,09.03,pass,4,owner-platform,evidence/agent_identity_policy.yaml,agent_id y credencial corta conectados al pipeline,30
+f9-final-015,admissions_prioritization_helper,zero_trust_agents,least_agency_tool_boundary,09.03,review,5,owner-platform,evidence/tool_boundary_contract.yaml,separar prepare de execute y limitar scopes por tool,14
+f9-final-016,academic_support_assistant,zero_trust_agents,memory_ttl_and_source_integrity,09.02,review,4,owner-privacy,evidence/memory_retention_policy.md,fijar TTL hash de origen y purga de memoria,21
+f9-final-017,internal_coding_helper,zero_trust_agents,repo_scoped_agent_identity,09.03,pass,3,owner-platform,evidence/credential_scope_register.csv,mantener identidad por repositorio y entorno,30

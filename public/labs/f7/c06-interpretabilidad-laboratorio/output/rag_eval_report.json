@@ -1,0 +1,45 @@
+{
+  "report_id": "f7-rag-eval-reference",
+  "chapter": "07.03",
+  "dataset": "support-rag-eval-2026-06",
+  "cases": 120,
+  "metrics": {
+    "hit_at_5": 0.94,
+    "mrr": 0.81,
+    "groundedness": 0.92,
+    "citation_acceptance": 0.9,
+    "abstention_ok": 0.88,
+    "answer_usefulness": 0.84,
+    "long_tail_coverage": 0.72
+  },
+  "slices": [
+    {
+      "slice": "matricula",
+      "cases": 36,
+      "groundedness": 0.94,
+      "citation_acceptance": 0.92
+    },
+    {
+      "slice": "becas",
+      "cases": 31,
+      "groundedness": 0.91,
+      "citation_acceptance": 0.89
+    },
+    {
+      "slice": "soporte_tecnico",
+      "cases": 29,
+      "groundedness": 0.9,
+      "citation_acceptance": 0.88
+    },
+    {
+      "slice": "normativa_poco_frecuente",
+      "cases": 24,
+      "groundedness": 0.87,
+      "citation_acceptance": 0.84
+    }
+  ],
+  "known_limits": [
+    "El slice normativa_poco_frecuente queda bajo el objetivo de cola larga.",
+    "La evaluación no sustituye revisión documental tras cambio de corpus."
+  ]
+}

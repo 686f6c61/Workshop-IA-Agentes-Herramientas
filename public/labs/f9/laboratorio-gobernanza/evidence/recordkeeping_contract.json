@@ -1,0 +1,30 @@
+{
+  "contract_id": "f9-final-recordkeeping-contract",
+  "versión": "2026.06.07",
+  "owner": "owner-platform",
+  "implementation_state": "contract_defined_export_pending",
+  "required_fields": [
+    "event_id",
+    "event_type",
+    "timestamp",
+    "system_id",
+    "agent_id",
+    "policy_version",
+    "model_id",
+    "prompt_version",
+    "rag_index_version",
+    "tool_policy_version",
+    "decision",
+    "blockers",
+    "conditions",
+    "personal_data_stored",
+    "retention_until"
+  ],
+  "field_rules": {
+    "agent_id": "Must match evidence/agent_identity_policy.yaml",
+    "policy_version": "Must match contracts/final_governance_policy.json",
+    "personal_data_stored": "Must be false unless privacy owner has approved retention",
+    "retention_until": "Must be a concrete ISO date"
+  },
+  "closure_rule": "The blocking control closes only when this contract is connected to a real exported trace sample for admissions_prioritization_helper."
+}

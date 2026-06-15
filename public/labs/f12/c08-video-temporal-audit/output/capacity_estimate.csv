@@ -1,0 +1,6 @@
+video_id,observed_duration_s,observed_frames,observed_fps,frames_per_hour_at_observed_rate,clips_per_hour_at_default_stride
+demo_503,26.0,4,0.1538,553.85,3597
+instruccion_visual,15.0,3,0.2,720.0,3597
+linea_defecto,23.0,4,0.1739,626.09,3597
+puerta_badge,24.0,4,0.1667,600.0,3597
+sin_evidencia,19.0,3,0.1579,568.42,3597

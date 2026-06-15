@@ -1,0 +1,11 @@
+{
+  "required_inferred_triples": [
+    ["factura:f9", "rdf:type", "DocumentoFiscal"]
+  ],
+  "required_queries": [
+    "tipos_factura",
+    "facturas_cliente",
+    "dependencias_db"
+  ]
+}
+

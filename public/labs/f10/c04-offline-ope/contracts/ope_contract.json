@@ -1,0 +1,30 @@
+{
+  "contract_version": "offline_ope_gate.v1",
+  "scenario_id": "routing_modelos_offline_ope_c04",
+  "target_policy_id": "routing_policy_candidate_v2",
+  "behavior_policy_id": "routing_policy_stable_v1",
+  "min_events": 12,
+  "min_ess_ratio": 0.45,
+  "max_importance_weight": 4.0,
+  "max_abs_ips_wis_gap": 0.12,
+  "max_abs_dm_dr_gap": 0.10,
+  "min_logged_action_support": 0.40,
+  "min_dr_estimate": 0.62,
+  "min_dr_ci_lower_bound": 0.68,
+  "bootstrap_samples": 500,
+  "bootstrap_seed": 41,
+  "confidence_level": 0.90,
+  "min_slice_events": 2,
+  "max_unsupported_target_probability_mass": 0.10,
+  "required_fields": [
+    "event_id",
+    "context",
+    "allowed_actions",
+    "action",
+    "behavior_action_probability",
+    "target_action_probability",
+    "target_policy_probability_by_action",
+    "q_model_reward_by_action",
+    "reward"
+  ]
+}

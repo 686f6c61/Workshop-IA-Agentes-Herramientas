@@ -1,0 +1,30 @@
+titulo: "Evaluar, calibrar e interpretar"
+fasciculo: 7
+total_capitulos: 6
+estado: revision
+
+capitulos:
+  - numero: 1
+    archivo: 01-que-es-una-eval-y-que-decision-permite.md
+    titulo: "Qué es una eval y qué decisión permite tomar"
+    estado: revision
+  - numero: 2
+    archivo: 02-metricas-clasicas-matriz-confusion-coste-error.md
+    titulo: "Métricas clásicas: matriz de confusión y coste del error"
+    estado: revision
+  - numero: 3
+    archivo: 03-evaluar-rag-retrieval-groundedness-abstencion.md
+    titulo: "Evaluar RAG: retrieval, groundedness y abstención"
+    estado: revision
+  - numero: 4
+    archivo: 04-evaluadores-llm-evaluar-agentes-trazas.md
+    titulo: "Evaluadores LLM y agentes: rúbricas, trazas y coste"
+    estado: revision
+  - numero: 5
+    archivo: 05-calibracion-incertidumbre-umbrales-conformal.md
+    titulo: "Calibración e incertidumbre: de scores a decisiones"
+    estado: revision
+  - numero: 6
+    archivo: 06-interpretabilidad-practica-recap-laboratorio.md
+    titulo: "Interpretabilidad práctica y laboratorio de evaluación"
+    estado: revision

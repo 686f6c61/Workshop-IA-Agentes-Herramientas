@@ -1,0 +1,46 @@
+{
+  "query_id": "q02_factura_total",
+  "decision": "answer",
+  "answer": "El total verificado de FAC-2026-014 es 529.98 EUR: 508.20 EUR por matrícula primer plazo y 21.78 EUR por certificado académico.",
+  "evidence": [
+    {
+      "source_id": "invoice_table_lines",
+      "modality": "table",
+      "fact_id": "invoice_total_529_98",
+      "page": 1,
+      "region_id": "invoice_line_items",
+      "score": 1.0035
+    },
+    {
+      "source_id": "invoice_page_visual",
+      "modality": "document_page_image",
+      "fact_id": "invoice_visual_total_529_98",
+      "page": 1,
+      "region_id": "invoice_page_total",
+      "score": 0.8605
+    },
+    {
+      "source_id": "unsafe_visual_instruction_page",
+      "modality": "document_page_image",
+      "fact_id": "visual_instruction_override_detected",
+      "page": 1,
+      "region_id": "embedded_instruction",
+      "score": 0.2566
+    }
+  ],
+  "limits": [
+    "La respuesta depende de que la tabla y la página visual correspondan a la misma factura."
+  ],
+  "next_action": "Comprobar que el total del documento coincide con la suma de line items antes de contabilizar.",
+  "metrics": {
+    "recall_at_k": 1.0,
+    "evidence_coverage": 1.0,
+    "modality_coverage": 1.0,
+    "context_precision": 1.0,
+    "ndcg_at_k": 1.0,
+    "mrr": 1.0,
+    "unsupported_claim_count": 0,
+    "retrieved_count": 5,
+    "relevant_retrieved_count": 5
+  }
+}

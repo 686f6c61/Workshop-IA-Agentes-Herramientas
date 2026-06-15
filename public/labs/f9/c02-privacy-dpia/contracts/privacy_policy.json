@@ -1,0 +1,97 @@
+{
+  "system_id": "academic-assistant-privacy-demo",
+  "risk_thresholds": {
+    "bajo": 40,
+    "medio": 90,
+    "alto": 180
+  },
+  "required_evidence": [
+    "data_flow_inventory.json",
+    "minimization_report.md",
+    "dpia_precheck.md",
+    "retention_plan.csv",
+    "redacted_trace_sample.jsonl",
+    "presidio_style_findings.json",
+    "presidio_detection_report.md",
+    "privacy_release_gate.md",
+    "ci_privacy_gate.json",
+    "ci_privacy_gate.md"
+  ],
+  "retention_defaults_days": {
+    "contexto_efimero": 0,
+    "traza_operativa": 14,
+    "memoria_usuario": 30,
+    "corpus_rag": 365,
+    "dataset_evaluacion": 180,
+    "entrenamiento": 0
+  },
+  "purpose_allowlist": {
+    "responder_consulta": [
+      "question_text",
+      "document_id",
+      "course_code",
+      "language",
+      "consent_flag"
+    ],
+    "recuperar_contexto": [
+      "document_id",
+      "chunk_id",
+      "chunk_text",
+      "source_url",
+      "versión",
+      "access_group"
+    ],
+    "depurar_servicio": [
+      "trace_id",
+      "timestamp",
+      "model_id",
+      "latency_ms",
+      "token_count",
+      "error_code",
+      "redaction_status"
+    ],
+    "recordar_preferencias": [
+      "user_id_hash",
+      "language",
+      "accessibility_preference",
+      "consent_flag",
+      "expires_at"
+    ],
+    "evaluar_calidad": [
+      "case_id",
+      "expected_answer",
+      "model_answer",
+      "rubric",
+      "source_document",
+      "reviewer_id"
+    ]
+  },
+  "dpia_triggers": {
+    "special_category": "Hay categorías especiales o datos muy sensibles.",
+    "automated_decision": "La salida puede influir en una decisión automatizada sobre una persona.",
+    "large_scale": "El tratamiento se plantea a escala alta o recurrente.",
+    "cross_border_third_party": "Hay proveedor o transferencia internacional que debe revisarse.",
+    "model_training_personal_data": "Se pretende usar datos personales para entrenar o ajustar el modelo.",
+    "long_retention_raw_text": "Se conserva texto bruto durante una ventana larga."
+  },
+  "release_rules": {
+    "block_if_high_without_owner": true,
+    "block_if_raw_text_over_days": 30,
+    "block_if_training_personal_data": true,
+    "require_dpia_note_when_triggered": true
+  },
+  "ci_rules": {
+    "forbidden_trace_keys": [
+      "user_email",
+      "phone"
+    ],
+    "required_trace_keys": [
+      "trace_id",
+      "model_id",
+      "redaction_status"
+    ],
+    "fail_if_retention_action_reduce": true,
+    "fail_if_dpia_flow_without_evidence": true,
+    "fail_if_training_personal_data": true
+  }
+}

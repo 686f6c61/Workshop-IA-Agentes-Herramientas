@@ -1,0 +1,8 @@
+{
+  "status": "block",
+  "block_count": 2,
+  "review_count": 5,
+  "contract_id": "f8-final-lab-review",
+  "contract_version": "2026-06-07",
+  "dataset": "data/final_project_events.csv"
+}

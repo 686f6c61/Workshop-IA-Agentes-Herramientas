@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Contrato de respuesta temporal sobre vídeo",
+  "type": "object",
+  "required": [
+    "case_id",
+    "decision",
+    "answer",
+    "segments",
+    "evidence",
+    "metrics",
+    "limits",
+    "next_action"
+  ],
+  "properties": {
+    "case_id": {"type": "string"},
+    "decision": {"type": "string", "enum": ["answer", "review", "block"]},
+    "answer": {"type": "string"},
+    "segments": {"type": "array"},
+    "evidence": {"type": "array"},
+    "metrics": {"type": "object"},
+    "limits": {"type": "array"},
+    "next_action": {"type": "string"}
+  }
+}

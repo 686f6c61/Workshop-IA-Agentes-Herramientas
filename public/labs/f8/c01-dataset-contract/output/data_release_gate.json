@@ -1,0 +1,9 @@
+{
+  "gate": "pass",
+  "dataset_hash_sha256": "2773d0f1efaedc48a61e7aa6d83d80f5288c947395d146d86d253f2e833be8df",
+  "contract_hash_sha256": "8c6154b9d99371337662e402c19192fa83bcfb75dfe26944be253ce10dc1152a",
+  "blocking_failures": [],
+  "review_failures": [],
+  "must_fix_before_training": [],
+  "recommendation": "usar como dataset didactico y adaptar contrato antes de usar datos reales"
+}

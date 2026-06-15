@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Multimodal RAG answer card",
+  "type": "object",
+  "required": ["query_id", "decision", "answer", "evidence", "limits", "next_action", "metrics"],
+  "properties": {
+    "query_id": {"type": "string"},
+    "decision": {"enum": ["answer", "review", "block"]},
+    "answer": {"type": "string"},
+    "evidence": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["source_id", "modality", "fact_id"],
+        "properties": {
+          "source_id": {"type": "string"},
+          "modality": {"type": "string"},
+          "fact_id": {"type": "string"},
+          "page": {"type": ["integer", "null"]},
+          "region_id": {"type": ["string", "null"]},
+          "score": {"type": "number"}
+        }
+      }
+    },
+    "limits": {"type": "array", "items": {"type": "string"}},
+    "next_action": {"type": "string"},
+    "metrics": {"type": "object"}
+  }
+}

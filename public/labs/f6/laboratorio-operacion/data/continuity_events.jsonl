@@ -1,0 +1,5 @@
+{"ts":"2026-06-07T09:00:00Z","type":"change","message":"canary support-rag@2.0.0 al 20%","release_id":"support-rag@2.0.0","index_version":"rag_index_2026_06","traffic_percent":20}
+{"ts":"2026-06-07T09:08:00Z","type":"metric","metric":"latency_p95_ms","value":6900,"slo":4200,"route_id":"provider_a","release_id":"support-rag@2.0.0"}
+{"ts":"2026-06-07T09:12:00Z","type":"metric","metric":"citation_acceptance_rate","value":0.71,"slo":0.90,"index_version":"rag_index_2026_06","release_id":"support-rag@2.0.0"}
+{"ts":"2026-06-07T09:15:00Z","type":"metric","metric":"review_queue_age_p95_minutes","value":52,"slo":30,"queue":"support_n2","release_id":"support-rag@2.0.0"}
+{"ts":"2026-06-07T09:18:00Z","type":"trace","trace_id":"tr_001","run_id":"run_991","model_id":"model_b","prompt_version":"prompt_v14","route_id":"provider_a","index_version":"rag_index_2026_06","release_id":"support-rag@2.0.0"}

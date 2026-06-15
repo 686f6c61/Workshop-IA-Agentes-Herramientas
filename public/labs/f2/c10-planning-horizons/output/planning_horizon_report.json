@@ -1,0 +1,50 @@
+{
+  "heuristic_plan": [
+    "validar",
+    "enviar",
+    "registrar"
+  ],
+  "heuristic_cost": 4,
+  "heuristic_expansions": 4,
+  "horizon_checks": [
+    {
+      "horizon": 1,
+      "status": "UNSAT",
+      "plan": null
+    },
+    {
+      "horizon": 2,
+      "status": "UNSAT",
+      "plan": null
+    },
+    {
+      "horizon": 3,
+      "status": "SAT",
+      "plan": [
+        "validar",
+        "enviar",
+        "registrar"
+      ]
+    },
+    {
+      "horizon": 4,
+      "status": "SAT",
+      "plan": [
+        "validar",
+        "enviar",
+        "enviar",
+        "registrar"
+      ]
+    }
+  ],
+  "first_sat_horizon": 3,
+  "observed_state_after_first_step": [
+    "cliente",
+    "email_pendiente_confirmacion",
+    "factura_validada"
+  ],
+  "replan_after_observation": null,
+  "replan_cost": null,
+  "replan_expansions": 2,
+  "gate_valid": true
+}

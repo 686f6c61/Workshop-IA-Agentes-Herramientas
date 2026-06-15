@@ -1,0 +1,45 @@
+titulo: "Arquitecturas y modelos"
+fasciculo: 3
+total_capitulos: 8
+estado: revision
+
+capitulos:
+  - numero: 1
+    archivo: 01-que-es-un-llm.md
+    titulo: "Qué es un LLM: modelo, parámetros y escala"
+    estado: revision
+
+  - numero: 2
+    archivo: 02-transformer-texto-tensores-atencion.md
+    titulo: "Transformer por dentro: de texto a tensores y atención"
+    estado: revision
+
+  - numero: 3
+    archivo: 03-qkv-mascara-softmax.md
+    titulo: "Q, K, V, máscara causal y softmax"
+    estado: revision
+
+  - numero: 4
+    archivo: 04-mlp-residual-layernorm-logits-sampling.md
+    titulo: "MLP, residual, LayerNorm, logits y sampling"
+    estado: revision
+
+  - numero: 5
+    archivo: 05-arquitecturas-modernas-moe-razonamiento-multimodalidad.md
+    titulo: "Arquitecturas modernas: familias, MoE, razonamiento y multimodalidad"
+    estado: revision
+
+  - numero: 6
+    archivo: 06-transfer-learning-destilacion-modelos-abiertos.md
+    titulo: "Transfer learning, destilación y modelos abiertos"
+    estado: revision
+
+  - numero: 7
+    archivo: 07-inferencia-optimizada-edge-hardware.md
+    titulo: "Inferencia optimizada, edge AI y hardware"
+    estado: revision
+
+  - numero: 8
+    archivo: 08-recapitulacion-arquitecturas-modelos.md
+    titulo: "Lo que deberías saber: arquitecturas y modelos"
+    estado: revision

@@ -1,0 +1,81 @@
+{
+  "status": "review",
+  "summary": [
+    {
+      "metric_window": "day_1",
+      "variant": "control",
+      "n": 6,
+      "resolved_rate": 0.5,
+      "followup_needed_rate": 0.666667,
+      "student_satisfied_rate": 0.333333
+    },
+    {
+      "metric_window": "day_1",
+      "variant": "treatment",
+      "n": 6,
+      "resolved_rate": 0.833333,
+      "followup_needed_rate": 0.666667,
+      "student_satisfied_rate": 0.333333
+    },
+    {
+      "metric_window": "day_7",
+      "variant": "control",
+      "n": 6,
+      "resolved_rate": 0.5,
+      "followup_needed_rate": 0.5,
+      "student_satisfied_rate": 0.5
+    },
+    {
+      "metric_window": "day_7",
+      "variant": "treatment",
+      "n": 6,
+      "resolved_rate": 0.833333,
+      "followup_needed_rate": 0.166667,
+      "student_satisfied_rate": 0.833333
+    }
+  ],
+  "deltas": [
+    {
+      "metric_window": "day_1",
+      "metric": "resolved_rate",
+      "control": 0.5,
+      "treatment": 0.833333,
+      "delta": 0.333333
+    },
+    {
+      "metric_window": "day_1",
+      "metric": "followup_needed_rate",
+      "control": 0.666667,
+      "treatment": 0.666667,
+      "delta": 0.0
+    },
+    {
+      "metric_window": "day_1",
+      "metric": "student_satisfied_rate",
+      "control": 0.333333,
+      "treatment": 0.333333,
+      "delta": 0.0
+    },
+    {
+      "metric_window": "day_7",
+      "metric": "resolved_rate",
+      "control": 0.5,
+      "treatment": 0.833333,
+      "delta": 0.333333
+    },
+    {
+      "metric_window": "day_7",
+      "metric": "followup_needed_rate",
+      "control": 0.5,
+      "treatment": 0.166667,
+      "delta": -0.333333
+    },
+    {
+      "metric_window": "day_7",
+      "metric": "student_satisfied_rate",
+      "control": 0.5,
+      "treatment": 0.833333,
+      "delta": 0.333333
+    }
+  ]
+}

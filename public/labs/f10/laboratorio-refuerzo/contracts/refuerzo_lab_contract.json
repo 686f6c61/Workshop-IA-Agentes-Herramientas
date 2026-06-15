@@ -1,0 +1,23 @@
+{
+  "lab_id": "f10-laboratorio-refuerzo",
+  "version": "1.0.0",
+  "bandit_gate": {
+    "min_cumulative_reward": 20.0,
+    "max_regret": 4.0,
+    "max_human_review_share": 0.3,
+    "required_trace_events": 30
+  },
+  "reward_gate": {
+    "min_case_pass_rate": 1.0,
+    "required_terms": ["correctness", "citation", "abstention", "cost", "format"],
+    "forbid_length_bonus": true
+  },
+  "required_outputs": [
+    "bandit_policy_report.json",
+    "bandit_policy_decision.md",
+    "bandit_trace.jsonl",
+    "reward_audit_report.json",
+    "reward_card.md",
+    "ci_reward_gate.json"
+  ]
+}

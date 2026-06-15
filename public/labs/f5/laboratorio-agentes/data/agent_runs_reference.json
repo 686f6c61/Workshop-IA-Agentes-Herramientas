@@ -1,0 +1,42 @@
+[
+  {
+    "case_id": "r01",
+    "agent_version": "support-agent-v2",
+    "route": "reference_flow",
+    "tools": ["search_source", "validate_apa"],
+    "approval_requested": false,
+    "cost": 0.05,
+    "latency_ms": 4200,
+    "trace_spans": ["route", "tool", "tool", "final"]
+  },
+  {
+    "case_id": "r02",
+    "agent_version": "support-agent-v2",
+    "route": "human_review",
+    "tools": ["diff_preview", "approval_request"],
+    "approval_requested": true,
+    "cost": 0.07,
+    "latency_ms": 6100,
+    "trace_spans": ["route", "tool", "tool", "final"]
+  },
+  {
+    "case_id": "r03",
+    "agent_version": "support-agent-v2",
+    "route": "support_flow",
+    "tools": ["classify_ticket"],
+    "approval_requested": false,
+    "cost": 0.03,
+    "latency_ms": 2800,
+    "trace_spans": ["route", "tool", "final"]
+  },
+  {
+    "case_id": "r04",
+    "agent_version": "support-agent-v2",
+    "route": "data_flow",
+    "tools": ["query_payments"],
+    "approval_requested": false,
+    "cost": 0.04,
+    "latency_ms": 3100,
+    "trace_spans": ["route", "tool", "final"]
+  }
+]

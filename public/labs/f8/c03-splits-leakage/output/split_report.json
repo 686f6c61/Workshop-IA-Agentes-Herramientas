@@ -1,0 +1,374 @@
+{
+  "policy_id": "support-split-policy-v1",
+  "row_count": 24,
+  "strategies": [
+    {
+      "strategy": "random_row",
+      "split_counts": {
+        "train": 14,
+        "validation": 5,
+        "test": 5
+      },
+      "label_distribution": {
+        "global_distribution": {
+          "answer": 0.583333,
+          "ask_more": 0.25,
+          "escalate": 0.166667
+        },
+        "by_split": {
+          "train": {
+            "distribution": {
+              "answer": 0.5,
+              "ask_more": 0.285714,
+              "escalate": 0.214286
+            },
+            "total_variation_vs_global": 0.083333
+          },
+          "validation": {
+            "distribution": {
+              "answer": 0.6,
+              "ask_more": 0.2,
+              "escalate": 0.2
+            },
+            "total_variation_vs_global": 0.05
+          },
+          "test": {
+            "distribution": {
+              "answer": 0.8,
+              "ask_more": 0.2,
+              "escalate": 0.0
+            },
+            "total_variation_vs_global": 0.216667
+          }
+        }
+      },
+      "missing_test_labels": [
+        "escalate"
+      ],
+      "findings": [
+        {
+          "kind": "student_id_overlap",
+          "value": "stu-001",
+          "splits": "test|train",
+          "case_ids": "s001|s009"
+        },
+        {
+          "kind": "student_id_overlap",
+          "value": "stu-003",
+          "splits": "test|train",
+          "case_ids": "s003|s019"
+        },
+        {
+          "kind": "source_id_overlap",
+          "value": "doc-mat-001",
+          "splits": "test|train",
+          "case_ids": "s001|s009"
+        },
+        {
+          "kind": "source_id_overlap",
+          "value": "doc-pay-001",
+          "splits": "test|train",
+          "case_ids": "s003|s019"
+        },
+        {
+          "kind": "near_text",
+          "value": "0.833333",
+          "splits": "train|test",
+          "case_ids": "s001|s009"
+        },
+        {
+          "kind": "near_text",
+          "value": "0.833333",
+          "splits": "train|test",
+          "case_ids": "s003|s019"
+        },
+        {
+          "kind": "future_train_vs_test",
+          "value": "2026-04-08",
+          "splits": "train|test",
+          "case_ids": "s010|s011|s012|s013|s014|s020|s021|s022|s023"
+        }
+      ],
+      "blocking_failures": [
+        "student_group_overlap",
+        "source_overlap",
+        "near_text_leakage",
+        "temporal_leakage"
+      ],
+      "review_failures": [
+        "missing_required_test_labels"
+      ],
+      "gate": "block"
+    },
+    {
+      "strategy": "stratified_label",
+      "split_counts": {
+        "train": 14,
+        "validation": 5,
+        "test": 5
+      },
+      "label_distribution": {
+        "global_distribution": {
+          "answer": 0.583333,
+          "ask_more": 0.25,
+          "escalate": 0.166667
+        },
+        "by_split": {
+          "train": {
+            "distribution": {
+              "answer": 0.571429,
+              "ask_more": 0.285714,
+              "escalate": 0.142857
+            },
+            "total_variation_vs_global": 0.035714
+          },
+          "validation": {
+            "distribution": {
+              "answer": 0.6,
+              "ask_more": 0.2,
+              "escalate": 0.2
+            },
+            "total_variation_vs_global": 0.05
+          },
+          "test": {
+            "distribution": {
+              "answer": 0.6,
+              "ask_more": 0.2,
+              "escalate": 0.2
+            },
+            "total_variation_vs_global": 0.05
+          }
+        }
+      },
+      "missing_test_labels": [],
+      "findings": [
+        {
+          "kind": "student_id_overlap",
+          "value": "stu-001",
+          "splits": "test|train",
+          "case_ids": "s001|s009"
+        },
+        {
+          "kind": "student_id_overlap",
+          "value": "stu-003",
+          "splits": "test|train",
+          "case_ids": "s003|s019"
+        },
+        {
+          "kind": "source_id_overlap",
+          "value": "doc-mat-001",
+          "splits": "test|train",
+          "case_ids": "s001|s009"
+        },
+        {
+          "kind": "source_id_overlap",
+          "value": "doc-pay-001",
+          "splits": "test|train",
+          "case_ids": "s003|s019"
+        },
+        {
+          "kind": "near_text",
+          "value": "0.833333",
+          "splits": "train|test",
+          "case_ids": "s001|s009"
+        },
+        {
+          "kind": "near_text",
+          "value": "0.833333",
+          "splits": "train|test",
+          "case_ids": "s003|s019"
+        },
+        {
+          "kind": "future_train_vs_test",
+          "value": "2026-04-08",
+          "splits": "train|test",
+          "case_ids": "s010|s011|s012|s013|s014|s020|s021|s022|s023|s024"
+        }
+      ],
+      "blocking_failures": [
+        "student_group_overlap",
+        "source_overlap",
+        "near_text_leakage",
+        "temporal_leakage"
+      ],
+      "review_failures": [],
+      "gate": "block"
+    },
+    {
+      "strategy": "group_holdout",
+      "split_counts": {
+        "train": 16,
+        "validation": 4,
+        "test": 4
+      },
+      "label_distribution": {
+        "global_distribution": {
+          "answer": 0.583333,
+          "ask_more": 0.25,
+          "escalate": 0.166667
+        },
+        "by_split": {
+          "train": {
+            "distribution": {
+              "answer": 0.5625,
+              "ask_more": 0.25,
+              "escalate": 0.1875
+            },
+            "total_variation_vs_global": 0.020833
+          },
+          "validation": {
+            "distribution": {
+              "answer": 1.0,
+              "ask_more": 0.0,
+              "escalate": 0.0
+            },
+            "total_variation_vs_global": 0.416667
+          },
+          "test": {
+            "distribution": {
+              "answer": 0.25,
+              "ask_more": 0.5,
+              "escalate": 0.25
+            },
+            "total_variation_vs_global": 0.333333
+          }
+        }
+      },
+      "missing_test_labels": [],
+      "findings": [
+        {
+          "kind": "future_train_vs_test",
+          "value": "2026-04-08",
+          "splits": "train|test",
+          "case_ids": "s009|s011|s012|s013|s014|s015|s016|s017|s019|s023|s024"
+        }
+      ],
+      "blocking_failures": [
+        "temporal_leakage"
+      ],
+      "review_failures": [
+        "label_distribution_shift"
+      ],
+      "gate": "block"
+    },
+    {
+      "strategy": "time_cutoff",
+      "split_counts": {
+        "train": 14,
+        "validation": 5,
+        "test": 5
+      },
+      "label_distribution": {
+        "global_distribution": {
+          "answer": 0.583333,
+          "ask_more": 0.25,
+          "escalate": 0.166667
+        },
+        "by_split": {
+          "train": {
+            "distribution": {
+              "answer": 0.571429,
+              "ask_more": 0.285714,
+              "escalate": 0.142857
+            },
+            "total_variation_vs_global": 0.035714
+          },
+          "validation": {
+            "distribution": {
+              "answer": 0.6,
+              "ask_more": 0.2,
+              "escalate": 0.2
+            },
+            "total_variation_vs_global": 0.05
+          },
+          "test": {
+            "distribution": {
+              "answer": 0.6,
+              "ask_more": 0.2,
+              "escalate": 0.2
+            },
+            "total_variation_vs_global": 0.05
+          }
+        }
+      },
+      "missing_test_labels": [],
+      "findings": [
+        {
+          "kind": "student_id_overlap",
+          "value": "stu-003",
+          "splits": "train|validation",
+          "case_ids": "s003|s019"
+        },
+        {
+          "kind": "source_id_overlap",
+          "value": "doc-pay-001",
+          "splits": "train|validation",
+          "case_ids": "s003|s019"
+        },
+        {
+          "kind": "near_text",
+          "value": "0.833333",
+          "splits": "train|validation",
+          "case_ids": "s003|s019"
+        }
+      ],
+      "blocking_failures": [
+        "student_group_overlap",
+        "source_overlap",
+        "near_text_leakage"
+      ],
+      "review_failures": [],
+      "gate": "block"
+    },
+    {
+      "strategy": "time_group_holdout",
+      "split_counts": {
+        "train": 15,
+        "validation": 5,
+        "test": 4
+      },
+      "label_distribution": {
+        "global_distribution": {
+          "answer": 0.583333,
+          "ask_more": 0.25,
+          "escalate": 0.166667
+        },
+        "by_split": {
+          "train": {
+            "distribution": {
+              "answer": 0.466667,
+              "ask_more": 0.333333,
+              "escalate": 0.2
+            },
+            "total_variation_vs_global": 0.116667
+          },
+          "validation": {
+            "distribution": {
+              "answer": 1.0,
+              "ask_more": 0.0,
+              "escalate": 0.0
+            },
+            "total_variation_vs_global": 0.416667
+          },
+          "test": {
+            "distribution": {
+              "answer": 0.5,
+              "ask_more": 0.25,
+              "escalate": 0.25
+            },
+            "total_variation_vs_global": 0.083333
+          }
+        }
+      },
+      "missing_test_labels": [],
+      "findings": [],
+      "blocking_failures": [],
+      "review_failures": [
+        "label_distribution_shift"
+      ],
+      "gate": "review"
+    }
+  ],
+  "chosen_strategy": "time_group_holdout",
+  "recommendation": "revisar label_distribution_shift antes de cerrar time_group_holdout"
+}

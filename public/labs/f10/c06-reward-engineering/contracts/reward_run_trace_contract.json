@@ -1,0 +1,53 @@
+{
+  "contract_version": "1.0.0",
+  "required_fields": [
+    "trace_id",
+    "run_at",
+    "policy_version",
+    "reward_card_version",
+    "input_slice",
+    "candidate_id",
+    "component_scores",
+    "hard_gates",
+    "reward",
+    "winner",
+    "latency_ms",
+    "input_tokens",
+    "output_tokens",
+    "grader_versions",
+    "dataset_version"
+  ],
+  "example": {
+    "trace_id": "f10-c06-0001",
+    "run_at": "2026-06-09T17:30:00Z",
+    "policy_version": "rag-policy-2026-06-09",
+    "reward_card_version": "1.0.0",
+    "input_slice": "rag",
+    "candidate_id": "a",
+    "component_scores": {
+      "correctness": 0.8,
+      "evidence": 1.0,
+      "format": 1.0,
+      "abstention": 0.0,
+      "latency_cost": 0.45,
+      "token_cost": 0.45,
+      "tool_cost": 0.2
+    },
+    "hard_gates": {
+      "valid_output_contract": true,
+      "supported_claims": true,
+      "answerability_or_abstention": true
+    },
+    "reward": 0.6165,
+    "winner": true,
+    "latency_ms": 1850,
+    "input_tokens": 1420,
+    "output_tokens": 310,
+    "grader_versions": {
+      "citation_support_v1": "2026-06-09",
+      "json_schema_v1": "1.0.0",
+      "answerability_v1": "2026-06-09"
+    },
+    "dataset_version": "reward-eval-2026-06-09"
+  }
+}

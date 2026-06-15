@@ -1,0 +1,94 @@
+{
+  "scenario_id": "normativa_interna_reward",
+  "reward_terms": {
+    "correctness": 4.0,
+    "citation": 2.0,
+    "abstention": 3.0,
+    "format": 1.0,
+    "cost_per_tool": -0.2,
+    "cost_per_100_tokens": -0.05
+  },
+  "cases": [
+    {
+      "case_id": "cita_vacaciones",
+      "answerable": true,
+      "expected_behavior": "responder_con_cita",
+      "candidates": [
+        {
+          "candidate_id": "a",
+          "correctness": 1,
+          "citation": 1,
+          "abstention": 0,
+          "format": 1,
+          "tool_calls": 1,
+          "tokens": 180,
+          "notes": "responde y cita normativa vigente"
+        },
+        {
+          "candidate_id": "b",
+          "correctness": 1,
+          "citation": 0,
+          "abstention": 0,
+          "format": 1,
+          "tool_calls": 0,
+          "tokens": 260,
+          "notes": "responde bien pero sin evidencia"
+        }
+      ]
+    },
+    {
+      "case_id": "sin_fuente_cafeteria",
+      "answerable": false,
+      "expected_behavior": "abstenerse",
+      "candidates": [
+        {
+          "candidate_id": "a",
+          "correctness": 0,
+          "citation": 0,
+          "abstention": 0,
+          "format": 1,
+          "tool_calls": 0,
+          "tokens": 210,
+          "notes": "inventa horario sin fuente"
+        },
+        {
+          "candidate_id": "b",
+          "correctness": 1,
+          "citation": 0,
+          "abstention": 1,
+          "format": 1,
+          "tool_calls": 1,
+          "tokens": 150,
+          "notes": "reconoce falta de evidencia y propone ruta de consulta"
+        }
+      ]
+    },
+    {
+      "case_id": "formato_json",
+      "answerable": true,
+      "expected_behavior": "responder_estructurado",
+      "candidates": [
+        {
+          "candidate_id": "a",
+          "correctness": 1,
+          "citation": 1,
+          "abstention": 0,
+          "format": 0,
+          "tool_calls": 1,
+          "tokens": 140,
+          "notes": "contenido correcto pero no validable automaticamente"
+        },
+        {
+          "candidate_id": "b",
+          "correctness": 1,
+          "citation": 1,
+          "abstention": 0,
+          "format": 1,
+          "tool_calls": 1,
+          "tokens": 165,
+          "notes": "contenido correcto, cita y contrato de salida"
+        }
+      ]
+    }
+  ]
+}

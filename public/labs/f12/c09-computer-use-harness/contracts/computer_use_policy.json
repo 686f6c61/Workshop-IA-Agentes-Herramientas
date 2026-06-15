@@ -1,0 +1,42 @@
+{
+  "schema_version": "1.0",
+  "project": "IA para gente curiosa",
+  "fasciculo": 12,
+  "capitulo": 9,
+  "quality_gates": {
+    "max_steps": 8,
+    "require_unique_target": true,
+    "require_evidence_after_action": true,
+    "allow_coordinate_clicks": false,
+    "block_untrusted_page_instructions": true,
+    "require_accessibility_target": true
+  },
+  "environment": {
+    "allowed_domains": ["universidad.local", "ops.local", "billing.local"],
+    "run_in_isolated_environment": true,
+    "empty_environment_variables": true,
+    "disable_extensions": true,
+    "disable_local_filesystem": true
+  },
+  "approval_required_tags": [
+    "authenticated",
+    "destructive",
+    "external_submit",
+    "financial",
+    "pii_export",
+    "terms_or_cookies"
+  ],
+  "untrusted_instruction_needles": [
+    "ignore policy",
+    "ignore previous",
+    "approve all",
+    "export all",
+    "system prompt",
+    "override"
+  ],
+  "outputs": {
+    "require_trace_cards": true,
+    "require_action_eval_csv": true,
+    "require_signed_svg": true
+  }
+}

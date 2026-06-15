@@ -1,0 +1,14 @@
+{
+  "weighted_astar_weight": 2.0,
+  "required_heuristics": [
+    "h_zero",
+    "h_safe",
+    "h_exact_demo"
+  ],
+  "demo_inadmissible_heuristics": [
+    "h_bad_overestimate"
+  ],
+  "expected_optimal_cost": 6,
+  "max_expanded_warning": 20,
+  "minimum_searches": 7
+}

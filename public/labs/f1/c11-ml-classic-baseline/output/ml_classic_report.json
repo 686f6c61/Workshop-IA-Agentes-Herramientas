@@ -1,0 +1,73 @@
+{
+  "train_rows": 20,
+  "test_rows": 4,
+  "feature_means": [
+    26.3,
+    1.05,
+    0.5,
+    1.0,
+    1.7
+  ],
+  "feature_stds": [
+    25.5325,
+    0.8047,
+    0.5,
+    1.1402,
+    1.5843
+  ],
+  "weights": [
+    0.2798,
+    -1.5152,
+    1.2473,
+    2.8303,
+    1.3222,
+    1.399
+  ],
+  "model_metrics": {
+    "tp": 2,
+    "tn": 2,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0,
+    "accuracy": 1.0
+  },
+  "majority_metrics": {
+    "tp": 2,
+    "tn": 0,
+    "fp": 2,
+    "fn": 0,
+    "precision": 0.5,
+    "recall": 1.0,
+    "f1": 0.6667,
+    "accuracy": 0.5
+  },
+  "predictions": [
+    {
+      "id": "T005",
+      "label": 1,
+      "probability": 0.9959,
+      "prediction": 1
+    },
+    {
+      "id": "T010",
+      "label": 0,
+      "probability": 0.0025,
+      "prediction": 0
+    },
+    {
+      "id": "T015",
+      "label": 1,
+      "probability": 0.9997,
+      "prediction": 1
+    },
+    {
+      "id": "T020",
+      "label": 0,
+      "probability": 0.0073,
+      "prediction": 0
+    }
+  ],
+  "valid": true
+}

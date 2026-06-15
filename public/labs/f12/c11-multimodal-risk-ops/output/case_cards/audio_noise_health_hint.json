@@ -1,0 +1,25 @@
+{
+  "case_id": "audio_noise_health_hint",
+  "title": "Audio con ruido donde aparece una pista sanitaria",
+  "modality": "audio",
+  "purpose": "Clasificar intención de soporte sin conservar información sanitaria accidental",
+  "owner": "equipo_contact_center",
+  "destination": "internal_support_tool",
+  "storage": "redacted_trace",
+  "entity_count": 2,
+  "max_entity_sensitivity": 0.627,
+  "exposure_score": 0.0,
+  "impact": 0.85,
+  "risk_score": 0.5237,
+  "missing_controls": [
+    "transcript_pii_scan"
+  ],
+  "retention_days": 30,
+  "decision": "review",
+  "expected_decision": "review",
+  "decision_matches_expected": true,
+  "failures": [
+    "controles_faltantes"
+  ],
+  "next_action": "Añadir controles faltantes: transcript_pii_scan"
+}

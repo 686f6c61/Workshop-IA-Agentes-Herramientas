@@ -1,0 +1,51 @@
+{
+  "title": "Contrato de telemetría",
+  "artifact": {
+    "slis": [
+      "availability",
+      "latency_p95",
+      "groundedness_pass_rate",
+      "cost_per_success",
+      "queue_age_p95"
+    ],
+    "slo": {
+      "availability": 0.995,
+      "latency_p95_ms": 4000,
+      "groundedness_pass_rate": 0.97
+    },
+    "error_budget": {
+      "window_days": 30,
+      "allowed_bad_minutes": 216
+    },
+    "redaction": [
+      "email",
+      "student_id",
+      "prompt_free_text"
+    ]
+  },
+  "checks": [
+    {
+      "name": "SLIs útiles",
+      "passed": true,
+      "detail": "Mide calidad, coste y operación."
+    },
+    {
+      "name": "SLO medible",
+      "passed": true,
+      "detail": "No es frase de marketing."
+    },
+    {
+      "name": "presupuesto de error",
+      "passed": true,
+      "detail": "Hay margen cuantificado."
+    },
+    {
+      "name": "redacción",
+      "passed": true,
+      "detail": "Observabilidad sin fuga de datos."
+    }
+  ],
+  "status": "valid",
+  "decision": "La telemetría permite decidir: disponibilidad, latencia, groundedness, coste, cola y privacidad quedan conectados.",
+  "chapter": "c04"
+}

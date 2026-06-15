@@ -1,0 +1,53 @@
+{
+  "plan_id": "policy_candidate_v4_rollout",
+  "feature_flag": "rl_policy_router_v4",
+  "policy_candidate_version": "policy_candidate_v4",
+  "fallback_policy_version": "policy_stable_v3",
+  "reward_card_version": "1.0.0",
+  "owner": "ml-platform",
+  "stages": [
+    {
+      "name": "shadow",
+      "traffic_pct": 0,
+      "min_duration_minutes": 120,
+      "exit_criteria": ["trace_coverage", "reward_mean", "p95_latency_ms", "gate_parity"]
+    },
+    {
+      "name": "pilot_5",
+      "traffic_pct": 5,
+      "min_duration_minutes": 240,
+      "exit_criteria": ["slice_slos", "drift_score", "fallback_rate", "manual_review"]
+    },
+    {
+      "name": "pilot_25",
+      "traffic_pct": 25,
+      "min_duration_minutes": 480,
+      "exit_criteria": ["slice_slos", "drift_score", "cost_budget", "support_review"]
+    }
+  ],
+  "rollback": {
+    "ready": true,
+    "decision": "route_all_to_fallback_policy",
+    "max_minutes_to_restore": 10,
+    "conditions": [
+      "serving_status=block",
+      "p95_latency_ms_over_slo",
+      "evidence_pass_rate_below_slo",
+      "population_stability_index_over_limit",
+      "fallback_rate_over_limit"
+    ]
+  },
+  "trace_sample": {
+    "trace_id": "trace-001",
+    "policy_version": "policy_stable_v3",
+    "policy_candidate_version": "policy_candidate_v4",
+    "reward_card_version": "1.0.0",
+    "input_slice": "rag",
+    "action": "large_reasoning_model",
+    "action_probability": 0.05,
+    "reward": 0.73,
+    "hard_gates": {"valid_output_contract": true, "supported_claims": true},
+    "latency_ms": 1900,
+    "fallback_policy_version": "policy_stable_v3"
+  }
+}

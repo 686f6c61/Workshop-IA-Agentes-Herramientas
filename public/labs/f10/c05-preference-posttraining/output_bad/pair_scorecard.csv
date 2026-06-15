@@ -1,0 +1,7 @@
+pair_id,prompt_id,task_family,agreement,reward_margin,chosen_wins,verifier_available,verifier_score,chosen_tokens,rejected_tokens
+b001,dup_001,soporte,0.32,-0.53,False,False,,11,31
+b002,dup_001,soporte,0.4,0.53,True,True,0.8,31,11
+b003,json_bad,salida_estructurada,0.45,-0.6,False,True,0.0,11,13
+b004,rag_bad,rag,0.38,-0.55,False,False,,12,17
+b005,math_bad,razonamiento,0.5,-0.58,False,True,0.0,10,18
+b006,long_bias,producto,0.42,-0.38,False,False,,64,17

@@ -1,0 +1,55 @@
+contract_id: f9-tool-boundary-contract
+version: 2026.06.07
+owner: owner-platform
+review_date: 2026-06-07
+
+tools:
+  - tool_name: retrieve_admissions_policy
+    system_id: admissions_prioritization_helper
+    mode: read
+    allowed_parameters:
+      case_region: string
+      policy_version: string
+    blocked_parameters:
+      - free_text_sql
+      - target_email
+      - publish
+    approval_required: false
+    evidence_required:
+      - parameter_schema_test
+      - acl_before_retrieval_test
+
+  - tool_name: prepare_ranking_explanation
+    system_id: admissions_prioritization_helper
+    mode: prepare
+    allowed_parameters:
+      case_id: string
+      rationale_template: string
+      reviewer_id: string
+    blocked_parameters:
+      - final_decision
+      - notify_applicant
+      - update_case_status
+    approval_required: true
+    evidence_required:
+      - prepare_execute_separation_test
+      - approval_trace_sample
+
+  - tool_name: publish_ranking
+    system_id: admissions_prioritization_helper
+    mode: execute
+    allowed_parameters:
+      batch_id: string
+      reviewer_approval_id: string
+    blocked_parameters:
+      - direct_model_output
+      - unreviewed_case_list
+    approval_required: true
+    disabled_in_current_stage: true
+    evidence_required:
+      - disabled_tool_visibility_test
+      - reviewer_approval_policy
+
+closure_rule: >
+  A tool control closes when a test proves the model cannot see or call tools
+  outside the allowlist and the runtime rejects parameters outside the schema.

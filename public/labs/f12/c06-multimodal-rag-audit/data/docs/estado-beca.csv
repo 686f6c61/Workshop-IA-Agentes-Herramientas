@@ -1,0 +1,3 @@
+student_id,documento,estado,fecha_lectura,fuente
+ALU-24017,justificante_matricula,pendiente_validacion,2026-06-14,sistema_academico
+ALU-24017,dni,validado,2026-06-14,sistema_academico

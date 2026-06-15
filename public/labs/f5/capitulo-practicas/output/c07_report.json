@@ -1,0 +1,69 @@
+{
+  "title": "Contrato antes del SDK",
+  "artifact": {
+    "request": [
+      "task",
+      "context_refs",
+      "tools_allowed",
+      "output_schema",
+      "budget"
+    ],
+    "events": [
+      "model.delta",
+      "tool.call",
+      "tool.result",
+      "handoff",
+      "approval.requested",
+      "run.completed"
+    ],
+    "providers": {
+      "openai_agents": [
+        "agent",
+        "runner",
+        "tools",
+        "handoffs",
+        "tracing"
+      ],
+      "anthropic": [
+        "messages",
+        "tool_use",
+        "tool_result",
+        "permissions",
+        "subagents"
+      ],
+      "google_adk": [
+        "agent",
+        "tools",
+        "sessions",
+        "artifacts",
+        "a2a"
+      ]
+    }
+  },
+  "checks": [
+    {
+      "name": "contrato portable",
+      "passed": true,
+      "detail": "La app habla su idioma antes del SDK."
+    },
+    {
+      "name": "eventos normalizados",
+      "passed": true,
+      "detail": "Las trazas se comparan entre proveedores."
+    },
+    {
+      "name": "tres familias cubiertas",
+      "passed": true,
+      "detail": "OpenAI, Anthropic y ADK se tratan como adaptadores."
+    },
+    {
+      "name": "no delega permisos al SDK",
+      "passed": true,
+      "detail": "La política vive fuera del proveedor."
+    }
+  ],
+  "status": "valid",
+  "what_you_take": "Un contrato portable antes de acoplarte a un SDK concreto.",
+  "decision": "La integración es portable: se puede cambiar proveedor sin reescribir política, salida esperada ni evaluación de eventos.",
+  "chapter": "c07"
+}

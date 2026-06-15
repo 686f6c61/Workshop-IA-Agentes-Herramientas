@@ -1,0 +1,7 @@
+{
+  "embedding_dimensions": 32,
+  "similarity_threshold": 0.45,
+  "token_budget_warning": 12,
+  "example_price_per_1k_tokens_usd": 0.00002
+}
+

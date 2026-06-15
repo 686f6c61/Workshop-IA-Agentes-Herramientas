@@ -1,0 +1,101 @@
+{
+  "status": "review",
+  "metrics": [
+    {
+      "metric": "answer_accepted",
+      "control_mean": 0.625,
+      "treatment_mean": 0.875,
+      "delta": 0.25,
+      "standard_error": 0.221601,
+      "ci95_low": -0.184339,
+      "ci95_high": 0.684339
+    },
+    {
+      "metric": "citation_valid",
+      "control_mean": 0.75,
+      "treatment_mean": 0.875,
+      "delta": 0.125,
+      "standard_error": 0.205939,
+      "ci95_low": -0.27864,
+      "ci95_high": 0.52864
+    },
+    {
+      "metric": "retrieval_precision",
+      "control_mean": 0.575,
+      "treatment_mean": 0.75125,
+      "delta": 0.17625,
+      "standard_error": 0.042613,
+      "ci95_low": 0.092729,
+      "ci95_high": 0.259771
+    },
+    {
+      "metric": "latency_ms",
+      "control_mean": 848.75,
+      "treatment_mean": 1012.5,
+      "delta": 163.75,
+      "standard_error": 25.786728,
+      "ci95_low": 113.208013,
+      "ci95_high": 214.291987
+    },
+    {
+      "metric": "cost_eur",
+      "control_mean": 0.023125,
+      "treatment_mean": 0.031,
+      "delta": 0.007875,
+      "standard_error": 0.000895,
+      "ci95_low": 0.00612,
+      "ci95_high": 0.00963
+    }
+  ],
+  "slice_effects": [
+    {
+      "metric": "answer_accepted",
+      "control_mean": 0.5,
+      "treatment_mean": 1.0,
+      "delta": 0.5,
+      "standard_error": 0.5,
+      "ci95_low": -0.48,
+      "ci95_high": 1.48,
+      "query_type": "becas",
+      "n": 4
+    },
+    {
+      "metric": "answer_accepted",
+      "control_mean": 1.0,
+      "treatment_mean": 1.0,
+      "delta": 0.0,
+      "standard_error": 0.0,
+      "ci95_low": 0.0,
+      "ci95_high": 0.0,
+      "query_type": "matricula",
+      "n": 4
+    },
+    {
+      "metric": "answer_accepted",
+      "control_mean": 0.5,
+      "treatment_mean": 1.0,
+      "delta": 0.5,
+      "standard_error": 0.5,
+      "ci95_low": -0.48,
+      "ci95_high": 1.48,
+      "query_type": "normativa",
+      "n": 4
+    },
+    {
+      "metric": "answer_accepted",
+      "control_mean": 0.5,
+      "treatment_mean": 0.5,
+      "delta": 0.0,
+      "standard_error": 0.707107,
+      "ci95_low": -1.385929,
+      "ci95_high": 1.385929,
+      "query_type": "practicas",
+      "n": 4
+    }
+  ],
+  "reasons": [
+    "el reranker mejora aceptacion y precision, pero aumenta coste y latencia",
+    "la metrica citation_valid no mejora de forma perfecta y debe ser guardrail",
+    "hay pocos ejemplos por tipo de consulta"
+  ]
+}

@@ -1,0 +1,383 @@
+{
+  "status": "block",
+  "summary": {
+    "events": 20,
+    "traces": 5,
+    "events_requiring_span_detail": 5,
+    "events_without_trace": 1,
+    "events_missing_required_spans": 1,
+    "missing_required_span_rate": 0.2,
+    "duplicate_idempotency_keys": 0,
+    "flags": 7
+  },
+  "contract": {
+    "contract_id": "f8-c06-pipeline-engineering-contract",
+    "versión": "2026-06-07",
+    "owner": "equipo-plataforma-ia",
+    "unit": "pipeline_trace",
+    "idempotency_key": [
+      "window",
+      "event_id"
+    ],
+    "required_trace_event_ids": [
+      "p001",
+      "p007",
+      "p011",
+      "p012",
+      "p017"
+    ],
+    "required_spans": [
+      "ingest",
+      "validate",
+      "score",
+      "decide",
+      "emit"
+    ],
+    "span_order": [
+      "ingest",
+      "validate",
+      "score",
+      "decide",
+      "emit"
+    ],
+    "span_slos_ms": {
+      "ingest": 90,
+      "validate": 140,
+      "score": 320,
+      "decide": 90,
+      "emit": 100
+    },
+    "trace_slos": {
+      "max_total_trace_duration_ms": 700,
+      "max_missing_required_span_rate": 0.0,
+      "max_duplicate_idempotency_keys": 0,
+      "max_events_without_trace": 0
+    },
+    "schema_evolution_policy": {
+      "compatible": [
+        "add_optional_column",
+        "add_new_allowed_value_with_contract_version",
+        "raise_slo_after_successful_shadow_window"
+      ],
+      "breaking": [
+        "remove_required_column",
+        "rename_required_column_without_alias",
+        "change_decision_semantics",
+        "drop_trace_id",
+        "reuse_event_id_for_different_decision"
+      ]
+    },
+    "retry_policy": {
+      "max_attempts": 3,
+      "backoff_seconds": [
+        5,
+        30,
+        120
+      ],
+      "requires_idempotency_key": true,
+      "manual_review_after_final_attempt": true
+    }
+  },
+  "event_checks": [
+    {
+      "event_id": "p001",
+      "window": "2026-06-07",
+      "trace_id": "tr-p001",
+      "span_count": 5,
+      "requires_span_detail": true,
+      "missing_spans": [],
+      "order_ok": true,
+      "total_duration_ms": 375.0,
+      "slow_spans": []
+    },
+    {
+      "event_id": "p002",
+      "window": "2026-06-07",
+      "trace_id": "tr-p002",
+      "span_count": 0,
+      "requires_span_detail": false,
+      "missing_spans": [],
+      "order_ok": true,
+      "total_duration_ms": null,
+      "slow_spans": []
+    },
+    {
+      "event_id": "p003",
+      "window": "2026-06-07",
+      "trace_id": "tr-p003",
+      "span_count": 0,
+      "requires_span_detail": false,
+      "missing_spans": [],
+      "order_ok": true,
+      "total_duration_ms": null,
+      "slow_spans": []
+    },
+    {
+      "event_id": "p004",
+      "window": "2026-06-07",
+      "trace_id": "tr-p004",
+      "span_count": 0,
+      "requires_span_detail": false,
+      "missing_spans": [],
+      "order_ok": true,
+      "total_duration_ms": null,
+      "slow_spans": []
+    },
+    {
+      "event_id": "p005",
+      "window": "2026-06-07",
+      "trace_id": "tr-p005",
+      "span_count": 0,
+      "requires_span_detail": false,
+      "missing_spans": [],
+      "order_ok": true,
+      "total_duration_ms": null,
+      "slow_spans": []
+    },
+    {
+      "event_id": "p006",
+      "window": "2026-06-07",
+      "trace_id": "tr-p006",
+      "span_count": 0,
+      "requires_span_detail": false,
+      "missing_spans": [],
+      "order_ok": true,
+      "total_duration_ms": null,
+      "slow_spans": []
+    },
+    {
+      "event_id": "p007",
+      "window": "2026-06-07",
+      "trace_id": "tr-p007",
+      "span_count": 5,
+      "requires_span_detail": true,
+      "missing_spans": [],
+      "order_ok": true,
+      "total_duration_ms": 485.0,
+      "slow_spans": []
+    },
+    {
+      "event_id": "p008",
+      "window": "2026-06-07",
+      "trace_id": "tr-p008",
+      "span_count": 0,
+      "requires_span_detail": false,
+      "missing_spans": [],
+      "order_ok": true,
+      "total_duration_ms": null,
+      "slow_spans": []
+    },
+    {
+      "event_id": "p009",
+      "window": "2026-06-07",
+      "trace_id": "tr-p009",
+      "span_count": 0,
+      "requires_span_detail": false,
+      "missing_spans": [],
+      "order_ok": true,
+      "total_duration_ms": null,
+      "slow_spans": []
+    },
+    {
+      "event_id": "p010",
+      "window": "2026-06-07",
+      "trace_id": "tr-p010",
+      "span_count": 0,
+      "requires_span_detail": false,
+      "missing_spans": [],
+      "order_ok": true,
+      "total_duration_ms": null,
+      "slow_spans": []
+    },
+    {
+      "event_id": "p011",
+      "window": "2026-06-08",
+      "trace_id": "tr-p011",
+      "span_count": 5,
+      "requires_span_detail": true,
+      "missing_spans": [],
+      "order_ok": true,
+      "total_duration_ms": 710.0,
+      "slow_spans": [
+        {
+          "span_name": "score",
+          "duration_ms": 410.0,
+          "threshold_ms": 320
+        }
+      ]
+    },
+    {
+      "event_id": "p012",
+      "window": "2026-06-08",
+      "trace_id": "tr-p012",
+      "span_count": 5,
+      "requires_span_detail": true,
+      "missing_spans": [],
+      "order_ok": true,
+      "total_duration_ms": 755.0,
+      "slow_spans": [
+        {
+          "span_name": "score",
+          "duration_ms": 430.0,
+          "threshold_ms": 320
+        }
+      ]
+    },
+    {
+      "event_id": "p013",
+      "window": "2026-06-08",
+      "trace_id": "",
+      "span_count": 0,
+      "requires_span_detail": false,
+      "missing_spans": [],
+      "order_ok": true,
+      "total_duration_ms": null,
+      "slow_spans": []
+    },
+    {
+      "event_id": "p014",
+      "window": "2026-06-08",
+      "trace_id": "tr-p014",
+      "span_count": 0,
+      "requires_span_detail": false,
+      "missing_spans": [],
+      "order_ok": true,
+      "total_duration_ms": null,
+      "slow_spans": []
+    },
+    {
+      "event_id": "p015",
+      "window": "2026-06-08",
+      "trace_id": "tr-p015",
+      "span_count": 0,
+      "requires_span_detail": false,
+      "missing_spans": [],
+      "order_ok": true,
+      "total_duration_ms": null,
+      "slow_spans": []
+    },
+    {
+      "event_id": "p016",
+      "window": "2026-06-08",
+      "trace_id": "tr-p016",
+      "span_count": 0,
+      "requires_span_detail": false,
+      "missing_spans": [],
+      "order_ok": true,
+      "total_duration_ms": null,
+      "slow_spans": []
+    },
+    {
+      "event_id": "p017",
+      "window": "2026-06-08",
+      "trace_id": "tr-p017",
+      "span_count": 4,
+      "requires_span_detail": true,
+      "missing_spans": [
+        "emit"
+      ],
+      "order_ok": true,
+      "total_duration_ms": 695.0,
+      "slow_spans": [
+        {
+          "span_name": "score",
+          "duration_ms": 445.0,
+          "threshold_ms": 320
+        }
+      ]
+    },
+    {
+      "event_id": "p018",
+      "window": "2026-06-08",
+      "trace_id": "tr-p018",
+      "span_count": 0,
+      "requires_span_detail": false,
+      "missing_spans": [],
+      "order_ok": true,
+      "total_duration_ms": null,
+      "slow_spans": []
+    },
+    {
+      "event_id": "p019",
+      "window": "2026-06-08",
+      "trace_id": "tr-p019",
+      "span_count": 0,
+      "requires_span_detail": false,
+      "missing_spans": [],
+      "order_ok": true,
+      "total_duration_ms": null,
+      "slow_spans": []
+    },
+    {
+      "event_id": "p020",
+      "window": "2026-06-08",
+      "trace_id": "tr-p020",
+      "span_count": 0,
+      "requires_span_detail": false,
+      "missing_spans": [],
+      "order_ok": true,
+      "total_duration_ms": null,
+      "slow_spans": []
+    }
+  ],
+  "flags": [
+    {
+      "severity": "review",
+      "event_id": "p011",
+      "kind": "trace_duration",
+      "message": "La duracion total de la traza supera el SLO.",
+      "value": 710.0,
+      "threshold": 700
+    },
+    {
+      "severity": "review",
+      "event_id": "p011",
+      "kind": "slow_span",
+      "message": "Un span supera su SLO.",
+      "span_name": "score",
+      "value": 410.0,
+      "threshold": 320
+    },
+    {
+      "severity": "review",
+      "event_id": "p012",
+      "kind": "trace_duration",
+      "message": "La duracion total de la traza supera el SLO.",
+      "value": 755.0,
+      "threshold": 700
+    },
+    {
+      "severity": "review",
+      "event_id": "p012",
+      "kind": "slow_span",
+      "message": "Un span supera su SLO.",
+      "span_name": "score",
+      "value": 430.0,
+      "threshold": 320
+    },
+    {
+      "severity": "block",
+      "event_id": "p013",
+      "kind": "missing_trace_id",
+      "message": "El evento no tiene trace_id."
+    },
+    {
+      "severity": "block",
+      "event_id": "p017",
+      "kind": "missing_required_spans",
+      "message": "Faltan spans obligatorios.",
+      "value": [
+        "emit"
+      ]
+    },
+    {
+      "severity": "review",
+      "event_id": "p017",
+      "kind": "slow_span",
+      "message": "Un span supera su SLO.",
+      "span_name": "score",
+      "value": 445.0,
+      "threshold": 320
+    }
+  ]
+}

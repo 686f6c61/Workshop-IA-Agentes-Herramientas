@@ -1,0 +1,119 @@
+{
+  "calls": [
+    {
+      "id": "A100",
+      "tool": "refund_order",
+      "args": {
+        "order_id": "A100",
+        "amount_eur": 80,
+        "reason": "duplicate"
+      },
+      "user": {
+        "id": "u1",
+        "role": "support"
+      },
+      "state": {
+        "status": "paid",
+        "already_refunded": false,
+        "paid_amount_eur": 120
+      },
+      "risk": {
+        "impact": 2,
+        "probability": 1,
+        "irreversible": 1
+      }
+    },
+    {
+      "id": "A101",
+      "tool": "refund_order",
+      "args": {
+        "order_id": "A101",
+        "amount_eur": 850,
+        "reason": "angry customer"
+      },
+      "user": {
+        "id": "u2",
+        "role": "support"
+      },
+      "state": {
+        "status": "paid",
+        "already_refunded": false,
+        "paid_amount_eur": 1000
+      },
+      "risk": {
+        "impact": 5,
+        "probability": 2,
+        "irreversible": 2
+      }
+    },
+    {
+      "id": "A102",
+      "tool": "refund_order",
+      "args": {
+        "order_id": "A102",
+        "amount_eur": 40,
+        "reason": "duplicate"
+      },
+      "user": {
+        "id": "u3",
+        "role": "support"
+      },
+      "state": {
+        "status": "disputed",
+        "already_refunded": false,
+        "paid_amount_eur": 75
+      },
+      "risk": {
+        "impact": 3,
+        "probability": 2,
+        "irreversible": 1
+      }
+    },
+    {
+      "id": "A103",
+      "tool": "refund_order",
+      "args": {
+        "order_id": "A103",
+        "amount_eur": -10,
+        "reason": "test"
+      },
+      "user": {
+        "id": "u4",
+        "role": "support"
+      },
+      "state": {
+        "status": "paid",
+        "already_refunded": false,
+        "paid_amount_eur": 75
+      },
+      "risk": {
+        "impact": 1,
+        "probability": 1,
+        "irreversible": 1
+      }
+    },
+    {
+      "id": "A104",
+      "tool": "refund_order",
+      "args": {
+        "order_id": "A104",
+        "amount_eur": 50,
+        "reason": "duplicate"
+      },
+      "user": {
+        "id": "u5",
+        "role": "support"
+      },
+      "state": {
+        "status": "paid",
+        "already_refunded": true,
+        "paid_amount_eur": 50
+      },
+      "risk": {
+        "impact": 2,
+        "probability": 1,
+        "irreversible": 1
+      }
+    }
+  ]
+}

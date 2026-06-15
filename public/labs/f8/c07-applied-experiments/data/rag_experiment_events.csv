@@ -1,0 +1,17 @@
+unit_id,variant,query_type,answer_accepted,citation_valid,retrieval_precision,latency_ms,cost_eur
+r001,control,normativa,1,1,0.67,840,0.024
+r002,control,becas,0,1,0.50,790,0.021
+r003,control,practicas,1,0,0.58,910,0.025
+r004,control,matricula,1,1,0.64,820,0.022
+r005,control,normativa,0,0,0.43,880,0.024
+r006,control,becas,1,1,0.61,805,0.021
+r007,control,practicas,0,1,0.47,930,0.026
+r008,control,matricula,1,1,0.70,815,0.022
+r009,treatment,normativa,1,1,0.79,1020,0.031
+r010,treatment,becas,1,1,0.72,980,0.029
+r011,treatment,practicas,1,1,0.75,1060,0.033
+r012,treatment,matricula,1,1,0.82,955,0.030
+r013,treatment,normativa,1,1,0.77,1015,0.031
+r014,treatment,becas,1,0,0.69,990,0.030
+r015,treatment,practicas,0,1,0.63,1110,0.034
+r016,treatment,matricula,1,1,0.84,970,0.030

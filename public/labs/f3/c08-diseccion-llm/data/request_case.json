@@ -1,0 +1,55 @@
+{
+  "case_id": "support-policy-json-v1",
+  "goal": "Clasificar una consulta de soporte interno y devolver una salida JSON verificable.",
+  "system": "Eres un asistente de soporte interno. Responde solo con JSON valido y cita la politica usada.",
+  "user": "Un alumno pide ampliar el plazo de entrega porque ha tenido una incidencia tecnica documentada. Que categoria, riesgo y siguiente accion recomiendas?",
+  "context_documents": [
+    {
+      "id": "POL-EXT-02",
+      "title": "Politica de ampliaciones",
+      "text": "Las ampliaciones pueden aprobarse si hay evidencia verificable, plazo solicitado menor o igual a 7 dias y no afecta a evaluacion final."
+    },
+    {
+      "id": "POL-SOP-05",
+      "title": "Gestion de incidencias tecnicas",
+      "text": "Las incidencias tecnicas documentadas deben registrarse con ticket, fecha, sistema afectado y evidencia adjunta."
+    }
+  ],
+  "output_contract": {
+    "type": "json",
+    "required_fields": ["categoria", "riesgo", "accion_recomendada", "fuente"],
+    "stop_sequences": ["\n\nTexto libre:", "\n```"],
+    "max_output_tokens": 180
+  },
+  "generation": {
+    "temperature": 0.5,
+    "top_k": 5,
+    "top_p": 0.95,
+    "min_p": 0.01,
+    "seed": 17,
+    "frequency_penalty": 0.1,
+    "presence_penalty": 0.0,
+    "speculative_decoding": {
+      "enabled": true,
+      "draft_tokens_per_step": 4,
+      "expected_acceptance_rate": 0.68
+    }
+  },
+  "model_shape": {
+    "parameters_b": 8,
+    "weight_bits": 4,
+    "layers": 32,
+    "d_model": 4096,
+    "position_encoding": "RoPE",
+    "normalization": "RMSNorm",
+    "ffn_variant": "SwiGLU",
+    "attention_heads": 32,
+    "kv_heads": 8,
+    "head_dim": 128,
+    "bytes_per_kv_value": 2,
+    "batch_size": 4,
+    "num_ctx": 4096,
+    "decode_tokens_per_second_total": 220,
+    "prefill_tokens_per_second": 7000
+  }
+}

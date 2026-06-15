@@ -1,0 +1,15 @@
+{
+  "d_in": 4096,
+  "d_out": 4096,
+  "lora_rank": 16,
+  "adapter_bottleneck": 64,
+  "tokens": ["factura", "rotos", "saludo"],
+  "student_logits": [2.0, 1.0, 0.0],
+  "target_index": 1,
+  "teacher_logits": [4.0, 2.0, 0.0],
+  "distill_student_logits": [3.0, 2.5, 0.5],
+  "distill_temperature": 2.0,
+  "model_parameters": 7000000000,
+  "bits": [16, 8, 4]
+}
+

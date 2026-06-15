@@ -1,0 +1,488 @@
+{
+  "scenario_id": "rag_internal_policy_reward",
+  "reward_card_version": "1.0.0",
+  "objective": "Premiar respuestas correctas, con evidencia, formato validable, abstencion cuando falta fuente y coste razonable.",
+  "contract_version": "1.0.0",
+  "status": "pass",
+  "diagnostics": {
+    "cases": 9,
+    "slice_count": 6,
+    "case_pass_rate": 1.0,
+    "hidden_case_rate": 0.333333,
+    "proxy_weight_share": 0.0,
+    "cost_weight_share": 0.13,
+    "verifier_coverage": 1.0,
+    "positive_length_bonus": false,
+    "required_missing": [],
+    "hard_gate_count": 3,
+    "hard_gates_with_verifier": 3,
+    "normalized_cost_terms": 3,
+    "grader_accuracy": 1.0,
+    "grader_precision": 1.0,
+    "grader_recall": 1.0
+  },
+  "checks": {
+    "min_cases": true,
+    "min_slice_count": true,
+    "min_case_pass_rate": true,
+    "min_hidden_case_rate": true,
+    "min_hard_gates": true,
+    "hard_gates_have_verifier": true,
+    "min_normalized_cost_terms": true,
+    "max_proxy_weight_share": true,
+    "max_cost_weight_share": true,
+    "forbid_positive_length_bonus": true,
+    "required_terms_present": true
+  },
+  "reward_terms": [
+    {
+      "name": "correctness",
+      "weight": 0.4,
+      "category": "objective",
+      "verifier": "human_or_task_grader_v1"
+    },
+    {
+      "name": "evidence",
+      "weight": 0.22,
+      "category": "objective",
+      "verifier": "citation_support_v1"
+    },
+    {
+      "name": "format",
+      "weight": 0.13,
+      "category": "guardrail",
+      "verifier": "json_schema_v1"
+    },
+    {
+      "name": "abstention",
+      "weight": 0.12,
+      "category": "guardrail",
+      "verifier": "answerability_v1"
+    },
+    {
+      "name": "latency_cost",
+      "weight": -0.07,
+      "category": "cost",
+      "verifier": "trace_metrics_v1"
+    },
+    {
+      "name": "token_cost",
+      "weight": -0.04,
+      "category": "cost",
+      "verifier": "trace_metrics_v1"
+    },
+    {
+      "name": "tool_cost",
+      "weight": -0.02,
+      "category": "cost",
+      "verifier": "trace_metrics_v1"
+    }
+  ],
+  "normalization": [
+    {
+      "term": "latency_cost",
+      "method": "minmax_by_slice",
+      "source": "trace_metrics_v1",
+      "lower_is_better": true
+    },
+    {
+      "term": "token_cost",
+      "method": "minmax_by_slice",
+      "source": "trace_metrics_v1",
+      "lower_is_better": true
+    },
+    {
+      "term": "tool_cost",
+      "method": "count_to_unit_interval",
+      "source": "trace_metrics_v1",
+      "lower_is_better": true
+    }
+  ],
+  "hard_gates": [
+    {
+      "name": "valid_output_contract",
+      "verifier": "json_schema_v1",
+      "required": true,
+      "reason": "La salida debe ser parseable antes de puntuar estilo o coste."
+    },
+    {
+      "name": "supported_claims",
+      "verifier": "citation_support_v1",
+      "required": true,
+      "reason": "Una respuesta con afirmaciones de política interna debe estar soportada por documentos recuperados."
+    },
+    {
+      "name": "answerability_or_abstention",
+      "verifier": "answerability_v1",
+      "required": true,
+      "reason": "Si no hay evidencia suficiente, la respuesta correcta es abstenerse y explicar la falta de fuente."
+    }
+  ],
+  "cases": [
+    {
+      "case_id": "rag_cita_valida",
+      "slice": "rag",
+      "hidden": false,
+      "expected_winner": "a",
+      "winner": "a",
+      "winner_score": 0.7055,
+      "case_ok": true,
+      "ranked_candidates": [
+        {
+          "candidate_id": "a",
+          "score": 0.7055,
+          "contributions": {
+            "correctness": 0.4,
+            "evidence": 0.22,
+            "format": 0.13,
+            "abstention": 0.0,
+            "latency_cost": -0.0245,
+            "token_cost": -0.016,
+            "tool_cost": -0.004
+          }
+        },
+        {
+          "candidate_id": "b",
+          "score": 0.513,
+          "contributions": {
+            "correctness": 0.4,
+            "evidence": 0.0,
+            "format": 0.13,
+            "abstention": 0.0,
+            "latency_cost": -0.007,
+            "token_cost": -0.01,
+            "tool_cost": -0.0
+          }
+        }
+      ]
+    },
+    {
+      "case_id": "rag_sin_fuente",
+      "slice": "rag",
+      "hidden": true,
+      "expected_winner": "b",
+      "winner": "b",
+      "winner_score": 0.621,
+      "case_ok": true,
+      "ranked_candidates": [
+        {
+          "candidate_id": "b",
+          "score": 0.621,
+          "contributions": {
+            "correctness": 0.4,
+            "evidence": 0.0,
+            "format": 0.13,
+            "abstention": 0.12,
+            "latency_cost": -0.0154,
+            "token_cost": -0.0096,
+            "tool_cost": -0.004
+          }
+        },
+        {
+          "candidate_id": "a",
+          "score": 0.115,
+          "contributions": {
+            "correctness": 0.0,
+            "evidence": 0.0,
+            "format": 0.13,
+            "abstention": 0.0,
+            "latency_cost": -0.007,
+            "token_cost": -0.008,
+            "tool_cost": -0.0
+          }
+        }
+      ]
+    },
+    {
+      "case_id": "json_contrato",
+      "slice": "salida_estructurada",
+      "hidden": false,
+      "expected_winner": "b",
+      "winner": "b",
+      "winner_score": 0.7244,
+      "case_ok": true,
+      "ranked_candidates": [
+        {
+          "candidate_id": "b",
+          "score": 0.7244,
+          "contributions": {
+            "correctness": 0.4,
+            "evidence": 0.22,
+            "format": 0.13,
+            "abstention": 0.0,
+            "latency_cost": -0.014,
+            "token_cost": -0.0096,
+            "tool_cost": -0.002
+          }
+        },
+        {
+          "candidate_id": "a",
+          "score": 0.5966,
+          "contributions": {
+            "correctness": 0.4,
+            "evidence": 0.22,
+            "format": 0.0,
+            "abstention": 0.0,
+            "latency_cost": -0.0126,
+            "token_cost": -0.0088,
+            "tool_cost": -0.002
+          }
+        }
+      ]
+    },
+    {
+      "case_id": "sql_ejecutable",
+      "slice": "sql",
+      "hidden": false,
+      "expected_winner": "a",
+      "winner": "a",
+      "winner_score": 0.646,
+      "case_ok": true,
+      "ranked_candidates": [
+        {
+          "candidate_id": "a",
+          "score": 0.646,
+          "contributions": {
+            "correctness": 0.4,
+            "evidence": 0.154,
+            "format": 0.13,
+            "abstention": 0.0,
+            "latency_cost": -0.0196,
+            "token_cost": -0.0144,
+            "tool_cost": -0.004
+          }
+        },
+        {
+          "candidate_id": "b",
+          "score": 0.2546,
+          "contributions": {
+            "correctness": 0.16,
+            "evidence": 0.044,
+            "format": 0.065,
+            "abstention": 0.0,
+            "latency_cost": -0.0084,
+            "token_cost": -0.006,
+            "tool_cost": -0.0
+          }
+        }
+      ]
+    },
+    {
+      "case_id": "coste_controlado",
+      "slice": "coste",
+      "hidden": true,
+      "expected_winner": "a",
+      "winner": "a",
+      "winner_score": 0.7165,
+      "case_ok": true,
+      "ranked_candidates": [
+        {
+          "candidate_id": "a",
+          "score": 0.7165,
+          "contributions": {
+            "correctness": 0.4,
+            "evidence": 0.22,
+            "format": 0.13,
+            "abstention": 0.0,
+            "latency_cost": -0.0175,
+            "token_cost": -0.012,
+            "tool_cost": -0.004
+          }
+        },
+        {
+          "candidate_id": "b",
+          "score": 0.644,
+          "contributions": {
+            "correctness": 0.4,
+            "evidence": 0.22,
+            "format": 0.13,
+            "abstention": 0.0,
+            "latency_cost": -0.056,
+            "token_cost": -0.038,
+            "tool_cost": -0.012
+          }
+        }
+      ]
+    },
+    {
+      "case_id": "herramienta_timeout",
+      "slice": "herramientas",
+      "hidden": false,
+      "expected_winner": "b",
+      "winner": "b",
+      "winner_score": 0.6983,
+      "case_ok": true,
+      "ranked_candidates": [
+        {
+          "candidate_id": "b",
+          "score": 0.6983,
+          "contributions": {
+            "correctness": 0.4,
+            "evidence": 0.088,
+            "format": 0.13,
+            "abstention": 0.12,
+            "latency_cost": -0.0245,
+            "token_cost": -0.0112,
+            "tool_cost": -0.004
+          }
+        },
+        {
+          "candidate_id": "a",
+          "score": 0.195,
+          "contributions": {
+            "correctness": 0.08,
+            "evidence": 0.0,
+            "format": 0.13,
+            "abstention": 0.0,
+            "latency_cost": -0.007,
+            "token_cost": -0.008,
+            "tool_cost": -0.0
+          }
+        }
+      ]
+    },
+    {
+      "case_id": "privacidad_minimizacion",
+      "slice": "privacidad",
+      "hidden": true,
+      "expected_winner": "a",
+      "winner": "a",
+      "winner_score": 0.6538,
+      "case_ok": true,
+      "ranked_candidates": [
+        {
+          "candidate_id": "a",
+          "score": 0.6538,
+          "contributions": {
+            "correctness": 0.4,
+            "evidence": 0.154,
+            "format": 0.13,
+            "abstention": 0.0,
+            "latency_cost": -0.0154,
+            "token_cost": -0.0128,
+            "tool_cost": -0.002
+          }
+        },
+        {
+          "candidate_id": "b",
+          "score": 0.2784,
+          "contributions": {
+            "correctness": 0.12,
+            "evidence": 0.044,
+            "format": 0.13,
+            "abstention": 0.0,
+            "latency_cost": -0.0084,
+            "token_cost": -0.0072,
+            "tool_cost": -0.0
+          }
+        }
+      ]
+    },
+    {
+      "case_id": "formato_y_evidencia",
+      "slice": "salida_estructurada",
+      "hidden": false,
+      "expected_winner": "a",
+      "winner": "a",
+      "winner_score": 0.7114,
+      "case_ok": true,
+      "ranked_candidates": [
+        {
+          "candidate_id": "a",
+          "score": 0.7114,
+          "contributions": {
+            "correctness": 0.4,
+            "evidence": 0.22,
+            "format": 0.13,
+            "abstention": 0.0,
+            "latency_cost": -0.021,
+            "token_cost": -0.0136,
+            "tool_cost": -0.004
+          }
+        },
+        {
+          "candidate_id": "b",
+          "score": 0.5714,
+          "contributions": {
+            "correctness": 0.4,
+            "evidence": 0.066,
+            "format": 0.13,
+            "abstention": 0.0,
+            "latency_cost": -0.0126,
+            "token_cost": -0.01,
+            "tool_cost": -0.002
+          }
+        }
+      ]
+    },
+    {
+      "case_id": "sensibilidad_evidencia",
+      "slice": "rag",
+      "hidden": false,
+      "expected_winner": "a",
+      "winner": "a",
+      "winner_score": 0.6165,
+      "case_ok": true,
+      "ranked_candidates": [
+        {
+          "candidate_id": "a",
+          "score": 0.6165,
+          "contributions": {
+            "correctness": 0.32,
+            "evidence": 0.22,
+            "format": 0.13,
+            "abstention": 0.0,
+            "latency_cost": -0.0315,
+            "token_cost": -0.018,
+            "tool_cost": -0.004
+          }
+        },
+        {
+          "candidate_id": "b",
+          "score": 0.5914,
+          "contributions": {
+            "correctness": 0.4,
+            "evidence": 0.077,
+            "format": 0.13,
+            "abstention": 0.0,
+            "latency_cost": -0.0084,
+            "token_cost": -0.0072,
+            "tool_cost": -0.0
+          }
+        }
+      ]
+    }
+  ],
+  "grader_confusion_matrix": [
+    {
+      "grader": "answerability_v1",
+      "tp": 1,
+      "tn": 1,
+      "fp": 0,
+      "fn": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "accuracy": 1.0
+    },
+    {
+      "grader": "citation_support_v1",
+      "tp": 2,
+      "tn": 2,
+      "fp": 0,
+      "fn": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "accuracy": 1.0
+    },
+    {
+      "grader": "json_schema_v1",
+      "tp": 1,
+      "tn": 1,
+      "fp": 0,
+      "fn": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "accuracy": 1.0
+    }
+  ]
+}

@@ -1,0 +1,65 @@
+titulo: "Inteligencia clásica"
+fasciculo: 2
+total_capitulos: 12
+estado: en_progreso
+
+capitulos:
+  - numero: 1
+    archivo: 01-busqueda-espacio-estados.md
+    titulo: "Búsqueda: resolver problemas como espacio de estados"
+    estado: revision
+
+  - numero: 2
+    archivo: 02-bfs-dfs-coste-uniforme.md
+    titulo: "BFS, DFS y coste uniforme: los algoritmos ciegos"
+    estado: revision
+
+  - numero: 3
+    archivo: 03-greedy-a-star-heuristicas.md
+    titulo: "Greedy, A* y heurísticas: buscar con intuición"
+    estado: revision
+
+  - numero: 4
+    archivo: 04-busqueda-agentes-modernos.md
+    titulo: "Búsqueda en agentes modernos"
+    estado: revision
+
+  - numero: 5
+    archivo: 05-sat-csp-mapa.md
+    titulo: "SAT y CSP: la IA como restricciones"
+    estado: revision
+
+  - numero: 6
+    archivo: 06-csp-variables-dominios.md
+    titulo: "CSP: variables, dominios y restricciones"
+    estado: revision
+
+  - numero: 7
+    archivo: 07-csp-propagacion-backtracking.md
+    titulo: "Propagación, backtracking y heurísticas en CSP"
+    estado: revision
+
+  - numero: 8
+    archivo: 08-restricciones-guardrails.md
+    titulo: "Restricciones como guardrails"
+    estado: revision
+
+  - numero: 9
+    archivo: 09-planificacion-pddl.md
+    titulo: "Planificación automática: PDDL y modelado de dominios"
+    estado: revision
+
+  - numero: 10
+    archivo: 10-planificacion-avanzada.md
+    titulo: "Planificación heurística, con SAT y agentes LLM"
+    estado: revision
+
+  - numero: 11
+    archivo: 11-juegos-minimax-montecarlo.md
+    titulo: "Juegos: decidir con otros actores"
+    estado: revision
+
+  - numero: 12
+    archivo: 12-conocimiento-simbolico-recap.md
+    titulo: "Conocimiento simbólico y recapitulación"
+    estado: revision

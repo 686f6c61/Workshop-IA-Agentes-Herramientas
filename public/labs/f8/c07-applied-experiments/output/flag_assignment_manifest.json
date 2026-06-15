@@ -1,0 +1,92 @@
+{
+  "flag_key": "support_template_guided_reply",
+  "versión": "2026-06-07",
+  "targeting_key": "unit_id",
+  "events": 24,
+  "variant_counts": {
+    "control": 7,
+    "treatment": 17
+  },
+  "variant_shares": {
+    "control": 0.291667,
+    "treatment": 0.708333
+  },
+  "dataset_flag_mismatches": [
+    {
+      "unit_id": "u002",
+      "dataset_variant": "control",
+      "flag_variant": "treatment"
+    },
+    {
+      "unit_id": "u003",
+      "dataset_variant": "control",
+      "flag_variant": "treatment"
+    },
+    {
+      "unit_id": "u004",
+      "dataset_variant": "control",
+      "flag_variant": "treatment"
+    },
+    {
+      "unit_id": "u006",
+      "dataset_variant": "control",
+      "flag_variant": "treatment"
+    },
+    {
+      "unit_id": "u007",
+      "dataset_variant": "control",
+      "flag_variant": "treatment"
+    },
+    {
+      "unit_id": "u008",
+      "dataset_variant": "control",
+      "flag_variant": "treatment"
+    },
+    {
+      "unit_id": "u009",
+      "dataset_variant": "control",
+      "flag_variant": "treatment"
+    },
+    {
+      "unit_id": "u010",
+      "dataset_variant": "control",
+      "flag_variant": "treatment"
+    },
+    {
+      "unit_id": "u011",
+      "dataset_variant": "control",
+      "flag_variant": "treatment"
+    },
+    {
+      "unit_id": "u012",
+      "dataset_variant": "control",
+      "flag_variant": "treatment"
+    },
+    {
+      "unit_id": "u018",
+      "dataset_variant": "treatment",
+      "flag_variant": "control"
+    },
+    {
+      "unit_id": "u019",
+      "dataset_variant": "treatment",
+      "flag_variant": "control"
+    },
+    {
+      "unit_id": "u022",
+      "dataset_variant": "treatment",
+      "flag_variant": "control"
+    },
+    {
+      "unit_id": "u023",
+      "dataset_variant": "treatment",
+      "flag_variant": "control"
+    },
+    {
+      "unit_id": "u024",
+      "dataset_variant": "treatment",
+      "flag_variant": "control"
+    }
+  ],
+  "status": "review"
+}

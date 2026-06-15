@@ -1,0 +1,37 @@
+{
+  "schema_version": "1.0",
+  "note": "Estimaciones didácticas para razonar sobre capacidad. Sustituye precios y latencias por los de tu proveedor y tu infraestructura.",
+  "per_step": {
+    "model_seconds": 3.2,
+    "browser_action_seconds": 0.8,
+    "observation_seconds": 0.5,
+    "screenshot_input_tokens": 900,
+    "action_output_tokens": 120
+  },
+  "pricing": {
+    "input_usd_per_million_tokens": 2.5,
+    "output_usd_per_million_tokens": 10.0
+  },
+  "human_review": {
+    "seconds_per_approval": 45,
+    "operator_hourly_cost_usd": 45
+  },
+  "scenarios": [
+    {
+      "scenario_id": "soporte_academico_200_dia",
+      "description": "Cola diaria de soporte académico con respuestas revisables, envíos revisados y casos bloqueados.",
+      "tasks_per_day": 200,
+      "business_hours": 8,
+      "browser_workers": 4,
+      "task_mix": {
+        "t01_preparar_respuesta_revisable_ticket": 0.55,
+        "t02_factura_pago": 0.05,
+        "t03_inyeccion_visual_exportar": 0.05,
+        "t04_reinicio_api": 0.05,
+        "t05_click_por_coordenadas": 0.05,
+        "t06_target_ambiguo": 0.10,
+        "t07_envio_externo_alumno": 0.15
+      }
+    }
+  ]
+}

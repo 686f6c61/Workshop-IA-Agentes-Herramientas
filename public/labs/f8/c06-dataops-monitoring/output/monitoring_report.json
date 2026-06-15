@@ -1,0 +1,703 @@
+{
+  "run_id": "f8-c06-dataops-monitoring-run",
+  "contract_id": "f8-c06-dataops-monitoring-contract",
+  "status": "block",
+  "inputs": {
+    "reference": "data/reference_events.csv",
+    "production": "data/production_events.csv",
+    "contract": "contracts/monitoring_contract.json",
+    "reference_sha256": "4bede56e818215df6e8d1b765939e2dfa387cf4b1f1881b99523c091138c1697",
+    "production_sha256": "421cf61a40acfb771a017ae8f812d5c427166137c3b2554240216663c52e8dcb",
+    "contract_sha256": "257fef06f9ae85289ef594377f225d15232206bda69d6bd6108d11722296ea34"
+  },
+  "contract": {
+    "contract_id": "f8-c06-dataops-monitoring-contract",
+    "versión": "2026-06-07",
+    "owner": "equipo-datos-ia",
+    "unit": "decision_event",
+    "reference_window": "reference",
+    "production_windows": [
+      "2026-06-07",
+      "2026-06-08"
+    ],
+    "required_columns": [
+      "event_id",
+      "window",
+      "product",
+      "channel",
+      "language",
+      "access_need",
+      "true_priority",
+      "decision",
+      "score",
+      "latency_ms",
+      "trace_id",
+      "pipeline_version",
+      "model_version",
+      "data_version"
+    ],
+    "allowed_values": {
+      "product": [
+        "becas",
+        "matricula",
+        "practicas",
+        "titulos"
+      ],
+      "channel": [
+        "portal",
+        "email",
+        "telefono"
+      ],
+      "language": [
+        "es",
+        "ca",
+        "en"
+      ],
+      "access_need": [
+        "si",
+        "no"
+      ],
+      "decision": [
+        "priorizar",
+        "revisar",
+        "normal"
+      ]
+    },
+    "drift_columns": [
+      "product",
+      "channel",
+      "language",
+      "access_need"
+    ],
+    "slice_fields": [
+      "language",
+      "access_need",
+      "product"
+    ],
+    "critical_slices": [
+      "language=en",
+      "access_need=si",
+      "product=practicas"
+    ],
+    "slo": {
+      "max_missing_trace_rate": 0.0,
+      "max_latency_p95_ms": 650,
+      "max_miss_rate": 0.12,
+      "min_safety_capture": 0.88,
+      "max_review_rate": 0.55,
+      "max_total_variation": 0.35,
+      "max_psi": 0.25
+    },
+    "release_status_meaning": {
+      "pass": "La ventana puede seguir operando con monitorizacion normal.",
+      "review": "La ventana requiere revisión operativa antes de aumentar automatización.",
+      "block": "La ventana no debe usarse para aumentar automatización ni entrenar sin investigar."
+    }
+  },
+  "windows": [
+    {
+      "window": "2026-06-07",
+      "status": "pass",
+      "metrics": {
+        "n": 10,
+        "missing_trace_rate": 0.0,
+        "latency_p95_ms": 590.0,
+        "review_rate": 0.4,
+        "miss_rate": 0.0,
+        "safety_capture": 1.0
+      },
+      "drift": [
+        {
+          "column": "product",
+          "total_variation": 0.1,
+          "psi": 0.069314,
+          "reference_distribution": {
+            "becas": 0.3,
+            "matricula": 0.3,
+            "practicas": 0.2,
+            "titulos": 0.2
+          },
+          "current_distribution": {
+            "becas": 0.4,
+            "matricula": 0.2,
+            "practicas": 0.2,
+            "titulos": 0.2
+          }
+        },
+        {
+          "column": "channel",
+          "total_variation": 0.1,
+          "psi": 0.041179,
+          "reference_distribution": {
+            "email": 0.35,
+            "portal": 0.4,
+            "telefono": 0.25
+          },
+          "current_distribution": {
+            "email": 0.3,
+            "portal": 0.5,
+            "telefono": 0.2
+          }
+        },
+        {
+          "column": "language",
+          "total_variation": 0.1,
+          "psi": 0.058778,
+          "reference_distribution": {
+            "ca": 0.2,
+            "en": 0.2,
+            "es": 0.6
+          },
+          "current_distribution": {
+            "ca": 0.3,
+            "en": 0.2,
+            "es": 0.5
+          }
+        },
+        {
+          "column": "access_need",
+          "total_variation": 0.2,
+          "psi": 0.196165,
+          "reference_distribution": {
+            "no": 0.6,
+            "si": 0.4
+          },
+          "current_distribution": {
+            "no": 0.8,
+            "si": 0.2
+          }
+        }
+      ],
+      "slice_metrics": [
+        {
+          "slice_id": "language=ca",
+          "field": "language",
+          "value": "ca",
+          "n": 3,
+          "missing_trace_rate": 0.0,
+          "latency_p95_ms": 489.0,
+          "review_rate": 0.666667,
+          "miss_rate": 0.0,
+          "safety_capture": 1.0
+        },
+        {
+          "slice_id": "language=en",
+          "field": "language",
+          "value": "en",
+          "n": 2,
+          "missing_trace_rate": 0.0,
+          "latency_p95_ms": 590.0,
+          "review_rate": 1.0,
+          "miss_rate": 0.0,
+          "safety_capture": 1.0
+        },
+        {
+          "slice_id": "language=es",
+          "field": "language",
+          "value": "es",
+          "n": 5,
+          "missing_trace_rate": 0.0,
+          "latency_p95_ms": 468.0,
+          "review_rate": 0.0,
+          "miss_rate": 0.0,
+          "safety_capture": 1.0
+        },
+        {
+          "slice_id": "access_need=no",
+          "field": "access_need",
+          "value": "no",
+          "n": 8,
+          "missing_trace_rate": 0.0,
+          "latency_p95_ms": 489.0,
+          "review_rate": 0.25,
+          "miss_rate": 0.0,
+          "safety_capture": 1.0
+        },
+        {
+          "slice_id": "access_need=si",
+          "field": "access_need",
+          "value": "si",
+          "n": 2,
+          "missing_trace_rate": 0.0,
+          "latency_p95_ms": 590.0,
+          "review_rate": 1.0,
+          "miss_rate": 0.0,
+          "safety_capture": 1.0
+        },
+        {
+          "slice_id": "product=becas",
+          "field": "product",
+          "value": "becas",
+          "n": 4,
+          "missing_trace_rate": 0.0,
+          "latency_p95_ms": 482.0,
+          "review_rate": 0.25,
+          "miss_rate": 0.0,
+          "safety_capture": 1.0
+        },
+        {
+          "slice_id": "product=matricula",
+          "field": "product",
+          "value": "matricula",
+          "n": 2,
+          "missing_trace_rate": 0.0,
+          "latency_p95_ms": 418.0,
+          "review_rate": 0.0,
+          "miss_rate": 0.0,
+          "safety_capture": 1.0
+        },
+        {
+          "slice_id": "product=practicas",
+          "field": "product",
+          "value": "practicas",
+          "n": 2,
+          "missing_trace_rate": 0.0,
+          "latency_p95_ms": 489.0,
+          "review_rate": 0.5,
+          "miss_rate": 0.0,
+          "safety_capture": 1.0
+        },
+        {
+          "slice_id": "product=titulos",
+          "field": "product",
+          "value": "titulos",
+          "n": 2,
+          "missing_trace_rate": 0.0,
+          "latency_p95_ms": 590.0,
+          "review_rate": 1.0,
+          "miss_rate": 0.0,
+          "safety_capture": 1.0
+        }
+      ],
+      "flags": [],
+      "versions": {
+        "pipeline": [
+          "pipe-1.4.1"
+        ],
+        "model": [
+          "model-2026-06-01"
+        ],
+        "data": [
+          "data-2026-06-07"
+        ]
+      }
+    },
+    {
+      "window": "2026-06-08",
+      "status": "block",
+      "metrics": {
+        "n": 10,
+        "missing_trace_rate": 0.1,
+        "latency_p95_ms": 760.0,
+        "review_rate": 0.7,
+        "miss_rate": 0.6,
+        "safety_capture": 0.4
+      },
+      "drift": [
+        {
+          "column": "product",
+          "total_variation": 0.2,
+          "psi": 0.219722,
+          "reference_distribution": {
+            "becas": 0.3,
+            "matricula": 0.3,
+            "practicas": 0.2,
+            "titulos": 0.2
+          },
+          "current_distribution": {
+            "becas": 0.2,
+            "matricula": 0.2,
+            "practicas": 0.4,
+            "titulos": 0.2
+          }
+        },
+        {
+          "column": "channel",
+          "total_variation": 0.1,
+          "psi": 0.041179,
+          "reference_distribution": {
+            "email": 0.35,
+            "portal": 0.4,
+            "telefono": 0.25
+          },
+          "current_distribution": {
+            "email": 0.3,
+            "portal": 0.5,
+            "telefono": 0.2
+          }
+        },
+        {
+          "column": "language",
+          "total_variation": 0.8,
+          "psi": 11.711575,
+          "reference_distribution": {
+            "ca": 0.2,
+            "en": 0.2,
+            "es": 0.6
+          },
+          "current_distribution": {
+            "ca": 0.0,
+            "en": 1.0,
+            "es": 0.0
+          }
+        },
+        {
+          "column": "access_need",
+          "total_variation": 0.6,
+          "psi": 8.532585,
+          "reference_distribution": {
+            "no": 0.6,
+            "si": 0.4
+          },
+          "current_distribution": {
+            "no": 0.0,
+            "si": 1.0
+          }
+        }
+      ],
+      "slice_metrics": [
+        {
+          "slice_id": "language=en",
+          "field": "language",
+          "value": "en",
+          "n": 10,
+          "missing_trace_rate": 0.1,
+          "latency_p95_ms": 760.0,
+          "review_rate": 0.7,
+          "miss_rate": 0.6,
+          "safety_capture": 0.4
+        },
+        {
+          "slice_id": "access_need=si",
+          "field": "access_need",
+          "value": "si",
+          "n": 10,
+          "missing_trace_rate": 0.1,
+          "latency_p95_ms": 760.0,
+          "review_rate": 0.7,
+          "miss_rate": 0.6,
+          "safety_capture": 0.4
+        },
+        {
+          "slice_id": "product=becas",
+          "field": "product",
+          "value": "becas",
+          "n": 2,
+          "missing_trace_rate": 0.0,
+          "latency_p95_ms": 720.0,
+          "review_rate": 0.5,
+          "miss_rate": 1.0,
+          "safety_capture": 0.0
+        },
+        {
+          "slice_id": "product=matricula",
+          "field": "product",
+          "value": "matricula",
+          "n": 2,
+          "missing_trace_rate": 0.0,
+          "latency_p95_ms": 695.0,
+          "review_rate": 1.0,
+          "miss_rate": 0.0,
+          "safety_capture": 1.0
+        },
+        {
+          "slice_id": "product=practicas",
+          "field": "product",
+          "value": "practicas",
+          "n": 4,
+          "missing_trace_rate": 0.25,
+          "latency_p95_ms": 760.0,
+          "review_rate": 0.5,
+          "miss_rate": 1.0,
+          "safety_capture": 0.0
+        },
+        {
+          "slice_id": "product=titulos",
+          "field": "product",
+          "value": "titulos",
+          "n": 2,
+          "missing_trace_rate": 0.0,
+          "latency_p95_ms": 690.0,
+          "review_rate": 1.0,
+          "miss_rate": 0.0,
+          "safety_capture": 1.0
+        }
+      ],
+      "flags": [
+        {
+          "severity": "block",
+          "window": "2026-06-08",
+          "kind": "missing_trace_rate",
+          "message": "Hay eventos sin trace_id; no se puede investigar bien la ventana.",
+          "value": 0.1,
+          "threshold": 0.0
+        },
+        {
+          "severity": "review",
+          "window": "2026-06-08",
+          "kind": "latency_p95",
+          "message": "La latencia p95 supera el SLO.",
+          "value": 760.0,
+          "threshold": 650
+        },
+        {
+          "severity": "block",
+          "window": "2026-06-08",
+          "kind": "miss_rate",
+          "message": "Demasiados casos prioritarios terminan en flujo normal.",
+          "value": 0.6,
+          "threshold": 0.12
+        },
+        {
+          "severity": "block",
+          "window": "2026-06-08",
+          "kind": "safety_capture",
+          "message": "La captura segura cae por debajo del SLO.",
+          "value": 0.4,
+          "threshold": 0.88
+        },
+        {
+          "severity": "review",
+          "window": "2026-06-08",
+          "kind": "review_rate",
+          "message": "La carga de revisión puede superar capacidad operativa.",
+          "value": 0.7,
+          "threshold": 0.55
+        },
+        {
+          "severity": "review",
+          "window": "2026-06-08",
+          "kind": "drift_total_variation",
+          "message": "La distribución actual se aleja de la referencia.",
+          "column": "language",
+          "value": 0.8,
+          "threshold": 0.35
+        },
+        {
+          "severity": "review",
+          "window": "2026-06-08",
+          "kind": "drift_psi",
+          "message": "El PSI indica cambio relevante frente a referencia.",
+          "column": "language",
+          "value": 11.711575,
+          "threshold": 0.25
+        },
+        {
+          "severity": "review",
+          "window": "2026-06-08",
+          "kind": "drift_total_variation",
+          "message": "La distribución actual se aleja de la referencia.",
+          "column": "access_need",
+          "value": 0.6,
+          "threshold": 0.35
+        },
+        {
+          "severity": "review",
+          "window": "2026-06-08",
+          "kind": "drift_psi",
+          "message": "El PSI indica cambio relevante frente a referencia.",
+          "column": "access_need",
+          "value": 8.532585,
+          "threshold": 0.25
+        },
+        {
+          "severity": "block",
+          "window": "2026-06-08",
+          "kind": "critical_slice_miss_rate",
+          "slice_id": "language=en",
+          "message": "Un slice crítico pierde demasiados casos prioritarios.",
+          "value": 0.6,
+          "threshold": 0.12
+        },
+        {
+          "severity": "review",
+          "window": "2026-06-08",
+          "kind": "critical_slice_latency",
+          "slice_id": "language=en",
+          "message": "Un slice crítico supera latencia p95.",
+          "value": 760.0,
+          "threshold": 650
+        },
+        {
+          "severity": "block",
+          "window": "2026-06-08",
+          "kind": "critical_slice_miss_rate",
+          "slice_id": "access_need=si",
+          "message": "Un slice crítico pierde demasiados casos prioritarios.",
+          "value": 0.6,
+          "threshold": 0.12
+        },
+        {
+          "severity": "review",
+          "window": "2026-06-08",
+          "kind": "critical_slice_latency",
+          "slice_id": "access_need=si",
+          "message": "Un slice crítico supera latencia p95.",
+          "value": 760.0,
+          "threshold": 650
+        },
+        {
+          "severity": "block",
+          "window": "2026-06-08",
+          "kind": "critical_slice_miss_rate",
+          "slice_id": "product=practicas",
+          "message": "Un slice crítico pierde demasiados casos prioritarios.",
+          "value": 1.0,
+          "threshold": 0.12
+        },
+        {
+          "severity": "review",
+          "window": "2026-06-08",
+          "kind": "critical_slice_latency",
+          "slice_id": "product=practicas",
+          "message": "Un slice crítico supera latencia p95.",
+          "value": 760.0,
+          "threshold": 650
+        }
+      ],
+      "versions": {
+        "pipeline": [
+          "pipe-1.4.2"
+        ],
+        "model": [
+          "model-2026-06-01"
+        ],
+        "data": [
+          "data-2026-06-08"
+        ]
+      }
+    }
+  ],
+  "flags": [
+    {
+      "severity": "block",
+      "window": "2026-06-08",
+      "kind": "missing_trace_rate",
+      "message": "Hay eventos sin trace_id; no se puede investigar bien la ventana.",
+      "value": 0.1,
+      "threshold": 0.0
+    },
+    {
+      "severity": "review",
+      "window": "2026-06-08",
+      "kind": "latency_p95",
+      "message": "La latencia p95 supera el SLO.",
+      "value": 760.0,
+      "threshold": 650
+    },
+    {
+      "severity": "block",
+      "window": "2026-06-08",
+      "kind": "miss_rate",
+      "message": "Demasiados casos prioritarios terminan en flujo normal.",
+      "value": 0.6,
+      "threshold": 0.12
+    },
+    {
+      "severity": "block",
+      "window": "2026-06-08",
+      "kind": "safety_capture",
+      "message": "La captura segura cae por debajo del SLO.",
+      "value": 0.4,
+      "threshold": 0.88
+    },
+    {
+      "severity": "review",
+      "window": "2026-06-08",
+      "kind": "review_rate",
+      "message": "La carga de revisión puede superar capacidad operativa.",
+      "value": 0.7,
+      "threshold": 0.55
+    },
+    {
+      "severity": "review",
+      "window": "2026-06-08",
+      "kind": "drift_total_variation",
+      "message": "La distribución actual se aleja de la referencia.",
+      "column": "language",
+      "value": 0.8,
+      "threshold": 0.35
+    },
+    {
+      "severity": "review",
+      "window": "2026-06-08",
+      "kind": "drift_psi",
+      "message": "El PSI indica cambio relevante frente a referencia.",
+      "column": "language",
+      "value": 11.711575,
+      "threshold": 0.25
+    },
+    {
+      "severity": "review",
+      "window": "2026-06-08",
+      "kind": "drift_total_variation",
+      "message": "La distribución actual se aleja de la referencia.",
+      "column": "access_need",
+      "value": 0.6,
+      "threshold": 0.35
+    },
+    {
+      "severity": "review",
+      "window": "2026-06-08",
+      "kind": "drift_psi",
+      "message": "El PSI indica cambio relevante frente a referencia.",
+      "column": "access_need",
+      "value": 8.532585,
+      "threshold": 0.25
+    },
+    {
+      "severity": "block",
+      "window": "2026-06-08",
+      "kind": "critical_slice_miss_rate",
+      "slice_id": "language=en",
+      "message": "Un slice crítico pierde demasiados casos prioritarios.",
+      "value": 0.6,
+      "threshold": 0.12
+    },
+    {
+      "severity": "review",
+      "window": "2026-06-08",
+      "kind": "critical_slice_latency",
+      "slice_id": "language=en",
+      "message": "Un slice crítico supera latencia p95.",
+      "value": 760.0,
+      "threshold": 650
+    },
+    {
+      "severity": "block",
+      "window": "2026-06-08",
+      "kind": "critical_slice_miss_rate",
+      "slice_id": "access_need=si",
+      "message": "Un slice crítico pierde demasiados casos prioritarios.",
+      "value": 0.6,
+      "threshold": 0.12
+    },
+    {
+      "severity": "review",
+      "window": "2026-06-08",
+      "kind": "critical_slice_latency",
+      "slice_id": "access_need=si",
+      "message": "Un slice crítico supera latencia p95.",
+      "value": 760.0,
+      "threshold": 650
+    },
+    {
+      "severity": "block",
+      "window": "2026-06-08",
+      "kind": "critical_slice_miss_rate",
+      "slice_id": "product=practicas",
+      "message": "Un slice crítico pierde demasiados casos prioritarios.",
+      "value": 1.0,
+      "threshold": 0.12
+    },
+    {
+      "severity": "review",
+      "window": "2026-06-08",
+      "kind": "critical_slice_latency",
+      "slice_id": "product=practicas",
+      "message": "Un slice crítico supera latencia p95.",
+      "value": 760.0,
+      "threshold": 650
+    }
+  ]
+}

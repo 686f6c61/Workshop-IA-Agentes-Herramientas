@@ -1,0 +1,42 @@
+{
+  "loss": {
+    "before": 2.3026,
+    "after": 0.7853,
+    "decrease": 1.5173,
+    "perplexity_before": 2.1544,
+    "perplexity_after": 1.2992
+  },
+  "memory": [
+    {
+      "model": "7B",
+      "precision": "FP16",
+      "weights_gb": 14
+    },
+    {
+      "model": "7B",
+      "precision": "INT8",
+      "weights_gb": 7
+    },
+    {
+      "model": "7B",
+      "precision": "INT4",
+      "weights_gb": 3.5
+    },
+    {
+      "model": "13B",
+      "precision": "FP16",
+      "weights_gb": 26
+    },
+    {
+      "model": "13B",
+      "precision": "INT8",
+      "weights_gb": 13
+    },
+    {
+      "model": "13B",
+      "precision": "INT4",
+      "weights_gb": 6.5
+    }
+  ],
+  "gate_valid": true
+}

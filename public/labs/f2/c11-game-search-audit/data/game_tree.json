@@ -1,0 +1,27 @@
+{
+  "root": "root",
+  "nodes": {
+    "root": {"player": "MAX", "children": ["limitar_tool", "seguir_automatico", "pedir_revision"]},
+    "limitar_tool": {"player": "MIN", "children": ["limitar_suave", "limitar_fuerte"]},
+    "seguir_automatico": {"player": "MIN", "children": ["auto_fuerte", "auto_suave"]},
+    "pedir_revision": {"player": "MIN", "children": ["revision_fuerte", "revision_suave"]}
+  },
+  "utility": {
+    "limitar_suave": 5,
+    "limitar_fuerte": 4,
+    "auto_suave": 9,
+    "auto_fuerte": -8,
+    "revision_suave": 7,
+    "revision_fuerte": 3
+  },
+  "rollouts": {
+    "limitar_tool": [4, 5, 4, 3, 4, 5],
+    "seguir_automatico": [9, -8, -8, 2, -8, 9],
+    "pedir_revision": [3, 7, 3, 6, 3, 7]
+  },
+  "uct": {
+    "visits": {"limitar_tool": 12, "seguir_automatico": 2, "pedir_revision": 5},
+    "values": {"limitar_tool": 4.2, "seguir_automatico": 1.0, "pedir_revision": 3.8}
+  }
+}
+

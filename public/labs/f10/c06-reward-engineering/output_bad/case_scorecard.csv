@@ -1,0 +1,5 @@
+case_id,slice,hidden,expected_winner,winner,winner_score,case_ok
+rag_cita_valida,rag,False,a,b,0.688,False
+sin_fuente,rag,False,a,b,0.5464,False
+json_contrato,salida_estructurada,False,a,b,0.701,False
+coste_controlado,coste,False,a,b,0.7435,False

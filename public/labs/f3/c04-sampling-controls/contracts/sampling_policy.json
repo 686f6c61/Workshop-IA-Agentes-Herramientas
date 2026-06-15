@@ -1,0 +1,6 @@
+{
+  "prob_sum_tolerance": 0.000001,
+  "top_k": 2,
+  "top_p": 0.9
+}
+

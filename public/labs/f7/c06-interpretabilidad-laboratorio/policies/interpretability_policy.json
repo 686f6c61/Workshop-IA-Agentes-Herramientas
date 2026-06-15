@@ -1,0 +1,66 @@
+{
+  "model_version": "support-prioritizer-linear-v1",
+  "explanation_policy_version": "interp-audit-v1",
+  "owner": "equipo-ia",
+  "threshold": 0.68,
+  "explanation_contract": {
+    "purpose": "diagnóstico interno y revisión operativa de tickets priorizados",
+    "allowed_consumers": ["ingenieria", "soporte_n2", "producto"],
+    "not_for": ["decisión final sin revisión", "comunicación automática a usuario"],
+    "required_fields": [
+      "case_id",
+      "model_version",
+      "score",
+      "prediction",
+      "top_features",
+      "deletion_test",
+      "counterfactual",
+      "data_hash_sha256",
+      "policy_hash_sha256"
+    ]
+  },
+  "feature_ranges": {
+    "missing_payment": [0, 1],
+    "deadline_hours": [0, 168],
+    "docs_attached": [0, 1],
+    "prior_cases": [0, 8],
+    "contains_policy_keyword": [0, 1],
+    "student_wait_days": [0, 21]
+  },
+  "model": {
+    "intercept": -2.35,
+    "weights": {
+      "missing_payment": 1.25,
+      "deadline_hours": -0.018,
+      "docs_attached": -0.75,
+      "prior_cases": 0.28,
+      "contains_policy_keyword": 0.62,
+      "student_wait_days": 0.13
+    }
+  },
+  "actionable_features": {
+    "docs_attached": {
+      "target": 1,
+      "description": "pedir o adjuntar documentación completa"
+    },
+    "missing_payment": {
+      "target": 0,
+      "description": "comprobar y resolver pago pendiente si procede"
+    }
+  },
+  "audit_thresholds": {
+    "min_top_feature_drop": 0.08,
+    "min_permutation_drop": 0.03,
+    "min_stability_top1": 0.7,
+    "max_counterfactual_steps": 2,
+    "min_comprehensiveness_top2": 0.12,
+    "max_sufficiency_delta_top2": 0.2,
+    "max_abs_feature_correlation": 0.9
+  },
+  "production_monitoring": {
+    "log_explanations": true,
+    "monitor_top_feature_distribution": true,
+    "monitor_counterfactual_availability": true,
+    "monitor_explanation_drift": true
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "impact_review_threshold": 4,
+  "allowed_recommendations": [
+    "sql_or_deterministic_code",
+    "search_or_rag",
+    "llm_generation",
+    "tool_or_api",
+    "human_review",
+    "hybrid_system"
+  ],
+  "controls": {
+    "sql_or_deterministic_code": [
+      "tests_with_known_answers",
+      "data_lineage",
+      "query_review"
+    ],
+    "search_or_rag": [
+      "source_citations",
+      "freshness_date",
+      "retrieval_evaluation"
+    ],
+    "llm_generation": [
+      "structured_prompt",
+      "output_schema",
+      "sampling_policy"
+    ],
+    "tool_or_api": [
+      "permission_boundary",
+      "dry_run",
+      "audit_log"
+    ],
+    "human_review": [
+      "named_reviewer",
+      "acceptance_criteria",
+      "decision_record"
+    ],
+    "hybrid_system": [
+      "component_owner",
+      "fallback_path",
+      "end_to_end_eval"
+    ]
+  }
+}

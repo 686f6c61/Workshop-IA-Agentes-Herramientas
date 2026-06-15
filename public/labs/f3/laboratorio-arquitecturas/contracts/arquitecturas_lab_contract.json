@@ -1,0 +1,19 @@
+{
+  "lab_id": "f3-laboratorio-arquitecturas",
+  "version": "1.0.0",
+  "strategy_gate": {
+    "expected_first_choice": "rag_local_o_controlado",
+    "required_evaluation_axes": ["respuesta_correcta", "cita_correcta", "abstencion", "latencia", "coste"]
+  },
+  "inference_gate": {
+    "max_decode_seconds_interactive": 30,
+    "min_memory_margin_gb": 4,
+    "decision_when_decode_too_slow": "redisenar_serving"
+  },
+  "required_outputs": [
+    "strategy_scorecard.json",
+    "strategy_decision.md",
+    "inference_budget.json",
+    "deployment_memo.md"
+  ]
+}

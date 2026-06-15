@@ -1,0 +1,32 @@
+{
+  "type": "object",
+  "required": [
+    "case_id",
+    "title",
+    "capabilities",
+    "chapter_refs",
+    "user_story",
+    "modalities",
+    "evidence_artifacts",
+    "controls_present",
+    "risks",
+    "quality",
+    "ops",
+    "expected_decision"
+  ],
+  "properties": {
+    "case_id": {"type": "string", "minLength": 3},
+    "title": {"type": "string", "minLength": 8},
+    "capabilities": {"type": "array", "items": {"type": "string"}, "minItems": 1},
+    "chapter_refs": {"type": "array", "items": {"type": "integer", "minimum": 1, "maximum": 12}, "minItems": 1},
+    "user_story": {"type": "string"},
+    "modalities": {"type": "array", "items": {"type": "string"}, "minItems": 1},
+    "evidence_artifacts": {"type": "array", "items": {"type": "string"}},
+    "controls_present": {"type": "array", "items": {"type": "string"}},
+    "risks": {"type": "object"},
+    "quality": {"type": "object"},
+    "ops": {"type": "object"},
+    "expected_decision": {"enum": ["pass", "review", "block"]}
+  },
+  "additionalProperties": true
+}

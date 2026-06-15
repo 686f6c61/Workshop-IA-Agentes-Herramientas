@@ -1,0 +1,219 @@
+[
+  {
+    "id": "chapter_example",
+    "description": "Ejemplo del capítulo: la predicción queda por debajo de la etiqueta y el peso debe subir.",
+    "input": {
+      "x": 2.0,
+      "w": 0.4,
+      "b": -0.1,
+      "y": 1.0
+    },
+    "forward": {
+      "z": 0.7,
+      "a": 0.668187772168,
+      "loss": 0.055049677269
+    },
+    "analytic_gradients": {
+      "dE_da": -0.331812227832,
+      "da_dz": 0.221712873293,
+      "dE_dz": -0.073567042426,
+      "dE_dw": -0.147134084853,
+      "dE_db": -0.073567042426
+    },
+    "numeric_gradients": {
+      "dE_dw": -0.147134084858,
+      "dE_db": -0.073567042427
+    },
+    "gradient_error": {
+      "dE_dw": 5e-12,
+      "dE_db": 1e-12
+    },
+    "gradient_check": true,
+    "gradient_norm": 0.164500907769,
+    "learning_rate_sweep": [
+      {
+        "learning_rate": 0.001,
+        "loss_after": 0.05502262172,
+        "loss_delta": -2.7055549e-05,
+        "improves": true,
+        "update_ratio_w": 0.000367835212
+      },
+      {
+        "learning_rate": 0.01,
+        "loss_after": 0.054779571534,
+        "loss_delta": -0.000270105735,
+        "improves": true,
+        "update_ratio_w": 0.003678352121
+      },
+      {
+        "learning_rate": 0.1,
+        "loss_after": 0.052393401988,
+        "loss_delta": -0.002656275281,
+        "improves": true,
+        "update_ratio_w": 0.036783521213
+      },
+      {
+        "learning_rate": 1.0,
+        "loss_after": 0.032720653251,
+        "loss_delta": -0.022329024018,
+        "improves": true,
+        "update_ratio_w": 0.367835212132
+      },
+      {
+        "learning_rate": 5.0,
+        "loss_after": 0.002675974864,
+        "loss_delta": -0.052373702405,
+        "improves": true,
+        "update_ratio_w": 1.83917606066
+      }
+    ],
+    "wrong_sign_loss": 0.057805931372,
+    "warnings": [
+      "algún learning rate mueve el peso más que su escala actual"
+    ]
+  },
+  {
+    "id": "saturated_sigmoid",
+    "description": "Sigmoide saturada: la pérdida puede ser alta, pero la derivada se queda casi sin señal.",
+    "input": {
+      "x": 8.0,
+      "w": 3.0,
+      "b": 1.0,
+      "y": 0.0
+    },
+    "forward": {
+      "z": 25.0,
+      "a": 0.999999999986,
+      "loss": 0.499999999986
+    },
+    "analytic_gradients": {
+      "dE_da": 0.999999999986,
+      "da_dz": 1.4e-11,
+      "dE_dz": 1.4e-11,
+      "dE_dw": 1.11e-10,
+      "dE_db": 1.4e-11
+    },
+    "numeric_gradients": {
+      "dE_dw": 1.11e-10,
+      "dE_db": 1.1e-11
+    },
+    "gradient_error": {
+      "dE_dw": 0.0,
+      "dE_db": 3e-12
+    },
+    "gradient_check": true,
+    "gradient_norm": 1.12e-10,
+    "learning_rate_sweep": [
+      {
+        "learning_rate": 0.001,
+        "loss_after": 0.499999999986,
+        "loss_delta": 0.0,
+        "improves": false,
+        "update_ratio_w": 0.0
+      },
+      {
+        "learning_rate": 0.01,
+        "loss_after": 0.499999999986,
+        "loss_delta": 0.0,
+        "improves": false,
+        "update_ratio_w": 0.0
+      },
+      {
+        "learning_rate": 0.1,
+        "loss_after": 0.499999999986,
+        "loss_delta": 0.0,
+        "improves": false,
+        "update_ratio_w": 4e-12
+      },
+      {
+        "learning_rate": 1.0,
+        "loss_after": 0.499999999986,
+        "loss_delta": 0.0,
+        "improves": false,
+        "update_ratio_w": 3.7e-11
+      },
+      {
+        "learning_rate": 5.0,
+        "loss_after": 0.499999999986,
+        "loss_delta": 0.0,
+        "improves": false,
+        "update_ratio_w": 1.85e-10
+      }
+    ],
+    "wrong_sign_loss": 0.499999999986,
+    "warnings": [
+      "gradiente casi nulo"
+    ]
+  },
+  {
+    "id": "small_signal",
+    "description": "Entrada pequeña: el gradiente del peso es pequeño y el sesgo domina la actualización.",
+    "input": {
+      "x": 0.05,
+      "w": 0.8,
+      "b": -0.2,
+      "y": 1.0
+    },
+    "forward": {
+      "z": -0.16,
+      "a": 0.460085115444,
+      "loss": 0.145754041282
+    },
+    "analytic_gradients": {
+      "dE_da": -0.539914884556,
+      "da_dz": 0.248406801991,
+      "dE_dz": -0.13411852982,
+      "dE_dw": -0.006705926491,
+      "dE_db": -0.13411852982
+    },
+    "numeric_gradients": {
+      "dE_dw": -0.006705926492,
+      "dE_db": -0.134118529817
+    },
+    "gradient_error": {
+      "dE_dw": 1e-12,
+      "dE_db": 3e-12
+    },
+    "gradient_check": true,
+    "gradient_norm": 0.134286073333,
+    "learning_rate_sweep": [
+      {
+        "learning_rate": 0.001,
+        "loss_after": 0.145736008994,
+        "loss_delta": -1.8032288e-05,
+        "improves": true,
+        "update_ratio_w": 8.382408e-06
+      },
+      {
+        "learning_rate": 0.01,
+        "loss_after": 0.145573759918,
+        "loss_delta": -0.000180281364,
+        "improves": true,
+        "update_ratio_w": 8.3824081e-05
+      },
+      {
+        "learning_rate": 0.1,
+        "loss_after": 0.143955408614,
+        "loss_delta": -0.001798632668,
+        "improves": true,
+        "update_ratio_w": 0.000838240811
+      },
+      {
+        "learning_rate": 1.0,
+        "loss_after": 0.128213489831,
+        "loss_delta": -0.017540551451,
+        "improves": true,
+        "update_ratio_w": 0.008382408114
+      },
+      {
+        "learning_rate": 5.0,
+        "loss_after": 0.070185709392,
+        "loss_delta": -0.07556833189,
+        "improves": true,
+        "update_ratio_w": 0.041912040569
+      }
+    ],
+    "wrong_sign_loss": 0.147561893247,
+    "warnings": []
+  }
+]

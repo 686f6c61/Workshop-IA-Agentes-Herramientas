@@ -1,0 +1,5 @@
+slice,status,reason,requests,reward_mean,reward_delta,case_pass_rate,evidence_pass_rate,p95_latency_ms,tool_error_rate,fallback_rate
+herramientas,pass,ok,130,0.65,-0.01,0.91,0.93,2380,0.025,0.055
+privacidad,pass,ok,80,0.73,-0.01,0.96,0.97,1980,0.006,0.026
+rag,pass,ok,410,0.73,0.01,0.95,0.96,1900,0.012,0.028
+sql,pass,ok,150,0.7,0.01,0.93,0.92,2180,0.018,0.038

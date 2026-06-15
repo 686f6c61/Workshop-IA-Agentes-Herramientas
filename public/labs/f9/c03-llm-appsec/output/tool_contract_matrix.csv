@@ -1,0 +1,5 @@
+tool,capability,effect,scope_required,approval_required,egress,required_fields
+search_policy_docs,retrieve_policy_context,read,docs:read_public,False,none,query;purpose
+prepare_academic_email,prepare_or_send_email,external_send,case:read;email:draft,when_send_or_personal_data,email_domain_allowlist,recipient;subject;body;case_id;send_mode;contains_personal_data
+update_case_status,change_case_state,state_change,case:read;case:write,True,none,case_id;new_status;reason;idempotency_key
+fetch_public_page,read_public_web_page,external_fetch,assistant:ask,False,http_domain_allowlist,url;purpose

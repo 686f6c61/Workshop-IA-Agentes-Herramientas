@@ -1,0 +1,44 @@
+{
+  "title": "Contrato de runtime",
+  "artifact": {
+    "states": [
+      "queued",
+      "running",
+      "needs_review",
+      "completed",
+      "failed",
+      "cancelled"
+    ],
+    "contract": {
+      "idempotency_key": true,
+      "retry_policy": "exponential_backoff",
+      "max_queue_age_s": 300,
+      "dead_letter_queue": true
+    }
+  },
+  "checks": [
+    {
+      "name": "estados explícitos",
+      "passed": true,
+      "detail": "La run no vive como string libre."
+    },
+    {
+      "name": "idempotencia",
+      "passed": true,
+      "detail": "Los retries no duplican efectos."
+    },
+    {
+      "name": "DLQ",
+      "passed": true,
+      "detail": "Hay lugar para mensajes no procesables."
+    },
+    {
+      "name": "edad máxima de cola",
+      "passed": true,
+      "detail": "La cola no es memoria eterna."
+    }
+  ],
+  "status": "valid",
+  "decision": "El runtime se puede implementar y probar: estados, cola, retries, idempotencia y error quedan explícitos.",
+  "chapter": "c02"
+}

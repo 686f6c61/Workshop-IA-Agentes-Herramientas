@@ -1,0 +1,6 @@
+strategy,gate,blocking_failures,review_failures,train,validation,test
+random_row,block,student_group_overlap;source_overlap;near_text_leakage;temporal_leakage,missing_required_test_labels,14,5,5
+stratified_label,block,student_group_overlap;source_overlap;near_text_leakage;temporal_leakage,,14,5,5
+group_holdout,block,temporal_leakage,label_distribution_shift,16,4,4
+time_cutoff,block,student_group_overlap;source_overlap;near_text_leakage,,14,5,5
+time_group_holdout,review,,label_distribution_shift,15,5,4

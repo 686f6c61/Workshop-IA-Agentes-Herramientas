@@ -1,0 +1,20 @@
+{
+  "description": "Dos modelos candidatos para priorizar tickets internos.",
+  "positive_class": "ticket_debe_revisarse_pronto",
+  "models": [
+    {
+      "model_id": "modelo_a",
+      "tp": 44,
+      "fp": 28,
+      "fn": 6,
+      "tn": 122
+    },
+    {
+      "model_id": "modelo_b",
+      "tp": 36,
+      "fp": 8,
+      "fn": 14,
+      "tn": 142
+    }
+  ]
+}

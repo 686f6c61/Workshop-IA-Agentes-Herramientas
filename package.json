@@ -3,14 +3,19 @@
   "type": "module",
   "version": "0.0.1",
   "scripts": {
-    "dev": "astro dev",
-    "build": "astro build",
+    "sync:book": "node scripts/sync-book-content.mjs",
+    "sync:labs": "node scripts/sync-labs.mjs",
+    "dev": "npm run sync:book && npm run sync:labs && astro dev",
+    "build": "npm run sync:book && npm run sync:labs && astro build",
     "preview": "astro preview",
     "astro": "astro"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.2",
     "@sentry/astro": "^10.53.1",
-    "astro": "^6.3.3"
+    "astro": "^6.3.3",
+    "rehype-katex": "^7.0.1",
+    "remark-math": "^6.0.0",
+    "yaml": "^2.9.0"
   }
 }

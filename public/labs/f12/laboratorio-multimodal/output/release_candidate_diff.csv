@@ -1,0 +1,9 @@
+case_id,decision_before,decision_after,quality_delta,risk_delta,latency_delta_ms,failure_rate_delta,remaining_failures
+catalog_alt_text,pass,pass,0.0,0.0,0,0.0,
+invoice_table_extraction,pass,pass,0.0,0.0,0,0.0,
+policy_rag_with_internal_slides,pass,pass,0.0,0.0,0,0.0,
+voice_appointment_agent,pass,pass,0.0,0.0,0,0.0,
+parking_video_event_triage,review,pass,0.0475,0.0,-100,-0.007,
+computer_use_claim_submission,pass,pass,0.0,0.0,0,0.0,
+visual_search_catalog,pass,pass,0.0,0.0,0,0.0,
+student_multimodal_helpdesk,pass,pass,0.0,0.0,0,0.0,

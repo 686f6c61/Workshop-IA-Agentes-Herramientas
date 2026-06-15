@@ -1,0 +1,58 @@
+[
+  {
+    "decision_id": "allow_redacted_support_trace",
+    "principal": "MultimodalSystem::risk-gate",
+    "action": "SendArtifact",
+    "resource": "Artifact::redacted_support_trace",
+    "context": {
+      "destination": "internal_support_tool",
+      "risk_score": 0.32,
+      "missing_controls": 0,
+      "has_unredacted_secret": false,
+      "external_action": false
+    },
+    "expected_decision": "allow"
+  },
+  {
+    "decision_id": "review_eval_fixture_with_missing_redaction",
+    "principal": "MultimodalSystem::risk-gate",
+    "action": "StoreEvalFixture",
+    "resource": "Artifact::eval_fixture",
+    "context": {
+      "destination": "internal_eval_store",
+      "risk_score": 0.51,
+      "missing_controls": 1,
+      "has_unredacted_secret": false,
+      "external_action": false
+    },
+    "expected_decision": "review"
+  },
+  {
+    "decision_id": "deny_public_webhook",
+    "principal": "MultimodalSystem::risk-gate",
+    "action": "SendArtifact",
+    "resource": "Artifact::screen_capture",
+    "context": {
+      "destination": "public_webhook",
+      "risk_score": 0.76,
+      "missing_controls": 1,
+      "has_unredacted_secret": false,
+      "external_action": true
+    },
+    "expected_decision": "deny"
+  },
+  {
+    "decision_id": "deny_secret_visible",
+    "principal": "MultimodalSystem::risk-gate",
+    "action": "CreateSecurityTicket",
+    "resource": "Artifact::ui_trace",
+    "context": {
+      "destination": "security_ticket",
+      "risk_score": 0.72,
+      "missing_controls": 0,
+      "has_unredacted_secret": true,
+      "external_action": false
+    },
+    "expected_decision": "deny"
+  }
+]

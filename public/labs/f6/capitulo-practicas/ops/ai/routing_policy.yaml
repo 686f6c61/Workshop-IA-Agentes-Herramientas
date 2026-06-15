@@ -1,0 +1,19 @@
+routes:
+  - task: faq_policy
+    primary: rag_fast
+    fallback: rag_safe
+    max_cost_eur: 0.03
+    max_latency_ms: 3500
+  - task: student_balance
+    primary: tool_sql
+    fallback: human_review
+    max_cost_eur: 0.02
+    max_latency_ms: 2500
+  - task: complex_case
+    primary: agent_supervised
+    fallback: human_review
+    max_cost_eur: 0.12
+    max_latency_ms: 8000
+default:
+  fallback: human_review
+  reason: unknown_task

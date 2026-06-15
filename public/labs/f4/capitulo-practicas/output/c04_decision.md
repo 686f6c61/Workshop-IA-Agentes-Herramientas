@@ -1,0 +1,63 @@
+# Práctica F4 C04
+
+Estado: `valid`.
+
+La matriz revela prioridades: no basta con calidad; apertura, licencia, datos y operación cambian la decisión.
+
+## Qué te llevas
+
+Una matriz de selección de modelo que distingue API cerrada, pesos abiertos, licencia, control de datos, reproducibilidad y coste operativo.
+
+## Evidencia
+
+```json
+{
+  "status": "valid",
+  "summary": "La matriz revela prioridades: no basta con calidad; apertura, licencia, datos y operación cambian la decisión.",
+  "weights": {
+    "quality": 0.22,
+    "latency": 0.12,
+    "cost": 0.14,
+    "context": 0.08,
+    "data_control": 0.16,
+    "reproducibility": 0.12,
+    "openness": 0.1,
+    "ops_fit": 0.06
+  },
+  "hard_filters": [
+    "privacy",
+    "json",
+    "license"
+  ],
+  "kpis": [
+    "quality",
+    "latency",
+    "cost",
+    "context",
+    "data_control",
+    "reproducibility",
+    "openness",
+    "ops_fit"
+  ],
+  "ranking": [
+    [
+      "open_weight_permissive",
+      0.79
+    ],
+    [
+      "closed_api_mini",
+      0.674
+    ],
+    [
+      "closed_api_frontier",
+      0.625
+    ]
+  ],
+  "discarded_by_filter": [
+    "open_weight_license_propia",
+    "open_weight_quantized_no_json"
+  ],
+  "expected_top": "open_weight_permissive",
+  "what_you_take": "Una matriz de selección de modelo que distingue API cerrada, pesos abiertos, licencia, control de datos, reproducibilidad y coste operativo."
+}
+```

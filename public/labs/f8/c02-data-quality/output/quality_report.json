@@ -1,0 +1,398 @@
+{
+  "contract_id": "support-quality-contract-v1",
+  "owner": "equipo-datos-ia",
+  "purpose": "Auditar calidad de datos, leakage y etiquetas antes de entrenar, evaluar o indexar.",
+  "row_count": 19,
+  "split_counts": {
+    "train": 8,
+    "validation": 4,
+    "test": 7
+  },
+  "label_distribution": {
+    "answer": 13,
+    "ask_more": 4,
+    "resolve": 1,
+    "escalate": 1
+  },
+  "checks": [
+    {
+      "name": "schema_columns",
+      "passes": true,
+      "severity": "block",
+      "detail": {
+        "missing_columns": [],
+        "extra_columns": []
+      }
+    },
+    {
+      "name": "case_id_unique",
+      "passes": false,
+      "severity": "block",
+      "detail": {
+        "duplicate_case_ids": [
+          "q004"
+        ]
+      }
+    },
+    {
+      "name": "split_values",
+      "passes": true,
+      "severity": "block",
+      "detail": {
+        "invalid_splits": []
+      }
+    },
+    {
+      "name": "product_values",
+      "passes": false,
+      "severity": "block",
+      "detail": {
+        "invalid_products": [
+          "admisiones"
+        ]
+      }
+    },
+    {
+      "name": "language_values",
+      "passes": true,
+      "severity": "block",
+      "detail": {
+        "invalid_languages": []
+      }
+    },
+    {
+      "name": "channel_values",
+      "passes": true,
+      "severity": "block",
+      "detail": {
+        "invalid_channels": []
+      }
+    },
+    {
+      "name": "label_values",
+      "passes": false,
+      "severity": "block",
+      "detail": {
+        "invalid_labels": [
+          "resolve"
+        ]
+      }
+    },
+    {
+      "name": "pii_risk_values",
+      "passes": false,
+      "severity": "block",
+      "detail": {
+        "invalid_pii_risk": [
+          "high"
+        ]
+      }
+    },
+    {
+      "name": "missing_rate",
+      "passes": true,
+      "severity": "block",
+      "detail": {
+        "missing_rate": 0.003096,
+        "missing_by_column": {
+          "source_id": 1
+        }
+      }
+    },
+    {
+      "name": "license_compatibility",
+      "passes": false,
+      "severity": "block",
+      "detail": {
+        "license_mismatches": [
+          {
+            "case_id": "q010",
+            "split": "validation",
+            "license": "internal_training_allowed",
+            "allowed": [
+              "support_eval_only"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "split_minimums",
+      "passes": true,
+      "severity": "block",
+      "detail": {}
+    },
+    {
+      "name": "exact_cross_split_duplicates",
+      "passes": false,
+      "severity": "block",
+      "detail": {
+        "duplicates": [
+          {
+            "kind": "exact",
+            "fingerprint": "consulta sobre plazo de matricula ordinaria",
+            "items": [
+              {
+                "case_id": "q001",
+                "split": "train"
+              },
+              {
+                "case_id": "q017",
+                "split": "test"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "near_cross_split_duplicates",
+      "passes": false,
+      "severity": "block",
+      "detail": {
+        "duplicates": [
+          {
+            "kind": "near",
+            "left_case_id": "q007",
+            "left_split": "train",
+            "right_case_id": "q019",
+            "right_split": "test",
+            "jaccard": 0.833333
+          }
+        ]
+      }
+    },
+    {
+      "name": "label_review_queue",
+      "passes": false,
+      "severity": "review",
+      "detail": {
+        "candidates": [
+          {
+            "case_id": "q006",
+            "split": "train",
+            "label": "resolve",
+            "expected_label": "answer",
+            "annotator_a": "answer",
+            "annotator_b": "resolve",
+            "model_probability": "0.41",
+            "reasons": [
+              "annotator_disagreement",
+              "label_differs_from_reference",
+              "low_label_confidence"
+            ]
+          },
+          {
+            "case_id": "q008",
+            "split": "train",
+            "label": "ask_more",
+            "expected_label": "ask_more",
+            "annotator_a": "ask_more",
+            "annotator_b": "answer",
+            "model_probability": "0.63",
+            "reasons": [
+              "annotator_disagreement"
+            ]
+          },
+          {
+            "case_id": "q011",
+            "split": "validation",
+            "label": "answer",
+            "expected_label": "answer",
+            "annotator_a": "answer",
+            "annotator_b": "ask_more",
+            "model_probability": "0.67",
+            "reasons": [
+              "annotator_disagreement"
+            ]
+          },
+          {
+            "case_id": "q015",
+            "split": "test",
+            "label": "answer",
+            "expected_label": "escalate",
+            "annotator_a": "escalate",
+            "annotator_b": "answer",
+            "model_probability": "0.38",
+            "reasons": [
+              "annotator_disagreement",
+              "label_differs_from_reference",
+              "low_label_confidence"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "annotator_agreement",
+      "passes": false,
+      "severity": "review",
+      "detail": {
+        "observed_agreement": 0.789474,
+        "expected_agreement": 0.518006,
+        "kappa": 0.563218
+      }
+    },
+    {
+      "name": "split_label_distribution",
+      "passes": true,
+      "severity": "review",
+      "detail": {
+        "split_label_drift": {
+          "global_distribution": {
+            "answer": 0.684211,
+            "ask_more": 0.210526,
+            "escalate": 0.052632,
+            "resolve": 0.052632
+          },
+          "by_split": {
+            "test": {
+              "distribution": {
+                "answer": 0.857143,
+                "ask_more": 0.142857
+              },
+              "total_variation_vs_global": 0.172932
+            },
+            "train": {
+              "distribution": {
+                "answer": 0.625,
+                "ask_more": 0.25,
+                "resolve": 0.125
+              },
+              "total_variation_vs_global": 0.111842
+            },
+            "validation": {
+              "distribution": {
+                "answer": 0.5,
+                "ask_more": 0.25,
+                "escalate": 0.25
+              },
+              "total_variation_vs_global": 0.236842
+            }
+          }
+        },
+        "high_drift": {}
+      }
+    }
+  ],
+  "label_review_candidates": [
+    {
+      "case_id": "q006",
+      "split": "train",
+      "label": "resolve",
+      "expected_label": "answer",
+      "annotator_a": "answer",
+      "annotator_b": "resolve",
+      "model_probability": "0.41",
+      "reasons": [
+        "annotator_disagreement",
+        "label_differs_from_reference",
+        "low_label_confidence"
+      ]
+    },
+    {
+      "case_id": "q008",
+      "split": "train",
+      "label": "ask_more",
+      "expected_label": "ask_more",
+      "annotator_a": "ask_more",
+      "annotator_b": "answer",
+      "model_probability": "0.63",
+      "reasons": [
+        "annotator_disagreement"
+      ]
+    },
+    {
+      "case_id": "q011",
+      "split": "validation",
+      "label": "answer",
+      "expected_label": "answer",
+      "annotator_a": "answer",
+      "annotator_b": "ask_more",
+      "model_probability": "0.67",
+      "reasons": [
+        "annotator_disagreement"
+      ]
+    },
+    {
+      "case_id": "q015",
+      "split": "test",
+      "label": "answer",
+      "expected_label": "escalate",
+      "annotator_a": "escalate",
+      "annotator_b": "answer",
+      "model_probability": "0.38",
+      "reasons": [
+        "annotator_disagreement",
+        "label_differs_from_reference",
+        "low_label_confidence"
+      ]
+    }
+  ],
+  "exact_cross_split_duplicates": [
+    {
+      "kind": "exact",
+      "fingerprint": "consulta sobre plazo de matricula ordinaria",
+      "items": [
+        {
+          "case_id": "q001",
+          "split": "train"
+        },
+        {
+          "case_id": "q017",
+          "split": "test"
+        }
+      ]
+    }
+  ],
+  "near_cross_split_duplicates": [
+    {
+      "kind": "near",
+      "left_case_id": "q007",
+      "left_split": "train",
+      "right_case_id": "q019",
+      "right_split": "test",
+      "jaccard": 0.833333
+    }
+  ],
+  "annotator_agreement": {
+    "observed_agreement": 0.789474,
+    "expected_agreement": 0.518006,
+    "kappa": 0.563218
+  },
+  "stratification_drift": {
+    "global_distribution": {
+      "answer": 0.684211,
+      "ask_more": 0.210526,
+      "escalate": 0.052632,
+      "resolve": 0.052632
+    },
+    "by_split": {
+      "test": {
+        "distribution": {
+          "answer": 0.857143,
+          "ask_more": 0.142857
+        },
+        "total_variation_vs_global": 0.172932
+      },
+      "train": {
+        "distribution": {
+          "answer": 0.625,
+          "ask_more": 0.25,
+          "resolve": 0.125
+        },
+        "total_variation_vs_global": 0.111842
+      },
+      "validation": {
+        "distribution": {
+          "answer": 0.5,
+          "ask_more": 0.25,
+          "escalate": 0.25
+        },
+        "total_variation_vs_global": 0.236842
+      }
+    }
+  },
+  "gate": "block",
+  "recommendation": "bloquear uso hasta corregir fallos de contrato, leakage o schema"
+}

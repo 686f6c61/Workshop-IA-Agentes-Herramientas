@@ -1,0 +1,5 @@
+case_id,split,label,expected_label,annotator_a,annotator_b,model_probability,reasons
+q006,train,resolve,answer,answer,resolve,0.41,annotator_disagreement;label_differs_from_reference;low_label_confidence
+q008,train,ask_more,ask_more,ask_more,answer,0.63,annotator_disagreement
+q011,validation,answer,answer,answer,ask_more,0.67,annotator_disagreement
+q015,test,answer,escalate,escalate,answer,0.38,annotator_disagreement;label_differs_from_reference;low_label_confidence

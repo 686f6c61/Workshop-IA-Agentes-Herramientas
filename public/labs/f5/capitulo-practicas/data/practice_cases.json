@@ -1,0 +1,347 @@
+{
+  "c01": {
+    "manifest": {
+      "name": "matricula-support-agent",
+      "goal": "Resolver consultas de matrícula sin ejecutar acciones persistentes sin aprobación.",
+      "budget": {
+        "max_steps": 6,
+        "max_tool_calls": 4,
+        "max_cost_eur": 0.08
+      },
+      "memory": {
+        "prompt_context": [
+          "instrucciones",
+          "petición_usuario",
+          "evidencia_recuperada"
+        ],
+        "session_state": [
+          "case_id",
+          "steps",
+          "observations",
+          "approvals"
+        ],
+        "persistent_memory": [
+          "policy_version",
+          "preferred_tone"
+        ]
+      },
+      "tools": {
+        "buscar_politica": {
+          "permission": "allow",
+          "side_effect": "none",
+          "timeout_ms": 900
+        },
+        "consultar_saldo": {
+          "permission": "authenticated_read",
+          "side_effect": "none",
+          "timeout_ms": 1200
+        },
+        "crear_ticket": {
+          "permission": "approval_required",
+          "side_effect": "persistent_write",
+          "timeout_ms": 1500
+        }
+      },
+      "stop_rules": [
+        "done",
+        "approval_required",
+        "blocked",
+        "budget_exhausted"
+      ]
+    }
+  },
+  "c02": {
+    "transitions": [
+      {
+        "state": "CREATED",
+        "action": "classify_intent",
+        "observation": "needs_policy",
+        "next_state": "PLANNING"
+      },
+      {
+        "state": "PLANNING",
+        "action": "buscar_politica",
+        "observation": "policy_found",
+        "next_state": "TOOL_CALLING"
+      },
+      {
+        "state": "TOOL_CALLING",
+        "action": "preparar_respuesta",
+        "observation": "draft_ready",
+        "next_state": "WAITING_APPROVAL"
+      },
+      {
+        "state": "WAITING_APPROVAL",
+        "action": "human_approve",
+        "observation": "approved",
+        "next_state": "COMPLETED"
+      }
+    ],
+    "budget": {
+      "max_steps": 6,
+      "max_tool_calls": 3
+    }
+  },
+  "c03": {
+    "tool": {
+      "name": "consultar_saldo",
+      "input_schema": {
+        "required": [
+          "case_id"
+        ],
+        "types": {
+          "case_id": "string"
+        }
+      },
+      "output_schema": {
+        "required": [
+          "pending_eur",
+          "currency"
+        ],
+        "types": {
+          "pending_eur": "number",
+          "currency": "string"
+        }
+      },
+      "permission": "authenticated_read",
+      "side_effect": "none",
+      "timeouts_ms": {
+        "connect": 250,
+        "read": 1000
+      },
+      "errors": [
+        "not_found",
+        "forbidden",
+        "timeout",
+        "schema_invalid"
+      ],
+      "trace_events": [
+        "tool.call",
+        "tool.result",
+        "tool.error"
+      ]
+    }
+  },
+  "c04": {
+    "handoff": {
+      "handoff_id": "hf-2026-06-10-001",
+      "objective": "Continuar revisión de capítulo con mismas normas editoriales.",
+      "must_keep": [
+        "criterios editoriales",
+        "rutas tocadas",
+        "decisiones pendientes"
+      ],
+      "must_not_keep": [
+        "logs completos",
+        "secretos",
+        "capturas no usadas"
+      ],
+      "artifacts": [
+        {
+          "path": "fasciculo-05-agentes-orquestacion/04-contexto-memoria-compaction-handoff.md",
+          "hash": "demo"
+        },
+        {
+          "path": "labs/f5/capitulo-practicas/output/c04_report.json",
+          "hash": "demo"
+        }
+      ],
+      "token_budget": {
+        "raw_tokens": 4200,
+        "handoff_tokens": 780
+      }
+    }
+  },
+  "c05": {
+    "options": {
+      "workflow": {
+        "predictability": 5,
+        "flexibility": 2,
+        "auditability": 5,
+        "latency": 4
+      },
+      "react": {
+        "predictability": 3,
+        "flexibility": 4,
+        "auditability": 3,
+        "latency": 3
+      },
+      "planner_executor": {
+        "predictability": 4,
+        "flexibility": 4,
+        "auditability": 4,
+        "latency": 2
+      },
+      "multiagent": {
+        "predictability": 2,
+        "flexibility": 5,
+        "auditability": 2,
+        "latency": 1
+      }
+    },
+    "weights": {
+      "predictability": 0.35,
+      "flexibility": 0.2,
+      "auditability": 0.3,
+      "latency": 0.15
+    }
+  },
+  "c06": {
+    "run": {
+      "limits": {
+        "max_steps": 8,
+        "max_tool_calls": 6,
+        "max_seconds": 20
+      },
+      "sensors": [
+        "tokens_in",
+        "tokens_out",
+        "tool_count",
+        "latency_ms",
+        "policy_decision",
+        "trace_complete"
+      ],
+      "trace": [
+        "run.started",
+        "model.request",
+        "tool.call",
+        "tool.result",
+        "gate.checked",
+        "run.completed"
+      ],
+      "redactions": [
+        "email",
+        "student_id",
+        "free_text_secret"
+      ]
+    }
+  },
+  "c07": {
+    "portable_contract": {
+      "request": [
+        "task",
+        "context_refs",
+        "tools_allowed",
+        "output_schema",
+        "budget"
+      ],
+      "events": [
+        "model.delta",
+        "tool.call",
+        "tool.result",
+        "handoff",
+        "approval.requested",
+        "run.completed"
+      ],
+      "providers": {
+        "openai_agents": [
+          "agent",
+          "runner",
+          "tools",
+          "handoffs",
+          "tracing"
+        ],
+        "anthropic": [
+          "messages",
+          "tool_use",
+          "tool_result",
+          "permissions",
+          "subagents"
+        ],
+        "google_adk": [
+          "agent",
+          "tools",
+          "sessions",
+          "artifacts",
+          "a2a"
+        ]
+      }
+    }
+  },
+  "c08": {
+    "actions": [
+      {
+        "action": "read_policy",
+        "risk": "low",
+        "decision": "allow"
+      },
+      {
+        "action": "read_balance",
+        "risk": "private_read",
+        "decision": "allow_if_authenticated"
+      },
+      {
+        "action": "create_ticket",
+        "risk": "persistent_write",
+        "decision": "approval_required"
+      },
+      {
+        "action": "send_email",
+        "risk": "external_effect",
+        "decision": "approval_required"
+      }
+    ]
+  },
+  "c09": {
+    "allowed_routes": [
+      "local_tool",
+      "mcp_tool",
+      "a2a",
+      "human_review",
+      "workflow_graph"
+    ],
+    "requests": [
+      {
+        "text": "resume política de matrícula",
+        "route": "local_tool"
+      },
+      {
+        "text": "consulta expediente autenticado",
+        "route": "mcp_tool"
+      },
+      {
+        "text": "coordina revisión con agente de citas",
+        "route": "a2a"
+      },
+      {
+        "text": "publica cambio en producción",
+        "route": "human_review"
+      },
+      {
+        "text": "ejecuta flujo de admisiones",
+        "route": "workflow_graph"
+      }
+    ]
+  },
+  "c10": {
+    "runs": [
+      {
+        "id": "r1",
+        "route_ok": true,
+        "tools_ok": true,
+        "approval_ok": true,
+        "trace_ok": true,
+        "cost_eur": 0.03,
+        "latency_ms": 1800
+      },
+      {
+        "id": "r2",
+        "route_ok": true,
+        "tools_ok": true,
+        "approval_ok": true,
+        "trace_ok": true,
+        "cost_eur": 0.05,
+        "latency_ms": 2400
+      },
+      {
+        "id": "r3",
+        "route_ok": true,
+        "tools_ok": true,
+        "approval_ok": true,
+        "trace_ok": true,
+        "cost_eur": 0.04,
+        "latency_ms": 2100
+      }
+    ]
+  }
+}

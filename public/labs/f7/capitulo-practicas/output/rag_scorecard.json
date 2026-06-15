@@ -1,0 +1,38 @@
+{
+  "summary": {
+    "recall": 0.8333,
+    "groundedness": 0.8333,
+    "citation_acceptance": 1.0,
+    "abstention_accuracy": 1.0
+  },
+  "rows": [
+    {
+      "case_id": "rag_001",
+      "recall": 1.0,
+      "grounded": 1.0,
+      "citation_ok": 1.0,
+      "abstention_ok": 1.0
+    },
+    {
+      "case_id": "rag_002",
+      "recall": 0.5,
+      "grounded": 0.5,
+      "citation_ok": 1.0,
+      "abstention_ok": 1.0
+    },
+    {
+      "case_id": "rag_003",
+      "recall": 1.0,
+      "grounded": 1.0,
+      "citation_ok": 1.0,
+      "abstention_ok": 1.0
+    }
+  ],
+  "checks": {
+    "recall_ok": true,
+    "groundedness_ok": true,
+    "citation_ok": true,
+    "abstention_ok": true
+  },
+  "decision": "promote_rag_eval"
+}

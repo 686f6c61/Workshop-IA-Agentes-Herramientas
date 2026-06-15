@@ -1,0 +1,41 @@
+{
+  "type": "object",
+  "required": [
+    "schema_version",
+    "patch_id",
+    "base_dataset",
+    "target_case_id",
+    "changes"
+  ],
+  "properties": {
+    "schema_version": {"type": "string"},
+    "patch_id": {"type": "string"},
+    "base_dataset": {"type": "string"},
+    "target_case_id": {"type": "string"},
+    "changes": {
+      "type": "object",
+      "required": [
+        "owner",
+        "approvers",
+        "evidence_artifacts_add",
+        "controls_add",
+        "quality_update",
+        "ops_update",
+        "expected_decision",
+        "release_notes",
+        "rollback_plan"
+      ],
+      "properties": {
+        "owner": {"type": "string"},
+        "approvers": {"type": "array", "items": {"type": "string"}},
+        "evidence_artifacts_add": {"type": "array", "items": {"type": "string"}},
+        "controls_add": {"type": "array", "items": {"type": "string"}},
+        "quality_update": {"type": "object"},
+        "ops_update": {"type": "object"},
+        "expected_decision": {"enum": ["pass", "review", "block"]},
+        "release_notes": {"type": "array", "items": {"type": "string"}},
+        "rollback_plan": {"type": "string"}
+      }
+    }
+  }
+}

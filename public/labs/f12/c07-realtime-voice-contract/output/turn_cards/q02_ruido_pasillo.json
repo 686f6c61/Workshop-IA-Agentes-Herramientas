@@ -1,0 +1,55 @@
+{
+  "case_id": "q02_ruido_pasillo",
+  "title": "Audio con ruido: la transcripción no permite decidir",
+  "decision": "ask_repeat",
+  "expected_decision": "ask_repeat",
+  "redacted_transcript": "necesito cambiar el color de contrato de expediente",
+  "answer": "No ejecuto cambios con una transcripción dudosa; pido repetir o confirmar por canal escrito.",
+  "metrics": {
+    "wer": 0.3333,
+    "substitutions": 2,
+    "deletions": 1,
+    "insertions": 0,
+    "reference_words": 9,
+    "hypothesis_words": 8,
+    "critical_slot_count": 2,
+    "critical_slot_errors": 1,
+    "critical_slot_error_rate": 0.5,
+    "critical_slot_mismatches": [
+      {
+        "name": "field_to_change",
+        "reference": "correo",
+        "hypothesis": "color"
+      }
+    ],
+    "partial_count": 3,
+    "partial_revision_count": 0,
+    "partial_stability": 1.0,
+    "speech_start_ms": 0,
+    "speech_end_ms": 2960,
+    "mean_energy": 0.016,
+    "endpoint_delay_ms": 940,
+    "first_audio_latency_ms": 1760,
+    "total_turn_latency_ms": 6900,
+    "sample_rate_hz": 16000,
+    "endpoint_silence_ms": 500,
+    "barge_in_stop_latency_ms": null
+  },
+  "quality_flags": [
+    "wer_above_gate",
+    "critical_slot_error",
+    "audio_quality_low",
+    "endpoint_delay_high",
+    "first_audio_latency_high"
+  ],
+  "evidence": [
+    "asr_low_confidence",
+    "identity_change_policy"
+  ],
+  "limits": [
+    "La transcripción de voz no se trata como verdad absoluta.",
+    "Las herramientas con efecto externo requieren política y confirmación."
+  ],
+  "next_action": "Pedir repetición, mostrar resumen escrito y evitar tool calls.",
+  "audit_action": "Pedir repetición o pasar a canal escrito antes de ejecutar cambios."
+}

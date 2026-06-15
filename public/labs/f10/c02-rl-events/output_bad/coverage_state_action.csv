@@ -1,0 +1,4 @@
+state_id,action,count,share
+ticket_con_evidencia,responder_con_cita,1,0.25
+ticket_nuevo,consultar_rag,2,0.5
+ticket_nuevo,responder,1,0.25

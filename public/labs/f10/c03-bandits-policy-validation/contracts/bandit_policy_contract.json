@@ -1,0 +1,23 @@
+{
+  "contract_version": "bandit_policy_gate.v1",
+  "seed": 13,
+  "success_threshold": 0.72,
+  "stable_action_by_slice": {
+    "alta_criticidad": "modelo_fuerte"
+  },
+  "no_exploration_slices": ["alta_criticidad"],
+  "gate": {
+    "min_cumulative_reward": 42.0,
+    "max_regret": 5.0,
+    "max_exploration_share": 0.32,
+    "max_sensitive_exploration_count": 0,
+    "max_average_cost": 0.25,
+    "required_trace_events": 60
+  },
+  "policies": [
+    {"policy_id": "greedy"},
+    {"policy_id": "epsilon_greedy", "epsilon": 0.1},
+    {"policy_id": "ucb", "c": 0.8},
+    {"policy_id": "thompson_sampling", "posterior_samples": 200}
+  ]
+}

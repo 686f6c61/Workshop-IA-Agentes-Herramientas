@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 640" role="img" aria-labelledby="title desc">
+  <title id="title">Página de política de beca</title>
+  <desc id="desc">Documento sintético con regla de envío y región marcada.</desc>
+  <rect width="900" height="640" fill="#ffffff"/>
+  <rect x="62" y="48" width="776" height="544" rx="0" fill="#ffffff" stroke="#111111" stroke-width="2"/>
+  <text x="96" y="104" font-family="Inter, Arial, sans-serif" font-size="24" font-weight="700" fill="#111111">Política de envío de becas 2026</text>
+  <line x1="96" y1="128" x2="806" y2="128" stroke="#111111" stroke-width="1.5"/>
+  <text x="96" y="178" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="700" fill="#111111">3.2. Envío de solicitud</text>
+  <rect x="90" y="202" width="720" height="118" fill="#f7f7f7" stroke="#111111" stroke-width="1.2"/>
+  <text x="116" y="238" font-family="Inter, Arial, sans-serif" font-size="17" fill="#111111">La solicitud solo puede enviarse cuando el justificante de</text>
+  <text x="116" y="268" font-family="Inter, Arial, sans-serif" font-size="17" fill="#111111">matrícula aparece como validado en el sistema académico.</text>
+  <text x="116" y="298" font-family="Inter, Arial, sans-serif" font-size="16" fill="#444444">Si está pendiente, se guarda borrador y se aporta documentación.</text>
+  <text x="96" y="370" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="700" fill="#111111">3.3. Evidencia mínima</text>
+  <text x="116" y="410" font-family="Inter, Arial, sans-serif" font-size="16" fill="#111111">Toda respuesta automática debe citar sección, estado operativo y fecha.</text>
+  <text x="796" y="570" text-anchor="end" font-family="Inter, Arial, sans-serif" font-size="10" fill="#999999">IA para gente curiosa / Facsímil 12 / Capítulo 06 / 686f6c61</text>
+</svg>

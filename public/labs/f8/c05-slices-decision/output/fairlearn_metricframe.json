@@ -1,0 +1,55 @@
+{
+  "status": "generated_with_standard_library_fallback",
+  "missing_optional_dependency": "pandas",
+  "install_for_real_fairlearn_metricframe": [
+    "python3 -m venv .venv",
+    "source .venv/bin/activate",
+    "python3 -m pip install pandas fairlearn",
+    "python3 ops/audit_with_fairlearn.py --field access_need --write"
+  ],
+  "field": "access_need",
+  "policy": "slice_decision_policy.json",
+  "meaning": {
+    "auto_recall": "Recall si solo cuenta la decisión automatica de priorizar.",
+    "safe_capture": "Recall si cuentan priorizar y revisar, porque ambas evitan flujo normal.",
+    "miss_rate": "Casos prioritarios enviados a flujo normal.",
+    "priority_selection_rate": "Proporcion de casos priorizados automáticamente."
+  },
+  "overall": {
+    "n": 36,
+    "positives": 18,
+    "auto_recall": 0.444444,
+    "false_positive_rate": 0.055556,
+    "priority_selection_rate": 0.25,
+    "miss_rate": 0.555556,
+    "safe_capture": 0.777778
+  },
+  "by_group": {
+    "no": {
+      "n": 24,
+      "positives": 12,
+      "auto_recall": 0.666667,
+      "false_positive_rate": 0.083333,
+      "priority_selection_rate": 0.375,
+      "miss_rate": 0.333333,
+      "safe_capture": 1.0
+    },
+    "si": {
+      "n": 12,
+      "positives": 6,
+      "auto_recall": 0.0,
+      "false_positive_rate": 0.0,
+      "priority_selection_rate": 0.0,
+      "miss_rate": 1.0,
+      "safe_capture": 0.333333
+    }
+  },
+  "difference": {
+    "auto_recall": 0.666667,
+    "false_positive_rate": 0.083333,
+    "priority_selection_rate": 0.375,
+    "miss_rate": 0.666667,
+    "safe_capture": 0.666667
+  },
+  "why_fallback_is_kept": "El kit base debe ejecutarse sin dependencias externas. Este fallback permite aprender la lectura por grupos; Fairlearn aporta el MetricFrame profesional cuando está instalado."
+}

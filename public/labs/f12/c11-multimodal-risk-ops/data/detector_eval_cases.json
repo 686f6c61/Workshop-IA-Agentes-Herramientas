@@ -1,0 +1,79 @@
+[
+  {
+    "sample_id": "ocr_invoice_clean",
+    "modality": "document",
+    "gold_entities": ["DNI_NIE", "EMAIL"],
+    "detected_entities": [
+      {"type": "DNI_NIE", "confidence": 0.94},
+      {"type": "EMAIL", "confidence": 0.91}
+    ]
+  },
+  {
+    "sample_id": "ocr_low_res_partial_id",
+    "modality": "document",
+    "gold_entities": ["DNI_NIE", "EMAIL"],
+    "detected_entities": [
+      {"type": "EMAIL", "confidence": 0.88}
+    ]
+  },
+  {
+    "sample_id": "image_badge_face",
+    "modality": "image",
+    "gold_entities": ["FACE", "STUDENT_ID"],
+    "detected_entities": [
+      {"type": "FACE", "confidence": 0.86},
+      {"type": "STUDENT_ID", "confidence": 0.83}
+    ]
+  },
+  {
+    "sample_id": "image_exif_location",
+    "modality": "image",
+    "gold_entities": ["GPS_LOCATION", "ADDRESS"],
+    "detected_entities": [
+      {"type": "ADDRESS", "confidence": 0.72}
+    ]
+  },
+  {
+    "sample_id": "audio_health_low_confidence",
+    "modality": "audio",
+    "gold_entities": ["HEALTH", "PHONE"],
+    "detected_entities": [
+      {"type": "PHONE", "confidence": 0.76},
+      {"type": "HEALTH", "confidence": 0.62}
+    ]
+  },
+  {
+    "sample_id": "video_license_plate",
+    "modality": "video",
+    "gold_entities": ["LICENSE_PLATE", "FACE"],
+    "detected_entities": [
+      {"type": "LICENSE_PLATE", "confidence": 0.79},
+      {"type": "FACE", "confidence": 0.58}
+    ]
+  },
+  {
+    "sample_id": "ui_api_key_prompt_injection",
+    "modality": "ui_trace",
+    "gold_entities": ["API_KEY", "PROMPT_INJECTION"],
+    "detected_entities": [
+      {"type": "API_KEY", "confidence": 0.99},
+      {"type": "PROMPT_INJECTION", "confidence": 0.87}
+    ]
+  },
+  {
+    "sample_id": "eval_token_fragment",
+    "modality": "eval_dataset",
+    "gold_entities": ["ACCESS_TOKEN_FRAGMENT", "COOKIE"],
+    "detected_entities": [
+      {"type": "ACCESS_TOKEN_FRAGMENT", "confidence": 0.89}
+    ]
+  },
+  {
+    "sample_id": "public_product_photo",
+    "modality": "image",
+    "gold_entities": [],
+    "detected_entities": [
+      {"type": "FACE", "confidence": 0.41}
+    ]
+  }
+]

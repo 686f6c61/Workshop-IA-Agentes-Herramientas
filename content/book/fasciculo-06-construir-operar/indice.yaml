@@ -1,0 +1,46 @@
+titulo: "Construir y operar"
+fasciculo: 6
+total_capitulos: 10
+estado: revision
+
+capitulos:
+  - numero: 1
+    archivo: 01-de-prototipo-a-sistema-operable.md
+    titulo: "De prototipo a sistema operable"
+    estado: revision
+  - numero: 2
+    archivo: 02-arquitectura-runtime-api-colas-estado-contratos.md
+    titulo: "Arquitectura de runtime: API, colas, estado y contratos"
+    estado: revision
+  - numero: 3
+    archivo: 03-serving-modelos-workers-batching-capacidad.md
+    titulo: "Serving de modelos: workers, batching y capacidad"
+    estado: revision
+  - numero: 4
+    archivo: 04-observabilidad-logs-metricas-trazas-costes.md
+    titulo: "Observabilidad: logs, métricas, trazas y costes"
+    estado: revision
+  - numero: 5
+    archivo: 05-routing-fallback-presupuestos-tarea.md
+    titulo: "Routing, fallback y presupuestos por tarea"
+    estado: revision
+  - numero: 6
+    archivo: 06-evalops-gates-release.md
+    titulo: "EvalOps y gates de release"
+    estado: revision
+  - numero: 7
+    archivo: 07-cambios-progresivos-shadow-canary-rollback.md
+    titulo: "Cambios progresivos: shadow, canary y rollback"
+    estado: revision
+  - numero: 8
+    archivo: 08-handoffs-operativos-revision-humana.md
+    titulo: "Handoffs operativos y revisión humana"
+    estado: revision
+  - numero: 9
+    archivo: 09-incidencias-postmortems-mejora-continua.md
+    titulo: "Incidencias, postmortems y mejora continua"
+    estado: revision
+  - numero: 10
+    archivo: 10-runbooks-continuidad-laboratorio-operacion.md
+    titulo: "Runbooks, continuidad y laboratorio de operación"
+    estado: revision

@@ -1,0 +1,13 @@
+{
+  "cases": [
+    {"name": "mini_demo", "height": 8, "width": 8, "patch_size": 2, "why": "ver patches a simple vista"},
+    {"name": "vit_base_224_p16", "height": 224, "width": 224, "patch_size": 16, "why": "configuracion clasica de ViT base"},
+    {"name": "captura_hd_p16", "height": 720, "width": 1280, "patch_size": 16, "why": "captura de pantalla relativamente comun"},
+    {"name": "captura_hd_p32", "height": 720, "width": 1280, "patch_size": 32, "why": "menos tokens, mas compresion espacial"},
+    {"name": "captura_beca_larga_p16", "height": 1440, "width": 3200, "patch_size": 16, "why": "captura larga de formulario completo: mucha evidencia pero coste alto"},
+    {"name": "captura_beca_region_alerta_p16", "height": 320, "width": 512, "patch_size": 16, "why": "recorte de region con alerta y boton: menos tokens si sabes que evidencia necesitas"},
+    {"name": "captura_movil_larga_p16", "height": 2532, "width": 1170, "patch_size": 16, "why": "pantalla movil larga: aspect ratio extremo y mucho padding potencial"},
+    {"name": "documento_alta_res_p16", "height": 1654, "width": 2339, "patch_size": 16, "why": "pagina A4 escaneada a resolucion alta"},
+    {"name": "factura_region_total_p16", "height": 320, "width": 640, "patch_size": 16, "why": "recorte de tabla o total: alternativa a mandar toda la pagina"}
+  ]
+}

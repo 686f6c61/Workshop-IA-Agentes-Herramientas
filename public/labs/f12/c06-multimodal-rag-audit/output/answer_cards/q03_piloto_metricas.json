@@ -1,0 +1,38 @@
+{
+  "query_id": "q03_piloto_metricas",
+  "decision": "answer",
+  "answer": "Sí, bajan: la latencia p95 pasa de 920 ms a 735 ms y los errores por mil bajan de 13.2 a 5.9 entre W20 y W23.",
+  "evidence": [
+    {
+      "source_id": "metric_chart_visual",
+      "modality": "figure",
+      "fact_id": "pilot_latency_errors_down",
+      "page": 1,
+      "region_id": "latency_error_chart",
+      "score": 1.1614
+    },
+    {
+      "source_id": "metric_table_values",
+      "modality": "table",
+      "fact_id": "pilot_metric_values",
+      "page": null,
+      "region_id": null,
+      "score": 0.8992
+    }
+  ],
+  "limits": [
+    "El gráfico explica la tendencia; la tabla conserva los valores exactos."
+  ],
+  "next_action": "Usar la figura para lectura visual y la tabla para cálculo, alerta o informe.",
+  "metrics": {
+    "recall_at_k": 1.0,
+    "evidence_coverage": 1.0,
+    "modality_coverage": 1.0,
+    "context_precision": 0.6,
+    "ndcg_at_k": 1.0,
+    "mrr": 1.0,
+    "unsupported_claim_count": 0,
+    "retrieved_count": 5,
+    "relevant_retrieved_count": 3
+  }
+}

@@ -1,0 +1,127 @@
+{
+  "snapshot_type": "rl_trajectory_snapshot",
+  "gamma": 0.9,
+  "episodes": [
+    {
+      "episode_id": "case_001",
+      "return": 1.6,
+      "steps": [
+        {
+          "t": 0,
+          "state_id": "ticket_nuevo",
+          "action": "pedir_dato",
+          "action_probability": 0.34,
+          "reward": -0.2,
+          "next_state_id": "esperando_usuario",
+          "terminal": false,
+          "policy_version": "2026-06-07.3",
+          "reward_version": "support_reward.v2",
+          "trace_id": "trace_case001_0"
+        },
+        {
+          "t": 1,
+          "state_id": "ticket_con_evidencia",
+          "action": "responder_con_cita",
+          "action_probability": 0.72,
+          "reward": 2.0,
+          "next_state_id": "ticket_resuelto",
+          "terminal": true,
+          "policy_version": "2026-06-07.3",
+          "reward_version": "support_reward.v2",
+          "trace_id": "trace_case001_1"
+        }
+      ]
+    },
+    {
+      "episode_id": "case_002",
+      "return": 0.26,
+      "steps": [
+        {
+          "t": 0,
+          "state_id": "ticket_nuevo",
+          "action": "consultar_rag",
+          "action_probability": 0.43,
+          "reward": -0.1,
+          "next_state_id": "ticket_con_evidencia",
+          "terminal": false,
+          "policy_version": "2026-06-07.3",
+          "reward_version": "support_reward.v2",
+          "trace_id": "trace_case002_0"
+        },
+        {
+          "t": 1,
+          "state_id": "ticket_con_evidencia",
+          "action": "escalar_revision",
+          "action_probability": 0.18,
+          "reward": 0.4,
+          "next_state_id": "revision_humana",
+          "terminal": true,
+          "policy_version": "2026-06-07.3",
+          "reward_version": "support_reward.v2",
+          "trace_id": "trace_case002_1"
+        }
+      ]
+    },
+    {
+      "episode_id": "case_003",
+      "return": 1.79,
+      "steps": [
+        {
+          "t": 0,
+          "state_id": "ticket_nuevo",
+          "action": "consultar_rag",
+          "action_probability": 0.39,
+          "reward": -0.1,
+          "next_state_id": "ticket_con_evidencia",
+          "terminal": false,
+          "policy_version": "2026-06-07.3",
+          "reward_version": "support_reward.v2",
+          "trace_id": "trace_case003_0"
+        },
+        {
+          "t": 1,
+          "state_id": "ticket_con_evidencia",
+          "action": "responder_con_cita",
+          "action_probability": 0.76,
+          "reward": 2.1,
+          "next_state_id": "ticket_resuelto",
+          "terminal": true,
+          "policy_version": "2026-06-07.3",
+          "reward_version": "support_reward.v2",
+          "trace_id": "trace_case003_1"
+        }
+      ]
+    },
+    {
+      "episode_id": "case_004",
+      "return": -1.46,
+      "steps": [
+        {
+          "t": 0,
+          "state_id": "ticket_nuevo",
+          "action": "pedir_dato",
+          "action_probability": 0.31,
+          "reward": -0.2,
+          "next_state_id": "esperando_usuario",
+          "terminal": false,
+          "policy_version": "2026-06-07.3",
+          "reward_version": "support_reward.v2",
+          "trace_id": "trace_case004_0"
+        },
+        {
+          "t": 1,
+          "state_id": "ticket_con_evidencia",
+          "action": "responder",
+          "action_probability": 0.22,
+          "reward": -1.4,
+          "next_state_id": "ticket_reabierto",
+          "terminal": true,
+          "policy_version": "2026-06-07.3",
+          "reward_version": "support_reward.v2",
+          "trace_id": "trace_case004_1"
+        }
+      ]
+    }
+  ],
+  "snapshot_hash": "42fef8c39c537ea134973d404256db78ab515cd185c82db641b8b42673508194"
+}

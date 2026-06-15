@@ -1,0 +1,5 @@
+query_id,text,expected_product,notes
+q001,"requisitos y documentos para beca",becas,"deberia recuperar casos de becas aunque la frase cambie"
+q002,"justificante de pago pendiente",pagos,"contiene terminos que aparecen en validation, no todos en train"
+q003,"cambio de horario de laboratorio",horarios,"mezcla horario y laboratorio"
+q004,"matricula bloqueada por expediente",matricula,"consulta parecida al test, sirve para mirar cobertura"

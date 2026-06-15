@@ -1,0 +1,43 @@
+{
+  "case_id": "q01_estado_beca",
+  "title": "Consulta normal con política y estado operativo",
+  "decision": "answer",
+  "expected_decision": "answer",
+  "redacted_transcript": "quiero saber si puedo enviar la beca aunque el justificante sigue pendiente",
+  "answer": "No conviene enviar todavía: falta validar el justificante.",
+  "metrics": {
+    "wer": 0.0833,
+    "substitutions": 1,
+    "deletions": 0,
+    "insertions": 0,
+    "reference_words": 12,
+    "hypothesis_words": 12,
+    "critical_slot_count": 2,
+    "critical_slot_errors": 0,
+    "critical_slot_error_rate": 0.0,
+    "critical_slot_mismatches": [],
+    "partial_count": 3,
+    "partial_revision_count": 0,
+    "partial_stability": 1.0,
+    "speech_start_ms": 0,
+    "speech_end_ms": 2460,
+    "mean_energy": 0.075,
+    "endpoint_delay_ms": 400,
+    "first_audio_latency_ms": 1190,
+    "total_turn_latency_ms": 5750,
+    "sample_rate_hz": 16000,
+    "endpoint_silence_ms": 500,
+    "barge_in_stop_latency_ms": null
+  },
+  "quality_flags": [],
+  "evidence": [
+    "policy_submission_rule",
+    "status_pending_receipt"
+  ],
+  "limits": [
+    "La transcripción de voz no se trata como verdad absoluta.",
+    "Las herramientas con efecto externo requieren política y confirmación."
+  ],
+  "next_action": "Responder con evidencias y registrar métricas del turno.",
+  "audit_action": "Responder con límites, evidencias y sin ejecutar acciones fuera de política."
+}

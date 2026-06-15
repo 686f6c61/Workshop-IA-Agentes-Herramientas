@@ -1,0 +1,147 @@
+[
+  {
+    "id": "baseline_relu",
+    "valid": true,
+    "expected_valid": true,
+    "dimension": 3,
+    "activation": "relu",
+    "z": 0.64,
+    "output": 0.64,
+    "expected_output": 0.64,
+    "matches_expected": true,
+    "matches_expectation": true,
+    "sensitivity": [
+      {
+        "parameter": "w1",
+        "delta": 0.1,
+        "output_change": 0.05
+      },
+      {
+        "parameter": "w2",
+        "delta": 0.1,
+        "output_change": 0.03
+      },
+      {
+        "parameter": "w3",
+        "delta": 0.1,
+        "output_change": 0.08
+      },
+      {
+        "parameter": "bias",
+        "delta": 0.1,
+        "output_change": 0.1
+      }
+    ]
+  },
+  {
+    "id": "negative_relu",
+    "valid": true,
+    "expected_valid": true,
+    "dimension": 3,
+    "activation": "relu",
+    "z": -1.3,
+    "output": 0.0,
+    "expected_output": 0.0,
+    "matches_expected": true,
+    "matches_expectation": true,
+    "sensitivity": [
+      {
+        "parameter": "w1",
+        "delta": 0.1,
+        "output_change": 0.0
+      },
+      {
+        "parameter": "w2",
+        "delta": 0.1,
+        "output_change": 0.0
+      },
+      {
+        "parameter": "w3",
+        "delta": 0.1,
+        "output_change": 0.0
+      },
+      {
+        "parameter": "bias",
+        "delta": 0.1,
+        "output_change": 0.0
+      }
+    ]
+  },
+  {
+    "id": "binary_sigmoid",
+    "valid": true,
+    "expected_valid": true,
+    "dimension": 2,
+    "activation": "sigmoid",
+    "z": 1.0,
+    "output": 0.7310585786,
+    "expected_output": 0.7310585786,
+    "matches_expected": true,
+    "matches_expectation": true,
+    "sensitivity": [
+      {
+        "parameter": "w1",
+        "delta": 0.1,
+        "output_change": 0.0374662049
+      },
+      {
+        "parameter": "w2",
+        "delta": 0.1,
+        "output_change": -0.020109076
+      },
+      {
+        "parameter": "bias",
+        "delta": 0.1,
+        "output_change": 0.019201527
+      }
+    ]
+  },
+  {
+    "id": "linear_score",
+    "valid": true,
+    "expected_valid": true,
+    "dimension": 4,
+    "activation": "linear",
+    "z": 0.35,
+    "output": 0.35,
+    "expected_output": 0.35,
+    "matches_expected": true,
+    "matches_expectation": true,
+    "sensitivity": [
+      {
+        "parameter": "w1",
+        "delta": 0.1,
+        "output_change": 0.02
+      },
+      {
+        "parameter": "w2",
+        "delta": 0.1,
+        "output_change": 0.04
+      },
+      {
+        "parameter": "w3",
+        "delta": 0.1,
+        "output_change": 0.06
+      },
+      {
+        "parameter": "w4",
+        "delta": 0.1,
+        "output_change": 0.08
+      },
+      {
+        "parameter": "bias",
+        "delta": 0.1,
+        "output_change": 0.1
+      }
+    ]
+  },
+  {
+    "id": "invalid_dimension",
+    "valid": false,
+    "expected_valid": false,
+    "matches_expectation": true,
+    "errors": [
+      "inputs y weights deben tener la misma dimensión"
+    ]
+  }
+]

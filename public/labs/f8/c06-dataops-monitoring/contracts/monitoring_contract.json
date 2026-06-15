@@ -1,0 +1,48 @@
+{
+  "contract_id": "f8-c06-dataops-monitoring-contract",
+  "versión": "2026-06-07",
+  "owner": "equipo-datos-ia",
+  "unit": "decision_event",
+  "reference_window": "reference",
+  "production_windows": ["2026-06-07", "2026-06-08"],
+  "required_columns": [
+    "event_id",
+    "window",
+    "product",
+    "channel",
+    "language",
+    "access_need",
+    "true_priority",
+    "decision",
+    "score",
+    "latency_ms",
+    "trace_id",
+    "pipeline_version",
+    "model_version",
+    "data_version"
+  ],
+  "allowed_values": {
+    "product": ["becas", "matricula", "practicas", "titulos"],
+    "channel": ["portal", "email", "telefono"],
+    "language": ["es", "ca", "en"],
+    "access_need": ["si", "no"],
+    "decision": ["priorizar", "revisar", "normal"]
+  },
+  "drift_columns": ["product", "channel", "language", "access_need"],
+  "slice_fields": ["language", "access_need", "product"],
+  "critical_slices": ["language=en", "access_need=si", "product=practicas"],
+  "slo": {
+    "max_missing_trace_rate": 0.0,
+    "max_latency_p95_ms": 650,
+    "max_miss_rate": 0.12,
+    "min_safety_capture": 0.88,
+    "max_review_rate": 0.55,
+    "max_total_variation": 0.35,
+    "max_psi": 0.25
+  },
+  "release_status_meaning": {
+    "pass": "La ventana puede seguir operando con monitorizacion normal.",
+    "review": "La ventana requiere revisión operativa antes de aumentar automatización.",
+    "block": "La ventana no debe usarse para aumentar automatización ni entrenar sin investigar."
+  }
+}

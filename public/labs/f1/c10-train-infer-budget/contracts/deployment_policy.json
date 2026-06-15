@@ -1,0 +1,15 @@
+{
+  "bytes_per_precision": {
+    "fp32": 4,
+    "bf16": 2,
+    "fp16": 2,
+    "int8": 1,
+    "int4": 0.5
+  },
+  "kv_cache_precision": "fp16",
+  "safe_vram_utilization": 0.85,
+  "adam_training_bytes_per_param": 16,
+  "min_dataset_examples_for_finetune": 500,
+  "min_tokens_for_pretraining_b": 20
+}
+

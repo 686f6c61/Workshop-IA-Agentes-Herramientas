@@ -1,0 +1,26 @@
+[
+  {
+    "case_id": "r1",
+    "input": "Hasta cuándo puedo modificar la matrícula",
+    "expected_route": "rag",
+    "expected_contains": "15 de septiembre"
+  },
+  {
+    "case_id": "r2",
+    "input": "Cuántos pagos pendientes hay por campus",
+    "expected_route": "sql",
+    "expected_contains": "Norte: 2"
+  },
+  {
+    "case_id": "r3",
+    "input": "Clasifica: no puedo entrar en mi cuenta",
+    "expected_route": "classifier",
+    "expected_contains": "acceso"
+  },
+  {
+    "case_id": "r4",
+    "input": "Suma 230 y 515",
+    "expected_route": "code",
+    "expected_contains": "745"
+  }
+]

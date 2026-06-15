@@ -1,0 +1,48 @@
+[
+  {
+    "id": "vision_defects_edge",
+    "title": "Control visual de piezas en una línea de fabricación",
+    "input_type": "image_grid",
+    "height": 224,
+    "width": 224,
+    "channels": 3,
+    "examples": 18000,
+    "classes": 4,
+    "latency_ms": 40,
+    "deployment": "edge_gpu"
+  },
+  {
+    "id": "maintenance_sensor",
+    "title": "Predicción de fallo con señales de sensores",
+    "input_type": "time_series",
+    "timesteps": 96,
+    "features": 12,
+    "examples": 2400,
+    "classes": 2,
+    "latency_ms": 80,
+    "deployment": "edge_cpu"
+  },
+  {
+    "id": "support_ticket_short_text",
+    "title": "Clasificación de tickets de soporte cortos",
+    "input_type": "text_sequence",
+    "tokens": 160,
+    "vocab_size": 30000,
+    "examples": 5500,
+    "classes": 5,
+    "latency_ms": 300,
+    "deployment": "cloud_cpu"
+  },
+  {
+    "id": "legal_contract_review",
+    "title": "Revisión de contratos largos con referencias cruzadas",
+    "input_type": "long_text",
+    "tokens": 12000,
+    "vocab_size": 50000,
+    "examples": 850,
+    "classes": 3,
+    "latency_ms": 2500,
+    "deployment": "cloud_gpu"
+  }
+]
+

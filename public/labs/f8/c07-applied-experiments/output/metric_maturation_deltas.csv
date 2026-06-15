@@ -1,0 +1,7 @@
+metric_window,metric,control,treatment,delta
+day_1,resolved_rate,0.5,0.833333,0.333333
+day_1,followup_needed_rate,0.666667,0.666667,0.0
+day_1,student_satisfied_rate,0.333333,0.333333,0.0
+day_7,resolved_rate,0.5,0.833333,0.333333
+day_7,followup_needed_rate,0.5,0.166667,-0.333333
+day_7,student_satisfied_rate,0.5,0.833333,0.333333

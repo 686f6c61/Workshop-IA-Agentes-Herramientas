@@ -1,0 +1,24 @@
+{
+  "overall_score": 0.6156,
+  "decision": "review_before_release",
+  "review_cases": [
+    "chart_becas_growth",
+    "video_alarm_timestamp",
+    "rag_pdf_slide_policy",
+    "computer_use_send_trace"
+  ],
+  "block_cases": [],
+  "failing_slices": [
+    "approval",
+    "chart_reasoning",
+    "computer_use",
+    "event_detection",
+    "image_grounding",
+    "multimodal_rag",
+    "numeric",
+    "video_temporal"
+  ],
+  "missing_required_slices": [],
+  "total_cost_usd": 0.134,
+  "p95_latency_ms": 8540.0
+}

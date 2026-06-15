@@ -1,0 +1,72 @@
+{
+  "package_id": "f9-c04-compliance-audit-pack",
+  "generated_on": "2026-06-07",
+  "source_cutoff": "2026-06-07",
+  "policy_version": "f9c04-compliance-policy@0.1.0",
+  "overall_decision": "revisar_antes",
+  "systems": [
+    {
+      "system_id": "academic_support_assistant",
+      "name": "Asistente académico con RAG",
+      "owner": "equipo-plataforma-ia",
+      "classification": "gobernanza_y_transparencia",
+      "decision": "publicar_con_condiciones"
+    },
+    {
+      "system_id": "admissions_prioritization_helper",
+      "name": "Ayuda de priorización para admisiones",
+      "owner": "equipo-datos-academicos",
+      "classification": "alto_riesgo_posible",
+      "decision": "revisar_antes"
+    },
+    {
+      "system_id": "internal_coding_helper",
+      "name": "Asistente interno de código",
+      "owner": "equipo-ingenieria",
+      "classification": "gobernanza_y_transparencia",
+      "decision": "publicar_con_seguimiento"
+    }
+  ],
+  "input_files": [
+    "contracts/compliance_policy.json",
+    "data/ai_systems.csv",
+    "data/evidence_catalog.csv",
+    "data/providers.csv"
+  ],
+  "output_files": [
+    "output/ai_system_register.csv",
+    "output/article_to_artifact_crosswalk.csv",
+    "output/compliance_gap_matrix.md",
+    "output/annex_iv_technical_file.md",
+    "output/iso42001_aims_scope.md",
+    "output/change_control_record.md",
+    "output/audit_gate.md",
+    "output/trace_evidence_sample.jsonl",
+    "output/recordkeeping_schema.json",
+    "output/provider_due_diligence_checklist.md",
+    "output/ai_bom.md",
+    "output/evidence_maturity_model.md",
+    "output/policy_as_code_rules.md"
+  ],
+  "output_hashes_sha256": {
+    "output/ai_system_register.csv": "79435addc0f2c6c13e5dd3f34560d96181c8609f8996d1667790fb6bfd494cd4",
+    "output/article_to_artifact_crosswalk.csv": "2828a8436bb6885c3c77a786df8b6e0df08964f995224c22e8ad3d3ab52ac04d",
+    "output/compliance_gap_matrix.md": "1d795ff656c18cc647e8036006f5459ddaf8d94abd690fbc4a45c5beb82182c3",
+    "output/annex_iv_technical_file.md": "58266107a21163b9a6e7504cfaa7e7711adfea6a9bcb6753cb5d25ace6fe235a",
+    "output/iso42001_aims_scope.md": "66292e53cadd1e0c3bbbd1e746385bf02920a1f8f45d3055c27a8bc45fc9cc0b",
+    "output/change_control_record.md": "ec993de52626235f64f3246d804ac2418a26c14905a04ed8a7c422e10bc238dd",
+    "output/audit_gate.md": "95bd0343d9b980fede1e5b2144ea4a4990fabdf86ee78036f05cfcda909ea2cf",
+    "output/trace_evidence_sample.jsonl": "4a2c85fe0d3f777f3136ec124ed87354978ee28e119622b3600cfa1b3ae26464",
+    "output/recordkeeping_schema.json": "e8846de39d63096da208d814c2467df94c7bf766a655b01c1b3290a671b9e06d",
+    "output/provider_due_diligence_checklist.md": "7e267a78f2debd12ff0384c868e5ad37f57bfc73d332ad742e9247b11513f176",
+    "output/ai_bom.md": "3ba8a8afd2fef0948cfa14db109b8785e5285a9143d3effcbcaa63212fe330df",
+    "output/evidence_maturity_model.md": "f5023053c196e48cf04d94fa53debc40f703276c988dde2a8d86f7d11cbe1b2a",
+    "output/policy_as_code_rules.md": "4c35a554298e408f2c28e0e7abe94744717a400f4247f8d1679c65a2ac061f04"
+  },
+  "counts": {
+    "systems": 3,
+    "crosswalk_rows": 25,
+    "systems_with_blockers": 1,
+    "systems_with_conditions": 2
+  }
+}

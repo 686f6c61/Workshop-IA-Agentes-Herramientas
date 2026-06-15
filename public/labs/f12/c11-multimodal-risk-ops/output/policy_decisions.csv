@@ -1,0 +1,5 @@
+decision_id,principal,action,resource,destination,risk_score,missing_controls,decision,expected_decision,matches_expected,reasons
+allow_redacted_support_trace,MultimodalSystem::risk-gate,SendArtifact,Artifact::redacted_support_trace,internal_support_tool,0.32,0,allow,allow,True,
+review_eval_fixture_with_missing_redaction,MultimodalSystem::risk-gate,StoreEvalFixture,Artifact::eval_fixture,internal_eval_store,0.51,1,review,review,True,missing_controls|risk_above_review_threshold
+deny_public_webhook,MultimodalSystem::risk-gate,SendArtifact,Artifact::screen_capture,public_webhook,0.76,1,deny,deny,True,blocked_destination|external_action_requires_approval|missing_controls|risk_above_review_threshold
+deny_secret_visible,MultimodalSystem::risk-gate,CreateSecurityTicket,Artifact::ui_trace,security_ticket,0.72,0,deny,deny,True,unredacted_secret|risk_above_review_threshold

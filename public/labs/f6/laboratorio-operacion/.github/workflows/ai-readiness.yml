@@ -1,0 +1,30 @@
+name: ai-readiness
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  readiness:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Run operational readiness gate
+        working-directory: labs/f6/laboratorio-operacion
+        run: |
+          python3 ops/ai/operational_readiness.py \
+            --manifest contracts/readiness_manifest_complete.json \
+            --policy contracts/readiness_policy.json \
+            --output output/operational_readiness.json
+
+      - name: Run continuity drill
+        working-directory: labs/f6/laboratorio-operacion
+        run: |
+          python3 ops/run_continuity_drill.py --write

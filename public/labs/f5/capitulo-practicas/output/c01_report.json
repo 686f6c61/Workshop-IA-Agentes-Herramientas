@@ -1,0 +1,83 @@
+{
+  "title": "Manifest operativo de agente",
+  "artifact": {
+    "name": "matricula-support-agent",
+    "goal": "Resolver consultas de matrícula sin ejecutar acciones persistentes sin aprobación.",
+    "budget": {
+      "max_steps": 6,
+      "max_tool_calls": 4,
+      "max_cost_eur": 0.08
+    },
+    "memory": {
+      "prompt_context": [
+        "instrucciones",
+        "petición_usuario",
+        "evidencia_recuperada"
+      ],
+      "session_state": [
+        "case_id",
+        "steps",
+        "observations",
+        "approvals"
+      ],
+      "persistent_memory": [
+        "policy_version",
+        "preferred_tone"
+      ]
+    },
+    "tools": {
+      "buscar_politica": {
+        "permission": "allow",
+        "side_effect": "none",
+        "timeout_ms": 900
+      },
+      "consultar_saldo": {
+        "permission": "authenticated_read",
+        "side_effect": "none",
+        "timeout_ms": 1200
+      },
+      "crear_ticket": {
+        "permission": "approval_required",
+        "side_effect": "persistent_write",
+        "timeout_ms": 1500
+      }
+    },
+    "stop_rules": [
+      "done",
+      "approval_required",
+      "blocked",
+      "budget_exhausted"
+    ]
+  },
+  "checks": [
+    {
+      "name": "manifest declara objetivo",
+      "passed": true,
+      "detail": "El objetivo se puede revisar sin leer código."
+    },
+    {
+      "name": "tools tienen permisos",
+      "passed": true,
+      "detail": "Cada herramienta declara su permiso."
+    },
+    {
+      "name": "acciones persistentes requieren aprobación",
+      "passed": true,
+      "detail": "La escritura no queda en manos del modelo."
+    },
+    {
+      "name": "hay presupuesto operativo",
+      "passed": true,
+      "detail": "La autonomía tiene límite medible."
+    },
+    {
+      "name": "memoria separa contexto, sesión y persistencia",
+      "passed": true,
+      "detail": "La memoria no se confunde con prompt largo."
+    }
+  ],
+  "status": "valid",
+  "what_you_take": "Un manifest de agente con objetivo, memoria, tools, permisos, presupuesto y reglas de parada.",
+  "decision": "El agente puede pasar de idea a diseño: tiene objetivo, tools, permisos, memoria y presupuesto antes de escribir una integración real.",
+  "chapter": "c01"
+}

@@ -1,0 +1,24 @@
+service: support-rag
+slis:
+  - availability
+  - latency_p95_ms
+  - groundedness_pass_rate
+  - cost_per_success
+  - review_queue_age_p95_minutes
+slo:
+  availability: 0.995
+  latency_p95_ms: 4000
+  groundedness_pass_rate: 0.97
+  review_queue_age_p95_minutes: 30
+trace_attributes:
+  - run_id
+  - trace_id
+  - release_id
+  - model_id
+  - prompt_version
+  - route_id
+  - index_version
+redaction:
+  - email
+  - student_id
+  - raw_prompt

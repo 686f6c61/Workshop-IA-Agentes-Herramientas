@@ -1,0 +1,321 @@
+{
+  "case_id": "support-policy-json-v1",
+  "goal": "Clasificar una consulta de soporte interno y devolver una salida JSON verificable.",
+  "prompt_token_count": 129,
+  "chars_per_token": 5.47,
+  "token_preview": [
+    {
+      "token": "SYSTEM",
+      "id": 73635,
+      "embedding_preview": [
+        0.6784,
+        -0.7412,
+        0.5137,
+        0.3098,
+        -0.8275,
+        0.2471
+      ]
+    },
+    {
+      "token": ":",
+      "id": 71302,
+      "embedding_preview": [
+        0.8118,
+        0.349,
+        -0.9451,
+        0.051,
+        -0.2,
+        0.1137
+      ]
+    },
+    {
+      "token": "Eres",
+      "id": 84265,
+      "embedding_preview": [
+        -0.4196,
+        -0.8667,
+        0.3333,
+        0.0196,
+        0.2941,
+        0.8902
+      ]
+    },
+    {
+      "token": "un",
+      "id": 81579,
+      "embedding_preview": [
+        -0.1843,
+        0.4745,
+        0.2627,
+        -0.8902,
+        0.8353,
+        -0.6627
+      ]
+    },
+    {
+      "token": "asistente",
+      "id": 17873,
+      "embedding_preview": [
+        -0.6627,
+        -0.6235,
+        -0.6314,
+        -0.5137,
+        0.2078,
+        0.7255
+      ]
+    },
+    {
+      "token": "de",
+      "id": 51675,
+      "embedding_preview": [
+        0.1686,
+        0.2078,
+        -0.4588,
+        0.6627,
+        -0.3882,
+        -0.1294
+      ]
+    },
+    {
+      "token": "soporte",
+      "id": 83205,
+      "embedding_preview": [
+        0.6941,
+        0.4588,
+        -0.7569,
+        0.9216,
+        -0.1373,
+        -0.2627
+      ]
+    },
+    {
+      "token": "interno",
+      "id": 15217,
+      "embedding_preview": [
+        -0.2078,
+        0.7333,
+        0.8745,
+        0.4196,
+        -0.1529,
+        0.3255
+      ]
+    },
+    {
+      "token": ".",
+      "id": 5336,
+      "embedding_preview": [
+        0.6078,
+        0.4118,
+        0.8667,
+        -0.6706,
+        0.8353,
+        -0.1765
+      ]
+    },
+    {
+      "token": "Responde",
+      "id": 77387,
+      "embedding_preview": [
+        0.1529,
+        -0.8745,
+        0.9373,
+        0.8902,
+        -0.6235,
+        0.451
+      ]
+    },
+    {
+      "token": "solo",
+      "id": 18817,
+      "embedding_preview": [
+        -0.349,
+        -0.2157,
+        0.898,
+        0.898,
+        0.9765,
+        -0.3804
+      ]
+    },
+    {
+      "token": "con",
+      "id": 47728,
+      "embedding_preview": [
+        -0.8667,
+        -0.4745,
+        0.7098,
+        -0.6627,
+        0.5451,
+        -0.4039
+      ]
+    },
+    {
+      "token": "JSON",
+      "id": 55670,
+      "embedding_preview": [
+        0.7176,
+        -0.7961,
+        -0.7412,
+        0.2549,
+        0.4745,
+        -0.6392
+      ]
+    },
+    {
+      "token": "valido",
+      "id": 11588,
+      "embedding_preview": [
+        0.9686,
+        -0.6784,
+        -0.2784,
+        0.5686,
+        -0.2863,
+        0.6627
+      ]
+    },
+    {
+      "token": "y",
+      "id": 12061,
+      "embedding_preview": [
+        0.2627,
+        0.9765,
+        0.7882,
+        -0.5765,
+        -0.5608,
+        -0.3412
+      ]
+    },
+    {
+      "token": "cita",
+      "id": 50164,
+      "embedding_preview": [
+        -0.0745,
+        0.4588,
+        -0.9765,
+        1.0,
+        -0.4275,
+        0.2627
+      ]
+    },
+    {
+      "token": "la",
+      "id": 87471,
+      "embedding_preview": [
+        0.4353,
+        -0.5686,
+        0.5843,
+        -0.0118,
+        0.7961,
+        -0.2235
+      ]
+    },
+    {
+      "token": "politica",
+      "id": 6867,
+      "embedding_preview": [
+        -0.2157,
+        -0.7412,
+        -0.9451,
+        1.0,
+        -0.6941,
+        -0.6078
+      ]
+    }
+  ],
+  "tensor_shapes": {
+    "token_ids": [
+      1,
+      129
+    ],
+    "embeddings": [
+      1,
+      129,
+      4096
+    ],
+    "q": [
+      1,
+      32,
+      129,
+      128
+    ],
+    "k_cache": [
+      4,
+      8,
+      4096,
+      128
+    ],
+    "v_cache": [
+      4,
+      8,
+      4096,
+      128
+    ],
+    "logits": [
+      1,
+      10
+    ]
+  },
+  "architecture_signals": {
+    "position_encoding": "RoPE",
+    "normalization": "RMSNorm",
+    "ffn_variant": "SwiGLU",
+    "attention_heads": 32,
+    "kv_heads": 8,
+    "gqa_ratio": "8 KV heads / 32 attention heads",
+    "lost_middle_risk": "moderado: los documentos quedan entre instrucciones y contrato; mide si la evidencia intermedia se recupera",
+    "speculative_decoding": {
+      "enabled": true,
+      "draft_tokens_per_step": 4,
+      "expected_acceptance_rate": 0.68
+    }
+  },
+  "sampling": {
+    "temperature": 0.5,
+    "top_k": 5,
+    "top_p": 0.95,
+    "min_p": 0.01,
+    "raw_probabilities": {
+      "{\"categoria\"": 0.82228,
+      "Texto": 8.3e-05,
+      "No": 0.000503,
+      "ampliacion": 0.033518,
+      "incidencia": 0.111283,
+      "riesgo": 0.010095,
+      "desconocido": 0.000124,
+      "aprobada": 0.003714,
+      "ticket": 0.018395,
+      "```": 5e-06
+    },
+    "final_probabilities": {
+      "{\"categoria\"": 0.85027,
+      "incidencia": 0.115071,
+      "ampliacion": 0.034659
+    },
+    "entropy_bits": 0.726,
+    "selected_first_token": "{\"categoria\""
+  },
+  "runtime": {
+    "weights_gb": 4.0,
+    "kv_cache_gb": 2.147,
+    "kv_cache_full_mha_gb": 8.59,
+    "gqa_kv_cache_saving_percent": 75.0,
+    "prefill_seconds": 0.0184,
+    "decode_seconds_if_max_tokens": 3.273,
+    "speculative_decode_seconds_toy": 1.909,
+    "speculative_speedup_toy": 1.71,
+    "estimated_ttft_seconds": 0.0984,
+    "tokens_per_second_per_user": 55.0
+  },
+  "engineering_decision": {
+    "recommended_profile": "json_contract_low_variance",
+    "why": "La tarea exige salida JSON verificable y cita; conviene bajar variabilidad, fijar contrato y medir tasa de parseo antes que creatividad.",
+    "measure": [
+      "json_parse_rate",
+      "schema_pass_rate",
+      "citation_supported_rate",
+      "ttft_seconds",
+      "kv_cache_gb"
+    ]
+  },
+  "gate_valid": true,
+  "issues": []
+}

@@ -1,0 +1,21 @@
+{
+  "chapter": "c04",
+  "status": "valid",
+  "checks": [
+    {
+      "name": "script_exit_zero",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "artifact:output/evaluator_audit_report.json",
+      "passed": true,
+      "detail": "output/evaluator_audit_report.json"
+    },
+    {
+      "name": "artifact:output/evaluator_audit_decision.md",
+      "passed": true,
+      "detail": "output/evaluator_audit_decision.md"
+    }
+  ]
+}

@@ -1,0 +1,56 @@
+run_name: f10-c05-rag-dpo-lora
+method: dpo
+
+model:
+  base_model: proveedor/modelo-instructivo
+  tokenizer: proveedor/modelo-instructivo
+  chat_template: versionada_en_repo
+  torch_dtype: bfloat16
+
+dataset:
+  train_path: data/preference_pairs_train.jsonl
+  eval_path: data/preference_pairs_eval.jsonl
+  fields:
+    prompt: prompt
+    chosen: chosen
+    rejected: rejected
+  max_prompt_length: 2048
+  max_completion_length: 768
+  split_rule: temporal_por_created_at
+
+lora:
+  enabled: true
+  r: 16
+  alpha: 32
+  dropout: 0.05
+  target_modules:
+    - q_proj
+    - k_proj
+    - v_proj
+    - o_proj
+
+training:
+  learning_rate: 0.000005
+  beta: 0.1
+  batch_size: 4
+  gradient_accumulation_steps: 8
+  epochs: 1
+  warmup_ratio: 0.03
+  seed: 41
+
+eval:
+  every_steps: 100
+  metrics:
+    - chosen_reward_margin
+    - chosen_accuracy
+    - format_pass_rate
+    - citation_supported_rate
+    - avg_completion_tokens
+    - latency_p95
+
+gates:
+  min_chosen_accuracy: 0.72
+  min_citation_supported_rate: 0.78
+  max_format_failure_rate: 0.04
+  max_avg_token_increase: 0.20
+  block_on_slice_regression: true

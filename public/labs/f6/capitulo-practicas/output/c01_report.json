@@ -1,0 +1,54 @@
+{
+  "title": "Kit operativo inicial",
+  "artifact": {
+    "files": [
+      "AGENTS.md",
+      "SHOULD.md",
+      "manifest.yaml",
+      "release_gate.py",
+      "decision.md"
+    ],
+    "agents_md": {
+      "commands": [
+        "npm test",
+        "python3 scripts/audit_book_publication.py"
+      ],
+      "evidence_required": true
+    },
+    "should": {
+      "must": 4,
+      "should": 3,
+      "may": 2
+    },
+    "manifest": {
+      "owner": "equipo-ia",
+      "rollback": "v1.4.2",
+      "slo": "p95<=4s"
+    }
+  },
+  "checks": [
+    {
+      "name": "archivos mínimos",
+      "passed": true,
+      "detail": "El kit no se queda en una nota suelta."
+    },
+    {
+      "name": "AGENTS.md operativo",
+      "passed": true,
+      "detail": "Pide comandos y evidencia."
+    },
+    {
+      "name": "SHOULD.md verificable",
+      "passed": true,
+      "detail": "Separa obligaciones y expectativas."
+    },
+    {
+      "name": "rollback declarado",
+      "passed": true,
+      "detail": "Hay versión conocida de vuelta."
+    }
+  ],
+  "status": "valid",
+  "decision": "El capítulo deja una base operable: instrucciones, comportamiento esperado, manifest, gate y decisión.",
+  "chapter": "c01"
+}

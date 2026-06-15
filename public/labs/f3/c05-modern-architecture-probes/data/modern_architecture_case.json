@@ -1,0 +1,12 @@
+{
+  "experts": ["cambios", "envios", "tono", "facturacion"],
+  "routing_scores": [2.8, 1.9, 0.7, -0.2],
+  "self_consistency_answers": ["15:10", "15:10", "15:25", "15:10", "15:15"],
+  "image_vector": [0.9, 0.1, 0.6],
+  "text_vectors": {
+    "auriculares rotos": [0.8, 0.2, 0.55],
+    "caja de zapatos": [0.2, 0.7, 0.1],
+    "perro en parque": [0.0, 0.2, 0.9]
+  }
+}
+

@@ -1,0 +1,16 @@
+{
+  "service": "support-rag",
+  "release": "support-rag@1.9.0",
+  "gate": "ready",
+  "score": 1.0,
+  "summary": "Ejemplo de manifiesto completo para practicar readiness operacional.",
+  "required_evidence": [
+    "SLOs medibles",
+    "observabilidad por run",
+    "rollback probado",
+    "EvalOps con baseline y candidate",
+    "continuidad con RTO/RPO",
+    "handoff con tarjeta de aprobación"
+  ],
+  "source_command": "python3 ops/operational_readiness.py --manifest contracts/readiness_manifest_complete.json --output output/complete/operational_readiness.json --decision-output output/complete/readiness_decision.md --write"
+}

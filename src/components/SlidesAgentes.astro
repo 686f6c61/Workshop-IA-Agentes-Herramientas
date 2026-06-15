@@ -188,7 +188,7 @@ import SlidesFundamentosAvanzados from './SlidesFundamentosAvanzados.astro';
 <!-- SLIDE 196 -->
 <Slide id="memoria-persistente" number={196} title="Memoria persistente para agentes">
   <p><i data-lucide="hard-drive"></i> Un agente sin memoria entre sesiones empieza de cero cada vez. La <strong>memoria persistente</strong> permite que recuerde decisiones, preferencias y contexto de conversaciones anteriores.</p>
-  <p>La memoria persistente debe tratarse como producto, no como magia. Hay que decidir qué se guarda, por qué, durante cuánto tiempo, cómo se corrige y qué datos no deben persistirse nunca por privacidad o seguridad.</p>
+  <p>La memoria persistente debe tratarse como producto, no como almacenamiento automático. Hay que decidir qué se guarda, por qué, durante cuánto tiempo, cómo se corrige y qué datos no deben persistirse nunca por privacidad o seguridad.</p>
   <h3><i data-lucide="layers"></i> Tipos de memoria persistente</h3>
   <table>
     <thead>
@@ -738,7 +738,7 @@ import SlidesFundamentosAvanzados from './SlidesFundamentosAvanzados.astro';
           <tr><td><strong>Prompt infinito</strong></td><td>reglas largas sin tests ni permisos</td></tr>
           <tr><td><strong>Tool omnipotente</strong></td><td>una API puede leer/escribir todo</td></tr>
           <tr><td><strong>Sin traza</strong></td><td>no sabes qué vio ni qué tocó</td></tr>
-          <tr><td><strong>Juez mágico</strong></td><td>LLM-as-judge sin calibración humana</td></tr>
+          <tr><td><strong>Evaluador sin calibración</strong></td><td>LLM-as-judge sin calibración humana</td></tr>
           <tr><td><strong>Éxito terminal</strong></td><td>solo miras la respuesta final, no la trayectoria</td></tr>
           <tr><td><strong>Memoria tóxica</strong></td><td>guarda decisiones viejas como verdad actual</td></tr>
         </tbody>
@@ -4056,7 +4056,7 @@ if (!parsed.success) &#123;
   <h3><i data-lucide="eye"></i> Patrones de interfaz</h3>
   <div class="tool-grid">
     <div class="tool-card"><strong>Citas visibles</strong><p>Fuente, fragmento, fecha y enlace. La cita debe sostener exactamente la frase que acompaña.</p><span class="tag">verificación</span></div>
-    <div class="tool-card"><strong>Confianza accionable</strong><p>No muestres un porcentaje mágico. Explica qué evidencia falta o qué parte es incierta.</p><span class="tag">incertidumbre</span></div>
+    <div class="tool-card"><strong>Confianza accionable</strong><p>No muestres un porcentaje aislado. Explica qué evidencia falta o qué parte es incierta.</p><span class="tag">incertidumbre</span></div>
     <div class="tool-card"><strong>Abstención útil</strong><p>Si no hay evidencia, decirlo y proponer cómo conseguirla.</p><span class="tag">no-answer</span></div>
     <div class="tool-card"><strong>Comparación</strong><p>Cuando hay contradicción, mostrar opciones y fuentes en conflicto.</p><span class="tag">conflicto</span></div>
     <div class="tool-card"><strong>Estado del sistema</strong><p>Qué buscó, qué herramientas usó y qué no pudo comprobar.</p><span class="tag">transparencia</span></div>

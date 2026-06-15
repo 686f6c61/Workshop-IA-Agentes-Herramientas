@@ -1,0 +1,12 @@
+{
+  "contract_id": "f8-c04-feature-contract-v1",
+  "fit_scope": "train",
+  "fit_row_count": 15,
+  "row_count": 24,
+  "feature_dimension": 49,
+  "dense_embedding_dimension": 64,
+  "unknown_categories": [],
+  "forbidden_features_used": [],
+  "dense_norm_issues": [],
+  "gate": "pass"
+}

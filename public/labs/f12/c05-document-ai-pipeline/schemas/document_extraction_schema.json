@@ -1,0 +1,23 @@
+{
+  "type": "object",
+  "required": [
+    "document_id",
+    "route",
+    "fields",
+    "tables",
+    "chunks",
+    "limits",
+    "requires_human_review",
+    "decision"
+  ],
+  "properties": {
+    "document_id": {"type": "string"},
+    "route": {"type": "string"},
+    "fields": {"type": "array"},
+    "tables": {"type": "array"},
+    "chunks": {"type": "array"},
+    "limits": {"type": "array"},
+    "requires_human_review": {"type": "boolean"},
+    "decision": {"type": "string"}
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "contract_id": "f8-final-experiment-exposure-contract",
+  "versión": "2026.06.07",
+  "unit": "case_id",
+  "treatment": "guided_template_for_international_practices",
+  "control": "current_flow",
+  "primary_metric": "resolved_day_7",
+  "guardrails": [
+    "citation_valid",
+    "latency_ms",
+    "negative_feedback",
+    "cost_eur"
+  ],
+  "required_exposure_fields": [
+    "case_id",
+    "experiment_id",
+    "variant",
+    "exposed_at",
+    "prompt_version",
+    "retriever_version",
+    "trace_id"
+  ],
+  "analysis_rule": "No se analiza por asignación solamente. Debe existir exposición real con versión de prompt y retriever."
+}

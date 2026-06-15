@@ -1,0 +1,76 @@
+{
+  "name": "rutas-con-heuristicas",
+  "description": "Grafo pequeño para comparar UCS, Greedy, A* y Weighted A*. La ruta óptima es S -> B -> F -> G con coste 6.",
+  "start": "S",
+  "goal": "G",
+  "edges": {
+    "S": [
+      { "to": "A", "cost": 1 },
+      { "to": "B", "cost": 2 },
+      { "to": "C", "cost": 6 }
+    ],
+    "A": [
+      { "to": "D", "cost": 1 },
+      { "to": "E", "cost": 8 }
+    ],
+    "B": [
+      { "to": "F", "cost": 2 },
+      { "to": "G", "cost": 20 }
+    ],
+    "C": [
+      { "to": "G", "cost": 1 }
+    ],
+    "D": [
+      { "to": "G", "cost": 10 }
+    ],
+    "E": [
+      { "to": "G", "cost": 1 }
+    ],
+    "F": [
+      { "to": "G", "cost": 2 }
+    ],
+    "G": []
+  },
+  "heuristics": {
+    "h_zero": {
+      "S": 0,
+      "A": 0,
+      "B": 0,
+      "C": 0,
+      "D": 0,
+      "E": 0,
+      "F": 0,
+      "G": 0
+    },
+    "h_safe": {
+      "S": 4,
+      "A": 3,
+      "B": 4,
+      "C": 1,
+      "D": 8,
+      "E": 1,
+      "F": 2,
+      "G": 0
+    },
+    "h_exact_demo": {
+      "S": 6,
+      "A": 9,
+      "B": 4,
+      "C": 1,
+      "D": 10,
+      "E": 1,
+      "F": 2,
+      "G": 0
+    },
+    "h_bad_overestimate": {
+      "S": 4,
+      "A": 3,
+      "B": 10,
+      "C": 1,
+      "D": 8,
+      "E": 1,
+      "F": 8,
+      "G": 0
+    }
+  }
+}

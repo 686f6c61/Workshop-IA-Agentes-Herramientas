@@ -1,0 +1,48 @@
+# Decisión: traza de backtracking CSP
+
+Problema: `horario-cursos-backtracking`.
+
+## Métricas
+
+| Métrica | Valor |
+|---|---:|
+| Candidatos brutos | 64 |
+| Candidatos tras poda unaria | 16 |
+| Nodos visitados | 10 |
+| Ramas cortadas | 1 |
+| Valores podados por forward checking | 8 |
+| Profundidad máxima | 3 |
+| Soluciones | 4 |
+
+## Primera decisión MRV
+
+MRV elige `Python` porque su dominio tiene 2 valores tras la poda inicial.
+
+## Soluciones
+
+| Solución |
+|---|
+| Python=(10, A), IA=(9, A), Datos=(9, B) |
+| Python=(10, A), IA=(9, A), Datos=(10, B) |
+| Python=(10, A), IA=(9, B), Datos=(10, B) |
+| Python=(10, B), IA=(9, A), Datos=(9, B) |
+
+## Primeros eventos de la traza
+
+```jsonl
+{"event": "unary_prune", "constraint": "python_hora_10", "variable": "Python", "removed": [[9, "A"], [9, "B"]], "remaining": [[10, "A"], [10, "B"]]}
+{"event": "unary_prune", "constraint": "datos_sala_b", "variable": "Datos", "removed": [[9, "A"], [10, "A"]], "remaining": [[9, "B"], [10, "B"]]}
+{"event": "choose_variable", "depth": 0, "variable": "Python", "domain_size": 2, "assignment": {}}
+{"event": "try_value", "depth": 0, "variable": "Python", "value": [10, "A"], "assignment": {"Python": [10, "A"]}, "consistent": true, "failures": []}
+{"event": "forward_prune", "depth": 1, "variable": "IA", "removed": [[10, "A"], [10, "B"]], "assignment": {"Python": [10, "A"]}}
+{"event": "choose_variable", "depth": 1, "variable": "IA", "domain_size": 2, "assignment": {"Python": [10, "A"]}}
+{"event": "try_value", "depth": 1, "variable": "IA", "value": [9, "A"], "assignment": {"Python": [10, "A"], "IA": [9, "A"]}, "consistent": true, "failures": []}
+{"event": "choose_variable", "depth": 2, "variable": "Datos", "domain_size": 2, "assignment": {"Python": [10, "A"], "IA": [9, "A"]}}
+```
+
+## Lectura técnica
+
+- La poda unaria reduce el espacio antes de empezar el árbol.
+- MRV elige primero las variables con menos margen.
+- Forward checking corta valores futuros incompatibles con la asignación actual.
+- La traza permite explicar el comportamiento del solver sin depender de intuiciones.

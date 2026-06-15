@@ -1,0 +1,152 @@
+{
+  "service": "support-rag",
+  "release": "support-rag@2.0.0",
+  "score": 1.0,
+  "gate": "ready",
+  "passed_weight": 45,
+  "total_weight": 45,
+  "checks": [
+    {
+      "section": "identity",
+      "passes": true,
+      "weight": 4,
+      "earned": 4,
+      "detail": {
+        "required": [
+          "service",
+          "release",
+          "owner"
+        ]
+      },
+      "next_action": "ok"
+    },
+    {
+      "section": "slo",
+      "passes": true,
+      "weight": 8,
+      "earned": 8,
+      "detail": {
+        "observed": [
+          "availability",
+          "contract_fail_rate_max",
+          "cost_p95_eur",
+          "latency_p95_ms",
+          "review_queue_age_p95_minutes"
+        ]
+      },
+      "next_action": "ok"
+    },
+    {
+      "section": "observability",
+      "passes": true,
+      "weight": 7,
+      "earned": 7,
+      "detail": {
+        "attributes": [
+          "trace_id",
+          "run_id",
+          "task",
+          "model_id",
+          "prompt_version",
+          "release_id",
+          "index_version"
+        ],
+        "dashboards": [
+          "runtime",
+          "cost",
+          "evalops",
+          "handoff"
+        ],
+        "alerts": [
+          "slo_burn_rate",
+          "contract_fail_rate",
+          "queue_age",
+          "canary_regression"
+        ]
+      },
+      "next_action": "ok"
+    },
+    {
+      "section": "rollback",
+      "passes": true,
+      "weight": 6,
+      "earned": 6,
+      "detail": {
+        "observed": [
+          "last_known_good",
+          "max_rollback_minutes",
+          "rollback_command",
+          "rollback_tested_at"
+        ]
+      },
+      "next_action": "ok"
+    },
+    {
+      "section": "evalops",
+      "passes": true,
+      "weight": 6,
+      "earned": 6,
+      "detail": {
+        "datasets": [
+          "golden",
+          "regression",
+          "production_sample",
+          "continuity_regression"
+        ],
+        "release_gate": "ops/ai/release_gate.py"
+      },
+      "next_action": "ok"
+    },
+    {
+      "section": "incident",
+      "passes": true,
+      "weight": 5,
+      "earned": 5,
+      "detail": {
+        "observed": [
+          "oncall",
+          "runbook",
+          "severity_matrix",
+          "update_cadence_minutes"
+        ]
+      },
+      "next_action": "ok"
+    },
+    {
+      "section": "continuity",
+      "passes": true,
+      "weight": 5,
+      "earned": 5,
+      "detail": {
+        "observed": [
+          "continuity_drill",
+          "fallback_routes",
+          "rpo_minutes",
+          "rto_minutes"
+        ]
+      },
+      "next_action": "ok"
+    },
+    {
+      "section": "handoff",
+      "passes": true,
+      "weight": 4,
+      "earned": 4,
+      "detail": {
+        "queues": [
+          "support_n2",
+          "ai_platform_review"
+        ],
+        "approval_fields": [
+          "deadline",
+          "evidence",
+          "owner",
+          "reason",
+          "recommended_action"
+        ]
+      },
+      "next_action": "ok"
+    }
+  ],
+  "next_actions": []
+}

@@ -1,0 +1,182 @@
+{
+  "contract_id": "f7-release-eval-contract",
+  "contract_version": "2026-06-07",
+  "release_id": "support-rag-agent@2.1.0",
+  "status": "publicar_con_condiciones",
+  "summary": {
+    "pass_count": 13,
+    "review_count": 2,
+    "block_count": 0
+  },
+  "checks": [
+    {
+      "source": "rag_eval",
+      "chapter": "07.03",
+      "artifact": "rag_eval_report.json",
+      "metric": "hit_at_5",
+      "observed": 0.94,
+      "required": ">= 0.9",
+      "status": "pass",
+      "note": "ok"
+    },
+    {
+      "source": "rag_eval",
+      "chapter": "07.03",
+      "artifact": "rag_eval_report.json",
+      "metric": "groundedness",
+      "observed": 0.92,
+      "required": ">= 0.9",
+      "status": "pass",
+      "note": "ok"
+    },
+    {
+      "source": "rag_eval",
+      "chapter": "07.03",
+      "artifact": "rag_eval_report.json",
+      "metric": "citation_acceptance",
+      "observed": 0.9,
+      "required": ">= 0.88",
+      "status": "pass",
+      "note": "ok"
+    },
+    {
+      "source": "rag_eval",
+      "chapter": "07.03",
+      "artifact": "rag_eval_report.json",
+      "metric": "abstention_ok",
+      "observed": 0.88,
+      "required": ">= 0.86",
+      "status": "pass",
+      "note": "ok"
+    },
+    {
+      "source": "rag_eval",
+      "chapter": "07.03",
+      "artifact": "rag_eval_report.json",
+      "metric": "long_tail_coverage",
+      "observed": 0.72,
+      "required": ">= 0.75",
+      "status": "review",
+      "note": "valor por debajo del umbral"
+    },
+    {
+      "source": "evaluator_metaeval",
+      "chapter": "07.04",
+      "artifact": "evaluator_metaeval.json",
+      "metric": "agreement",
+      "observed": 0.82,
+      "required": ">= 0.78",
+      "status": "pass",
+      "note": "ok"
+    },
+    {
+      "source": "evaluator_metaeval",
+      "chapter": "07.04",
+      "artifact": "evaluator_metaeval.json",
+      "metric": "undue_pass_rate",
+      "observed": 0.06,
+      "required": "<= 0.08",
+      "status": "pass",
+      "note": "ok"
+    },
+    {
+      "source": "evaluator_metaeval",
+      "chapter": "07.04",
+      "artifact": "evaluator_metaeval.json",
+      "metric": "borderline_overturn_rate",
+      "observed": 0.16,
+      "required": "<= 0.18",
+      "status": "pass",
+      "note": "ok"
+    },
+    {
+      "source": "calibration",
+      "chapter": "07.05",
+      "artifact": "calibration_manifest.json",
+      "metric": "quality_gate.passes",
+      "observed": true,
+      "required": true,
+      "status": "pass",
+      "note": "ok"
+    },
+    {
+      "source": "calibration",
+      "chapter": "07.05",
+      "artifact": "calibration_manifest.json",
+      "metric": "auto_error_rate",
+      "observed": 0.15,
+      "required": "<= 0.18",
+      "status": "pass",
+      "note": "ok"
+    },
+    {
+      "source": "calibration",
+      "chapter": "07.05",
+      "artifact": "calibration_manifest.json",
+      "metric": "review_rate",
+      "observed": 0.4444,
+      "required": "<= 0.6",
+      "status": "pass",
+      "note": "ok"
+    },
+    {
+      "source": "calibration",
+      "chapter": "07.05",
+      "artifact": "calibration_manifest.json",
+      "metric": "auto_error_wilson_upper",
+      "observed": 0.3604,
+      "required": "<= 0.28",
+      "status": "review",
+      "note": "valor por encima del umbral"
+    },
+    {
+      "source": "interpretability",
+      "chapter": "07.06",
+      "artifact": "ci_explanation_gate.json",
+      "metric": "gate",
+      "observed": "pass",
+      "required": "pass",
+      "status": "pass",
+      "note": "ok"
+    },
+    {
+      "source": "interpretability",
+      "chapter": "07.06",
+      "artifact": "ci_explanation_gate.json",
+      "metric": "top_feature_share",
+      "observed": 0.5,
+      "required": "<= 0.55",
+      "status": "pass",
+      "note": "ok"
+    },
+    {
+      "source": "interpretability",
+      "chapter": "07.06",
+      "artifact": "explanation_contract.json",
+      "metric": "required_fields",
+      "observed": [
+        "case_id",
+        "counterfactual",
+        "data_hash_sha256",
+        "deletion_test",
+        "model_version",
+        "policy_hash_sha256",
+        "prediction",
+        "score",
+        "top_features"
+      ],
+      "required": [
+        "case_id",
+        "data_hash_sha256",
+        "model_version",
+        "policy_hash_sha256",
+        "prediction",
+        "score",
+        "top_features"
+      ],
+      "status": "pass",
+      "note": "ok"
+    }
+  ],
+  "interpretability_accuracy": 0.75
+}

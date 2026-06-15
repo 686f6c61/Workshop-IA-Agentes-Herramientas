@@ -1,0 +1,57 @@
+{
+  "title": "Harness reproducible",
+  "artifact": {
+    "limits": {
+      "max_steps": 8,
+      "max_tool_calls": 6,
+      "max_seconds": 20
+    },
+    "sensors": [
+      "tokens_in",
+      "tokens_out",
+      "tool_count",
+      "latency_ms",
+      "policy_decision",
+      "trace_complete"
+    ],
+    "trace": [
+      "run.started",
+      "model.request",
+      "tool.call",
+      "tool.result",
+      "gate.checked",
+      "run.completed"
+    ],
+    "redactions": [
+      "email",
+      "student_id",
+      "free_text_secret"
+    ]
+  },
+  "checks": [
+    {
+      "name": "límites presentes",
+      "passed": true,
+      "detail": "El harness corta bucles caros."
+    },
+    {
+      "name": "sensores operativos",
+      "passed": true,
+      "detail": "No mide solo tokens."
+    },
+    {
+      "name": "traza completa",
+      "passed": true,
+      "detail": "La ejecución es depurable."
+    },
+    {
+      "name": "redacción de datos",
+      "passed": true,
+      "detail": "La observabilidad no debe filtrar datos sensibles."
+    }
+  ],
+  "status": "valid",
+  "what_you_take": "Un harness con límites, sensores, trazas y redacción de datos.",
+  "decision": "El harness permite ejecutar un agente con límites, sensores y trazas sin convertir los logs en otra fuente de riesgo.",
+  "chapter": "c06"
+}

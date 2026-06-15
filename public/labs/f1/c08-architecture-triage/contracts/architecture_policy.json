@@ -1,0 +1,21 @@
+{
+  "min_examples_for_deep_learning": 1000,
+  "max_attention_cells_for_simple_transformer": 4000000,
+  "edge_latency_ms": 120,
+  "cloud_latency_ms": 3000,
+  "cnn": {
+    "filters": 32,
+    "kernel": 3,
+    "dense_units": 64
+  },
+  "sequence": {
+    "hidden_size": 64,
+    "embedding_dim": 128
+  },
+  "transformer": {
+    "layers": 4,
+    "d_model": 256,
+    "heads": 8
+  }
+}
+

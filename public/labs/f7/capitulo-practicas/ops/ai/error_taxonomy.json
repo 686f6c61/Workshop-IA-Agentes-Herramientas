@@ -1,0 +1,9 @@
+{
+  "version": "2026-06-10",
+  "categories": {
+    "ok": {"action": "mantener como cobertura"},
+    "content_missing": {"action": "revisar prompt, retrieval o criterio"},
+    "abstention_failure": {"action": "bloquear release y añadir regresión"},
+    "cost_budget": {"action": "revisar routing, longitud o modelo"}
+  }
+}

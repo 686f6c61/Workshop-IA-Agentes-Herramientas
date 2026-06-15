@@ -1,0 +1,20 @@
+service: support-rag
+release: support-rag@1.9.0-rc1
+owner: equipo-ia
+slo:
+  latency_p95_ms: 4000
+  availability: 0.995
+  contract_fail_rate_max: 0.006
+rollback:
+  last_known_good: support-rag@1.8.0
+  tested: true
+evalops:
+  smoke_dataset: evals/smoke.jsonl
+  release_gate: ops/ai/release_gate.py
+observability:
+  required_trace_attributes:
+    - run_id
+    - trace_id
+    - release_id
+    - model_id
+    - prompt_version

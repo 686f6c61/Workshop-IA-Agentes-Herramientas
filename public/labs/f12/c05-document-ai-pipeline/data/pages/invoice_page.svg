@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 1240" role="img" aria-label="Factura sintética con line items">
+  <rect width="960" height="1240" fill="#FFFFFF"/>
+  <rect x="72" y="70" width="816" height="1100" fill="#FFFFFF" stroke="#111111" stroke-width="2"/>
+  <text x="112" y="134" font-family="Arial, sans-serif" font-size="30" font-weight="700" fill="#111111">Factura FAC-2026-014</text>
+  <text x="112" y="184" font-family="Arial, sans-serif" font-size="16" fill="#111111">Proveedor: Taller Vector S.L.</text>
+  <text x="112" y="218" font-family="Arial, sans-serif" font-size="16" fill="#111111">Fecha: 2026-06-10</text>
+  <text x="112" y="252" font-family="Arial, sans-serif" font-size="16" fill="#111111">Cliente: Universidad Curiosa</text>
+  <rect x="112" y="330" width="720" height="48" fill="#111111"/>
+  <text x="132" y="361" font-family="Arial, sans-serif" font-size="14" fill="#FFFFFF">Concepto</text>
+  <text x="530" y="361" font-family="Arial, sans-serif" font-size="14" fill="#FFFFFF">Cantidad</text>
+  <text x="640" y="361" font-family="Arial, sans-serif" font-size="14" fill="#FFFFFF">Precio</text>
+  <text x="760" y="361" font-family="Arial, sans-serif" font-size="14" fill="#FFFFFF">Total</text>
+  <rect x="112" y="378" width="720" height="54" fill="#FFFFFF" stroke="#111111"/>
+  <text x="132" y="412" font-family="Arial, sans-serif" font-size="14" fill="#111111">Horas de revisión documental</text>
+  <text x="560" y="412" font-family="Arial, sans-serif" font-size="14" fill="#111111">4</text>
+  <text x="642" y="412" font-family="Arial, sans-serif" font-size="14" fill="#111111">75.00</text>
+  <text x="760" y="412" font-family="Arial, sans-serif" font-size="14" fill="#111111">300.00</text>
+  <rect x="112" y="432" width="720" height="54" fill="#FFFFFF" stroke="#111111"/>
+  <text x="132" y="466" font-family="Arial, sans-serif" font-size="14" fill="#111111">Licencia OCR mensual</text>
+  <text x="560" y="466" font-family="Arial, sans-serif" font-size="14" fill="#111111">1</text>
+  <text x="642" y="466" font-family="Arial, sans-serif" font-size="14" fill="#111111">120.00</text>
+  <text x="760" y="466" font-family="Arial, sans-serif" font-size="14" fill="#111111">120.00</text>
+  <text x="632" y="580" font-family="Arial, sans-serif" font-size="16" fill="#111111">Subtotal</text>
+  <text x="760" y="580" font-family="Arial, sans-serif" font-size="16" fill="#111111">420.00</text>
+  <text x="632" y="620" font-family="Arial, sans-serif" font-size="16" fill="#111111">IVA 21%</text>
+  <text x="760" y="620" font-family="Arial, sans-serif" font-size="16" fill="#111111">88.20</text>
+  <text x="632" y="674" font-family="Arial, sans-serif" font-size="20" font-weight="700" fill="#111111">Total</text>
+  <text x="760" y="674" font-family="Arial, sans-serif" font-size="20" font-weight="700" fill="#111111">508.20</text>
+  <text x="828" y="1134" text-anchor="end" font-family="Arial, sans-serif" font-size="12" fill="#777777">Página 1 · documento sintético</text>
+</svg>

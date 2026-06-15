@@ -1,0 +1,39 @@
+{
+  "system_id": "academic-assistant-rag-v1",
+  "name": "Asistente académico con RAG y revisión humana",
+  "owner": "equipo-ia-académica",
+  "purpose": "Responder dudas de matrícula, becas y normativa interna usando documentos versionados y abstención cuando no haya evidencia suficiente.",
+  "release_stage": "canary",
+  "jurisdiction": ["UE", "España"],
+  "users": ["alumnado", "personal de secretaría", "equipo docente"],
+  "decision_effect": "orientativo_con_derivacion",
+  "data_classes": [
+    "documentos_publicos",
+    "normativa_interna",
+    "tickets_seudonimizados",
+    "trazas_operativas"
+  ],
+  "integrations": [
+    "modelo_cloud",
+    "vector_store",
+    "sistema_tickets",
+    "panel_observabilidad"
+  ],
+  "human_review": {
+    "required_for": [
+      "casos_con_datos_personales",
+      "respuesta_sin_cita",
+      "cambio_normativo_no_validado",
+      "solicitud_con_efecto_administrativo"
+    ],
+    "owner": "secretaria-académica"
+  },
+  "evidence_sources": [
+    "model_card",
+    "dataset_card",
+    "rag_eval_report",
+    "trace_sample",
+    "privacy_review",
+    "release_gate"
+  ]
+}

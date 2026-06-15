@@ -1,0 +1,39 @@
+{
+  "initial_state": [
+    "cliente_identificado",
+    "factura_preparada",
+    "importe_calculado",
+    "email_confirmado"
+  ],
+  "goal": [
+    "factura_validada",
+    "email_enviado",
+    "log_creado"
+  ],
+  "actions": [
+    {
+      "name": "validar_factura",
+      "pre": ["cliente_identificado", "importe_calculado", "factura_preparada"],
+      "add": ["factura_validada"],
+      "delete": ["factura_preparada"]
+    },
+    {
+      "name": "enviar_factura",
+      "pre": ["factura_validada", "email_confirmado"],
+      "add": ["email_enviado"],
+      "delete": []
+    },
+    {
+      "name": "registrar_envio",
+      "pre": ["email_enviado"],
+      "add": ["log_creado"],
+      "delete": []
+    }
+  ],
+  "candidate_plans": [
+    ["validar_factura", "enviar_factura", "registrar_envio"],
+    ["enviar_factura", "validar_factura", "registrar_envio"],
+    ["validar_factura", "registrar_envio", "enviar_factura"]
+  ]
+}
+

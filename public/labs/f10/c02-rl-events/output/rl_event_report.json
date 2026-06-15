@@ -1,0 +1,85 @@
+{
+  "status": "pass",
+  "summary": {
+    "events": 8,
+    "episodes": 4,
+    "contract_version": "rl_event_contract.v1",
+    "schema_version": "rl_event.v1",
+    "gamma": 0.9
+  },
+  "checks": {
+    "shape_ok": true,
+    "episodes_ok": true,
+    "coverage_ok": true,
+    "warnings_ok": true
+  },
+  "errors": {
+    "shape": [],
+    "episodes": []
+  },
+  "warnings": [],
+  "episode_returns": {
+    "case_001": 1.6,
+    "case_002": 0.26,
+    "case_003": 1.79,
+    "case_004": -1.46
+  },
+  "coverage": {
+    "state_counts": {
+      "ticket_con_evidencia": 4,
+      "ticket_nuevo": 4
+    },
+    "action_counts": {
+      "consultar_rag": 2,
+      "escalar_revision": 1,
+      "pedir_dato": 2,
+      "responder": 1,
+      "responder_con_cita": 2
+    },
+    "state_action": [
+      {
+        "state_id": "ticket_con_evidencia",
+        "action": "escalar_revision",
+        "count": 1,
+        "share": 0.125
+      },
+      {
+        "state_id": "ticket_con_evidencia",
+        "action": "responder",
+        "count": 1,
+        "share": 0.125
+      },
+      {
+        "state_id": "ticket_con_evidencia",
+        "action": "responder_con_cita",
+        "count": 2,
+        "share": 0.25
+      },
+      {
+        "state_id": "ticket_nuevo",
+        "action": "consultar_rag",
+        "count": 2,
+        "share": 0.25
+      },
+      {
+        "state_id": "ticket_nuevo",
+        "action": "pedir_dato",
+        "count": 2,
+        "share": 0.25
+      }
+    ],
+    "low_coverage_pairs": []
+  },
+  "lineage": {
+    "policy_versions": [
+      "2026-06-07.3"
+    ],
+    "reward_versions": [
+      "support_reward.v2"
+    ],
+    "environment_versions": [
+      "support_runtime.2026-06-07"
+    ]
+  },
+  "snapshot_hash": "42fef8c39c537ea134973d404256db78ab515cd185c82db641b8b42673508194"
+}

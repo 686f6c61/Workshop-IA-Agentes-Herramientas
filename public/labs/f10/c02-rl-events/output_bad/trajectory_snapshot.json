@@ -1,0 +1,73 @@
+{
+  "snapshot_type": "rl_trajectory_snapshot",
+  "gamma": 0.9,
+  "episodes": [
+    {
+      "episode_id": "bad_case_001",
+      "return": 2.3,
+      "steps": [
+        {
+          "t": 0,
+          "state_id": "ticket_nuevo",
+          "action": "responder",
+          "action_probability": 0.44,
+          "reward": 0.5,
+          "next_state_id": "ticket_resuelto",
+          "terminal": false,
+          "policy_version": "2026-06-07.3",
+          "reward_version": "support_reward.v2",
+          "trace_id": "trace_bad001_0"
+        },
+        {
+          "t": 1,
+          "state_id": "ticket_con_evidencia",
+          "action": "responder_con_cita",
+          "action_probability": 0.72,
+          "reward": 2.0,
+          "next_state_id": "ticket_resuelto",
+          "terminal": true,
+          "policy_version": "2026-06-07.3",
+          "reward_version": "support_reward.v2",
+          "trace_id": "trace_bad001_1"
+        }
+      ]
+    },
+    {
+      "episode_id": "bad_case_002",
+      "return": -0.1,
+      "steps": [
+        {
+          "t": 0,
+          "state_id": "ticket_nuevo",
+          "action": "consultar_rag",
+          "action_probability": null,
+          "reward": -0.1,
+          "next_state_id": "ticket_con_evidencia",
+          "terminal": false,
+          "policy_version": "2026-06-07.3",
+          "reward_version": "support_reward.v2",
+          "trace_id": "trace_bad002_0"
+        }
+      ]
+    },
+    {
+      "episode_id": "bad_case_003",
+      "return": -0.1,
+      "steps": [
+        {
+          "t": 0,
+          "state_id": "ticket_nuevo",
+          "action": "consultar_rag",
+          "action_probability": 0.39,
+          "reward": -0.1,
+          "next_state_id": "ticket_con_evidencia",
+          "terminal": false,
+          "policy_version": "2026-06-07.3",
+          "reward_version": null,
+          "trace_id": "trace_bad003_0"
+        }
+      ]
+    }
+  ],
+  "snapshot_hash": "38f7765b720dd759989600f245390bec8a1c9641663352cec89ce35bae6a13ff"
+}

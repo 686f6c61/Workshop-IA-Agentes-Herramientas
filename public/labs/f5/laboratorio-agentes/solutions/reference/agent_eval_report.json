@@ -1,0 +1,62 @@
+{
+  "status": "publicar",
+  "metrics": {
+    "route_accuracy": 1.0,
+    "task_pass_rate": 1.0,
+    "trace_complete_rate": 1.0,
+    "tool_violation_count": 0,
+    "approval_violation_count": 0,
+    "mean_cost": 0.0475,
+    "latency_p95_ms": 6100,
+    "tool_call_mean": 1.5,
+    "human_review_rate": 0.25
+  },
+  "blocks": [],
+  "reviews": [],
+  "cases": [
+    {
+      "case_id": "r01",
+      "route_ok": true,
+      "required_tools_ok": true,
+      "forbidden_tools_ok": true,
+      "approval_ok": true,
+      "cost_ok": true,
+      "latency_ok": true,
+      "trace_ok": true,
+      "pass": true
+    },
+    {
+      "case_id": "r02",
+      "route_ok": true,
+      "required_tools_ok": true,
+      "forbidden_tools_ok": true,
+      "approval_ok": true,
+      "cost_ok": true,
+      "latency_ok": true,
+      "trace_ok": true,
+      "pass": true
+    },
+    {
+      "case_id": "r03",
+      "route_ok": true,
+      "required_tools_ok": true,
+      "forbidden_tools_ok": true,
+      "approval_ok": true,
+      "cost_ok": true,
+      "latency_ok": true,
+      "trace_ok": true,
+      "pass": true
+    },
+    {
+      "case_id": "r04",
+      "route_ok": true,
+      "required_tools_ok": true,
+      "forbidden_tools_ok": true,
+      "approval_ok": true,
+      "cost_ok": true,
+      "latency_ok": true,
+      "trace_ok": true,
+      "pass": true
+    }
+  ]
+}

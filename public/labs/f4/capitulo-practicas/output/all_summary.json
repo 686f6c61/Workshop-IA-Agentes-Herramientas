@@ -1,0 +1,456 @@
+{
+  "c01": {
+    "status": "valid",
+    "summary": "RAG gana porque el conocimiento vivo pesa más que actuar fuera.",
+    "input_case": {
+      "conocimiento_vivo": 5,
+      "accion_externa": 0,
+      "formato": 3,
+      "conducta_repetida": 2,
+      "privacidad_local": 4,
+      "coste": 3
+    },
+    "ranking": [
+      [
+        "rag",
+        56
+      ],
+      [
+        "tool",
+        52
+      ],
+      [
+        "modelo_local",
+        47
+      ],
+      [
+        "ajuste_lora",
+        45
+      ],
+      [
+        "prompt_schema",
+        38
+      ]
+    ],
+    "what_you_take": "Una matriz para decidir si usar prompt/schema, RAG, tool, ajuste, modelo local o mezcla."
+  },
+  "c02": {
+    "status": "valid",
+    "summary": "Payload de API con contrato, tool, metadata y entrada multimodal.",
+    "checks": {
+      "schema_strict": true,
+      "has_tool": true,
+      "has_trace": true,
+      "multimodal": true,
+      "low_temperature": true
+    },
+    "payload": {
+      "model": "modelo-vigente",
+      "instructions": "Clasifica la solicitud y usa tools solo si faltan datos.",
+      "input": [
+        {
+          "role": "user",
+          "content": [
+            {
+              "type": "input_text",
+              "text": "Pago hecho, campus pendiente"
+            },
+            {
+              "type": "input_file",
+              "file_id": "file_normativa"
+            },
+            {
+              "type": "input_image",
+              "image_url": "https://example.edu/captura.png"
+            }
+          ]
+        }
+      ],
+      "text": {
+        "format": {
+          "type": "json_schema",
+          "strict": true,
+          "schema": {
+            "required": [
+              "categoria",
+              "prioridad",
+              "siguiente_paso",
+              "confianza",
+              "evidencias",
+              "necesita_tool"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "tools": [
+        {
+          "type": "function",
+          "name": "consultar_expediente",
+          "parameters": {
+            "type": "object",
+            "required": [
+              "id_alumno"
+            ]
+          }
+        }
+      ],
+      "metadata": {
+        "trace_id": "trc_00042",
+        "feature": "matricula"
+      },
+      "temperature": 0.2,
+      "top_p": 0.9,
+      "max_output_tokens": 900,
+      "parallel_tool_calls": false,
+      "store": false
+    },
+    "schema": {
+      "required": [
+        "categoria",
+        "prioridad",
+        "siguiente_paso",
+        "confianza",
+        "evidencias",
+        "necesita_tool"
+      ],
+      "additionalProperties": false
+    },
+    "what_you_take": "Un payload de API completo con contrato de salida, tool, metadata y entrada multimodal."
+  },
+  "c03": {
+    "status": "valid",
+    "summary": "cabe; medir calidad y latencia",
+    "call": {
+      "instructions": 700,
+      "history": 1800,
+      "documents": 14000,
+      "tools_schema": 1200,
+      "output_max": 1500,
+      "output_real": 650,
+      "cache_hit": 12000,
+      "window": 32000
+    },
+    "prices": {
+      "input": 2.0,
+      "output": 8.0,
+      "cache_read": 0.2
+    },
+    "input_total": 17700,
+    "fresh_input": 5700,
+    "reserved": 19200,
+    "margin": 12800,
+    "estimated_cost": 0.019,
+    "what_you_take": "Una hoja reproducible de presupuesto de tokens, ventana, caché y coste."
+  },
+  "c04": {
+    "status": "valid",
+    "summary": "La matriz revela prioridades: no basta con calidad; apertura, licencia, datos y operación cambian la decisión.",
+    "weights": {
+      "quality": 0.22,
+      "latency": 0.12,
+      "cost": 0.14,
+      "context": 0.08,
+      "data_control": 0.16,
+      "reproducibility": 0.12,
+      "openness": 0.1,
+      "ops_fit": 0.06
+    },
+    "hard_filters": [
+      "privacy",
+      "json",
+      "license"
+    ],
+    "kpis": [
+      "quality",
+      "latency",
+      "cost",
+      "context",
+      "data_control",
+      "reproducibility",
+      "openness",
+      "ops_fit"
+    ],
+    "ranking": [
+      [
+        "open_weight_permissive",
+        0.79
+      ],
+      [
+        "closed_api_mini",
+        0.674
+      ],
+      [
+        "closed_api_frontier",
+        0.625
+      ]
+    ],
+    "discarded_by_filter": [
+      "open_weight_license_propia",
+      "open_weight_quantized_no_json"
+    ],
+    "expected_top": "open_weight_permissive",
+    "what_you_take": "Una matriz de selección de modelo que distingue API cerrada, pesos abiertos, licencia, control de datos, reproducibilidad y coste operativo."
+  },
+  "c05": {
+    "status": "valid",
+    "summary": "Modelo local razonable para prototipo, no para prometer concurrencia.",
+    "model": {
+      "parameters_b": 8,
+      "bits": 4,
+      "context": 8192,
+      "kv_cache_gb": 3.0,
+      "runtime_margin_gb": 4.0,
+      "vram_gb": 16
+    },
+    "weights_gb": 4.0,
+    "estimated_total_gb": 11.0,
+    "checks": {
+      "fits_memory": true,
+      "has_margin": true,
+      "context_declared": true
+    },
+    "what_you_take": "Un cálculo inicial para no prometer que un modelo local cabe si la VRAM no acompaña."
+  },
+  "c06": {
+    "status": "valid",
+    "summary": "Cloud/local se decide por restricciones, no por preferencia.",
+    "weights": {
+      "privacy": 0.3,
+      "latency": 0.2,
+      "ops": 0.2,
+      "elasticity": 0.2,
+      "cost_predictability": 0.1
+    },
+    "ranking": [
+      [
+        "cloud_api",
+        3.7
+      ],
+      [
+        "hybrid",
+        3.5
+      ],
+      [
+        "local_server",
+        3.3
+      ],
+      [
+        "rented_gpu",
+        3.3
+      ]
+    ],
+    "what_you_take": "Una comparación editable entre cloud, local, híbrido y GPU alquilada."
+  },
+  "c07": {
+    "status": "valid",
+    "summary": "La dimensión es el tamaño del vector y el ranking debe evaluarse con casos.",
+    "query": "no puedo entrar al campus con doble factor",
+    "dims": 48,
+    "ranking": [
+      [
+        "d1",
+        0.30974442548797576
+      ],
+      [
+        "d2",
+        -0.00433691558346702
+      ],
+      [
+        "d3",
+        -0.10961344793448718
+      ]
+    ],
+    "hit_at_1": 1.0,
+    "what_you_take": "Un ranking mínimo para explicar dimensión, similitud y evaluación de embeddings."
+  },
+  "c08": {
+    "status": "valid",
+    "summary": "El filtro evita que contenido antiguo gane por parecido superficial.",
+    "query": "moodle mfa acceso",
+    "filter": {
+      "year": 2026,
+      "active": true
+    },
+    "dense": [
+      [
+        "doc-01",
+        0.6550169061016156
+      ],
+      [
+        "doc-02",
+        0.09458856551293483
+      ]
+    ],
+    "lexical": [
+      [
+        "doc-01",
+        2
+      ],
+      [
+        "doc-02",
+        0
+      ]
+    ],
+    "hybrid": [
+      [
+        "doc-01",
+        0.03278688524590164
+      ],
+      [
+        "doc-02",
+        0.03225806451612903
+      ]
+    ],
+    "what_you_take": "Un ejemplo de búsqueda híbrida con filtro para evitar documentos antiguos pero parecidos."
+  },
+  "c09": {
+    "status": "valid",
+    "summary": "RAG mínimo: recuperar, citar o abstenerse.",
+    "traces": [
+      {
+        "question": "cuando se solicita ampliación",
+        "gold": [
+          "norm#1"
+        ],
+        "retrieved": [
+          "norm#1"
+        ],
+        "abstain": false,
+        "ok": true
+      },
+      {
+        "question": "puedo ampliar con pagos vencidos",
+        "gold": [
+          "norm#2"
+        ],
+        "retrieved": [
+          "norm#2"
+        ],
+        "abstain": false,
+        "ok": true
+      },
+      {
+        "question": "cual es el teléfono del rectorado",
+        "gold": [],
+        "retrieved": [],
+        "abstain": true,
+        "ok": true
+      }
+    ],
+    "what_you_take": "Un mini RAG que recupera, cita o se abstiene."
+  },
+  "c10": {
+    "status": "valid",
+    "summary": "La evaluación separa retrieval, citas y soporte de afirmaciones.",
+    "runs": [
+      {
+        "retrieved": [
+          [
+            "a",
+            2
+          ],
+          [
+            "b",
+            0
+          ]
+        ],
+        "gold": [
+          "a"
+        ],
+        "citations": [
+          "a"
+        ],
+        "claims_supported": true
+      },
+      {
+        "retrieved": [
+          [
+            "b",
+            0
+          ],
+          [
+            "a",
+            2
+          ]
+        ],
+        "gold": [
+          "a"
+        ],
+        "citations": [
+          "b"
+        ],
+        "claims_supported": false
+      }
+    ],
+    "hit_at_1": 0.5,
+    "citation_precision": 0.5,
+    "groundedness": 0.5,
+    "what_you_take": "Una separación práctica entre retrieval, citas y groundedness."
+  },
+  "c11": {
+    "status": "valid",
+    "summary": "Agentic RAG complica solo cuando necesita varias rutas de evidencia.",
+    "question": "compara beca pendiente y pago vencido para ampliar matrícula",
+    "plan": [
+      "descomponer",
+      "buscar_texto",
+      "buscar_grafo",
+      "evaluar_evidencia",
+      "responder_con_citas"
+    ],
+    "graph_hits": [
+      [
+        "beca pendiente",
+        "no bloquea",
+        "ampliación"
+      ],
+      [
+        "pago vencido",
+        "bloquea",
+        "ampliación"
+      ]
+    ],
+    "what_you_take": "Un plan pequeño de Agentic RAG/GraphRAG con evidencias combinadas."
+  },
+  "c12": {
+    "status": "valid",
+    "summary": "Text-to-SQL requiere validación antes de ejecutar.",
+    "sql": "SELECT campus, SUM(importe) AS total FROM pagos WHERE estado='pendiente' GROUP BY campus ORDER BY total DESC LIMIT 3",
+    "rows": [
+      {
+        "campus": "Norte",
+        "total": 800.0
+      },
+      {
+        "campus": "Sur",
+        "total": 120.0
+      }
+    ],
+    "what_you_take": "Una consulta Text-to-SQL validada antes de ejecutarse."
+  },
+  "c14": {
+    "status": "valid",
+    "summary": "La recapitulación se convierte en gate de arquitectura.",
+    "proposal": {
+      "problema_definido": true,
+      "contrato_salida": true,
+      "evidencia_verificable": true,
+      "permisos_explicitos": true,
+      "coste_estimado": true,
+      "latencia_estimable": true,
+      "evaluacion_offline": true,
+      "trazas": true,
+      "mantenimiento_asignado": false,
+      "complejidad_justificada": true
+    },
+    "score": 16,
+    "total": 17,
+    "ratio": 0.941,
+    "decision": "prototipo controlado",
+    "missing": [
+      "mantenimiento_asignado"
+    ],
+    "what_you_take": "Un gate de arquitectura para decidir si un prototipo puede avanzar."
+  }
+}

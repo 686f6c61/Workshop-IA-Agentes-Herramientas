@@ -1,0 +1,38 @@
+# Práctica F4 C14
+
+Estado: `valid`.
+
+La recapitulación se convierte en gate de arquitectura.
+
+## Qué te llevas
+
+Un gate de arquitectura para decidir si un prototipo puede avanzar.
+
+## Evidencia
+
+```json
+{
+  "status": "valid",
+  "summary": "La recapitulación se convierte en gate de arquitectura.",
+  "proposal": {
+    "problema_definido": true,
+    "contrato_salida": true,
+    "evidencia_verificable": true,
+    "permisos_explicitos": true,
+    "coste_estimado": true,
+    "latencia_estimable": true,
+    "evaluacion_offline": true,
+    "trazas": true,
+    "mantenimiento_asignado": false,
+    "complejidad_justificada": true
+  },
+  "score": 16,
+  "total": 17,
+  "ratio": 0.941,
+  "decision": "prototipo controlado",
+  "missing": [
+    "mantenimiento_asignado"
+  ],
+  "what_you_take": "Un gate de arquitectura para decidir si un prototipo puede avanzar."
+}
+```

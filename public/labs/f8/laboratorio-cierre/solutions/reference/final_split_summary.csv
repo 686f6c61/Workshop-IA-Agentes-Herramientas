@@ -1,0 +1,4 @@
+split,n,accuracy,miss_rate,accepted_rate
+test,5,0.6,0.5,0.6
+train,4,0.75,0.5,0.75
+validation,3,0.666667,0.5,0.666667

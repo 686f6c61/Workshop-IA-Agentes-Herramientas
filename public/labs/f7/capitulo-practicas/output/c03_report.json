@@ -1,0 +1,21 @@
+{
+  "chapter": "c03",
+  "status": "valid",
+  "checks": [
+    {
+      "name": "script_exit_zero",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "artifact:output/rag_scorecard.json",
+      "passed": true,
+      "detail": "output/rag_scorecard.json"
+    },
+    {
+      "name": "artifact:output/rag_decision.md",
+      "passed": true,
+      "detail": "output/rag_decision.md"
+    }
+  ]
+}

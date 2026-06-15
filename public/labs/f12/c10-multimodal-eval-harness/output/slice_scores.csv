@@ -1,0 +1,16 @@
+slice,case_count,avg_case_score,avg_evidence_score,review_count,block_count,p95_latency_ms,total_cost_usd
+approval,1,0.175,0.0,1,0,2500.0,0.007
+audio_realtime,1,1.0,1.0,0,0,1800.0,0.006
+chart_reasoning,1,0.325,0.5,1,0,4100.0,0.012
+computer_use,1,0.175,0.0,1,0,2500.0,0.007
+document_ai,3,0.775,0.8333,1,0,5920.0,0.048
+event_detection,1,0.1,0.0,1,0,9800.0,0.053
+image_grounding,2,0.6625,0.75,1,0,6035.0,0.033
+multimodal_rag,1,0.325,0.5,1,0,6200.0,0.025
+noise,1,1.0,1.0,0,0,1800.0,0.006
+numeric,1,0.325,0.5,1,0,4100.0,0.012
+ocr,1,1.0,1.0,0,0,3400.0,0.014
+privacy,1,1.0,1.0,0,0,2200.0,0.009
+safety,1,1.0,1.0,0,0,2900.0,0.008
+table,1,1.0,1.0,0,0,3400.0,0.014
+video_temporal,1,0.1,0.0,1,0,9800.0,0.053

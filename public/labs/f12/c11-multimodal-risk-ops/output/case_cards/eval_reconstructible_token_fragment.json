@@ -1,0 +1,26 @@
+{
+  "case_id": "eval_reconstructible_token_fragment",
+  "title": "Fixture de evaluación con fragmento de token reconstruible",
+  "modality": "eval_dataset",
+  "purpose": "Convertir un incidente de integración en regresión sin conservar credenciales",
+  "owner": "equipo_evalops",
+  "destination": "internal_eval_store",
+  "storage": "eval_case_redacted",
+  "entity_count": 2,
+  "max_entity_sensitivity": 0.765,
+  "exposure_score": 0.12,
+  "impact": 0.91,
+  "risk_score": 0.619,
+  "missing_controls": [
+    "redacted_fixture"
+  ],
+  "retention_days": 180,
+  "decision": "block",
+  "expected_decision": "block",
+  "decision_matches_expected": true,
+  "failures": [
+    "secreto_sin_redactar",
+    "controles_faltantes"
+  ],
+  "next_action": "Revocar secreto, redactar captura, abrir incidente y bloquear publicación."
+}

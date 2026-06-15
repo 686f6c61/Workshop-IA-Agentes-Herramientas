@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 1240" role="img" aria-label="Tabla sintética con cabeceras agrupadas">
+  <rect width="960" height="1240" fill="#FFFFFF"/>
+  <rect x="72" y="70" width="816" height="1100" fill="#FFFFFF" stroke="#111111" stroke-width="2"/>
+  <text x="112" y="136" font-family="Arial, sans-serif" font-size="28" font-weight="700" fill="#111111">Resumen de compras por departamento</text>
+  <rect x="112" y="220" width="720" height="64" fill="#111111"/>
+  <text x="472" y="258" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" fill="#FFFFFF">Importes por trimestre</text>
+  <rect x="112" y="284" width="180" height="58" fill="#F7F7F7" stroke="#111111"/>
+  <rect x="292" y="284" width="135" height="58" fill="#F7F7F7" stroke="#111111"/>
+  <rect x="427" y="284" width="135" height="58" fill="#F7F7F7" stroke="#111111"/>
+  <rect x="562" y="284" width="135" height="58" fill="#F7F7F7" stroke="#111111"/>
+  <rect x="697" y="284" width="135" height="58" fill="#F7F7F7" stroke="#111111"/>
+  <text x="202" y="318" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" fill="#111111">Departamento</text>
+  <text x="359" y="318" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" fill="#111111">Q1</text>
+  <text x="494" y="318" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" fill="#111111">Q2</text>
+  <text x="629" y="318" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" fill="#111111">Q3</text>
+  <text x="764" y="318" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" fill="#111111">Q4</text>
+  <g font-family="Arial, sans-serif" font-size="14" fill="#111111">
+    <rect x="112" y="342" width="720" height="54" fill="#FFFFFF" stroke="#111111"/>
+    <text x="140" y="376">Becas</text><text x="356" y="376">1200</text><text x="491" y="376">1500</text><text x="626" y="376">900</text><text x="761" y="376">1300</text>
+    <rect x="112" y="396" width="720" height="54" fill="#FFFFFF" stroke="#111111"/>
+    <text x="140" y="430">Laboratorios</text><text x="356" y="430">800</text><text x="491" y="430">940</text><text x="626" y="430">870</text><text x="761" y="430">1100</text>
+    <rect x="112" y="450" width="720" height="54" fill="#FFFFFF" stroke="#111111"/>
+    <text x="140" y="484">Biblioteca</text><text x="356" y="484">500</text><text x="491" y="484">620</text><text x="626" y="484">610</text><text x="761" y="484">730</text>
+  </g>
+  <text x="112" y="598" font-family="Arial, sans-serif" font-size="15" fill="#111111">La cabecera superior agrupa columnas; si se pierde, Q1-Q4 quedan sin contexto.</text>
+  <text x="828" y="1134" text-anchor="end" font-family="Arial, sans-serif" font-size="12" fill="#777777">Página 1 · documento sintético</text>
+</svg>

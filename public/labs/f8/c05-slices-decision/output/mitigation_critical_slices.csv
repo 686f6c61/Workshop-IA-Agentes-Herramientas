@@ -1,0 +1,7 @@
+policy,slice_id,n,positives,auto_recall,miss_rate,safety_capture,review_rate,cost_per_case
+base,language=en,9,4,0.25,0.25,0.75,0.5556,1.5556
+base,access_need=si,12,6,0.0,0.6667,0.3333,0.5,3.2667
+base,product=practicas|access_need=si,4,2,0.0,1.0,0.0,0.5,4.6
+banda_revision,language=en,9,4,0.25,0.0,1.0,0.6667,0.8
+banda_revision,access_need=si,12,6,0.0,0.0,1.0,0.9167,1.1
+banda_revision,product=practicas|access_need=si,4,2,0.0,0.0,1.0,1.0,1.2

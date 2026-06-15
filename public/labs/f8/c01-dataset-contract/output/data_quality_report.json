@@ -1,0 +1,138 @@
+{
+  "contract_id": "support-cases-data-contract-v1",
+  "owner": "equipo-datos-ia",
+  "purpose": "Construir y evaluar un asistente académico con casos sinteticos de soporte.",
+  "dataset_path": "data/support_cases.csv",
+  "dataset_hash_sha256": "2773d0f1efaedc48a61e7aa6d83d80f5288c947395d146d86d253f2e833be8df",
+  "contract_hash_sha256": "8c6154b9d99371337662e402c19192fa83bcfb75dfe26944be253ce10dc1152a",
+  "row_count": 18,
+  "split_counts": {
+    "train": 8,
+    "validation": 4,
+    "test": 6
+  },
+  "label_distribution": {
+    "answer": 11,
+    "ask_more": 4,
+    "escalate": 3
+  },
+  "label_by_split": {
+    "train": {
+      "answer": 5,
+      "ask_more": 2,
+      "escalate": 1
+    },
+    "validation": {
+      "answer": 2,
+      "escalate": 1,
+      "ask_more": 1
+    },
+    "test": {
+      "answer": 4,
+      "escalate": 1,
+      "ask_more": 1
+    }
+  },
+  "product_counts": {
+    "matricula": 4,
+    "becas": 4,
+    "pagos": 3,
+    "horarios": 3,
+    "titulos": 2,
+    "practicas": 2
+  },
+  "pii_risk_counts": {
+    "low": 14,
+    "medium": 4
+  },
+  "checks": [
+    {
+      "name": "schema_columns",
+      "passes": true,
+      "severity": "block",
+      "detail": {
+        "missing_columns": [],
+        "extra_columns": []
+      }
+    },
+    {
+      "name": "case_id_unique",
+      "passes": true,
+      "severity": "block",
+      "detail": {
+        "duplicate_case_ids": []
+      }
+    },
+    {
+      "name": "split_values",
+      "passes": true,
+      "severity": "block",
+      "detail": {
+        "invalid_splits": []
+      }
+    },
+    {
+      "name": "label_values",
+      "passes": true,
+      "severity": "block",
+      "detail": {
+        "invalid_labels": []
+      }
+    },
+    {
+      "name": "missing_rate",
+      "passes": true,
+      "severity": "block",
+      "detail": {
+        "missing_rate": 0.0,
+        "missing_by_column": {}
+      }
+    },
+    {
+      "name": "split_minimums",
+      "passes": true,
+      "severity": "block",
+      "detail": {}
+    },
+    {
+      "name": "label_minimums",
+      "passes": true,
+      "severity": "review",
+      "detail": {}
+    },
+    {
+      "name": "license_compatibility",
+      "passes": true,
+      "severity": "block",
+      "detail": {
+        "license_mismatches": []
+      }
+    },
+    {
+      "name": "pii_risk_allowed",
+      "passes": true,
+      "severity": "block",
+      "detail": {
+        "invalid_pii_risk_values": []
+      }
+    },
+    {
+      "name": "lineage_complete",
+      "passes": true,
+      "severity": "block",
+      "detail": {
+        "lineage_missing": []
+      }
+    },
+    {
+      "name": "duplicate_text_across_splits",
+      "passes": true,
+      "severity": "block",
+      "detail": {
+        "duplicates": []
+      }
+    }
+  ],
+  "gate": "pass",
+  "recommendation": "usar como dataset didactico y adaptar contrato antes de usar datos reales"
+}

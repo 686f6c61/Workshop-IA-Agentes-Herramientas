@@ -1,0 +1,34 @@
+{
+  "name": "frontier_policy_demo",
+  "start": "S",
+  "goal": "G",
+  "successor_order": "listed",
+  "edges": {
+    "S": [
+      {"to": "A", "cost": 1},
+      {"to": "B", "cost": 2},
+      {"to": "C", "cost": 9}
+    ],
+    "A": [
+      {"to": "D", "cost": 1},
+      {"to": "E", "cost": 8}
+    ],
+    "B": [
+      {"to": "F", "cost": 2},
+      {"to": "G", "cost": 20}
+    ],
+    "C": [
+      {"to": "G", "cost": 1}
+    ],
+    "D": [
+      {"to": "G", "cost": 10}
+    ],
+    "E": [
+      {"to": "G", "cost": 1}
+    ],
+    "F": [
+      {"to": "G", "cost": 2}
+    ],
+    "G": []
+  }
+}

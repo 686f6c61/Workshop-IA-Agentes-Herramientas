@@ -1,0 +1,4 @@
+grader,tp,tn,fp,fn,precision,recall,accuracy
+answerability_v1,1,1,0,0,1.0,1.0,1.0
+citation_support_v1,2,2,0,0,1.0,1.0,1.0
+json_schema_v1,1,1,0,0,1.0,1.0,1.0

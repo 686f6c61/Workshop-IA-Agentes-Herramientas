@@ -1,0 +1,57 @@
+{
+  "window_id": "current_2026_w24_bad",
+  "policy_version": "policy_stable_v3",
+  "policy_candidate_version": "policy_candidate_v4",
+  "reward_card_version": "1.0.0",
+  "dataset_version": "reward-eval-2026-06-09",
+  "window_start": "2026-06-09T00:00:00Z",
+  "window_end": "2026-06-09T12:00:00Z",
+  "slices": [
+    {
+      "slice": "rag",
+      "requests": 250,
+      "reward_mean": 0.59,
+      "case_pass_rate": 0.84,
+      "evidence_pass_rate": 0.82,
+      "p95_latency_ms": 3100,
+      "tool_error_rate": 0.060,
+      "fallback_rate": 0.130
+    },
+    {
+      "slice": "sql",
+      "requests": 260,
+      "reward_mean": 0.58,
+      "case_pass_rate": 0.86,
+      "evidence_pass_rate": 0.87,
+      "p95_latency_ms": 2850,
+      "tool_error_rate": 0.055,
+      "fallback_rate": 0.110
+    },
+    {
+      "slice": "herramientas",
+      "requests": 260,
+      "reward_mean": 0.55,
+      "case_pass_rate": 0.82,
+      "evidence_pass_rate": 0.84,
+      "p95_latency_ms": 3300,
+      "tool_error_rate": 0.090,
+      "fallback_rate": 0.180
+    },
+    {
+      "slice": "privacidad",
+      "requests": 20,
+      "reward_mean": 0.61,
+      "case_pass_rate": 0.88,
+      "evidence_pass_rate": 0.89,
+      "p95_latency_ms": 2600,
+      "tool_error_rate": 0.030,
+      "fallback_rate": 0.090
+    }
+  ],
+  "actions": [
+    {"action": "small_rag_model", "count": 120},
+    {"action": "large_reasoning_model", "count": 430},
+    {"action": "sql_tool_route", "count": 210},
+    {"action": "fallback_static_policy", "count": 30}
+  ]
+}

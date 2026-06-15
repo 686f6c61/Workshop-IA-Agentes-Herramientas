@@ -1,0 +1,4 @@
+stage,traffic_pct,min_duration_minutes,exit_criteria_count,status,reason
+shadow,0,120,4,pass,ok
+pilot_5,5,240,4,pass,ok
+pilot_25,25,480,4,pass,ok

@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 1240" role="img" aria-label="Escaneo sintético de baja calidad">
+  <rect width="960" height="1240" fill="#FFFFFF"/>
+  <rect x="96" y="94" width="768" height="1040" fill="#F2F2F2" stroke="#111111" stroke-width="2" transform="rotate(-1.8 480 620)"/>
+  <text x="150" y="170" font-family="Arial, sans-serif" font-size="24" font-weight="700" fill="#222222" opacity="0.55">Formulario de matrícula</text>
+  <rect x="140" y="250" width="650" height="42" fill="#D8D8D8" opacity="0.65"/>
+  <rect x="140" y="320" width="610" height="42" fill="#D2D2D2" opacity="0.55"/>
+  <rect x="140" y="390" width="645" height="42" fill="#CCCCCC" opacity="0.45"/>
+  <text x="150" y="512" font-family="Arial, sans-serif" font-size="18" fill="#555555" opacity="0.42">Fecha: 20??-??-??</text>
+  <text x="150" y="570" font-family="Arial, sans-serif" font-size="18" fill="#555555" opacity="0.35">Documento incompleto</text>
+  <rect x="126" y="720" width="690" height="260" fill="#E5E5E5" opacity="0.6"/>
+  <line x1="126" y1="805" x2="816" y2="775" stroke="#777777" stroke-width="5" opacity="0.22"/>
+  <line x1="126" y1="894" x2="816" y2="864" stroke="#777777" stroke-width="5" opacity="0.22"/>
+  <text x="828" y="1134" text-anchor="end" font-family="Arial, sans-serif" font-size="12" fill="#777777">Página ilegible · documento sintético</text>
+</svg>

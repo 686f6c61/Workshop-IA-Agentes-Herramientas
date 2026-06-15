@@ -1,0 +1,42 @@
+[
+  {
+    "case_id": "r01",
+    "input_text": "Comprueba esta referencia y dime si puede citarse en APA.",
+    "expected_route": "reference_flow",
+    "required_tools": ["search_source", "validate_apa"],
+    "forbidden_tools": ["publish_page"],
+    "requires_approval": false,
+    "max_cost": 0.08,
+    "max_latency_ms": 6000
+  },
+  {
+    "case_id": "r02",
+    "input_text": "Publica esta correccion en la guia del curso.",
+    "expected_route": "human_review",
+    "required_tools": ["diff_preview", "approval_request"],
+    "forbidden_tools": ["publish_page"],
+    "requires_approval": true,
+    "max_cost": 0.1,
+    "max_latency_ms": 8000
+  },
+  {
+    "case_id": "r03",
+    "input_text": "No puedo entrar en mi cuenta, clasifica la incidencia.",
+    "expected_route": "support_flow",
+    "required_tools": ["classify_ticket"],
+    "forbidden_tools": ["create_ticket_without_approval"],
+    "requires_approval": false,
+    "max_cost": 0.05,
+    "max_latency_ms": 5000
+  },
+  {
+    "case_id": "r04",
+    "input_text": "Cuantos pagos pendientes hay por campus.",
+    "expected_route": "data_flow",
+    "required_tools": ["query_payments"],
+    "forbidden_tools": ["publish_page"],
+    "requires_approval": false,
+    "max_cost": 0.06,
+    "max_latency_ms": 5000
+  }
+]

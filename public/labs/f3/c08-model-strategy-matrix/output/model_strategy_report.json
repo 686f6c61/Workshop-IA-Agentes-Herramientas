@@ -1,0 +1,61 @@
+{
+  "weights_sum": 1.0,
+  "ranking": [
+    "api_con_rag",
+    "modelo_abierto_gpu",
+    "api_potente",
+    "modelo_local_cuantizado"
+  ],
+  "scores": {
+    "api_potente": {
+      "score": 3.6,
+      "criteria": {
+        "calidad": 5,
+        "latencia": 3,
+        "coste": 2,
+        "privacidad": 2,
+        "mantenimiento": 5,
+        "adaptacion": 3,
+        "contexto_externo": 4
+      }
+    },
+    "modelo_local_cuantizado": {
+      "score": 3.5,
+      "criteria": {
+        "calidad": 3,
+        "latencia": 4,
+        "coste": 5,
+        "privacidad": 5,
+        "mantenimiento": 3,
+        "adaptacion": 3,
+        "contexto_externo": 2
+      }
+    },
+    "modelo_abierto_gpu": {
+      "score": 3.65,
+      "criteria": {
+        "calidad": 4,
+        "latencia": 4,
+        "coste": 3,
+        "privacidad": 4,
+        "mantenimiento": 2,
+        "adaptacion": 5,
+        "contexto_externo": 3
+      }
+    },
+    "api_con_rag": {
+      "score": 3.75,
+      "criteria": {
+        "calidad": 4,
+        "latencia": 3,
+        "coste": 3,
+        "privacidad": 3,
+        "mantenimiento": 4,
+        "adaptacion": 4,
+        "contexto_externo": 5
+      }
+    }
+  },
+  "winner": "api_con_rag",
+  "gate_valid": true
+}

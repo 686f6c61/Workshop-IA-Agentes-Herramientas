@@ -1,0 +1,21 @@
+{
+  "chapter": "c01",
+  "status": "valid",
+  "checks": [
+    {
+      "name": "script_exit_zero",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "artifact:output/eval_scorecard.json",
+      "passed": true,
+      "detail": "output/eval_scorecard.json"
+    },
+    {
+      "name": "artifact:output/decision.md",
+      "passed": true,
+      "detail": "output/decision.md"
+    }
+  ]
+}

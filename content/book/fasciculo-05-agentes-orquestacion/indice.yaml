@@ -1,0 +1,60 @@
+titulo: "Agentes y orquestación"
+fasciculo: 5
+total_capitulos: 11
+estado: revision
+
+capitulos:
+  - numero: 1
+    archivo: 01-agente-o-prompt-cuando-actuar.md
+    titulo: "Agente o prompt: cuándo merece la pena actuar"
+    estado: revision
+
+  - numero: 2
+    archivo: 02-que-es-un-agente-estado-accion-observacion.md
+    titulo: "Qué es un agente: estado, acción y observación"
+    estado: revision
+
+  - numero: 3
+    archivo: 03-tools-contratos-operativos-function-calling.md
+    titulo: "Tools y contratos operativos: function calling"
+    estado: revision
+
+  - numero: 4
+    archivo: 04-contexto-memoria-compaction-handoff.md
+    titulo: "Contexto, memoria, compaction y handoff"
+    estado: revision
+
+  - numero: 5
+    archivo: 05-arquitecturas-agentes-react-plan-workflows.md
+    titulo: "Arquitecturas de agentes: de ReAct a sistemas multiagente"
+    estado: revision
+
+  - numero: 6
+    archivo: 06-harness-engineering-limites-sensores-trazas.md
+    titulo: "Harness engineering: límites, sensores y trazas"
+    estado: revision
+
+  - numero: 7
+    archivo: 07-sdks-agentes-openai-anthropic-google-adk.md
+    titulo: "SDKs de agentes: OpenAI, Anthropic, Google ADK y herramientas"
+    estado: revision
+
+  - numero: 8
+    archivo: 08-permisos-autonomia-supervision-humana.md
+    titulo: "Permisos, autonomía y supervisión humana"
+    estado: revision
+
+  - numero: 9
+    archivo: 09-orquestacion-routing-mcp-a2a-adks.md
+    titulo: "Orquestación: routing, MCP, A2A y ADKs"
+    estado: revision
+
+  - numero: 10
+    archivo: 10-evaluar-agentes-trayectoria-coste-gates.md
+    titulo: "Evaluar agentes: trayectoria, coste y gates"
+    estado: revision
+
+  - numero: 11
+    archivo: 11-recapitulacion-laboratorio-agentes-orquestacion.md
+    titulo: "Lo que deberías saber: agentes y orquestación"
+    estado: revision

@@ -1,0 +1,8 @@
+{
+  "runs_per_case": 120,
+  "temperatures": [0, 0.4, 0.9, 1.4],
+  "property_pass_min": 0.85,
+  "exact_pass_min": 0.95,
+  "max_unique_outputs_for_factual": 4,
+  "seed": 686
+}

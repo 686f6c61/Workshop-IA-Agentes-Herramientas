@@ -1,0 +1,63 @@
+{
+  "policy_id": "f8-c05-slice-decision-policy",
+  "versión": "2026-06-07",
+  "evaluation_split": "test",
+  "threshold_source": "validation-v1-frozen-before-test",
+  "score_field": "score",
+  "label_field": "true_priority",
+  "positive_label": 1,
+  "decision_labels": {
+    "positive": "priorizar",
+    "negative": "normal",
+    "review": "revisar"
+  },
+  "thresholds": {
+    "positive_if_score_gte": 0.78,
+    "negative_if_score_lt": 0.38
+  },
+  "audit_fields": [
+    "product",
+    "channel",
+    "language",
+    "access_need",
+    "student_profile"
+  ],
+  "intersectional_slices": [
+    ["language", "access_need"],
+    ["product", "access_need"]
+  ],
+  "fields_not_for_model": [
+    "access_need",
+    "student_profile"
+  ],
+  "minimums": {
+    "slice_n": 4,
+    "positive_n": 2,
+    "negative_n": 2
+  },
+  "costs": {
+    "false_negative": 8.0,
+    "false_positive": 3.0,
+    "review": 1.2
+  },
+  "gates": {
+    "min_global_safety_capture": 0.88,
+    "max_global_miss_rate": 0.12,
+    "max_auto_recall_gap": 0.25,
+    "max_miss_rate_gap": 0.20,
+    "max_false_positive_rate_gap": 0.25,
+    "max_review_rate_gap": 0.35,
+    "max_cost_per_case_gap": 2.0,
+    "max_latency_p95_ms": 650
+  },
+  "critical_slices": [
+    "access_need=si",
+    "language=en",
+    "product=practicas|access_need=si"
+  ],
+  "release_status_meaning": {
+    "pass": "La política cumple gates mínimos y puede pasar a revisión final del equipo.",
+    "review": "Hay señales que requieren mirar casos, ampliar muestra o ajustar el proceso antes de automatizar más.",
+    "block": "La política no debe automatizarse en su forma actual."
+  }
+}

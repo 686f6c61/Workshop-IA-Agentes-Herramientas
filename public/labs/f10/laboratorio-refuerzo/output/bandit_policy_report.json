@@ -1,0 +1,85 @@
+{
+  "scenario_id": "routing_modelos_soporte",
+  "gate_ok": true,
+  "selected_policy": "greedy",
+  "policies": [
+    {
+      "policy_id": "greedy",
+      "cumulative_reward": 23.0,
+      "regret": 0.22,
+      "action_counts": {
+        "modelo_rapido": 1,
+        "modelo_fuerte": 28,
+        "revision_humana": 1
+      },
+      "action_share": {
+        "modelo_rapido": 0.0333,
+        "modelo_fuerte": 0.9333,
+        "revision_humana": 0.0333
+      },
+      "observed_means": {
+        "modelo_rapido": 0.62,
+        "modelo_fuerte": 0.7743,
+        "revision_humana": 0.7
+      },
+      "best_reference_arm": "modelo_fuerte",
+      "true_means": {
+        "modelo_rapido": 0.594,
+        "modelo_fuerte": 0.774,
+        "revision_humana": 0.695
+      }
+    },
+    {
+      "policy_id": "epsilon_greedy",
+      "cumulative_reward": 22.54,
+      "regret": 0.68,
+      "action_counts": {
+        "modelo_rapido": 3,
+        "modelo_fuerte": 25,
+        "revision_humana": 2
+      },
+      "action_share": {
+        "modelo_rapido": 0.1,
+        "modelo_fuerte": 0.8333,
+        "revision_humana": 0.0667
+      },
+      "observed_means": {
+        "modelo_rapido": 0.6033,
+        "modelo_fuerte": 0.774,
+        "revision_humana": 0.69
+      },
+      "best_reference_arm": "modelo_fuerte",
+      "true_means": {
+        "modelo_rapido": 0.594,
+        "modelo_fuerte": 0.774,
+        "revision_humana": 0.695
+      }
+    },
+    {
+      "policy_id": "ucb",
+      "cumulative_reward": 21.21,
+      "regret": 2.01,
+      "action_counts": {
+        "modelo_rapido": 7,
+        "modelo_fuerte": 13,
+        "revision_humana": 10
+      },
+      "action_share": {
+        "modelo_rapido": 0.2333,
+        "modelo_fuerte": 0.4333,
+        "revision_humana": 0.3333
+      },
+      "observed_means": {
+        "modelo_rapido": 0.6,
+        "modelo_fuerte": 0.7738,
+        "revision_humana": 0.695
+      },
+      "best_reference_arm": "modelo_fuerte",
+      "true_means": {
+        "modelo_rapido": 0.594,
+        "modelo_fuerte": 0.774,
+        "revision_humana": 0.695
+      }
+    }
+  ]
+}

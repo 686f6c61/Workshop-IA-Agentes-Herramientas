@@ -1,0 +1,170 @@
+{
+  "manifest_id": "f12-c01-modality-contract-v1",
+  "owner": "equipo-aprendizaje-ia",
+  "date": "2026-06-14",
+  "goal": "Decidir que modalidad minima necesita cada caso antes de comprar tecnologia o prometer una demo.",
+  "cases": [
+    {
+      "case_id": "support-screenshot-001",
+      "title": "Incidencia de soporte con captura de pantalla",
+      "task": "Clasificar la incidencia, detectar el error visible y proponer siguiente accion.",
+      "available_inputs": [
+        {
+          "modality": "text",
+          "format": "ticket_text",
+          "source": "formulario de soporte",
+          "example": "No puedo enviar el formulario de beca y aparece un mensaje rojo."
+        },
+        {
+          "modality": "image",
+          "format": "png_screenshot",
+          "source": "captura subida por la persona usuaria",
+          "example": "Pantalla con banner de error y campo obligatorio vacio."
+        }
+      ],
+      "minimum_modalities": ["text", "image"],
+      "candidate_architecture": "vlm_plus_rules",
+      "output_contract": {
+        "type": "json",
+        "required_fields": ["categoria", "evidencia_visual", "accion_recomendada", "confidence"],
+        "must_cite_evidence": true
+      },
+      "evidence_required": ["texto_del_ticket", "region_visual_relevante", "mensaje_de_error"],
+      "metrics": ["schema_pass_rate", "visual_evidence_accuracy", "resolution_rate"],
+      "risks": ["pii_in_screenshot", "false_visual_assumption", "accessibility_gap"],
+      "human_review": "required_when_confidence_below_0_75_or_personal_data_visible"
+    },
+    {
+      "case_id": "invoice-pdf-002",
+      "title": "Extraccion de factura en PDF",
+      "task": "Extraer proveedor, fecha, total, impuestos y evidencia por campo.",
+      "available_inputs": [
+        {
+          "modality": "document",
+          "format": "pdf",
+          "source": "factura sintetica de proveedor",
+          "example": "PDF con tabla de conceptos, CIF ficticio y total."
+        },
+        {
+          "modality": "text",
+          "format": "ocr_text",
+          "source": "OCR producido por pipeline interno",
+          "example": "Texto plano con posibles saltos de lectura."
+        }
+      ],
+      "minimum_modalities": ["document", "text"],
+      "candidate_architecture": "ocr_layout_plus_llm",
+      "output_contract": {
+        "type": "json",
+        "required_fields": ["proveedor", "fecha", "total", "impuestos", "evidencia_por_campo"],
+        "must_cite_evidence": true
+      },
+      "evidence_required": ["pagina", "bbox_or_line_reference", "valor_extraido"],
+      "metrics": ["field_f1", "evidence_coverage", "manual_review_rate"],
+      "risks": ["layout_error", "currency_mismatch", "metadata_pii"],
+      "human_review": "required_for_total_mismatch_or_missing_evidence"
+    },
+    {
+      "case_id": "catalog-search-003",
+      "title": "Busqueda de producto por texto e imagen",
+      "task": "Encontrar productos visualmente compatibles con una descripcion escrita.",
+      "available_inputs": [
+        {
+          "modality": "text",
+          "format": "search_query",
+          "source": "consulta de catalogo",
+          "example": "silla negra con patas metalicas y respaldo curvo"
+        },
+        {
+          "modality": "image",
+          "format": "catalog_images",
+          "source": "catalogo interno",
+          "example": "Imagenes de producto con metadatos."
+        }
+      ],
+      "minimum_modalities": ["text", "image"],
+      "candidate_architecture": "multimodal_embedding_retrieval",
+      "output_contract": {
+        "type": "ranked_list",
+        "required_fields": ["product_id", "score", "matching_attributes", "reason"],
+        "must_cite_evidence": true
+      },
+      "evidence_required": ["atributos_visuales", "metadatos_de_producto", "ranking_score"],
+      "metrics": ["recall_at_5", "precision_at_5", "attribute_match_rate"],
+      "risks": ["style_bias", "ambiguous_query", "catalog_drift"],
+      "human_review": "sampled_review_for_top_5_results"
+    },
+    {
+      "case_id": "meeting-audio-004",
+      "title": "Resumen de reunion con audio",
+      "task": "Transcribir, separar acuerdos y generar tareas con responsables.",
+      "available_inputs": [
+        {
+          "modality": "audio",
+          "format": "wav_or_mp3",
+          "source": "grabacion de reunion",
+          "example": "Audio con varias voces y ruido moderado."
+        },
+        {
+          "modality": "text",
+          "format": "meeting_notes",
+          "source": "agenda previa",
+          "example": "Lista de temas a tratar."
+        }
+      ],
+      "minimum_modalities": ["audio", "text"],
+      "candidate_architecture": "asr_plus_llm_with_review",
+      "output_contract": {
+        "type": "markdown_plus_json",
+        "required_fields": ["resumen", "acuerdos", "tareas", "dudas"],
+        "must_cite_evidence": true
+      },
+      "evidence_required": ["timestamp", "speaker_if_available", "transcript_span"],
+      "metrics": ["wer", "action_item_precision", "timestamp_coverage"],
+      "risks": ["voice_pii", "speaker_confusion", "hallucinated_action_item"],
+      "human_review": "required_before_sending_minutes"
+    },
+    {
+      "case_id": "grant-workflow-005",
+      "title": "Solicitud de beca bloqueada con captura, PDF y politica interna",
+      "task": "Explicar por que la solicitud no avanza, citar evidencia visual/documental y decidir si basta soporte o hay que escalar a revision humana.",
+      "available_inputs": [
+        {
+          "modality": "text",
+          "format": "ticket_text",
+          "source": "mensaje de la persona solicitante",
+          "example": "He subido el justificante, pero el boton de enviar sigue bloqueado."
+        },
+        {
+          "modality": "image",
+          "format": "png_screenshot",
+          "source": "captura del formulario de beca",
+          "example": "Pantalla con boton desactivado, alerta roja y campo de documento pendiente."
+        },
+        {
+          "modality": "document",
+          "format": "pdf_policy_excerpt",
+          "source": "extracto sintetico de politica de becas",
+          "example": "PDF con requisitos de justificante, fecha limite y formato aceptado."
+        },
+        {
+          "modality": "table",
+          "format": "csv_status_history",
+          "source": "historial sintetico de estados",
+          "example": "CSV con subida de documento, validacion pendiente y ultimo error."
+        }
+      ],
+      "minimum_modalities": ["text", "image", "document", "table"],
+      "candidate_architecture": "ocr_layout_plus_llm_or_multimodal_rag_with_vlm_triage",
+      "output_contract": {
+        "type": "json",
+        "required_fields": ["causa_probable", "evidencia_visual", "evidencia_documental", "estado_operativo", "siguiente_paso", "requiere_revision_humana"],
+        "must_cite_evidence": true
+      },
+      "evidence_required": ["region_visual_relevante", "pagina_o_clausula", "fila_de_estado", "texto_del_ticket"],
+      "metrics": ["evidence_coverage", "field_accuracy", "resolution_rate", "manual_review_precision"],
+      "risks": ["pii_in_screenshot", "metadata_pii", "layout_error", "false_visual_assumption", "policy_drift"],
+      "human_review": "required_when_policy_conflict_or_missing_evidence_or_personal_data_visible"
+    }
+  ]
+}

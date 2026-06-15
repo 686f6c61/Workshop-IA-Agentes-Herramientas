@@ -1,0 +1,10 @@
+[
+  ["factura:f9", "rdf:type", "Factura"],
+  ["Factura", "rdfs:subClassOf", "DocumentoFiscal"],
+  ["DocumentoFiscal", "rdfs:subClassOf", "Documento"],
+  ["factura:f9", "perteneceA", "cliente:c42"],
+  ["cliente:c42", "tienePlan", "plan:empresa"],
+  ["servicio:api", "dependeDe", "servicio:db"],
+  ["servicio:db", "rdf:type", "BaseDatos"]
+]
+

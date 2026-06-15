@@ -1,0 +1,6 @@
+{
+  "require_loss_decrease": true,
+  "max_fp16_7b_gb": 14.1,
+  "max_int4_7b_gb": 3.6
+}
+

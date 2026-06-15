@@ -1,0 +1,7 @@
+{
+  "epsilon": 0.00001,
+  "gradient_tolerance": 0.000001,
+  "learning_rates": [0.001, 0.01, 0.1, 1.0, 5.0],
+  "vanishing_gradient_threshold": 0.000001,
+  "exploding_update_ratio": 1.0
+}

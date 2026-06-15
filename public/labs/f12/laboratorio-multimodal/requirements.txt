@@ -1,0 +1,2 @@
+# Usa solo biblioteca estándar de Python 3.11+.
+# No hay APIs externas ni credenciales.

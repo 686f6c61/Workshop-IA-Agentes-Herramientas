@@ -1,0 +1,40 @@
+{
+  "title": "Estimación de capacidad",
+  "artifact": {
+    "scenario": {
+      "prompt_tokens": 1800,
+      "output_tokens": 450,
+      "rps": 3.0,
+      "ttft_ms": 700,
+      "decode_tps": 55
+    },
+    "service_s": 9.08,
+    "workers": 64,
+    "capacity_rps": 7.05
+  },
+  "checks": [
+    {
+      "name": "servicio calculado",
+      "passed": true,
+      "detail": "Tiempo estimado por request: 9.08s."
+    },
+    {
+      "name": "capacidad suficiente",
+      "passed": true,
+      "detail": "Capacidad estimada: 7.05 rps."
+    },
+    {
+      "name": "margen visible",
+      "passed": true,
+      "detail": "Hay margen antes de saturar."
+    },
+    {
+      "name": "tokens separados",
+      "passed": true,
+      "detail": "Se distinguen prefill y decode."
+    }
+  ],
+  "status": "valid",
+  "decision": "La capacidad inicial es defendible, pero exige medir p95 real después del despliegue.",
+  "chapter": "c03"
+}

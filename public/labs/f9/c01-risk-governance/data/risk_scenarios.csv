@@ -1,0 +1,9 @@
+scenario_id,area,description,likelihood,impact,exposure,detectability_gap,data_class,control_area,owner,existing_controls,evidence_required
+R-001,rag,"El asistente cita una norma antigua porque el índice no refleja el último cambio publicado",3,4,4,3,normativa_interna,rag,owner-rag,"versionado_indice;eval_retrieval","rag_eval_report;index_manifest"
+R-002,datos,"Una traza conserva texto con datos personales más tiempo del necesario para depuración",3,5,3,4,trazas_operativas,datos,owner-privacy,"seudonimizacion","retention_policy;privacy_review"
+R-003,tools,"Una acción en el sistema de tickets se ejecuta sin confirmación humana aunque cambia el estado del expediente",2,5,4,4,tickets_seudonimizados,tools,owner-platform,"registro_de_efectos","approval_policy;tool_trace_sample"
+R-004,modelo,"La respuesta parece segura, pero no incluye fuente recuperable para justificar una recomendación administrativa",4,4,4,3,normativa_interna,modelo,owner-eval,"eval_regresion","citation_eval;abstention_cases"
+R-005,observabilidad,"No se puede reconstruir qué versión de prompt, modelo e índice produjo una respuesta revisada",3,4,3,5,trazas_operativas,observabilidad,owner-observability,"trace_id","trace_sample;release_manifest"
+R-006,gobernanza,"La ficha del sistema no define quién acepta riesgo residual ni cuándo se revisa",3,4,3,4,normativa_interna,gobernanza,owner-governance,"owner","risk_acceptance_record;review_calendar"
+R-007,datos,"El conjunto de evaluación mezcla casos sintéticos y casos reales sin marca de origen",2,3,4,3,tickets_seudonimizados,datos,owner-data,"dataset_card","dataset_card;split_manifest"
+R-008,rag,"Un documento de baja confianza entra en el contexto recuperado por falta de filtros de fuente",3,4,3,4,documentos_publicos,rag,owner-rag,"citas_obligatorias","source_quality_policy;retrieval_trace"

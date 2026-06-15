@@ -1,0 +1,60 @@
+{
+  "title": "Router interoperable",
+  "artifact": {
+    "requests": [
+      {
+        "text": "resume política de matrícula",
+        "route": "local_tool"
+      },
+      {
+        "text": "consulta expediente autenticado",
+        "route": "mcp_tool"
+      },
+      {
+        "text": "coordina revisión con agente de citas",
+        "route": "a2a"
+      },
+      {
+        "text": "publica cambio en producción",
+        "route": "human_review"
+      },
+      {
+        "text": "ejecuta flujo de admisiones",
+        "route": "workflow_graph"
+      }
+    ],
+    "allowed_routes": [
+      "a2a",
+      "human_review",
+      "local_tool",
+      "mcp_tool",
+      "workflow_graph"
+    ]
+  },
+  "checks": [
+    {
+      "name": "rutas válidas",
+      "passed": true,
+      "detail": "Cada decisión cae en una interfaz conocida."
+    },
+    {
+      "name": "efectos externos revisados",
+      "passed": true,
+      "detail": "Publicar no se enruta a autonomía directa."
+    },
+    {
+      "name": "A2A solo cuando coordina agente",
+      "passed": true,
+      "detail": "A2A no sustituye una tool simple."
+    },
+    {
+      "name": "workflow para proceso estable",
+      "passed": true,
+      "detail": "Lo repetible se modela como grafo, no improvisación."
+    }
+  ],
+  "status": "valid",
+  "what_you_take": "Un router para elegir entre tool local, MCP, A2A, workflow o revisión humana.",
+  "decision": "El router no elige por marca: elige por contrato, riesgo, necesidad de coordinación y estabilidad del proceso.",
+  "chapter": "c09"
+}

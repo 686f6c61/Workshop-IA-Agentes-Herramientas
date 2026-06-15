@@ -1,0 +1,90 @@
+---
+import BookLayout from '../../../layouts/BookLayout.astro';
+---
+
+<BookLayout
+  title="Sobre el proyecto · IA para gente curiosa"
+  description="Cómo se construye el facsímil Inteligencia artificial para gente curiosa a partir de capítulos Markdown propios y parte del material del taller."
+>
+  <main class="document-shell">
+    <nav class="document-topbar" aria-label="Navegación del facsímil">
+      <a class="quiet-link" href="/libro/">
+        <i data-lucide="arrow-left"></i>
+        Facsímil
+      </a>
+      <div>
+        <a href="/libro/nota-del-autor/">Nota del autor</a>
+        <a href="/libro/licencia/">Licencia MIT</a>
+      </div>
+    </nav>
+
+    <article class="book-document project-document">
+      <header class="document-cover">
+        <p class="eyebrow">Sobre el proyecto</p>
+        <h1>Un facsímil que usa el taller como punto de partida, no como límite</h1>
+        <p>
+          El <a href="https://www.workshop-ia-2026.686f6c61.dev/" target="_blank" rel="noopener noreferrer">workshop de IA para gente curiosa</a>
+          es una parte del material de partida: material visual, notas docentes y ejemplos. Este facsímil
+          toma esa base, pero no se limita a ella: amplía temas, reordena ideas, añade laboratorios,
+          referencias, fórmulas, mapas y decisiones que no caben en una sesión de taller.
+        </p>
+      </header>
+
+      <section class="project-principles" aria-label="Principios del proyecto">
+        <div>
+          <i data-lucide="book-marked"></i>
+          <h2>Facsímiles modulares</h2>
+          <p>Once bloques independientes que se pueden publicar, corregir y ampliar sin esperar al facsímil completo.</p>
+        </div>
+        <div>
+          <i data-lucide="lightbulb"></i>
+          <h2>Nada se da por sabido</h2>
+          <p>Cada concepto se baja hasta su unidad mínima: primero la intuición, después el nombre técnico.</p>
+        </div>
+        <div>
+          <i data-lucide="route"></i>
+          <h2>De lo concreto a lo abstracto</h2>
+          <p>El capítulo empieza con una escena reconocible y avanza hacia el mecanismo, la práctica y el mapa mental.</p>
+        </div>
+        <div>
+          <i data-lucide="quote"></i>
+          <h2>Rigor sin solemnidad</h2>
+          <p>Notas APA, glosario, diagramas y ejemplos conviven con una voz cercana: profesor con pizarra, no manual opaco.</p>
+        </div>
+      </section>
+
+      <section class="chapter-content">
+        <h2>Cómo nace cada capítulo</h2>
+        <p>
+          El flujo puede empezar en una parte del taller, pero no termina ahí. El material visual sirve como
+          memoria docente, recordatorio de secuencia y punto de arranque. Después empieza el trabajo de
+          verdad: decidir qué falta, qué hay que explicar desde cero, qué merece fórmula, qué necesita
+          práctica y qué debe quedar como artefacto útil.
+        </p>
+        <p>
+          Cada capítulo abre con una escena cotidiana, desmonta malentendidos cuando hace falta, explica el
+          concepto sin fórmulas, abre las tripas técnicas, muestra dónde aparece en proyectos reales, señala
+          errores típicos y termina con mapa de relaciones, vocabulario, autoevaluación y fuentes.
+        </p>
+        <p>
+          Markdown es la fuente editorial. Astro es la superficie de lectura. Esa separación permite cuidar
+          el texto, revisar fórmulas, mantener referencias y seguir escribiendo facsímiles sin encerrar el
+          facsímil en una herramienta cerrada.
+        </p>
+        <h2>Estado actual</h2>
+        <p>
+          El facsímil está en revisión editorial continua. Cada facsímil se publica como unidad de lectura,
+          con capítulos, mapas, referencias y laboratorio de cierre. La edición web deja resueltos diseño,
+          navegación, fórmulas, Mermaid, nota del autor y licencia para poder seguir ampliando sin perder coherencia.
+        </p>
+        <div class="author-signoff">
+          <p>Gracias por leer y por empujar este material a ser más claro.</p>
+          <p>
+            Un saludo,<br />
+            <a href="https://x.com/686f6c61">686f6c61</a>
+          </p>
+        </div>
+      </section>
+    </article>
+  </main>
+</BookLayout>

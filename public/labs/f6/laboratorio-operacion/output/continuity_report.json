@@ -1,0 +1,45 @@
+{
+  "status": "degraded_controlled",
+  "breach_count": 3,
+  "trace_attrs_ok": true,
+  "changes": [
+    {
+      "ts": "2026-06-07T09:00:00Z",
+      "type": "change",
+      "message": "canary support-rag@2.0.0 al 20%",
+      "release_id": "support-rag@2.0.0",
+      "index_version": "rag_index_2026_06",
+      "traffic_percent": 20
+    }
+  ],
+  "findings": [
+    {
+      "metric": "latency_p95_ms",
+      "value": 6900,
+      "slo": 4200,
+      "status": "breach",
+      "mitigation": "mover ruta crítica a provider_b y reducir canary"
+    },
+    {
+      "metric": "citation_acceptance_rate",
+      "value": 0.71,
+      "slo": 0.9,
+      "status": "breach",
+      "mitigation": "volver al índice estable y añadir caso a regresión RAG"
+    },
+    {
+      "metric": "review_queue_age_p95_minutes",
+      "value": 52,
+      "slo": 30,
+      "status": "breach",
+      "mitigation": "activar cola de solo revisión crítica y ampliar owner temporal"
+    }
+  ],
+  "evidence_to_keep": [
+    "métricas por release y ruta",
+    "trace_id con modelo, prompt, ruta e índice",
+    "muestra de respuestas con citas",
+    "decisión de canary y rollback",
+    "caso de regresión generado"
+  ]
+}

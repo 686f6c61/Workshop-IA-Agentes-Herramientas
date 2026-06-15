@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Contrato de turno de voz en tiempo real",
+  "type": "object",
+  "required": [
+    "case_id",
+    "decision",
+    "redacted_transcript",
+    "metrics",
+    "evidence",
+    "limits",
+    "next_action"
+  ],
+  "properties": {
+    "case_id": {"type": "string"},
+    "decision": {
+      "type": "string",
+      "enum": ["answer", "ask_repeat", "stop_and_answer", "confirm_before_tool", "review"]
+    },
+    "redacted_transcript": {"type": "string"},
+    "metrics": {"type": "object"},
+    "evidence": {"type": "array"},
+    "limits": {"type": "array"},
+    "next_action": {"type": "string"}
+  }
+}

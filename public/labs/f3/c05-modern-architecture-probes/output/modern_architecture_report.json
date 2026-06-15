@@ -1,0 +1,24 @@
+{
+  "routing": [
+    {
+      "expert": "cambios",
+      "weight": 0.71095
+    },
+    {
+      "expert": "envios",
+      "weight": 0.28905
+    }
+  ],
+  "self_consistency": {
+    "answer": "15:10",
+    "votes": 3,
+    "total": 5
+  },
+  "image_text_similarity": {
+    "auriculares rotos": 0.993749,
+    "caja de zapatos": 0.38835,
+    "perro en parque": 0.559162
+  },
+  "top_text": "auriculares rotos",
+  "gate_valid": true
+}

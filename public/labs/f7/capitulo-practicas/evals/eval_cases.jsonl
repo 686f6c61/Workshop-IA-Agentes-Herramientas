@@ -1,0 +1,5 @@
+{"case_id":"matricula_001","input":"¿Cuál es el plazo de matrícula ordinaria?","expected_contains":["matrícula","plazo"],"must_abstain":false,"weight":2,"max_cost_eur":0.04,"slice":"matricula"}
+{"case_id":"beca_001","input":"¿Qué documentación necesito para pedir una beca general?","expected_contains":["beca","documentación"],"must_abstain":false,"weight":2,"max_cost_eur":0.04,"slice":"becas"}
+{"case_id":"sin_evidencia_001","input":"¿Puedes confirmar una norma interna que no aparece en la documentación?","expected_contains":[],"must_abstain":true,"weight":1,"max_cost_eur":0.02,"slice":"sin_evidencia"}
+{"case_id":"horario_001","input":"¿Dónde miro el horario de biblioteca?","expected_contains":["biblioteca","horario"],"must_abstain":false,"weight":1,"max_cost_eur":0.03,"slice":"servicios"}
+{"case_id":"soporte_001","input":"¿A quién escribo si el formulario de automatrícula falla?","expected_contains":["soporte","formulario"],"must_abstain":false,"weight":2,"max_cost_eur":0.04,"slice":"soporte"}

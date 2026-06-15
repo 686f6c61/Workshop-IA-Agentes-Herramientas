@@ -1,0 +1,104 @@
+{
+  "dataset_id": "f12-c03-catalog-demo-v1",
+  "embedding_note": "Vectores sintéticos normalizados por el script. No son embeddings reales de CLIP; sirven para entender ranking, temperatura, pérdida y errores.",
+  "pairs": [
+    {
+      "id": "ui_error",
+      "image_title": "Captura de formulario con botón desactivado",
+      "text": "captura de una interfaz con un botón desactivado por un campo obligatorio",
+      "domain": "soporte",
+      "image_embedding": [0.91, 0.28, 0.10, 0.04, 0.02, 0.12],
+      "text_embedding": [0.88, 0.31, 0.11, 0.05, 0.03, 0.10],
+      "why_it_matters": "Si el texto del prompt pide una incidencia de interfaz, esta imagen debería aparecer antes que documentos o productos."
+    },
+    {
+      "id": "grant_form_blocked",
+      "image_title": "Formulario de beca con envío bloqueado",
+      "text": "captura de una solicitud de beca con el boton de enviar bloqueado y aviso de documento pendiente",
+      "domain": "academico",
+      "image_embedding": [0.86, 0.35, 0.11, 0.07, 0.06, 0.18],
+      "text_embedding": [0.84, 0.36, 0.12, 0.08, 0.08, 0.17],
+      "why_it_matters": "Es el caso guia del facsimil: parece soporte visual, pero puede requerir politica documental y estado operativo."
+    },
+    {
+      "id": "invoice_total",
+      "image_title": "Factura con total y tabla de conceptos",
+      "text": "factura con una tabla de importes y total pendiente de validar",
+      "domain": "documentos",
+      "image_embedding": [0.12, 0.86, 0.34, 0.20, 0.08, 0.11],
+      "text_embedding": [0.14, 0.84, 0.37, 0.19, 0.10, 0.09],
+      "why_it_matters": "Sirve para enseñar que búsqueda multimodal no sustituye validación documental ni OCR."
+    },
+    {
+      "id": "grant_policy_pdf",
+      "image_title": "Extracto de política de becas en PDF",
+      "text": "documento de politica de becas con requisitos de justificante fecha limite y formato aceptado",
+      "domain": "academico",
+      "image_embedding": [0.16, 0.78, 0.29, 0.14, 0.23, 0.16],
+      "text_embedding": [0.17, 0.80, 0.28, 0.13, 0.24, 0.15],
+      "why_it_matters": "Es un negativo duro para facturas y capturas de beca: comparte palabras administrativas pero no resuelve la misma tarea."
+    },
+    {
+      "id": "black_chair",
+      "image_title": "Silla negra de oficina con ruedas",
+      "text": "silla negra de oficina con ruedas y respaldo alto",
+      "domain": "catalogo",
+      "image_embedding": [0.18, 0.10, 0.91, 0.27, 0.18, 0.04],
+      "text_embedding": [0.16, 0.12, 0.89, 0.29, 0.21, 0.05],
+      "why_it_matters": "Caso típico de catálogo: la similitud imagen-texto ayuda a recuperar productos sin etiqueta exacta."
+    },
+    {
+      "id": "pressure_gauge",
+      "image_title": "Manómetro industrial con aguja en zona alta",
+      "text": "indicador industrial con aguja cerca de la zona alta de presión",
+      "domain": "industrial",
+      "image_embedding": [0.08, 0.16, 0.20, 0.91, 0.27, 0.13],
+      "text_embedding": [0.07, 0.18, 0.18, 0.88, 0.31, 0.15],
+      "why_it_matters": "Muestra un dominio donde el parecido visual no basta: una lectura operativa exige calibración y evidencia."
+    },
+    {
+      "id": "whiteboard_plan",
+      "image_title": "Pizarra con plan de sprint y flechas",
+      "text": "pizarra con un plan de sprint, tareas y flechas entre decisiones",
+      "domain": "reuniones",
+      "image_embedding": [0.20, 0.19, 0.12, 0.23, 0.88, 0.25],
+      "text_embedding": [0.18, 0.17, 0.14, 0.24, 0.86, 0.28],
+      "why_it_matters": "Une visión y texto, pero puede confundirse con diagramas o documentos si las descripciones son vagas."
+    },
+    {
+      "id": "whiteboard_invoice_confuser",
+      "image_title": "Pizarra con columnas de números",
+      "text": "pizarra con columnas de números y una lista de tareas",
+      "domain": "reuniones",
+      "image_embedding": [0.17, 0.42, 0.15, 0.18, 0.76, 0.20],
+      "text_embedding": [0.16, 0.39, 0.14, 0.20, 0.73, 0.24],
+      "why_it_matters": "Es un negativo duro: comparte señales con factura y pizarra, así que obliga a mirar ranking y margen."
+    }
+  ],
+  "queries": [
+    {
+      "query_id": "q_catalogo_silla",
+      "text": "busco una silla negra de oficina con ruedas",
+      "expected_image_id": "black_chair",
+      "text_embedding": [0.15, 0.12, 0.90, 0.25, 0.22, 0.04]
+    },
+    {
+      "query_id": "q_factura_total",
+      "text": "documento con total de factura y tabla de conceptos",
+      "expected_image_id": "invoice_total",
+      "text_embedding": [0.13, 0.83, 0.35, 0.21, 0.12, 0.12]
+    },
+    {
+      "query_id": "q_beca_bloqueada",
+      "text": "solicitud de beca bloqueada por documento pendiente",
+      "expected_image_id": "grant_form_blocked",
+      "text_embedding": [0.82, 0.38, 0.12, 0.08, 0.09, 0.18]
+    },
+    {
+      "query_id": "q_pizarra_numeros",
+      "text": "pizarra con números y planificación",
+      "expected_image_id": "whiteboard_invoice_confuser",
+      "text_embedding": [0.17, 0.40, 0.13, 0.20, 0.75, 0.22]
+    }
+  ]
+}

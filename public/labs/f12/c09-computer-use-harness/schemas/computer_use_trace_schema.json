@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ComputerUseTrace",
+  "type": "object",
+  "required": ["task_id", "decision", "steps", "metrics", "limits"],
+  "properties": {
+    "task_id": {"type": "string"},
+    "decision": {"enum": ["success", "needs_approval", "review", "block"]},
+    "steps": {"type": "array"},
+    "metrics": {"type": "object"},
+    "limits": {"type": "array", "items": {"type": "string"}}
+  }
+}

@@ -1,0 +1,60 @@
+{
+  "title": "Handoff operativo con compaction",
+  "artifact": {
+    "handoff": {
+      "handoff_id": "hf-2026-06-10-001",
+      "objective": "Continuar revisión de capítulo con mismas normas editoriales.",
+      "must_keep": [
+        "criterios editoriales",
+        "rutas tocadas",
+        "decisiones pendientes"
+      ],
+      "must_not_keep": [
+        "logs completos",
+        "secretos",
+        "capturas no usadas"
+      ],
+      "artifacts": [
+        {
+          "path": "fasciculo-05-agentes-orquestacion/04-contexto-memoria-compaction-handoff.md",
+          "hash": "demo"
+        },
+        {
+          "path": "labs/f5/capitulo-practicas/output/c04_report.json",
+          "hash": "demo"
+        }
+      ],
+      "token_budget": {
+        "raw_tokens": 4200,
+        "handoff_tokens": 780
+      }
+    },
+    "compression_ratio": 0.186
+  },
+  "checks": [
+    {
+      "name": "objetivo presente",
+      "passed": true,
+      "detail": "Otra persona sabría qué continuar."
+    },
+    {
+      "name": "separa conservar y descartar",
+      "passed": true,
+      "detail": "Compaction no es copiar todo."
+    },
+    {
+      "name": "artefactos referenciados",
+      "passed": true,
+      "detail": "El handoff apunta a objetos verificables."
+    },
+    {
+      "name": "reduce tokens",
+      "passed": true,
+      "detail": "Compresión estimada: 0.186."
+    }
+  ],
+  "status": "valid",
+  "what_you_take": "Un handoff que conserva intención, evidencia y límites sin copiar ruido.",
+  "decision": "El handoff es usable: conserva intención, evidencia y límites, no una transcripción enorme imposible de auditar.",
+  "chapter": "c04"
+}

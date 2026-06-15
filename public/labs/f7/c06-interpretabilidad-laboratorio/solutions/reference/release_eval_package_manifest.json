@@ -1,0 +1,19 @@
+{
+  "release_id": "support-rag-agent@2.1.0",
+  "status": "publicar_con_condiciones",
+  "artifacts": [
+    "eval_contract.json",
+    "rag_eval_report.json",
+    "evaluator_metaeval.json",
+    "calibration_manifest.json",
+    "interpretability_report.json",
+    "explanation_contract.json",
+    "ci_explanation_gate.json",
+    "model_card_fragment.md",
+    "release_eval_report.json",
+    "source_evidence_matrix.csv",
+    "decision.md",
+    "ci_release_gate.json",
+    "release_eval_package_manifest.json"
+  ]
+}

@@ -1,0 +1,113 @@
+{
+  "status": "block",
+  "reference_window_id": "reference_2026_w23",
+  "current_window_id": "current_2026_w24_bad",
+  "policy_candidate_version": "policy_candidate_v4",
+  "reward_card_version": "1.0.0",
+  "diagnostics": {
+    "slice_population_stability_index": 0.402894,
+    "action_population_stability_index": 0.867753,
+    "blocked_slices": 4,
+    "blocked_rollout_stages": 3,
+    "plan_status": "block"
+  },
+  "drift_failures": [
+    "slice_population_stability_index",
+    "action_population_stability_index"
+  ],
+  "plan_report": {
+    "status": "block",
+    "failures": [
+      "missing_fallback_policy_version",
+      "rollback_not_ready",
+      "restore_too_slow",
+      "rollback_conditions_too_weak",
+      "missing_trace_field:action_probability",
+      "missing_trace_field:fallback_policy_version"
+    ],
+    "missing_trace_fields": [
+      "action_probability",
+      "fallback_policy_version"
+    ]
+  },
+  "slice_rows": [
+    {
+      "slice": "herramientas",
+      "status": "block",
+      "reason": "reward_delta;reward_mean;case_pass_rate;evidence_pass_rate;p95_latency_ms;tool_error_rate;fallback_rate",
+      "requests": 260,
+      "reward_mean": 0.55,
+      "reward_delta": -0.11,
+      "case_pass_rate": 0.82,
+      "evidence_pass_rate": 0.84,
+      "p95_latency_ms": 3300,
+      "tool_error_rate": 0.09,
+      "fallback_rate": 0.18
+    },
+    {
+      "slice": "privacidad",
+      "status": "block",
+      "reason": "reward_delta;reward_mean;case_pass_rate;evidence_pass_rate;p95_latency_ms;fallback_rate",
+      "requests": 20,
+      "reward_mean": 0.61,
+      "reward_delta": -0.13,
+      "case_pass_rate": 0.88,
+      "evidence_pass_rate": 0.89,
+      "p95_latency_ms": 2600,
+      "tool_error_rate": 0.03,
+      "fallback_rate": 0.09
+    },
+    {
+      "slice": "rag",
+      "status": "block",
+      "reason": "reward_delta;reward_mean;case_pass_rate;evidence_pass_rate;p95_latency_ms;tool_error_rate;fallback_rate",
+      "requests": 250,
+      "reward_mean": 0.59,
+      "reward_delta": -0.13,
+      "case_pass_rate": 0.84,
+      "evidence_pass_rate": 0.82,
+      "p95_latency_ms": 3100,
+      "tool_error_rate": 0.06,
+      "fallback_rate": 0.13
+    },
+    {
+      "slice": "sql",
+      "status": "block",
+      "reason": "reward_delta;reward_mean;case_pass_rate;evidence_pass_rate;p95_latency_ms;tool_error_rate;fallback_rate",
+      "requests": 260,
+      "reward_mean": 0.58,
+      "reward_delta": -0.11,
+      "case_pass_rate": 0.86,
+      "evidence_pass_rate": 0.87,
+      "p95_latency_ms": 2850,
+      "tool_error_rate": 0.055,
+      "fallback_rate": 0.11
+    }
+  ],
+  "rollout_rows": [
+    {
+      "stage": "pilot_25",
+      "traffic_pct": 25,
+      "min_duration_minutes": 60,
+      "exit_criteria_count": 1,
+      "status": "block",
+      "reason": "duration_too_short;exit_criteria_too_weak"
+    },
+    {
+      "stage": "pilot_5",
+      "traffic_pct": "",
+      "min_duration_minutes": "",
+      "exit_criteria_count": 0,
+      "status": "block",
+      "reason": "missing_required_stage"
+    },
+    {
+      "stage": "shadow",
+      "traffic_pct": "",
+      "min_duration_minutes": "",
+      "exit_criteria_count": 0,
+      "status": "block",
+      "reason": "missing_required_stage"
+    }
+  ]
+}

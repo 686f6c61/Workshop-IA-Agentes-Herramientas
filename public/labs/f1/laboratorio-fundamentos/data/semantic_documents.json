@@ -1,0 +1,63 @@
+{
+  "dimensions": ["acceso", "pagos", "facturas", "personas", "seguridad"],
+  "documents": [
+    {
+      "doc_id": "doc_access_password",
+      "title": "Restablecer contraseña y recuperar acceso a la cuenta"
+    },
+    {
+      "doc_id": "doc_payment_card",
+      "title": "Cambiar tarjeta de pago y datos de facturación"
+    },
+    {
+      "doc_id": "doc_people_absence",
+      "title": "Solicitar vacaciones y registrar una ausencia"
+    },
+    {
+      "doc_id": "doc_security_2fa",
+      "title": "Configurar doble factor de autenticación"
+    },
+    {
+      "doc_id": "doc_invoice_monthly",
+      "title": "Descargar factura mensual"
+    },
+    {
+      "doc_id": "doc_shipping_address",
+      "title": "Actualizar dirección de envío"
+    }
+  ],
+  "queries": [
+    {
+      "case_id": "q_access",
+      "query": "No puedo entrar en mi perfil",
+      "expected_doc": "doc_access_password"
+    },
+    {
+      "case_id": "q_invoice",
+      "query": "Necesito el recibo del mes",
+      "expected_doc": "doc_invoice_monthly"
+    }
+  ],
+  "word_vectors": {
+    "contrasena": [1.0, 0.0, 0.0, 0.0, 0.1],
+    "acceso": [1.0, 0.0, 0.0, 0.0, 0.1],
+    "cuenta": [0.85, 0.0, 0.0, 0.0, 0.05],
+    "entrar": [1.0, 0.0, 0.0, 0.0, 0.0],
+    "perfil": [0.85, 0.0, 0.0, 0.0, 0.0],
+    "login": [1.0, 0.0, 0.0, 0.0, 0.1],
+    "autenticacion": [0.35, 0.0, 0.0, 0.0, 1.0],
+    "factor": [0.2, 0.0, 0.0, 0.0, 1.0],
+    "tarjeta": [0.0, 1.0, 0.1, 0.0, 0.0],
+    "pago": [0.0, 1.0, 0.15, 0.0, 0.0],
+    "facturacion": [0.0, 0.55, 0.8, 0.0, 0.0],
+    "factura": [0.0, 0.1, 1.0, 0.0, 0.0],
+    "recibo": [0.0, 0.05, 1.0, 0.0, 0.0],
+    "mensual": [0.0, 0.0, 0.85, 0.0, 0.0],
+    "mes": [0.0, 0.0, 0.85, 0.0, 0.0],
+    "vacaciones": [0.0, 0.0, 0.0, 1.0, 0.0],
+    "ausencia": [0.0, 0.0, 0.0, 1.0, 0.0],
+    "permiso": [0.0, 0.0, 0.0, 0.95, 0.0],
+    "direccion": [0.05, 0.15, 0.0, 0.2, 0.0],
+    "envio": [0.0, 0.2, 0.0, 0.15, 0.0]
+  }
+}

@@ -1,0 +1,109 @@
+{
+  "engine_profile": {
+    "name": "presidio_style_demo",
+    "language": "es",
+    "note": "Simulación sin dependencias externas. En producción sustituir por Microsoft Presidio Analyzer y Anonymizer.",
+    "entities": [
+      "EMAIL_ADDRESS",
+      "PHONE_NUMBER",
+      "NATIONAL_ID"
+    ]
+  },
+  "findings": [
+    {
+      "trace_id": "tr_001",
+      "field": "user_text",
+      "entity_type": "EMAIL_ADDRESS",
+      "start": 35,
+      "end": 58,
+      "score": 0.98,
+      "recognizer": "EmailRecognizer",
+      "pattern_name": "email_format",
+      "value_hash": "66bead91fa0a1ec3",
+      "decision_process": {
+        "original_score": 0.94,
+        "score_after_context": 0.98,
+        "supportive_context_word": "correo"
+      },
+      "operator": "hash",
+      "store_in_trace": false,
+      "send_to_model": "solo_si_finalidad_lo_exige"
+    },
+    {
+      "trace_id": "tr_001",
+      "field": "user_email",
+      "entity_type": "EMAIL_ADDRESS",
+      "start": 0,
+      "end": 23,
+      "score": 0.98,
+      "recognizer": "EmailRecognizer",
+      "pattern_name": "email_format",
+      "value_hash": "66bead91fa0a1ec3",
+      "decision_process": {
+        "original_score": 0.94,
+        "score_after_context": 0.98,
+        "supportive_context_word": "email"
+      },
+      "operator": "hash",
+      "store_in_trace": false,
+      "send_to_model": "solo_si_finalidad_lo_exige"
+    },
+    {
+      "trace_id": "tr_001",
+      "field": "phone",
+      "entity_type": "PHONE_NUMBER",
+      "start": 0,
+      "end": 15,
+      "score": 0.86,
+      "recognizer": "PhoneRecognizer",
+      "pattern_name": "spanish_phone_format",
+      "value_hash": "f5f143ba89c1821c",
+      "decision_process": {
+        "original_score": 0.82,
+        "score_after_context": 0.86,
+        "supportive_context_word": "phone"
+      },
+      "operator": "redact",
+      "store_in_trace": false,
+      "send_to_model": "solo_si_finalidad_lo_exige"
+    },
+    {
+      "trace_id": "tr_002",
+      "field": "user_text",
+      "entity_type": "NATIONAL_ID",
+      "start": 7,
+      "end": 16,
+      "score": 0.94,
+      "recognizer": "DniRecognizer",
+      "pattern_name": "dni_format",
+      "value_hash": "1c9f96328944627a",
+      "decision_process": {
+        "original_score": 0.9,
+        "score_after_context": 0.94,
+        "supportive_context_word": "dni"
+      },
+      "operator": "redact",
+      "store_in_trace": false,
+      "send_to_model": "solo_si_finalidad_lo_exige"
+    },
+    {
+      "trace_id": "tr_002",
+      "field": "user_email",
+      "entity_type": "EMAIL_ADDRESS",
+      "start": 0,
+      "end": 25,
+      "score": 0.98,
+      "recognizer": "EmailRecognizer",
+      "pattern_name": "email_format",
+      "value_hash": "94cc65ad97577745",
+      "decision_process": {
+        "original_score": 0.94,
+        "score_after_context": 0.98,
+        "supportive_context_word": "email"
+      },
+      "operator": "hash",
+      "store_in_trace": false,
+      "send_to_model": "solo_si_finalidad_lo_exige"
+    }
+  ]
+}

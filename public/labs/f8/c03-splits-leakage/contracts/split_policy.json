@@ -1,0 +1,92 @@
+{
+  "policy_id": "support-split-policy-v1",
+  "owner": "equipo-datos-ia",
+  "purpose": "Comparar estrategias de partición para evaluar un asistente académico sin leakage evidente.",
+  "evaluation_question": "Medir si un asistente académico generaliza a estudiantes y fuentes documentales posteriores sin reutilizar información de desarrollo.",
+  "split_keys": {
+    "id": "case_id",
+    "group": "student_id",
+    "source": "source_id",
+    "time": "created_at",
+    "label": "label",
+    "text": "text"
+  },
+  "target_ratios": {
+    "train": 0.6,
+    "validation": 0.2,
+    "test": 0.2
+  },
+  "near_duplicate_jaccard_threshold": 0.82,
+  "max_group_overlap_pairs": 0,
+  "max_source_overlap_pairs": 0,
+  "max_exact_text_leaks": 0,
+  "max_near_text_leaks": 0,
+  "max_future_train_rows_vs_test": 0,
+  "max_label_total_variation": 0.35,
+  "required_test_labels": ["answer", "ask_more", "escalate"],
+  "preferred_strategy_order": [
+    "time_group_holdout",
+    "time_cutoff",
+    "group_holdout",
+    "stratified_label",
+    "random_row"
+  ],
+  "allowed_split_use": {
+    "train": [
+      "fit de modelos",
+      "fit de transformadores",
+      "construccion de vocabulario",
+      "seleccion inicial de features",
+      "generacion de ejemplos de desarrollo"
+    ],
+    "validation": [
+      "seleccion de modelo",
+      "seleccion de prompt",
+      "ajuste de umbral",
+      "ajuste de chunking",
+      "comparación de estrategias"
+    ],
+    "test": [
+      "medición final acordada",
+      "reporte de decision",
+      "regresion final antes de publicar cambios"
+    ]
+  },
+  "forbidden_test_use": [
+    "elegir modelo después de mirar test",
+    "reescribir prompts después de mirar test",
+    "ajustar umbrales después de mirar test",
+    "cambiar chunking o retriever después de mirar test",
+    "usar respuestas esperadas de test como ejemplos",
+    "repetir test hasta que la metrica guste"
+  ],
+  "preprocessing_contract": {
+    "fit_scope": "train",
+    "transform_scope": ["train", "validation", "test"],
+    "fit_only_on_train": [
+      "normalizacion",
+      "imputacion",
+      "seleccion de features",
+      "pca",
+      "vectorizadores",
+      "calibración",
+      "oversampling",
+      "deduplicacion supervisada"
+    ],
+    "report_required": true
+  },
+  "rag_llm_eval_contract": {
+    "rag_group_fields": ["source_id"],
+    "rag_forbidden_cross_split_overlap": [
+      "mismo documento en train y test",
+      "chunks hermanos del mismo documento en splits distintos",
+      "preguntas generadas desde el mismo documento en train y test"
+    ],
+    "llm_eval_forbidden_cross_split_overlap": [
+      "ejemplos few-shot demasiado parecidos al test",
+      "respuestas esperadas de test en trazas de desarrollo",
+      "reutilizacion del test como validation"
+    ],
+    "holdout_required_for_public_claim": true
+  }
+}

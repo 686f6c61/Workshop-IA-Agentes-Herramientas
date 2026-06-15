@@ -1,0 +1,18 @@
+{
+  "status": "precondiciones_cumplidas",
+  "action": "conceder_acceso_temporal",
+  "checks": {
+    "rol_requerido": true,
+    "aprobacion_del_equipo": true,
+    "acceso_temporal_permitido": true
+  },
+  "plan": [
+    "resolver_entidades(ticket:t1)",
+    "consultar_grafo(persona:ana, recurso:facturas)",
+    "validar_rol(rol:finanzas)",
+    "validar_aprobacion(persona:luis)",
+    "conceder_acceso_temporal(persona:ana, recurso:facturas)",
+    "registrar_traza(ticket:t1)"
+  ],
+  "gate_ok": true
+}

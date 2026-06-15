@@ -1,0 +1,120 @@
+{
+  "scenario_id": "f10_c05_preference_posttraining",
+  "contract_version": "1.0.0",
+  "dataset_snapshot_id": "pref_dataset_2026_06_08",
+  "target_use": "pre_dpo_or_reward_model_audit",
+  "status": "pass",
+  "diagnostics": {
+    "pairs": 12,
+    "task_families": 12,
+    "avg_agreement": 0.863333,
+    "low_agreement_rate": 0.0,
+    "chosen_win_rate": 1.0,
+    "avg_reward_margin": 0.500833,
+    "negative_margin_rate": 0.0,
+    "verifier_coverage": 0.833333,
+    "duplicate_pair_rate": 0.0,
+    "reversed_conflicts": 0,
+    "length_bias_ratio": 2.135678
+  },
+  "checks": {
+    "schema": true,
+    "min_pairs": true,
+    "min_task_families": true,
+    "min_avg_agreement": true,
+    "max_low_agreement_rate": true,
+    "min_chosen_win_rate": true,
+    "min_avg_reward_margin": true,
+    "max_negative_margin_rate": true,
+    "min_verifier_coverage": true,
+    "max_duplicate_pair_rate": true,
+    "max_reversed_conflicts": true,
+    "max_length_bias_ratio": true
+  },
+  "task_family_summary": [
+    {
+      "task_family": "agentes",
+      "pairs": 1,
+      "avg_margin": 0.49,
+      "avg_agreement": 0.87,
+      "verifier_coverage": 1.0
+    },
+    {
+      "task_family": "codigo",
+      "pairs": 1,
+      "avg_margin": 0.56,
+      "avg_agreement": 0.86,
+      "verifier_coverage": 1.0
+    },
+    {
+      "task_family": "coste",
+      "pairs": 1,
+      "avg_margin": 0.46,
+      "avg_agreement": 0.83,
+      "verifier_coverage": 1.0
+    },
+    {
+      "task_family": "evaluación",
+      "pairs": 1,
+      "avg_margin": 0.35,
+      "avg_agreement": 0.8,
+      "verifier_coverage": 0.0
+    },
+    {
+      "task_family": "herramientas",
+      "pairs": 1,
+      "avg_margin": 0.58,
+      "avg_agreement": 0.89,
+      "verifier_coverage": 1.0
+    },
+    {
+      "task_family": "privacidad",
+      "pairs": 1,
+      "avg_margin": 0.58,
+      "avg_agreement": 0.84,
+      "verifier_coverage": 0.0
+    },
+    {
+      "task_family": "producto",
+      "pairs": 1,
+      "avg_margin": 0.42,
+      "avg_agreement": 0.81,
+      "verifier_coverage": 1.0
+    },
+    {
+      "task_family": "rag",
+      "pairs": 1,
+      "avg_margin": 0.52,
+      "avg_agreement": 0.91,
+      "verifier_coverage": 1.0
+    },
+    {
+      "task_family": "razonamiento",
+      "pairs": 1,
+      "avg_margin": 0.44,
+      "avg_agreement": 0.9,
+      "verifier_coverage": 1.0
+    },
+    {
+      "task_family": "salida_estructurada",
+      "pairs": 1,
+      "avg_margin": 0.66,
+      "avg_agreement": 0.95,
+      "verifier_coverage": 1.0
+    },
+    {
+      "task_family": "soporte",
+      "pairs": 1,
+      "avg_margin": 0.44,
+      "avg_agreement": 0.88,
+      "verifier_coverage": 1.0
+    },
+    {
+      "task_family": "sql",
+      "pairs": 1,
+      "avg_margin": 0.51,
+      "avg_agreement": 0.82,
+      "verifier_coverage": 1.0
+    }
+  ]
+}

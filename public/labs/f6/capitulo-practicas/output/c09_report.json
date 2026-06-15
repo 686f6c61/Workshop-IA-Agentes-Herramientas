@@ -1,0 +1,48 @@
+{
+  "title": "Incidencia a mejora continua",
+  "artifact": {
+    "symptoms": [
+      "latency_p95_high",
+      "groundedness_drop"
+    ],
+    "mitigations": [
+      "route_to_safe_model",
+      "lower_canary",
+      "freeze_release"
+    ],
+    "postmortem": {
+      "impact": "20 min degradados",
+      "owner": "equipo-ia",
+      "actions": 3
+    },
+    "regression_case": {
+      "id": "reg-incident-001",
+      "added_to_evalops": true
+    }
+  },
+  "checks": [
+    {
+      "name": "síntomas concretos",
+      "passed": true,
+      "detail": "No se diagnostica con sensaciones."
+    },
+    {
+      "name": "mitigación ejecutable",
+      "passed": true,
+      "detail": "Puede detener cambios."
+    },
+    {
+      "name": "postmortem con acciones",
+      "passed": true,
+      "detail": "La mejora queda asignada."
+    },
+    {
+      "name": "caso de regresión",
+      "passed": true,
+      "detail": "El fallo entra en EvalOps."
+    }
+  ],
+  "status": "valid",
+  "decision": "La incidencia produce mitigación, postmortem y un caso de regresión; no se queda en relato.",
+  "chapter": "c09"
+}

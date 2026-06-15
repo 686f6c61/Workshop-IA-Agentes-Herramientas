@@ -1,0 +1,44 @@
+{
+  "name": "horario-cursos-backtracking",
+  "variables": ["IA", "Python", "Datos"],
+  "domains": {
+    "IA": [[9, "A"], [9, "B"], [10, "A"], [10, "B"]],
+    "Python": [[9, "A"], [9, "B"], [10, "A"], [10, "B"]],
+    "Datos": [[9, "A"], [9, "B"], [10, "A"], [10, "B"]]
+  },
+  "constraints": [
+    {
+      "id": "python_hora_10",
+      "type": "component_equals",
+      "scope": ["Python"],
+      "variable": "Python",
+      "component": "hour",
+      "value": 10,
+      "explain": "Python solo puede impartirse a las 10."
+    },
+    {
+      "id": "datos_sala_b",
+      "type": "component_equals",
+      "scope": ["Datos"],
+      "variable": "Datos",
+      "component": "room",
+      "value": "B",
+      "explain": "Datos necesita sala B."
+    },
+    {
+      "id": "ana_no_solape",
+      "type": "component_not_equals",
+      "scope": ["IA", "Python"],
+      "left": "IA",
+      "right": "Python",
+      "component": "hour",
+      "explain": "Ana imparte IA y Python, no puede estar en dos cursos a la misma hora."
+    },
+    {
+      "id": "sala_hora_unica",
+      "type": "all_different_values",
+      "scope": ["IA", "Python", "Datos"],
+      "explain": "Dos cursos no pueden ocupar la misma sala en la misma hora."
+    }
+  ]
+}

@@ -1,0 +1,134 @@
+{
+  "lab_id": "f1-laboratorio-fundamentos",
+  "status": "publicar_piloto",
+  "metrics": {
+    "hit_at_1": 1.0,
+    "mrr": 1.0,
+    "trace_complete_rate": 1.0
+  },
+  "results": [
+    {
+      "case_id": "q_access",
+      "query": "No puedo entrar en mi perfil",
+      "expected_doc": "doc_access_password",
+      "ranked_docs": [
+        {
+          "doc_id": "doc_access_password",
+          "title": "Restablecer contraseña y recuperar acceso a la cuenta",
+          "score": 0.9962
+        },
+        {
+          "doc_id": "doc_security_2fa",
+          "title": "Configurar doble factor de autenticación",
+          "score": 0.2652
+        },
+        {
+          "doc_id": "doc_shipping_address",
+          "title": "Actualizar dirección de envío",
+          "score": 0.1005
+        }
+      ],
+      "reciprocal_rank": 1.0,
+      "trace": {
+        "trace_id": "09c4fb5f-4631-46d3-835a-072812b4e153",
+        "case_id": "q_access",
+        "spans": [
+          {
+            "name": "tokenize_query",
+            "tokens": [
+              "no",
+              "puedo",
+              "entrar",
+              "en",
+              "mi",
+              "perfil"
+            ]
+          },
+          {
+            "name": "embed_query",
+            "vector": [
+              0.925,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          {
+            "name": "score_documents",
+            "candidate_count": 6
+          },
+          {
+            "name": "rank",
+            "top_docs": [
+              "doc_access_password",
+              "doc_security_2fa",
+              "doc_shipping_address"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "q_invoice",
+      "query": "Necesito el recibo del mes",
+      "expected_doc": "doc_invoice_monthly",
+      "ranked_docs": [
+        {
+          "doc_id": "doc_invoice_monthly",
+          "title": "Descargar factura mensual",
+          "score": 0.9996
+        },
+        {
+          "doc_id": "doc_payment_card",
+          "title": "Cambiar tarjeta de pago y datos de facturación",
+          "score": 0.4056
+        },
+        {
+          "doc_id": "doc_shipping_address",
+          "title": "Actualizar dirección de envío",
+          "score": 0.019
+        }
+      ],
+      "reciprocal_rank": 1.0,
+      "trace": {
+        "trace_id": "0408f83c-9fe9-4b0a-a8ba-94e1bb55dfbb",
+        "case_id": "q_invoice",
+        "spans": [
+          {
+            "name": "tokenize_query",
+            "tokens": [
+              "necesito",
+              "el",
+              "recibo",
+              "del",
+              "mes"
+            ]
+          },
+          {
+            "name": "embed_query",
+            "vector": [
+              0.0,
+              0.025,
+              0.925,
+              0.0,
+              0.0
+            ]
+          },
+          {
+            "name": "score_documents",
+            "candidate_count": 6
+          },
+          {
+            "name": "rank",
+            "top_docs": [
+              "doc_invoice_monthly",
+              "doc_payment_card",
+              "doc_shipping_address"
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

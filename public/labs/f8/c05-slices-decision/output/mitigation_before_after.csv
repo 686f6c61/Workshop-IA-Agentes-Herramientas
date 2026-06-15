@@ -1,0 +1,3 @@
+policy,status,positive_if_score_gte,negative_if_score_lt,n,safety_capture,miss_rate,review_rate,automation_rate,cost_total,cost_per_case,block_flags,review_flags
+base,block,0.78,0.38,36,0.7778,0.2222,0.3611,0.6389,50.6,1.4056,5,7
+banda_revision,review,0.78,0.32,36,1.0,0.0,0.5278,0.4722,25.8,0.7167,0,5

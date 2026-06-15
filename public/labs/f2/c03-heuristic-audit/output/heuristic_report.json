@@ -1,0 +1,421 @@
+{
+  "graph": "rutas-con-heuristicas",
+  "start": "S",
+  "goal": "G",
+  "h_star": {
+    "A": 9,
+    "B": 4,
+    "C": 1,
+    "D": 10,
+    "E": 1,
+    "F": 2,
+    "G": 0,
+    "S": 6
+  },
+  "audits": [
+    {
+      "heuristic": "h_zero",
+      "missing_nodes": [],
+      "negative_nodes": [],
+      "goal_zero": true,
+      "admissible": true,
+      "consistent": true,
+      "admissibility_violations": [],
+      "consistency_violations": [],
+      "dominates": []
+    },
+    {
+      "heuristic": "h_safe",
+      "missing_nodes": [],
+      "negative_nodes": [],
+      "goal_zero": true,
+      "admissible": true,
+      "consistent": true,
+      "admissibility_violations": [],
+      "consistency_violations": [],
+      "dominates": [
+        "h_zero"
+      ]
+    },
+    {
+      "heuristic": "h_exact_demo",
+      "missing_nodes": [],
+      "negative_nodes": [],
+      "goal_zero": true,
+      "admissible": true,
+      "consistent": true,
+      "admissibility_violations": [],
+      "consistency_violations": [],
+      "dominates": [
+        "h_zero",
+        "h_safe"
+      ]
+    },
+    {
+      "heuristic": "h_bad_overestimate",
+      "missing_nodes": [],
+      "negative_nodes": [],
+      "goal_zero": true,
+      "admissible": false,
+      "consistent": false,
+      "admissibility_violations": [
+        {
+          "node": "B",
+          "h": 10,
+          "h_star": 4
+        },
+        {
+          "node": "F",
+          "h": 8,
+          "h_star": 2
+        }
+      ],
+      "consistency_violations": [
+        {
+          "edge": "F->G",
+          "h_source": 8,
+          "cost": 2,
+          "h_target": 0,
+          "allowed": 2
+        }
+      ],
+      "dominates": []
+    }
+  ],
+  "searches": [
+    {
+      "algorithm": "UCS",
+      "kind": "ucs",
+      "heuristic": "h_zero",
+      "weight": 1.0,
+      "found": true,
+      "path": [
+        "S",
+        "B",
+        "F",
+        "G"
+      ],
+      "cost": 6,
+      "expanded": 7,
+      "generated": 10,
+      "max_frontier": 5,
+      "trace": [
+        {
+          "node": "S",
+          "g": 0,
+          "h": 0,
+          "priority": 0
+        },
+        {
+          "node": "A",
+          "g": 1,
+          "h": 0,
+          "priority": 1
+        },
+        {
+          "node": "B",
+          "g": 2,
+          "h": 0,
+          "priority": 2
+        },
+        {
+          "node": "D",
+          "g": 2,
+          "h": 0,
+          "priority": 2
+        },
+        {
+          "node": "F",
+          "g": 4,
+          "h": 0,
+          "priority": 4
+        },
+        {
+          "node": "C",
+          "g": 6,
+          "h": 0,
+          "priority": 6
+        },
+        {
+          "node": "G",
+          "g": 6,
+          "h": 0,
+          "priority": 6
+        }
+      ]
+    },
+    {
+      "algorithm": "A* con h_zero",
+      "kind": "astar",
+      "heuristic": "h_zero",
+      "weight": 1.0,
+      "found": true,
+      "path": [
+        "S",
+        "B",
+        "F",
+        "G"
+      ],
+      "cost": 6,
+      "expanded": 7,
+      "generated": 10,
+      "max_frontier": 5,
+      "trace": [
+        {
+          "node": "S",
+          "g": 0,
+          "h": 0,
+          "priority": 0
+        },
+        {
+          "node": "A",
+          "g": 1,
+          "h": 0,
+          "priority": 1
+        },
+        {
+          "node": "B",
+          "g": 2,
+          "h": 0,
+          "priority": 2
+        },
+        {
+          "node": "D",
+          "g": 2,
+          "h": 0,
+          "priority": 2
+        },
+        {
+          "node": "F",
+          "g": 4,
+          "h": 0,
+          "priority": 4
+        },
+        {
+          "node": "C",
+          "g": 6,
+          "h": 0,
+          "priority": 6
+        },
+        {
+          "node": "G",
+          "g": 6,
+          "h": 0,
+          "priority": 6
+        }
+      ]
+    },
+    {
+      "algorithm": "A* con h_safe",
+      "kind": "astar",
+      "heuristic": "h_safe",
+      "weight": 1.0,
+      "found": true,
+      "path": [
+        "S",
+        "B",
+        "F",
+        "G"
+      ],
+      "cost": 6,
+      "expanded": 5,
+      "generated": 9,
+      "max_frontier": 5,
+      "trace": [
+        {
+          "node": "S",
+          "g": 0,
+          "h": 4,
+          "priority": 4
+        },
+        {
+          "node": "A",
+          "g": 1,
+          "h": 3,
+          "priority": 4
+        },
+        {
+          "node": "B",
+          "g": 2,
+          "h": 4,
+          "priority": 6
+        },
+        {
+          "node": "F",
+          "g": 4,
+          "h": 2,
+          "priority": 6
+        },
+        {
+          "node": "G",
+          "g": 6,
+          "h": 0,
+          "priority": 6
+        }
+      ]
+    },
+    {
+      "algorithm": "A* con h_exact_demo",
+      "kind": "astar",
+      "heuristic": "h_exact_demo",
+      "weight": 1.0,
+      "found": true,
+      "path": [
+        "S",
+        "B",
+        "F",
+        "G"
+      ],
+      "cost": 6,
+      "expanded": 4,
+      "generated": 7,
+      "max_frontier": 4,
+      "trace": [
+        {
+          "node": "S",
+          "g": 0,
+          "h": 6,
+          "priority": 6
+        },
+        {
+          "node": "B",
+          "g": 2,
+          "h": 4,
+          "priority": 6
+        },
+        {
+          "node": "F",
+          "g": 4,
+          "h": 2,
+          "priority": 6
+        },
+        {
+          "node": "G",
+          "g": 6,
+          "h": 0,
+          "priority": 6
+        }
+      ]
+    },
+    {
+      "algorithm": "Greedy con h_safe",
+      "kind": "greedy",
+      "heuristic": "h_safe",
+      "weight": 1.0,
+      "found": true,
+      "path": [
+        "S",
+        "C",
+        "G"
+      ],
+      "cost": 7,
+      "expanded": 3,
+      "generated": 5,
+      "max_frontier": 3,
+      "trace": [
+        {
+          "node": "S",
+          "g": 0,
+          "h": 4,
+          "priority": 4
+        },
+        {
+          "node": "C",
+          "g": 6,
+          "h": 1,
+          "priority": 1
+        },
+        {
+          "node": "G",
+          "g": 7,
+          "h": 0,
+          "priority": 0
+        }
+      ]
+    },
+    {
+      "algorithm": "Weighted A* con h_safe",
+      "kind": "weighted_astar",
+      "heuristic": "h_safe",
+      "weight": 2.0,
+      "found": true,
+      "path": [
+        "S",
+        "C",
+        "G"
+      ],
+      "cost": 7,
+      "expanded": 4,
+      "generated": 7,
+      "max_frontier": 4,
+      "trace": [
+        {
+          "node": "S",
+          "g": 0,
+          "h": 4,
+          "priority": 8.0
+        },
+        {
+          "node": "A",
+          "g": 1,
+          "h": 3,
+          "priority": 7.0
+        },
+        {
+          "node": "C",
+          "g": 6,
+          "h": 1,
+          "priority": 8.0
+        },
+        {
+          "node": "G",
+          "g": 7,
+          "h": 0,
+          "priority": 7.0
+        }
+      ]
+    },
+    {
+      "algorithm": "A* con h_bad_overestimate",
+      "kind": "astar",
+      "heuristic": "h_bad_overestimate",
+      "weight": 1.0,
+      "found": true,
+      "path": [
+        "S",
+        "C",
+        "G"
+      ],
+      "cost": 7,
+      "expanded": 4,
+      "generated": 7,
+      "max_frontier": 4,
+      "trace": [
+        {
+          "node": "S",
+          "g": 0,
+          "h": 4,
+          "priority": 4
+        },
+        {
+          "node": "A",
+          "g": 1,
+          "h": 3,
+          "priority": 4
+        },
+        {
+          "node": "C",
+          "g": 6,
+          "h": 1,
+          "priority": 7
+        },
+        {
+          "node": "G",
+          "g": 7,
+          "h": 0,
+          "priority": 7
+        }
+      ]
+    }
+  ]
+}
