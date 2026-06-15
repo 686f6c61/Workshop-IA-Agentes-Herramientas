@@ -72,6 +72,9 @@ html {
 .book-topbar a,
 .document-topbar a,
 .sidebar-links a {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
   color: var(--book-muted);
   font-size: 0.88rem;
   font-weight: 700;
@@ -82,6 +85,15 @@ html {
 .document-topbar a:hover,
 .sidebar-links a:hover {
   color: var(--book-accent-dark);
+}
+
+.book-topbar a svg,
+.document-topbar a svg,
+.sidebar-links a svg {
+  width: 16px;
+  height: 16px;
+  flex: 0 0 16px;
+  stroke-width: 1.9;
 }
 
 .hub-hero {

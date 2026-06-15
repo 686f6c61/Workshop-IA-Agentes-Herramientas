@@ -59,6 +59,12 @@ function editorialStatusLabel(status: string, availableChapters: number, totalCh
   if (status.toLowerCase() === 'planificado') return 'Planificado';
   return availableChapters === totalChapters ? 'Completo' : 'En escritura';
 }
+
+function documentIcon(slug: string) {
+  if (slug === 'nota-del-autor') return 'book-open-text';
+  if (slug === 'licencia') return 'scale';
+  return 'file-text';
+}
 ---
 
 <BookLayout
@@ -68,8 +74,16 @@ function editorialStatusLabel(status: string, availableChapters: number, totalCh
   <main class="book-hub">
     <nav class="book-topbar" aria-label="Navegación principal del facsímil">
       <div>
-        <a href="/libro/proyecto/">Sobre el proyecto</a>
-        {documents.map((document) => <a href={`/libro/${document.slug}/`}>{document.title}</a>)}
+        <a href="/libro/proyecto/">
+          <i data-lucide="folder-open"></i>
+          Sobre el proyecto
+        </a>
+        {documents.map((document) => (
+          <a href={`/libro/${document.slug}/`}>
+            <i data-lucide={documentIcon(document.slug)}></i>
+            {document.title}
+          </a>
+        ))}
       </div>
     </nav>
 
