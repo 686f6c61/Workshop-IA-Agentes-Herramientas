@@ -1,5 +1,11 @@
 # Changelog
 
+## [2.2.0] - 2026-08-01
+
+### Changed
+- Portada y modal de novedades actualizados: el material ampliado apunta a `https://www.iaparagentecuriosa.686f6c61.dev`.
+- Clave de `sessionStorage` del modal renovada para mostrar de nuevo el aviso a visitantes recurrentes.
+
 ## [2.1.9] - 2026-05-08
 
 ### Added

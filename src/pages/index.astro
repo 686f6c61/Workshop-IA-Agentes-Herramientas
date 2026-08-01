@@ -576,79 +576,53 @@ const tocSections = [
     </div>
   </div>
 
-  <!-- UPDATE MODAL -->
+  <!-- UPDATE MODAL: solo el aviso, sin tarjetas -->
   <div class="update-modal" id="update-modal" aria-hidden="true">
     <div class="update-modal-panel" role="dialog" aria-modal="true" aria-labelledby="update-modal-title">
-      <div class="update-modal-header">
-        <div>
-          <p class="update-modal-eyebrow">Actualización del día · 22 mayo 2026</p>
-          <h2 id="update-modal-title">Nuevos contenidos añadidos</h2>
-        </div>
-        <button class="update-modal-close" id="update-modal-close" type="button" aria-label="Cerrar novedades">&times;</button>
-      </div>
-      <div class="update-modal-body">
-        <p class="update-modal-lead">Resumen de la actualización: más fundamentos clásicos, 68 slides de fundamentos avanzados, 8 slides nuevas de Agent Harness, 8 slides nuevas de fine-tuning aplicado, 10 slides sobre pipeline ML/hardware/seguridad, 28 slides de ingeniería avanzada y 30 slides nuevas de algoritmia para la toma de decisiones.</p>
-        <div class="update-grid">
-          <div class="update-card">
-            <strong>IA clásica aplicada</strong>
-            <p>Búsqueda, SAT/CSP, planificación, juegos, ontologías, SPARQL, sistemas expertos y conexión explícita con RAG, GraphRAG, guardrails y agentes modernos.</p>
-          </div>
-          <div class="update-card">
-            <strong>ML clásico y laboratorios</strong>
-            <p>Backpropagation con regla de la cadena, símbolos, gradientes, programación clásica vs ML, pipeline end-to-end, supervisado, semi-supervisado, self-supervised, regresión, Big-O, coste entrenamiento/inferencia, validación, matriz de confusión, precision/recall/F1, k-means y labs con scikit-learn.</p>
-          </div>
-          <div class="update-card">
-            <strong>Modelos y Hugging Face</strong>
-            <p>Arquitecturas, MoE, Transformer Explainer, texto a tensores, QKV, máscara causal, logits, sampling, quantización, formatos, VRAM, model cards, embeddings, benchmarks, hardware de IA, aceleradores, CUDA moat, MLPerf y estado del arte.</p>
-          </div>
-          <div class="update-card">
-            <strong>Fine-tuning aplicado</strong>
-            <p>Casos donde funciona, casos donde no conviene, SFT, PEFT, LoRA, QLoRA, variantes LoRA, fórmulas, acrónimos, datos, evals, serving, rollback y ejemplos de ingeniería.</p>
-          </div>
-          <div class="update-card">
-            <strong>Agentes y producción</strong>
-            <p>Tools, MCP, Human-in-the-loop, human-machine teaming, Harness Engineering, agent harness profundo, evals, observabilidad, seguridad de stack, despliegue, costes, rate limits y patrones reales de ingeniería.</p>
-          </div>
-          <div class="update-card">
-            <strong>Stack IA: operación y riesgo</strong>
-            <p>Entrenar no es desplegar, serving, monitorización, superficie de ataque por capas, datos, RAG, tools, logs, permisos, supply chain, MLPerf y lectura crítica de benchmarks de hardware.</p>
-          </div>
-          <div class="update-card">
-            <strong>Agent Harness avanzado</strong>
-            <p>Modelo vs harness, niveles de madurez, contrato de tool, matriz de permisos, compaction como handoff, trazas como event log, launch gates y entropy management.</p>
-          </div>
-          <div class="update-card">
-            <strong>Incertidumbre y calibración</strong>
-            <p>Reliability diagrams, ECE, Brier score, log loss, umbrales, abstención, conformal prediction y señales externas de confianza para LLMs y RAG.</p>
-          </div>
-          <div class="update-card">
-            <strong>Data-centric AI</strong>
-            <p>Dataset como producto, calidad de labels, labeling strategy, tests de datos, leakage, drift, active learning, weak supervision y dataset cards.</p>
-          </div>
-          <div class="update-card">
-            <strong>Causalidad e interpretabilidad</strong>
-            <p>Correlación vs causalidad, DAGs, confounding, do(X), contrafactuales, A/B testing, uplift, feature importance, PDP/ICE, SHAP/LIME y error slicing.</p>
-          </div>
-          <div class="update-card">
-            <strong>Refuerzo y privacidad avanzada</strong>
-            <p>MDPs, política, retorno, Bellman, exploration/exploitation, bandits, reward hacking, RLHF/RLAIF/RLVR, PII, differential privacy, federated learning y extracción de datos.</p>
-          </div>
-          <div class="update-card">
-            <strong>Ingeniería avanzada de IA aplicada</strong>
-            <p>Agent Workbench, AGENTS.md, estado y handoff, builder/reviewer/gate, RAG multimodal, ColPali, late interaction/MaxSim, computer-use, action schemas, load testing LLM, red-team tooling con Garak/PyRIT/Llama Guard y labs Build It / Use It / Ship It.</p>
-          </div>
-          <div class="update-card">
-            <strong>Algoritmia para la toma de decisiones</strong>
-            <p>Utilidad esperada, coste esperado, valor de la información, incertidumbre, políticas, MDPs, retorno, descuento, V(s), Q(s,a), Bellman, dynamic programming, value/policy iteration, MCTS, bandits, POMDPs, beliefs, multiagente y validación de políticas.</p>
-          </div>
-        </div>
-        <div class="update-source-note">
-          <p><strong>Nota académica:</strong> parte del refuerzo conceptual se ha apoyado en material de la asignatura <em>Inteligencia Artificial e Ingeniería del Conocimiento</em> del Grado de Ingeniería de Software. Se ha usado solo como guía temática parcial y el contenido se ha reescrito y complementado con fuentes técnicas reales.</p>
-          <p class="update-suggestions">Sugerencias, correcciones o mejoras: <a href="https://x.com/686f6c61" target="_blank" rel="noopener noreferrer">@686f6c61</a></p>
-        </div>
-      </div>
+      <button class="update-modal-close" id="update-modal-close" type="button" aria-label="Cerrar novedades">&times;</button>
+      <h2 id="update-modal-title" class="visually-hidden">Actualización del workshop</h2>
+      <p class="update-modal-lead">
+        <strong>Nuevo sitio con más material.</strong>
+        Explicado desde cero y con todo lo necesario: baja todo en PDF, laboratorios prácticos y Colabs en
+        <a href="https://www.iaparagentecuriosa.686f6c61.dev" target="_blank" rel="noopener noreferrer">https://www.iaparagentecuriosa.686f6c61.dev</a>
+      </p>
     </div>
   </div>
+
+  <!-- Banner persistente en todas las slides (minimizable) -->
+  <aside
+    class="update-banner"
+    id="update-banner"
+    role="status"
+    aria-live="polite"
+    data-minimized="false"
+  >
+    <div class="update-banner-full">
+      <p class="update-banner-text">
+        <strong>Nuevo sitio con más material.</strong>
+        Explicado desde cero y con todo lo necesario: PDF, laboratorios prácticos y Colabs en
+        <a href="https://www.iaparagentecuriosa.686f6c61.dev" target="_blank" rel="noopener noreferrer">www.iaparagentecuriosa.686f6c61.dev</a>
+      </p>
+      <button
+        class="update-banner-toggle"
+        id="update-banner-minimize"
+        type="button"
+        aria-label="Minimizar aviso"
+        title="Minimizar"
+      >
+        −
+      </button>
+    </div>
+    <button
+      class="update-banner-chip"
+      id="update-banner-expand"
+      type="button"
+      aria-label="Mostrar aviso de actualización"
+      title="Mostrar aviso"
+    >
+      Nuevo sitio · más material
+    </button>
+  </aside>
 
   <!-- SLIDES -->
   <div class="slides-container" id="slides-container">
@@ -694,7 +668,32 @@ const tocSections = [
       const updateModal = document.getElementById('update-modal');
       const openUpdateBtn = document.getElementById('open-update-btn');
       const updateClose = document.getElementById('update-modal-close');
-      const updateSeenKey = 'workshop-update-2026-05-22-advanced-engineering-seen';
+      const updateSeenKey = 'workshop-update-2026-08-01-iaparagentecuriosa-v4-seen';
+      const updateBanner = document.getElementById('update-banner');
+      const updateBannerMinimize = document.getElementById('update-banner-minimize');
+      const updateBannerExpand = document.getElementById('update-banner-expand');
+      const updateBannerMinKey = 'workshop-update-banner-2026-08-01-minimized';
+
+      function setUpdateBannerMinimized(minimized) {
+        if (!updateBanner) return;
+        updateBanner.dataset.minimized = minimized ? 'true' : 'false';
+        document.body.classList.toggle('update-banner-minimized', minimized);
+        document.body.classList.toggle('update-banner-expanded', !minimized);
+        try {
+          sessionStorage.setItem(updateBannerMinKey, minimized ? '1' : '0');
+        } catch {}
+      }
+
+      function initUpdateBanner() {
+        if (!updateBanner) return;
+        let minimized = false;
+        try {
+          minimized = sessionStorage.getItem(updateBannerMinKey) === '1';
+        } catch {}
+        setUpdateBannerMinimized(minimized);
+        updateBannerMinimize?.addEventListener('click', () => setUpdateBannerMinimized(true));
+        updateBannerExpand?.addEventListener('click', () => setUpdateBannerMinimized(false));
+      }
 
       let current = 0;
       const total = slides.length;
@@ -755,6 +754,7 @@ const tocSections = [
 
       function showSlide(index) {
         if (index < 0 || index >= total) return;
+        const changed = index !== current;
         slides[current].classList.remove('active');
         current = index;
         slides[current].classList.add('active');
@@ -762,6 +762,8 @@ const tocSections = [
         updateUI();
         const id = slides[current].id;
         history.replaceState(null, '', `#${id}`);
+        // Al cambiar de diapositiva, reabrir el banner de actualización
+        if (changed) setUpdateBannerMinimized(false);
       }
 
       function updateUI() {
@@ -810,6 +812,7 @@ const tocSections = [
           slides[current].classList.add('active');
           slides[current].scrollTop = 0;
           updateUI();
+          setUpdateBannerMinimized(false);
         }
         return true;
       }
@@ -934,6 +937,7 @@ const tocSections = [
       if (hash) goToHashSlide();
       slides[current].classList.add('active');
       updateUI();
+      initUpdateBanner();
       const shouldShowUpdate = !hash || hash === 'cover';
       try {
         if (shouldShowUpdate && sessionStorage.getItem(updateSeenKey) !== '1') openUpdateModal();
